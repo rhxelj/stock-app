@@ -3,6 +3,17 @@ import request from 'superagent'
 
 import IpServidor from './VariablesDeEntorno'
 
+// Material UI START
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+// Material UI   END
+
+
 class AgregarMonedas extends Component {
     constructor(props){
         super(props)
@@ -11,10 +22,21 @@ class AgregarMonedas extends Component {
             idStkMonedas:'',
             StkMonedasDescripcion:'',
             StkMonedasCotizacion:0.00,
+            open: true, // Material UI
         }
         this.updateField = this.updateField.bind(this);
         this.submitMoneda = this.submitMoneda.bind(this);
     }    
+
+    // Material UI START
+    handleClickOpen = () => {
+        this.setState({ open: true });
+      };
+    
+      handleClose = () => {
+        this.setState({ open: false });
+      };
+    // Material UI END
 
     // Agregar Moneda
     addMoneda = _=> { 
@@ -71,70 +93,69 @@ class AgregarMonedas extends Component {
     render(){
       
         return( 
-            <div className="section">
-                <div className="row">
-                    {/* <form className="col s12" onSubmit={this.submitMoneda}> */}
-                   
-                   
-                    <form className="col s12" >
-                        <div className="row">
-                            <div className="input-field col s5">
-                                <input 
-                                    id="idStkMonedas"
-                                    placeholder="Código"
-                                    type="text"
-                                    value={this.state.idStkMonedas} 
-                                    onChange={this.updateField}
-                                    onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('StkMonedasDescripcion').focus();}}
-                                />
-                            </div>
-                            <div className="row">
-                                 <div className="input-field col s12">
-                                    <input 
-                                        id="StkMonedasDescripcion"
-                                        placeholder="Descripción"
-                                        type="text"
-                                        value={this.state.StkMonedasDescripcion}
-                                        onChange={this.updateField}
-                                        onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('StkMonedasCotizacion').focus();}}
-                                    />
-                                </div>
-                                <div className="row">
-                                    <div className="input-field col s12">
-                                        <input 
-                                            id="StkMonedasCotizacion"  
-                                            placeholder="Cotización" 
-                                            type="number" 
-                                            value={this.state.StkMonedasCotizacion} 
-                                            onChange={this.updateField} 
-                                            step="any"
-                                            onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('button--submit').focus();}}
-                                        />  
-                                    </div>
-                                </div>
-                            </div> 
-                        </div>
-                         
-                        <div className="card-action">
-                            <div className="row">
-                                <div className="input-field col s12">
-                                    {/* <button onClick={this.submitMoneda} className="btn">Agregar Moneda</button> */}
-                                    {/* <button  onClick={this.submitMoneda} className="btn">Agregar Moneda</button> */}
-                                    <input 
-                                        className="btn"
-                                        id="button--submit"  
-                                        type="button" 
-                                        value="Agregar Moneda" 
-                                        onClick={this.submitMoneda}                                    
-                                    />
-                                    <a className="btn red"  onClick={this.props.click}>Cancelar</a>
-                                </div>   
-                            </div>
-                        </div>
-                           
-                    </form>
-                </div>
-            </div>
+       <div>
+            <Dialog
+        //   open={this.state.open}
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Agregar Nueva Moneda</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Cargue los Datos y presione enter para cambiar de campo.
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="idStkMonedas"
+              label="Código"
+              type="text"
+              fullWidth
+              placeholder="Código"
+              value={this.state.idStkMonedas} 
+              onChange={this.updateField}
+              onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('StkMonedasDescripcion').focus();}}
+              value={this.state.idStkMonedas}  
+            />
+            <TextField
+              margin="dense"
+              id="StkMonedasDescripcion"
+              label="Descripción"
+              type="text"
+              fullWidth
+              placeholder="Descripción"
+              value={this.state.StkMonedasDescripcion} 
+              onChange={this.updateField}
+              onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('StkMonedasCotizacion').focus();}}
+              value={this.state.StkMonedasDescripcion}  
+            />
+            <TextField
+              margin="dense"
+              id="StkMonedasCotizacion"
+              label="Cotización"
+              type="number"
+              fullWidth
+              placeholder="Cotización"
+              value={this.state.StkMonedasCotizacion} 
+              onChange={this.updateField}
+              onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('button--submit').focus();}}
+              value={this.state.StkMonedasCotizacion}  
+            />
+            
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.props.click} color="primary">
+              Cancelar
+            </Button>
+            <Button id="button--submit" onClick={this.submitMoneda} color="primary">
+              Agregar
+            </Button>
+
+          </DialogActions>
+        </Dialog>
+      </div>
+        
         )
     }
 }

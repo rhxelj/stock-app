@@ -4,11 +4,17 @@ import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import IpServidor from './VariablesDeEntorno'
 
+
+
+
 import StkMonedasAgregar from './StkMonedasAgregar'
 import StkMonedasBorrar from './StkMonedasBorrar'
 
 
 class Monedas extends Component {
+   
+  
+
     constructor(props){
         super(props)
         this.state = {
@@ -17,13 +23,13 @@ class Monedas extends Component {
             idStkMonedas:'',
             StkMonedasDescripcion:'',
             StkMonedasCotizacion: 0,
-            monedas:[]
+            monedas:[],
         }
         this.renderEditable = this.renderEditable.bind(this)
         this.toggle = this.toggle.bind(this);
         // this.funcionTest = this.funcionTest.bind(this);
     }    
-    
+   
     //Read
     read = _ => {
         // const url = IpServidor + '/leermonedas'; //'http://192.168.2.102:4000/indexprov'
