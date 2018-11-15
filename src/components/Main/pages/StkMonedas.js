@@ -4,8 +4,8 @@ import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import IpServidor from './VariablesDeEntorno'
 
-
-
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
 
 import StkMonedasAgregar from './StkMonedasAgregar'
 import StkMonedasBorrar from './StkMonedasBorrar'
@@ -24,6 +24,12 @@ class Monedas extends Component {
             StkMonedasDescripcion:'',
             StkMonedasCotizacion: 0,
             monedas:[],
+            fab: {
+                position: 'absolute',
+                bottom: '50px',
+                right: '50px',
+              },
+              
         }
         this.renderEditable = this.renderEditable.bind(this)
         this.toggle = this.toggle.bind(this);
@@ -152,7 +158,10 @@ class Monedas extends Component {
                     </div>
                 </div>
                 :
-                <p onClick={()=>this.toggle()} className='btn'>  AGREGAR MONEDAS </p>
+                // <p onClick={()=>this.toggle()} className='btn'>  AGREGAR MONEDAS </p>
+                <Button onClick={()=>this.toggle()} variant="contained" color="primary">AGREGAR MONEDAS</Button>
+                // <Button variant="fab" color="primary" aria-label="Add" className={this.state.fab}>
+                // <AddIcon /> </Button>
                 }
 
                 {!this.state.toggle
@@ -204,6 +213,7 @@ class Monedas extends Component {
                 :
                     <div></div>
                 }
+                
             </div>
         )
     }

@@ -3,6 +3,16 @@ import request from 'superagent'
 
 import IpServidor from './VariablesDeEntorno'
 
+// Material UI START
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+// Material UI   END
+
 class AgregarUnidadMedidas extends Component {
     constructor(props){
         super(props)
@@ -10,6 +20,7 @@ class AgregarUnidadMedidas extends Component {
             url: IpServidor +'/stkunmedagregar',
             idStkUnMed:'',
             StkUnMedDesc:'',
+            open: true, // Material UI
         }
         this.updateField = this.updateField.bind(this);
         this.submitUnMed = this.submitUnMed.bind(this);
@@ -66,58 +77,107 @@ class AgregarUnidadMedidas extends Component {
     componentDidMount(){
     }
 
-
     render(){
       
         return( 
-            <div className="section">
-                <div className="row">
-                    {/* <form className="col s12" onSubmit={this.submitUnMed}> */}
-                    <form className="col s12" >
-                        <div className="row">
-                            <div className="input-field col s5">
-                                <input 
-                                    id="idStkUnMed"
-                                    placeholder="Código"
-                                    type="text"
-                                    value={this.state.idStkUnMed} 
-                                    onChange={this.updateField}
-                                    onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('StkUnMedDesc').focus();}}
-                                />
-                            </div>
-                            <div className="row">
-                                 <div className="input-field col s12">
-                                    <input 
-                                        id="StkUnMedDesc"
-                                        placeholder="Descripción"
-                                        type="text"
-                                        value={this.state.StkUnMedDesc}
-                                        onChange={this.updateField}
-                                        onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('button--submit').focus();}}
-                                    />
-                                </div>
-                            </div> 
-                        </div>
+            // <div className="section">
+            //     <div className="row">
+            //         {/* <form className="col s12" onSubmit={this.submitUnMed}> */}
+            //         <form className="col s12" >
+            //             <div className="row">
+            //                 <div className="input-field col s5">
+             // value={this.state.StkMonedasDescripcion}  
+              //                     <input 
+            //                         id="idStkUnMed"
+            //                         placeholder="Código"
+            //                         type="text"
+            //                         value={this.state.idStkUnMed} 
+            //                         onChange={this.updateField}
+            //                         onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('StkUnMedDesc').focus();}}
+            //                     />
+            //                 </div>
+            //                 <div className="row">
+            //                      <div className="input-field col s12">
+            //                         <input 
+            //                             id="StkUnMedDesc"
+            //                             placeholder="Descripción"
+            //                             type="text"
+            //                             value={this.state.StkUnMedDesc}
+            //                             onChange={this.updateField}
+            //                             onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('button--submit').focus();}}
+            //                         />
+            //                     </div>
+            //                 </div> 
+            //             </div>
                          
-                        <div className="card-action">
-                            <div className="row">
-                                <div className="input-field col s12">
-                                    {/* <button onClick={this.submitUnMed} className="btn">Agregar Moneda</button> */}
-                                    {/* <button  onClick={this.submitUnMed} className="btn">Agregar Moneda</button> */}
-                                    <input 
-                                        className="btn"
-                                        id="button--submit"  
-                                        type="button" 
-                                        value="Agregar" 
-                                        onClick={this.submitUnMed}                                    
-                                    />
-                                    <a className="btn red"  onClick={this.props.click}>Cancelar</a>
-                                </div>   
-                            </div>
-                        </div>
+            //             <div className="card-action">
+            //                 <div className="row">
+            //                     <div className="input-field col s12">
+            //                         {/* <button onClick={this.submitUnMed} className="btn">Agregar Moneda</button> */}
+            //                         {/* <button  onClick={this.submitUnMed} className="btn">Agregar Moneda</button> */}
+            //                         <input 
+            //                             className="btn"
+            //                             id="button--submit"  
+            //                             type="button" 
+            //                             value="Agregar" 
+            //                             onClick={this.submitUnMed}                                    
+            //                         />
+            //                         <a className="btn red"  onClick={this.props.click}>Cancelar</a>
+            //                     </div>   
+            //                 </div>
+            //             </div>
                            
-                    </form>
-                </div>
+            //         </form>
+            //     </div>
+            // </div>
+
+            <div>
+                <Dialog
+        //   open={this.state.open}
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Agregar Nueva Moneda</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Cargue los Datos y presione enter para cambiar de campo.
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="idStkUnMed"
+              label="Código"
+              type="text"
+              fullWidth
+              placeholder="Código"
+              value={this.state.idStkUnMed} 
+              onChange={this.updateField}
+              onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('StkUnMedDesc').focus();}}
+            />
+            <TextField
+              margin="dense"
+              id="StkUnMedDesc"
+              label="Descripción"
+              type="text"
+              fullWidth
+              placeholder="Descripción"
+              value={this.state.StkUnMedDesc} 
+              onChange={this.updateField}
+              onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('button--submit').focus();}}
+            />
+            
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.props.click} color="primary">
+              Cancelar
+            </Button>
+            <Button id="button--submit" onClick={this.submitUnMed} color="primary">
+              Agregar
+            </Button>
+
+          </DialogActions>
+        </Dialog>
             </div>
         )
     }

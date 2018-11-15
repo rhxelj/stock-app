@@ -6,6 +6,8 @@ import 'react-table/react-table.css'
 import StkUnMedAgregar from './StkUnMedAgregar'
 import StkUnMedBorrar from './StkUnMedBorrar'
 
+import Button from '@material-ui/core/Button';
+
 import IpServidor from './VariablesDeEntorno'
 
 class UnidadMedidas extends Component {
@@ -138,7 +140,8 @@ class UnidadMedidas extends Component {
                     </div>
                 </div>
                 :
-                <p onClick={()=>this.toggle()} className='btn'>AGREGAR datos</p>
+                // <p onClick={()=>this.toggle()} className='btn'>AGREGAR datos</p>
+                <Button onClick={()=>this.toggle()} variant="contained" color="primary">AGREGAR MEDIDAS</Button>
                 }
                {!this.state.toggle 
                ? 
