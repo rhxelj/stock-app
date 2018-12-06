@@ -14,14 +14,14 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 // Material UI   END
 
 
-class AgregarMonedas extends Component {
+class StkModificarMonedas extends Component {
     constructor(props){
         super(props)
         this.state = {
             url: IpServidor +'/stkmonedasagregar',
-            idStkMonedas:'',
-            StkMonedasDescripcion:'',
-            StkMonedasCotizacion:0.00,
+            idStkMonedas: this.props.idStkMonedas,
+            StkMonedasDescripcion:this.props.StkMonedasDescripcion,
+            StkMonedasCotizacion:this.props.StkMonedasCotizacion,
             open: true, // Material UI
         }
         this.updateField = this.updateField.bind(this);
@@ -38,38 +38,24 @@ class AgregarMonedas extends Component {
       };
     // Material UI END
 
-    // Agregar Moneda
-    addMoneda = _=> { 
-        // const url = IpServidor +'/agregarmonedas' 
-        request
-        .post(this.state.url)
-        .set('Content-Type', 'application/json')
-        .send({ idStkMonedas: this.state.idStkMonedas})
-        .send({ StkMonedasDescripcion: this.state.StkMonedasDescripcion})    
-        .send({ StkMonedasCotizacion: this.state.StkMonedasCotizacion})
-        .set('X-API-Key', 'foobar')
-        .then(function(res) {
-        // res.body, res.headers, res.status
-            //     console.log('res.status  ' + res.status);
-            //     console.log('esta aca');
-            //     alert('Agrego correctamente');
-        })
-
-        .catch(err => {
-            if (err.status === 409) 
-                    {
-                    alert('Código de Moneda EXISTENTE  ') 
-                    }
-                    else
-                    {
-                    if (err.status === 410) 
-                            {
-                            alert('Código de Moneda no puede tener más de 4 dígitos ') 
-                            }     
-               else { console.log('Error nro :  ' + err.status)}
-                        }
-            })
-    }   
+    ActualizaMoneda = (params) => {
+      const  monedas  = params;
+     
+    request                  
+       .post('http://localhost:4000/stkmonedasmodificar/'+this.state.idStkMonedas)
+       .set('Content-Type', 'application/json')
+       
+    //    .send({ idtipomonedas: this.state.idtipomonedas})
+       .send({ StkMonedasDescripcion: this.state.StkMonedasDescripcion})
+       .send({ StkMonedasCotizacion: this.state.StkMonedasCotizacion})
+       .set('X-API-Key', 'foobar')
+       .then(function(res) {
+      // res.body, res.headers, res.status
+        });
+       
+        //this.getproveedores();
+     }
+    
    
     updateField(field){
         this.setState({
@@ -80,15 +66,24 @@ class AgregarMonedas extends Component {
 
     submitMoneda(e){
         e.preventDefault()
-        this.addMoneda()
-       this.props.read()
-       this.props.click()
+        // this.addMoneda()
+      this.ActualizaMoneda() // revisar si hay que pasar parametros
+      this.props.read()
+      
+      this.props.clickmodificar()
+      // this.props.read()
     }
 
-          
+    componentDidUpdate(){
+      // this.props.read()
+      
+  }    
     componentDidMount(){
     }
 
+    componentWillUnmount(){
+      // this.props.read()
+    }
 
     render(){
       
@@ -100,7 +95,7 @@ class AgregarMonedas extends Component {
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Agregar Nueva Moneda</DialogTitle>
+          <DialogTitle id="form-dialog-title">Modificar Moneda</DialogTitle>
           <DialogContent>
             <DialogContentText>
               Cargue los Datos y presione enter para cambiar de campo.
@@ -113,10 +108,9 @@ class AgregarMonedas extends Component {
               type="text"
               fullWidth
               placeholder="Código"
-              // value={this.state.idStkMonedas} 
+              value={this.state.idStkMonedas} 
               onChange={this.updateField}
               onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('StkMonedasDescripcion').focus();}}
-              value={this.state.idStkMonedas}  
             />
             <TextField
               margin="dense"
@@ -125,10 +119,9 @@ class AgregarMonedas extends Component {
               type="text"
               fullWidth
               placeholder="Descripción"
-              // value={this.state.StkMonedasDescripcion} 
+              value={this.state.StkMonedasDescripcion} 
               onChange={this.updateField}
               onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('StkMonedasCotizacion').focus();}}
-              value={this.state.StkMonedasDescripcion}  
             />
             <TextField
               margin="dense"
@@ -137,19 +130,18 @@ class AgregarMonedas extends Component {
               type="number"
               fullWidth
               placeholder="Cotización"
-              // value={this.state.StkMonedasCotizacion} 
+              value={this.state.StkMonedasCotizacion} 
               onChange={this.updateField}
               onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('button--submit').focus();}}
-              value={this.state.StkMonedasCotizacion}  
             />
             
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.props.click} color="primary">
+            <Button onClick={this.props.clickmodificar} color="primary">
               Cancelar
             </Button>
             <Button id="button--submit" onClick={this.submitMoneda} color="primary">
-              Agregar
+              Modificar
             </Button>
 
           </DialogActions>
@@ -160,4 +152,4 @@ class AgregarMonedas extends Component {
     }
 }
 
-export default AgregarMonedas
+export default StkModificarMonedas

@@ -9,17 +9,52 @@ import AddIcon from '@material-ui/icons/Add';
 
 import StkMonedasAgregar from './StkMonedasAgregar'
 import StkMonedasBorrar from './StkMonedasBorrar'
+import StkMonedasModificar from './StkMonedasModificar'
 
+// para usar las tablas de MUI start
+import { withStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+
+const CustomTableCell = withStyles(theme => ({
+    head: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white,
+    },
+    body: {
+      fontSize: 14,
+    },
+  }))(TableCell);
+  
+  const styles = theme => ({
+    root: {
+      width: '100%',
+      marginTop: theme.spacing.unit * 3,
+      overflowX: 'auto',
+    },
+    table: {
+      minWidth: 700,
+    },
+    row: {
+      '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.background.default,
+      },
+    },
+  });
+
+// para usar las tablas de MUI end
 
 class Monedas extends Component {
-   
-  
-
     constructor(props){
         super(props)
         this.state = {
             url: IpServidor + '/stkmonedasleer',
             toggle: false,
+            togglemodificar:false,
             idStkMonedas:'',
             StkMonedasDescripcion:'',
             StkMonedasCotizacion: 0,
@@ -31,8 +66,8 @@ class Monedas extends Component {
               },
               
         }
-        this.renderEditable = this.renderEditable.bind(this)
         this.toggle = this.toggle.bind(this);
+        this.togglemodificar = this.togglemodificar.bind(this);
         // this.funcionTest = this.funcionTest.bind(this);
     }    
    
@@ -67,26 +102,6 @@ class Monedas extends Component {
         //this.getproveedores();
      }
     
-    //  deleteProduct = (id)=> {
-        
-    //     //       const { moneda } = this.state;
-    //            request
-    //              .delete('http://localhost:4000/borrarmonedas/'+id)
-    //              .set('Content-Type', 'application/json')
-    //              //.set('X-API-Key', 'foobar')
-    //              .then(function(res) {
-    //            // res.body, res.headers, res.status
-    //              })
-    //              .catch(err => {
-    //                 if (err.status === 411) 
-    //                         {
-    //                         alert('Código de Moneda Usado no se puede borrar  ') 
-    //                         }
-    //                     })
-    //              //alert("Borrado")
-    //             //  this.toggle()
-    //              this.read()
-    //          }
     
     toggle(event){
         this.setState(prevState => ({
@@ -94,39 +109,25 @@ class Monedas extends Component {
         }))
     }
     
+    togglemodificar(event){
+        this.toggle()
+        this.setState(prevState => ({
+        togglemodificar: !prevState.togglemodificar
+        }))
+        
+    }
+    
+    
     componentWillUnmount(){
-        this.read()
+        this.setState({ state: this.state });
     }
     componentDidMount(){
         this.read()
     }
-    
-    renderEditable(cellInfo) {
-        return (
-          <div
-            style={{ backgroundColor: "#fafafa" }}
-            contentEditable
-            suppressContentEditableWarning
-            onBlur={e => {
-              const monedas = [...this.state.monedas]
-              monedas[cellInfo.index][cellInfo.column.id] = e.target.innerHTML
-              this.setState({ monedas })
-              this.ActualizaMoneda(cellInfo.original)
-            }}
-            dangerouslySetInnerHTML={{
-              __html: this.state.monedas[cellInfo.index][cellInfo.column.id]
-            }}
-          />
-        )
-      }
-
-
-    //   funcionTest(){ 
-    //     alert('ggggg')
-        
-    //   }
+  
 
     render(){
+        console.log("render en StkMonedas")
         const monedas = this.state.monedas.map( (rowData,index) => 
         // Object.assign(rowData, { borrar: <button className=" red accent-4" onClick={()=>this.deleteProduct(rowData.idStkMonedas)}>Borrar</button> })
         Object.assign(rowData, { borrar: 
@@ -140,9 +141,7 @@ class Monedas extends Component {
         );
         return( 
             <div>
-                {/* <MonedasBorrar ></MonedasBorrar> */}
                 <h1>ABM DE Monedas</h1>
-                
                 
                 {this.state.toggle
                 ?
@@ -166,52 +165,64 @@ class Monedas extends Component {
 
                 {!this.state.toggle
                 ?
-                <ReactTable
-                        data={monedas}
-
-                        filterable
-                        defaultSorted={[
-                            {
-                                id: "codigo",
-                                desc: true
-                            }
-                        ]}
-
-                        columns={[
-                             {                   
-                            columns: [
-                                    {
-                                    Header: "Código",
-                                    id:"codigo",
-                                    accessor: "idStkMonedas"
-                                    
-                                    },
-                                    {
-                                    Header: "Denomiación",
-                                    accessor: "StkMonedasDescripcion",
-                                    Cell: this.renderEditable
-                                    },
-                                    {
-                                    Header: "Cotización",
-                                    accessor: "StkMonedasCotizacion",
-                                    Cell: this.renderEditable
-                                    },
-                                    {
-                                        Header: "",
-                                        accessor: "borrar",
-                                        // Cell: this.renderEditable
-                                    }
-                                        
-                                    
-                            ]
-                        }                
-                            
-                        ]}
-                        defaultPageSize={20}
-                        className="-striped -highlight"
-                    />
+                        <Paper >
+                            <Table >
+                                <TableHead>
+                                    <TableRow>
+                                        <CustomTableCell >Código</CustomTableCell>
+                                        <CustomTableCell>Descripción</CustomTableCell>
+                                        <CustomTableCell numeric>Cotización</CustomTableCell>
+                                        <CustomTableCell ></CustomTableCell>
+                                    </TableRow>
+                                </TableHead>
+                             
+                                <TableBody>
+                                    {monedas.map(row => {
+                                    return (
+                                        <TableRow onDoubleClick={()=>{
+                                            console.log("actualizo variables")
+                                            this.setState({idStkMonedas:row.idStkMonedas})
+                                            this.setState({StkMonedasDescripcion:row.StkMonedasDescripcion})
+                                            this.setState({StkMonedasCotizacion:row.StkMonedasCotizacion})
+                                            this.togglemodificar()}}  key={row.id}>
+                                            
+                                            <CustomTableCell >{row.idStkMonedas}</CustomTableCell>
+                                            <CustomTableCell >{row.StkMonedasDescripcion}</CustomTableCell>
+                                            <CustomTableCell numeric>{row.StkMonedasCotizacion}</CustomTableCell>
+                                            <CustomTableCell numeric>{row.borrar}</CustomTableCell>
+                                        </TableRow>
+                                        );
+                                    })}
+                                </TableBody>
+                            </Table>
+                        </Paper>
                 :
                     <div></div>
+                }
+                {this.state.togglemodificar
+                    ?  
+                    <div>
+                        <div className="row">
+                            <div className="col s12 ">
+                                <div className="">
+                                    <div className="card-content  black-text">
+                                    <StkMonedasModificar 
+                                        clickmodificar={()=>this.togglemodificar()} 
+                                        read={()=>this.read()}
+                                        idStkMonedas={this.state.idStkMonedas}
+                                        StkMonedasDescripcion={this.state.StkMonedasDescripcion}
+                                        StkMonedasCotizacion={this.state.StkMonedasCotizacion}
+
+                                    >
+                                    
+                                    </StkMonedasModificar>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   :
+                    <div></div>    
                 }
                 
             </div>
@@ -219,4 +230,4 @@ class Monedas extends Component {
     }
 }
 
-export default Monedas
+export default Monedas	
