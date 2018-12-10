@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
+// import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
   
@@ -16,23 +16,24 @@ class ProveedoresAgregar extends Component {
     constructor(props){
         super(props)
         this.state = {
-            provdesc:'',
-            provtipo:1,
-            provcuit:'',
-            provcalle:'',
-            provnrocalle:0,
-            provpiso:'',
-            provdto:'',
-            provcodpostal:'',
-            provlocalidad:'',
-            provprovincia:'',
-            provtelefono:'',
-            provcontacto:'',
-            provmail:'',
-            provpagweb:'',
-            provcodmon:'',
-            idStkTipoProveed:0,
-            StkTipoProveedDesc:'',
+            idProveedores: this.props.idProveedores,
+            provdesc:this.props.provdesc,
+            provtipo:this.props.provtipo,
+            provcuit:this.props.provcuit,
+            provcalle:this.props.provcalle,
+            provnrocalle:this.props.provnrocalle,
+            provpiso:this.props.provpiso,
+            provdto:this.props.provdto,
+            provcodpostal:this.props.provcodpostal,
+            provlocalidad:this.props.provlocalidad,
+            provprovincia:this.props.provprovincia,
+            provtelefono:this.props.provtelefono,
+            provcontacto:this.props.provcontacto,
+            provmail:this.props.provmail,
+            provpagweb:this.props.provpagweb,
+            provcodmon:this.props.provcodmon,
+            idStkTipoProveed:this.props.idStkTipoProveed,
+            StkTipoProveedDesc:this.props.StkTipoProveedDesc,
             tipoprov:[],
             idStkMonedas:'',
             StkMonedasDescripcion:'',
@@ -41,8 +42,12 @@ class ProveedoresAgregar extends Component {
             open: true,
 
         }
-        this.updateField = this.updateField.bind(this);
-        this.submitProveedor = this.submitProveedor.bind(this);
+        this.updateField = this.updateField.bind(this)
+        this.submitProveedor = this.submitProveedor.bind(this)
+
+
+        console.log("this.props.provdesc ",this.props.provdesc)
+        console.log("this.props.provcontacto ",this.props.provcontacto)
     }    
 
 //Material Ui Dialog start
@@ -51,47 +56,44 @@ handleClickOpen = () => {
     
   };
 
-  handleClose = () => {
-    this.setState({ open: false });
-  };
+handleClose = () => {
+this.setState({ open: false });
+};
 //Material Ui Dialog start
 
     //esto es para que en el select me muestre el item elegido
-    handleChange = prop => event => {
-        this.setState({ [prop]: event.target.value });
-      };
+handleChange = prop => event => {
+    this.setState({ [prop]: event.target.value });
+};
 
 
-    
- // Create
-    addProveedor = _=> { 
-        const url = IpServidor + '/proveedoresagregar' 
-        request
-        .post(url)
-        .set('Content-Type', 'application/json')
-        .send({ provdesc: this.state.provdesc})
-        .send({ provtipo: this.state.provtipo})
-        .send({ provcuit: this.state.provcuit})        
-        .send({ provcalle: this.state.provcalle})
-        .send({ provnrocalle: this.state.provnrocalle})
-        .send({ provpiso: this.state.provpiso})
-        .send({ provdto: this.state.provdto})
-        .send({ provcodpostal: this.state.provcodpostal})
-        .send({ provlocalidad: this.state.provlocalidad})
-        .send({ provprovincia: this.state.provprovincia})
-        .send({ provtelefono: this.state.provtelefono})
-        .send({ provcontacto: this.state.provcontacto})
-        .send({ provmail: this.state.provmail})
-        .send({ provpagweb: this.state.provpagweb})
-        .send({ provcodmon: this.state.provcodmon})
-        .set('X-API-Key', 'foobar')
-        .then(function(res) {
-            });
-
-    }   
-    
-
-    
+//Update
+ActualizaProveedor = () => {
+     
+    // const  proveedores  = params;
+   
+  request                  
+     .post(IpServidor + '/proveedoresmodificar/'+this.state.idProveedores)
+     .set('Content-Type', 'application/json')
+        .send({ ProveedoresDesc: this.state.provdesc})
+        .send({ ProveedoresTipo: this.state.provtipo})
+        .send({ ProveedoresCUIT: this.state.provcuit})        
+        .send({ ProveedoresCalle: this.state.provcalle})
+        .send({ ProveedoresNroCalle: this.state.provnrocalle})
+        .send({ ProveedoresPiso: this.state.provpiso})
+        .send({ ProveedoresDto: this.state.provdto})
+        .send({ ProveedoresCodPos: this.state.provcodpostal})
+        .send({ ProveedoresLoc: this.state.provlocalidad})
+        .send({ ProveedoresPcia: this.state.provprovincia})
+        .send({ ProveedoresTel: this.state.provtelefono})
+        .send({ ProveedoresContacto: this.state.provcontacto})
+        .send({ ProveedoresMail: this.state.provmail})
+        .send({ ProveedoresWeb: this.state.provpagweb})
+        .send({ ProveedoresCodMon: this.state.provcodmon})
+     .set('X-API-Key', 'foobar')
+     .then(function(res) { // res.body, res.headers, res.status
+      });
+    }
     leetprov = _ => {
         const url = IpServidor + '/stktipoproveedleer'; 
         request
@@ -110,17 +112,15 @@ handleClickOpen = () => {
         .get(url)
         .set('Content-Type', 'application/json')
             .then(res=> {
-            const stkmonedas = JSON.parse(res.text)
-            this.setState({stkmonedas: stkmonedas})
+                const stkmonedas = JSON.parse(res.text)
+                this.setState({stkmonedas: stkmonedas})
             })
             
     } 
 
    
     updateField(field){
-        this.setState({
-            [field.target.id]: field.target.value,
-        })
+        this.setState({[field.target.id]: field.target.value, })
         console.log('ESTADO :'+field.target.id + ' Valor :'+field.target.value)
     }
 
@@ -130,9 +130,9 @@ handleClickOpen = () => {
 
     submitProveedor(e){
         e.preventDefault()
-        this.addProveedor()
- //      this.props.read()
-       this.props.click()
+        this.ActualizaProveedor()
+        this.props.read()
+        this.props.clickmodificar()
     }
 
 
@@ -152,7 +152,7 @@ handleClickOpen = () => {
                     onClose={this.handleClose}
                     aria-labelledby="form-dialog-title"
                 >
-                  <DialogTitle id="form-dialog-title">ABMC Proveedores</DialogTitle>
+                  <DialogTitle id="form-dialog-title">Modificar Proveedores</DialogTitle>
                 <DialogContent>
                 <TextField
                     id='provdesc'
@@ -307,9 +307,9 @@ handleClickOpen = () => {
                 <DialogActions>
                 
                 <Button variant="contained" color="primary"  onClick={this.submitProveedor}>
-                    Grabar
+                    Modificar
                 </Button>
-                <Button variant="contained" color="secondary" onClick={this.props.click}>
+                <Button variant="contained" color="secondary" onClick={this.props.clickmodificar}>
                     Cancelar
                 </Button>
                 </DialogActions>

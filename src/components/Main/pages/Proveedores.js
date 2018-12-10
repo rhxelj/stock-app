@@ -3,18 +3,66 @@ import request from 'superagent'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 
+import Button from '@material-ui/core/Button';
+
 // import AgregarProveedor from './ProveedoresAgregar'
-import BorrarProveedores from './ProveedoresBorrar'
+import ProveedoresAgregar from './ProveedoresAgregar';
+import ProveedoresModificar from './ProveedoresModificar';
+import ProveedoresBorrar from './ProveedoresBorrar'
 
 import IpServidor from './VariablesDeEntorno'
-import ProveedoresAgregar from './ProveedoresAgregar';
+
+
+
+// para usar las tablas de MUI start
+import { withStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+
+const CustomTableCell = withStyles(theme => ({
+    head: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white,
+    },
+    body: {
+      fontSize: 14,
+    },
+  }))(TableCell);
+  
+  const styles = theme => ({
+    root: {
+      width: '100%',
+      marginTop: theme.spacing.unit * 3,
+      overflowX: 'auto',
+    },
+    table: {
+      minWidth: 700,
+    },
+    row: {
+      '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.background.default,
+      },
+    },
+  });
+
+// para usar las tablas de MUI end
+
+
+
+
 
 class Proveedores extends Component {
     constructor(props){
         super(props)
         this.state = {
             toggle: false,
+            togglemodificar: false,
             provdesc:'',
+            idProveedores:'',
             provtipo:1,
             provcuit:'',
             provcalle:'',
@@ -108,6 +156,14 @@ class Proveedores extends Component {
         toggle: !prevState.toggle
         }))
     }
+
+    togglemodificar(event){
+        this.toggle()
+        this.setState(prevState => ({
+        togglemodificar: !prevState.togglemodificar
+        }))
+        
+    }
     
     componentWillUnmount(){
         this.read()
@@ -144,7 +200,7 @@ class Proveedores extends Component {
     render(){
         const proveedores = this.state.proveedores.map( (rowData,index) => 
         Object.assign(rowData, { borrar: 
-            <div className="center-align"><BorrarProveedores idProveedores={rowData.idProveedores} read={()=>this.read()}></BorrarProveedores></div>})
+            <div className="center-align"><ProveedoresBorrar idProveedores={rowData.idProveedores} read={()=>this.read()}></ProveedoresBorrar></div>})
          
         );
         return( 
@@ -167,120 +223,250 @@ class Proveedores extends Component {
                     </div>
                 </div>
                 :
-                <p onClick={()=>this.toggle()} className='btn'>AGREGAR Proveedores</p>
+                // <p onClick={()=>this.toggle()} className='btn'>AGREGAR Proveedores</p>
+                <Button onClick={()=>this.toggle()} variant="contained" color="primary">AGREGAR PROVEEDORES</Button>
                 }
-               
-                <ReactTable
-                        data={proveedores}
 
-                        filterable
-                        defaultSorted={[
-                            {
-                                id: "codigo",
-                                desc: true
-                            }
-                        ]}
-
-                        columns={[
-                             {                   
-                                columns: [
-                                    {
-                                    Header: "Código",
-                                    id:"codigo",
-                                    accessor: "idProveedores",
-                                    Cell: this.renderEditable
-                                    },
-                                    {
-                                    Header: "Denomiación",
-                                    accessor: "ProveedoresDesc",
-                                    Cell: this.renderEditable
-                                    },
-                                    {
-                                    Header: "Tipo",
-                                    accessor: "StkTipoProveedDesc",
-                                    Cell: this.renderEditable
-                                    },
-                                    {
-                                    Header: "CUIT",
-                                    accessor: "ProveedoresCUIT",
-                                    Cell: this.renderEditable
-                                    },
-                                    {
-                                    Header: "Calle",
-                                    accessor: "ProveedoresCalle",
-                                    Cell: this.renderEditable
-                                    },
-                                    {
-                                    Header: "Nro",
-                                    accessor: "ProveedoresNroCalle",
-                                    Cell: this.renderEditable
-                                    },
-                                    {
-                                    Header: "Piso",
-                                    accessor: "ProveedoresPiso",
-                                    Cell: this.renderEditable
-                                    },
-                                    {
-                                    Header: "Dto",
-                                    accessor: "ProveedoresDto",
-                                    Cell: this.renderEditable
-                                    },
-                                    {
-                                    Header: "Cod.Postal",
-                                    accessor: "ProveedoresCodPos",
-                                    Cell: this.renderEditable
-                                    },
-                                    {
-                                    Header: "Localidad",
-                                    accessor: "ProveedoresLoc",
-                                    Cell: this.renderEditable
-                                    },
-                                    {
-                                    Header: "Provincia",
-                                    accessor: "ProveedoresPcia",
-                                    Cell: this.renderEditable
-                                    },
-                                    {
-                                    Header: "Teléfono",
-                                    accessor: "ProveedoresTel",
-                                    Cell: this.renderEditable
-                                    },
-                                    {
-                                    Header: "Contacto",
-                                    accessor: "ProveedoresContacto",
-                                    Cell: this.renderEditable
-                                    },
-                                    {
-                                    Header: "mail",
-                                    accessor: "ProveedoresMail",
-                                    Cell: this.renderEditable
-                                    },
-                                    {
-                                    Header: "Pág. Web",
-                                    accessor: "ProveedoresWeb",
-                                    Cell: this.renderEditable
-                                    },
-                                    {
-                                    Header: "Moneda",
-                                    accessor: "ProveedoresCodMon",
-                                    Cell: this.renderEditable
-                                    },
-                                    {
-                                        Header: "",
-                                        accessor: "borrar",
-                                        // Cell: this.renderEditable
-                                    }
-                                        
-                            ]
-                        }                
-                            
-                        ]}
-                        defaultPageSize={20}
-                        className="-striped -highlight"
-                    />
+                  {!this.state.toggle
+                ?
+                <Paper >
+                            <Table >
+                                <TableHead>
+                                    <TableRow>
+                                        <CustomTableCell >Código</CustomTableCell>
+                                        <CustomTableCell>Denomiación</CustomTableCell>
+                                        <CustomTableCell >Tipo</CustomTableCell>
+                                        <CustomTableCell >CUIT</CustomTableCell>
+                                        <CustomTableCell >Calle</CustomTableCell>
+                                        <CustomTableCell>Nro</CustomTableCell>
+                                        <CustomTableCell >Piso</CustomTableCell>
+                                        <CustomTableCell >Dto</CustomTableCell>
+                                        <CustomTableCell>Cod.Postal</CustomTableCell>
+                                        <CustomTableCell >Localidad</CustomTableCell>
+                                        <CustomTableCell >Provincia</CustomTableCell>
+                                        <CustomTableCell >Teléfono</CustomTableCell>
+                                        <CustomTableCell>Contacto</CustomTableCell>
+                                        <CustomTableCell >mail</CustomTableCell>
+                                        <CustomTableCell >Pág. Web</CustomTableCell>
+                                        <CustomTableCell>Moneda</CustomTableCell>
+                                        <CustomTableCell ></CustomTableCell> {/* Borrar*/}
+                                    </TableRow>
+                                </TableHead>
+                             
+                                <TableBody>
+                                    {proveedores.map(row => {
+                                    return (
+                                        <TableRow onDoubleClick={()=>{
+                                            console.log("actualizo variables")
+                                            this.setState({idProveedores : row.idProveedores},()=>
+                                            {
+                                                
+                                                console.log('row.idProveedores '+row.idProveedores)
+                                                console.log('idProveedores'+ this.state.idProveedores)})
+                                            
+                                            this.setState({provdesc : row.ProveedoresDesc})
+                                            this.setState({StkTipoProveedDesc : row.StkTipoProveedDesc}) //ver
+                                            this.setState({provcuit : row.ProveedoresCUIT})
+                                            this.setState({provcalle : row.ProveedoresCalle})
+                                            this.setState({provnrocalle : row.ProveedoresNroCalle})//ver
+                                            this.setState({provpiso : row.ProveedoresPiso})
+                                            this.setState({provdto : row.ProveedoresDto})
+                                            this.setState({provcodpostal : row.ProveedoresCodPos})
+                                            this.setState({provlocalidad : row.ProveedoresLoc})
+                                            this.setState({provprovincia : row.ProveedoresPcia})
+                                            this.setState({provtelefono : row.ProveedoresTel})
+                                            this.setState({provcontacto : row.ProveedoresContacto})
+                                            this.setState({provmail : row.ProveedoresMail})
+                                            this.setState({provpagweb : row.ProveedoresWeb})
+                                            this.setState({provcodmon : row.ProveedoresCodMon})
+                                            this.togglemodificar()
+                                            // this.setState({state: this.state})
+                                            // console.log("row.ProveedoresWeb "+row.ProveedoresWeb)
+                                            // console.log("ProveedoresWeb "+ this.state.ProveedoresWeb)
+                                            // console.log('row.idProveedores '+row.idProveedores)
+                                            // console.log('idProveedores'+ this.state.idProveedores)
+                                            
+                                        }
+                                            }  key={row.idProveedores}>
+                                            
+                                            <CustomTableCell >{row.idProveedores}</CustomTableCell>
+                                            <CustomTableCell >{row.ProveedoresDesc}</CustomTableCell>
+                                            <CustomTableCell >{row.StkTipoProveedDesc}</CustomTableCell>
+                                            <CustomTableCell >{row.ProveedoresCUIT}</CustomTableCell>
+                                            <CustomTableCell >{row.ProveedoresCalle}</CustomTableCell>
+                                            <CustomTableCell >{row.ProveedoresNroCalle}</CustomTableCell>
+                                            <CustomTableCell >{row.ProveedoresPiso}</CustomTableCell>
+                                            <CustomTableCell >{row.ProveedoresDto}</CustomTableCell>
+                                            <CustomTableCell >{row.ProveedoresCodPos}</CustomTableCell>
+                                            <CustomTableCell >{row.ProveedoresLoc}</CustomTableCell>
+                                            <CustomTableCell >{row.ProveedoresPcia}</CustomTableCell>
+                                            <CustomTableCell >{row.ProveedoresTel}</CustomTableCell>
+                                            <CustomTableCell >{row.ProveedoresContacto}</CustomTableCell>
+                                            <CustomTableCell >{row.ProveedoresMail}</CustomTableCell>
+                                            <CustomTableCell >{row.ProveedoresWeb}</CustomTableCell>
+                                            <CustomTableCell >{row.ProveedoresCodMon}</CustomTableCell>
+                                            <CustomTableCell >{row.borrar}</CustomTableCell>
+                                        </TableRow>
+                                        );
+                                    })}
+                                </TableBody>
+                            </Table>
+                        </Paper>
+              :
+              <div></div> 
+                                }
+                    {this.state.togglemodificar
+                    ?  
+                    <div>
+                        <div className="row">
+                            <div className="col s12 ">
+                                <div className="">
+                                    <div className="card-content  black-text">
+                                    <ProveedoresModificar 
+                                        clickmodificar={()=>this.togglemodificar()} 
+                                        read={()=>this.read()}
+                                        idProveedores={this.state.idProveedores}
+                                        provdesc={this.state.provdesc}
+                                        provtipo={this.state.provtipo}
+                                        provcuit={this.state.provcuit}
+                                        provcalle={this.state.provcalle}
+                                        provnrocalle={this.state.provnrocalle}
+                                        provpiso={this.state.provpiso}
+                                        provdto={this.state.provdto}
+                                        provcodpostal={this.state.provcodpostal}
+                                        provlocalidad={this.state.provlocalidad}
+                                        provprovincia={this.state.provprovincia}
+                                        provtelefono={this.state.provtelefono}
+                                        provcontacto={this.state.provcontacto}
+                                        provmail={this.state.provmail}
+                                        provpagweb={this.state.provpagweb}
+                                        provcodmon={this.state.provcodmon}
+                                        idStkTipoProveed={this.state.idStkTipoProveed}
+                                        StkTipoProveedDesc={this.state.StkTipoProveedDesc}
+                                    >
+                                    
+                                    </ProveedoresModificar>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   :
+                    <div></div>    
+                }
             </div>
         )
     }
 }
 
 export default Proveedores
+
+
+// <ReactTable
+//                         data={proveedores}
+
+//                         filterable
+//                         defaultSorted={[
+//                             {
+//                                 id: "codigo",
+//                                 desc: true
+//                             }
+//                         ]}
+
+//                         columns={[
+//                              {                   
+//                                 columns: [
+//                                     {
+//                                     Header: "Código",
+//                                     id:"codigo",
+//                                     accessor: "idProveedores",
+//                                     Cell: this.renderEditable
+//                                     },
+//                                     {
+//                                     Header: "Denomiación",
+//                                     accessor: "ProveedoresDesc",
+//                                     Cell: this.renderEditable
+//                                     },
+//                                     {
+//                                     Header: "Tipo",
+//                                     accessor: "StkTipoProveedDesc",
+//                                     Cell: this.renderEditable
+//                                     },
+//                                     {
+//                                     Header: "CUIT",
+//                                     accessor: "ProveedoresCUIT",
+//                                     Cell: this.renderEditable
+//                                     },
+//                                     {
+//                                     Header: "Calle",
+//                                     accessor: "ProveedoresCalle",
+//                                     Cell: this.renderEditable
+//                                     },
+//                                     {
+//                                     Header: "Nro",
+//                                     accessor: "ProveedoresNroCalle",
+//                                     Cell: this.renderEditable
+//                                     },
+//                                     {
+//                                     Header: "Piso",
+//                                     accessor: "ProveedoresPiso",
+//                                     Cell: this.renderEditable
+//                                     },
+//                                     {
+//                                     Header: "Dto",
+//                                     accessor: "ProveedoresDto",
+//                                     Cell: this.renderEditable
+//                                     },
+//                                     {
+//                                     Header: "Cod.Postal",
+//                                     accessor: "ProveedoresCodPos",
+//                                     Cell: this.renderEditable
+//                                     },
+//                                     {
+//                                     Header: "Localidad",
+//                                     accessor: "ProveedoresLoc",
+//                                     Cell: this.renderEditable
+//                                     },
+//                                     {
+//                                     Header: "Provincia",
+//                                     accessor: "ProveedoresPcia",
+//                                     Cell: this.renderEditable
+//                                     },
+//                                     {
+//                                     Header: "Teléfono",
+//                                     accessor: "ProveedoresTel",
+//                                     Cell: this.renderEditable
+//                                     },
+//                                     {
+//                                     Header: "Contacto",
+//                                     accessor: "ProveedoresContacto",
+//                                     Cell: this.renderEditable
+//                                     },
+//                                     {
+//                                     Header: "mail",
+//                                     accessor: "ProveedoresMail",
+//                                     Cell: this.renderEditable
+//                                     },
+//                                     {
+//                                     Header: "Pág. Web",
+//                                     accessor: "ProveedoresWeb",
+//                                     Cell: this.renderEditable
+//                                     },
+//                                     {
+//                                     Header: "Moneda",
+//                                     accessor: "ProveedoresCodMon",
+//                                     Cell: this.renderEditable
+//                                     },
+//                                     {
+//                                         Header: "",
+//                                         accessor: "borrar",
+//                                         // Cell: this.renderEditable
+//                                     }
+                                        
+//                             ]
+//                         }                
+                            
+//                         ]}
+//                         defaultPageSize={20}
+//                         className="-striped -highlight"
+//                     />
