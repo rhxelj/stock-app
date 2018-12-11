@@ -40,7 +40,7 @@ class ProveedoresBorrar extends Component {
 
     // //Delete
       deleteProduct = (id)=> {
-        
+        console.log("id a borrar :"+id)
         const { product } = this.state;
         request
           .delete(IpServidor + '/proveedoresborrar/'+id)
