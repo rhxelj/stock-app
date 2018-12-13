@@ -4,6 +4,8 @@ import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import IpServidor from './VariablesDeEntorno'
 
+
+
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -64,6 +66,9 @@ class Monedas extends Component {
                 bottom: '50px',
                 right: '50px',
               },
+              direction: { // direccion del ordenamiento asc o desc
+
+              }
               
         }
         this.toggle = this.toggle.bind(this);
@@ -71,6 +76,33 @@ class Monedas extends Component {
         // this.funcionTest = this.funcionTest.bind(this);
     }    
    
+//Funcion ordernar Begin
+
+    // Ordena Numeros
+    sortByNumero(key) {
+        this.setState({
+          monedas: this.state.monedas.sort((a, b) =>
+            this.state.direction[key] === "asc" ? a[key] - b[key] : b[key] - a[key]
+          ),
+          direction: {
+            [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
+          }
+        });
+      }
+
+      sortBy(key) {
+        this.setState({
+          monedas: this.state.monedas.sort((a, b) =>
+            this.state.direction[key] === "asc" ? a[key].toUpperCase() < b[key].toUpperCase() : b[key].toUpperCase() < a[key].toUpperCase()
+          ),
+          direction: {
+            [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
+          }
+        });
+      }
+
+//Funcion ordernar End
+    
     //Read
     read = _ => {
         // const url = IpServidor + '/leermonedas'; //'http://192.168.2.102:4000/indexprov'
@@ -169,9 +201,9 @@ class Monedas extends Component {
                             <Table >
                                 <TableHead>
                                     <TableRow>
-                                        <CustomTableCell >Código</CustomTableCell>
-                                        <CustomTableCell>Descripción</CustomTableCell>
-                                        <CustomTableCell numeric>Cotización</CustomTableCell>
+                                        <CustomTableCell onClick={() => this.sortBy("idStkMonedas")} >Código</CustomTableCell>
+                                        <CustomTableCell onClick={() => this.sortBy("StkMonedasDescripcion")} >Descripción</CustomTableCell>
+                                        <CustomTableCell onClick={() => this.sortByNumero("StkMonedasCotizacion")} numeric>Cotización</CustomTableCell>
                                         <CustomTableCell ></CustomTableCell>
                                     </TableRow>
                                 </TableHead>
@@ -186,9 +218,9 @@ class Monedas extends Component {
                                             this.setState({StkMonedasCotizacion:row.StkMonedasCotizacion})
                                             this.togglemodificar()}}  key={row.id}>
                                             
-                                            <CustomTableCell >{row.idStkMonedas}</CustomTableCell>
+                                            <CustomTableCell>{row.idStkMonedas}</CustomTableCell>
                                             <CustomTableCell >{row.StkMonedasDescripcion}</CustomTableCell>
-                                            <CustomTableCell numeric>{row.StkMonedasCotizacion}</CustomTableCell>
+                                            <CustomTableCell  numeric>{row.StkMonedasCotizacion}</CustomTableCell>
                                             <CustomTableCell numeric>{row.borrar}</CustomTableCell>
                                         </TableRow>
                                         );
