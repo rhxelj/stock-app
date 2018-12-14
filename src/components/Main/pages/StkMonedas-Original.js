@@ -3,7 +3,7 @@ import request from 'superagent'
 // import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import IpServidor from './VariablesDeEntorno'
-import StockTable from './StockTable'
+
 
 
 import Button from '@material-ui/core/Button';
@@ -166,28 +166,7 @@ class Monedas extends Component {
         // <input onChange={this.search} type="text" value={this.state.filtered}/>
 
     render(){
-        var data = this.state.monedas
-        
-        var columns = [
-            {
-                header: "Código",
-                accessor: "idStkMonedas"
-            },
-            {
-                header: "Descripción",
-                accessor: "StkMonedasDescripcion"
-            },
-            {
-                header: "Cotizacion",
-                accessor: "StkMonedasCotizacion"
-            },
-            {
-                header: "Borrar",
-                accessor: ""
-            }
-        ]
-
-        console.log("data en el render ",data)
+        console.log("render en StkMonedas")
         
         
                 
@@ -226,7 +205,37 @@ class Monedas extends Component {
 
                 {!this.state.toggle
                 ?
-                        <StockTable data={data} columns={columns}/>
+                        <Paper >
+                            <Table >
+                                <TableHead>
+                                    <TableRow>
+                                        <CustomTableCell onClick={() => this.sortBy("idStkMonedas")} >Código</CustomTableCell>
+                                        <CustomTableCell onClick={() => this.sortBy("StkMonedasDescripcion")} >Descripción</CustomTableCell>
+                                        <CustomTableCell onClick={() => this.sortByNumero("StkMonedasCotizacion")} numeric>Cotización</CustomTableCell>
+                                        <CustomTableCell ></CustomTableCell>
+                                    </TableRow>
+                                </TableHead>
+                             
+                                <TableBody>
+                                    {monedas.map(row => {
+                                    return (
+                                        <TableRow onDoubleClick={()=>{
+                                            console.log("actualizo variables")
+                                            this.setState({idStkMonedas:row.idStkMonedas})
+                                            this.setState({StkMonedasDescripcion:row.StkMonedasDescripcion})
+                                            this.setState({StkMonedasCotizacion:row.StkMonedasCotizacion})
+                                            this.togglemodificar()}}  key={row.id}>
+                                            
+                                            <CustomTableCell>{row.idStkMonedas}</CustomTableCell>
+                                            <CustomTableCell >{row.StkMonedasDescripcion}</CustomTableCell>
+                                            <CustomTableCell  numeric>{row.StkMonedasCotizacion}</CustomTableCell>
+                                            <CustomTableCell numeric>{row.borrar}</CustomTableCell>
+                                        </TableRow>
+                                        );
+                                    })}
+                                </TableBody>
+                            </Table>
+                        </Paper>
                 :
                     <div></div>
                 }

@@ -77,12 +77,44 @@ class Proveedores extends Component {
             provmail:'',
             provpagweb:'',
             provcodmon:'',
-            proveedores:[]
+            proveedores:[],
+              direction: { // direccion del ordenamiento asc o desc
+
+              }
         }
         this.renderEditable = this.renderEditable.bind(this)
         this.toggle = this.toggle.bind(this);
         this.funcionTest = this.funcionTest.bind(this);
     }    
+    
+    
+   //Funcion ordernar Begin
+
+    // Ordena Numeros
+    sortByNumero(key) {
+        this.setState({
+          proveedores: this.state.proveedores.sort((a, b) =>
+            this.state.direction[key] === "asc" ? a[key] - b[key] : b[key] - a[key]
+          ),
+          direction: {
+            [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
+          }
+        });
+      }
+
+      sortBy(key) {
+        this.setState({
+          Proveedores: this.state.proveedores.sort((a, b) =>
+            this.state.direction[key] === "asc" ? a[key].toUpperCase() < b[key].toUpperCase() : b[key].toUpperCase() < a[key].toUpperCase()
+          ),
+          direction: {
+            [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
+          }
+        });
+      }
+
+//Funcion ordernar End 
+    
     
     //Read
     read = _ => {
@@ -233,22 +265,22 @@ class Proveedores extends Component {
                             <Table >
                                 <TableHead>
                                     <TableRow>
-                                        <CustomTableCell >Código</CustomTableCell>
-                                        <CustomTableCell>Denomiación</CustomTableCell>
-                                        <CustomTableCell >Tipo</CustomTableCell>
-                                        <CustomTableCell >CUIT</CustomTableCell>
-                                        <CustomTableCell >Calle</CustomTableCell>
-                                        <CustomTableCell>Nro</CustomTableCell>
-                                        <CustomTableCell >Piso</CustomTableCell>
-                                        <CustomTableCell >Dto</CustomTableCell>
-                                        <CustomTableCell>Cod.Postal</CustomTableCell>
-                                        <CustomTableCell >Localidad</CustomTableCell>
-                                        <CustomTableCell >Provincia</CustomTableCell>
-                                        <CustomTableCell >Teléfono</CustomTableCell>
-                                        <CustomTableCell>Contacto</CustomTableCell>
-                                        <CustomTableCell >mail</CustomTableCell>
-                                        <CustomTableCell >Pág. Web</CustomTableCell>
-                                        <CustomTableCell>Moneda</CustomTableCell>
+                                        <CustomTableCell onClick={() => this.sortBy("idProveedores")}  >Código</CustomTableCell>
+                                        <CustomTableCell onClick={() => this.sortBy("ProveedoresDesc")}  >Denomiación</CustomTableCell>
+                                        <CustomTableCell onClick={() => this.sortBy("ProveedoresTipo")}  >Tipo</CustomTableCell>
+                                        <CustomTableCell onClick={() => this.sortBy("ProveedoresCUIT")}  >CUIT</CustomTableCell>
+                                        <CustomTableCell onClick={() => this.sortBy("ProveedoresCalle")}  >Calle</CustomTableCell>
+                                        <CustomTableCell onClick={() => this.sortByNumero("ProveedoresNroCalle")} >Nro</CustomTableCell>
+                                        <CustomTableCell onClick={() => this.sortByNumero("ProveedoresPiso")}  >Piso</CustomTableCell>
+                                        <CustomTableCell onClick={() => this.sortBy("ProveedoresDto")}  >Dto</CustomTableCell>
+                                        <CustomTableCell onClick={() => this.sortBy("ProveedoresCodPos")} >Cod.Postal</CustomTableCell>
+                                        <CustomTableCell onClick={() => this.sortBy("ProveedoresLoc")}  >Localidad</CustomTableCell>
+                                        <CustomTableCell onClick={() => this.sortBy("ProveedoresPcia")}  >Provincia</CustomTableCell>
+                                        <CustomTableCell onClick={() => this.sortByNumero("ProveedoresTel")}  >Teléfono</CustomTableCell>
+                                        <CustomTableCell onClick={() => this.sortBy("ProveedoresContacto")} >Contacto</CustomTableCell>
+                                        <CustomTableCell onClick={() => this.sortBy("ProveedoresMail")}  >mail</CustomTableCell>
+                                        <CustomTableCell onClick={() => this.sortBy("ProveedoresWeb")}  >Pág. Web</CustomTableCell>
+                                        <CustomTableCell onClick={() => this.sortBy("ProveedoresCodMon")}>Moneda</CustomTableCell>
                                         <CustomTableCell ></CustomTableCell> {/* Borrar*/}
                                     </TableRow>
                                 </TableHead>
