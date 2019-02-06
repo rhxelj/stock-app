@@ -12,6 +12,7 @@ import { Route } from 'react-router-dom'
 import StkMonedas   from './pages/StkMonedas'
 import Proveedores  from './pages/Proveedores'
 import StkUnMed     from './pages/StkUnMed'
+import StkMovimiento from './pages/StkMovimiento'
 
 // import StkMonedasBorrar from './pages/StkMonedasBorrar';
 // import LeerProveedor from './pages/LeerProveedor'
@@ -31,6 +32,7 @@ const Main = () => (
             <Route path="/StkMonedas"   component={StkMonedas}/>
             <Route path="/Proveedores"  component={Proveedores}/>
             <Route path="/StkUnMed"     component={StkUnMed}/>
+            <Route path="/StkMovimiento"     component={StkMovimiento}/>
             {/* <Route path="/AgregarMonedas" component={AgregarMonedas}/> */}
             {/* <Route path="/BorrarMonedas" component={BorrarMonedas}/> */}
             {/* <Route path="/ModificarMonedas" component={ModificarMonedas}/> */}

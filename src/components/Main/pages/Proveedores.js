@@ -230,11 +230,102 @@ class Proveedores extends Component {
       }
 
     render(){
-        const proveedores = this.state.proveedores.map( (rowData,index) => 
+        const datatable = this.state.proveedores.map( (rowData,index) => 
         Object.assign(rowData, { borrar: 
             <div className="center-align"><ProveedoresBorrar idProveedores={rowData.idProveedores} read={()=>this.read()}></ProveedoresBorrar></div>})
-         
-        );
+            
+        
+            );
+
+        
+
+        var columns =[
+            {
+            Header: "Código",
+            id:"codigo",
+            accessor: "idProveedores"
+            },
+            {
+            Header: "Denomiación",
+            accessor: "ProveedoresDesc",
+            // Cell: this.renderEditable
+            },
+            {
+            Header: "Tipo",
+            accessor: "ProveedoresTipo",
+            // Cell: this.renderEditable
+            },
+            {
+            Header: "CUIT",
+            accessor: "ProveedoresCUIT",
+            // Cell: this.renderEditable
+            },
+            {
+            Header: "Calle",
+            accessor: "ProveedoresCalle"
+            },
+            {
+            Header: "Nro",
+            accessor: "ProveedoresNroCalle",
+            // Cell: this.renderEditable
+            },
+            {
+            Header: "Piso",
+            accessor: "ProveedoresPiso",
+            // Cell: this.renderEditable
+            },
+            {
+            Header: "Dto",
+            accessor: "ProveedoresDto",
+            // Cell: this.renderEditable
+            },
+            {
+            Header: "Cod.Postal",
+            accessor: "ProveedoresCodPos"
+            },
+            {
+            Header: "Localidad",
+            accessor: "ProveedoresLoc",
+            // Cell: this.renderEditable
+            },
+            {
+            Header: "Provincia",
+            accessor: "ProveedoresPcia",
+            // Cell: this.renderEditable
+            },
+            {
+            Header: "Teléfono",
+            accessor: "ProveedoresTel",
+            // Cell: this.renderEditable
+            },
+            
+            {
+            Header: "Contacto",
+            accessor: "ProveedoresContacto",
+            // Cell: this.renderEditable
+            },
+            {
+            Header: "mail",
+            accessor: "ProveedoresMail",
+            // Cell: this.renderEditable
+            },
+            {
+            Header: "Pág. Web",
+            accessor: "ProveedoresWeb",
+            // Cell: this.renderEditable
+            },
+            {
+            Header: "Moneda",
+            accessor: "ProveedoresCodMon",
+            // Cell: this.renderEditable
+            },
+            {
+                Header: "",
+                accessor: "borrar",
+                // Cell: this.renderEditable
+            }
+    ]
+
         return( 
             <div>
                 {/* <BorrarMonedas ></BorrarMonedas> */}
@@ -261,92 +352,121 @@ class Proveedores extends Component {
 
                   {!this.state.toggle
                 ?
-                <Paper >
-                            <Table >
-                                <TableHead>
-                                    <TableRow>
-                                        <CustomTableCell onClick={() => this.sortBy("idProveedores")}  >Código</CustomTableCell>
-                                        <CustomTableCell onClick={() => this.sortBy("ProveedoresDesc")}  >Denomiación</CustomTableCell>
-                                        <CustomTableCell onClick={() => this.sortBy("ProveedoresTipo")}  >Tipo</CustomTableCell>
-                                        <CustomTableCell onClick={() => this.sortBy("ProveedoresCUIT")}  >CUIT</CustomTableCell>
-                                        <CustomTableCell onClick={() => this.sortBy("ProveedoresCalle")}  >Calle</CustomTableCell>
-                                        <CustomTableCell onClick={() => this.sortByNumero("ProveedoresNroCalle")} >Nro</CustomTableCell>
-                                        <CustomTableCell onClick={() => this.sortByNumero("ProveedoresPiso")}  >Piso</CustomTableCell>
-                                        <CustomTableCell onClick={() => this.sortBy("ProveedoresDto")}  >Dto</CustomTableCell>
-                                        <CustomTableCell onClick={() => this.sortBy("ProveedoresCodPos")} >Cod.Postal</CustomTableCell>
-                                        <CustomTableCell onClick={() => this.sortBy("ProveedoresLoc")}  >Localidad</CustomTableCell>
-                                        <CustomTableCell onClick={() => this.sortBy("ProveedoresPcia")}  >Provincia</CustomTableCell>
-                                        <CustomTableCell onClick={() => this.sortByNumero("ProveedoresTel")}  >Teléfono</CustomTableCell>
-                                        <CustomTableCell onClick={() => this.sortBy("ProveedoresContacto")} >Contacto</CustomTableCell>
-                                        <CustomTableCell onClick={() => this.sortBy("ProveedoresMail")}  >mail</CustomTableCell>
-                                        <CustomTableCell onClick={() => this.sortBy("ProveedoresWeb")}  >Pág. Web</CustomTableCell>
-                                        <CustomTableCell onClick={() => this.sortBy("ProveedoresCodMon")}>Moneda</CustomTableCell>
-                                        <CustomTableCell ></CustomTableCell> {/* Borrar*/}
-                                    </TableRow>
-                                </TableHead>
+                //reactl tabla aca !!!!!!!!!!!!!!!!!!!
+                <ReactTable
+                        data={datatable}
+                        columns={columns}
+                        filterable
+                        defaultSorted={[
+                            {
+                                id: "codigo",
+                                desc: true
+                            }
+                        ]}
+                        defaultPageSize={20}
+                        className="-striped -highlight"
+                        getTdProps={(state, rowInfo, column, instance) => {
+                            return {
+                              onDoubleClick: (e, handleOriginal) => {
+                                // console.log("A Td Element was clicked!");
+                                // console.log("it produced this event:", e);
+                                // console.log("It was in this column:", column);
+                                console.log("It was in this row.original:", rowInfo.original.idProveedores);
+                                this.setState({idProveedores : rowInfo.original.idProveedores})
+                                this.togglemodificar()
+                                // console.log("It was in this table instance:", instance); 
+                                // alert("Borrar o modificar ?")
+                        }}}}   
+                    />
+                
+                // <Paper >
+                //             <Table >
+                //                 <TableHead>
+                //                     <TableRow>
+                //                         <CustomTableCell onClick={() => this.sortBy("idProveedores")}  >Código</CustomTableCell>
+                //                         <CustomTableCell onClick={() => this.sortBy("ProveedoresDesc")}  >Denomiación</CustomTableCell>
+                //                         <CustomTableCell onClick={() => this.sortBy("ProveedoresTipo")}  >Tipo</CustomTableCell>
+                //                         <CustomTableCell onClick={() => this.sortBy("ProveedoresCUIT")}  >CUIT</CustomTableCell>
+                //                         <CustomTableCell onClick={() => this.sortBy("ProveedoresCalle")}  >Calle</CustomTableCell>
+                //                         <CustomTableCell onClick={() => this.sortByNumero("ProveedoresNroCalle")} >Nro</CustomTableCell>
+                //                         <CustomTableCell onClick={() => this.sortByNumero("ProveedoresPiso")}  >Piso</CustomTableCell>
+                //                         <CustomTableCell onClick={() => this.sortBy("ProveedoresDto")}  >Dto</CustomTableCell>
+                //                         <CustomTableCell onClick={() => this.sortBy("ProveedoresCodPos")} >Cod.Postal</CustomTableCell>
+                //                         <CustomTableCell onClick={() => this.sortBy("ProveedoresLoc")}  >Localidad</CustomTableCell>
+                //                         <CustomTableCell onClick={() => this.sortBy("ProveedoresPcia")}  >Provincia</CustomTableCell>
+                //                         <CustomTableCell onClick={() => this.sortByNumero("ProveedoresTel")}  >Teléfono</CustomTableCell>
+                //                         <CustomTableCell onClick={() => this.sortBy("ProveedoresContacto")} >Contacto</CustomTableCell>
+                //                         <CustomTableCell onClick={() => this.sortBy("ProveedoresMail")}  >mail</CustomTableCell>
+                //                         <CustomTableCell onClick={() => this.sortBy("ProveedoresWeb")}  >Pág. Web</CustomTableCell>
+                //                         <CustomTableCell onClick={() => this.sortBy("ProveedoresCodMon")}>Moneda</CustomTableCell>
+                //                         <CustomTableCell ></CustomTableCell> {/* Borrar*/}
+                //                     </TableRow>
+                //                 </TableHead>
                              
-                                <TableBody>
-                                    {proveedores.map(row => {
-                                    return (
-                                        <TableRow onDoubleClick={()=>{
-                                            console.log("actualizo variables")
-                                            this.setState({idProveedores : row.idProveedores},()=>
-                                            {
+                //                 <TableBody>
+                //                     {proveedores.map(row => {
+                //                     return (
+                //                         <TableRow onDoubleClick={()=>{
+                //                             console.log("actualizo variables")
+                //                             this.setState({idProveedores : row.idProveedores},()=>
+                //                             {
                                                 
-                                                console.log('row.idProveedores '+row.idProveedores)
-                                                console.log('idProveedores'+ this.state.idProveedores)})
+                //                                 console.log('row.idProveedores '+row.idProveedores)
+                //                                 console.log('idProveedores'+ this.state.idProveedores)})
                                             
-                                            this.setState({provdesc : row.ProveedoresDesc})
-                                            this.setState({StkTipoProveedDesc : row.StkTipoProveedDesc}) //ver
-                                            this.setState({provcuit : row.ProveedoresCUIT})
-                                            this.setState({provcalle : row.ProveedoresCalle})
-                                            this.setState({provnrocalle : row.ProveedoresNroCalle})//ver
-                                            this.setState({provpiso : row.ProveedoresPiso})
-                                            this.setState({provdto : row.ProveedoresDto})
-                                            this.setState({provcodpostal : row.ProveedoresCodPos})
-                                            this.setState({provlocalidad : row.ProveedoresLoc})
-                                            this.setState({provprovincia : row.ProveedoresPcia})
-                                            this.setState({provtelefono : row.ProveedoresTel})
-                                            this.setState({provcontacto : row.ProveedoresContacto})
-                                            this.setState({provmail : row.ProveedoresMail})
-                                            this.setState({provpagweb : row.ProveedoresWeb})
-                                            this.setState({provcodmon : row.ProveedoresCodMon})
-                                            this.togglemodificar()
-                                            // this.setState({state: this.state})
-                                            // console.log("row.ProveedoresWeb "+row.ProveedoresWeb)
-                                            // console.log("ProveedoresWeb "+ this.state.ProveedoresWeb)
-                                            // console.log('row.idProveedores '+row.idProveedores)
-                                            // console.log('idProveedores'+ this.state.idProveedores)
+                //                             this.setState({provdesc : row.ProveedoresDesc})
+                //                             this.setState({StkTipoProveedDesc : row.StkTipoProveedDesc}) //ver
+                //                             this.setState({provcuit : row.ProveedoresCUIT})
+                //                             this.setState({provcalle : row.ProveedoresCalle})
+                //                             this.setState({provnrocalle : row.ProveedoresNroCalle})//ver
+                //                             this.setState({provpiso : row.ProveedoresPiso})
+                //                             this.setState({provdto : row.ProveedoresDto})
+                //                             this.setState({provcodpostal : row.ProveedoresCodPos})
+                //                             this.setState({provlocalidad : row.ProveedoresLoc})
+                //                             this.setState({provprovincia : row.ProveedoresPcia})
+                //                             this.setState({provtelefono : row.ProveedoresTel})
+                //                             this.setState({provcontacto : row.ProveedoresContacto})
+                //                             this.setState({provmail : row.ProveedoresMail})
+                //                             this.setState({provpagweb : row.ProveedoresWeb})
+                //                             this.setState({provcodmon : row.ProveedoresCodMon})
+                //                             this.togglemodificar()
+                //                             // this.setState({state: this.state})
+                //                             // console.log("row.ProveedoresWeb "+row.ProveedoresWeb)
+                //                             // console.log("ProveedoresWeb "+ this.state.ProveedoresWeb)
+                //                             // console.log('row.idProveedores '+row.idProveedores)
+                //                             // console.log('idProveedores'+ this.state.idProveedores)
                                             
-                                        }
-                                            }  key={row.idProveedores}>
+                //                         }
+                //                             }  key={row.idProveedores}>
                                             
-                                            <CustomTableCell >{row.idProveedores}</CustomTableCell>
-                                            <CustomTableCell >{row.ProveedoresDesc}</CustomTableCell>
-                                            <CustomTableCell >{row.StkTipoProveedDesc}</CustomTableCell>
-                                            <CustomTableCell >{row.ProveedoresCUIT}</CustomTableCell>
-                                            <CustomTableCell >{row.ProveedoresCalle}</CustomTableCell>
-                                            <CustomTableCell >{row.ProveedoresNroCalle}</CustomTableCell>
-                                            <CustomTableCell >{row.ProveedoresPiso}</CustomTableCell>
-                                            <CustomTableCell >{row.ProveedoresDto}</CustomTableCell>
-                                            <CustomTableCell >{row.ProveedoresCodPos}</CustomTableCell>
-                                            <CustomTableCell >{row.ProveedoresLoc}</CustomTableCell>
-                                            <CustomTableCell >{row.ProveedoresPcia}</CustomTableCell>
-                                            <CustomTableCell >{row.ProveedoresTel}</CustomTableCell>
-                                            <CustomTableCell >{row.ProveedoresContacto}</CustomTableCell>
-                                            <CustomTableCell >{row.ProveedoresMail}</CustomTableCell>
-                                            <CustomTableCell >{row.ProveedoresWeb}</CustomTableCell>
-                                            <CustomTableCell >{row.ProveedoresCodMon}</CustomTableCell>
-                                            <CustomTableCell >{row.borrar}</CustomTableCell>
-                                        </TableRow>
-                                        );
-                                    })}
-                                </TableBody>
-                            </Table>
-                        </Paper>
+                //                             <CustomTableCell >{row.idProveedores}</CustomTableCell>
+                //                             <CustomTableCell >{row.ProveedoresDesc}</CustomTableCell>
+                //                             <CustomTableCell >{row.StkTipoProveedDesc}</CustomTableCell>
+                //                             <CustomTableCell >{row.ProveedoresCUIT}</CustomTableCell>
+                //                             <CustomTableCell >{row.ProveedoresCalle}</CustomTableCell>
+                //                             <CustomTableCell >{row.ProveedoresNroCalle}</CustomTableCell>
+                //                             <CustomTableCell >{row.ProveedoresPiso}</CustomTableCell>
+                //                             <CustomTableCell >{row.ProveedoresDto}</CustomTableCell>
+                //                             <CustomTableCell >{row.ProveedoresCodPos}</CustomTableCell>
+                //                             <CustomTableCell >{row.ProveedoresLoc}</CustomTableCell>
+                //                             <CustomTableCell >{row.ProveedoresPcia}</CustomTableCell>
+                //                             <CustomTableCell >{row.ProveedoresTel}</CustomTableCell>
+                //                             <CustomTableCell >{row.ProveedoresContacto}</CustomTableCell>
+                //                             <CustomTableCell >{row.ProveedoresMail}</CustomTableCell>
+                //                             <CustomTableCell >{row.ProveedoresWeb}</CustomTableCell>
+                //                             <CustomTableCell >{row.ProveedoresCodMon}</CustomTableCell>
+                //                             <CustomTableCell >{row.borrar}</CustomTableCell>
+                //                         </TableRow>
+                //                         );
+                //                     })}
+                //                 </TableBody>
+                //             </Table>
+                //         </Paper>
               :
               <div></div> 
                                 }
+                    
+                    {/* modificar */}
                     {this.state.togglemodificar
                     ?  
                     <div>
@@ -358,23 +478,23 @@ class Proveedores extends Component {
                                         clickmodificar={()=>this.togglemodificar()} 
                                         read={()=>this.read()}
                                         idProveedores={this.state.idProveedores}
-                                        provdesc={this.state.provdesc}
-                                        provtipo={this.state.provtipo}
-                                        provcuit={this.state.provcuit}
-                                        provcalle={this.state.provcalle}
-                                        provnrocalle={this.state.provnrocalle}
-                                        provpiso={this.state.provpiso}
-                                        provdto={this.state.provdto}
-                                        provcodpostal={this.state.provcodpostal}
-                                        provlocalidad={this.state.provlocalidad}
-                                        provprovincia={this.state.provprovincia}
-                                        provtelefono={this.state.provtelefono}
-                                        provcontacto={this.state.provcontacto}
-                                        provmail={this.state.provmail}
-                                        provpagweb={this.state.provpagweb}
-                                        provcodmon={this.state.provcodmon}
-                                        idStkTipoProveed={this.state.idStkTipoProveed}
-                                        StkTipoProveedDesc={this.state.StkTipoProveedDesc}
+                                        // provdesc={this.state.provdesc}
+                                        // provtipo={this.state.provtipo}
+                                        // provcuit={this.state.provcuit}
+                                        // provcalle={this.state.provcalle}
+                                        // provnrocalle={this.state.provnrocalle}
+                                        // provpiso={this.state.provpiso}
+                                        // providPrdto={this.state.provdto}
+                                        // providPrcodpostal={this.state.provcodpostal}
+                                        // providPrlocalidad={this.state.provlocalidad}
+                                        // providPrprovincia={this.state.provprovincia}
+                                        // providPrtelefono={this.state.provtelefono}
+                                        // providPrcontacto={this.state.provcontacto}
+                                        // providPrmail={this.state.provmail}
+                                        // providPrpagweb={this.state.provpagweb}
+                                        // provcodmon={this.state.provcodmon}
+                                        // idStkTipoProveed={this.state.idStkTipoProveed}
+                                        // StkTipoProveedDesc={this.state.StkTipoProveedDesc}
                                     >
                                     
                                     </ProveedoresModificar>
@@ -383,9 +503,9 @@ class Proveedores extends Component {
                             </div>
                         </div>
                     </div>
-                   :
+                    :
                     <div></div>    
-                }
+                    }
             </div>
         )
     }

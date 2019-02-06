@@ -1,9 +1,8 @@
 import React, { Component} from 'react'
 import request from 'superagent'
-// import ReactTable from 'react-table'
+import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import IpServidor from './VariablesDeEntorno'
-import StockTable from './StockTable'
 
 
 import Button from '@material-ui/core/Button';
@@ -11,7 +10,7 @@ import Button from '@material-ui/core/Button';
 
 import StkMonedasAgregar from './StkMonedasAgregar'
 import StkMonedasBorrar from './StkMonedasBorrar'
-import StkMonedasModificar from './StkMonedasModificar'
+// import StkMonedasModificar from './StkMonedasModificar'
 
 // para usar las tablas de MUI start
 import { withStyles } from '@material-ui/core/styles';
@@ -62,6 +61,7 @@ class Monedas extends Component {
             StkMonedasCotizacion: 0,
             monedas:[],
             filtered:'',
+            campo: 'StkMonedasDescripcion',
             fab: {
                 position: 'absolute',
                 bottom: '50px',
@@ -166,44 +166,45 @@ class Monedas extends Component {
         // <input onChange={this.search} type="text" value={this.state.filtered}/>
 
     render(){
-        var data = this.state.monedas
         
-        var columns = [
-            {
-                header: "Código",
-                accessor: "idStkMonedas"
-            },
-            {
-                header: "Descripción",
-                accessor: "StkMonedasDescripcion"
-            },
-            {
-                header: "Cotizacion",
-                accessor: "StkMonedasCotizacion"
-            },
-            {
-                header: "Borrar",
-                accessor: ""
-            }
-        ]
-
-        console.log("data en el render ",data)
-        
-        
-                
-        var monedas = this.state.monedas.map( (rowData,index) => 
+        var datatable = this.state.monedas.map( (rowData,index) => 
         Object.assign(rowData, { borrar: 
             <div className="center-align"><StkMonedasBorrar idMonedas={rowData.idStkMonedas} read={()=>this.read()}></StkMonedasBorrar></div>})
         );
         
-        monedas = this.state.monedas.filter((moneda)=>{
-            return moneda.StkMonedasDescripcion.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
-        })
+        var columns =[
+                {
+                Header: "Código",
+                id:"codigo",
+                accessor: "idStkMonedas"
+                },
+                {
+                Header: "Descripción",
+                accessor: "StkMonedasDescripcion",
+                Cell: this.renderEditable
+                },
+                {
+                    Header: "Cotizacion",
+                    accessor: "StkMonedasCotizacion",
+                    Cell: this.renderEditable
+                    },
+                {
+                    Header: "",
+                    accessor: "borrar",
+                    // Cell: this.renderEditable
+                }
+        ]
+        
+        // monedas = this.state.monedas.filter((moneda)=>{
+        //     const row = "moneda."+ this.state.campo
+        //     console.log("Contenido de ROW : "+row)
+        //     return row.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
+        // })
         
         return( 
             <div>
                 <h1>ABM DE Monedas</h1>
-                <input onChange={this.search} type="text" value={this.state.filtered}/> 
+                {/* <input onChange={this.search} type="text" value={this.state.filtered}/>  */}
                 {this.state.toggle
                 ?
                 <div>
@@ -226,11 +227,57 @@ class Monedas extends Component {
 
                 {!this.state.toggle
                 ?
-                        <StockTable data={data} columns={columns}/>
-                :
+                        // <Paper >
+                        //     <Table >
+                        //         <TableHead>
+                        //             <TableRow>
+                        //                 <CustomTableCell onClick={() => this.sortBy("idStkMonedas")} >Código</CustomTableCell>
+                        //                 <CustomTableCell onClick={() => this.sortBy("StkMonedasDescripcion")} >Descripción</CustomTableCell>
+                        //                 <CustomTableCell onClick={() => this.sortByNumero("StkMonedasCotizacion")} numeric>Cotización</CustomTableCell>
+                        //                 <CustomTableCell ></CustomTableCell>
+                        //             </TableRow>
+                        //         </TableHead>
+                             
+                        //         <TableBody>
+                        //             {monedas.map(row => {
+                        //             return (
+                        //                 <TableRow onDoubleClick={()=>{
+                        //                     console.log("actualizo variables")
+                        //                     this.setState({idStkMonedas:row.idStkMonedas})
+                        //                     this.setState({StkMonedasDescripcion:row.StkMonedasDescripcion})
+                        //                     this.setState({StkMonedasCotizacion:row.StkMonedasCotizacion})
+                        //                     this.togglemodificar()}}  key={row.id}>
+                                            
+                        //                     <CustomTableCell>{row.idStkMonedas}</CustomTableCell>
+                        //                     <CustomTableCell >{row.StkMonedasDescripcion}</CustomTableCell>
+                        //                     <CustomTableCell  numeric>{row.StkMonedasCotizacion}</CustomTableCell>
+                        //                     <CustomTableCell numeric>{row.borrar}</CustomTableCell>
+                        //                 </TableRow>
+                        //                 );
+                        //             })}
+                        //         </TableBody>
+                        //     </Table>
+                        // </Paper>
+                        <ReactTable
+                        data={datatable}
+
+                        filterable
+                        defaultSorted={[
+                            {
+                                id: "codigo",
+                                desc: true
+                            }
+                        ]}
+
+                        columns={columns}
+
+                        defaultPageSize={20}
+                        className="-striped -highlight"
+                    />
+                        :
                     <div></div>
                 }
-                {this.state.togglemodificar
+                {/* {this.state.togglemodificar
                     ?  
                     <div>
                         <div className="row">
@@ -254,7 +301,7 @@ class Monedas extends Component {
                     </div>
                    :
                     <div></div>    
-                }
+                } */}
                 
             </div>
         )
