@@ -46,21 +46,20 @@ class ProveedoresAgregar extends Component {
     }    
 
 //Material Ui Dialog start
-handleClickOpen = () => {
-    this.setState({ open: true });
+    handleClickOpen = () => {
+        this.setState({ open: true });
     
-  };
+    };
 
-  handleClose = () => {
-    this.setState({ open: false });
-  };
+    handleClose = () => {
+        this.setState({ open: false });
+    };
 //Material Ui Dialog start
 
-    //esto es para que en el select me muestre el item elegido
+//esto es para que en el select me muestre el item elegido
     handleChange = prop => event => {
         this.setState({ [prop]: event.target.value });
       };
-
 
     
  // Create
@@ -162,22 +161,23 @@ handleClickOpen = () => {
                     margin="dense"
                     fullWidth
                     variant="standard"
-                    autoFocus='true'
+                    autoFocus={true}
                     onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('provtipo').focus();}}/>
                 <div>
                 <TextField
                     id="provtipo" 
-                    select = 'true'
+                    select = {true}
                     label= 'Tipo'
                     value={this.state.provtipo}
                     onChange = {this.handleChange('provtipo')}>
                     {this.state.tipoprov.map(option => (
                         <MenuItem
-                        id = 'provtiposelect'
-                        key={option.idStkTipoProveed}
-                                value={option.idStkTipoProveed}>
-                                {option.StkTipoProveedDesc}
-                                </MenuItem>
+                            id = 'provtiposelect'
+                            key={option.idStkTipoProveed}
+                            value={option.idStkTipoProveed}
+                        >
+                            {option.StkTipoProveedDesc}
+                        </MenuItem>
                     ))}
                     </TextField>
                 </div>
@@ -290,7 +290,7 @@ handleClickOpen = () => {
                 <div>
                 <TextField
                     id="provcodmon" 
-                    select = 'true'
+                    select = {true}
                     label= 'Tipo Moneda'
                     value={this.state.provcodmon}
                     onChange = {this.handleChange('provcodmon')}>

@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 // import moment from 'react-moment';
-import Input from '@material-ui/core/Input';
+// import Input from '@material-ui/core/Input';
 class StkMovimiento extends Component {
   
     constructor(props){
@@ -344,7 +344,7 @@ render () {
                     <TextField
                         id="Proveedor"
                         label="Proveedor"
-                        value={this.state. DescProv}
+                        value={this.state.DescProv}
                         disabled                          
                             >
                     </TextField>

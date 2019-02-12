@@ -38,8 +38,8 @@ class StkModificarMonedas extends Component {
       };
     // Material UI END
 
-    ActualizaMoneda = (params) => {
-      const  monedas  = params;
+    ActualizaMoneda = () => {
+      // const  monedas  = params;
      
     request                  
        .post('http://localhost:4000/stkmonedasmodificar/'+this.state.idStkMonedas)

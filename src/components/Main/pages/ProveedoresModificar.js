@@ -18,6 +18,23 @@ class ProveedoresAgregar extends Component {
         this.state = {
             estado:false,
             idProveedores: this.props.idProveedores,
+            ProveedoresDesc : this.props.ProveedoresDesc,
+            ProveedoresCUIT : this.props.ProveedoresCUIT,
+            ProveedoresCalle : this.props.ProveedoresCalle,
+            ProveedoresNroCalle : this.props.ProveedoresNroCalle,
+            ProveedoresPiso : this.props.ProveedoresPiso,
+            ProveedoresDto : this.props.ProveedoresDto,
+            ProveedoresCodPos : this.props.ProveedoresCodPos,
+            ProveedoresLoc : this.props.ProveedoresLoc,
+            ProveedoresPcia : this.props.ProveedoresPcia,
+            ProveedoresTel : this.props.ProveedoresTel,
+            ProveedoresContacto : this.props.ProveedoresContacto,
+            ProveedoresMail : this.props.ProveedoresMail,
+            ProveedoresWeb : this.props.ProveedoresWeb,
+            ProveedoresCodMon : this.props.ProveedoresCodMon,
+            ProveedoresTipo : this.props.ProveedoresTipo,
+            
+            
             // provdesc:this.props.provdesc,
             // provtipo:this.props.provtipo,
             // provcuit:this.props.provcuit,
@@ -45,10 +62,11 @@ class ProveedoresAgregar extends Component {
         }
         this.updateField = this.updateField.bind(this)
         this.submitProveedor = this.submitProveedor.bind(this)
+        this.handleChange = this.handleChange.bind(this)
 
 
-        console.log("this.props.provdesc ",this.props.provdesc)
-        console.log("this.props.provcontacto ",this.props.provcontacto)
+        console.log("this.props.provdesc ",this.props.ProveedoresDesc)
+        console.log("this.props.provcontacto ",this.props.ProveedoresContacto)
     }    
 
 //Material Ui Dialog start
@@ -66,12 +84,22 @@ this.setState({ open: false });
 
 
 
-        handleChange = prop => event => {
-        this.setState({ proveedores:{[prop]: event.target.value} });
-        console.log("contenido de PROP : "+ prop +" valor "+event.target.value)
-        console.log("contenido de state "+JSON.stringify(this.state.proveedores))
-};
+//         handleChange = field => {
+//             this.setState({[field.target.id]: field.target.value, })
+//         // console.log("contenido de PROP : "+ prop +" valor "+event.target.value)
+//         // console.log("contenido de state "+JSON.stringify(this.state.proveedores))
+// };
 
+
+// handleChange(event){
+//     console.log('valor de event id  '+event.target.id)
+//     this.setState({[event.target.id]: event.target.value, })
+//     // console.log('ESTADO :'+field.target.id + ' Valor :'+field.target.value)
+// }
+
+handleChange = prop => event => {
+    this.setState({ [prop]: event.target.value });
+  };
 
 
 //Read
@@ -99,26 +127,26 @@ read = _ => {
 ActualizaProveedor = () => {
      
     // const  proveedores  = params;
-   console.log("dentro de ActualizaProveedor contenido de this.state.proveedores : " + JSON.stringify(this.state.proveedores))
+   console.log("dentro de ActualizaProveedor contenido de this.state.ProveedoresTipo : " + JSON.stringify(this.state.ProveedoresTipo))
    console.log("dentro de ActualizaProveedor contenido de this.state.proveedores : " + this.state.proveedores.ProveedoresDesc)
   request                  
      .post(IpServidor + '/proveedoresmodificar/'+this.state.idProveedores)
      .set('Content-Type', 'application/json')
-        .send({ ProveedoresDesc: this.state.proveedores.ProveedoresDesc})
-        .send({ ProveedoresTipo: this.state.proveedores.ProveedoresTipo})
-        .send({ ProveedoresCUIT: this.state.proveedores.ProveedoresCUIT})        
-        .send({ ProveedoresCalle: this.state.proveedores.ProveedoresCalle})
-        .send({ ProveedoresNroCalle: this.state.proveedores.ProveedoresNroCalle})
-        .send({ ProveedoresPiso: this.state.proveedores.ProveedoresPiso})
-        .send({ ProveedoresDto: this.state.proveedores.ProveedoresDto})
-        .send({ ProveedoresCodPos: this.state.proveedores.ProveedoresCodPos})
-        .send({ ProveedoresLoc: this.state.proveedores.ProveedoresLoc})
-        .send({ ProveedoresPcia: this.state.proveedores.ProveedoresPcia})
-        .send({ ProveedoresTel: this.state.proveedores.ProveedoresTel})
-        .send({ ProveedoresContacto: this.state.proveedores.ProveedoresContacto})
-        .send({ ProveedoresMail: this.state.proveedores.ProveedoresMail})
-        .send({ ProveedoresWeb: this.state.proveedores.ProveedoresWeb})
-        .send({ ProveedoresCodMon: this.state.proveedores.ProveedoresCodMon})
+        .send({ provdesc: this.state.ProveedoresDesc})
+        .send({ provtipo: this.state.ProveedoresTipo})
+        .send({ provcuit: this.state.ProveedoresCUIT})        
+        .send({ provcalle: this.state.ProveedoresCalle})
+        .send({ provnrocalle: this.state.ProveedoresNroCalle})
+        .send({ provpiso: this.state.ProveedoresPiso})
+        .send({ provdto: this.state.ProveedoresDto})
+        .send({ provcodpostal: this.state.ProveedoresCodPos})
+        .send({ provlocalidad: this.state.ProveedoresLoc})
+        .send({ provprovincia: this.state.ProveedoresPcia})
+        .send({ provtelefono: this.state.ProveedoresTel})
+        .send({ provcontacto: this.state.ProveedoresContacto})
+        .send({ provmail: this.state.ProveedoresMail})
+        .send({ provpagweb: this.state.ProveedoresWeb})
+        .send({ provcodmon: this.state.ProveedoresCodMon})
      .set('X-API-Key', 'foobar')
      .then(function(res) { // res.body, res.headers, res.status
       });
@@ -192,27 +220,29 @@ ActualizaProveedor = () => {
                 <TextField
                     id='ProveedoresDesc'
                     label='Descripción'
-                    value={this.state.proveedores.ProveedoresDesc}
-                    onChange={()=>this.handleChange('ProveedoresDesc')}
+                    value={this.state.ProveedoresDesc}
+                    onChange={this.handleChange}
                     margin="dense"
                     fullWidth
                     variant="standard"
-                    autoFocus='true'
+                    autoFocus= {true}
                     onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('ProveedoresTipo').focus();}}/>
                 <div>
                 <TextField
                     id="ProveedoresTipo" 
-                    select = 'true'
+                    select = {true}
                     label= 'Tipo'
-                    value={this.state.proveedores.ProveedoresTipo}
+                    value={this.state.ProveedoresTipo}
+                    // onChange = {this.handleChange}>
                     onChange = {this.handleChange('ProveedoresTipo')}>
                     {this.state.tipoprov.map(option => (
                         <MenuItem
-                        id = 'provtiposelect'
-                        key={option.idStkTipoProveed}
-                                value={option.idStkTipoProveed}>
-                                {option.StkTipoProveedDesc}
-                                </MenuItem>
+                            id = 'provtiposelect'
+                            key={option.idStkTipoProveed}
+                            value={option.idStkTipoProveed}
+                        >
+                            {option.StkTipoProveedDesc}
+                        </MenuItem>
                     ))}
                     </TextField>
                 </div>
@@ -220,8 +250,8 @@ ActualizaProveedor = () => {
                 <TextField
                     id='ProveedoresCUIT'
                     label='C.U.I.T.'
-                    value={this.state.proveedores.ProveedoresCUIT}
-                    onChange={this.handleChange('ProveedoresCUIT')}
+                    value={this.state.ProveedoresCUIT}
+                    onChange={this.handleChange}
                     margin="normal"
                     variant="standard"
                     onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('ProveedoresCalle').focus();}}/>
@@ -230,32 +260,32 @@ ActualizaProveedor = () => {
                 <TextField
                     id='ProveedoresCalle'
                     label='Calle'
-                    value={this.state.proveedores.ProveedoresCalle}
-                    onChange={this.handleChange('ProveedoresCalle')}
+                    value={this.state.ProveedoresCalle}
+                    onChange={this.handleChange}
                     margin="dense"
                     variant="standard"
                     onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('ProveedoresNroCalle').focus();}}/>
                 <TextField
                     id='ProveedoresNroCalle'
                     label='Nro'
-                    value={this.state.proveedores.ProveedoresNroCalle}
-                    onChange={this.handleChange('ProveedoresNroCalle')}
+                    value={this.state.ProveedoresNroCalle}
+                    onChange={this.handleChange}
                     margin="dense"
                     variant="standard"
                     onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('ProveedoresPiso').focus();}}/>
                 <TextField
                     id='ProveedoresPiso'
                     label='Piso'
-                    value={this.state.proveedores.ProveedoresPiso}
-                    onChange={this.handleChange('ProveedoresPiso')}
+                    value={this.state.ProveedoresPiso}
+                    onChange={this.handleChange}
                     margin="dense"
                     variant="standard"
                     onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('ProveedoresDto').focus();}}/>
                 <TextField
                     id='ProveedoresDto'
                     label='Dto'
-                    value={this.state.proveedores.ProveedoresDto}
-                    onChange={this.handleChange('ProveedoresDto')}
+                    value={this.state.ProveedoresDto}
+                    onChange={this.handleChange}
                     margin="dense"
                     variant="standard"
                     onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('ProveedoresCodPos').focus();}}/>
@@ -264,24 +294,24 @@ ActualizaProveedor = () => {
                 <TextField
                     id='ProveedoresCodPos'
                     label='Cód.Postal'
-                    value={this.state.proveedores.ProveedoresCodPos}
-                    onChange={this.handleChange('ProveedoresCodPos')}
+                    value={this.state.ProveedoresCodPos}
+                    onChange={this.handleChange}
                     margin="dense"
                     variant="standard"
                     onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('ProveedoresLoc').focus();}}/>
                 <TextField
                     id='ProveedoresLoc'
                     label='Localidad'
-                    value={this.state.proveedores.ProveedoresLoc}
-                    onChange={this.handleChange('ProveedoresLoc')}
+                    value={this.state.ProveedoresLoc}
+                    onChange={this.handleChange}
                     margin="dense"
                     variant="standard"
                     onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('ProveedoresPcia').focus();}}/>
                 <TextField
                     id='ProveedoresPcia'
                     label='Provincia'
-                    value={this.state.proveedores.ProveedoresPcia}
-                    onChange={this.handleChange('ProveedoresPcia')}
+                    value={this.state.ProveedoresPcia}
+                    onChange={this.handleChange}
                     margin="dense"
                     variant="standard"
                     onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('ProveedoresTel').focus();}}/>
@@ -290,16 +320,16 @@ ActualizaProveedor = () => {
                 <TextField
                     id='ProveedoresTel'
                     label='Teléfono'
-                    value={this.state.proveedores.ProveedoresTel}
-                    onChange={this.handleChange('ProveedoresTel')}
+                    value={this.state.ProveedoresTel}
+                    onChange={this.handleChange}
                     margin="dense"
                     variant="standard"
                     onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('ProveedoresContacto').focus();}}/>
                 <TextField
                     id='ProveedoresContacto'
                     label='Contacto'
-                    value={this.state.proveedores.ProveedoresContacto}
-                    onChange={this.handleChange('ProveedoresContacto')}
+                    value={this.state.ProveedoresContacto}
+                    onChange={this.handleChange}
                     margin="dense"
                     variant="standard"
                     onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('ProveedoresMail').focus();}}/>
@@ -308,16 +338,16 @@ ActualizaProveedor = () => {
                 <TextField
                     id='ProveedoresMail'
                     label='Mail'
-                    value={this.state.proveedores.ProveedoresMail}
-                    onChange={this.handleChange('ProveedoresMail')}
+                    value={this.state.ProveedoresMail}
+                    onChange={this.handleChange}
                     margin="dense"
                     variant="standard"
                     onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('ProveedoresWeb').focus();}}/>
                 <TextField
                     id='ProveedoresWeb'
                     label='Pág.web'
-                    value={this.state.proveedores.ProveedoresWeb}
-                    onChange={this.handleChange('ProveedoresWeb')}
+                    value={this.state.ProveedoresWeb}
+                    onChange={this.handleChange}
                     margin="dense"
                     variant="standard"
                     onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('ProveedoresCodMon').focus();}}/>
@@ -325,10 +355,10 @@ ActualizaProveedor = () => {
                 <div>
                 <TextField
                     id="ProveedoresCodMon" 
-                    select = 'true'
+                    select = {true}
                     label= 'Tipo Moneda'
-                    value={this.state.proveedores.ProveedoresCodMon}
-                    onChange = {this.handleChange('ProveedoresCodMon')}>
+                    value={this.state.ProveedoresCodMon}
+                    onChange = {this.handleChange}>
                     {this.state.stkmonedas.map(option => (
                         <MenuItem key={option.idStkMonedas}
                                 value={option.idStkMonedas}>

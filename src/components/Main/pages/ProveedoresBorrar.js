@@ -1,6 +1,6 @@
 import React, { Component} from 'react'
 import request from 'superagent'
-import ReactTable from 'react-table'
+// import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import IpServidor from './VariablesDeEntorno'
 
@@ -40,8 +40,8 @@ class ProveedoresBorrar extends Component {
 
     // //Delete
       deleteProduct = (id)=> {
-        console.log("id a borrar :"+id)
-        const { product } = this.state;
+        // console.log("id a borrar :"+id)
+        // const { product } = this.state;
         request
           .delete(IpServidor + '/proveedoresborrar/'+id)
           .set('Content-Type', 'application/json')
