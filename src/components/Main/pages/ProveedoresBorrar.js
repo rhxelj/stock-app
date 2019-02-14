@@ -25,18 +25,18 @@ class ProveedoresBorrar extends Component {
           }))
     }
     
-    //Read
-    read = _ => {
-        const url = IpServidor + '/proveedoresleer'; //'http://192.168.2.102:4000/indexprov'
-        request
-        .get(url)
-        .set('Content-Type', 'application/json')
-            .then(res=> {
-            const proveedores = JSON.parse(res.text)
-            this.setState({proveedores: proveedores})
-            // this.setState({filtrado: proveedores})
-            })
-    }
+    // //Read
+    // read = _ => {
+    //     const url = IpServidor + '/proveedoresleer'; //'http://192.168.2.102:4000/indexprov'
+    //     request
+    //     .get(url)
+    //     .set('Content-Type', 'application/json')
+    //         .then(res=> {
+    //         const proveedores = JSON.parse(res.text)
+    //         this.setState({proveedores: proveedores})
+    //         // this.setState({filtrado: proveedores})
+    //         })
+    // }
 
     // //Delete
       deleteProduct = (id)=> {
@@ -57,14 +57,14 @@ class ProveedoresBorrar extends Component {
                     alert('Código de Proveedor Usado no se puede borrar  ') 
                     }
                 })
-          this.toggle()
-          this.read()
+                this.props.read()
+                this.toggle()
       }
     
 
-    componentDidMount(){
-         this.read()
-    }
+    // componentDidMount(){
+    //      this.read()
+    // }
 
     render(){
         

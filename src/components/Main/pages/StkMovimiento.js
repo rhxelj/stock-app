@@ -7,8 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-// import moment from 'react-moment';
-// import Input from '@material-ui/core/Input';
+
 class StkMovimiento extends Component {
   
     constructor(props){
@@ -30,14 +29,13 @@ class StkMovimiento extends Component {
             StkRubroCosto1: 0.0,
             StkRubroTM1:'',
             StkItemsCantidad1:0.0,
-            StkItemsFAct1: new Date(),
+            StkItemsFAct1: '', //new Date(),
             StkItemsMin1:0.0,
             StkItemsMax1:0.0,
             proveedor:[],
             StkRubroProv1:0,
             DescProv:'',
-            CantAgr:0.00,
-            //this.props.CantAgr,
+            CantMod:-0.00,
             NuevaCant:0.0,
             marcagrupo : false,
             marcarubro : false,
@@ -148,8 +146,8 @@ class StkMovimiento extends Component {
     }
 
     leestkitemscodgrrbit = _ => {
-        // var dia, mes, anio
-        // var fecha
+        
+      
         if (this.state.itemsstk !== 0) {
             
         //desde Postman //stkitemsleecodgrrbit/?id1=3&id2=1&id3=1
@@ -160,36 +158,48 @@ class StkMovimiento extends Component {
             .then(res=> {
             const stkitemsRGI = JSON.parse(res.text)
             this.setState({stkitemsRGI: stkitemsRGI})
-         //  fecha = Date(this.state.stkitemsRGI[0].StkItemsFAct)
-          
-           //console.log('fecha   ' + fecha)
             this.setState({StkItemsCantidad1: this.state.stkitemsRGI[0].StkItemsCantidad}) 
             this.setState({StkItemsFAct1: this.state.stkitemsRGI[0].StkItemsFAct}) 
             this.setState({StkItemsMin1: this.state.stkitemsRGI[0].StkItemsMin}) 
             this.setState({StkItemsMax1: this.state.stkitemsRGI[0].StkItemsMax}) 
-         //   const dateToFormat = '19-04-2007T12:59-0500';
-         //   <Moment date={dateToFormat} />
-           
-         //  fecha = this.state.StkItemsFAct1.format("Do MMMM YYYY");
-           console.log(this.state.StkItemsFAct1)
+            var recorte = this.state.StkItemsFAct1.substr(0,10);
+            this.setState({StkItemsFAct1: recorte})
+          
             })
+
+            
+            
             this.marcaitems()
     }
 }
 
         modcantstkitem = _ => {
-            console.log('modcantstkitem')
+            // console.log('modcantstkitem')
             var CantAct = Number(this.state.StkItemsCantidad1) 
-            var CantAgre = Number(this.state.CantAgr)
-            CantAct = CantAct + CantAgre
+            var CantMode = Number(this.state.CantMod)
+            CantAct = CantAct + CantMode
+            // var fecha = new Date()
+        //     console.log('fecha 2 ' + fecha)
+        //    var options = {year: 'numeric', month: '2-digit', day: '2-digit' };
+        //    var dia = fecha.getDate() + 1
+        //    var mes =  parseInt(fecha.getMonth())
+        //    var anio = fecha.getFullYear()
+        //    fecha = new Date(Date.UTC(anio, mes, dia))
+        //    fecha = fecha.toLocaleDateString('en-US', options)
+
+        //     console.log('fecha  ' + fecha)
+            // var fecha = new Date();
+            // console.log( fecha.getFullYear() + "/" + (fecha.getMonth() +1) + "/" +  fecha.getDate())
             const url = 'http://localhost:4000/stkitemsmodificacant/?id1='+this.state.itemsstk+'&id2='+this.state.grupostk +'&id3='+this.state.rubrostk ; //'http://localhost:3000/data'
             request
             .post(url)
             .set('Content-Type', 'application/json')
             .send({StkItemsCantidad: CantAct})
+            // .send({StkItemsFAct: fecha})
             .then(function(res) {
                 // res.body, res.headers, res.status
                   });
+               this.leestkitemscodgrrbit()   
         }
 
 handleChange = prop => event => {
@@ -222,7 +232,7 @@ updateField(field){
     this.setState({
         [field.target.id]: field.target.value,
     })
-    this.setState({CantAgr : field.target.value})
+    this.setState({CantMod : field.target.value})
 }
 
   
@@ -238,7 +248,9 @@ cargarubro() {
     this.leestkrubropRyG()
  }
 
-
+  DatePickers(props) {
+    const { classes } = props
+  }
 
 render () {
         if (this.state.grupostk !== 0 && this.state.marcagrupo)
@@ -373,11 +385,14 @@ render () {
                     </TextField>
                     <TextField
                         id="FechaAct"
-                        label="Fecha.Act."
-                        value= {this.state.StkItemsFAct1}
-                        type='date'
+                        label="Fecha Actualización"
+                        type="date"
+                        value={this.state.StkItemsFAct1}
+                        InputLabelProps={{
+                            shrink: true,
+                            }}
                         disabled
-                            >
+                        >
                     </TextField>
                     <TextField
                         id="MinStock"
@@ -386,28 +401,41 @@ render () {
                         disabled
                             >
                     </TextField>
+                    {this.state.StkItemsCantidad1 > this.state.StkItemsMax1
+                    ?
                     <TextField
                         id="MaxStock"
                         label="Máx.Stock"
                         value={this.state.StkItemsMax1}
+                        style={{background:"red"}}
                         disabled
                             >
                     </TextField>
+                    :
+                    <TextField
+                    id="MaxStock"
+                    label="Máx.Stock"
+                    value={this.state.StkItemsMax1}
+                    style={{background:"blue"}}
+                    disabled
+                        >
+                </TextField>
+                    }
                 </FormControl>    
                 <FormControl>
                     <TextField
-                        id="Agregar"
-                        label="Cant.Agregar"
+                        id="CantMod"
+                        label="Cantidad + o -"
                         type="number"
                         fullWidth
                         placeholder="Descripción"
                         onChange={this.updateField}
-                        value={this.state.CantAgr}
+                        value={this.state.CantMod}
                     >
                     </TextField>
                         <DialogActions>
                         <Button variant="contained" color="primary"  onClick={this.modcantstkitem}>
-                            Agregar
+                            Confirmar
                         </Button>
                         <Button variant="contained" color="secondary" onClick={this.props.click}>
                             Cancelar
@@ -494,4 +522,12 @@ onChange = {this.handleChange('rubrostk')}>
   ))}
 </Select>
 </FormControl> */}
+   {/* <Moment
+                     //   label="Fecha.Act."
+                        format="DD-MM-YYYY" 
+                        id="FechaAct"
+                        withTitle= {true}
+                        disabled
+                        >{this.state.StkItemsFAct1}
+                    </Moment> */}
 export default StkMovimiento

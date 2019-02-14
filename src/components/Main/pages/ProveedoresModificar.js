@@ -16,7 +16,7 @@ class ProveedoresAgregar extends Component {
     constructor(props){
         super(props)
         this.state = {
-            estado:false,
+            estado:true,
             idProveedores: this.props.idProveedores,
             ProveedoresDesc : this.props.ProveedoresDesc,
             ProveedoresCUIT : this.props.ProveedoresCUIT,
@@ -33,25 +33,6 @@ class ProveedoresAgregar extends Component {
             ProveedoresWeb : this.props.ProveedoresWeb,
             ProveedoresCodMon : this.props.ProveedoresCodMon,
             ProveedoresTipo : this.props.ProveedoresTipo,
-            
-            
-            // provdesc:this.props.provdesc,
-            // provtipo:this.props.provtipo,
-            // provcuit:this.props.provcuit,
-            // provcalle:this.props.provcalle,
-            // provnrocalle:this.props.provnrocalle,
-            // provpiso:this.props.provpiso,
-            // provdto:this.props.provdto,
-            // provcodpostal:this.props.provcodpostal,
-            // provlocalidad:this.props.provlocalidad,
-            // provprovincia:this.props.provprovincia,
-            // provtelefono:this.props.provtelefono,
-            // provcontacto:this.props.provcontacto,
-            // provmail:this.props.provmail,
-            // provpagweb:this.props.provpagweb,
-            // provcodmon:this.props.provcodmon,
-            // idStkTipoProveed:this.props.idStkTipoProveed,
-            // StkTipoProveedDesc:this.props.StkTipoProveedDesc,
             tipoprov:[],
             idStkMonedas:'',
             StkMonedasDescripcion:'',
@@ -98,6 +79,7 @@ this.setState({ open: false });
 // }
 
 handleChange = prop => event => {
+    console.log("dentro de handlechange, Valors de event.target.value : "+event.target.value)
     this.setState({ [prop]: event.target.value });
   };
 
@@ -125,28 +107,27 @@ read = _ => {
 
 //Update
 ActualizaProveedor = () => {
-     
-    // const  proveedores  = params;
-   console.log("dentro de ActualizaProveedor contenido de this.state.ProveedoresTipo : " + JSON.stringify(this.state.ProveedoresTipo))
-   console.log("dentro de ActualizaProveedor contenido de this.state.proveedores : " + this.state.proveedores.ProveedoresDesc)
-  request                  
-     .post(IpServidor + '/proveedoresmodificar/'+this.state.idProveedores)
+
+request                  
+  .post(IpServidor + '/proveedoresmodificar/'+this.state.idProveedores)
      .set('Content-Type', 'application/json')
-        .send({ provdesc: this.state.ProveedoresDesc})
-        .send({ provtipo: this.state.ProveedoresTipo})
-        .send({ provcuit: this.state.ProveedoresCUIT})        
-        .send({ provcalle: this.state.ProveedoresCalle})
-        .send({ provnrocalle: this.state.ProveedoresNroCalle})
-        .send({ provpiso: this.state.ProveedoresPiso})
-        .send({ provdto: this.state.ProveedoresDto})
-        .send({ provcodpostal: this.state.ProveedoresCodPos})
-        .send({ provlocalidad: this.state.ProveedoresLoc})
-        .send({ provprovincia: this.state.ProveedoresPcia})
-        .send({ provtelefono: this.state.ProveedoresTel})
-        .send({ provcontacto: this.state.ProveedoresContacto})
-        .send({ provmail: this.state.ProveedoresMail})
-        .send({ provpagweb: this.state.ProveedoresWeb})
-        .send({ provcodmon: this.state.ProveedoresCodMon})
+        .send({ ProveedoresDesc: this.state.ProveedoresDesc})
+        .send({ ProveedoresTipo: this.state.ProveedoresTipo})
+        .send({ ProveedoresCUIT: this.state.ProveedoresCUIT})        
+        .send({ ProveedoresCalle: this.state.ProveedoresCalle})
+        .send({ ProveedoresNroCalle: this.state.ProveedoresNroCalle})
+        .send({ ProveedoresPiso: this.state.ProveedoresPiso})
+        .send({ ProveedoresDto: this.state.ProveedoresDto})
+        .send({ ProveedoresCodPos: this.state.ProveedoresCodPos})
+        .send({ ProveedoresLoc: this.state.ProveedoresLoc})
+        .send({ ProveedoresPcia: this.state.ProveedoresPcia})
+        .send({ ProveedoresTel: this.state.ProveedoresTel})
+        .send({ ProveedoresContacto: this.state.ProveedoresContacto})
+        .send({ ProveedoresMail: this.state.ProveedoresMail})
+        .send({ ProveedoresWeb: this.state.ProveedoresWeb})
+        .send({ ProveedoresCodMon: this.state.ProveedoresCodMon})
+     
+    
      .set('X-API-Key', 'foobar')
      .then(function(res) { // res.body, res.headers, res.status
       });
@@ -196,7 +177,7 @@ ActualizaProveedor = () => {
 
 
     componentDidMount(){
-        this.read()
+        // this.read()
         this.leetprov()
         this.leetmon()
     
@@ -221,7 +202,7 @@ ActualizaProveedor = () => {
                     id='ProveedoresDesc'
                     label='Descripción'
                     value={this.state.ProveedoresDesc}
-                    onChange={this.handleChange}
+                    onChange={this.handleChange('ProveedoresDesc')}
                     margin="dense"
                     fullWidth
                     variant="standard"
@@ -251,7 +232,7 @@ ActualizaProveedor = () => {
                     id='ProveedoresCUIT'
                     label='C.U.I.T.'
                     value={this.state.ProveedoresCUIT}
-                    onChange={this.handleChange}
+                    onChange={this.handleChange('ProveedoresCUIT')}
                     margin="normal"
                     variant="standard"
                     onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('ProveedoresCalle').focus();}}/>
@@ -261,7 +242,7 @@ ActualizaProveedor = () => {
                     id='ProveedoresCalle'
                     label='Calle'
                     value={this.state.ProveedoresCalle}
-                    onChange={this.handleChange}
+                    onChange={this.handleChange('ProveedoresCalle')}
                     margin="dense"
                     variant="standard"
                     onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('ProveedoresNroCalle').focus();}}/>
@@ -269,7 +250,7 @@ ActualizaProveedor = () => {
                     id='ProveedoresNroCalle'
                     label='Nro'
                     value={this.state.ProveedoresNroCalle}
-                    onChange={this.handleChange}
+                    onChange={this.handleChange('ProveedoresNroCalle')}
                     margin="dense"
                     variant="standard"
                     onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('ProveedoresPiso').focus();}}/>
@@ -277,7 +258,7 @@ ActualizaProveedor = () => {
                     id='ProveedoresPiso'
                     label='Piso'
                     value={this.state.ProveedoresPiso}
-                    onChange={this.handleChange}
+                    onChange={this.handleChange('ProveedoresPiso')}
                     margin="dense"
                     variant="standard"
                     onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('ProveedoresDto').focus();}}/>
@@ -285,7 +266,7 @@ ActualizaProveedor = () => {
                     id='ProveedoresDto'
                     label='Dto'
                     value={this.state.ProveedoresDto}
-                    onChange={this.handleChange}
+                    onChange={this.handleChange('ProveedoresDto')}
                     margin="dense"
                     variant="standard"
                     onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('ProveedoresCodPos').focus();}}/>
@@ -295,7 +276,7 @@ ActualizaProveedor = () => {
                     id='ProveedoresCodPos'
                     label='Cód.Postal'
                     value={this.state.ProveedoresCodPos}
-                    onChange={this.handleChange}
+                    onChange={this.handleChange('ProveedoresCodPos')}
                     margin="dense"
                     variant="standard"
                     onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('ProveedoresLoc').focus();}}/>
@@ -303,7 +284,7 @@ ActualizaProveedor = () => {
                     id='ProveedoresLoc'
                     label='Localidad'
                     value={this.state.ProveedoresLoc}
-                    onChange={this.handleChange}
+                    onChange={this.handleChange('ProveedoresLoc')}
                     margin="dense"
                     variant="standard"
                     onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('ProveedoresPcia').focus();}}/>
@@ -311,7 +292,7 @@ ActualizaProveedor = () => {
                     id='ProveedoresPcia'
                     label='Provincia'
                     value={this.state.ProveedoresPcia}
-                    onChange={this.handleChange}
+                    onChange={this.handleChange('ProveedoresPcia')}
                     margin="dense"
                     variant="standard"
                     onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('ProveedoresTel').focus();}}/>
@@ -321,7 +302,7 @@ ActualizaProveedor = () => {
                     id='ProveedoresTel'
                     label='Teléfono'
                     value={this.state.ProveedoresTel}
-                    onChange={this.handleChange}
+                    onChange={this.handleChange('ProveedoresTel')}
                     margin="dense"
                     variant="standard"
                     onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('ProveedoresContacto').focus();}}/>
@@ -329,7 +310,7 @@ ActualizaProveedor = () => {
                     id='ProveedoresContacto'
                     label='Contacto'
                     value={this.state.ProveedoresContacto}
-                    onChange={this.handleChange}
+                    onChange={this.handleChange('ProveedoresContacto')}
                     margin="dense"
                     variant="standard"
                     onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('ProveedoresMail').focus();}}/>
@@ -339,7 +320,7 @@ ActualizaProveedor = () => {
                     id='ProveedoresMail'
                     label='Mail'
                     value={this.state.ProveedoresMail}
-                    onChange={this.handleChange}
+                    onChange={this.handleChange('ProveedoresMail')}
                     margin="dense"
                     variant="standard"
                     onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('ProveedoresWeb').focus();}}/>
@@ -347,7 +328,7 @@ ActualizaProveedor = () => {
                     id='ProveedoresWeb'
                     label='Pág.web'
                     value={this.state.ProveedoresWeb}
-                    onChange={this.handleChange}
+                    onChange={this.handleChange('ProveedoresWeb')}
                     margin="dense"
                     variant="standard"
                     onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('ProveedoresCodMon').focus();}}/>
@@ -357,14 +338,18 @@ ActualizaProveedor = () => {
                     id="ProveedoresCodMon" 
                     select = {true}
                     label= 'Tipo Moneda'
+                    // value={this.state.ProveedoresCodMon}
                     value={this.state.ProveedoresCodMon}
-                    onChange = {this.handleChange}>
+                    onChange = {this.handleChange('ProveedoresCodMon')}>
                     {this.state.stkmonedas.map(option => (
                         <MenuItem key={option.idStkMonedas}
                                 value={option.idStkMonedas}>
-                                {option.StkMonedasDescripcion}
-                                </MenuItem>
+                                {/* {option.StkMonedasDescripcion} */}
+                                {console.log("contenido de this.state.ProveedoresCodMon"+this.state.ProveedoresCodMon)}
+                                {option.idStkMonedas}
+                        </MenuItem>
                     ))}
+                    
                     </TextField>
                     
                 </div>
@@ -391,3 +376,5 @@ ActualizaProveedor = () => {
               
              
 export default ProveedoresAgregar
+
+
