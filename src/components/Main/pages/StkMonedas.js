@@ -61,7 +61,8 @@ class Monedas extends Component {
             StkMonedasCotizacion: 0,
             monedas:[],
             filtered:'',
-            campo: 'StkMonedasDescripcion',
+            // campo: 'StkMonedasDescripcion',idStkMonedas
+            campo: 'idStkMonedas',
             fab: {
                 position: 'absolute',
                 bottom: '50px',
@@ -167,49 +168,26 @@ class Monedas extends Component {
         // <input onChange={this.search} type="text" value={this.state.filtered}/>
 
     render(){
-    // Usando ReactTable Begin    
-        // var datatable = this.state.monedas.map( (rowData,index) => 
-        // Object.assign(rowData, { borrar: 
-        //     <div className="center-align"><StkMonedasBorrar idMonedas={rowData.idStkMonedas} read={()=>this.read()}></StkMonedasBorrar></div>})
-        // );
-// Usando ReactTable end
-        
-var monedas = this.state.monedas.map( (rowData,index) => 
+// Agrego el campo del Boton BORRAR
+    var monedas = this.state.monedas.map( (rowData,index) => 
         Object.assign(rowData, { borrar: 
             <div className="center-align"><StkMonedasBorrar idMonedas={rowData.idStkMonedas} read={()=>this.read()}></StkMonedasBorrar></div>})
         );
-        
-// Usando ReactTable Begin
-        // var columns =[
-        //         {
-        //         Header: "Código",
-        //         id:"codigo",
-        //         accessor: "idStkMonedas"
-        //         },
-        //         {
-        //         Header: "Descripción",
-        //         accessor: "StkMonedasDescripcion",
-        //         Cell: this.renderEditable
-        //         },
-        //         {
-        //             Header: "Cotizacion",
-        //             accessor: "StkMonedasCotizacion",
-        //             Cell: this.renderEditable
-        //             },
-        //         {
-        //             Header: "",
-        //             accessor: "borrar",
-        //             // Cell: this.renderEditable
-        //         }
-        // ]
 
-// Usando ReactTable end
-        
-        // monedas = this.state.monedas.filter((moneda)=>{
-        //     const row = "moneda."+ this.state.campo
-        //     console.log("Contenido de ROW : "+row)
-        //     return row.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
-        // })
+// Agrego el filtrado de datos
+        var filtrado =  this.state.monedas.filter((moneda)=>{
+            var row = `moneda.${this.state.campo}`
+            // const campo = this.state.campo
+            console.log("Contenido de ROW : "+row)
+            console.log("Contenido de row.this.state.campo : ")
+            console.log("contenido de campo : ",this.state.campo)
+
+            console.log("tipo row ",typeof(row))
+            return( 
+                moneda.idStkMonedas.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1 || 
+                moneda.StkMonedasDescripcion.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
+            )
+        })
         
         return( 
             <div>
@@ -252,7 +230,7 @@ var monedas = this.state.monedas.map( (rowData,index) =>
                                 </TableHead>
                              
                                 <TableBody>
-                                    {monedas.map(row => {
+                                    {filtrado.map(row => {
                                     return (
                                         <TableRow key={row.idStkMonedas} onDoubleClick={()=>{
                                             console.log("actualizo variables")
@@ -271,26 +249,6 @@ var monedas = this.state.monedas.map( (rowData,index) =>
                                 </TableBody>
                             </Table>
                         </Paper>
-                    
-                    
-    // Usando ReactTable Begin
-                        //     <ReactTable
-                    //     data={datatable}
-
-                    //     filterable
-                    //     defaultSorted={[
-                    //         {
-                    //             id: "codigo",
-                    //             desc: true
-                    //         }
-                    //     ]}
-
-                    //     columns={columns}
-
-                    //     defaultPageSize={20}
-                    //     className="-striped -highlight"
-                    // />
-        // Usando ReactTable end
                         :
                     <div></div>
                 }
@@ -326,33 +284,3 @@ var monedas = this.state.monedas.map( (rowData,index) =>
 }
 
 export default Monedas	
-
-
-
-// listado = _=>{
-//     let products = this.state.products.filter((product)=>{
-//         return product.name.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
-//     })
-//     const listado = products.map((product)=> 
-//             <tr>
-//                 <td>{product.name}</td>
-//                 <td>{product.price}</td>
-//                 <td>
-//                     <button className=" red accent-4" onClick={()=>{
-//                     this.setState({id:product.id})
-//                     this.toggle()}}>Borrar</button>
-//                 </td>
-//             </tr>
-                
-//     )
-//     return listado
-// }
-
-
-// search(event){
-//     var name  = event.target.name
-//     var value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value
-//     this.setState({filtered: value})
-// }
-
-// <input onChange={this.search} type="text" value={this.state.filtered}/>

@@ -84,7 +84,7 @@ class Proveedores extends Component {
 
   sortBy(key,tipo) {
     this.setState({
-      Proveedores: this.state.proveedores.sort((a, b) =>
+      proveedores: this.state.proveedores.sort((a, b) =>
       tipo === 'numero' 
       ? 
         (this.state.direction[key] === "asc" ? a[key] - b[key] : b[key] - a[key] )
