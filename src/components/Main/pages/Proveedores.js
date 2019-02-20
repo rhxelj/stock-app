@@ -59,6 +59,7 @@ class Proveedores extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      url: IpServidor + '/proveedoresleer',
       toggle: false,
       togglemodificar: false,
       proveedores: [],
@@ -97,14 +98,13 @@ class Proveedores extends Component {
     });
   }
 
-  //Funcion ordernar End 
+//Funcion ordernar End 
 
-
-  //Read
+//Read
   read = _ => {
-    const url = IpServidor + '/proveedoresleer'; //'http://192.168.2.102:4000/indexprov'
+    // const url = IpServidor + '/proveedoresleer'; //'http://192.168.2.102:4000/indexprov'
     request
-      .get(url)
+      .get(this.state.url)
       .set('Content-Type', 'application/json')
       .then(res => {
         const proveedores = JSON.parse(res.text)
@@ -112,25 +112,25 @@ class Proveedores extends Component {
       })
   }
 
-  deleteProduct = (id) => {
+  // deleteProduct = (id) => {
 
-    //       const { moneda } = this.state;
-    request
-      .delete(IpServidor + '/proveedoresborrar/' + id)
-      .set('Content-Type', 'application/json')
-      //.set('X-API-Key', 'foobar')
-      .then(function (res) {
-        // res.body, res.headers, res.status
-      })
-      .catch(err => {
-        if (err.status === 411) {
-          alert('Código de Proveedor Usado no se puede borrar  ')
-        }
-      })
-    //alert("Borrado")
-    //  this.toggle()
-    this.read()
-  }
+  //   //       const { moneda } = this.state;
+  //   request
+  //     .delete(IpServidor + '/proveedoresborrar/' + id)
+  //     .set('Content-Type', 'application/json')
+  //     //.set('X-API-Key', 'foobar')
+  //     .then(function (res) {
+  //       // res.body, res.headers, res.status
+  //     })
+  //     .catch(err => {
+  //       if (err.status === 411) {
+  //         alert('Código de Proveedor Usado no se puede borrar  ')
+  //       }
+  //     })
+  //   //alert("Borrado")
+  //   //  this.toggle()
+  //   this.read()
+  // }
 
   toggle(event) {
     this.setState(prevState => ({
@@ -146,11 +146,6 @@ class Proveedores extends Component {
 
   }
   
-  componentDidMount() {
-    this.leetprov()
-    this.read()
-  }
-
   leetprov = _ => {
     const url = IpServidor + '/stktipoproveedleer';
     request
@@ -163,6 +158,10 @@ class Proveedores extends Component {
 
   }
 
+  componentDidMount() {
+    this.leetprov()
+    this.read()
+  }
 
 
 

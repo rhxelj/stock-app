@@ -4,9 +4,15 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
+// import TextField from '@material-ui/core/TextField';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
+
+// import Paper from '@material-ui/core/Paper';
+
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+
 
 class StkMovimiento extends Component {
   
@@ -45,6 +51,8 @@ class StkMovimiento extends Component {
         }
         this.updateField = this.updateField.bind(this);
     } 
+    
+    
     marcagrupo(event){
         this.setState(prevState => ({
             marcagrupo: !prevState.marcagrupo
@@ -271,7 +279,10 @@ render () {
     return (
       
         <div>
-        <form>
+            <br></br>
+            <br></br>
+            <br></br>
+            <form>
                 <FormControl>
                     <InputLabel >Grupo</InputLabel>
                     <Select
@@ -445,7 +456,7 @@ render () {
 
 
       </form>
-      </div>
+        </div>
       
     )
        
@@ -453,81 +464,4 @@ render () {
    
 }
 
-{/* <TextField
-id="grupostk" 
-select 
-label= 'Grupo'
-value={this.state.grupostk}
-onChange = {this.handleChange('grupostk')}> 
-{this.state.stkgrupo.map(option => (
-    <MenuItem
-    key={option.idStkGrupo}
-    value={option.idStkGrupo}>
-          {option.StkGrupoDesc}
-    </MenuItem>
-))}
-</TextField>
-<TextField
-id="rubrostk" 
-select 
-label= 'Rubro'
-value={this.state.rubrostk}
-onChange = {this.handleChange('rubrostk')}>
-{this.state.stkrubro.map(option => (
-    <MenuItem
-    key={option.idStkRubro}
-    value={option.idStkRubro}>
-          {option.StkRubroDesc}
-    </MenuItem>
-))}
-</TextField> */}
-
-{/* <FormControl>
-<InputLabel >Grupo</InputLabel>
-<Select
-  value={this.state.grupostk}
-  onChange={this.handleChange('grupostk')}
-  inputProps={{
-    name: 'grupo',
-    id: 'grupo-eleg',
-  }} >
-  {this.state.stkgrupo.map(option => (
-      <MenuItem 
-      key={option.idStkGrupo}
-      value={option.idStkGrupo}>
-          {option.StkGrupoDesc}
-      </MenuItem>
-  ))}
-  {this.marcaleerubro}
-</Select>
-</FormControl>
-<FormControl>
-<InputLabel >Rubro</InputLabel>
-<Select
-  value={this.state.rubrostk}
-  onChange={this.handleChange('rubrostk')}
-  input={<Input name="grupo" id="grupo-eleg" />}
-  
-  inputProps={{
-    name: 'rubro',
-    id: 'rubro-eleg',
-  }} >
- 
-  {this.state.stkrubro.map(option => (
-      <MenuItem
-      key={option.idStkRubro}
-      value={option.idStkRubro}>
-          {option.StkRubroDesc}
-      </MenuItem>
-  ))}
-</Select>
-</FormControl> */}
-   {/* <Moment
-                     //   label="Fecha.Act."
-                        format="DD-MM-YYYY" 
-                        id="FechaAct"
-                        withTitle= {true}
-                        disabled
-                        >{this.state.StkItemsFAct1}
-                    </Moment> */}
 export default StkMovimiento

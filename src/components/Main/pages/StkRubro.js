@@ -5,7 +5,7 @@ import 'react-table/react-table.css'
 import IpServidor from './VariablesDeEntorno'
 
 
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 // import AddIcon from '@material-ui/icons/Add';
 
 import StkMonedasAgregar from './StkMonedasAgregar'
@@ -45,20 +45,15 @@ const CustomTableCell = withStyles(theme => ({
         backgroundColor: theme.palette.background.default,
       },
     },
-    fab: {
-        position: 'absolute',
-        bottom: theme.spacing.unit * 2,
-        right: theme.spacing.unit * 2,
-      },
   });
 
 // para usar las tablas de MUI end
 
-class Monedas extends Component {
+class StkRubro extends Component {
     constructor(props){
         super(props)
         this.state = {
-            url: IpServidor + '/stkmonedasleer',
+            url: IpServidor + '/stkrubroleer',
             toggle: false,
             togglemodificar:false,
             idStkMonedas:'',
@@ -96,7 +91,7 @@ class Monedas extends Component {
           }
         });
       }
-    // ordena Texto
+
       sortBy(key) {
         this.setState({
           monedas: this.state.monedas.sort((a, b) =>
@@ -110,17 +105,37 @@ class Monedas extends Component {
 
 //Funcion ordernar End
     
-//Read
+    //Read
     read = _ => {
+        // const url = IpServidor + '/leermonedas'; //'http://192.168.2.102:4000/indexprov'
         request
-        .get(this.state.url)                            //seteado en las variables de estado
+        .get(this.state.url)
         .set('Content-Type', 'application/json')
             .then(res=> {
             const monedas = JSON.parse(res.text)
             this.setState({monedas: monedas})
             })
     }
-      
+
+    // //Update
+    ActualizaMoneda = (params) => {
+      const  monedas  = params;
+     
+    request                  
+       .post('http://localhost:4000/stkmonedasmodificar/'+monedas.idStkMonedas)
+       .set('Content-Type', 'application/json')
+       
+    //    .send({ idtipomonedas: this.state.idtipomonedas})
+       .send({ StkMonedasDescripcion: params.StkMonedasDescripcion})
+       .send({ StkMonedasCotizacion: params.StkMonedasCotizacion})
+       .set('X-API-Key', 'foobar')
+       .then(function(res) {
+      // res.body, res.headers, res.status
+        });
+       
+        //this.getproveedores();
+     }
+    
     
     toggle(event){
         this.setState(prevState => ({
@@ -137,15 +152,6 @@ class Monedas extends Component {
     }
     
     
-    search=(event)=>{
-        var name  = event.target.name
-        var value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value
-        this.setState({filtered: value})
-}
-    
-    // <input onChange={this.search} type="text" value={this.state.filtered}/>
-
-
     componentWillUnmount(){
         this.setState({ state: this.state });
     }
@@ -153,10 +159,15 @@ class Monedas extends Component {
         this.read()
     }
     
-    
+    search=(event)=>{
+            var name  = event.target.name
+            var value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value
+            this.setState({filtered: value})
+    }
+        
+        // <input onChange={this.search} type="text" value={this.state.filtered}/>
 
     render(){
-
 // Agrego el campo del Boton BORRAR
     var monedas = this.state.monedas.map( (rowData,index) => 
         Object.assign(rowData, { borrar: 
@@ -166,15 +177,74 @@ class Monedas extends Component {
 // Agrego el filtrado de datos
         var filtrado =  this.state.monedas.filter((moneda)=>{
             var row = `moneda.${this.state.campo}`
-            return( 
-                moneda.idStkMonedas.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1 || 
-                moneda.StkMonedasDescripcion.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
-            )
+            // const campo = this.state.campo
+            console.log("Contenido de ROW : "+row)
+            console.log("Contenido de row.this.state.campo : ")
+            console.log("contenido de campo : ",this.state.campo)
+
+            console.log("tipo row ",typeof(row))
+            // return( 
+                // moneda.idStkMonedas.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1 || 
+                // moneda.StkMonedasDescripcion.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
+            // )
         })
         
+        var columns =[
+            {
+                Header: "idStkRubro",
+                accessor: "Rubro",
+                tipo:"numero"  
+            },
+            {
+                Header: "StkRubroCodGrp",
+                accessor: "StkRubroCodGrp",
+                tipo:"numero"  
+            },
+            {
+                Header: "StkRubroDesc",
+                accessor: "StkRubroDesc",
+                tipo:"numero"  
+            },
+            {
+                Header: "StkRubroAbr",
+                accessor: "StkRubroAbr",
+                tipo:"numero"  
+            },
+            {
+                Header: "StkRubroProv",
+                accessor: "StkRubroProv",
+                tipo:"numero"  
+            },
+            {
+                Header: "StkRubroAncho",
+                accessor: "StkRubroAncho",
+                tipo:"numero"  
+            },
+            {
+                Header: "StkRubroPres",
+                accessor: "StkRubroPres",
+                tipo:"numero"  
+            },
+            {
+                Header: "StkRubroUM",
+                accessor: "StkRubroUM",
+                tipo:"numero"  
+            },
+            {
+                Header: "StkRubroCosto",
+                accessor: "StkRubroCosto",
+                tipo:"numero"  
+            },
+            {
+                Header: "StkRubroTM",
+                accessor: "StkRubroTM",
+                tipo:"numero"  
+            },
+        ]
         return( 
             <div>
                 <h1>ABM DE Monedas</h1>
+                {/* <input onChange={this.search} type="text" value={this.state.filtered}/>  */}
                 {this.state.toggle
                 ?
                 <div>
@@ -190,41 +260,74 @@ class Monedas extends Component {
                 </div>
                 :
                 <div>
-                 {/* <p onClick={()=>this.toggle()} className='btn'>  AGREGAR MONEDAS </p> */}
-                 <Button onClick={()=>this.toggle()} variant="contained" color="primary">AGREGAR MONEDAS</Button>
-                 {/* <Button onClick={()=>this.toggle()} variant="fab" color="primary" aria-label="Add" className={this.state.fab}>
-                 </Button>  */}
+                 <p onClick={()=>this.toggle()} className='btn'>  AGREGAR MONEDAS </p>
+                {/* <Button onClick={()=>this.toggle()} variant="contained" color="primary">AGREGAR MONEDAS</Button>
+                 <Button variant="fab" color="primary" aria-label="Add" className={this.state.fab}>
+                 <AddIcon /> </Button> */}
                 <input onChange={this.search} type="text" value={this.state.filtered}/>
                 </div>
                 }
-
+{/* Muestro contenido */}
                 {!this.state.toggle
                 ?
                         <Paper >
                             <Table >
                                 <TableHead>
-                                    <TableRow>
+                                    {/* <TableRow>
                                         <CustomTableCell onClick={() => this.sortBy("idStkMonedas")} >Código</CustomTableCell>
                                         <CustomTableCell onClick={() => this.sortBy("StkMonedasDescripcion")} >Descripción</CustomTableCell>
-                                        <CustomTableCell onClick={() => this.sortByNumero("StkMonedasCotizacion")} >Cotización</CustomTableCell>
+                                        <CustomTableCell onClick={() => this.sortByNumero("StkMonedasCotizacion")} numeric>Cotización</CustomTableCell>
                                         <CustomTableCell ></CustomTableCell>
+                                    </TableRow> */}
+                                    <TableRow>
+                                        {
+                                            columns.map((row, index) => {
+                                            return (<CustomTableCell key={index} onClick={() => this.sortBy(row.accessor,row.tipo)} >{row.Header}</CustomTableCell>)
+                                            })
+                                        }
                                     </TableRow>
                                 </TableHead>
                              
                                 <TableBody>
-                                    {filtrado.map(row => {
+                                    {monedas.map(row => {
                                     return (
-                                        <TableRow key={row.idStkMonedas} onDoubleClick={()=>{
-                                            console.log("actualizo variables")
-                                            this.setState({idStkMonedas:row.idStkMonedas})
-                                            this.setState({StkMonedasDescripcion:row.StkMonedasDescripcion})
-                                            this.setState({StkMonedasCotizacion:row.StkMonedasCotizacion})
-                                            this.togglemodificar()}}>
+                                        <TableRow key={row.idStkMonedas} 
+                                            // onDoubleClick={()=>{
+                                            // console.log("actualizo variables")
+                                            // this.setState({idStkMonedas:row.idStkMonedas})
+                                            // this.setState({StkMonedasDescripcion:row.StkMonedasDescripcion})
+                                            // this.setState({StkMonedasCotizacion:row.StkMonedasCotizacion})
+                                            // this.togglemodificar()}}
+                                            >
                                             
-                                            <CustomTableCell>{row.idStkMonedas}</CustomTableCell>
-                                            <CustomTableCell>{row.StkMonedasDescripcion}</CustomTableCell>
-                                            <CustomTableCell>{row.StkMonedasCotizacion}</CustomTableCell>
-                                            <CustomTableCell>{row.borrar}</CustomTableCell>
+                                            <CustomTableCell>{row.idStkRubro}</CustomTableCell> 
+                                            
+          
+               <CustomTableCell>{row.StkRubroCodGrp}</CustomTableCell>
+             
+               <CustomTableCell>{row.StkRubroDesc}</CustomTableCell>
+                  
+        
+               <CustomTableCell>{row.StkRubroAbr}</CustomTableCell>
+                  
+           
+               <CustomTableCell>{row.StkRubroProv}</CustomTableCell>
+                  
+           
+               <CustomTableCell>{row.StkRubroAncho}</CustomTableCell>
+                  
+           
+               <CustomTableCell>{row.StkRubroPres}</CustomTableCell>
+          
+               <CustomTableCell>{row.StkRubroUM}</CustomTableCell>
+           
+               <CustomTableCell>{row.StkRubroCosto}</CustomTableCell>
+           
+               <CustomTableCell>{row.StkRubroTM}</CustomTableCell>
+                  
+
+
+
                                         </TableRow>
                                         );
                                     })}
@@ -247,6 +350,7 @@ class Monedas extends Component {
                                         idStkMonedas={this.state.idStkMonedas}
                                         StkMonedasDescripcion={this.state.StkMonedasDescripcion}
                                         StkMonedasCotizacion={this.state.StkMonedasCotizacion}
+
                                     >
                                     
                                     </StkMonedasModificar>
@@ -264,4 +368,4 @@ class Monedas extends Component {
     }
 }
 
-export default Monedas	
+export default StkRubro	

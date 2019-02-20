@@ -11,6 +11,8 @@ import DialogContent from "@material-ui/core/DialogContent";
 // import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from "@material-ui/core/DialogTitle";
 
+import AgregarMonedas from './StkMonedasAgregar'
+
 class ProveedoresAgregar extends Component {
   constructor(props) {
     super(props);
@@ -333,6 +335,11 @@ class ProveedoresAgregar extends Component {
                 label="Tipo Moneda"
                 value={this.state.provcodmon}
                 onChange={this.handleChange("provcodmon")}
+                onKeyPress={event => {
+                  // event.preventDefault();
+                  if (event.key === "F2")
+                  alert("anda")
+                }}
               >
                 {this.state.stkmonedas.map(option => (
                   <MenuItem
@@ -342,7 +349,9 @@ class ProveedoresAgregar extends Component {
                     {option.StkMonedasDescripcion}
                   </MenuItem>
                 ))}
+               
               </TextField>
+              
             </div>
           </DialogContent>
           <DialogActions>

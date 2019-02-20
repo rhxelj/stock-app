@@ -13,6 +13,7 @@ import StkMonedas   from './pages/StkMonedas'
 import Proveedores  from './pages/Proveedores'
 import StkUnMed     from './pages/StkUnMed'
 import StkMovimiento from './pages/StkMovimiento'
+import StkRubro from './pages/StkRubro'
 
 // import StkMonedasBorrar from './pages/StkMonedasBorrar';
 // import LeerProveedor from './pages/LeerProveedor'
@@ -33,6 +34,7 @@ const Main = () => (
             <Route path="/Proveedores"  component={Proveedores}/>
             <Route path="/StkUnMed"     component={StkUnMed}/>
             <Route path="/StkMovimiento"     component={StkMovimiento}/>
+            <Route path="/StkRubro"     component={StkRubro}/>
             {/* <Route path="/AgregarMonedas" component={AgregarMonedas}/> */}
             {/* <Route path="/BorrarMonedas" component={BorrarMonedas}/> */}
             {/* <Route path="/ModificarMonedas" component={ModificarMonedas}/> */}
