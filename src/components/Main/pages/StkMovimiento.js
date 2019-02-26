@@ -4,16 +4,12 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-// import TextField from '@material-ui/core/TextField';
+import TextField from '@material-ui/core/TextField';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
+import { QRCode } from "react-qr-svg";
 
-// import Paper from '@material-ui/core/Paper';
-
-import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-
-
+  
 class StkMovimiento extends Component {
   
     constructor(props){
@@ -51,8 +47,6 @@ class StkMovimiento extends Component {
         }
         this.updateField = this.updateField.bind(this);
     } 
-    
-    
     marcagrupo(event){
         this.setState(prevState => ({
             marcagrupo: !prevState.marcagrupo
@@ -181,34 +175,35 @@ class StkMovimiento extends Component {
     }
 }
 
-        modcantstkitem = _ => {
-            // console.log('modcantstkitem')
-            var CantAct = Number(this.state.StkItemsCantidad1) 
-            var CantMode = Number(this.state.CantMod)
-            CantAct = CantAct + CantMode
-            // var fecha = new Date()
-        //     console.log('fecha 2 ' + fecha)
-        //    var options = {year: 'numeric', month: '2-digit', day: '2-digit' };
-        //    var dia = fecha.getDate() + 1
-        //    var mes =  parseInt(fecha.getMonth())
-        //    var anio = fecha.getFullYear()
-        //    fecha = new Date(Date.UTC(anio, mes, dia))
-        //    fecha = fecha.toLocaleDateString('en-US', options)
+modcantstkitem = _ => {
+    // console.log('modcantstkitem')
+    var CantAct = Number(this.state.StkItemsCantidad1) 
+    var CantMode = Number(this.state.CantMod)
+    CantAct = CantAct + CantMode
+    // var fecha = new Date()
+//     console.log('fecha 2 ' + fecha)
+//    var options = {year: 'numeric', month: '2-digit', day: '2-digit' };
+//    var dia = fecha.getDate() + 1
+//    var mes =  parseInt(fecha.getMonth())
+//    var anio = fecha.getFullYear()
+//    fecha = new Date(Date.UTC(anio, mes, dia))
+//    fecha = fecha.toLocaleDateString('en-US', options)
 
-        //     console.log('fecha  ' + fecha)
-            // var fecha = new Date();
-            // console.log( fecha.getFullYear() + "/" + (fecha.getMonth() +1) + "/" +  fecha.getDate())
-            const url = 'http://localhost:4000/stkitemsmodificacant/?id1='+this.state.itemsstk+'&id2='+this.state.grupostk +'&id3='+this.state.rubrostk ; //'http://localhost:3000/data'
-            request
-            .post(url)
-            .set('Content-Type', 'application/json')
-            .send({StkItemsCantidad: CantAct})
-            // .send({StkItemsFAct: fecha})
-            .then(function(res) {
-                // res.body, res.headers, res.status
-                  });
-               this.leestkitemscodgrrbit()   
-        }
+//     console.log('fecha  ' + fecha)
+    // var fecha = new Date();
+    // console.log( fecha.getFullYear() + "/" + (fecha.getMonth() +1) + "/" +  fecha.getDate())
+    const url = 'http://localhost:4000/stkitemsmodificacant/?id1='+this.state.itemsstk+'&id2='+this.state.grupostk +'&id3='+this.state.rubrostk ; //'http://localhost:3000/data'
+    request
+    .post(url)
+    .set('Content-Type', 'application/json')
+    .send({StkItemsCantidad: CantAct})
+    // .send({StkItemsFAct: fecha})
+    .then(function(res) {
+        // res.body, res.headers, res.status
+            });
+          
+        this.leestkitemscodgrrbit()   
+}
 
 handleChange = prop => event => {
     this.setState({ [prop]: event.target.value });
@@ -279,10 +274,7 @@ render () {
     return (
       
         <div>
-            <br></br>
-            <br></br>
-            <br></br>
-            <form>
+        <form>
                 <FormControl>
                     <InputLabel >Grupo</InputLabel>
                     <Select
@@ -444,6 +436,13 @@ render () {
                         value={this.state.CantMod}
                     >
                     </TextField>
+                    <QRCode
+            bgColor="#FFFFFF"
+            fgColor="#000000"
+            level="L"
+            style={{ width: 100 }}
+            value={this.state.CantMod + this.state.grupostk + ' ' + this.state.rubrostk + ' rogelio '}
+        />
                         <DialogActions>
                         <Button variant="contained" color="primary"  onClick={this.modcantstkitem}>
                             Confirmar
@@ -456,7 +455,7 @@ render () {
 
 
       </form>
-        </div>
+      </div>
       
     )
        
@@ -464,4 +463,81 @@ render () {
    
 }
 
+{/* <TextField
+id="grupostk" 
+select 
+label= 'Grupo'
+value={this.state.grupostk}
+onChange = {this.handleChange('grupostk')}> 
+{this.state.stkgrupo.map(option => (
+    <MenuItem
+    key={option.idStkGrupo}
+    value={option.idStkGrupo}>
+          {option.StkGrupoDesc}
+    </MenuItem>
+))}
+</TextField>
+<TextField
+id="rubrostk" 
+select 
+label= 'Rubro'
+value={this.state.rubrostk}
+onChange = {this.handleChange('rubrostk')}>
+{this.state.stkrubro.map(option => (
+    <MenuItem
+    key={option.idStkRubro}
+    value={option.idStkRubro}>
+          {option.StkRubroDesc}
+    </MenuItem>
+))}
+</TextField> */}
+
+{/* <FormControl>
+<InputLabel >Grupo</InputLabel>
+<Select
+  value={this.state.grupostk}
+  onChange={this.handleChange('grupostk')}
+  inputProps={{
+    name: 'grupo',
+    id: 'grupo-eleg',
+  }} >
+  {this.state.stkgrupo.map(option => (
+      <MenuItem 
+      key={option.idStkGrupo}
+      value={option.idStkGrupo}>
+          {option.StkGrupoDesc}
+      </MenuItem>
+  ))}
+  {this.marcaleerubro}
+</Select>
+</FormControl>
+<FormControl>
+<InputLabel >Rubro</InputLabel>
+<Select
+  value={this.state.rubrostk}
+  onChange={this.handleChange('rubrostk')}
+  input={<Input name="grupo" id="grupo-eleg" />}
+  
+  inputProps={{
+    name: 'rubro',
+    id: 'rubro-eleg',
+  }} >
+ 
+  {this.state.stkrubro.map(option => (
+      <MenuItem
+      key={option.idStkRubro}
+      value={option.idStkRubro}>
+          {option.StkRubroDesc}
+      </MenuItem>
+  ))}
+</Select>
+</FormControl> */}
+   {/* <Moment
+                     //   label="Fecha.Act."
+                        format="DD-MM-YYYY" 
+                        id="FechaAct"
+                        withTitle= {true}
+                        disabled
+                        >{this.state.StkItemsFAct1}
+                    </Moment> */}
 export default StkMovimiento
