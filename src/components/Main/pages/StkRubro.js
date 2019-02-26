@@ -5,12 +5,16 @@ import 'react-table/react-table.css'
 import IpServidor from './VariablesDeEntorno'
 
 
-// import Button from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button';
 // import AddIcon from '@material-ui/icons/Add';
 
 import StkMonedasAgregar from './StkMonedasAgregar'
 import StkMonedasBorrar from './StkMonedasBorrar'
 import StkMonedasModificar from './StkMonedasModificar'
+
+import StkRubroAgregar from './StkRubroAgregar'
+import StkRubroBorrar from './StkRubroBorrar'
+import StkRubroModificar from './StkRubroModificar'
 
 // para usar las tablas de MUI start
 import { withStyles } from '@material-ui/core/styles';
@@ -191,27 +195,27 @@ class StkRubro extends Component {
         
         var columns =[
             {
-                Header: "idStkRubro",
-                accessor: "Rubro",
+                Header: "Rubro",
+                accessor: "idStkRubro",
                 tipo:"numero"  
             },
             {
-                Header: "StkRubroCodGrp",
+                Header: "Grupo",
                 accessor: "StkRubroCodGrp",
                 tipo:"numero"  
             },
             {
-                Header: "StkRubroDesc",
+                Header: "Descripcion",
                 accessor: "StkRubroDesc",
                 tipo:"numero"  
             },
             {
-                Header: "StkRubroAbr",
+                Header: "Abreviatura",
                 accessor: "StkRubroAbr",
                 tipo:"numero"  
             },
             {
-                Header: "StkRubroProv",
+                Header: "Proveedor",
                 accessor: "StkRubroProv",
                 tipo:"numero"  
             },
@@ -221,29 +225,29 @@ class StkRubro extends Component {
                 tipo:"numero"  
             },
             {
-                Header: "StkRubroPres",
+                Header: "Presentacion",
                 accessor: "StkRubroPres",
                 tipo:"numero"  
             },
             {
-                Header: "StkRubroUM",
+                Header: "Unidad De Medida",
                 accessor: "StkRubroUM",
                 tipo:"numero"  
             },
             {
-                Header: "StkRubroCosto",
+                Header: "Costo",
                 accessor: "StkRubroCosto",
                 tipo:"numero"  
             },
             {
-                Header: "StkRubroTM",
+                Header: "Moneda",
                 accessor: "StkRubroTM",
                 tipo:"numero"  
             },
         ]
         return( 
             <div>
-                <h1>ABM DE Monedas</h1>
+                <h1>ABM DE RUBRO</h1>
                 {/* <input onChange={this.search} type="text" value={this.state.filtered}/>  */}
                 {this.state.toggle
                 ?
@@ -252,7 +256,7 @@ class StkRubro extends Component {
                         <div className="col s12 ">
                             <div className="">
                                 <div className="card-content  black-text">
-                                    <StkMonedasAgregar click={()=>this.toggle()} read={()=>this.read()}> </StkMonedasAgregar>
+                                    <StkRubroAgregar click={()=>this.toggle()} read={()=>this.read()}> </StkRubroAgregar>
                                 </div>
                             </div>
                         </div>
@@ -260,9 +264,9 @@ class StkRubro extends Component {
                 </div>
                 :
                 <div>
-                 <p onClick={()=>this.toggle()} className='btn'>  AGREGAR MONEDAS </p>
-                {/* <Button onClick={()=>this.toggle()} variant="contained" color="primary">AGREGAR MONEDAS</Button>
-                 <Button variant="fab" color="primary" aria-label="Add" className={this.state.fab}>
+                 {/* <p onClick={()=>this.toggle()} className='btn'>  AGREGAR MONEDAS </p> */}
+                <Button onClick={()=>this.toggle()} variant="contained" color="primary">AGREGAR RUBRO</Button>
+                 {/* <Button variant="fab" color="primary" aria-label="Add" className={this.state.fab}>
                  <AddIcon /> </Button> */}
                 <input onChange={this.search} type="text" value={this.state.filtered}/>
                 </div>
