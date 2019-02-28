@@ -13,7 +13,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 
 import AgregarMonedas from './StkMonedasAgregar'
 
-class ProveedoresAgregar extends Component {
+class StkRubroAgregar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -62,7 +62,7 @@ class ProveedoresAgregar extends Component {
 
   // Create
   addProveedor = _ => {
-    const url = IpServidor + "/proveedoresagregar";
+    const url = IpServidor + "/StkRubroagregar";
     request
       .post(url)
       .set("Content-Type", "application/json")
@@ -139,7 +139,7 @@ class ProveedoresAgregar extends Component {
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">ABMC Proveedores</DialogTitle>
+          <DialogTitle id="form-dialog-title">Aregar Rubro</DialogTitle>
           <DialogContent>
             <TextField
               id="provdesc"
@@ -376,4 +376,4 @@ class ProveedoresAgregar extends Component {
   }
 }
 
-export default ProveedoresAgregar;
+export default StkRubroAgregar;

@@ -4,7 +4,7 @@ import request from 'superagent'
 import 'react-table/react-table.css'
 import IpServidor from './VariablesDeEntorno'
 
-class ProveedoresBorrar extends Component {
+class StkRubroBorrar extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -96,4 +96,4 @@ class ProveedoresBorrar extends Component {
     }
 }
 
-export default ProveedoresBorrar
+export default StkRubroBorrar

@@ -8,8 +8,8 @@ import IpServidor from './VariablesDeEntorno'
 import Button from '@material-ui/core/Button';
 // import AddIcon from '@material-ui/icons/Add';
 
-import StkMonedasAgregar from './StkMonedasAgregar'
-import StkMonedasBorrar from './StkMonedasBorrar'
+// import StkMonedasAgregar from './StkMonedasAgregar'
+// import StkMonedasBorrar from './StkMonedasBorrar'
 import StkMonedasModificar from './StkMonedasModificar'
 
 import StkRubroAgregar from './StkRubroAgregar'
@@ -175,7 +175,7 @@ class StkRubro extends Component {
 // Agrego el campo del Boton BORRAR
     var monedas = this.state.monedas.map( (rowData,index) => 
         Object.assign(rowData, { borrar: 
-            <div className="center-align"><StkMonedasBorrar idMonedas={rowData.idStkMonedas} read={()=>this.read()}></StkMonedasBorrar></div>})
+            <div className="center-align"><StkRubroBorrar idMonedas={rowData.idStkMonedas} read={()=>this.read()}></StkRubroBorrar></div>})
         );
 
 // Agrego el filtrado de datos
@@ -220,7 +220,7 @@ class StkRubro extends Component {
                 tipo:"numero"  
             },
             {
-                Header: "StkRubroAncho",
+                Header: "Ancho",
                 accessor: "StkRubroAncho",
                 tipo:"numero"  
             },
@@ -243,6 +243,11 @@ class StkRubro extends Component {
                 Header: "Moneda",
                 accessor: "StkRubroTM",
                 tipo:"numero"  
+            },
+            {
+                Header: "",
+                accessor: "borrar",
+                tipo:""  
             },
         ]
         return( 
@@ -305,33 +310,16 @@ class StkRubro extends Component {
                                             >
                                             
                                             <CustomTableCell>{row.idStkRubro}</CustomTableCell> 
-                                            
-          
-               <CustomTableCell>{row.StkRubroCodGrp}</CustomTableCell>
-             
-               <CustomTableCell>{row.StkRubroDesc}</CustomTableCell>
-                  
-        
-               <CustomTableCell>{row.StkRubroAbr}</CustomTableCell>
-                  
-           
-               <CustomTableCell>{row.StkRubroProv}</CustomTableCell>
-                  
-           
-               <CustomTableCell>{row.StkRubroAncho}</CustomTableCell>
-                  
-           
-               <CustomTableCell>{row.StkRubroPres}</CustomTableCell>
-          
-               <CustomTableCell>{row.StkRubroUM}</CustomTableCell>
-           
-               <CustomTableCell>{row.StkRubroCosto}</CustomTableCell>
-           
-               <CustomTableCell>{row.StkRubroTM}</CustomTableCell>
-                  
-
-
-
+                                            <CustomTableCell>{row.StkRubroCodGrp}</CustomTableCell>
+                                            <CustomTableCell>{row.StkRubroDesc}</CustomTableCell>
+                                            <CustomTableCell>{row.StkRubroAbr}</CustomTableCell>
+                                            <CustomTableCell>{row.StkRubroProv}</CustomTableCell>
+                                            <CustomTableCell>{row.StkRubroAncho}</CustomTableCell>
+                                            <CustomTableCell>{row.StkRubroPres}</CustomTableCell>
+                                            <CustomTableCell>{row.StkRubroUM}</CustomTableCell>
+                                            <CustomTableCell>{row.StkRubroCosto}</CustomTableCell>
+                                            <CustomTableCell>{row.StkRubroTM}</CustomTableCell>
+                                            <CustomTableCell>{row.borrar}</CustomTableCell>
                                         </TableRow>
                                         );
                                     })}
