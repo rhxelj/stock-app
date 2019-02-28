@@ -17,21 +17,17 @@ class StkRubroAgregar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      provdesc: "",
-      provtipo: 1,
-      provcuit: "",
-      provcalle: "",
-      provnrocalle: 0,
-      provpiso: "",
-      provdto: "",
-      provcodpostal: "",
-      provlocalidad: "",
-      provprovincia: "",
-      provtelefono: "",
-      provcontacto: "",
-      provmail: "",
-      provpagweb: "",
-      provcodmon: "",
+      idStkRubro: "",
+      StkRubroCodGrp: "",
+      StkRubroDesc: "",
+      StkRubroAbr: "",
+      StkRubroProv: "",
+      StkRubroAncho: "",
+      StkRubroPres: "",
+      StkRubroUM:"",
+      StkRubroCosto:"",
+      StkRubroTM:"",
+
       idStkTipoProveed: 0,
       StkTipoProveedDesc: "",
       tipoprov: [],
@@ -66,21 +62,16 @@ class StkRubroAgregar extends Component {
     request
       .post(url)
       .set("Content-Type", "application/json")
-      .send({ provdesc: this.state.provdesc })
-      .send({ provtipo: this.state.provtipo })
-      .send({ provcuit: this.state.provcuit })
-      .send({ provcalle: this.state.provcalle })
-      .send({ provnrocalle: this.state.provnrocalle })
-      .send({ provpiso: this.state.provpiso })
-      .send({ provdto: this.state.provdto })
-      .send({ provcodpostal: this.state.provcodpostal })
-      .send({ provlocalidad: this.state.provlocalidad })
-      .send({ provprovincia: this.state.provprovincia })
-      .send({ provtelefono: this.state.provtelefono })
-      .send({ provcontacto: this.state.provcontacto })
-      .send({ provmail: this.state.provmail })
-      .send({ provpagweb: this.state.provpagweb })
-      .send({ provcodmon: this.state.provcodmon })
+      .send({ idStkRubro: this.state.idStkRubro })
+      .send({ StkRubroCodGrp: this.state.StkRubroCodGrp })
+      .send({ StkRubroDesc: this.state.StkRubroDesc })
+      .send({ StkRubroAbr: this.state.StkRubroAbr })
+      .send({ StkRubroProv: this.state.StkRubroProv })
+      .send({ StkRubroAncho: this.state.StkRubroAncho })
+      .send({ StkRubroPres: this.state.StkRubroPres })
+      .send({ StkRubroUM: this.state.StkRubroUM })
+      .send({ StkRubroCosto: this.state.StkRubroCosto })
+      .send({ StkRubroTM: this.state.StkRubroTM })
       .set("X-API-Key", "foobar")
       .then(function(res) {});
   };
@@ -142,26 +133,26 @@ class StkRubroAgregar extends Component {
           <DialogTitle id="form-dialog-title">Aregar Rubro</DialogTitle>
           <DialogContent>
             <TextField
-              id="provdesc"
-              label="Descripción"
-              value={this.state.provdesc}
-              onChange={this.handleChange("provdesc")}
+              id="idStkRubro"
+              label="Rubro"
+              value={this.state.idStkRubro}
+              onChange={this.handleChange("idStkRubro")}
               margin="dense"
               fullWidth
               variant="standard"
               autoFocus={true}
               onKeyPress={event => {
                 if (event.key === "Enter")
-                  document.getElementById("provtipo").focus();
+                  document.getElementById("StkRubroCodGrp").focus();
               }}
             />
             <div>
               <TextField
-                id="provtipo"
+                id="StkRubroCodGrp"
                 select={true}
-                label="Tipo"
-                value={this.state.provtipo}
-                onChange={this.handleChange("provtipo")}
+                label="Grupo"
+                value={this.state.StkRubroCodGrp}
+                onChange={this.handleChange("StkRubroCodGrp")}
               >
                 {this.state.tipoprov.map(option => (
                   <MenuItem
@@ -176,186 +167,119 @@ class StkRubroAgregar extends Component {
             </div>
             <div>
               <TextField
-                id="provcuit"
-                label="C.U.I.T."
-                value={this.state.provcuit}
-                onChange={this.handleChange("provcuit")}
+                id="StkRubroDesc"
+                label="Descripción"
+                value={this.state.StkRubroDesc}
+                onChange={this.handleChange("StkRubroDesc")}
                 margin="normal"
                 variant="standard"
                 onKeyPress={event => {
                   if (event.key === "Enter")
-                    document.getElementById("provcalle").focus();
+                    document.getElementById("StkRubroAbr").focus();
                 }}
               />
             </div>
             <div>
               <TextField
-                id="provcalle"
-                label="Calle"
-                value={this.state.provcalle}
-                onChange={this.handleChange("provcalle")}
+                id="StkRubroAbr"
+                label="Abreviatura"
+                value={this.state.StkRubroAbr}
+                onChange={this.handleChange("StkRubroAbr")}
                 margin="dense"
                 variant="standard"
                 onKeyPress={event => {
                   if (event.key === "Enter")
-                    document.getElementById("provnrocalle").focus();
+                    document.getElementById("StkRubroProv").focus();
                 }}
               />
               <TextField
-                id="provnrocalle"
-                label="Nro"
-                value={this.state.provnrocalle}
-                onChange={this.handleChange("provnrocalle")}
+                id="StkRubroProv"
+                label="Proveedor"
+                value={this.state.StkRubroProv}
+                onChange={this.handleChange("StkRubroProv")}
                 margin="dense"
                 variant="standard"
                 onKeyPress={event => {
                   if (event.key === "Enter")
-                    document.getElementById("provpiso").focus();
+                    document.getElementById("StkRubroAncho").focus();
                 }}
               />
               <TextField
-                id="provpiso"
-                label="Piso"
-                value={this.state.provpiso}
-                onChange={this.handleChange("provpiso")}
+                id="StkRubroAncho"
+                label="Ancho"
+                value={this.state.StkRubroAncho}
+                onChange={this.handleChange("StkRubroAncho")}
                 margin="dense"
                 variant="standard"
                 onKeyPress={event => {
                   if (event.key === "Enter")
-                    document.getElementById("provdto").focus();
+                    document.getElementById("StkRubroPres").focus();
                 }}
               />
               <TextField
-                id="provdto"
-                label="Dto"
-                value={this.state.provdto}
-                onChange={this.handleChange("provdto")}
+                id="StkRubroPres"
+                label="Presentacion"
+                value={this.state.StkRubroPres}
+                onChange={this.handleChange("StkRubroPres")}
                 margin="dense"
                 variant="standard"
                 onKeyPress={event => {
                   if (event.key === "Enter")
-                    document.getElementById("provcodpostal").focus();
-                }}
-              />
-            </div>
-            <div>
-              <TextField
-                id="provcodpostal"
-                label="Cód.Postal"
-                value={this.state.provcodpostal}
-                onChange={this.handleChange("provcodpostal")}
-                margin="dense"
-                variant="standard"
-                onKeyPress={event => {
-                  if (event.key === "Enter")
-                    document.getElementById("provlocalidad").focus();
-                }}
-              />
-              <TextField
-                id="provlocalidad"
-                label="Localidad"
-                value={this.state.provlocalidad}
-                onChange={this.handleChange("provlocalidad")}
-                margin="dense"
-                variant="standard"
-                onKeyPress={event => {
-                  if (event.key === "Enter")
-                    document.getElementById("provprovincia").focus();
-                }}
-              />
-              <TextField
-                id="provprovincia"
-                label="Provincia"
-                value={this.state.provprovincia}
-                onChange={this.handleChange("provprovincia")}
-                margin="dense"
-                variant="standard"
-                onKeyPress={event => {
-                  if (event.key === "Enter")
-                    document.getElementById("provtelefono").focus();
+                    document.getElementById("StkRubroUM").focus();
                 }}
               />
             </div>
             <div>
               <TextField
-                id="provtelefono"
-                label="Teléfono"
-                value={this.state.provtelefono}
-                onChange={this.handleChange("provtelefono")}
+                id="StkRubroUM"
+                label="Unidad de Medida"
+                value={this.state.StkRubroUM}
+                onChange={this.handleChange("StkRubroUM")}
                 margin="dense"
                 variant="standard"
                 onKeyPress={event => {
                   if (event.key === "Enter")
-                    document.getElementById("provcontacto").focus();
+                    document.getElementById("StkRubroCosto").focus();
                 }}
               />
               <TextField
-                id="provcontacto"
-                label="Contacto"
-                value={this.state.provcontacto}
-                onChange={this.handleChange("provcontacto")}
+                id="StkRubroCosto"
+                label="Costo"
+                value={this.state.StkRubroCosto}
+                onChange={this.handleChange("StkRubroCosto")}
                 margin="dense"
                 variant="standard"
                 onKeyPress={event => {
                   if (event.key === "Enter")
-                    document.getElementById("provmail").focus();
-                }}
-              />
-            </div>
-            <div>
-              <TextField
-                id="provmail"
-                label="Mail"
-                value={this.state.provmail}
-                onChange={this.handleChange("provmail")}
-                margin="dense"
-                variant="standard"
-                onKeyPress={event => {
-                  if (event.key === "Enter")
-                    document.getElementById("provpagweb").focus();
+                    document.getElementById("StkRubroTM").focus();
                 }}
               />
               <TextField
-                id="provpagweb"
-                label="Pág.web"
-                value={this.state.provpagweb}
-                onChange={this.handleChange("provpagweb")}
+                id="StkRubroTM"
+                label="Moneda"
+                value={this.state.StkRubroTM}
+                onChange={this.handleChange("StkRubroTM")}
                 margin="dense"
                 variant="standard"
                 onKeyPress={event => {
                   if (event.key === "Enter")
-                    document.getElementById("provcodmon").focus();
+                    document.getElementById("Grabar").focus();
                 }}
               />
             </div>
             <div>
-              <TextField
-                id="provcodmon"
-                select={true}
-                label="Tipo Moneda"
-                value={this.state.provcodmon}
-                onChange={this.handleChange("provcodmon")}
-                onKeyPress={event => {
-                  // event.preventDefault();
-                  if (event.key === "F2")
-                  alert("anda")
-                }}
-              >
-                {this.state.stkmonedas.map(option => (
-                  <MenuItem
-                    key={option.idStkMonedas}
-                    value={option.idStkMonedas}
-                  >
-                    {option.StkMonedasDescripcion}
-                  </MenuItem>
-                ))}
-               
-              </TextField>
+              
+            </div>
+            <div>
+              
+            </div>
+            <div>
               
             </div>
           </DialogContent>
           <DialogActions>
             <Button
+              id="Grabar"
               variant="contained"
               color="primary"
               onClick={this.submitProveedor}
