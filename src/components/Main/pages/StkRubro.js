@@ -138,6 +138,22 @@ class StkRubro extends Component {
             
         }
     }
+
+    leegrupodesc(prop){
+        // if (this.state.StkRubroProv1 !== 0) {
+            if (prop !== 0) {    
+        const url = 'http://localhost:4000/stkgrupoleercod/'+prop ; //'http://localhost:3000/data'
+        request
+        .get(url)
+        .set('Content-Type', 'application/json')
+            .then(res=> {
+            const grupo = JSON.parse(res.text)
+            this.setState({grupo: grupo})
+            this.setState({StkGrupoDesc: this.state.grupo[0].StkGrupoDesc}) 
+            })
+            
+        }
+    }
     
     
     // //Update
@@ -327,12 +343,13 @@ class StkRubro extends Component {
                                             // this.setState({StkMonedasCotizacion:row.StkMonedasCotizacion})
                                             // this.togglemodificar()}}
                                             >
-                                            {/* {this.leeproveedor(row.StkRubroProv)} */}
-                                            <CustomTableCell>{row.idStkRubro}</CustomTableCell> 
-                                            <CustomTableCell>{row.StkRubroCodGrp}</CustomTableCell>
+                                            <CustomTableCell>{row.idStkRubro}</CustomTableCell>
+                                            <CustomTableCell>
+                                                {this.leegrupodesc(row.StkRubroCodGrp)}
+                                                {this.state.StkGrupoDesc}
+                                            </CustomTableCell>
                                             <CustomTableCell>{row.StkRubroDesc}</CustomTableCell>
                                             <CustomTableCell>{row.StkRubroAbr}</CustomTableCell>
-                                            {/* <CustomTableCell>{row.StkRubroProv}</CustomTableCell> */}
                                             <CustomTableCell>
                                                 {this.leeproveedor(row.StkRubroProv)}
                                                 {this.state.DescProv}
