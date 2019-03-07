@@ -127,6 +127,8 @@ class StkMovimiento extends Component {
         .set('Content-Type', 'application/json')
             .then(res=> {
             const proveedor = JSON.parse(res.text)
+            console.log('contenido de proveedor')
+            console.log(proveedor)
             this.setState({proveedor: proveedor})
             this.setState({DescProv: this.state.proveedor[0].ProveedoresDesc}) 
             })

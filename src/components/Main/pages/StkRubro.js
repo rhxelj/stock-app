@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 
 // import StkMonedasAgregar from './StkMonedasAgregar'
 // import StkMonedasBorrar from './StkMonedasBorrar'
-import StkMonedasModificar from './StkMonedasModificar'
+// import StkMonedasModificar from './StkMonedasModificar'
 
 import StkRubroAgregar from './StkRubroAgregar'
 import StkRubroBorrar from './StkRubroBorrar'
@@ -60,26 +60,26 @@ class StkRubro extends Component {
             url: IpServidor + '/stkrubroleer',
             toggle: false,
             togglemodificar:false,
-            idStkMonedas:'',
+            idStkRubro:'',
             StkMonedasDescripcion:'',
             StkMonedasCotizacion: 0,
-            monedas:[],
+            rubro:[],
             filtered:'',
             // campo: 'StkMonedasDescripcion',idStkMonedas
-            campo: 'idStkMonedas',
-            fab: {
-                position: 'absolute',
-                bottom: '50px',
-                right: '50px',
-              },
-              direction: { // direccion del ordenamiento asc o desc
-
-              }
+            campo: 'idStkRubro',
+            // fab: {
+            //     position: 'absolute',
+            //     bottom: '50px',
+            //     right: '50px',
+            //   },
+            direction: { // direccion del ordenamiento asc o des
+                          }
               
         }
         this.toggle = this.toggle.bind(this);
         this.togglemodificar = this.togglemodificar.bind(this);
         // this.funcionTest = this.funcionTest.bind(this);
+        // leeproveedor
     }    
    
 //Funcion ordernar Begin
@@ -96,16 +96,16 @@ class StkRubro extends Component {
         });
       }
 
-      sortBy(key) {
-        this.setState({
-          monedas: this.state.monedas.sort((a, b) =>
-            this.state.direction[key] === "asc" ? a[key].toUpperCase() < b[key].toUpperCase() : b[key].toUpperCase() < a[key].toUpperCase()
-          ),
-          direction: {
-            [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
-          }
-        });
-      }
+    sortBy(key) {
+    this.setState({
+        monedas: this.state.monedas.sort((a, b) =>
+        this.state.direction[key] === "asc" ? a[key].toUpperCase() < b[key].toUpperCase() : b[key].toUpperCase() < a[key].toUpperCase()
+        ),
+        direction: {
+        [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
+        }
+    });
+    }
 
 //Funcion ordernar End
     
@@ -116,29 +116,48 @@ class StkRubro extends Component {
         .get(this.state.url)
         .set('Content-Type', 'application/json')
             .then(res=> {
-            const monedas = JSON.parse(res.text)
-            this.setState({monedas: monedas})
+            const rubro = JSON.parse(res.text)
+            this.setState({rubro: rubro})
             })
     }
 
+    
+    
+    leeproveedor(prop){
+        // if (this.state.StkRubroProv1 !== 0) {
+            if (prop !== 0) {    
+        const url = 'http://localhost:4000/proveedoresleercod/'+prop ; //'http://localhost:3000/data'
+        request
+        .get(url)
+        .set('Content-Type', 'application/json')
+            .then(res=> {
+            const proveedor = JSON.parse(res.text)
+            this.setState({proveedor: proveedor})
+            this.setState({DescProv: this.state.proveedor[0].ProveedoresDesc}) 
+            })
+            
+        }
+    }
+    
+    
     // //Update
-    ActualizaMoneda = (params) => {
-      const  monedas  = params;
+    // ActualizaMoneda = (params) => {
+    //   const  monedas  = params;
      
-    request                  
-       .post('http://localhost:4000/stkmonedasmodificar/'+monedas.idStkMonedas)
-       .set('Content-Type', 'application/json')
+    // request                  
+    //    .post('http://localhost:4000/stkmonedasmodificar/'+monedas.idStkMonedas)
+    //    .set('Content-Type', 'application/json')
        
-    //    .send({ idtipomonedas: this.state.idtipomonedas})
-       .send({ StkMonedasDescripcion: params.StkMonedasDescripcion})
-       .send({ StkMonedasCotizacion: params.StkMonedasCotizacion})
-       .set('X-API-Key', 'foobar')
-       .then(function(res) {
-      // res.body, res.headers, res.status
-        });
+    // //    .send({ idtipomonedas: this.state.idtipomonedas})
+    //    .send({ StkMonedasDescripcion: params.StkMonedasDescripcion})
+    //    .send({ StkMonedasCotizacion: params.StkMonedasCotizacion})
+    //    .set('X-API-Key', 'foobar')
+    //    .then(function(res) {
+    //   // res.body, res.headers, res.status
+    //     });
        
-        //this.getproveedores();
-     }
+    //     //this.getproveedores();
+    //  }
     
     
     toggle(event){
@@ -173,29 +192,29 @@ class StkRubro extends Component {
 
     render(){
 // Agrego el campo del Boton BORRAR
-    var monedas = this.state.monedas.map( (rowData,index) => 
+    var rubro = this.state.rubro.map( (rowData,index) => 
         Object.assign(rowData, { borrar: 
-            <div className="center-align"><StkRubroBorrar idMonedas={rowData.idStkMonedas} read={()=>this.read()}></StkRubroBorrar></div>})
+            <div className="center-align"><StkRubroBorrar idrubro={rowData.idStkRubro} read={()=>this.read()}></StkRubroBorrar></div>})
         );
 
 // Agrego el filtrado de datos
-        var filtrado =  this.state.monedas.filter((moneda)=>{
-            var row = `moneda.${this.state.campo}`
-            // const campo = this.state.campo
-            console.log("Contenido de ROW : "+row)
-            console.log("Contenido de row.this.state.campo : ")
-            console.log("contenido de campo : ",this.state.campo)
+        // var filtrado =  this.state.rubro.filter((rubro)=>{
+        //     var row = `moneda.${this.state.campo}`
+        //     // const campo = this.state.campo
+        //     console.log("Contenido de ROW : "+row)
+        //     console.log("Contenido de row.this.state.campo : ")
+        //     console.log("contenido de campo : ",this.state.campo)
 
-            console.log("tipo row ",typeof(row))
-            // return( 
-                // moneda.idStkMonedas.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1 || 
-                // moneda.StkMonedasDescripcion.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
-            // )
-        })
+        //     console.log("tipo row ",typeof(row))
+        //     // return( 
+        //         // moneda.idStkMonedas.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1 || 
+        //         // moneda.StkMonedasDescripcion.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
+        //     // )
+        // })
         
         var columns =[
             {
-                Header: "Rubro",
+                Header: "Rubro(ID)",
                 accessor: "idStkRubro",
                 tipo:"numero"  
             },
@@ -298,9 +317,9 @@ class StkRubro extends Component {
                                 </TableHead>
                              
                                 <TableBody>
-                                    {monedas.map(row => {
+                                    {rubro.map(row => {
                                     return (
-                                        <TableRow key={row.idStkMonedas} 
+                                        <TableRow key={row.idStkRubro} 
                                             // onDoubleClick={()=>{
                                             // console.log("actualizo variables")
                                             // this.setState({idStkMonedas:row.idStkMonedas})
@@ -308,12 +327,16 @@ class StkRubro extends Component {
                                             // this.setState({StkMonedasCotizacion:row.StkMonedasCotizacion})
                                             // this.togglemodificar()}}
                                             >
-                                            
+                                            {/* {this.leeproveedor(row.StkRubroProv)} */}
                                             <CustomTableCell>{row.idStkRubro}</CustomTableCell> 
                                             <CustomTableCell>{row.StkRubroCodGrp}</CustomTableCell>
                                             <CustomTableCell>{row.StkRubroDesc}</CustomTableCell>
                                             <CustomTableCell>{row.StkRubroAbr}</CustomTableCell>
-                                            <CustomTableCell>{row.StkRubroProv}</CustomTableCell>
+                                            {/* <CustomTableCell>{row.StkRubroProv}</CustomTableCell> */}
+                                            <CustomTableCell>
+                                                {this.leeproveedor(row.StkRubroProv)}
+                                                {this.state.DescProv}
+                                            </CustomTableCell>
                                             <CustomTableCell>{row.StkRubroAncho}</CustomTableCell>
                                             <CustomTableCell>{row.StkRubroPres}</CustomTableCell>
                                             <CustomTableCell>{row.StkRubroUM}</CustomTableCell>
@@ -336,16 +359,16 @@ class StkRubro extends Component {
                             <div className="col s12 ">
                                 <div className="">
                                     <div className="card-content  black-text">
-                                    <StkMonedasModificar 
+                                    {/* <StkMonedasModificar 
                                         clickmodificar={()=>this.togglemodificar()} 
                                         read={()=>this.read()}
-                                        idStkMonedas={this.state.idStkMonedas}
+                                        idStkRubro={this.state.idStkRubro}
                                         StkMonedasDescripcion={this.state.StkMonedasDescripcion}
                                         StkMonedasCotizacion={this.state.StkMonedasCotizacion}
 
                                     >
                                     
-                                    </StkMonedasModificar>
+                                    </StkMonedasModificar> */}
                                     </div>
                                 </div>
                             </div>

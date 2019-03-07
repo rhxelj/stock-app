@@ -10,6 +10,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 // import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from "@material-ui/core/DialogTitle";
+import Select from '@material-ui/core/Select';
 
 import AgregarMonedas from './StkMonedasAgregar'
 
@@ -17,6 +18,7 @@ class StkRubroAgregar extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      url: IpServidor + '/stkrubroagregar',
       idStkRubro: "",
       StkRubroCodGrp: "",
       StkRubroDesc: "",
@@ -27,7 +29,8 @@ class StkRubroAgregar extends Component {
       StkRubroUM:"",
       StkRubroCosto:"",
       StkRubroTM:"",
-
+      // stkgrupo:{},
+      stkgrupo:[],
       idStkTipoProveed: 0,
       StkTipoProveedDesc: "",
       tipoprov: [],
@@ -57,10 +60,9 @@ class StkRubroAgregar extends Component {
   };
 
   // Create
-  addProveedor = _ => {
-    const url = IpServidor + "/StkRubroagregar";
+  add = _ => {
     request
-      .post(url)
+      .post(this.state.url)
       .set("Content-Type", "application/json")
       .send({ idStkRubro: this.state.idStkRubro })
       .send({ StkRubroCodGrp: this.state.StkRubroCodGrp })
@@ -75,6 +77,29 @@ class StkRubroAgregar extends Component {
       .set("X-API-Key", "foobar")
       .then(function(res) {});
   };
+
+// Lee tipo Grupo inicio 
+  leestkgrupo = _ => {
+    // const url = 'http://localhost:4000/stkgrupoleer' ; //'http://localhost:3000/data'
+    const url = IpServidor + "/stkgrupoleer";
+    request
+    .get(url)
+    .set('Content-Type', 'application/json')
+        .then(res=> {
+        
+          const stkgrupo = JSON.parse(res.text);
+          console.log(`stkgrupo :`)
+    console.log(stkgrupo)
+        this.setState(()=>{ return {stkgrupo: stkgrupo}});
+        
+        })
+    console.log(`dentro de leestkgrupo `)
+    console.log(`this.state.stkgrupo :`)
+    console.log(this.state.stkgrupo)
+    
+    // this.marcagrupo()
+    }
+// Lee tipo Grupo Fin
 
   leetprov = _ => {
     const url = IpServidor + "/stktipoproveedleer";
@@ -111,14 +136,29 @@ class StkRubroAgregar extends Component {
 
   submitProveedor(e) {
     e.preventDefault();
-    this.addProveedor();
+    this.add();
     //      this.props.read()
     this.props.click();
   }
 
   componentDidMount() {
-    this.leetprov();
-    this.leetmon();
+    // this.leetprov();
+    // console.log('tipo proveedor dentro de DIDMOUNT ')
+    // console.log(this.state.tipoprov)
+    // this.leetmon();
+    console.log("componentdidmount !!!!")
+    console.log(this.state.stkgrupo)
+    // this.leestkgrupo()
+  }
+
+  componentWillMount(){
+    console.log("componentWILLmount !!!!")
+    // this.leetprov();
+    // console.log('tipo proveedor dentro de DIDMOUNT ')
+    // console.log(this.state.tipoprov)
+    // this.leetmon();
+    
+    this.leestkgrupo()
   }
 
   render() {
@@ -147,24 +187,29 @@ class StkRubroAgregar extends Component {
               }}
             />
             <div>
+
               <TextField
-                id="StkRubroCodGrp"
+                id="idStkGrupo"
                 select={true}
                 label="Grupo"
-                value={this.state.StkRubroCodGrp}
-                onChange={this.handleChange("StkRubroCodGrp")}
+                value={this.state.idStkGrupo}
+                onChange={this.handleChange("idStkGrupo")}
               >
-                {this.state.tipoprov.map(option => (
-                  <MenuItem
-                    id="provtiposelect"
-                    key={option.idStkTipoProveed}
-                    value={option.idStkTipoProveed}
+                 {this.state.stkgrupo.map(option => (  
+                  <MenuItem 
+                  id="tipogrupo"
+                  key={option.idStkGrupo}
+                  value={option.idStkGrupo}
                   >
-                    {option.StkTipoProveedDesc}
-                  </MenuItem>
+                      {option.StkGrupoDesc} 
+                   </MenuItem>))} 
+                                
                 ))}
               </TextField>
+
+
             </div>
+           
             <div>
               <TextField
                 id="StkRubroDesc"
@@ -282,7 +327,8 @@ class StkRubroAgregar extends Component {
               id="Grabar"
               variant="contained"
               color="primary"
-              onClick={this.submitProveedor}
+              // onClick={this.submitProveedor}
+              onClick={()=>{return alert("GRABO RUBRO")}}
             >
               Grabar
             </Button>
@@ -290,6 +336,7 @@ class StkRubroAgregar extends Component {
               variant="contained"
               color="secondary"
               onClick={this.props.click}
+              // onClick={()=>{return alert("GRABO RUBRO")}}
             >
               Cancelar
             </Button>

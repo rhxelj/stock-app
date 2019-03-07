@@ -93,6 +93,8 @@ class ProveedoresAgregar extends Component {
       .then(res => {
         const tipoprov = JSON.parse(res.text);
         this.setState({ tipoprov: tipoprov });
+        console.log("dentro de leetprov : ")
+        console.log(this.state.tipoprov)
       });
   };
 
