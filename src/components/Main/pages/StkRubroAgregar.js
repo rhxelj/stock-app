@@ -171,9 +171,10 @@ leetmon = _ => {
     this.proveedoresleer()
     this.leestkgrupo()
     this.unmedleer()
+    this.leetmon()
     // console.log('tipo proveedor dentro de DIDMOUNT ')
     // console.log(this.state.tipoprov)
-    // this.leetmon();
+    
     
     
   }
@@ -344,7 +345,7 @@ leetmon = _ => {
                     document.getElementById("StkRubroTM").focus();
                 }}
               />
-              <TextField
+              {/* <TextField
                 id="StkRubroTM"
                 label="Moneda"
                 value={this.state.StkRubroTM}
@@ -355,7 +356,27 @@ leetmon = _ => {
                   if (event.key === "Enter")
                     document.getElementById("Grabar").focus();
                 }}
-              />
+              /> */}
+                <TextField
+                id="StkRubroTM"
+                select={true}
+                label="Moneda"
+                value={this.state.StkRubroTM}
+                onChange={this.handleChange("StkRubroTM")}
+              >
+                 {this.state.stkmonedas.map(option => (  
+                  <MenuItem 
+                  id="unidaddemedida"
+                  key={option.idStkMonedas}
+                  value={option.idStkMonedas}
+                  >
+                      {option.StkMonedasDescripcion} 
+                   </MenuItem>))} 
+                                
+                ))}
+              </TextField>
+
+
             </div>
             <div>
               
