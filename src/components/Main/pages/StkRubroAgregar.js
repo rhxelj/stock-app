@@ -33,7 +33,7 @@ class StkRubroAgregar extends Component {
       stkgrupo:[],
       idStkTipoProveed: 0,
       StkTipoProveedDesc: "",
-      tipoprov: [],
+      proveedores: [],
       idStkMonedas: "",
       StkMonedasDescripcion: "",
       StkMonedasCotizacion: 0,
@@ -101,18 +101,21 @@ class StkRubroAgregar extends Component {
     }
 // Lee tipo Grupo Fin
 
-  leetprov = _ => {
-    const url = IpServidor + "/stktipoproveedleer";
+// Leo tipo Proveedor Inicio
+  proveedoresleer = _ => {
+    const url = IpServidor + "/proveedoresleer";
     request
       .get(url)
       .set("Content-Type", "application/json")
       .then(res => {
-        const tipoprov = JSON.parse(res.text);
-        this.setState({ tipoprov: tipoprov });
+        const proveedores = JSON.parse(res.text);
+        this.setState({ proveedores: proveedores });
       });
   };
+// Leo tipo Proveedor Fin
 
-  leetmon = _ => {
+
+leetmon = _ => {
     const url = IpServidor + "/stkmonedasleer";
     request
       .get(url)
@@ -142,7 +145,7 @@ class StkRubroAgregar extends Component {
   }
 
   componentDidMount() {
-    // this.leetprov();
+    // this.proveedoresleer();
     // console.log('tipo proveedor dentro de DIDMOUNT ')
     // console.log(this.state.tipoprov)
     // this.leetmon();
@@ -153,7 +156,7 @@ class StkRubroAgregar extends Component {
 
   componentWillMount(){
     console.log("componentWILLmount !!!!")
-    // this.leetprov();
+    this.proveedoresleer()
     // console.log('tipo proveedor dentro de DIDMOUNT ')
     // console.log(this.state.tipoprov)
     // this.leetmon();
@@ -237,7 +240,7 @@ class StkRubroAgregar extends Component {
                     document.getElementById("StkRubroProv").focus();
                 }}
               />
-              <TextField
+              {/* <TextField
                 id="StkRubroProv"
                 label="Proveedor"
                 value={this.state.StkRubroProv}
@@ -248,7 +251,27 @@ class StkRubroAgregar extends Component {
                   if (event.key === "Enter")
                     document.getElementById("StkRubroAncho").focus();
                 }}
-              />
+              /> */}
+              <TextField
+                id="StkRubroProv"
+                select={true}
+                label="Proveedor"
+                value={this.state.StkRubroProv}
+                onChange={this.handleChange("StkRubroProv")}
+              >
+                 {this.state.proveedores.map(option => (  
+                  <MenuItem 
+                  id="tipogrupo"
+                  key={option.idProveedores}
+                  value={option.idProveedores}
+                  >
+                      {option.ProveedoresDesc} 
+                   </MenuItem>))} 
+                                
+                ))}
+              </TextField>
+
+
               <TextField
                 id="StkRubroAncho"
                 label="Ancho"
