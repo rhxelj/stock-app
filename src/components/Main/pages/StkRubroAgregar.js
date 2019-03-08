@@ -38,6 +38,7 @@ class StkRubroAgregar extends Component {
       StkMonedasDescripcion: "",
       StkMonedasCotizacion: 0,
       stkmonedas: [],
+      unmed:[],
       open: true
     };
     this.updateField = this.updateField.bind(this);
@@ -114,6 +115,18 @@ class StkRubroAgregar extends Component {
   };
 // Leo tipo Proveedor Fin
 
+// Leo tipo Unidad de medidas Inicio
+unmedleer = _ => {
+  const url = IpServidor +'/stkunmedleer'
+  request
+  .get(url)
+  .set('Content-Type', 'application/json')
+      .then(res=> {
+      const unmed = JSON.parse(res.text)
+      this.setState({unmed: unmed})
+      })
+}
+// Leo tipo Unidad de medidas Fin
 
 leetmon = _ => {
     const url = IpServidor + "/stkmonedasleer";
@@ -155,13 +168,14 @@ leetmon = _ => {
   }
 
   componentWillMount(){
-    console.log("componentWILLmount !!!!")
     this.proveedoresleer()
+    this.leestkgrupo()
+    this.unmedleer()
     // console.log('tipo proveedor dentro de DIDMOUNT ')
     // console.log(this.state.tipoprov)
     // this.leetmon();
     
-    this.leestkgrupo()
+    
   }
 
   render() {
@@ -240,18 +254,7 @@ leetmon = _ => {
                     document.getElementById("StkRubroProv").focus();
                 }}
               />
-              {/* <TextField
-                id="StkRubroProv"
-                label="Proveedor"
-                value={this.state.StkRubroProv}
-                onChange={this.handleChange("StkRubroProv")}
-                margin="dense"
-                variant="standard"
-                onKeyPress={event => {
-                  if (event.key === "Enter")
-                    document.getElementById("StkRubroAncho").focus();
-                }}
-              /> */}
+             
               <TextField
                 id="StkRubroProv"
                 select={true}
@@ -261,7 +264,7 @@ leetmon = _ => {
               >
                  {this.state.proveedores.map(option => (  
                   <MenuItem 
-                  id="tipogrupo"
+                  id="tipoproveedor"
                   key={option.idProveedores}
                   value={option.idProveedores}
                   >
@@ -298,7 +301,7 @@ leetmon = _ => {
               />
             </div>
             <div>
-              <TextField
+              {/* <TextField
                 id="StkRubroUM"
                 label="Unidad de Medida"
                 value={this.state.StkRubroUM}
@@ -309,7 +312,26 @@ leetmon = _ => {
                   if (event.key === "Enter")
                     document.getElementById("StkRubroCosto").focus();
                 }}
-              />
+              /> */}
+                <TextField
+                id="StkRubroUM"
+                select={true}
+                label="Unidad de Medida"
+                value={this.state.StkRubroUM}
+                onChange={this.handleChange("StkRubroUM")}
+              >
+                 {this.state.unmed.map(option => (  
+                  <MenuItem 
+                  id="unidaddemedida"
+                  key={option.idStkUnMed}
+                  value={option.idStkUnMed}
+                  >
+                      {option.StkUnMedDesc} 
+                   </MenuItem>))} 
+                                
+                ))}
+              </TextField>
+
               <TextField
                 id="StkRubroCosto"
                 label="Costo"
