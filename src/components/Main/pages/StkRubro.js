@@ -57,7 +57,7 @@ class StkRubro extends Component {
     constructor(props){
         super(props)
         this.state = {
-            url: IpServidor + '/stkrubroleer',
+            url: IpServidor + '/stkrubroleermezcla',
             toggle: false,
             togglemodificar:false,
             idStkRubro:'',
@@ -109,7 +109,10 @@ class StkRubro extends Component {
 
 //Funcion ordernar End
     
-    //Read
+    
+
+
+//Read
     read = _ => {
         // const url = IpServidor + '/leermonedas'; //'http://192.168.2.102:4000/indexprov'
         request
@@ -236,7 +239,7 @@ class StkRubro extends Component {
             },
             {
                 Header: "Grupo",
-                accessor: "StkRubroCodGrp",
+                accessor: "StkGrupoDesc",
                 tipo:"numero"  
             },
             {
@@ -251,7 +254,7 @@ class StkRubro extends Component {
             },
             {
                 Header: "Proveedor",
-                accessor: "StkRubroProv",
+                accessor: "ProveedoresDesc",
                 tipo:"numero"  
             },
             {
@@ -344,16 +347,10 @@ class StkRubro extends Component {
                                             // this.togglemodificar()}}
                                             >
                                             <CustomTableCell>{row.idStkRubro}</CustomTableCell>
-                                            <CustomTableCell>
-                                                {this.leegrupodesc(row.StkRubroCodGrp)}
-                                                {this.state.StkGrupoDesc}
-                                            </CustomTableCell>
+                                            <CustomTableCell>{row.StkGrupoDesc}</CustomTableCell>
                                             <CustomTableCell>{row.StkRubroDesc}</CustomTableCell>
                                             <CustomTableCell>{row.StkRubroAbr}</CustomTableCell>
-                                            <CustomTableCell>
-                                                {this.leeproveedor(row.StkRubroProv)}
-                                                {this.state.DescProv}
-                                            </CustomTableCell>
+                                            <CustomTableCell>{row.ProveedoresDesc}</CustomTableCell>
                                             <CustomTableCell>{row.StkRubroAncho}</CustomTableCell>
                                             <CustomTableCell>{row.StkRubroPres}</CustomTableCell>
                                             <CustomTableCell>{row.StkRubroUM}</CustomTableCell>

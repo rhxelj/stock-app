@@ -10,9 +10,9 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 // import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from "@material-ui/core/DialogTitle";
-import Select from '@material-ui/core/Select';
+// import Select from '@material-ui/core/Select';
 
-import AgregarMonedas from './StkMonedasAgregar'
+// import AgregarMonedas from './StkMonedasAgregar'
 
 class StkRubroAgregar extends Component {
   constructor(props) {
@@ -172,7 +172,7 @@ class StkRubroAgregar extends Component {
         >
           <DialogTitle id="form-dialog-title">Aregar Rubro</DialogTitle>
           <DialogContent>
-            <TextField
+            {/* <TextField
               id="idStkRubro"
               label="Rubro"
               value={this.state.idStkRubro}
@@ -185,7 +185,7 @@ class StkRubroAgregar extends Component {
                 if (event.key === "Enter")
                   document.getElementById("StkRubroCodGrp").focus();
               }}
-            />
+            /> */}
             <div>
 
               <TextField
