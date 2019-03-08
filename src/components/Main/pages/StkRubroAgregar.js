@@ -19,7 +19,7 @@ class StkRubroAgregar extends Component {
     super(props);
     this.state = {
       url: IpServidor + '/stkrubroagregar',
-      idStkRubro: "",
+      idStkRubro: 1,
       StkRubroCodGrp: "",
       StkRubroDesc: "",
       StkRubroAbr: "",
@@ -210,8 +210,8 @@ leetmon = _ => {
                 id="idStkGrupo"
                 select={true}
                 label="Grupo"
-                value={this.state.idStkGrupo}
-                onChange={this.handleChange("idStkGrupo")}
+                value={this.state.StkRubroCodGrp}
+                onChange={this.handleChange("StkRubroCodGrp")}
               >
                  {this.state.stkgrupo.map(option => (  
                   <MenuItem 
@@ -393,8 +393,7 @@ leetmon = _ => {
               id="Grabar"
               variant="contained"
               color="primary"
-              // onClick={this.submitProveedor}
-              onClick={()=>{return alert("GRABO RUBRO")}}
+              onClick={this.submitProveedor}
             >
               Grabar
             </Button>
