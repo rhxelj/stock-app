@@ -49,6 +49,7 @@ class  Header extends React.Component {
                     <MenuItem onClick={this.handleClose}><Link to="/Proveedores">Proveedores</Link></MenuItem>
                     <MenuItem onClick={this.handleClose}><Link to="/StkUnMed">Unidad Medida</Link></MenuItem>
                     <MenuItem onClick={this.handleClose}><Link to="/StkRubro">Rubros</Link></MenuItem>
+                    <MenuItem onClick={this.handleClose}><Link to="/StkGrupo">Grupos</Link></MenuItem>
                     </Menu>
                 </AppBar>
             </div>   
