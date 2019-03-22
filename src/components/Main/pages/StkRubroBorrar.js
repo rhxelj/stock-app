@@ -24,42 +24,29 @@ class StkRubroBorrar extends Component {
             toggle: !prevState.toggle
           }))
     }
-    
-    // //Read
-    // read = _ => {
-    //     const url = IpServidor + '/proveedoresleer'; //'http://192.168.2.102:4000/indexprov'
-    //     request
-    //     .get(url)
-    //     .set('Content-Type', 'application/json')
-    //         .then(res=> {
-    //         const proveedores = JSON.parse(res.text)
-    //         this.setState({proveedores: proveedores})
-    //         // this.setState({filtrado: proveedores})
-    //         })
-    // }
+   
 
-    // //Delete
-      deleteProduct = (id)=> {
+        //Delete
+    rubroborrar = (idrubro,idgrupo)=> {
         // console.log("id a borrar :"+id)
         // const { product } = this.state;
         request
-          .delete(IpServidor + '/proveedoresborrar/'+id)
-          .set('Content-Type', 'application/json')
-          //.set('X-API-Key', 'foobar')
-          .then(function(res) {
-        // res.body, res.headers, res.status
-          })
-          //alert("Borrado")
-
-          .catch(err => {
-            if (err.status === 411) 
-                    {
-                    alert('Código de Proveedor Usado no se puede borrar  ') 
-                    }
-                })
-                this.props.read()
-                this.toggle()
-      }
+            // .delete(IpServidor + '/stkrubroborrar/?idrubro='+idrubro+'&idgrupo='+idgrupo)
+            .get(IpServidor + '/stkrubroborrar/?idrubro='+idrubro+'&idgrupo='+idgrupo)
+            .set('Content-Type', 'application/json')
+            .then(function(res) {
+                // res.body, res.headers, res.status
+            })
+                //alert("Borrado")
+            .catch(err => {
+                if (err.status === 411) 
+                        {
+                        alert('Código de Rubro Usado no se puede borrar  ') 
+                        }
+                    })
+                    this.props.read()
+                    this.toggle()
+    }
     
 
     // componentDidMount(){
@@ -84,8 +71,8 @@ class StkRubroBorrar extends Component {
                 <div className="center-align">
                     {/* <i class="material-icons">add</i> */}
                     <p>Borrar ?</p>
-                    <button className="green "><i className="material-icons" onClick={()=>this.deleteProduct(this.props.idProveedores)}>check</i></button>
-                    {/* <button className=" red accent-4" onClick={()=>this.deleteProduct(this.props.idMonedas)}>Borrar</button> */}
+                    <button className="green "><i className="material-icons" onClick={()=>this.rubroborrar(this.props.idrubro,this.props.idgrupo)}>check</i></button>
+                    {/* <button className=" red accent-4" onClick={()=>this.rubroborrar(this.props.idMonedas)}>Borrar</button> */}
                     {/* <button className=" blue accent-4" onClick={()=>this.toggle()}>Cancelar</button> */}
                     <button className="red "><i className="material-icons" onClick={()=>this.toggle()}>cancel</i></button>
                 </div>
