@@ -12,7 +12,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
   
-class ProveedoresAgregar extends Component {
+class StkRubroModificar extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -106,27 +106,20 @@ read = _ => {
 
 
 //Update
-ActualizaProveedor = () => {
+ActualizaRubro = () => {
 
 request                  
   .post(IpServidor + '/proveedoresmodificar/'+this.state.idProveedores)
      .set('Content-Type', 'application/json')
+        .send({ idStkRubro: this.state.idStkRubro})
+        .send({ StkGrupoDesc: this.state.StkGrupoDesc})
+        .send({ StkRubroDesc: this.state.StkRubroDesc})        
+        .send({ StkRubroAbr: this.state.StkRubroAbr})
         .send({ ProveedoresDesc: this.state.ProveedoresDesc})
-        .send({ ProveedoresTipo: this.state.ProveedoresTipo})
-        .send({ ProveedoresCUIT: this.state.ProveedoresCUIT})        
-        .send({ ProveedoresCalle: this.state.ProveedoresCalle})
-        .send({ ProveedoresNroCalle: this.state.ProveedoresNroCalle})
-        .send({ ProveedoresPiso: this.state.ProveedoresPiso})
-        .send({ ProveedoresDto: this.state.ProveedoresDto})
-        .send({ ProveedoresCodPos: this.state.ProveedoresCodPos})
-        .send({ ProveedoresLoc: this.state.ProveedoresLoc})
-        .send({ ProveedoresPcia: this.state.ProveedoresPcia})
-        .send({ ProveedoresTel: this.state.ProveedoresTel})
-        .send({ ProveedoresContacto: this.state.ProveedoresContacto})
-        .send({ ProveedoresMail: this.state.ProveedoresMail})
-        .send({ ProveedoresWeb: this.state.ProveedoresWeb})
-        .send({ ProveedoresCodMon: this.state.ProveedoresCodMon})
-     
+        .send({ StkRubroPres: this.state.StkRubroPres})
+        .send({ StkRubroUM: this.state.StkRubroUM})
+        .send({ StkRubroCosto: this.state.StkRubroCosto})
+        .send({ StkRubroTM: this.state.StkRubroTM})
     
      .set('X-API-Key', 'foobar')
      .then(function(res) { // res.body, res.headers, res.status
@@ -168,7 +161,7 @@ request
 
     submitProveedor(e){
         e.preventDefault()
-        this.ActualizaProveedor()
+        this.ActualizaRubro()
         
         this.props.clickmodificar()
         this.props.read()
@@ -196,7 +189,7 @@ request
                     onClose={this.handleClose}
                     aria-labelledby="form-dialog-title"
                 >
-                  <DialogTitle id="form-dialog-title">Modificar Proveedores</DialogTitle>
+                  <DialogTitle id="form-dialog-title">Modificar Rubro</DialogTitle>
                 <DialogContent>
                 <TextField
                     id='ProveedoresDesc'
@@ -375,6 +368,6 @@ request
 
               
              
-export default ProveedoresAgregar
+export default StkRubroModificar
 
 

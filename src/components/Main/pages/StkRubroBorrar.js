@@ -41,7 +41,7 @@ class StkRubroBorrar extends Component {
             .catch(err => {
                 if (err.status === 411) 
                         {
-                        alert('Código de Rubro Usado no se puede borrar  ') 
+                        alert('Código de Rubro Usado no se puede borrar') 
                         }
                     })
                     this.props.read()
