@@ -348,25 +348,25 @@ class StkRubro extends Component {
                                     return (
                                         // <TableRow key={row.idStkRubro} 
                                         <TableRow key={row.StkRubroAbr}
-                                        onDoubleClick={()=>{
-                                        // console.log("actualizo variables")
-                                        // this.setState({idStkMonedas:row.idStkMonedas})
-                                        // this.setState({StkMonedasDescripcion:row.StkMonedasDescripcion})
-                                        // this.setState({StkMonedasCotizacion:row.StkMonedasCotizacion})
-                                            
-                                        this.setState({idStkRubro : row.idStkRubro})
-                                            this.setState({StkGrupoDesc : row.StkGrupoDesc})
-                                            this.setState({StkRubroDesc : row.StkRubroDesc})
-                                            this.setState({StkRubroAbr : row.StkRubroAbr})
-                                            this.setState({ProveedoresDesc : row.ProveedoresDesc})
-                                            this.setState({StkRubroAncho : row.StkRubroAncho})
-                                            this.setState({StkRubroPres : row.StkRubroPres})
-                                            this.setState({StkRubroUM : row.StkRubroUM})
-                                            this.setState({StkRubroCosto : row.StkRubroCosto})
-                                            this.setState({StkRubroTM : row.StkRubroTM})
-                                       
-                                            this.togglemodificar()}
-                                    }
+                                            onDoubleClick={()=>{
+                                            // console.log("actualizo variables")
+                                            // this.setState({idStkMonedas:row.idStkMonedas})
+                                            // this.setState({StkMonedasDescripcion:row.StkMonedasDescripcion})
+                                            // this.setState({StkMonedasCotizacion:row.StkMonedasCotizacion})
+                                                
+                                                this.setState({idStkRubro : row.idStkRubro})
+                                                this.setState({StkGrupoDesc : row.StkGrupoDesc})
+                                                this.setState({StkRubroDesc : row.StkRubroDesc})
+                                                this.setState({StkRubroAbr : row.StkRubroAbr})
+                                                this.setState({ProveedoresDesc : row.ProveedoresDesc})
+                                                this.setState({StkRubroAncho : row.StkRubroAncho})
+                                                this.setState({StkRubroPres : row.StkRubroPres})
+                                                this.setState({StkRubroUM : row.StkRubroUM})
+                                                this.setState({StkRubroCosto : row.StkRubroCosto})
+                                                this.setState({StkRubroTM : row.StkRubroTM})
+                                        
+                                                this.togglemodificar()}
+                                            }
                                         >
                                             <CustomTableCell>{row.idStkRubro}</CustomTableCell>
                                             <CustomTableCell>{row.StkGrupoDesc}</CustomTableCell>
