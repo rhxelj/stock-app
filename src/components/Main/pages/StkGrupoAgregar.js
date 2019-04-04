@@ -18,7 +18,7 @@ class StkRubroAgregar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: IpServidor + '/stkrubroagregar',
+      url: IpServidor + '/stkgrupoagregar',
       idStkRubro: 0,
       StkRubroCodGrp: "",
       StkRubroDesc: "",
@@ -141,7 +141,7 @@ ActualizaGrupo = () => {
           // .send({ idStkGrupo: this.state.idStkGrupo})
           .send({ StkGrupoDesc: this.state.StkGrupoDesc})
           .send({ StkGrupoAbr: this.state.StkGrupoAbr})        
-          .send({ StkGrupoContRubro: this.state.StkGrupoContRubro})
+          .send({ StkGrupoContRubro: this.state.StkGrupoContRubro}) // Esto va a ser Cero inicialmente.
           
       //  .set('X-API-Key', 'foobar')
        .then(function(res) { // res.body, res.headers, res.status
@@ -160,21 +160,14 @@ ActualizaGrupo = () => {
     console.log("dentro de add valor de nuevocodigo "+ this.state.nuevocodigo)
     
     // **********************   aca llamo a la fucnion ActualizaGrupo *************************
-    this.ActualizaGrupo()
+    // this.ActualizaGrupo()
 
     request
       .post(this.state.url)
       .set("Content-Type", "application/json")
-      .send({ idStkRubro: this.state.idStkRubro })
-      .send({ StkRubroCodGrp: this.state.StkRubroCodGrp })
-      .send({ StkRubroDesc: this.state.StkRubroDesc })
-      .send({ StkRubroAbr: this.state.StkRubroAbr })
-      .send({ StkRubroProv: this.state.StkRubroProv })
-      .send({ StkRubroAncho: this.state.StkRubroAncho })
-      .send({ StkRubroPres: this.state.StkRubroPres })
-      .send({ StkRubroUM: this.state.StkRubroUM })
-      .send({ StkRubroCosto: this.state.StkRubroCosto })
-      .send({ StkRubroTM: this.state.StkRubroTM })
+      .send({ StkGrupoDesc: this.state.StkGrupoDesc})
+      .send({ StkGrupoAbr: this.state.StkGrupoAbr})        
+      .send({ StkGrupoContRubro: 0}) // Esto va a ser Cero inicialmente.
       .set("X-API-Key", "foobar")
       .then(function(res) {});
       
@@ -291,7 +284,7 @@ leetmon = _ => {
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Aregar Rubro</DialogTitle>
+          <DialogTitle id="form-dialog-title">Aregar Grupo</DialogTitle>
           <DialogContent>
             {/* <TextField
               id="idStkRubro"
@@ -309,7 +302,7 @@ leetmon = _ => {
             /> */}
             <div>
 
-              <TextField
+              {/* <TextField
                 id="idStkGrupo"
                 select={true}
                 label="Grupo"
@@ -328,7 +321,7 @@ leetmon = _ => {
                    </MenuItem>))} 
                                 
                 ))}
-              </TextField>
+              </TextField> */}
 
 
             </div>
@@ -361,7 +354,7 @@ leetmon = _ => {
                 }}
               />
              
-              <TextField
+              {/* <TextField
                 id="StkRubroProv"
                 select={true}
                 label="Proveedor"
@@ -378,10 +371,10 @@ leetmon = _ => {
                    </MenuItem>))} 
                                 
                 ))}
-              </TextField>
+              </TextField> */}
 
 
-              <TextField
+              {/* <TextField
                 id="StkRubroAncho"
                 label="Ancho"
                 value={this.state.StkRubroAncho}
@@ -404,7 +397,7 @@ leetmon = _ => {
                   if (event.key === "Enter")
                     document.getElementById("StkRubroUM").focus();
                 }}
-              />
+              /> */}
             </div>
             <div>
               {/* <TextField
@@ -419,7 +412,7 @@ leetmon = _ => {
                     document.getElementById("StkRubroCosto").focus();
                 }}
               /> */}
-                <TextField
+                {/* <TextField
                 id="StkRubroUM"
                 select={true}
                 label="Unidad de Medida"
@@ -434,11 +427,11 @@ leetmon = _ => {
                   >
                       {option.StkUnMedDesc} 
                    </MenuItem>))} 
-                                
+                                 
                 ))}
-              </TextField>
+              </TextField> */}
 
-              <TextField
+              {/* <TextField
                 id="StkRubroCosto"
                 label="Costo"
                 value={this.state.StkRubroCosto}
@@ -449,7 +442,7 @@ leetmon = _ => {
                   if (event.key === "Enter")
                     document.getElementById("StkRubroTM").focus();
                 }}
-              />
+              /> */}
               {/* <TextField
                 id="StkRubroTM"
                 label="Moneda"
@@ -462,7 +455,7 @@ leetmon = _ => {
                     document.getElementById("Grabar").focus();
                 }}
               /> */}
-                <TextField
+                {/* <TextField
                 id="StkRubroTM"
                 select={true}
                 label="Moneda"
@@ -479,7 +472,7 @@ leetmon = _ => {
                    </MenuItem>))} 
                                 
                 ))}
-              </TextField>
+              </TextField> */}
 
 
             </div>

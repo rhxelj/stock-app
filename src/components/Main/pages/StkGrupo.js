@@ -129,17 +129,17 @@ class StkGrupo extends Component {
                 tipo:"numero"  
             },
             {
-                Header: "Grupo",
+                Header: "Descripcion",
                 accessor: "StkGrupoDesc",
                 tipo:"numero"  
             },
             {
-                Header: "Descripcion",
+                Header: "Abreviatura",
                 accessor: "StkGrupoAbr",
                 tipo:"numero"  
             },
             {
-                Header: "Abreviatura",
+                Header: "Contador de Rubro",
                 accessor: "StkGrupoContRubro",
                 tipo:"numero"  
             },
@@ -163,7 +163,7 @@ class StkGrupo extends Component {
                         <div className="col s12 ">
                             <div className="">
                                 <div className="card-content  white-text">
-                                    <StkGrupoAgregar click={()=>this.toggle()} leestkgrupo={()=>this.leestkgrupo()}> </StkGrupoAgregar>
+                                    <StkGrupoAgregar click={()=>this.toggle()} leestkgrupo={()=>this.leestkgrupo()} read={()=>this.leestkgrupo()}> </StkGrupoAgregar>
                                 </div>
                             </div>
                         </div>
