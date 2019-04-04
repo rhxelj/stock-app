@@ -113,10 +113,10 @@ class StkRubroModificar extends Component {
             // console.log(this.state.grupoitem.StkGrupoContRubro)
             }
           )
-          console.log("contenodo de grupo por separado fuera del callback ",this.state.idStkGrupo,this.state.StkGrupoDesc,this.state.StkGrupoAbr,this.state.StkGrupoContRubro)
-          this.setState((state) =>({StkGrupoContRubro:state.StkGrupoContRubro+1}))
-          this.setState({idStkRubro:this.state.StkGrupoContRubro},console.log("idStkRubro : ",this.state.idStkRubro))
-          console.log("contenodo de grupo por separado fpuera de set state ",this.state.idStkGrupo,this.state.StkGrupoDesc,this.state.StkGrupoAbr,this.state.StkGrupoContRubro)
+          // console.log("contenodo de grupo por separado fuera del callback ",this.state.idStkGrupo,this.state.StkGrupoDesc,this.state.StkGrupoAbr,this.state.StkGrupoContRubro)
+          // this.setState((state) =>({StkGrupoContRubro:state.StkGrupoContRubro+1}))
+          // this.setState({idStkRubro:this.state.StkGrupoContRubro},console.log("idStkRubro : ",this.state.idStkRubro))
+          // console.log("contenodo de grupo por separado fpuera de set state ",this.state.idStkGrupo,this.state.StkGrupoDesc,this.state.StkGrupoAbr,this.state.StkGrupoContRubro)
 
               // this.setState({state =>{ return {grupoitem[0].StkGrupoContRubro : state.grupoitem[0].StkGrupoContRubro + 1,}}},()=>{console.log("nuevocodigo : " + this.state.nuevocodigo)})
               
@@ -156,14 +156,14 @@ ActualizaGrupo = () => {
   
   // Create
 
-  add = _ => {
-    console.log("dentro de add valor de nuevocodigo "+ this.state.nuevocodigo)
+  ModificaRubro = _ => {
+    console.log("dentro de ModificaRubro valor de Proveedores "+ this.state.StkRubroProv)
     
     // **********************   aca llamo a la fucnion ActualizaGrupo *************************
-    this.ActualizaGrupo()
-
+    // this.ActualizaGrupo()
+    const url = 'http://localhost:4000/stkrubromodificar/?id='+this.state.idStkRubro+'&id2='+this.state.StkRubroCodGrp ; //'http://localhost:3000/data'
     request
-      .post(this.state.url)
+      .post(url)
       .set("Content-Type", "application/json")
       .send({ idStkRubro: this.state.idStkRubro })
       .send({ StkRubroCodGrp: this.state.StkRubroCodGrp })
@@ -188,10 +188,9 @@ ActualizaGrupo = () => {
     .get(url)
     .set('Content-Type', 'application/json')
         .then(res=> {
-        
           const stkgrupo = JSON.parse(res.text);
-          console.log(`stkgrupo :`)
-    console.log(stkgrupo)
+          // console.log(`stkgrupo :`) 
+          // console.log(stkgrupo)
         this.setState(()=>{ return {stkgrupo: stkgrupo}});
         
         })
@@ -253,7 +252,7 @@ leetmon = _ => {
 
   submitProveedor(e) {
     e.preventDefault();
-    this.add();
+    this.ModificaRubro();
     this.props.read()
     this.props.click();
   }
@@ -273,6 +272,7 @@ leetmon = _ => {
     this.leestkgrupo()
     this.unmedleer()
     this.leetmon()
+    console.log("dentro de componentWillMount Valor de idStkRubro : ",this.state.idStkRubro)
     // console.log('tipo proveedor dentro de DIDMOUNT ')
     // console.log(this.state.tipoprov)
     
@@ -318,14 +318,14 @@ leetmon = _ => {
                 onChange={this.leeXcodgrupo("StkRubroCodGrp","OTRO VALOR AGREGADO POR MI")}
               >
                  {this.state.stkgrupo.map(option => (  
-                  <MenuItem 
-                  id="tipogrupo"
-                  key={option.idStkGrupo}
-                  value={option.idStkGrupo}
-                  onClick={()=>console.log("Hizo Click")}
-                  >
-                      {option.StkGrupoDesc} 
-                   </MenuItem>))} 
+                    <MenuItem 
+                    id="tipogrupo"
+                    key={option.idStkGrupo}
+                    value={option.idStkGrupo}
+                    onClick={()=>console.log("Hizo Click")}
+                    >
+                        {option.StkGrupoDesc} 
+                    </MenuItem>))} 
                                 
                 ))}
               </TextField>
@@ -370,7 +370,7 @@ leetmon = _ => {
               >
                  {this.state.proveedores.map(option => (  
                   <MenuItem 
-                  id="tipoproveedor"
+                  id="proveedor"
                   key={option.idProveedores}
                   value={option.idProveedores}
                   >
@@ -471,7 +471,7 @@ leetmon = _ => {
               >
                  {this.state.stkmonedas.map(option => (  
                   <MenuItem 
-                  id="unidaddemedida"
+                  id="tipomoneda"
                   key={option.idStkMonedas}
                   value={option.idStkMonedas}
                   >
@@ -495,12 +495,12 @@ leetmon = _ => {
           </DialogContent>
           <DialogActions>
             <Button
-              id="Grabar"
+              id="ModificaRubro"
               variant="contained"
               color="primary"
               onClick={this.submitProveedor}
             >
-              Grabar
+              Modifica Rubro
             </Button>
             <Button
               variant="contained"

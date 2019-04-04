@@ -355,9 +355,11 @@ class StkRubro extends Component {
                                             // this.setState({StkMonedasCotizacion:row.StkMonedasCotizacion})
                                                 
                                                 this.setState({idStkRubro : row.idStkRubro})
+                                                this.setState({StkRubroCodGrp : row.StkRubroCodGrp})
                                                 this.setState({StkGrupoDesc : row.StkGrupoDesc})
                                                 this.setState({StkRubroDesc : row.StkRubroDesc})
                                                 this.setState({StkRubroAbr : row.StkRubroAbr})
+                                                this.setState({StkRubroProv : row.StkRubroProv})//id
                                                 this.setState({ProveedoresDesc : row.ProveedoresDesc})
                                                 this.setState({StkRubroAncho : row.StkRubroAncho})
                                                 this.setState({StkRubroPres : row.StkRubroPres})
@@ -398,11 +400,14 @@ class StkRubro extends Component {
                                         <StkRubroModificar 
                                             clickmodificar={()=>this.togglemodificar()} 
                                             read={()=>this.read()}
-
+                                            click={()=>this.togglemodificar()}
+                                            
                                             idStkRubro={this.state.idStkRubro}
                                             StkGrupoDesc={this.state.StkGrupoDesc}
+                                            StkRubroCodGrp={this.state.StkRubroCodGrp}
                                             StkRubroDesc={this.state.StkRubroDesc}
                                             StkRubroAbr={this.state.StkRubroAbr}
+                                            StkRubroProv={this.state.StkRubroProv}
                                             ProveedoresDesc={this.state.ProveedoresDesc}
                                             StkRubroAncho={this.state.StkRubroAncho}
                                             StkRubroPres={this.state.StkRubroPres}

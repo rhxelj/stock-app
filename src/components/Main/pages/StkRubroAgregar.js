@@ -18,7 +18,7 @@ class StkRubroAgregar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: IpServidor + '/stkrubroagregar',
+      url: IpServidor + '/stkrubroagregar/',
       idStkRubro: 0,
       StkRubroCodGrp: "",
       StkRubroDesc: "",
@@ -73,80 +73,135 @@ class StkRubroAgregar extends Component {
 
   llama = _ => console.log('Codigo de grupo dentro de handleChange : '+this.state.StkRubroCodGrp)
   
-  leeXcodgrupo = prop => event => {
-    console.log("prop : " + prop)                                         //control se puede Borrar esta linea 
-    this.setState({[prop]: event.target.value}, 
-      //aca leo grupo X Código
-      function () {
-        const url = IpServidor +'/stkgrupoleercod/'+ this.state.StkRubroCodGrp
-        // console.log("la url es : "+url)                                   //control se puede Borrar esta linea
-        request
-        .get(url)
-        .set('Content-Type', 'application/json')
-        .then(res=> {
-          // const grupoitem = JSON.parse(res.text)
-          // this.setState({grupoitem:grupoitem[0]}, // como esta en un arreglo lo paso a un solo objeto
-          var grupoitem = JSON.parse(res.text)
-          var {idStkGrupo,StkGrupoDesc,StkGrupoAbr,StkGrupoContRubro} = grupoitem[0]
-          this.setState({idStkGrupo,StkGrupoDesc,StkGrupoAbr,StkGrupoContRubro:idStkGrupo,StkGrupoDesc,StkGrupoAbr,StkGrupoContRubro}, // como esta en un arreglo lo paso a un solo objeto  
-            ()=>{
+  // leeXcodgrupo = prop => event => {
+  //   // console.log("prop : " + prop)                                         //control se puede Borrar esta linea 
+  //   this.setState({[prop]: event.target.value}, 
+  //     //aca leo grupo X Código
+  //     function () {
+  //       const url = IpServidor +'/stkgrupoleercod/'+ this.state.StkRubroCodGrp
+  //       // console.log("la url es : "+url)                                   //control se puede Borrar esta linea
+  //       .get(url)
+  //       request
+  //       .set('Content-Type', 'application/json')
+  //       .then(res=> {
+  //         // const grupoitem = JSON.parse(res.text)
+  //         // this.setState({grupoitem:grupoitem[0]}, // como esta en un arreglo lo paso a un solo objeto
+  //         var grupoitem = JSON.parse(res.text)
+  //         // var {idStkGrupo,StkGrupoDesc,StkGrupoAbr,StkGrupoContRubro} = grupoitem[0]
+  //         this.setState({idStkGrupo,StkGrupoDesc,StkGrupoAbr,StkGrupoContRubro:idStkGrupo,StkGrupoDesc,StkGrupoAbr,StkGrupoContRubro}, // como esta en un arreglo lo paso a un solo objeto  
+  //           // ()=>{
               
-              console.log("contenodo de grupo por separado",this.state.idStkGrupo,this.state.StkGrupoDesc,this.state.StkGrupoAbr,this.state.StkGrupoContRubro)
-              // console.log("contenido de grupoitem ")
-              // console.log(this.state.grupoitem)
-              // console.log("Tipo de grupoitem ")
-              // console.log(typeof(this.state.grupoitem))
-              // console.log("contenido de StkGrupoContRubro ")
-              // console.log(this.state.grupoitem.StkGrupoContRubro)
-              // this.setState({grupoitem :state.grupoitem.StkGrupoContRubro+1,},()=>console.log("contenido de contrubro"+this.state.grupoitem.StkGrupoContRubro))
-            // function() {
-            //   this.setState(state =>{return{ grupoitem.StkGrupoContRubro : state.grupoitem.StkGrupoContRubro+1}},()=>{
-            //     console.log("contenido de grupoitem : ")
-            //     console.log(this.state.grupoitem)})
+  //             console.log("contenodo de grupo por separado",this.state.idStkGrupo,this.state.StkGrupoDesc,this.state.StkGrupoAbr,this.state.StkGrupoContRubro)
+  //             // console.log("contenido de grupoitem ")
+  //             // console.log(this.state.grupoitem)
+  //             // console.log("Tipo de grupoitem ")
+  //             // console.log(typeof(this.state.grupoitem))
+  //             // console.log("contenido de StkGrupoContRubro ")
+  //             // console.log(this.state.grupoitem.StkGrupoContRubro)
+  //             // this.setState({grupoitem :state.grupoitem.StkGrupoContRubro+1,},()=>console.log("contenido de contrubro"+this.state.grupoitem.StkGrupoContRubro))
+  //           // function() {
+  //           //   this.setState(state =>{return{ grupoitem.StkGrupoContRubro : state.grupoitem.StkGrupoContRubro+1}},()=>{
+  //           //     console.log("contenido de grupoitem : ")
+  //           //     console.log(this.state.grupoitem)})
 
-              // console.log("Contador : " + grupoitem[0].StkGrupoContRubro)
-              // console.log("Contador : " + this.state.grupoitem[0].StkGrupoContRubro)
-              // var nuevocodigo = this.state.grupoitem[0].StkGrupoContRubro + 1 // le sumo uno para formar el nuevo código
+  //             // console.log("Contador : " + grupoitem[0].StkGrupoContRubro)
+  //             // console.log("Contador : " + this.state.grupoitem[0].StkGrupoContRubro)
+  //             // var nuevocodigo = this.state.grupoitem[0].StkGrupoContRubro + 1 // le sumo uno para formar el nuevo código
               
-              // this.setState({nuevocodigo : this.state.grupoitem[0].StkGrupoContRubro + 1},()=>{console.log("nuevocodigo : " + this.state.nuevocodigo)
-            // console.log("Grupo contrubro ")
-            // console.log(this.state.grupoitem.StkGrupoContRubro)
-            }
-          )
-          console.log("contenodo de grupo por separado fuera del callback ",this.state.idStkGrupo,this.state.StkGrupoDesc,this.state.StkGrupoAbr,this.state.StkGrupoContRubro)
-          this.setState((state) =>({StkGrupoContRubro:state.StkGrupoContRubro+1}))
-          this.setState({idStkRubro:this.state.StkGrupoContRubro},console.log("idStkRubro : ",this.state.idStkRubro))
-          console.log("contenodo de grupo por separado fpuera de set state ",this.state.idStkGrupo,this.state.StkGrupoDesc,this.state.StkGrupoAbr,this.state.StkGrupoContRubro)
-
-              // this.setState({state =>{ return {grupoitem[0].StkGrupoContRubro : state.grupoitem[0].StkGrupoContRubro + 1,}}},()=>{console.log("nuevocodigo : " + this.state.nuevocodigo)})
+  //             // this.setState({nuevocodigo : this.state.grupoitem[0].StkGrupoContRubro + 1},()=>{console.log("nuevocodigo : " + this.state.nuevocodigo)
+  //           // console.log("Grupo contrubro ")
+  //           // console.log(this.state.grupoitem.StkGrupoContRubro)
+  //           }
+  //         )
+  //         // console.log("contenodo de grupo por separado fuera del callback ",this.state.idStkGrupo,this.state.StkGrupoDesc,this.state.StkGrupoAbr,this.state.StkGrupoContRubro)
+  //         // this.setState((state) =>({StkGrupoContRubro:state.StkGrupoContRubro+1}))
+  //         // this.setState({idStkRubro:this.state.StkGrupoContRubro},console.log("idStkRubro : ",this.state.idStkRubro))
+  //         // console.leeXcodgrupo = prop => event => {
+  //   // console.log("prop : " + prop)                                         //control se puede Borrar esta linea 
+  //   this.setState({[prop]: event.target.value}, 
+  //     //aca leo grupo X Código
+  //     function () {
+  //       const url = IpServidor +'/stkgrupoleercod/'+ this.state.StkRubroCodGrp
+  //       // console.log("la url es : "+url)                                   //control se puede Borrar esta linea
+  //       .get(url)
+  //       request
+  //       .set('Content-Type', 'application/json')
+  //       .then(res=> {
+  //         // const grupoitem = JSON.parse(res.text)
+  //         // this.setState({grupoitem:grupoitem[0]}, // como esta en un arreglo lo paso a un solo objeto
+  //         var grupoitem = JSON.parse(res.text)
+  //         // var {idStkGrupo,StkGrupoDesc,StkGrupoAbr,StkGrupoContRubro} = grupoitem[0]
+  //         this.setState({idStkGrupo,StkGrupoDesc,StkGrupoAbr,StkGrupoContRubro:idStkGrupo,StkGrupoDesc,StkGrupoAbr,StkGrupoContRubro}, // como esta en un arreglo lo paso a un solo objeto  
+  //           // ()=>{
               
-              // console.log("nuevocodigo : " + nuevocodigo)                 //control se puede Borrar esta linea
-              console.log("fuera de setState nuevocodigo : " + this.state.nuevocodigo) //control se puede Borrar esta linea
+  //             console.log("contenodo de grupo por separado",this.state.idStkGrupo,this.state.StkGrupoDesc,this.state.StkGrupoAbr,this.state.StkGrupoContRubro)
+  //             // console.log("contenido de grupoitem ")
+  //             // console.log(this.state.grupoitem)
+  //             // console.log("Tipo de grupoitem ")
+  //             // console.log(typeof(this.state.grupoitem))
+  //             // console.log("contenido de StkGrupoContRubro ")
+  //             // console.log(this.state.grupoitem.StkGrupoContRubro)
+  //             // this.setState({grupoitem :state.grupoitem.StkGrupoContRubro+1,},()=>console.log("contenido de contrubro"+this.state.grupoitem.StkGrupoContRubro))
+  //           // function() {
+  //           //   this.setState(state =>{return{ grupoitem.StkGrupoContRubro : state.grupoitem.StkGrupoContRubro+1}},()=>{
+  //           //     console.log("contenido de grupoitem : ")
+  //           //     console.log(this.state.grupoitem)})
 
-            // })
-          }
-        )
-      }
-    )
-  }
+  //             // console.log("Contador : " + grupoitem[0].StkGrupoContRubro)
+  //             // console.log("Contador : " + this.state.grupoitem[0].StkGrupoContRubro)
+  //             // var nuevocodigo = this.state.grupoitem[0].StkGrupoContRubro + 1 // le sumo uno para formar el nuevo código
+              
+  //             // this.setState({nuevocodigo : this.state.grupoitem[0].StkGrupoContRubro + 1},()=>{console.log("nuevocodigo : " + this.state.nuevocodigo)
+  //           // console.log("Grupo contrubro ")
+  //           // console.log(this.state.grupoitem.StkGrupoContRubro)
+  //           }
+  //         )
+  //         // console.log("contenodo de grupo por separado fuera del callback ",this.state.idStkGrupo,this.state.StkGrupoDesc,this.state.StkGrupoAbr,this.state.StkGrupoContRubro)
+  //         // this.setState((state) =>({StkGrupoContRubro:state.StkGrupoContRubro+1}))
+  //         // this.setState({idStkRubro:this.state.StkGrupoContRubro},console.log("idStkRubro : ",this.state.idStkRubro))
+  //         // console.log("contenodo de grupo por separado fpuera de set state ",this.state.idStkGrupo,this.state.StkGrupoDesc,this.state.StkGrupoAbr,this.state.StkGrupoContRubro)
+
+  //         //     // this.setState({state =>{ return {grupoitem[0].StkGrupoContRubro : state.grupoitem[0].StkGrupoContRubro + 1,}}},()=>{console.log("nuevocodigo : " + this.state.nuevocodigo)})
+              
+  //         //     // console.log("nuevocodigo : " + nuevocodigo)                 //control se puede Borrar esta linea
+  //         //     console.log("fuera de setState nuevocodigo : " + this.state.nuevocodigo) //control se puede Borrar esta linea
+
+  //           // })
+  //         }
+  //       )
+  //     }
+  //   )
+  // }log("contenodo de grupo por separado fpuera de set state ",this.state.idStkGrupo,this.state.StkGrupoDesc,this.state.StkGrupoAbr,this.state.StkGrupoContRubro)
+
+  //         //     // this.setState({state =>{ return {grupoitem[0].StkGrupoContRubro : state.grupoitem[0].StkGrupoContRubro + 1,}}},()=>{console.log("nuevocodigo : " + this.state.nuevocodigo)})
+              
+  //         //     // console.log("nuevocodigo : " + nuevocodigo)                 //control se puede Borrar esta linea
+  //         //     console.log("fuera de setState nuevocodigo : " + this.state.nuevocodigo) //control se puede Borrar esta linea
+
+  //           // })
+  //         }
+  //       )
+  //     }
+  //   )
+  // }
   
   
  //****************************/ 
  //Update
-ActualizaGrupo = () => {
+// ActualizaGrupo = () => {
 
-  request                  
-    .post(IpServidor + '/stkgrupomodificar/'+this.state.idStkGrupo) //pongo el idStkGrupo
-       .set('Content-Type', 'application/json')
-          // .send({ idStkGrupo: this.state.idStkGrupo})
-          .send({ StkGrupoDesc: this.state.StkGrupoDesc})
-          .send({ StkGrupoAbr: this.state.StkGrupoAbr})        
-          .send({ StkGrupoContRubro: this.state.StkGrupoContRubro})
+//   request                  
+//     .post(IpServidor + '/stkgrupomodificar/'+this.state.idStkGrupo) //pongo el idStkGrupo
+//        .set('Content-Type', 'application/json')
+//           // .send({ idStkGrupo: this.state.idStkGrupo})
+//           .send({ StkGrupoDesc: this.state.StkGrupoDesc})
+//           .send({ StkGrupoAbr: this.state.StkGrupoAbr})        
+//           .send({ StkGrupoContRubro: this.state.StkGrupoContRubro})
           
-      //  .set('X-API-Key', 'foobar')
-       .then(function(res) { // res.body, res.headers, res.status
-        });
-      } 
+//       //  .set('X-API-Key', 'foobar')
+//        .then(function(res) { // res.body, res.headers, res.status
+//         });
+//       } 
 
  //***************************/ 
   
@@ -157,16 +212,16 @@ ActualizaGrupo = () => {
   // Create
 
   add = _ => {
-    console.log("dentro de add valor de nuevocodigo "+ this.state.nuevocodigo)
+    console.log("dentro de add valor de url + StkRubroCodGrp "+ this.state.url + this.state.StkRubroCodGrp)
     
     // **********************   aca llamo a la fucnion ActualizaGrupo *************************
-    this.ActualizaGrupo()
+    // this.ActualizaGrupo()
 
     request
-      .post(this.state.url)
-      .set("Content-Type", "application/json")
-      .send({ idStkRubro: this.state.idStkRubro })
-      .send({ StkRubroCodGrp: this.state.StkRubroCodGrp })
+      // .get(this.state.url + this.state.StkRubroCodGrp)
+      .post(this.state.url + '?id='+ this.state.StkRubroCodGrp)
+      .set("Content-Type", "application/json") // .send({ idStkRubro: this.state.idStkRubro }) este lo genero en el back-end
+      // .send({ StkRubroCodGrp: this.state.StkRubroCodGrp })
       .send({ StkRubroDesc: this.state.StkRubroDesc })
       .send({ StkRubroAbr: this.state.StkRubroAbr })
       .send({ StkRubroProv: this.state.StkRubroProv })
@@ -315,14 +370,16 @@ leetmon = _ => {
                 label="Grupo"
                 value={this.state.StkRubroCodGrp}
                 // onChange={this.handleChange("StkRubroCodGrp")}
-                onChange={this.leeXcodgrupo("StkRubroCodGrp","OTRO VALOR AGREGADO POR MI")}
+                // onChange={this.leeXcodgrupo("StkRubroCodGrp","OTRO VALOR AGREGADO POR MI")}
+                // onChange={this.leeXcodgrupo("StkRubroCodGrp")}this.handleChange("StkRubroDesc")
+                onChange={this.handleChange("StkRubroCodGrp")}
               >
                  {this.state.stkgrupo.map(option => (  
                   <MenuItem 
                   id="tipogrupo"
                   key={option.idStkGrupo}
                   value={option.idStkGrupo}
-                  onClick={()=>console.log("Hizo Click")}
+                  // onClick={()=>console.log("Hizo Click")}
                   >
                       {option.StkGrupoDesc} 
                    </MenuItem>))} 
