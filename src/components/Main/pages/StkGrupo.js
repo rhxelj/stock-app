@@ -112,7 +112,7 @@ class StkGrupo extends Component {
         const grupos = this.state.grupos.map( (rowData,index) => 
         // Object.assign(rowData, { borrar: <button className=" red accent-4" onClick={()=>this.deleteProduct(rowData.idStkMonedas)}>Borrar</button> })
         Object.assign(rowData, { borrar: 
-            <div className="center-align"><StkGrupoBorrar idStkGrupo={rowData.idStkGrupo} leestkgrupo={()=>this.leestkgrupo()}></StkGrupoBorrar></div>})
+            <div className="center-align"><StkGrupoBorrar idStkGrupo={rowData.idStkGrupo} leestkgrupo={()=>this.leestkgrupo()} read={()=>this.leestkgrupo()}></StkGrupoBorrar></div>})
             // <button 
             //     className=" red accent-4" 
             //     onClick={this.funcionTest}
@@ -210,6 +210,7 @@ class StkGrupo extends Component {
                                 <CustomTableCell>{row.StkGrupoDesc}</CustomTableCell>
                                 <CustomTableCell>{row.StkGrupoAbr}</CustomTableCell>
                                 <CustomTableCell>{row.StkGrupoContRubro}</CustomTableCell>
+                                <CustomTableCell>{row.borrar}</CustomTableCell>
                             </TableRow>
                             );
                         })}

@@ -129,21 +129,21 @@ class StkRubro extends Component {
 
 
 
-    leeproveedor(prop) {
-        // if (this.state.StkRubroProv1 !== 0) {
-        if (prop !== 0) {
-            const url = 'http://localhost:4000/proveedoresleercod/' + prop; //'http://localhost:3000/data'
-            request
-                .get(url)
-                .set('Content-Type', 'application/json')
-                .then(res => {
-                    const proveedor = JSON.parse(res.text)
-                    this.setState({ proveedor: proveedor })
-                    this.setState({ DescProv: this.state.proveedor[0].ProveedoresDesc })
-                })
+    // leeproveedor(prop) {
+    //     // if (this.state.StkRubroProv1 !== 0) {
+    //     if (prop !== 0) {
+    //         const url = 'http://localhost:4000/proveedoresleercod/' + prop; //'http://localhost:3000/data'
+    //         request
+    //             .get(url)
+    //             .set('Content-Type', 'application/json')
+    //             .then(res => {
+    //                 const proveedor = JSON.parse(res.text)
+    //                 this.setState({ proveedor: proveedor })
+    //                 this.setState({ DescProv: this.state.proveedor[0].ProveedoresDesc })
+    //             })
 
-        }
-    }
+    //     }
+    // }
 
     leegrupodesc(prop) {
         // if (this.state.StkRubroProv1 !== 0) {

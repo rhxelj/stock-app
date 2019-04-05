@@ -7,7 +7,7 @@ class StkMonedasBorrar extends Component {
     constructor(props){
         super(props)
         this.state = {
-            url:'http://localhost:4000/stkmonedasborrar/',
+            url:'http://localhost:4000/stkgrupoborrar/',
             monedas:[],
             // filtrado:[],
             filtered:'',
@@ -27,7 +27,7 @@ class StkMonedasBorrar extends Component {
     
     
     // //Delete
-      deleteProduct = (id)=> {
+      borrarGrupo = (id)=> {
        
  //       const { moneda } = this.state;
         request
@@ -76,7 +76,7 @@ class StkMonedasBorrar extends Component {
                 :
                     <div className="center-align">
                         <p>Borrar ?</p>
-                        <button className="green "><i className="material-icons" onClick={()=>this.deleteProduct(this.props.idMonedas)}>check</i></button>
+                        <button className="green "><i className="material-icons" onClick={()=>this.borrarGrupo(this.props.idStkGrupo)}>check</i></button>
                         <button className="red "><i className="material-icons" onClick={()=>this.toggle()}>cancel</i></button>
                     </div>
                 }

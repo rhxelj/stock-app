@@ -157,7 +157,7 @@ ActualizaGrupo = () => {
   // Create
 
   add = _ => {
-    console.log("dentro de add valor de nuevocodigo "+ this.state.nuevocodigo)
+    console.log("dentro de add valores de desc, abr, contrubro ",this.state.StkGrupoDesc, this.state.StkGrupoAbr, this.state.StkGrupoContRubro)
     
     // **********************   aca llamo a la fucnion ActualizaGrupo *************************
     // this.ActualizaGrupo()
@@ -328,152 +328,31 @@ leetmon = _ => {
            
             <div>
               <TextField
-                id="StkRubroDesc"
+                id="StkGrupoDesc"
                 label="Descripción"
-                value={this.state.StkRubroDesc}
-                onChange={this.handleChange("StkRubroDesc")}
+                value={this.state.StkGrupoDesc}
+                onChange={this.handleChange("StkGrupoDesc")}
                 margin="normal"
                 variant="standard"
                 onKeyPress={event => {
                   if (event.key === "Enter")
-                    document.getElementById("StkRubroAbr").focus();
+                    document.getElementById("StkGrupoAbr").focus();
                 }}
               />
             </div>
             <div>
               <TextField
-                id="StkRubroAbr"
+                id="StkGrupoAbr"
                 label="Abreviatura"
-                value={this.state.StkRubroAbr}
-                onChange={this.handleChange("StkRubroAbr")}
+                value={this.state.StkGrupoAbr}
+                onChange={this.handleChange("StkGrupoAbr")}
                 margin="dense"
                 variant="standard"
-                onKeyPress={event => {
-                  if (event.key === "Enter")
-                    document.getElementById("StkRubroProv").focus();
-                }}
+                // onKeyPress={event => {
+                //   if (event.key === "Enter")
+                //     document.getElementById("StkRubroProv").focus();
+                // }}
               />
-             
-              {/* <TextField
-                id="StkRubroProv"
-                select={true}
-                label="Proveedor"
-                value={this.state.StkRubroProv}
-                onChange={this.handleChange("StkRubroProv")}
-              >
-                 {this.state.proveedores.map(option => (  
-                  <MenuItem 
-                  id="tipoproveedor"
-                  key={option.idProveedores}
-                  value={option.idProveedores}
-                  >
-                      {option.ProveedoresDesc} 
-                   </MenuItem>))} 
-                                
-                ))}
-              </TextField> */}
-
-
-              {/* <TextField
-                id="StkRubroAncho"
-                label="Ancho"
-                value={this.state.StkRubroAncho}
-                onChange={this.handleChange("StkRubroAncho")}
-                margin="dense"
-                variant="standard"
-                onKeyPress={event => {
-                  if (event.key === "Enter")
-                    document.getElementById("StkRubroPres").focus();
-                }}
-              />
-              <TextField
-                id="StkRubroPres"
-                label="Presentacion"
-                value={this.state.StkRubroPres}
-                onChange={this.handleChange("StkRubroPres")}
-                margin="dense"
-                variant="standard"
-                onKeyPress={event => {
-                  if (event.key === "Enter")
-                    document.getElementById("StkRubroUM").focus();
-                }}
-              /> */}
-            </div>
-            <div>
-              {/* <TextField
-                id="StkRubroUM"
-                label="Unidad de Medida"
-                value={this.state.StkRubroUM}
-                onChange={this.handleChange("StkRubroUM")}
-                margin="dense"
-                variant="standard"
-                onKeyPress={event => {
-                  if (event.key === "Enter")
-                    document.getElementById("StkRubroCosto").focus();
-                }}
-              /> */}
-                {/* <TextField
-                id="StkRubroUM"
-                select={true}
-                label="Unidad de Medida"
-                value={this.state.StkRubroUM}
-                onChange={this.handleChange("StkRubroUM")}
-              >
-                 {this.state.unmed.map(option => (  
-                  <MenuItem 
-                  id="unidaddemedida"
-                  key={option.idStkUnMed}
-                  value={option.idStkUnMed}
-                  >
-                      {option.StkUnMedDesc} 
-                   </MenuItem>))} 
-                                 
-                ))}
-              </TextField> */}
-
-              {/* <TextField
-                id="StkRubroCosto"
-                label="Costo"
-                value={this.state.StkRubroCosto}
-                onChange={this.handleChange("StkRubroCosto")}
-                margin="dense"
-                variant="standard"
-                onKeyPress={event => {
-                  if (event.key === "Enter")
-                    document.getElementById("StkRubroTM").focus();
-                }}
-              /> */}
-              {/* <TextField
-                id="StkRubroTM"
-                label="Moneda"
-                value={this.state.StkRubroTM}
-                onChange={this.handleChange("StkRubroTM")}
-                margin="dense"
-                variant="standard"
-                onKeyPress={event => {
-                  if (event.key === "Enter")
-                    document.getElementById("Grabar").focus();
-                }}
-              /> */}
-                {/* <TextField
-                id="StkRubroTM"
-                select={true}
-                label="Moneda"
-                value={this.state.StkRubroTM}
-                onChange={this.handleChange("StkRubroTM")}
-              >
-                 {this.state.stkmonedas.map(option => (  
-                  <MenuItem 
-                  id="unidaddemedida"
-                  key={option.idStkMonedas}
-                  value={option.idStkMonedas}
-                  >
-                      {option.StkMonedasDescripcion} 
-                   </MenuItem>))} 
-                                
-                ))}
-              </TextField> */}
-
 
             </div>
             <div>
