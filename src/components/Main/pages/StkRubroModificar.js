@@ -65,13 +65,15 @@ class StkRubroModificar extends Component {
     // this.setState(()=>{return{ [prop]: event.target.value }});
     // this.setState({value: event.target.value}, function () {
     //   console.log(this.state.value) })
-    this.llama()
+    // this.llama()
     
-    this.setState({[prop]: event.target.value}, function () {
-      console.log('contenido de ' +[prop] +" "+ this.state.StkRubroCodGrp) })
+  //   this.setState({[prop]: event.target.value}, function () {
+  //     console.log('contenido de ' +[prop] +" "+ this.state.StkRubroCodGrp) })
+  // };
+    this.setState({[prop]: event.target.value})
   };
 
-  llama = _ => console.log('Codigo de grupo dentro de handleChange : '+this.state.StkRubroCodGrp)
+  // llama = _ => console.log('Codigo de grupo dentro de handleChange : '+this.state.StkRubroCodGrp)
   
   leeXcodgrupo = prop => event => {
     console.log("prop : " + prop)                                         //control se puede Borrar esta linea 
