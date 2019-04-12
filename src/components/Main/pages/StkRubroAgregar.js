@@ -339,60 +339,48 @@ leetmon = _ => {
   }
 
   render() {
-    
     return (
       <div>
         
         <Dialog
-          fullWidth={true}
           open={true}
-          // open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-        <Grid container spacing={24}>
-          <DialogTitle id="form-dialog-title">Aregar Rubro</DialogTitle>
+          <Grid container>
+            <Grid item xs={4} sm={4} lg={4}></Grid>
+              <DialogTitle id="form-dialog-title">Agregar Rubro</DialogTitle>
+            <Grid item xs={4} sm={4} lg={4}></Grid>
+          </Grid>
           <DialogContent>
-            {/* <TextField
-              id="idStkRubro"
-              label="Rubro"
-              value={this.state.idStkRubro}
-              onChange={this.handleChange("idStkRubro")}
-              margin="dense"
-              fullWidth
-              variant="standard"
-              autoFocus={true}
-              onKeyPress={event => {
-                if (event.key === "Enter")
-                  document.getElementById("StkRubroCodGrp").focus();
-              }}
-            /> */}
            
           {/* GRUPO INICIO*/}
-            <div>
-              <TextField
-                id="idStkGrupo"
-                select={true}
-                label="Grupo"
-                value={this.state.StkRubroCodGrp}
-                onChange={this.handleChange("StkRubroCodGrp")}
-              >
-                 {this.state.stkgrupo.map(option => (  
-                  <MenuItem 
-                  id="tipogrupo"
-                  key={option.idStkGrupo}
-                  value={option.idStkGrupo}
-                  >
-                      {option.StkGrupoDesc} 
-                   </MenuItem>))} 
-                ))}
-              </TextField>
-            </div>
+            <Grid container spacing={24}>
+              <Grid item xs={8} sm={8} lg={8}>
+                <TextField
+                  id="idStkGrupo"
+                  select={true}
+                  fullWidth={true}
+                  label="Grupo"
+                  value={this.state.StkRubroCodGrp}
+                  onChange={this.handleChange("StkRubroCodGrp")}
+                >
+                  {this.state.stkgrupo.map(option => (  
+                    <MenuItem 
+                    id="tipogrupo"
+                    key={option.idStkGrupo}
+                    value={option.idStkGrupo}
+                    >
+                        {option.StkGrupoDesc} 
+                    </MenuItem>))} 
+                  ))}
+                </TextField>
+              </Grid>
+      
           {/* GRUPO FIN*/}
-          
           {/* DESCRIPCION INICIO*/}
-            {/* <div> */}
-              <Grid item xs={6} sm={6}>
+        
+              <Grid item xs={6} sm={6} lg={6}>
                 <TextField
                   id="StkRubroDesc"
                   label="Descripción"
@@ -406,7 +394,7 @@ leetmon = _ => {
                   }}
                 />
               </Grid>
-              <Grid item xs={6} sm={6}>
+              <Grid item xs={6} sm={6} lg={6}>
                 <TextField
                   id="StkRubroAbr"
                   label="Abreviatura"
@@ -421,26 +409,12 @@ leetmon = _ => {
                 />
               </Grid>
 
-
-            {/* </div> */}
           {/* DESCRIPCION INICIO FIN */}  
-          
-            <div>
-              {/* <TextField
-                id="StkRubroAbr"
-                label="Abreviatura"
-                value={this.state.StkRubroAbr}
-                onChange={this.handleChange("StkRubroAbr")}
-                margin="dense"
-                variant="standard"
-                onKeyPress={event => {
-                  if (event.key === "Enter")
-                    document.getElementById("StkRubroProv").focus();
-                }}
-              /> */}
-             
+         
+             <Grid item xs={8} sm={8} lg={8}>
               <TextField
                 id="StkRubroProv"
+                fullWidth={true}
                 select={true}
                 label="Proveedor"
                 value={this.state.StkRubroProv}
@@ -457,65 +431,46 @@ leetmon = _ => {
                                 
                 ))}
               </TextField>
+              </Grid>
+              <Grid item  xs={4} sm={4} lg={4}></Grid>
 
-
-              {/* <TextField
-                id="StkRubroAncho"
-                label="Ancho"
-                value={this.state.StkRubroAncho}
-                onChange={this.handleChange("StkRubroAncho")}
-                margin="dense"
-                variant="standard"
-                onKeyPress={event => {
-                  if (event.key === "Enter")
-                    document.getElementById("StkRubroPres").focus();
-                }}
-              />
+           <Grid item  xs={4} sm={4} lg={4}> 
               <TextField
-                id="StkRubroPres"
-                label="Presentacion"
-                value={this.state.StkRubroPres}
-                onChange={this.handleChange("StkRubroPres")}
-                margin="dense"
-                variant="standard"
-                onKeyPress={event => {
-                  if (event.key === "Enter")
-                    document.getElementById("StkRubroUM").focus();
-                }}
-              /> */}
-            </div>
-            <div>
-            <TextField
-                id="StkRubroAncho"
-                label="Ancho"
-                value={this.state.StkRubroAncho}
-                onChange={this.handleChange("StkRubroAncho")}
-                margin="dense"
-                variant="standard"
-                onKeyPress={event => {
-                  if (event.key === "Enter")
-                    document.getElementById("StkRubroPres").focus();
-                }}
-              />
-              <TextField
-                id="StkRubroPres"
-                label="Presentacion"
-                value={this.state.StkRubroPres}
-                onChange={this.handleChange("StkRubroPres")}
-                margin="dense"
-                variant="standard"
-                onKeyPress={event => {
-                  if (event.key === "Enter")
-                    document.getElementById("StkRubroUM").focus();
-                }}
-              />
-            </div>
+                  id="StkRubroAncho"
+                  label="Ancho"
+                  value={this.state.StkRubroAncho}
+                  onChange={this.handleChange("StkRubroAncho")}
+                  margin="dense"
+                  variant="standard"
+                  onKeyPress={event => {
+                    if (event.key === "Enter")
+                      document.getElementById("StkRubroPres").focus();
+                  }}
+                />
+            </Grid>
+              <Grid item  xs={4} sm={4} lg={4}> 
+                <TextField
+                  id="StkRubroPres"
+                  label="Presentacion"
+                  value={this.state.StkRubroPres}
+                  onChange={this.handleChange("StkRubroPres")}
+                  margin="dense"
+                  variant="standard"
+                  onKeyPress={event => {
+                    if (event.key === "Enter")
+                      document.getElementById("StkRubroUM").focus();
+                  }}
+                />
+              </Grid> 
+            {/* </div> */}
             
             {/* <div> */}
-            <Grid item sm={6}>
+            <Grid item  xs={4} sm={4} lg={4}>
               <TextField
                 id="StkRubroUM"
                 select={true}
+                fullWidth={true}
+                margin="dense"
                 label="Unidad de Medida"
                 value={this.state.StkRubroUM}
                 onChange={this.handleChange("StkRubroUM")}
@@ -531,71 +486,29 @@ leetmon = _ => {
                                 
                 ))}
               </TextField>
+            </Grid>
+            
+              <Grid item  xs={6} sm={6} lg={6}>
+                <TextField
+                  id="StkRubroCosto"
+                  label="Costo"
+                  value={this.state.StkRubroCosto}
+                  onChange={this.handleChange("StkRubroCosto")}
+                  margin="dense"
+                  variant="standard"
+                  onKeyPress={event => {
+                    if (event.key === "Enter")
+                      document.getElementById("StkRubroTM").focus();
+                  }}
+                />
               </Grid>
-              {/* </div> */}
-            
-            
-            
-            <div>
-              {/* <TextField
-                id="StkRubroUM"
-                label="Unidad de Medida"
-                value={this.state.StkRubroUM}
-                onChange={this.handleChange("StkRubroUM")}
-                margin="dense"
-                variant="standard"
-                onKeyPress={event => {
-                  if (event.key === "Enter")
-                    document.getElementById("StkRubroCosto").focus();
-                }}
-              /> */}
-                {/* <TextField
-                id="StkRubroUM"
-                select={true}
-                label="Unidad de Medida"
-                value={this.state.StkRubroUM}
-                onChange={this.handleChange("StkRubroUM")}
-              >
-                 {this.state.unmed.map(option => (  
-                  <MenuItem 
-                  id="unidaddemedida"
-                  key={option.idStkUnMed}
-                  value={option.idStkUnMed}
-                  >
-                      {option.StkUnMedDesc} 
-                   </MenuItem>))} 
-                                
-                ))}
-              </TextField> */}
-
-              <TextField
-                id="StkRubroCosto"
-                label="Costo"
-                value={this.state.StkRubroCosto}
-                onChange={this.handleChange("StkRubroCosto")}
-                margin="dense"
-                variant="standard"
-                onKeyPress={event => {
-                  if (event.key === "Enter")
-                    document.getElementById("StkRubroTM").focus();
-                }}
-              />
-              {/* <TextField
-                id="StkRubroTM"
-                label="Moneda"
-                value={this.state.StkRubroTM}
-                onChange={this.handleChange("StkRubroTM")}
-                margin="dense"
-                variant="standard"
-                onKeyPress={event => {
-                  if (event.key === "Enter")
-                    document.getElementById("Grabar").focus();
-                }}
-              /> */}
+         
+            <Grid item  xs={6} sm={6} lg={6}>
                 <TextField
                 id="StkRubroTM"
                 select={true}
                 label="Moneda"
+                fullWidth={true}
                 margin="dense"
                 value={this.state.StkRubroTM}
                 onChange={this.handleChange("StkRubroTM")}
@@ -611,19 +524,12 @@ leetmon = _ => {
                                 
                 ))}
               </TextField>
-
-
-            </div>
-            <div>
-              
-            </div>
-            <div>
-              
-            </div>
-            <div>
-              
-            </div>
+            </Grid>
+            </Grid>
           </DialogContent>
+            <Grid container>
+            {/* <Grid item xs={6} sm={6}></Grid> */}
+            {/* <Grid item xs={6} sm={6}> */}
             <Grid item xs={12} sm={12}>
                 <DialogActions>
                   <Button
@@ -638,13 +544,12 @@ leetmon = _ => {
                     variant="contained"
                     color="secondary"
                     onClick={this.props.click}
-                    // onClick={()=>{return alert("GRABO RUBRO")}}
                   >
                     Cancelar
                   </Button>
               
                 </DialogActions>
-                </Grid>
+            </Grid>
           </Grid>
         </Dialog>
         

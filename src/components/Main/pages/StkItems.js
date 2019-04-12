@@ -1,0 +1,240 @@
+import React, { Component} from 'react'
+import request from 'superagent'
+// import ReactTable from 'react-table'
+// import 'react-table/react-table.css'
+
+import { withStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+
+
+import StkItemsAgregar from './StkItemsAgregar'
+import StkItemsBorrar from './StkItemsBorrar'
+
+import IpServidor from './VariablesDeEntorno'
+
+const CustomTableCell = withStyles(theme => ({
+    head: {
+      backgroundColor: theme.palette.common.black,
+      color: theme.palette.common.white,
+    },
+    body: {
+      fontSize: 14,
+    },
+  }))(TableCell);
+  
+  const styles = theme => ({
+    root: {
+      width: '100%',
+      marginTop: theme.spacing.unit * 3,
+      overflowX: 'auto',
+    },
+    table: {
+      minWidth: 700,
+    },
+    row: {
+      '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.background.default,
+      },
+    },
+  });
+
+
+
+
+class StkItems extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            toggle: false,
+            idStkItems:0,
+            StkItemsGrupo:0,
+            StkItemsRubro:0,
+            StkItemsDesc:'',
+            StkItemsCantidad:0,
+            StktemsFAct:'',
+            StkItemsMin:0,
+            StkItemsMax:0,
+            StkItemsObserv:'',
+            items:[],
+        }
+        this.toggle = this.toggle.bind(this);
+    }    
+    
+    //Read
+    leeStkItems = _ => {
+        const url = IpServidor + '/stkitemsleer'; 
+        request
+        .get(url)
+        .set('Content-Type', 'application/json')
+            .then(res=> {
+            const items = JSON.parse(res.text)
+            this.setState({items: items})
+            })
+    }
+   
+    
+    
+    toggle(event){
+    // toogle = (event)=>{
+        this.setState(prevState => ({
+        toggle: !prevState.toggle
+        }))
+    }
+   
+    componentDidMount(){
+        this.leeStkItems()
+    }
+
+      
+    render(){
+        const items = this.state.items.map( (rowData,index) => 
+        // Object.assign(rowData, { borrar: <button className=" red accent-4" onClick={()=>this.deleteProduct(rowData.idStkMonedas)}>Borrar</button> })
+        Object.assign(rowData, { borrar: 
+            <div className="center-align"><StkItemsBorrar idStkItems={rowData.idStkItems} leeStkItems={()=>this.leeStkItems()} read={()=>this.leeStkItems()}></StkItemsBorrar></div>})
+            // <button 
+            //     className=" red accent-4" 
+            //     onClick={this.funcionTest}
+            //     >
+            //     Borrar
+            // </button> })
+        );
+
+
+        var columns =[
+            {
+                Header: "Items(ID)",
+                accessor: "idStkItems",
+                tipo:"numero"  
+            },
+            {
+                Header: "StkItemsGrupo",
+                accessor: "StkItemsGrupo",
+                tipo:"numero"  
+            },
+            {
+                Header: "StkItemsRubro",
+                accessor: "StkItemsRubro",
+                tipo:"numero"  
+            },
+            {
+                Header: "StkItemsDesc",
+                accessor: "StkItemsDesc",
+                tipo:"numero"  
+            },
+            {
+                Header: "StkItemsCantidad",
+                accessor: "StkItemsCantidad",
+                tipo:"numero"  
+            },
+            {
+                Header: "StktemsFAct",
+                accessor: "StktemsFAct",
+                tipo:"numero"  
+            },
+            {
+                Header: "StkItemsMin",
+                accessor: "StkItemsMin",
+                tipo:"numero"  
+            },
+            {
+                Header: "StkItemsMax",
+                accessor: "StkItemsMax",
+                tipo:"numero"  
+            },
+            {
+                Header: "StkItemsObserv",
+                accessor: "StkItemsObserv",
+                tipo:"numero"  
+            },
+            {
+                Header: "",
+                accessor: "borrar",
+                tipo:""  
+            },
+        ]
+
+        return( 
+            <div>
+                {/* <BorrarMonedas ></BorrarMonedas> */}
+                <h1>ABM DE items</h1>
+                
+                {this.state.toggle
+                ?
+                <div>
+                    <div className="row">
+                        <div className="col s12 ">
+                            <div className="">
+                                <div className="card-content  white-text">
+                                    <StkItemsAgregar click={()=>this.toggle()} leeStkItems={()=>this.leeStkItems()} read={()=>this.leeStkItems()}> </StkItemsAgregar>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                :
+                <p onClick={()=>this.toggle()} className='btn'>AGREGAR ITEM</p>
+                }
+               
+                
+
+               {!this.state.toggle
+                ?
+                <Paper >
+                <Table >
+                    <TableHead>
+                        {/* <TableRow>
+                            <CustomTableCell onClick={() => this.sortBy("idStkMonedas")} >Código</CustomTableCell>
+                            <CustomTableCell onClick={() => this.sortBy("StkMonedasDescripcion")} >Descripción</CustomTableCell>
+                            <CustomTableCell onClick={() => this.sortByNumero("StkMonedasCotizacion")} numeric>Cotización</CustomTableCell>
+                            <CustomTableCell ></CustomTableCell>
+                        </TableRow> */}
+                        <TableRow>
+                            {
+                                columns.map((row, index) => {
+                                return (<CustomTableCell key={index} onClick={() => this.sortBy(row.accessor,row.tipo)} >{row.Header}</CustomTableCell>)
+                                })
+                            }
+                        </TableRow>
+                    </TableHead>
+                 
+                    <TableBody>
+                        {items.map(row => {
+                        return (
+                            <TableRow key={row.idStkItems} 
+                                // onDoubleClick={()=>{
+                                // console.log("actualizo variables")
+                                // this.setState({idStkMonedas:row.idStkMonedas})
+                                // this.setState({StkMonedasDescripcion:row.StkMonedasDescripcion})
+                                // this.setState({StkMonedasCotizacion:row.StkMonedasCotizacion})
+                                // this.togglemodificar()}}
+                                >
+                                <CustomTableCell>{row.idStkItems}</CustomTableCell>
+                                <CustomTableCell>{row.StkItemsGrupo}</CustomTableCell>
+                                <CustomTableCell>{row.StkItemsRubro}</CustomTableCell>
+                                <CustomTableCell>{row.StkItemsDesc}</CustomTableCell>
+                                <CustomTableCell>{row.idStkItemsCantidad}</CustomTableCell>
+                                <CustomTableCell>{row.StkItemsFAct}</CustomTableCell>
+                                <CustomTableCell>{row.StkItemsMin}</CustomTableCell>
+                                <CustomTableCell>{row.StkItemsMax}</CustomTableCell>
+                                <CustomTableCell>{row.idStkItemsObserv}</CustomTableCell>
+                                <CustomTableCell>{row.borrar}</CustomTableCell>
+                            </TableRow>
+                            );
+                        })}
+                    </TableBody>
+                </Table>
+            </Paper>
+                :
+                    <div></div>  
+                }
+            </div>
+        )
+    }
+}
+
+export default StkItems

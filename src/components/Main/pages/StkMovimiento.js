@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import { QRCode } from "react-qr-svg";
+// import printJS from 'print-js'
 
   
 class StkMovimiento extends Component {
@@ -30,10 +31,12 @@ class StkMovimiento extends Component {
             StkRubroUM1: '', 
             StkRubroCosto1: 0.0,
             StkRubroTM1:'',
+            StkItemsDesc1:'',
             StkItemsCantidad1:0.0,
             StkItemsFAct1: '', //new Date(),
             StkItemsMin1:0.0,
             StkItemsMax1:0.0,
+            StkItemsObserv1:'',
             proveedor:[],
             StkRubroProv1:0,
             DescProv:'',
@@ -127,8 +130,6 @@ class StkMovimiento extends Component {
         .set('Content-Type', 'application/json')
             .then(res=> {
             const proveedor = JSON.parse(res.text)
-            console.log('contenido de proveedor')
-            console.log(proveedor)
             this.setState({proveedor: proveedor})
             this.setState({DescProv: this.state.proveedor[0].ProveedoresDesc}) 
             })
@@ -162,10 +163,12 @@ class StkMovimiento extends Component {
             .then(res=> {
             const stkitemsRGI = JSON.parse(res.text)
             this.setState({stkitemsRGI: stkitemsRGI})
+            this.setState({StkItemsDesc1: this.state.stkitemsRGI[0].StkItemsDesc}) 
             this.setState({StkItemsCantidad1: this.state.stkitemsRGI[0].StkItemsCantidad}) 
             this.setState({StkItemsFAct1: this.state.stkitemsRGI[0].StkItemsFAct}) 
             this.setState({StkItemsMin1: this.state.stkitemsRGI[0].StkItemsMin}) 
             this.setState({StkItemsMax1: this.state.stkitemsRGI[0].StkItemsMax}) 
+            this.setState({StkItemsObserv1: this.state.stkitemsRGI[0].StkItemsObserv}) 
             var recorte = this.state.StkItemsFAct1.substr(0,10);
             this.setState({StkItemsFAct1: recorte})
           
@@ -182,6 +185,7 @@ modcantstkitem = _ => {
     var CantAct = Number(this.state.StkItemsCantidad1) 
     var CantMode = Number(this.state.CantMod)
     CantAct = CantAct + CantMode
+
     // var fecha = new Date()
 //     console.log('fecha 2 ' + fecha)
 //    var options = {year: 'numeric', month: '2-digit', day: '2-digit' };
@@ -199,6 +203,7 @@ modcantstkitem = _ => {
     .post(url)
     .set('Content-Type', 'application/json')
     .send({StkItemsCantidad: CantAct})
+    .send({StkItemsObserv : this.state.StkItemsObserv})
     // .send({StkItemsFAct: fecha})
     .then(function(res) {
         // res.body, res.headers, res.status
@@ -280,6 +285,7 @@ render () {
                 <FormControl>
                     <InputLabel >Grupo</InputLabel>
                     <Select
+                        id="SelectGrupo"
                         value={this.state.grupostk}
                         onChange={this.handleChange('grupostk')}
                         inputProps={{
@@ -317,16 +323,19 @@ render () {
                         value={this.state.itemsstk}
                         onChange={this.handleChange('itemsstk')}
                         >
+                         <MenuItem >Agregar</MenuItem>
                         {this.state.stkitemsRyG.map(option => (
                             <MenuItem 
                             key={option.idStkItems}
                             value={option.idStkItems}>
                                 {option.StkItemsDesc}
+                            
                             </MenuItem>
+                            
                         ))}
-                       
+
+                      
                     </Select>
-                  
                 </FormControl>
              
                 <FormControl>
@@ -427,23 +436,36 @@ render () {
                 </TextField>
                     }
                 </FormControl>    
+                
                 <FormControl>
                     <TextField
                         id="CantMod"
                         label="Cantidad + o -"
                         type="number"
                         fullWidth
-                        placeholder="Descripción"
                         onChange={this.updateField}
                         value={this.state.CantMod}
                     >
                     </TextField>
+                  
+                    </FormControl>     
+                    <FormControl>
+                  <TextField
+                        id="StkItemsObserv1"
+                        label="Observaciones"
+                        placeholder="Observaciones"
+                        onChange={this.updateField}
+                        value={this.state.StkItemsObserv1}
+                    >
+                    </TextField>
+                </FormControl>
+
                     <QRCode
             bgColor="#FFFFFF"
             fgColor="#000000"
             level="L"
             style={{ width: 100 }}
-            value={this.state.CantMod + this.state.grupostk + ' ' + this.state.rubrostk + ' rogelio '}
+            value={'Detalle  : ' + this.state.StkRubroAbr1 + '  ' + this.state.StkItemsDesc1 + ' Cantidad : ' + this.state.StkItemsCantidad1 + ' Fecha Act : ' + this.state.StkItemsFAct1 + ' Observaciones :  ' +  this.state.StkItemsObserv1}
         />
                         <DialogActions>
                         <Button variant="contained" color="primary"  onClick={this.modcantstkitem}>
@@ -453,7 +475,7 @@ render () {
                             Cancelar
                         </Button>
                         </DialogActions>
-                </FormControl>         
+                  
 
 
       </form>
