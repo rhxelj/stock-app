@@ -252,13 +252,7 @@ leetmon = _ => {
   }
 
   componentDidMount() {
-    // this.proveedoresleer();
-    // console.log('tipo proveedor dentro de DIDMOUNT ')
-    // console.log(this.state.tipoprov)
-    // this.leetmon();
-    console.log("componentdidmount !!!!")
-    console.log(this.state.stkgrupo)
-    // this.leestkgrupo()
+   
   }
 
   componentWillMount(){
@@ -284,13 +278,13 @@ leetmon = _ => {
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Aregar Grupo</DialogTitle>
+          <DialogTitle id="form-dialog-title">Aregar Item</DialogTitle>
           <DialogContent>
-            {/* <TextField
-              id="idStkRubro"
-              label="Rubro"
-              value={this.state.idStkRubro}
-              onChange={this.handleChange("idStkRubro")}
+            <TextField
+              id="StkItemsDes"
+              label="descripcion"
+              value={this.state.idStkItemsDesc}
+              onChange={this.handleChange("idStkItemsDesc")}
               margin="dense"
               fullWidth
               variant="standard"
@@ -299,16 +293,18 @@ leetmon = _ => {
                 if (event.key === "Enter")
                   document.getElementById("StkRubroCodGrp").focus();
               }}
-            /> */}
+            />
             <div>
 
-              {/* <TextField
+              <TextField
                 id="idStkGrupo"
                 select={true}
                 label="Grupo"
-                value={this.state.StkRubroCodGrp}
+                // value={this.state.StkRubroCodGrp}
+                value={this.state.StkCodGrp}
                 // onChange={this.handleChange("StkRubroCodGrp")}
-                onChange={this.leeXcodgrupo("StkRubroCodGrp","OTRO VALOR AGREGADO POR MI")}
+                onChange={this.handleChange("StkCodGrp")}
+                //onChange={this.leeXcodgrupo("StkRubroCodGrp","OTRO VALOR AGREGADO POR MI")}
               >
                  {this.state.stkgrupo.map(option => (  
                   <MenuItem 
@@ -321,7 +317,7 @@ leetmon = _ => {
                    </MenuItem>))} 
                                 
                 ))}
-              </TextField> */}
+              </TextField>
 
 
             </div>

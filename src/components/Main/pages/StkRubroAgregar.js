@@ -63,17 +63,14 @@ class StkRubroAgregar extends Component {
   //Material Ui Dialog start
 
   //esto es para que en el select me muestre el item elegido
+  
   handleChange = prop => event => {
-    // this.setState(()=>{return{ [prop]: event.target.value }});
-    // this.setState({value: event.target.value}, function () {
-    //   console.log(this.state.value) })
-    this.llama()
-    
-    this.setState({[prop]: event.target.value}, function () {
-      console.log('contenido de ' +[prop] +" "+ this.state.StkRubroCodGrp) })
-  };
+    this.setState({[prop]: event.target.value})
+    // this.setState({[prop]: event.target.value}, function () {
+      // console.log('contenido de ' +[prop] +" "+ this.state.StkRubroCodGrp) })
+  }
 
-  llama = _ => console.log('Codigo de grupo dentro de handleChange : '+this.state.StkRubroCodGrp)
+  // llama = _ => console.log('Codigo de grupo dentro de handleChange : '+this.state.StkRubroCodGrp)
   
   // leeXcodgrupo = prop => event => {
   //   // console.log("prop : " + prop)                                         //control se puede Borrar esta linea 
@@ -240,24 +237,14 @@ class StkRubroAgregar extends Component {
 
 // Lee tipo Grupo inicio 
   leestkgrupo = _ => {
-    // const url = 'http://localhost:4000/stkgrupoleer' ; //'http://localhost:3000/data'
     const url = IpServidor + "/stkgrupoleer";
     request
-    .get(url)
-    .set('Content-Type', 'application/json')
-        .then(res=> {
-        
-          const stkgrupo = JSON.parse(res.text);
-          console.log(`stkgrupo :`)
-    console.log(stkgrupo)
+      .get(url)
+      .set('Content-Type', 'application/json')
+      .then(res=> {
+        const stkgrupo = JSON.parse(res.text);
         this.setState(()=>{ return {stkgrupo: stkgrupo}});
-        
-        })
-    console.log(`dentro de leestkgrupo `)
-    console.log(`this.state.stkgrupo :`)
-    console.log(this.state.stkgrupo)
-    
-    // this.marcagrupo()
+      })
     }
 // Lee tipo Grupo Fin
 

@@ -17,6 +17,7 @@ import StkItemsBorrar from './StkItemsBorrar'
 
 import IpServidor from './VariablesDeEntorno'
 
+// Estilos Inicio
 const CustomTableCell = withStyles(theme => ({
     head: {
       backgroundColor: theme.palette.common.black,
@@ -26,7 +27,8 @@ const CustomTableCell = withStyles(theme => ({
       fontSize: 14,
     },
   }))(TableCell);
-  
+
+
   const styles = theme => ({
     root: {
       width: '100%',
@@ -42,7 +44,7 @@ const CustomTableCell = withStyles(theme => ({
       },
     },
   });
-
+// Estilos Fin 
 
 
 
@@ -61,6 +63,8 @@ class StkItems extends Component {
             StkItemsMax:0,
             StkItemsObserv:'',
             items:[],
+            itemsdetalles:[],
+            stkgrupoitem:[],
         }
         this.toggle = this.toggle.bind(this);
     }    
@@ -77,6 +81,31 @@ class StkItems extends Component {
             })
     }
    
+     //Read
+     leeStkItemsDetalles = _ => {
+        const url = IpServidor + '/stkitemsleedetalles'; 
+        request
+        .get(url)
+        .set('Content-Type', 'application/json')
+            .then(res=> {
+            const items = JSON.parse(res.text)
+            this.setState({items: items})
+            })
+    }
+    stkgrupoleercod = (id) => {
+        const url = IpServidor + "/stkgrupoleercod/?id="+id;
+        request
+          .get(url)
+          .set('Content-Type', 'application/json')
+          .then(res=> {
+            const stkgrupoitem = JSON.parse(res.text);
+            this.setState(()=>{ return {stkgrupoitem: stkgrupoitem[0]}}); //saco el item del grupo
+          })
+          console.log(this.state.stkgrupoitem)
+          console.log('StkGrupoDesc'+this.state.stkgrupoitem.StkGrupoDesc)
+          return this.state.stkgrupoitem.StkGrupoDesc
+        }
+
     
     
     toggle(event){
@@ -87,7 +116,8 @@ class StkItems extends Component {
     }
    
     componentDidMount(){
-        this.leeStkItems()
+        // this.leeStkItems()
+        this.leeStkItemsDetalles()
     }
 
       
@@ -103,7 +133,9 @@ class StkItems extends Component {
             //     Borrar
             // </button> })
         );
+        // Tengo que hacer otro Object.assin para  StkItemsGrupo para mostrar la descripcion o lo hacemos desde el backend?    
 
+// Encabezado de la Tabla
 
         var columns =[
             {
@@ -112,42 +144,42 @@ class StkItems extends Component {
                 tipo:"numero"  
             },
             {
-                Header: "StkItemsGrupo",
+                Header: "Grupo",
                 accessor: "StkItemsGrupo",
                 tipo:"numero"  
             },
             {
-                Header: "StkItemsRubro",
+                Header: "Rubro",
                 accessor: "StkItemsRubro",
                 tipo:"numero"  
             },
             {
-                Header: "StkItemsDesc",
+                Header: "Descripción",
                 accessor: "StkItemsDesc",
                 tipo:"numero"  
             },
             {
-                Header: "StkItemsCantidad",
+                Header: "Cantidad",
                 accessor: "StkItemsCantidad",
                 tipo:"numero"  
             },
             {
-                Header: "StktemsFAct",
+                Header: "Fecha de Actualización",
                 accessor: "StktemsFAct",
                 tipo:"numero"  
             },
             {
-                Header: "StkItemsMin",
+                Header: "Stock Mínimo",
                 accessor: "StkItemsMin",
                 tipo:"numero"  
             },
             {
-                Header: "StkItemsMax",
+                Header: "Stock Máximo",
                 accessor: "StkItemsMax",
                 tipo:"numero"  
             },
             {
-                Header: "StkItemsObserv",
+                Header: "Observaciones",
                 accessor: "StkItemsObserv",
                 tipo:"numero"  
             },
@@ -214,11 +246,15 @@ class StkItems extends Component {
                                 // this.togglemodificar()}}
                                 >
                                 <CustomTableCell>{row.idStkItems}</CustomTableCell>
-                                <CustomTableCell>{row.StkItemsGrupo}</CustomTableCell>
-                                <CustomTableCell>{row.StkItemsRubro}</CustomTableCell>
+                                
+                                <CustomTableCell>{row.StkGrupoDesc}</CustomTableCell>
+                                
+                                {/* <CustomTableCell>{this.stkgrupoleercod(row.StkItemsGrupo)}</CustomTableCell> */}
+                                
+                                <CustomTableCell>{row.StkRubroDesc}</CustomTableCell>
                                 <CustomTableCell>{row.StkItemsDesc}</CustomTableCell>
-                                <CustomTableCell>{row.idStkItemsCantidad}</CustomTableCell>
-                                <CustomTableCell>{row.StkItemsFAct}</CustomTableCell>
+                                <CustomTableCell>{row.StkItemsCantidad}</CustomTableCell>
+                                <CustomTableCell>{row.StkItemsFAct}</CustomTableCell> 
                                 <CustomTableCell>{row.StkItemsMin}</CustomTableCell>
                                 <CustomTableCell>{row.StkItemsMax}</CustomTableCell>
                                 <CustomTableCell>{row.idStkItemsObserv}</CustomTableCell>

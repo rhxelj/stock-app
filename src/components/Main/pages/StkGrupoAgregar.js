@@ -348,10 +348,10 @@ leetmon = _ => {
                 onChange={this.handleChange("StkGrupoAbr")}
                 margin="dense"
                 variant="standard"
-                // onKeyPress={event => {
-                //   if (event.key === "Enter")
-                //     document.getElementById("StkRubroProv").focus();
-                // }}
+                onKeyPress={event => {
+                  if (event.key === "Enter")
+                    document.getElementById("Grabar ").focus();
+                }}
               />
 
             </div>

@@ -11,7 +11,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-
+import Button from '@material-ui/core/Button';
 import StkGrupoAgregar from './StkGrupoAgregar'
 import StkGrupoBorrar from './StkGrupoBorrar'
 
@@ -153,7 +153,6 @@ class StkGrupo extends Component {
 
         return( 
             <div>
-                {/* <BorrarMonedas ></BorrarMonedas> */}
                 <h1>ABM DE GRUPOS</h1>
                 
                 {this.state.toggle
@@ -170,7 +169,8 @@ class StkGrupo extends Component {
                     </div>
                 </div>
                 :
-                <p onClick={()=>this.toggle()} className='btn'>AGREGAR GRUPO</p>
+                <Button onClick={() => this.toggle()} variant="contained" color="primary">AGREGAR GRUPO</Button>
+                // <p onClick={()=>this.toggle()} className='btn'>AGREGAR GRUPO</p>
                 }
                
                 

@@ -392,9 +392,22 @@ leetmon = _ => {
                 variant="standard"
                 onKeyPress={event => {
                   if (event.key === "Enter")
-                    document.getElementById("StkRubroPres").focus();
+                    document.getElementById("StkRubroPresDes").focus();
                 }}
               />
+
+              <TextField
+                id="StkRubroPresDes"
+                label="Presentacion Descripcion"
+                value={this.state.StkRubroPresDes}
+                onChange={this.handleChange("StkRubroPresDes")}
+                margin="dense"
+                variant="standard"
+                onKeyPress={event => {
+                  if (event.key === "Enter")
+                    document.getElementById("StkRubroPres").focus();
+                }}
+              />  
               <TextField
                 id="StkRubroPres"
                 label="Presentacion"

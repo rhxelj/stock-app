@@ -271,6 +271,11 @@ class StkRubro extends Component {
             },
             {
                 Header: "Presentacion",
+                accessor: "StkRubroPresDes",
+                tipo: "texto"
+            },
+            {
+                Header: "Presentacion",
                 accessor: "StkRubroPres",
                 tipo: "numero"
             },
@@ -362,11 +367,12 @@ class StkRubro extends Component {
                                                 this.setState({StkRubroProv : row.StkRubroProv})//id
                                                 this.setState({ProveedoresDesc : row.ProveedoresDesc})
                                                 this.setState({StkRubroAncho : row.StkRubroAncho})
+                                                this.setState({StkRubroTM : row.StkRubroPresDes})
                                                 this.setState({StkRubroPres : row.StkRubroPres})
                                                 this.setState({StkRubroUM : row.StkRubroUM})
                                                 this.setState({StkRubroCosto : row.StkRubroCosto})
                                                 this.setState({StkRubroTM : row.StkRubroTM})
-                                        
+                                                
                                                 this.togglemodificar()}
                                             }
                                         >
@@ -376,6 +382,7 @@ class StkRubro extends Component {
                                             <CustomTableCell>{row.StkRubroAbr}</CustomTableCell>
                                             <CustomTableCell>{row.ProveedoresDesc}</CustomTableCell>
                                             <CustomTableCell>{row.StkRubroAncho}</CustomTableCell>
+                                            <CustomTableCell>{row.StkRubroPresDes}</CustomTableCell>
                                             <CustomTableCell>{row.StkRubroPres}</CustomTableCell>
                                             <CustomTableCell>{row.StkRubroUM}</CustomTableCell>
                                             <CustomTableCell>{row.StkRubroCosto}</CustomTableCell>
