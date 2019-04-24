@@ -11,6 +11,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 // import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from "@material-ui/core/DialogTitle";
 
+import Grid from '@material-ui/core/Grid';
 import NativeSelect from '@material-ui/core/NativeSelect';
 
 // import Select from '@material-ui/core/Select';
@@ -298,12 +299,17 @@ leetmon = _ => {
         
         <Dialog
           open={true}
-          // open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Aregar Item</DialogTitle>
+        <Grid container>
+          <Grid item xs={4} sm={4} lg={4}></Grid>
+            <DialogTitle id="form-dialog-title">Aregar Item</DialogTitle>
+          <Grid item xs={4} sm={4} lg={4}></Grid>
+        </Grid>
           <DialogContent>
+        
+        <Grid container  spacing={24}>
             {/* <TextField
               id="StkItemsDes"
               label="descripcion"
@@ -318,18 +324,22 @@ leetmon = _ => {
                   document.getElementById("StkRubroCodGrp").focus();
               }}
             /> */}
-            <div>
+            {/* <div> */}
 
 {/* Grupo INICIO*/}
+              <Grid item  xs={6} sm={6} lg={6}>
               <TextField
                 id="idStkGrupo"
                 select={true}
+                fullWidth={true}
                 label="Grupo"
-                // value={this.state.StkRubroCodGrp}
+                InputLabelProps={{ shrink: true }}
                 value={this.state.StkCodGrp}
-                // onChange={this.handleChange("StkRubroCodGrp")}
                 onChange={this.handleChange("StkCodGrp")}
-                //onChange={this.leeXcodgrupo("StkRubroCodGrp","OTRO VALOR AGREGADO POR MI")}
+                onKeyPress={event => {
+                  if (event.key === "Enter")
+                    document.getElementById("idStkRubro").focus();
+                }}
               >
                  
                  {this.state.stkgrupo.map(option => (  
@@ -337,37 +347,32 @@ leetmon = _ => {
                   id="tipogrupo"
                   key={option.idStkGrupo}
                   value={option.idStkGrupo}
-                  onClick={()=>console.log("Hizo Click")}
                   >
                       {option.StkGrupoDesc} 
                   </MenuItem>))} 
               </TextField>
+              </Grid>
 {/* Grupo FIN */}
 
-            </div>
+            {/* </div> */}
            
-            <div>
+            {/* <div> */}
 
 {/* Rubro INICIO */}
-              {/* <TextField
-                id="StkGrupoDesc"
-                label="Descripción"
-                value={this.state.StkGrupoDesc}
-                onChange={this.handleChange("StkGrupoDesc")}
-                margin="normal"
-                variant="standard"
-                onKeyPress={event => {
-                  if (event.key === "Enter")
-                    document.getElementById("StkGrupoAbr").focus();
-                }}
-              /> */}
-
+            
+<Grid item  xs={6} sm={6} lg={6}>
               <TextField
                 id="idStkRubro"
                 select={true}
                 label="Rubro"
+                fullWidth={true}
+                InputLabelProps={{ shrink: true }} 
                 value={this.state.StkRubro}
                 onChange={this.handleChange("StkRubro")}
+                onKeyPress={event => {
+                  if (event.key === "Enter")
+                    document.getElementById("StkItemsDes").focus();
+                }}
               >
                  
                  {this.state.stkrubro.map(option => (  
@@ -380,11 +385,14 @@ leetmon = _ => {
                       {option.StkRubroDesc} 
                   </MenuItem>))} 
               </TextField>
+              </Grid>
 {/* Rubro FIN */}
 
-            </div>
+            {/* </div> */}
 {/* Descripción INICIO */}
-<div><TextField
+{/* <div> */}
+  <Grid item  xs={12} sm={12} lg={12}>
+  <TextField
               id="StkItemsDes"
               label="descripcion"
               value={this.state.idStkItemsDesc}
@@ -395,61 +403,75 @@ leetmon = _ => {
               autoFocus={true}
               onKeyPress={event => {
                 if (event.key === "Enter")
-                  document.getElementById("StkRubroCodGrp").focus();
+                  document.getElementById("StkItemsCantidad").focus();
               }}
-            /></div>
+            />
+            </Grid>
+            {/* </div> */}
 {/* Descripción Fin */}
-            <div>
+            {/* <div> */}
+            <Grid item  xs={4} sm={4} lg={4}>
               <TextField
-                id="StkGrupoAbr"
+                id="StkItemsCantidad"
                 label="Cantidad"
+                type="number"
                 value={this.state.StkItemsCantidad}
                 onChange={this.handleChange("StkItemsCantidad")}
                 margin="dense"
                 variant="standard"
-                // onKeyPress={event => {
-                //   if (event.key === "Enter")
-                //     document.getElementById("StkRubroProv").focus();
-                // }}
+                onKeyPress={event => {
+                  if (event.key === "Enter")
+                    document.getElementById("StkMin").focus();
+                }}
               />
+              </Grid>
+              <Grid item  xs={4} sm={4} lg={4}>
 <TextField
                 id="StkMin"
                 label="Stock Minimo"
+                type="number"
                 value={this.state.StkItemsMin}
                 onChange={this.handleChange("StkItemsMin")}
                 margin="dense"
                 variant="standard"
-                // onKeyPress={event => {
-                //   if (event.key === "Enter")
-                //     document.getElementById("StkRubroProv").focus();
-                // }}
+                onKeyPress={event => {
+                  if (event.key === "Enter")
+                    document.getElementById("StkItemsMax").focus();
+                }}
               />
+              </Grid>
+              <Grid item  xs={4} sm={4} lg={4}>
               <TextField
-                id="StkGrupoAbr"
+                id="StkItemsMax"
                 label="Stock Maximo"
+                type="number"
                 value={this.state.StkItemsMax}
                 onChange={this.handleChange("StkItemsMax")}
                 margin="dense"
                 variant="standard"
-                // onKeyPress={event => {
-                //   if (event.key === "Enter")
-                //     document.getElementById("StkRubroProv").focus();
-                // }}
+                onKeyPress={event => {
+                  if (event.key === "Enter")
+                    document.getElementById("StkItemsObserv").focus();
+                }}
               />
+              </Grid>
+              <Grid item  xs={12} sm={12} lg={12}>
               <TextField
                 id="StkItemsObserv"
                 label="Observaciones"
                 value={this.state.StkItemsObserv}
+                fullWidth={true}
                 onChange={this.handleChange("StkItemsObserv")}
                 margin="dense"
                 variant="standard"
-                // onKeyPress={event => {
-                //   if (event.key === "Enter")
-                //     document.getElementById("StkRubroProv").focus();
-                // }}
+                onKeyPress={event => {
+                  if (event.key === "Enter")
+                    document.getElementById("Grabar").focus();
+                }}
               />
-            </div>
-            <div>
+              </Grid>
+            {/* </div> */}
+            {/* <div>
               
             </div>
             <div>
@@ -457,7 +479,8 @@ leetmon = _ => {
             </div>
             <div>
               
-            </div>
+            </div> */}
+            </Grid>
           </DialogContent>
           <DialogActions>
             <Button

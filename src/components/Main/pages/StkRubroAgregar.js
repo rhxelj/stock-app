@@ -360,7 +360,7 @@ leetmon = _ => {
                     >
                         {option.StkGrupoDesc} 
                     </MenuItem>))} 
-                  ))}
+                  {/* ))} */}
                 </TextField>
               </Grid>
       
