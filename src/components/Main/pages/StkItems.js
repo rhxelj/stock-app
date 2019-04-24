@@ -257,7 +257,7 @@ class StkItems extends Component {
                                 <CustomTableCell>{row.StkItemsFAct}</CustomTableCell> 
                                 <CustomTableCell>{row.StkItemsMin}</CustomTableCell>
                                 <CustomTableCell>{row.StkItemsMax}</CustomTableCell>
-                                <CustomTableCell>{row.idStkItemsObserv}</CustomTableCell>
+                                <CustomTableCell>{row.StkItemsObserv}</CustomTableCell>
                                 <CustomTableCell>{row.borrar}</CustomTableCell>
                             </TableRow>
                             );

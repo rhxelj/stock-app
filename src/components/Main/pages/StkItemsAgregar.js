@@ -10,6 +10,9 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 // import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from "@material-ui/core/DialogTitle";
+
+import NativeSelect from '@material-ui/core/NativeSelect';
+
 // import Select from '@material-ui/core/Select';
 
 // import AgregarMonedas from './StkMonedasAgregar'
@@ -29,7 +32,7 @@ class StkItemsAgregar extends Component {
       StkRubroUM:"",
       StkRubroCosto:"",
       StkRubroTM:"",
-      // stkgrupo:{},
+      stkrubro:[],
       stkgrupo:[],
       idStkTipoProveed: 0,
       StkTipoProveedDesc: "",
@@ -196,6 +199,26 @@ ActualizaGrupo = () => {
     }
 // Lee tipo Grupo Fin
 
+// Lee tipo Rubro inicio 
+leestkrubro = _ => {
+  // const url = 'http://localhost:4000/stkgrupoleer' ; //'http://localhost:3000/data'
+  const url = IpServidor + "/stkrubroleer";
+  request
+  .get(url)
+  .set('Content-Type', 'application/json')
+      .then(res=> {
+        const stkrubro = JSON.parse(res.text);
+        this.setState(()=>{ return {stkrubro: stkrubro}});
+
+        console.log('dentro de leestkrubro')
+        console.log(this.state.stkrubro)
+      })
+  
+  // this.marcagrupo()
+  }
+// Lee tipo Rubro Fin
+
+
 // Leo tipo Proveedor Inicio
   proveedoresleer = _ => {
     const url = IpServidor + "/proveedoresleer";
@@ -258,6 +281,7 @@ leetmon = _ => {
   componentWillMount(){
     this.proveedoresleer()
     this.leestkgrupo()
+    this.leestkrubro()
     this.unmedleer()
     this.leetmon()
     // console.log('tipo proveedor dentro de DIDMOUNT ')
@@ -280,7 +304,7 @@ leetmon = _ => {
         >
           <DialogTitle id="form-dialog-title">Aregar Item</DialogTitle>
           <DialogContent>
-            <TextField
+            {/* <TextField
               id="StkItemsDes"
               label="descripcion"
               value={this.state.idStkItemsDesc}
@@ -293,9 +317,10 @@ leetmon = _ => {
                 if (event.key === "Enter")
                   document.getElementById("StkRubroCodGrp").focus();
               }}
-            />
+            /> */}
             <div>
 
+{/* Grupo INICIO*/}
               <TextField
                 id="idStkGrupo"
                 select={true}
@@ -306,24 +331,25 @@ leetmon = _ => {
                 onChange={this.handleChange("StkCodGrp")}
                 //onChange={this.leeXcodgrupo("StkRubroCodGrp","OTRO VALOR AGREGADO POR MI")}
               >
+                 
                  {this.state.stkgrupo.map(option => (  
-                  <MenuItem 
+                  <MenuItem
                   id="tipogrupo"
                   key={option.idStkGrupo}
                   value={option.idStkGrupo}
                   onClick={()=>console.log("Hizo Click")}
                   >
                       {option.StkGrupoDesc} 
-                   </MenuItem>))} 
-                                
-                ))}
+                  </MenuItem>))} 
               </TextField>
-
+{/* Grupo FIN */}
 
             </div>
            
             <div>
-              <TextField
+
+{/* Rubro INICIO */}
+              {/* <TextField
                 id="StkGrupoDesc"
                 label="Descripción"
                 value={this.state.StkGrupoDesc}
@@ -334,14 +360,51 @@ leetmon = _ => {
                   if (event.key === "Enter")
                     document.getElementById("StkGrupoAbr").focus();
                 }}
-              />
+              /> */}
+
+              <TextField
+                id="idStkRubro"
+                select={true}
+                label="Rubro"
+                value={this.state.StkRubro}
+                onChange={this.handleChange("StkRubro")}
+              >
+                 
+                 {this.state.stkrubro.map(option => (  
+                  <MenuItem
+                  id="tiporubro"
+                  key={option.idStkRubro}
+                  value={option.idStkRubro}
+                  onClick={()=>console.log("Hizo Click")}
+                  >
+                      {option.StkRubroDesc} 
+                  </MenuItem>))} 
+              </TextField>
+{/* Rubro FIN */}
+
             </div>
+{/* Descripción INICIO */}
+<div><TextField
+              id="StkItemsDes"
+              label="descripcion"
+              value={this.state.idStkItemsDesc}
+              onChange={this.handleChange("idStkItemsDesc")}
+              margin="dense"
+              fullWidth
+              variant="standard"
+              autoFocus={true}
+              onKeyPress={event => {
+                if (event.key === "Enter")
+                  document.getElementById("StkRubroCodGrp").focus();
+              }}
+            /></div>
+{/* Descripción Fin */}
             <div>
               <TextField
                 id="StkGrupoAbr"
-                label="Abreviatura"
-                value={this.state.StkGrupoAbr}
-                onChange={this.handleChange("StkGrupoAbr")}
+                label="Cantidad"
+                value={this.state.StkItemsCantidad}
+                onChange={this.handleChange("StkItemsCantidad")}
                 margin="dense"
                 variant="standard"
                 // onKeyPress={event => {
@@ -349,7 +412,42 @@ leetmon = _ => {
                 //     document.getElementById("StkRubroProv").focus();
                 // }}
               />
-
+<TextField
+                id="StkMin"
+                label="Stock Minimo"
+                value={this.state.StkItemsMin}
+                onChange={this.handleChange("StkItemsMin")}
+                margin="dense"
+                variant="standard"
+                // onKeyPress={event => {
+                //   if (event.key === "Enter")
+                //     document.getElementById("StkRubroProv").focus();
+                // }}
+              />
+              <TextField
+                id="StkGrupoAbr"
+                label="Stock Maximo"
+                value={this.state.StkItemsMax}
+                onChange={this.handleChange("StkItemsMax")}
+                margin="dense"
+                variant="standard"
+                // onKeyPress={event => {
+                //   if (event.key === "Enter")
+                //     document.getElementById("StkRubroProv").focus();
+                // }}
+              />
+              <TextField
+                id="StkItemsObserv"
+                label="Observaciones"
+                value={this.state.StkItemsObserv}
+                onChange={this.handleChange("StkItemsObserv")}
+                margin="dense"
+                variant="standard"
+                // onKeyPress={event => {
+                //   if (event.key === "Enter")
+                //     document.getElementById("StkRubroProv").focus();
+                // }}
+              />
             </div>
             <div>
               
