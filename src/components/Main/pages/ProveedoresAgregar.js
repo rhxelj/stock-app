@@ -11,7 +11,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 // import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-import AgregarMonedas from './StkMonedasAgregar'
+// import AgregarMonedas from './StkMonedasAgregar'
 
 class ProveedoresAgregar extends Component {
   constructor(props) {
@@ -93,6 +93,8 @@ class ProveedoresAgregar extends Component {
       .then(res => {
         const tipoprov = JSON.parse(res.text);
         this.setState({ tipoprov: tipoprov });
+        console.log("dentro de leetprov : ")
+        console.log(this.state.tipoprov)
       });
   };
 

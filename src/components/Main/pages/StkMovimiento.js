@@ -4,16 +4,13 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-// import TextField from '@material-ui/core/TextField';
+import TextField from '@material-ui/core/TextField';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
+import { QRCode } from "react-qr-svg";
+// import printJS from 'print-js'
 
-// import Paper from '@material-ui/core/Paper';
-
-import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-
-
+  
 class StkMovimiento extends Component {
   
     constructor(props){
@@ -34,10 +31,12 @@ class StkMovimiento extends Component {
             StkRubroUM1: '', 
             StkRubroCosto1: 0.0,
             StkRubroTM1:'',
+            StkItemsDesc1:'',
             StkItemsCantidad1:0.0,
             StkItemsFAct1: '', //new Date(),
             StkItemsMin1:0.0,
             StkItemsMax1:0.0,
+            StkItemsObserv1:'',
             proveedor:[],
             StkRubroProv1:0,
             DescProv:'',
@@ -51,8 +50,6 @@ class StkMovimiento extends Component {
         }
         this.updateField = this.updateField.bind(this);
     } 
-    
-    
     marcagrupo(event){
         this.setState(prevState => ({
             marcagrupo: !prevState.marcagrupo
@@ -166,10 +163,12 @@ class StkMovimiento extends Component {
             .then(res=> {
             const stkitemsRGI = JSON.parse(res.text)
             this.setState({stkitemsRGI: stkitemsRGI})
+            this.setState({StkItemsDesc1: this.state.stkitemsRGI[0].StkItemsDesc}) 
             this.setState({StkItemsCantidad1: this.state.stkitemsRGI[0].StkItemsCantidad}) 
             this.setState({StkItemsFAct1: this.state.stkitemsRGI[0].StkItemsFAct}) 
             this.setState({StkItemsMin1: this.state.stkitemsRGI[0].StkItemsMin}) 
             this.setState({StkItemsMax1: this.state.stkitemsRGI[0].StkItemsMax}) 
+            this.setState({StkItemsObserv1: this.state.stkitemsRGI[0].StkItemsObserv}) 
             var recorte = this.state.StkItemsFAct1.substr(0,10);
             this.setState({StkItemsFAct1: recorte})
           
@@ -181,34 +180,37 @@ class StkMovimiento extends Component {
     }
 }
 
-        modcantstkitem = _ => {
-            // console.log('modcantstkitem')
-            var CantAct = Number(this.state.StkItemsCantidad1) 
-            var CantMode = Number(this.state.CantMod)
-            CantAct = CantAct + CantMode
-            // var fecha = new Date()
-        //     console.log('fecha 2 ' + fecha)
-        //    var options = {year: 'numeric', month: '2-digit', day: '2-digit' };
-        //    var dia = fecha.getDate() + 1
-        //    var mes =  parseInt(fecha.getMonth())
-        //    var anio = fecha.getFullYear()
-        //    fecha = new Date(Date.UTC(anio, mes, dia))
-        //    fecha = fecha.toLocaleDateString('en-US', options)
+modcantstkitem = _ => {
+    // console.log('modcantstkitem')
+    var CantAct = Number(this.state.StkItemsCantidad1) 
+    var CantMode = Number(this.state.CantMod)
+    CantAct = CantAct + CantMode
 
-        //     console.log('fecha  ' + fecha)
-            // var fecha = new Date();
-            // console.log( fecha.getFullYear() + "/" + (fecha.getMonth() +1) + "/" +  fecha.getDate())
-            const url = 'http://localhost:4000/stkitemsmodificacant/?id1='+this.state.itemsstk+'&id2='+this.state.grupostk +'&id3='+this.state.rubrostk ; //'http://localhost:3000/data'
-            request
-            .post(url)
-            .set('Content-Type', 'application/json')
-            .send({StkItemsCantidad: CantAct})
-            // .send({StkItemsFAct: fecha})
-            .then(function(res) {
-                // res.body, res.headers, res.status
-                  });
-               this.leestkitemscodgrrbit()   
-        }
+    // var fecha = new Date()
+//     console.log('fecha 2 ' + fecha)
+//    var options = {year: 'numeric', month: '2-digit', day: '2-digit' };
+//    var dia = fecha.getDate() + 1
+//    var mes =  parseInt(fecha.getMonth())
+//    var anio = fecha.getFullYear()
+//    fecha = new Date(Date.UTC(anio, mes, dia))
+//    fecha = fecha.toLocaleDateString('en-US', options)
+
+//     console.log('fecha  ' + fecha)
+    // var fecha = new Date();
+    // console.log( fecha.getFullYear() + "/" + (fecha.getMonth() +1) + "/" +  fecha.getDate())
+    const url = 'http://localhost:4000/stkitemsmodificacant/?id1='+this.state.itemsstk+'&id2='+this.state.grupostk +'&id3='+this.state.rubrostk ; //'http://localhost:3000/data'
+    request
+    .post(url)
+    .set('Content-Type', 'application/json')
+    .send({StkItemsCantidad: CantAct})
+    .send({StkItemsObserv : this.state.StkItemsObserv})
+    // .send({StkItemsFAct: fecha})
+    .then(function(res) {
+        // res.body, res.headers, res.status
+            });
+          
+        this.leestkitemscodgrrbit()   
+}
 
 handleChange = prop => event => {
     this.setState({ [prop]: event.target.value });
@@ -279,13 +281,11 @@ render () {
     return (
       
         <div>
-            <br></br>
-            <br></br>
-            <br></br>
-            <form>
+        <form>
                 <FormControl>
                     <InputLabel >Grupo</InputLabel>
                     <Select
+                        id="SelectGrupo"
                         value={this.state.grupostk}
                         onChange={this.handleChange('grupostk')}
                         inputProps={{
@@ -323,16 +323,19 @@ render () {
                         value={this.state.itemsstk}
                         onChange={this.handleChange('itemsstk')}
                         >
+                         <MenuItem >Agregar</MenuItem>
                         {this.state.stkitemsRyG.map(option => (
                             <MenuItem 
                             key={option.idStkItems}
                             value={option.idStkItems}>
                                 {option.StkItemsDesc}
+                            
                             </MenuItem>
+                            
                         ))}
-                       
+
+                      
                     </Select>
-                  
                 </FormControl>
              
                 <FormControl>
@@ -433,17 +436,37 @@ render () {
                 </TextField>
                     }
                 </FormControl>    
+                
                 <FormControl>
                     <TextField
                         id="CantMod"
                         label="Cantidad + o -"
                         type="number"
                         fullWidth
-                        placeholder="Descripción"
                         onChange={this.updateField}
                         value={this.state.CantMod}
                     >
                     </TextField>
+                  
+                    </FormControl>     
+                    <FormControl>
+                  <TextField
+                        id="StkItemsObserv1"
+                        label="Observaciones"
+                        placeholder="Observaciones"
+                        onChange={this.updateField}
+                        value={this.state.StkItemsObserv1}
+                    >
+                    </TextField>
+                </FormControl>
+
+                    <QRCode
+            bgColor="#FFFFFF"
+            fgColor="#000000"
+            level="L"
+            style={{ width: 100 }}
+            value={'Detalle  : ' + this.state.StkRubroAbr1 + '  ' + this.state.StkItemsDesc1 + ' Cantidad : ' + this.state.StkItemsCantidad1 + ' Fecha Act : ' + this.state.StkItemsFAct1 + ' Observaciones :  ' +  this.state.StkItemsObserv1}
+        />
                         <DialogActions>
                         <Button variant="contained" color="primary"  onClick={this.modcantstkitem}>
                             Confirmar
@@ -452,11 +475,11 @@ render () {
                             Cancelar
                         </Button>
                         </DialogActions>
-                </FormControl>         
+                  
 
 
       </form>
-        </div>
+      </div>
       
     )
        
@@ -464,4 +487,81 @@ render () {
    
 }
 
+{/* <TextField
+id="grupostk" 
+select 
+label= 'Grupo'
+value={this.state.grupostk}
+onChange = {this.handleChange('grupostk')}> 
+{this.state.stkgrupo.map(option => (
+    <MenuItem
+    key={option.idStkGrupo}
+    value={option.idStkGrupo}>
+          {option.StkGrupoDesc}
+    </MenuItem>
+))}
+</TextField>
+<TextField
+id="rubrostk" 
+select 
+label= 'Rubro'
+value={this.state.rubrostk}
+onChange = {this.handleChange('rubrostk')}>
+{this.state.stkrubro.map(option => (
+    <MenuItem
+    key={option.idStkRubro}
+    value={option.idStkRubro}>
+          {option.StkRubroDesc}
+    </MenuItem>
+))}
+</TextField> */}
+
+{/* <FormControl>
+<InputLabel >Grupo</InputLabel>
+<Select
+  value={this.state.grupostk}
+  onChange={this.handleChange('grupostk')}
+  inputProps={{
+    name: 'grupo',
+    id: 'grupo-eleg',
+  }} >
+  {this.state.stkgrupo.map(option => (
+      <MenuItem 
+      key={option.idStkGrupo}
+      value={option.idStkGrupo}>
+          {option.StkGrupoDesc}
+      </MenuItem>
+  ))}
+  {this.marcaleerubro}
+</Select>
+</FormControl>
+<FormControl>
+<InputLabel >Rubro</InputLabel>
+<Select
+  value={this.state.rubrostk}
+  onChange={this.handleChange('rubrostk')}
+  input={<Input name="grupo" id="grupo-eleg" />}
+  
+  inputProps={{
+    name: 'rubro',
+    id: 'rubro-eleg',
+  }} >
+ 
+  {this.state.stkrubro.map(option => (
+      <MenuItem
+      key={option.idStkRubro}
+      value={option.idStkRubro}>
+          {option.StkRubroDesc}
+      </MenuItem>
+  ))}
+</Select>
+</FormControl> */}
+   {/* <Moment
+                     //   label="Fecha.Act."
+                        format="DD-MM-YYYY" 
+                        id="FechaAct"
+                        withTitle= {true}
+                        disabled
+                        >{this.state.StkItemsFAct1}
+                    </Moment> */}
 export default StkMovimiento

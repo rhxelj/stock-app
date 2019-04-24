@@ -10,15 +10,20 @@ import Main from './Main';
 // import Footter from './components/Footter';
 
 
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 const App =() => (
-  <Router>
-    <div>
-      <Header/>
-      <Main />
-      {/* <Footter/>   */}
-    </div>
-  </Router>
+  <React.Fragment>
+  <CssBaseline />
+    <Router>
+      <div>
+        <Header/>
+        <Main />
+        {/* <Footter/>   */}
+      </div>
+    </Router>
+
+    </React.Fragment>  
 );
 
  export default App;
