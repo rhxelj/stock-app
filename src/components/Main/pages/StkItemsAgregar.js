@@ -22,39 +22,27 @@ class StkItemsAgregar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: IpServidor + '/stkgrupoagregar',
-      idStkRubro: 0,
-      StkRubroCodGrp: "",
-      StkRubroDesc: "",
-      StkRubroAbr: "",
-      StkRubroProv: "",
-      StkRubroAncho: "",
-      StkRubroPres: "",
-      StkRubroUM:"",
-      StkRubroCosto:"",
-      StkRubroTM:"",
+      StkItemsGrupo:0 ,
+      StkItemsRubro: 0,
+      StkItemsDesc: "",
+      StkItemsCantidad: 0,
+      StkItemsFAct: "",
+      StkItemsMin: 0,
+      StkItemsMax:0,
+      StkItemsObserv:"",
       stkrubro:[],
       stkgrupo:[],
-      idStkTipoProveed: 0,
-      StkTipoProveedDesc: "",
-      proveedores: [],
-      idStkMonedas: "",
-      StkMonedasDescripcion: "",
-      StkMonedasCotizacion: 0,
-      stkmonedas: [],
-      unmed:[],
-      nuevocodigo:0,
+      // idStkTipoProveed: 0,
+      // StkTipoProveedDesc: "",
+      // proveedores: [],
+      // idStkMonedas: "",
       open: true,
-      idStkGrupo:'',      // borrar 
-      StkGrupoDesc:'',    // borrar
-      StkGrupoAbr:'',     // borrar
-      StkGrupoContRubro:0 // borrar
     };
     this.updateField = this.updateField.bind(this);
-    this.submitProveedor = this.submitProveedor.bind(this);
+    // this.submitItem = this.submitItem.bind(this);
   }
 
-  //Material Ui Dialog start
+
   handleClickOpen = () => {
     this.setState({ open: true });
   };
@@ -62,120 +50,55 @@ class StkItemsAgregar extends Component {
   handleClose = () => {
     this.setState({ open: false });
   };
-  //Material Ui Dialog start
-
-  //esto es para que en el select me muestre el item elegido
+ 
   handleChange = prop => event => {
-    // this.setState(()=>{return{ [prop]: event.target.value }});
-    // this.setState({value: event.target.value}, function () {
-    //   console.log(this.state.value) })
-    this.llama()
-    
-    this.setState({[prop]: event.target.value}, function () {
-      console.log('contenido de ' +[prop] +" "+ this.state.StkRubroCodGrp) })
+  
+    this.setState({[prop]: event.target.value})
+   
   };
 
-  llama = _ => console.log('Codigo de grupo dentro de handleChange : '+this.state.StkRubroCodGrp)
-  
-  leeXcodgrupo = prop => event => {
-    console.log("prop : " + prop)                                         //control se puede Borrar esta linea 
-    this.setState({[prop]: event.target.value}, 
-      //aca leo grupo X Código
-      function () {
-        const url = IpServidor +'/stkgrupoleercod/'+ this.state.StkRubroCodGrp
-        // console.log("la url es : "+url)                                   //control se puede Borrar esta linea
-        request
-        .get(url)
-        .set('Content-Type', 'application/json')
-        .then(res=> {
-          // const grupoitem = JSON.parse(res.text)
-          // this.setState({grupoitem:grupoitem[0]}, // como esta en un arreglo lo paso a un solo objeto
-          var grupoitem = JSON.parse(res.text)
-          var {idStkGrupo,StkGrupoDesc,StkGrupoAbr,StkGrupoContRubro} = grupoitem[0]
-          this.setState({idStkGrupo,StkGrupoDesc,StkGrupoAbr,StkGrupoContRubro:idStkGrupo,StkGrupoDesc,StkGrupoAbr,StkGrupoContRubro}, // como esta en un arreglo lo paso a un solo objeto  
-            ()=>{
-              
-              console.log("contenodo de grupo por separado",this.state.idStkGrupo,this.state.StkGrupoDesc,this.state.StkGrupoAbr,this.state.StkGrupoContRubro)
-              // console.log("contenido de grupoitem ")
-              // console.log(this.state.grupoitem)
-              // console.log("Tipo de grupoitem ")
-              // console.log(typeof(this.state.grupoitem))
-              // console.log("contenido de StkGrupoContRubro ")
-              // console.log(this.state.grupoitem.StkGrupoContRubro)
-              // this.setState({grupoitem :state.grupoitem.StkGrupoContRubro+1,},()=>console.log("contenido de contrubro"+this.state.grupoitem.StkGrupoContRubro))
-            // function() {
-            //   this.setState(state =>{return{ grupoitem.StkGrupoContRubro : state.grupoitem.StkGrupoContRubro+1}},()=>{
-            //     console.log("contenido de grupoitem : ")
-            //     console.log(this.state.grupoitem)})
-
-              // console.log("Contador : " + grupoitem[0].StkGrupoContRubro)
-              // console.log("Contador : " + this.state.grupoitem[0].StkGrupoContRubro)
-              // var nuevocodigo = this.state.grupoitem[0].StkGrupoContRubro + 1 // le sumo uno para formar el nuevo código
-              
-              // this.setState({nuevocodigo : this.state.grupoitem[0].StkGrupoContRubro + 1},()=>{console.log("nuevocodigo : " + this.state.nuevocodigo)
-            // console.log("Grupo contrubro ")
-            // console.log(this.state.grupoitem.StkGrupoContRubro)
-            }
-          )
-          console.log("contenodo de grupo por separado fuera del callback ",this.state.idStkGrupo,this.state.StkGrupoDesc,this.state.StkGrupoAbr,this.state.StkGrupoContRubro)
-          this.setState((state) =>({StkGrupoContRubro:state.StkGrupoContRubro+1}))
-          this.setState({idStkRubro:this.state.StkGrupoContRubro},console.log("idStkRubro : ",this.state.idStkRubro))
-          console.log("contenodo de grupo por separado fpuera de set state ",this.state.idStkGrupo,this.state.StkGrupoDesc,this.state.StkGrupoAbr,this.state.StkGrupoContRubro)
-
-              // this.setState({state =>{ return {grupoitem[0].StkGrupoContRubro : state.grupoitem[0].StkGrupoContRubro + 1,}}},()=>{console.log("nuevocodigo : " + this.state.nuevocodigo)})
-              
-              // console.log("nuevocodigo : " + nuevocodigo)                 //control se puede Borrar esta linea
-              console.log("fuera de setState nuevocodigo : " + this.state.nuevocodigo) //control se puede Borrar esta linea
-
-            // })
-          }
-        )
-      }
-    )
-  }
-  
-  
- //****************************/ 
- //Update
-ActualizaGrupo = () => {
-
-  request                  
-    .post(IpServidor + '/stkgrupomodificar/'+this.state.idStkGrupo) //pongo el idStkGrupo
-       .set('Content-Type', 'application/json')
-          // .send({ idStkGrupo: this.state.idStkGrupo})
-          .send({ StkGrupoDesc: this.state.StkGrupoDesc})
-          .send({ StkGrupoAbr: this.state.StkGrupoAbr})        
-          .send({ StkGrupoContRubro: this.state.StkGrupoContRubro}) // Esto va a ser Cero inicialmente.
-          
-      //  .set('X-API-Key', 'foobar')
-       .then(function(res) { // res.body, res.headers, res.status
-        });
-      } 
-
- //***************************/ 
-  
-  
-  
-  
+  handleChangeGrupo = prop => event => {
+   
+    this.setState({[prop]: event.target.value},()=> this.stkrubroleecodgrupo(this.state.StkItemsGrupo))
+ 
+  };
   
   // Create
 
   add = _ => {
-    console.log("dentro de add valores de desc, abr, contrubro ",this.state.StkGrupoDesc, this.state.StkGrupoAbr, this.state.StkGrupoContRubro)
-    
-    // **********************   aca llamo a la fucnion ActualizaGrupo *************************
-    // this.ActualizaGrupo()
+    const url = IpServidor + '/stkitemsagregar/?id2=' + this.state.StkItemsGrupo + '&id3=' + this.state.StkItemsRubro
+    console.log('url : '+ url)
+    console.log('this.state.StkItemsGrupo',this.state.StkItemsGrupo)
+      console.log('this.state.StkItemsRubro',this.state.StkItemsRubro)
+
+      console.log('this.state.StkItemsDesc',this.state.StkItemsDesc)
+      console.log('this.state.StkItemsCantidad',this.state.StkItemsCantidad)
+      console.log('this.state.StkItemsMin',this.state.StkItemsMin)
+      console.log('this.state.StkItemsMax',this.state.StkItemsMax)
+      console.log('this.state.StkItemsObserv',this.state.StkItemsObserv)
 
     request
-      .post(this.state.url)
+      .post(url)
+      // .put(url)
       .set("Content-Type", "application/json")
-      .send({ StkGrupoDesc: this.state.StkGrupoDesc})
-      .send({ StkGrupoAbr: this.state.StkGrupoAbr})        
-      .send({ StkGrupoContRubro: 0}) // Esto va a ser Cero inicialmente.
+      .send({ StkItemsDesc: this.state.StkItemsDesc})
+      .send({ StkItemsCantidad: this.state.StkItemsCantidad})
+      .send({ StkItemsMin: this.state.StkItemsMin})
+      .send({ StkItemsMax: this.state.StkItemsMax})
+      .send({ StkItemsObserv: this.state.StkItemsObserv})            
       .set("X-API-Key", "foobar")
-      .then(function(res) {});
-      
-    };
+      .then(function(res) {})
+      .catch(function(err){console.log(err)})
+
+      console.log('this.state.StkItemsGrupo',this.state.StkItemsGrupo)
+      console.log('this.state.StkItemsRubro',this.state.StkItemsRubro)
+
+      console.log('this.state.StkItemsDesc',this.state.StkItemsDesc)
+      console.log('this.state.StkItemsCantidad',this.state.StkItemsCantidad)
+      console.log('this.state.StkItemsMin',this.state.StkItemsMin)
+      console.log('this.state.StkItemsMax',this.state.StkItemsMax)
+      console.log('this.state.StkItemsObserv',this.state.StkItemsObserv)
+  };
 
 // Lee tipo Grupo inicio 
   leestkgrupo = _ => {
@@ -184,7 +107,7 @@ ActualizaGrupo = () => {
     request
     .get(url)
     .set('Content-Type', 'application/json')
-        .then(res=> {
+    .then(res=> {
         
           const stkgrupo = JSON.parse(res.text);
           console.log(`stkgrupo :`)
@@ -201,9 +124,30 @@ ActualizaGrupo = () => {
 // Lee tipo Grupo Fin
 
 // Lee tipo Rubro inicio 
-leestkrubro = _ => {
+
+
+
+
+
+// leestkrubro = _ => {
+//   // const url = 'http://localhost:4000/stkgrupoleer' ; //'http://localhost:3000/data'
+//   const url = IpServidor + "/stkrubroleer";
+//   request
+//   .get(url)
+//   .set('Content-Type', 'application/json')
+//       .then(res=> {
+//         const stkrubro = JSON.parse(res.text);
+//         this.setState(()=>{ return {stkrubro: stkrubro}});
+
+//         console.log('dentro de leestkrubro')
+//         console.log(this.state.stkrubro)
+//       })
+  
+//   // this.marcagrupo()
+//   }
+stkrubroleecodgrupo = (id) => {
   // const url = 'http://localhost:4000/stkgrupoleer' ; //'http://localhost:3000/data'
-  const url = IpServidor + "/stkrubroleer";
+  const url = IpServidor + "/stkrubroleecodgrupo/"+id;
   request
   .get(url)
   .set('Content-Type', 'application/json')
@@ -217,45 +161,11 @@ leestkrubro = _ => {
   
   // this.marcagrupo()
   }
+
+
+
 // Lee tipo Rubro Fin
 
-
-// Leo tipo Proveedor Inicio
-  proveedoresleer = _ => {
-    const url = IpServidor + "/proveedoresleer";
-    request
-      .get(url)
-      .set("Content-Type", "application/json")
-      .then(res => {
-        const proveedores = JSON.parse(res.text);
-        this.setState({ proveedores: proveedores });
-      });
-  };
-// Leo tipo Proveedor Fin
-
-// Leo tipo Unidad de medidas Inicio
-unmedleer = _ => {
-  const url = IpServidor +'/stkunmedleer'
-  request
-  .get(url)
-  .set('Content-Type', 'application/json')
-      .then(res=> {
-      const unmed = JSON.parse(res.text)
-      this.setState({unmed: unmed})
-      })
-}
-// Leo tipo Unidad de medidas Fin
-
-leetmon = _ => {
-    const url = IpServidor + "/stkmonedasleer";
-    request
-      .get(url)
-      .set("Content-Type", "application/json")
-      .then(res => {
-        const stkmonedas = JSON.parse(res.text);
-        this.setState({ stkmonedas: stkmonedas });
-      });
-  };
 
   updateField(field) {
     this.setState({
@@ -268,23 +178,36 @@ leetmon = _ => {
     this.setState({ isOpen: !this.state.isOpen });
   };
 
-  submitProveedor(e) {
+  // submitItem(e) {
+  //   e.preventDefault();
+  //   this.add();
+  //   // aca pongo mensaje de error
+  //   this.props.read()
+  //   // alert("ERROR")
+  //   this.props.click();
+  // }
+
+  submitItem = (e) => {
     e.preventDefault();
     this.add();
+    // aca pongo mensaje de error
     this.props.read()
+    // alert("ERROR")
     this.props.click();
   }
+
+
 
   componentDidMount() {
    
   }
 
   componentWillMount(){
-    this.proveedoresleer()
+    // this.proveedoresleer()
     this.leestkgrupo()
-    this.leestkrubro()
-    this.unmedleer()
-    this.leetmon()
+    // this.leestkrubro()
+    // this.unmedleer()
+    // this.leetmon()
     // console.log('tipo proveedor dentro de DIDMOUNT ')
     // console.log(this.state.tipoprov)
     
@@ -310,35 +233,22 @@ leetmon = _ => {
           <DialogContent>
         
         <Grid container  spacing={24}>
-            {/* <TextField
-              id="StkItemsDes"
-              label="descripcion"
-              value={this.state.idStkItemsDesc}
-              onChange={this.handleChange("idStkItemsDesc")}
-              margin="dense"
-              fullWidth
-              variant="standard"
-              autoFocus={true}
-              onKeyPress={event => {
-                if (event.key === "Enter")
-                  document.getElementById("StkRubroCodGrp").focus();
-              }}
-            /> */}
-            {/* <div> */}
 
 {/* Grupo INICIO*/}
               <Grid item  xs={6} sm={6} lg={6}>
               <TextField
-                id="idStkGrupo"
+                id="StkItemsGrupo"
                 select={true}
                 fullWidth={true}
                 label="Grupo"
+                autoFocus={true}
                 InputLabelProps={{ shrink: true }}
-                value={this.state.StkCodGrp}
-                onChange={this.handleChange("StkCodGrp")}
+                value={this.state.StkItemsGrupo}
+                // onChange={this.handleChange("StkItemsGrupo")}
+                onChange={this.handleChangeGrupo("StkItemsGrupo")}
                 onKeyPress={event => {
                   if (event.key === "Enter")
-                    document.getElementById("idStkRubro").focus();
+                    document.getElementById("StkItemsRubro").focus();
                 }}
               >
                  
@@ -354,24 +264,21 @@ leetmon = _ => {
               </Grid>
 {/* Grupo FIN */}
 
-            {/* </div> */}
-           
-            {/* <div> */}
 
 {/* Rubro INICIO */}
             
 <Grid item  xs={6} sm={6} lg={6}>
               <TextField
-                id="idStkRubro"
+                id="StkItemsRubro"
                 select={true}
                 label="Rubro"
                 fullWidth={true}
                 InputLabelProps={{ shrink: true }} 
-                value={this.state.StkRubro}
-                onChange={this.handleChange("StkRubro")}
+                value={this.state.StkItemsRubro}
+                onChange={this.handleChange("StkItemsRubro")}
                 onKeyPress={event => {
                   if (event.key === "Enter")
-                    document.getElementById("StkItemsDes").focus();
+                    document.getElementById("StkItemsDesc").focus();
                 }}
               >
                  
@@ -388,28 +295,24 @@ leetmon = _ => {
               </Grid>
 {/* Rubro FIN */}
 
-            {/* </div> */}
 {/* Descripción INICIO */}
-{/* <div> */}
   <Grid item  xs={12} sm={12} lg={12}>
   <TextField
-              id="StkItemsDes"
+              id="StkItemsDesc"
               label="descripcion"
-              value={this.state.idStkItemsDesc}
-              onChange={this.handleChange("idStkItemsDesc")}
+              value={this.state.StkItemsDesc}
+              onChange={this.handleChange("StkItemsDesc")}
               margin="dense"
               fullWidth
               variant="standard"
-              autoFocus={true}
+              // autoFocus={true}
               onKeyPress={event => {
                 if (event.key === "Enter")
                   document.getElementById("StkItemsCantidad").focus();
               }}
             />
             </Grid>
-            {/* </div> */}
 {/* Descripción Fin */}
-            {/* <div> */}
             <Grid item  xs={4} sm={4} lg={4}>
               <TextField
                 id="StkItemsCantidad"
@@ -421,13 +324,13 @@ leetmon = _ => {
                 variant="standard"
                 onKeyPress={event => {
                   if (event.key === "Enter")
-                    document.getElementById("StkMin").focus();
+                    document.getElementById("StkItemsMin").focus();
                 }}
               />
               </Grid>
               <Grid item  xs={4} sm={4} lg={4}>
 <TextField
-                id="StkMin"
+                id="StkItemsMin"
                 label="Stock Minimo"
                 type="number"
                 value={this.state.StkItemsMin}
@@ -470,16 +373,7 @@ leetmon = _ => {
                 }}
               />
               </Grid>
-            {/* </div> */}
-            {/* <div>
-              
-            </div>
-            <div>
-              
-            </div>
-            <div>
-              
-            </div> */}
+         
             </Grid>
           </DialogContent>
           <DialogActions>
@@ -487,7 +381,7 @@ leetmon = _ => {
               id="Grabar"
               variant="contained"
               color="primary"
-              onClick={this.submitProveedor}
+              onClick={this.submitItem}
             >
               Grabar
             </Button>
