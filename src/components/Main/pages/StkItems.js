@@ -14,6 +14,7 @@ import Button from '@material-ui/core/Button';
 
 import StkItemsAgregar from './StkItemsAgregar'
 import StkItemsBorrar from './StkItemsBorrar'
+import StkItemsModificar from './StkItemsModificar'
 
 import IpServidor from './VariablesDeEntorno'
 
@@ -53,6 +54,7 @@ class StkItems extends Component {
         super(props)
         this.state = {
             toggle: false,
+            togglemodificar:false,
             idStkItems:0,
             StkItemsGrupo:0,
             StkItemsRubro:0,
@@ -115,6 +117,14 @@ class StkItems extends Component {
         }))
     }
    
+    togglemodificar(event){
+        this.toggle()
+        this.setState(prevState => ({
+        togglemodificar: !prevState.togglemodificar
+        }))
+        
+    }
+
     componentDidMount(){
         // this.leeStkItems()
         this.leeStkItemsDetalles()
@@ -239,19 +249,26 @@ class StkItems extends Component {
                         {items.map(row => {
                         return (
                             <TableRow key={row.idStkItems} 
-                                // onDoubleClick={()=>{
-                                // console.log("actualizo variables")
-                                // this.setState({idStkMonedas:row.idStkMonedas})
-                                // this.setState({StkMonedasDescripcion:row.StkMonedasDescripcion})
-                                // this.setState({StkMonedasCotizacion:row.StkMonedasCotizacion})
-                                // this.togglemodificar()}}
+                                onDoubleClick={()=>{
+                                console.log("actualizo variables")
+                               
+                                
+                                this.setState({StkGrupoDesc:row.StkGrupoDesc})
+                                this.setState({StkRubroDesc:row.StkRubroDesc})
+                                this.setState({StkItemsDesc:row.StkItemsDesc})
+                                this.setState({StkItemsCantidad:row.StkItemsCantidad})
+                                this.setState({StkItemsMin:row.StkItemsMin})
+                                this.setState({StkItemsMax:row.StkItemsMax})
+                                this.setState({StkItemsObserv:row.StkItemsObserv})
+
+                                this.togglemodificar()}}
                                 >
+                                                              
+                                {console.log("row ")}
+                                {console.log(row)}
+                                
                                 <CustomTableCell>{row.idStkItems}</CustomTableCell>
-                                
                                 <CustomTableCell>{row.StkGrupoDesc}</CustomTableCell>
-                                
-                                {/* <CustomTableCell>{this.stkgrupoleercod(row.StkItemsGrupo)}</CustomTableCell> */}
-                                
                                 <CustomTableCell>{row.StkRubroDesc}</CustomTableCell>
                                 <CustomTableCell>{row.StkItemsDesc}</CustomTableCell>
                                 <CustomTableCell>{row.StkItemsCantidad}</CustomTableCell>
@@ -269,6 +286,42 @@ class StkItems extends Component {
                 :
                     <div></div>  
                 }
+
+
+                    {this.state.togglemodificar
+                        ?  
+                        <div>
+                            <div className="row">
+                                <div className="col s12 ">
+                                    <div className="">
+                                        <div className="card-content  black-text">
+                                        <StkItemsModificar 
+                                            clickmodificar={()=>this.togglemodificar()} 
+                                            // read={()=>this.read()}
+                                           
+                                            StkItemsGrupo={this.state.StkGrupoDesc}
+                                            StkItemsRubro={this.state.StkRubroDesc}
+                                            StkItemsDesc={this.state.StkItemsDesc}
+                                            StkItemsCantidad={this.state.StkItemsCantidad}
+                                            StkItemsMin={this.state.StkItemsMin}
+                                            StkItemsMax={this.state.StkItemsMax}
+                                            StkItemsObserv={this.state.StkItemsObserv}
+
+                                            // click={()=>this.toggle()} 
+                                            leeStkItems={()=>this.leeStkItems()} 
+                                            read={()=>this.leeStkItems()}
+                                        >
+                                        
+                                        </StkItemsModificar>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    :
+                        <div></div>    
+}
+
             </div>
         )
     }

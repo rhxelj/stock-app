@@ -18,18 +18,18 @@ import NativeSelect from '@material-ui/core/NativeSelect';
 
 // import AgregarMonedas from './StkMonedasAgregar'
 
-class StkItemsAgregar extends Component {
+class StkItemsModificar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      StkItemsGrupo:0 ,
-      StkItemsRubro: 0,
-      StkItemsDesc: "",
-      StkItemsCantidad: 0,
+      StkItemsGrupo: this.props.StkItemsGrupo ,
+      StkItemsRubro: this.props.StkItemsRubro,
+      StkItemsDesc: this.props.StkItemsDesc,
+      StkItemsCantidad: this.props.StkItemsCantidad ,
       StkItemsFAct: "",
-      StkItemsMin: 0,
-      StkItemsMax:0,
-      StkItemsObserv:"",
+      StkItemsMin: this.props.StkItemsMin,
+      StkItemsMax:this.props.StkItemsMax,
+      StkItemsObserv:this.props.StkItemsObserv,
       stkrubro:[],
       stkgrupo:[],
       // idStkTipoProveed: 0,
@@ -66,7 +66,7 @@ class StkItemsAgregar extends Component {
   // Create
 
   add = _ => {
-    const url = IpServidor + '/stkitemsagregar/?id2=' + this.state.StkItemsGrupo + '&id3=' + this.state.StkItemsRubro
+    const url = IpServidor + '/stkitemsModificar/?id2=' + this.state.StkItemsGrupo + '&id3=' + this.state.StkItemsRubro
     console.log('url : '+ url)
     console.log('this.state.StkItemsGrupo',this.state.StkItemsGrupo)
       console.log('this.state.StkItemsRubro',this.state.StkItemsRubro)
@@ -227,7 +227,7 @@ stkrubroleecodgrupo = (id) => {
         >
         <Grid container>
           <Grid item xs={4} sm={4} lg={4}></Grid>
-            <DialogTitle id="form-dialog-title">Aregar Item</DialogTitle>
+            <DialogTitle id="form-dialog-title">MODIFICAR ITEM</DialogTitle>
           <Grid item xs={4} sm={4} lg={4}></Grid>
         </Grid>
           <DialogContent>
@@ -383,13 +383,13 @@ stkrubroleecodgrupo = (id) => {
               color="primary"
               onClick={this.submitItem}
             >
-              Grabar
+              MODIFICAR
             </Button>
             <Button
               variant="contained"
               color="secondary"
-              onClick={this.props.click}
-              // onClick={()=>{return alert("GRABO RUBRO")}}
+              onClick={this.props.clickmodificar}
+              // onClick={()=>{return alert("cancelo modificar")}}
             >
               Cancelar
             </Button>
@@ -400,4 +400,4 @@ stkrubroleecodgrupo = (id) => {
   }
 }
 
-export default StkItemsAgregar;
+export default StkItemsModificar;
