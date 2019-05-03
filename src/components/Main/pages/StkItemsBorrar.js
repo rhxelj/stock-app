@@ -1,9 +1,10 @@
 import React, { Component} from 'react'
 import request from 'superagent'
+import IpServidor from './VariablesDeEntorno';
 // import ReactTable from 'react-table'
 // import 'react-table/react-table.css'
 
-class StkMonedasBorrar extends Component {
+class StkItemsBorrar extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -27,11 +28,12 @@ class StkMonedasBorrar extends Component {
     
     
     // //Delete
-      borrarGrupo = (id)=> {
-       
- //       const { moneda } = this.state;
+      borrarGrupo = ()=> {
+    //    const {id0,id1,id2} = {idprops}
+       console.log("id0 id1 id2 ",this.props.StkItem[0],this.props.StkItem[1],this.props.StkItem[2])
+       const url = IpServidor + '/stkitemsborrar/?id1=' + this.props.StkItem[0] + '&id2=' +this.props.StkItem[1]+'&id3='+this.props.StkItem[2]
         request
-          .delete(this.state.url +id)
+          .delete(url)
           .set('Content-Type', 'application/json')
           //.set('X-API-Key', 'foobar')
           .then(function(res) {
@@ -76,7 +78,8 @@ class StkMonedasBorrar extends Component {
                 :
                     <div className="center-align">
                         <p>Borrar ?</p>
-                        <button className="green "><i className="material-icons" onClick={()=>this.borrarGrupo(this.props.idStkGrupo)}>check</i></button>
+                        {/* <button className="green "><i className="material-icons" onClick={()=>this.borrarGrupo(this.props.idStkGrupo)}>check</i></button> */}
+                        <button className="green "><i className="material-icons" onClick={()=>this.borrarGrupo(this.props.StkItem)}>check</i></button>
                         <button className="red "><i className="material-icons" onClick={()=>this.toggle()}>cancel</i></button>
                     </div>
                 }
@@ -85,4 +88,4 @@ class StkMonedasBorrar extends Component {
     }
 }
 
-export default StkMonedasBorrar
+export default StkItemsBorrar

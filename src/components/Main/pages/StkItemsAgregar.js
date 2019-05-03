@@ -12,7 +12,15 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 import Grid from '@material-ui/core/Grid';
+// import NativeSelect from '@material-ui/core/NativeSelect';
+
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
+
+
+
 
 // import Select from '@material-ui/core/Select';
 
@@ -29,7 +37,7 @@ class StkItemsAgregar extends Component {
       StkItemsFAct: "",
       StkItemsMin: 0,
       StkItemsMax:0,
-      StkItemsObserv:"",
+      // StkItemsObserv:"",
       stkrubro:[],
       stkgrupo:[],
       // idStkTipoProveed: 0,
@@ -67,15 +75,15 @@ class StkItemsAgregar extends Component {
 
   add = _ => {
     const url = IpServidor + '/stkitemsagregar/?id2=' + this.state.StkItemsGrupo + '&id3=' + this.state.StkItemsRubro
-    console.log('url : '+ url)
-    console.log('this.state.StkItemsGrupo',this.state.StkItemsGrupo)
-      console.log('this.state.StkItemsRubro',this.state.StkItemsRubro)
+      // console.log('url : '+ url)
+      // console.log('this.state.StkItemsGrupo',this.state.StkItemsGrupo)
+      // console.log('this.state.StkItemsRubro',this.state.StkItemsRubro)
 
-      console.log('this.state.StkItemsDesc',this.state.StkItemsDesc)
-      console.log('this.state.StkItemsCantidad',this.state.StkItemsCantidad)
-      console.log('this.state.StkItemsMin',this.state.StkItemsMin)
-      console.log('this.state.StkItemsMax',this.state.StkItemsMax)
-      console.log('this.state.StkItemsObserv',this.state.StkItemsObserv)
+      // console.log('this.state.StkItemsDesc',this.state.StkItemsDesc)
+      // console.log('this.state.StkItemsCantidad',this.state.StkItemsCantidad)
+      // console.log('this.state.StkItemsMin',this.state.StkItemsMin)
+      // console.log('this.state.StkItemsMax',this.state.StkItemsMax)
+      // console.log('this.state.StkItemsObserv',this.state.StkItemsObserv)
 
     request
       .post(url)
@@ -85,7 +93,7 @@ class StkItemsAgregar extends Component {
       .send({ StkItemsCantidad: this.state.StkItemsCantidad})
       .send({ StkItemsMin: this.state.StkItemsMin})
       .send({ StkItemsMax: this.state.StkItemsMax})
-      .send({ StkItemsObserv: this.state.StkItemsObserv})            
+      // .send({ StkItemsObserv: this.state.StkItemsObserv})            
       .set("X-API-Key", "foobar")
       .then(function(res) {})
       .catch(function(err){console.log(err)})
@@ -97,7 +105,7 @@ class StkItemsAgregar extends Component {
       console.log('this.state.StkItemsCantidad',this.state.StkItemsCantidad)
       console.log('this.state.StkItemsMin',this.state.StkItemsMin)
       console.log('this.state.StkItemsMax',this.state.StkItemsMax)
-      console.log('this.state.StkItemsObserv',this.state.StkItemsObserv)
+      // console.log('this.state.StkItemsObserv',this.state.StkItemsObserv)
   };
 
 // Lee tipo Grupo inicio 
@@ -237,6 +245,9 @@ stkrubroleecodgrupo = (id) => {
 {/* Grupo INICIO*/}
               <Grid item  xs={6} sm={6} lg={6}>
               <TextField
+                SelectProps={{
+                  native: true,
+                }}
                 id="StkItemsGrupo"
                 select={true}
                 fullWidth={true}
@@ -251,16 +262,40 @@ stkrubroleecodgrupo = (id) => {
                     document.getElementById("StkItemsRubro").focus();
                 }}
               >
-                 
+                 <option></option>
                  {this.state.stkgrupo.map(option => (  
-                  <MenuItem
+                  
+                  <option
                   id="tipogrupo"
                   key={option.idStkGrupo}
                   value={option.idStkGrupo}
                   >
                       {option.StkGrupoDesc} 
-                  </MenuItem>))} 
+                  </option>))} 
               </TextField>
+      {/* <FormControl>
+        <NativeSelect
+          id="StkItemsGrupo"
+          value={this.state.StkItemsGrupo}
+          onChange={this.handleChangeGrupo("StkItemsGrupo")}
+          name="StkItemsGrupo"
+          fullWidth={true}
+          
+        >
+        <option></option>
+          {this.state.stkgrupo.map(option => (  
+                  <option
+                  id="tipogrupo"
+                  key={option.idStkGrupo}
+                  value={option.idStkGrupo}
+                  >
+                      {option.StkGrupoDesc} 
+                  </option>))}
+        </NativeSelect>
+        <FormHelperText>Grupo</FormHelperText>
+      </FormControl> */}
+
+
               </Grid>
 {/* Grupo FIN */}
 
@@ -269,6 +304,9 @@ stkrubroleecodgrupo = (id) => {
             
 <Grid item  xs={6} sm={6} lg={6}>
               <TextField
+                SelectProps={{
+                  native: true,
+                }}
                 id="StkItemsRubro"
                 select={true}
                 label="Rubro"
@@ -283,14 +321,16 @@ stkrubroleecodgrupo = (id) => {
               >
                  
                  {this.state.stkrubro.map(option => (  
-                  <MenuItem
+                  // <MenuItem
+                  <option
                   id="tiporubro"
                   key={option.idStkRubro}
                   value={option.idStkRubro}
                   onClick={()=>console.log("Hizo Click")}
                   >
                       {option.StkRubroDesc} 
-                  </MenuItem>))} 
+                  {/* </MenuItem>))}  */}
+                  </option>))} 
               </TextField>
               </Grid>
 {/* Rubro FIN */}
@@ -354,11 +394,11 @@ stkrubroleecodgrupo = (id) => {
                 variant="standard"
                 onKeyPress={event => {
                   if (event.key === "Enter")
-                    document.getElementById("StkItemsObserv").focus();
+                    document.getElementById("Grabar").focus();
                 }}
               />
               </Grid>
-              <Grid item  xs={12} sm={12} lg={12}>
+              {/* <Grid item  xs={12} sm={12} lg={12}>
               <TextField
                 id="StkItemsObserv"
                 label="Observaciones"
@@ -373,7 +413,7 @@ stkrubroleecodgrupo = (id) => {
                 }}
               />
               </Grid>
-         
+          */}
             </Grid>
           </DialogContent>
           <DialogActions>

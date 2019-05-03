@@ -63,7 +63,7 @@ class StkItems extends Component {
             StktemsFAct:'',
             StkItemsMin:0,
             StkItemsMax:0,
-            StkItemsObserv:'',
+            // StkItemsObserv:'',
             items:[],
             itemsdetalles:[],
             stkgrupoitem:[],
@@ -135,7 +135,8 @@ class StkItems extends Component {
         const items = this.state.items.map( (rowData,index) => 
         // Object.assign(rowData, { borrar: <button className=" red accent-4" onClick={()=>this.deleteProduct(rowData.idStkMonedas)}>Borrar</button> })
         Object.assign(rowData, { borrar: 
-            <div className="center-align"><StkItemsBorrar idStkItems={rowData.idStkItems} leeStkItems={()=>this.leeStkItems()} read={()=>this.leeStkItems()}></StkItemsBorrar></div>})
+            // <div className="center-align"><StkItemsBorrar idStkItems={rowData.idStkItems} leeStkItems={()=>this.leeStkItems()} read={()=>this.leeStkItems()}></StkItemsBorrar></div>})
+            <div className="center-align"><StkItemsBorrar StkItem={[rowData.idStkItems,rowData.StkItemsGrupo,rowData.StkItemsRubro]} leeStkItems={()=>this.leeStkItems()} read={()=>this.leeStkItems()}></StkItemsBorrar></div>})
             // <button 
             //     className=" red accent-4" 
             //     onClick={this.funcionTest}
@@ -174,6 +175,11 @@ class StkItems extends Component {
                 tipo:"numero"  
             },
             {
+                Header: "Cantidad Disponible",
+                accessor: "StkItemsCantDisp",
+                tipo:"numero"  
+            },
+            {
                 Header: "Fecha de Actualización",
                 accessor: "StktemsFAct",
                 tipo:"numero"  
@@ -188,11 +194,11 @@ class StkItems extends Component {
                 accessor: "StkItemsMax",
                 tipo:"numero"  
             },
-            {
-                Header: "Observaciones",
-                accessor: "StkItemsObserv",
-                tipo:"numero"  
-            },
+            // {
+            //     Header: "Observaciones",
+            //     accessor: "StkItemsObserv",
+            //     tipo:"numero"  
+            // },
             {
                 Header: "",
                 accessor: "borrar",
@@ -252,30 +258,33 @@ class StkItems extends Component {
                                 onDoubleClick={()=>{
                                 console.log("actualizo variables")
                                
-                                
+                                this.setState({idStkItems:row.idStkItems})
+                                this.setState({StkItemsGrupo:row.StkItemsGrupo})
                                 this.setState({StkGrupoDesc:row.StkGrupoDesc})
+                                this.setState({StkItemsRubro:row.StkItemsRubro})
                                 this.setState({StkRubroDesc:row.StkRubroDesc})
                                 this.setState({StkItemsDesc:row.StkItemsDesc})
                                 this.setState({StkItemsCantidad:row.StkItemsCantidad})
+                                this.setState({StkItemsCantidad:row.StkItemsCantDisp})
                                 this.setState({StkItemsMin:row.StkItemsMin})
                                 this.setState({StkItemsMax:row.StkItemsMax})
-                                this.setState({StkItemsObserv:row.StkItemsObserv})
+                                // this.setState({StkItemsObserv:row.StkItemsObserv})
 
                                 this.togglemodificar()}}
                                 >
                                                               
                                 {console.log("row ")}
                                 {console.log(row)}
-                                
                                 <CustomTableCell>{row.idStkItems}</CustomTableCell>
                                 <CustomTableCell>{row.StkGrupoDesc}</CustomTableCell>
                                 <CustomTableCell>{row.StkRubroDesc}</CustomTableCell>
                                 <CustomTableCell>{row.StkItemsDesc}</CustomTableCell>
                                 <CustomTableCell>{row.StkItemsCantidad}</CustomTableCell>
+                                <CustomTableCell>{row.StkItemsCantDisp}</CustomTableCell>
                                 <CustomTableCell>{row.StkItemsFAct}</CustomTableCell> 
                                 <CustomTableCell>{row.StkItemsMin}</CustomTableCell>
                                 <CustomTableCell>{row.StkItemsMax}</CustomTableCell>
-                                <CustomTableCell>{row.StkItemsObserv}</CustomTableCell>
+                                {/* <CustomTableCell>{row.StkItemsObserv}</CustomTableCell> */}
                                 <CustomTableCell>{row.borrar}</CustomTableCell>
                             </TableRow>
                             );
@@ -298,14 +307,18 @@ class StkItems extends Component {
                                         <StkItemsModificar 
                                             clickmodificar={()=>this.togglemodificar()} 
                                             // read={()=>this.read()}
-                                           
-                                            StkItemsGrupo={this.state.StkGrupoDesc}
-                                            StkItemsRubro={this.state.StkRubroDesc}
+
+                                            idStkItems={this.state.idStkItems}
+                                            StkItemsGrupo={this.state.StkItemsGrupo}
+                                            StkGrupoDesc={this.state.StkGrupoDesc}
+                                            StkItemsRubro={this.state.StkItemsRubro}
+                                            StkRubroDesc={this.state.StkRubroDesc}
+
                                             StkItemsDesc={this.state.StkItemsDesc}
                                             StkItemsCantidad={this.state.StkItemsCantidad}
                                             StkItemsMin={this.state.StkItemsMin}
                                             StkItemsMax={this.state.StkItemsMax}
-                                            StkItemsObserv={this.state.StkItemsObserv}
+                                            // StkItemsObserv={this.state.StkItemsObserv}
 
                                             // click={()=>this.toggle()} 
                                             leeStkItems={()=>this.leeStkItems()} 

@@ -22,14 +22,17 @@ class StkItemsModificar extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      idStkItems: this.props.idStkItems ,
       StkItemsGrupo: this.props.StkItemsGrupo ,
       StkItemsRubro: this.props.StkItemsRubro,
+      StkGrupoDesc: this.props.StkGrupoDesc ,
+      StkRubroDesc: this.props.StkRubroDesc,
       StkItemsDesc: this.props.StkItemsDesc,
       StkItemsCantidad: this.props.StkItemsCantidad ,
       StkItemsFAct: "",
       StkItemsMin: this.props.StkItemsMin,
       StkItemsMax:this.props.StkItemsMax,
-      StkItemsObserv:this.props.StkItemsObserv,
+      // StkItemsObserv:this.props.StkItemsObserv,
       stkrubro:[],
       stkgrupo:[],
       // idStkTipoProveed: 0,
@@ -66,7 +69,7 @@ class StkItemsModificar extends Component {
   // Create
 
   add = _ => {
-    const url = IpServidor + '/stkitemsModificar/?id2=' + this.state.StkItemsGrupo + '&id3=' + this.state.StkItemsRubro
+    const url = IpServidor + '/stkitemsmodificar/?id1='+this.state.idStkItems+'&id2=' + this.state.StkItemsGrupo + '&id3=' + this.state.StkItemsRubro
     console.log('url : '+ url)
     console.log('this.state.StkItemsGrupo',this.state.StkItemsGrupo)
       console.log('this.state.StkItemsRubro',this.state.StkItemsRubro)
@@ -75,7 +78,7 @@ class StkItemsModificar extends Component {
       console.log('this.state.StkItemsCantidad',this.state.StkItemsCantidad)
       console.log('this.state.StkItemsMin',this.state.StkItemsMin)
       console.log('this.state.StkItemsMax',this.state.StkItemsMax)
-      console.log('this.state.StkItemsObserv',this.state.StkItemsObserv)
+      // console.log('this.state.StkItemsObserv',this.state.StkItemsObserv)
 
     request
       .post(url)
@@ -85,7 +88,7 @@ class StkItemsModificar extends Component {
       .send({ StkItemsCantidad: this.state.StkItemsCantidad})
       .send({ StkItemsMin: this.state.StkItemsMin})
       .send({ StkItemsMax: this.state.StkItemsMax})
-      .send({ StkItemsObserv: this.state.StkItemsObserv})            
+      // .send({ StkItemsObserv: this.state.StkItemsObserv})            
       .set("X-API-Key", "foobar")
       .then(function(res) {})
       .catch(function(err){console.log(err)})
@@ -97,7 +100,7 @@ class StkItemsModificar extends Component {
       console.log('this.state.StkItemsCantidad',this.state.StkItemsCantidad)
       console.log('this.state.StkItemsMin',this.state.StkItemsMin)
       console.log('this.state.StkItemsMax',this.state.StkItemsMax)
-      console.log('this.state.StkItemsObserv',this.state.StkItemsObserv)
+      // console.log('this.state.StkItemsObserv',this.state.StkItemsObserv)
   };
 
 // Lee tipo Grupo inicio 
@@ -193,13 +196,13 @@ stkrubroleecodgrupo = (id) => {
     // aca pongo mensaje de error
     this.props.read()
     // alert("ERROR")
-    this.props.click();
+    this.props.clickmodificar();
   }
 
 
 
   componentDidMount() {
-   
+    // this.stkrubroleecodgrupo(this.state.StkItemsGrupo)
   }
 
   componentWillMount(){
@@ -236,23 +239,24 @@ stkrubroleecodgrupo = (id) => {
 
 {/* Grupo INICIO*/}
               <Grid item  xs={6} sm={6} lg={6}>
-              <TextField
+              <p>{this.state.StkGrupoDesc}</p>
+              {/* <TextField
                 id="StkItemsGrupo"
                 select={true}
                 fullWidth={true}
                 label="Grupo"
                 autoFocus={true}
                 InputLabelProps={{ shrink: true }}
-                value={this.state.StkItemsGrupo}
-                // onChange={this.handleChange("StkItemsGrupo")}
+                value={this.state.StkGrupoDesc}
+                onChange={this.handleChange("StkItemsGrupo")}
                 onChange={this.handleChangeGrupo("StkItemsGrupo")}
                 onKeyPress={event => {
                   if (event.key === "Enter")
                     document.getElementById("StkItemsRubro").focus();
                 }}
-              >
+              > */}
                  
-                 {this.state.stkgrupo.map(option => (  
+                 {/* {this.state.stkgrupo.map(option => (  
                   <MenuItem
                   id="tipogrupo"
                   key={option.idStkGrupo}
@@ -260,7 +264,7 @@ stkrubroleecodgrupo = (id) => {
                   >
                       {option.StkGrupoDesc} 
                   </MenuItem>))} 
-              </TextField>
+              </TextField> */}
               </Grid>
 {/* Grupo FIN */}
 
@@ -268,20 +272,22 @@ stkrubroleecodgrupo = (id) => {
 {/* Rubro INICIO */}
             
 <Grid item  xs={6} sm={6} lg={6}>
-              <TextField
+              <p>{this.state.StkRubroDesc}</p>
+              {/* <TextField
+                disabled
                 id="StkItemsRubro"
-                select={true}
+                // select={true}
                 label="Rubro"
                 fullWidth={true}
                 InputLabelProps={{ shrink: true }} 
-                value={this.state.StkItemsRubro}
-                onChange={this.handleChange("StkItemsRubro")}
+                value={this.state.StkRubroDesc}
+                // onChange={this.handleChange("StkItemsRubro")}
                 onKeyPress={event => {
                   if (event.key === "Enter")
                     document.getElementById("StkItemsDesc").focus();
                 }}
-              >
-                 
+              > */}
+{/*                  
                  {this.state.stkrubro.map(option => (  
                   <MenuItem
                   id="tiporubro"
@@ -290,16 +296,17 @@ stkrubroleecodgrupo = (id) => {
                   onClick={()=>console.log("Hizo Click")}
                   >
                       {option.StkRubroDesc} 
-                  </MenuItem>))} 
-              </TextField>
+                  </MenuItem>))}  */}
+              {/* </TextField> */}
               </Grid>
 {/* Rubro FIN */}
-
+    
 {/* Descripción INICIO */}
   <Grid item  xs={12} sm={12} lg={12}>
   <TextField
               id="StkItemsDesc"
               label="descripcion"
+              autoFocus={true}
               value={this.state.StkItemsDesc}
               onChange={this.handleChange("StkItemsDesc")}
               margin="dense"
@@ -354,11 +361,11 @@ stkrubroleecodgrupo = (id) => {
                 variant="standard"
                 onKeyPress={event => {
                   if (event.key === "Enter")
-                    document.getElementById("StkItemsObserv").focus();
+                    document.getElementById("Grabar").focus();
                 }}
               />
               </Grid>
-              <Grid item  xs={12} sm={12} lg={12}>
+              {/* <Grid item  xs={12} sm={12} lg={12}>
               <TextField
                 id="StkItemsObserv"
                 label="Observaciones"
@@ -372,7 +379,7 @@ stkrubroleecodgrupo = (id) => {
                     document.getElementById("Grabar").focus();
                 }}
               />
-              </Grid>
+              </Grid> */}
          
             </Grid>
           </DialogContent>
