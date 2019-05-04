@@ -22,9 +22,7 @@ import NativeSelect from '@material-ui/core/NativeSelect';
 
 
 
-// import Select from '@material-ui/core/Select';
 
-// import AgregarMonedas from './StkMonedasAgregar'
 
 class StkItemsAgregar extends Component {
   constructor(props) {
@@ -37,17 +35,14 @@ class StkItemsAgregar extends Component {
       StkItemsFAct: "",
       StkItemsMin: 0,
       StkItemsMax:0,
-      // StkItemsObserv:"",
       stkrubro:[],
       stkgrupo:[],
-      // idStkTipoProveed: 0,
-      // StkTipoProveedDesc: "",
-      // proveedores: [],
-      // idStkMonedas: "",
       open: true,
+      // leeStkItemsDetalles: this.props.leeStkItemsDetalles,
     };
     this.updateField = this.updateField.bind(this);
     // this.submitItem = this.submitItem.bind(this);
+    
   }
 
 
@@ -75,15 +70,6 @@ class StkItemsAgregar extends Component {
 
   add = _ => {
     const url = IpServidor + '/stkitemsagregar/?id2=' + this.state.StkItemsGrupo + '&id3=' + this.state.StkItemsRubro
-      // console.log('url : '+ url)
-      // console.log('this.state.StkItemsGrupo',this.state.StkItemsGrupo)
-      // console.log('this.state.StkItemsRubro',this.state.StkItemsRubro)
-
-      // console.log('this.state.StkItemsDesc',this.state.StkItemsDesc)
-      // console.log('this.state.StkItemsCantidad',this.state.StkItemsCantidad)
-      // console.log('this.state.StkItemsMin',this.state.StkItemsMin)
-      // console.log('this.state.StkItemsMax',this.state.StkItemsMax)
-      // console.log('this.state.StkItemsObserv',this.state.StkItemsObserv)
 
     request
       .post(url)
@@ -97,15 +83,6 @@ class StkItemsAgregar extends Component {
       .set("X-API-Key", "foobar")
       .then(function(res) {})
       .catch(function(err){console.log(err)})
-
-      console.log('this.state.StkItemsGrupo',this.state.StkItemsGrupo)
-      console.log('this.state.StkItemsRubro',this.state.StkItemsRubro)
-
-      console.log('this.state.StkItemsDesc',this.state.StkItemsDesc)
-      console.log('this.state.StkItemsCantidad',this.state.StkItemsCantidad)
-      console.log('this.state.StkItemsMin',this.state.StkItemsMin)
-      console.log('this.state.StkItemsMax',this.state.StkItemsMax)
-      // console.log('this.state.StkItemsObserv',this.state.StkItemsObserv)
   };
 
 // Lee tipo Grupo inicio 
@@ -116,43 +93,16 @@ class StkItemsAgregar extends Component {
     .get(url)
     .set('Content-Type', 'application/json')
     .then(res=> {
-        
-          const stkgrupo = JSON.parse(res.text);
-          console.log(`stkgrupo :`)
-    console.log(stkgrupo)
+        const stkgrupo = JSON.parse(res.text);
         this.setState(()=>{ return {stkgrupo: stkgrupo}});
         
         })
-    console.log(`dentro de leestkgrupo `)
-    console.log(`this.state.stkgrupo :`)
-    console.log(this.state.stkgrupo)
-    
-    // this.marcagrupo()
+   
     }
 // Lee tipo Grupo Fin
 
 // Lee tipo Rubro inicio 
 
-
-
-
-
-// leestkrubro = _ => {
-//   // const url = 'http://localhost:4000/stkgrupoleer' ; //'http://localhost:3000/data'
-//   const url = IpServidor + "/stkrubroleer";
-//   request
-//   .get(url)
-//   .set('Content-Type', 'application/json')
-//       .then(res=> {
-//         const stkrubro = JSON.parse(res.text);
-//         this.setState(()=>{ return {stkrubro: stkrubro}});
-
-//         console.log('dentro de leestkrubro')
-//         console.log(this.state.stkrubro)
-//       })
-  
-//   // this.marcagrupo()
-//   }
 stkrubroleecodgrupo = (id) => {
   // const url = 'http://localhost:4000/stkgrupoleer' ; //'http://localhost:3000/data'
   const url = IpServidor + "/stkrubroleecodgrupo/"+id;
@@ -166,8 +116,6 @@ stkrubroleecodgrupo = (id) => {
         console.log('dentro de leestkrubro')
         console.log(this.state.stkrubro)
       })
-  
-  // this.marcagrupo()
   }
 
 
@@ -186,42 +134,26 @@ stkrubroleecodgrupo = (id) => {
     this.setState({ isOpen: !this.state.isOpen });
   };
 
-  // submitItem(e) {
-  //   e.preventDefault();
-  //   this.add();
-  //   // aca pongo mensaje de error
-  //   this.props.read()
-  //   // alert("ERROR")
-  //   this.props.click();
-  // }
-
   submitItem = (e) => {
     e.preventDefault();
-    this.add();
+    this.add(); 
     // aca pongo mensaje de error
-    this.props.read()
-    // alert("ERROR")
+    // alert("aca grabo!!!")
+    this.props.leeStkItemsDetalles()
+    // this.leeStkItemsDetalles()
+    // window.location.reload() //esto hace que rrecargue la pagina no se por que no anda con la funcion que le estoy pasando ( this.props.leeStkItemsDetalles())
     this.props.click();
+    // una aclaracion "window.location.reload()" recarga toda la pagina no la tabla revisar eso
   }
-
-
+ 
+  componentWillMount(){
+    this.leestkgrupo()
+  }
 
   componentDidMount() {
    
   }
 
-  componentWillMount(){
-    // this.proveedoresleer()
-    this.leestkgrupo()
-    // this.leestkrubro()
-    // this.unmedleer()
-    // this.leetmon()
-    // console.log('tipo proveedor dentro de DIDMOUNT ')
-    // console.log(this.state.tipoprov)
-    
-    
-    
-  }
 
   render() {
     
@@ -273,29 +205,6 @@ stkrubroleecodgrupo = (id) => {
                       {option.StkGrupoDesc} 
                   </option>))} 
               </TextField>
-      {/* <FormControl>
-        <NativeSelect
-          id="StkItemsGrupo"
-          value={this.state.StkItemsGrupo}
-          onChange={this.handleChangeGrupo("StkItemsGrupo")}
-          name="StkItemsGrupo"
-          fullWidth={true}
-          
-        >
-        <option></option>
-          {this.state.stkgrupo.map(option => (  
-                  <option
-                  id="tipogrupo"
-                  key={option.idStkGrupo}
-                  value={option.idStkGrupo}
-                  >
-                      {option.StkGrupoDesc} 
-                  </option>))}
-        </NativeSelect>
-        <FormHelperText>Grupo</FormHelperText>
-      </FormControl> */}
-
-
               </Grid>
 {/* Grupo FIN */}
 
@@ -319,7 +228,7 @@ stkrubroleecodgrupo = (id) => {
                     document.getElementById("StkItemsDesc").focus();
                 }}
               >
-                 
+                 <option></option>
                  {this.state.stkrubro.map(option => (  
                   // <MenuItem
                   <option

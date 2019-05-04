@@ -218,7 +218,8 @@ class StkItems extends Component {
                         <div className="col s12 ">
                             <div className="">
                                 <div className="card-content  white-text">
-                                    <StkItemsAgregar click={()=>this.toggle()} leeStkItems={()=>this.leeStkItems()} read={()=>this.leeStkItems()}> </StkItemsAgregar>
+                                    {/* <StkItemsAgregar click={()=>this.toggle()} leeStkItemsDetalles={()=>this.leeStkItemsDetalles()} read={()=>this.leeStkItems()}> </StkItemsAgregar> */}
+                                    <StkItemsAgregar click={()=>this.toggle()} leeStkItemsDetalles={()=>this.leeStkItemsDetalles()}> </StkItemsAgregar>
                                 </div>
                             </div>
                         </div>
@@ -321,8 +322,8 @@ class StkItems extends Component {
                                             // StkItemsObserv={this.state.StkItemsObserv}
 
                                             // click={()=>this.toggle()} 
-                                            leeStkItems={()=>this.leeStkItems()} 
-                                            read={()=>this.leeStkItems()}
+                                            leeStkItemsDetalles={()=>this.leeStkItemsDetalles()} 
+                                            // read={()=>this.leeStkItems()}
                                         >
                                         
                                         </StkItemsModificar>

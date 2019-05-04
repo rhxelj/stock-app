@@ -29,20 +29,22 @@ class StkItemsModificar extends Component {
       StkRubroDesc: this.props.StkRubroDesc,
       StkItemsDesc: this.props.StkItemsDesc,
       StkItemsCantidad: this.props.StkItemsCantidad ,
+      StkItemsCantDisp: this.props.StkItemsCantDisp ,
+      // StkItemsCantDisp: 0,
       StkItemsFAct: "",
       StkItemsMin: this.props.StkItemsMin,
       StkItemsMax:this.props.StkItemsMax,
       // StkItemsObserv:this.props.StkItemsObserv,
       stkrubro:[],
       stkgrupo:[],
-      // idStkTipoProveed: 0,
-      // StkTipoProveedDesc: "",
+      // idStkTipoProveed: StkItemsMin
+      // StkTipoProveedDescStkItemsMin
       // proveedores: [],
       // idStkMonedas: "",
       open: true,
     };
-    this.updateField = this.updateField.bind(this);
-    // this.submitItem = this.submitItem.bind(this);
+    // this.updateField = thisStkItemsMin
+    // this.submitItem = thStkItemsMin
   }
 
 
@@ -86,6 +88,7 @@ class StkItemsModificar extends Component {
       .set("Content-Type", "application/json")
       .send({ StkItemsDesc: this.state.StkItemsDesc})
       .send({ StkItemsCantidad: this.state.StkItemsCantidad})
+      .send({ StkItemsCantDisp: this.state.StkItemsCantDisp})
       .send({ StkItemsMin: this.state.StkItemsMin})
       .send({ StkItemsMax: this.state.StkItemsMax})
       // .send({ StkItemsObserv: this.state.StkItemsObserv})            
@@ -194,15 +197,10 @@ stkrubroleecodgrupo = (id) => {
     e.preventDefault();
     this.add();
     // aca pongo mensaje de error
-    this.props.read()
+    // this.props.read()
+    this.props.leeStkItemsDetalles()
     // alert("ERROR")
     this.props.clickmodificar();
-  }
-
-
-
-  componentDidMount() {
-    // this.stkrubroleecodgrupo(this.state.StkItemsGrupo)
   }
 
   componentWillMount(){
@@ -213,9 +211,10 @@ stkrubroleecodgrupo = (id) => {
     // this.leetmon()
     // console.log('tipo proveedor dentro de DIDMOUNT ')
     // console.log(this.state.tipoprov)
-    
-    
-    
+  }
+  
+  componentDidMount() {
+    // this.stkrubroleecodgrupo(this.state.StkItemsGrupo)
   }
 
   render() {
@@ -331,10 +330,26 @@ stkrubroleecodgrupo = (id) => {
                 variant="standard"
                 onKeyPress={event => {
                   if (event.key === "Enter")
+                    document.getElementById("StkItemsCantDisp").focus();
+                }}
+              />
+              </Grid>
+              <Grid item  xs={4} sm={4} lg={4}>
+              <TextField
+                id="StkItemsCantDisp"
+                label="Cantidad Disponible"
+                type="number"
+                value={this.state.StkItemsCantDisp}
+                onChange={this.handleChange("StkItemsCantDisp")}
+                margin="dense"
+                variant="standard"
+                onKeyPress={event => {
+                  if (event.key === "Enter")
                     document.getElementById("StkItemsMin").focus();
                 }}
               />
               </Grid>
+
               <Grid item  xs={4} sm={4} lg={4}>
 <TextField
                 id="StkItemsMin"
