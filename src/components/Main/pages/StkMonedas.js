@@ -144,15 +144,14 @@ class Monedas extends Component {
 }
     
     // <input onChange={this.search} type="text" value={this.state.filtered}/>
-
-
-    componentWillUnmount(){
-        this.setState({ state: this.state });
-    }
+    
     componentDidMount(){
         this.read()
     }
     
+    componentWillUnmount(){
+        this.setState({ state: this.state });
+    }
     
 
     render(){
@@ -205,8 +204,8 @@ class Monedas extends Component {
                                 <TableHead>
                                     <TableRow>
                                         <CustomTableCell onClick={() => this.sortBy("idStkMonedas")} >Código</CustomTableCell>
-                                        <CustomTableCell onClick={() => this.sortBy("StkMonedasDescripcion")} >Descripción</CustomTableCell>
-                                        <CustomTableCell onClick={() => this.sortByNumero("StkMonedasCotizacion")} >Cotización</CustomTableCell>
+                                        <CustomTableCell onClick={() => {this.sortBy("StkMonedasDescripcion"); console.log("ordenar")}}>Descripción</CustomTableCell>
+                                        <CustomTableCell onClick={() => this.sortByNumero("StkMonedasCotizacion")}>Cotización</CustomTableCell>
                                         <CustomTableCell ></CustomTableCell>
                                     </TableRow>
                                 </TableHead>

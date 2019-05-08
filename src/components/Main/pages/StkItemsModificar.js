@@ -319,7 +319,7 @@ stkrubroleecodgrupo = (id) => {
             />
             </Grid>
 {/* Descripción Fin */}
-            <Grid item  xs={4} sm={4} lg={4}>
+            <Grid item  xs={3} sm={3} lg={3}>
               <TextField
                 id="StkItemsCantidad"
                 label="Cantidad"
@@ -328,13 +328,14 @@ stkrubroleecodgrupo = (id) => {
                 onChange={this.handleChange("StkItemsCantidad")}
                 margin="dense"
                 variant="standard"
+                InputLabelProps={{ shrink: true }}
                 onKeyPress={event => {
                   if (event.key === "Enter")
                     document.getElementById("StkItemsCantDisp").focus();
                 }}
               />
               </Grid>
-              <Grid item  xs={4} sm={4} lg={4}>
+              <Grid item  xs={3} sm={3} lg={3}>
               <TextField
                 id="StkItemsCantDisp"
                 label="Cantidad Disponible"
@@ -343,6 +344,7 @@ stkrubroleecodgrupo = (id) => {
                 onChange={this.handleChange("StkItemsCantDisp")}
                 margin="dense"
                 variant="standard"
+                InputLabelProps={{ shrink: true }}
                 onKeyPress={event => {
                   if (event.key === "Enter")
                     document.getElementById("StkItemsMin").focus();
@@ -350,7 +352,7 @@ stkrubroleecodgrupo = (id) => {
               />
               </Grid>
 
-              <Grid item  xs={4} sm={4} lg={4}>
+              <Grid item  xs={3} sm={3} lg={3}>
 <TextField
                 id="StkItemsMin"
                 label="Stock Minimo"
@@ -365,7 +367,7 @@ stkrubroleecodgrupo = (id) => {
                 }}
               />
               </Grid>
-              <Grid item  xs={4} sm={4} lg={4}>
+              <Grid item  xs={3} sm={3} lg={3}>
               <TextField
                 id="StkItemsMax"
                 label="Stock Maximo"

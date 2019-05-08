@@ -147,7 +147,7 @@ class StkItems extends Component {
         // Tengo que hacer otro Object.assin para  StkItemsGrupo para mostrar la descripcion o lo hacemos desde el backend?    
 
 // Encabezado de la Tabla
-
+{console.log(items[0])}
         var columns =[
             {
                 Header: "Items(ID)",
@@ -317,6 +317,7 @@ class StkItems extends Component {
 
                                             StkItemsDesc={this.state.StkItemsDesc}
                                             StkItemsCantidad={this.state.StkItemsCantidad}
+                                            StkItemsCantDisp={this.state.StkItemsCantDisp}
                                             StkItemsMin={this.state.StkItemsMin}
                                             StkItemsMax={this.state.StkItemsMax}
                                             // StkItemsObserv={this.state.StkItemsObserv}
