@@ -91,7 +91,7 @@ class StkRubroAgregar extends Component {
           this.setState({idStkGrupo,StkGrupoDesc,StkGrupoAbr,StkGrupoContRubro:idStkGrupo,StkGrupoDesc,StkGrupoAbr,StkGrupoContRubro}, // como esta en un arreglo lo paso a un solo objeto  
             ()=>{
               
-              console.log("contenodo de grupo por separado",this.state.idStkGrupo,this.state.StkGrupoDesc,this.state.StkGrupoAbr,this.state.StkGrupoContRubro)
+              // console.log("contenodo de grupo por separado",this.state.idStkGrupo,this.state.StkGrupoDesc,this.state.StkGrupoAbr,this.state.StkGrupoContRubro)
               // console.log("contenido de grupoitem ")
               // console.log(this.state.grupoitem)
               // console.log("Tipo de grupoitem ")
@@ -251,26 +251,14 @@ leetmon = _ => {
     this.props.click();
   }
 
-  componentDidMount() {
-    // this.proveedoresleer();
-    // console.log('tipo proveedor dentro de DIDMOUNT ')
-    // console.log(this.state.tipoprov)
-    // this.leetmon();
-    console.log("componentdidmount !!!!")
-    console.log(this.state.stkgrupo)
-    // this.leestkgrupo()
-  }
-
   componentWillMount(){
     this.proveedoresleer()
     this.leestkgrupo()
     this.unmedleer()
     this.leetmon()
-    // console.log('tipo proveedor dentro de DIDMOUNT ')
-    // console.log(this.state.tipoprov)
-    
-    
-    
+  }
+ 
+  componentDidMount() {
   }
 
   render() {
