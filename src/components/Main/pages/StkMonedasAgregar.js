@@ -145,11 +145,11 @@ class AgregarMonedas extends Component {
             
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.props.click} color="primary">
-              Cancelar
-            </Button>
             <Button id="button--submit" onClick={this.submitMoneda} color="primary">
               Agregar
+            </Button>
+            <Button onClick={this.props.click} color="secondary">
+              Cancelar
             </Button>
 
           </DialogActions>

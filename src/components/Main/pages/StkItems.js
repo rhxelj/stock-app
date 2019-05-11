@@ -16,6 +16,8 @@ import StkItemsAgregar from './StkItemsAgregar'
 import StkItemsBorrar from './StkItemsBorrar'
 import StkItemsModificar from './StkItemsModificar'
 
+// import orderBy from 'lodash/orderBy'
+
 import IpServidor from './VariablesDeEntorno'
 
 // Estilos Inicio
@@ -28,7 +30,6 @@ const CustomTableCell = withStyles(theme => ({
       fontSize: 14,
     },
   }))(TableCell);
-
 
   const styles = theme => ({
     root: {
@@ -63,10 +64,10 @@ class StkItems extends Component {
             StktemsFAct:'',
             StkItemsMin:0,
             StkItemsMax:0,
-            // StkItemsObserv:'',
-            items:[],
+            items:[],       
             itemsdetalles:[],
             stkgrupoitem:[],
+            direction: {}
         }
         this.toggle = this.toggle.bind(this);
     }    
@@ -103,13 +104,50 @@ class StkItems extends Component {
             const stkgrupoitem = JSON.parse(res.text);
             this.setState(()=>{ return {stkgrupoitem: stkgrupoitem[0]}}); //saco el item del grupo
           })
-          console.log(this.state.stkgrupoitem)
-          console.log('StkGrupoDesc'+this.state.stkgrupoitem.StkGrupoDesc)
+        //   console.log(this.state.stkgrupoitem)
+        //   console.log('StkGrupoDesc'+this.state.stkgrupoitem.StkGrupoDesc)
           return this.state.stkgrupoitem.StkGrupoDesc
         }
+    // }
+    
+//   Ordenar Begin
 
-    
-    
+sortBy(key,tipo){
+    tipo === "numero"
+        ?      
+            this.sortByNumero(key)
+        :   
+        
+        this.sortByTexto(key)
+}
+
+// Ordena Numeros
+    sortByNumero(key) {
+        console.log("Ordena numero")
+        this.setState({
+          items: this.state.items.sort((a, b) =>
+            this.state.direction[key] === "asc" ? a[key] - b[key] : b[key] - a[key]
+          ),
+          direction: {
+            [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
+          }
+        });
+      }
+      // ordena Texto
+      sortByTexto(key) {
+        console.log("Ordena Texto")
+        this.setState({
+          items: this.state.items.sort((a, b) =>
+            this.state.direction[key] === "asc" ? a[key].toUpperCase() < b[key].toUpperCase() : a[key].toUpperCase() > b[key].toUpperCase()
+          ),
+          direction: {
+            [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
+          }
+        });
+      }
+
+// Ordenar End
+
     toggle(event){
     // toogle = (event)=>{
         this.setState(prevState => ({
@@ -132,67 +170,73 @@ class StkItems extends Component {
 
       
     render(){
+    
+    // Agrego el campo del Boton BORRAR
         const items = this.state.items.map( (rowData,index) => 
-        // Object.assign(rowData, { borrar: <button className=" red accent-4" onClick={()=>this.deleteProduct(rowData.idStkMonedas)}>Borrar</button> })
-        Object.assign(rowData, { borrar: 
-            // <div className="center-align"><StkItemsBorrar idStkItems={rowData.idStkItems} leeStkItems={()=>this.leeStkItems()} read={()=>this.leeStkItems()}></StkItemsBorrar></div>})
-            <div className="center-align"><StkItemsBorrar StkItem={[rowData.idStkItems,rowData.StkItemsGrupo,rowData.StkItemsRubro]} leeStkItems={()=>this.leeStkItems()} read={()=>this.leeStkItems()}></StkItemsBorrar></div>})
-            // <button 
-            //     className=" red accent-4" 
-            //     onClick={this.funcionTest}
-            //     >
-            //     Borrar
-            // </button> })
+            Object.assign(rowData, { borrar: 
+                <div className="center-align"><StkItemsBorrar StkItem={[rowData.idStkItems,rowData.StkItemsGrupo,rowData.StkItemsRubro]} leeStkItems={()=>this.leeStkItems()} read={()=>this.leeStkItems()}></StkItemsBorrar></div>})
         );
         // Tengo que hacer otro Object.assin para  StkItemsGrupo para mostrar la descripcion o lo hacemos desde el backend?    
 
+// Filtrado 
+                //Agregar filtrado
+// Filtrado 
+
 // Encabezado de la Tabla
-{console.log(items[0])}
         var columns =[
             {
                 Header: "Items(ID)",
                 accessor: "idStkItems",
-                tipo:"numero"  
+                tipo:"numero",
+                order: true,
             },
             {
                 Header: "Grupo",
                 accessor: "StkItemsGrupo",
-                tipo:"numero"  
+                tipo:"numero",
+                order:true,  
             },
             {
                 Header: "Rubro",
                 accessor: "StkItemsRubro",
-                tipo:"numero"  
+                tipo:"texto",
+                order:true,  
             },
             {
                 Header: "Descripción",
                 accessor: "StkItemsDesc",
-                tipo:"numero"  
+                tipo:"texto",
+                order:true,  
             },
             {
                 Header: "Cantidad",
                 accessor: "StkItemsCantidad",
-                tipo:"numero"  
+                tipo:"numero",
+                order:true,  
             },
             {
                 Header: "Cantidad Disponible",
                 accessor: "StkItemsCantDisp",
-                tipo:"numero"  
+                tipo:"numero",
+                order:true,  
             },
             {
                 Header: "Fecha de Actualización",
                 accessor: "StktemsFAct",
-                tipo:"numero"  
+                tipo:"texto",
+                order:true,  
             },
             {
                 Header: "Stock Mínimo",
                 accessor: "StkItemsMin",
-                tipo:"numero"  
+                tipo:"numero",
+                order:true,  
             },
             {
                 Header: "Stock Máximo",
                 accessor: "StkItemsMax",
-                tipo:"numero"  
+                tipo:"numero",
+                order:true,  
             },
             // {
             //     Header: "Observaciones",
@@ -208,11 +252,11 @@ class StkItems extends Component {
 
         return( 
             <div>
-                {/* <BorrarMonedas ></BorrarMonedas> */}
                 <h1>ABM DE items</h1>
                 
                 {this.state.toggle
                 ?
+                // Muestra el Componente AgregarItems 
                 <div>
                     <div className="row">
                         <div className="col s12 ">
@@ -226,14 +270,17 @@ class StkItems extends Component {
                     </div>
                 </div>
                 :
+                // Boton Agregar 
                 // <p onClick={()=>this.toggle()} className='btn'>AGREGAR ITEM</p>
                 <Button onClick={() => this.toggle()} variant="contained" color="primary">AGREGAR ITEM</Button>
+                // Aca va el campo de filtrado
                 }
                
                 
 
                {!this.state.toggle
                 ?
+                // Muestar la tabla de Items
                 <Paper >
                 <Table >
                     <TableHead>
@@ -246,7 +293,9 @@ class StkItems extends Component {
                         <TableRow>
                             {
                                 columns.map((row, index) => {
-                                return (<CustomTableCell key={index} onClick={() => this.sortBy(row.accessor,row.tipo)} >{row.Header}</CustomTableCell>)
+                                // return (<CustomTableCell key={index} onClick={() => this.sortBy(row.accessor,row.tipo)} >{row.Header}</CustomTableCell>)
+                                return (<CustomTableCell key={index} onClick={()=>{return row.order ? this.sortBy(row.accessor,row.tipo):<span></span>}} >{row.Header}</CustomTableCell>)
+                                // return (<CustomTableCell key={index} onClick={()=>{return row.order ? console.log('ordena '+row.accessor) :  console.log('No Ordena '+row.accessor)}} >{row.Header}</CustomTableCell>)
                                 })
                             }
                         </TableRow>
@@ -255,27 +304,25 @@ class StkItems extends Component {
                     <TableBody>
                         {items.map(row => {
                         return (
-                            <TableRow key={row.idStkItems} 
-                                onDoubleClick={()=>{
-                                console.log("actualizo variables")
-                               
-                                this.setState({idStkItems:row.idStkItems})
-                                this.setState({StkItemsGrupo:row.StkItemsGrupo})
-                                this.setState({StkGrupoDesc:row.StkGrupoDesc})
-                                this.setState({StkItemsRubro:row.StkItemsRubro})
-                                this.setState({StkRubroDesc:row.StkRubroDesc})
-                                this.setState({StkItemsDesc:row.StkItemsDesc})
-                                this.setState({StkItemsCantidad:row.StkItemsCantidad})
-                                this.setState({StkItemsCantidad:row.StkItemsCantDisp})
-                                this.setState({StkItemsMin:row.StkItemsMin})
-                                this.setState({StkItemsMax:row.StkItemsMax})
-                                // this.setState({StkItemsObserv:row.StkItemsObserv})
-
-                                this.togglemodificar()}}
-                                >
-                                                              
-                                {console.log("row ")}
-                                {console.log(row)}
+                            <TableRow key={row.StkItemsDesc} 
+                                // Cargo las variables que voy a enviar a StkIemsModificar.js 
+                                onDoubleClick={()=>{ 
+                                    this.setState({idStkItems:row.idStkItems})
+                                    this.setState({StkItemsGrupo:row.StkItemsGrupo})
+                                    this.setState({StkGrupoDesc:row.StkGrupoDesc})
+                                    this.setState({StkItemsRubro:row.StkItemsRubro})
+                                    this.setState({StkRubroDesc:row.StkRubroDesc})
+                                    this.setState({StkItemsDesc:row.StkItemsDesc})
+                                    this.setState({StkItemsCantidad:row.StkItemsCantidad})
+                                    this.setState({StkItemsCantidad:row.StkItemsCantDisp})
+                                    this.setState({StkItemsMin:row.StkItemsMin})
+                                    this.setState({StkItemsMax:row.StkItemsMax})
+                                    
+                                    this.togglemodificar()
+                                }}
+                            >
+                                {/* {console.log("row ")} */}
+                                {/* {console.log(row)} */}
                                 <CustomTableCell>{row.idStkItems}</CustomTableCell>
                                 <CustomTableCell>{row.StkGrupoDesc}</CustomTableCell>
                                 <CustomTableCell>{row.StkRubroDesc}</CustomTableCell>
@@ -285,7 +332,6 @@ class StkItems extends Component {
                                 <CustomTableCell>{row.StkItemsFAct}</CustomTableCell> 
                                 <CustomTableCell>{row.StkItemsMin}</CustomTableCell>
                                 <CustomTableCell>{row.StkItemsMax}</CustomTableCell>
-                                {/* <CustomTableCell>{row.StkItemsObserv}</CustomTableCell> */}
                                 <CustomTableCell>{row.borrar}</CustomTableCell>
                             </TableRow>
                             );
@@ -300,6 +346,7 @@ class StkItems extends Component {
 
                     {this.state.togglemodificar
                         ?  
+                         //Llama al componente ModificarItems
                         <div>
                             <div className="row">
                                 <div className="col s12 ">
@@ -335,7 +382,7 @@ class StkItems extends Component {
                         </div>
                     :
                         <div></div>    
-}
+    }
 
             </div>
         )

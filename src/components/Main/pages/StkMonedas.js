@@ -4,6 +4,7 @@ import request from 'superagent'
 import 'react-table/react-table.css'
 import IpServidor from './VariablesDeEntorno'
 
+import orderBy from 'lodash/orderBy'
 
 import Button from '@material-ui/core/Button';
 // import AddIcon from '@material-ui/icons/Add';
@@ -20,6 +21,11 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+
+import Grid from '@material-ui/core/Grid';
+
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
 const CustomTableCell = withStyles(theme => ({
     head: {
@@ -47,8 +53,15 @@ const CustomTableCell = withStyles(theme => ({
     },
     fab: {
         position: 'absolute',
-        bottom: theme.spacing.unit * 2,
-        right: theme.spacing.unit * 2,
+        // bottom: theme.spacing.unit * 2,
+        // right: theme.spacing.unit * 2,
+        bottom: '100px',
+        right: '100px',
+        background:"red",
+      },
+      icon: {
+        margin: theme.spacing.unit,
+        fontSize: 32,
       },
   });
 
@@ -66,41 +79,78 @@ class Monedas extends Component {
             StkMonedasCotizacion: 0,
             monedas:[],
             filtered:'',
-            // campo: 'StkMonedasDescripcion',idStkMonedas
             campo: 'idStkMonedas',
             fab: {
                 position: 'absolute',
                 bottom: '50px',
                 right: '50px',
               },
-              direction: { // direccion del ordenamiento asc o desc
+            //   direction: 'asc'
+            direction:{}
 
-              }
-              
+            
         }
+
         this.toggle = this.toggle.bind(this);
         this.togglemodificar = this.togglemodificar.bind(this);
-        // this.funcionTest = this.funcionTest.bind(this);
+        
+        const { classes } = props; // ver si se puede borra es para insertar iconos
     }    
    
-//Funcion ordernar Begin
+//******************************************* Funcion ordernar - Begin *******************************************
 
-    // Ordena Numeros
+    
+// sortBy(key,tipo) {
+//     // console.log("Dentro de la funcion SortBy.... ")
+//     // console.log("KEY ", key)
+//     // console.log("this.state.direction[key] =  ",this.state.direction[key])
+//     this.setState({
+//         monedas: this.state.monedas.sort((a, b) => 
+//             {tipo === "numero"
+//                     ?
+//                         {this.state.direction[key] === "asc" 
+//                             ? a[key] - b[key] 
+//                             : b[key] - a[key]
+//                         }
+//                     :
+//                         {this.state.direction[key] === "asc" 
+//                             ? a[key].toUpperCase() < b[key].toUpperCase() 
+//                             : a[key].toUpperCase() > b[key].toUpperCase()
+//                         }
+//             }
+//     )})
+
+//     this.setState({direction: {[key]: this.state.direction[key] === "asc" ? "desc" : "asc"}})
+//         }
+
+
+
+sortBy(key,tipo){
+    tipo === "numero"
+        ?      
+            this.sortByNumero(key)
+        :   
+        
+        this.sortByTexto(key)
+    
+}
+
+// Ordena Numeros
     sortByNumero(key) {
         this.setState({
           monedas: this.state.monedas.sort((a, b) =>
-            this.state.direction[key] === "asc" ? a[key] - b[key] : b[key] - a[key]
+            this.state.direction[key] === "asc" ? Number(a[key]) - Number(b[key]) : Number(b[key]) - Number(a[key])
           ),
           direction: {
             [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
           }
         });
       }
-    // ordena Texto
-      sortBy(key) {
+      // ordena Texto
+      sortByTexto(key) {
         this.setState({
           monedas: this.state.monedas.sort((a, b) =>
-            this.state.direction[key] === "asc" ? a[key].toUpperCase() < b[key].toUpperCase() : b[key].toUpperCase() < a[key].toUpperCase()
+            this.state.direction[key] === "asc" ? a[key].toUpperCase() < b[key].toUpperCase() : a[key].toUpperCase() > b[key].toUpperCase()
           ),
           direction: {
             [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
@@ -108,7 +158,18 @@ class Monedas extends Component {
         });
       }
 
-//Funcion ordernar End
+      //Alternativa usando la funcion "orderBy" de la libreria lodash
+      mysort(key){
+        this.setState(state=>({
+            monedas: orderBy(this.state.monedas,key,this.state.direction[key])
+            ,
+            direction: {
+              [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
+            }
+          }));
+      }
+
+//******************************************* Funcion ordernar - End *******************************************
     
 //Read
     read = _ => {
@@ -121,27 +182,29 @@ class Monedas extends Component {
             })
     }
       
-    
-    toggle(event){
+//******************************************* Habilita el contenido a mostrar en Pantalla - Begin *******************************************
+
+    toggle(event){                      // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <AgregarMonedas> ***
         this.setState(prevState => ({
         toggle: !prevState.toggle
         }))
     }
     
-    togglemodificar(event){
+    togglemodificar(event){             // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***  
         this.toggle()
         this.setState(prevState => ({
         togglemodificar: !prevState.togglemodificar
         }))
         
     }
+
+//******************************************* Habilita el contenido a mostrar en Pantalla - End *******************************************
     
-    
-    search=(event)=>{
-        var name  = event.target.name
+    search=(event)=>{                       // Funcion de busqueda
+        // var name  = event.target.name
         var value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value
         this.setState({filtered: value})
-}
+    }
     
     // <input onChange={this.search} type="text" value={this.state.filtered}/>
     
@@ -157,26 +220,73 @@ class Monedas extends Component {
     render(){
 
 // Agrego el campo del Boton BORRAR
-    var monedas = this.state.monedas.map( (rowData,index) => 
-        Object.assign(rowData, { borrar: 
-            <div className="center-align"><StkMonedasBorrar idMonedas={rowData.idStkMonedas} read={()=>this.read()}></StkMonedasBorrar></div>})
-        );
+    // var monedas = this.state.monedas.map( (rowData,index) => 
+    //     Object.assign(rowData, { borrar: 
+    //         <div className="center-align"><StkMonedasBorrar idMonedas={rowData.idStkMonedas} read={()=>this.read()}></StkMonedasBorrar></div>})
+    //     );
 
-// Agrego el filtrado de datos
-        var filtrado =  this.state.monedas.filter((moneda)=>{
-            var row = `moneda.${this.state.campo}`
+    this.state.monedas.map( 
+        (rowData,index) => 
+            Object.assign(rowData, { borrar:<div className="center-align"><StkMonedasBorrar idMonedas={rowData.idStkMonedas} read={()=>this.read()}></StkMonedasBorrar></div>})
+    );
+
+    // ******************************************* Filtrado de datos - Begin *******************************************
+
+    var filtrado =  this.state.monedas.filter((moneda)=>{
+            // var row = `moneda.${this.state.campo}`
             return( 
                 moneda.idStkMonedas.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1 || 
                 moneda.StkMonedasDescripcion.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
             )
         })
-        
-        return( 
+
+// ******************************************* Filtrado de datos - end  *******************************************
+
+var columns =[
+        {
+            Header: "Código",
+            accessor: "idStkMonedas",
+            tipo:"texto",
+            order: true,
+        },
+        { 
+            Header: "Descripción",
+            accessor: "StkMonedasDescripcion",
+            tipo:"texto",
+            order: true,
+        },
+        {
+            Header: "Cotización",
+            accessor: "StkMonedasCotizacion",
+            tipo:"numero",
+            order: true,
+        },
+        {
+            Header: "",
+            accessor: "borrar",
+            tipo:"",
+            order: false,
+        }
+    ]
+
+
+
+    return( 
             <div>
-                <h1>ABM DE Monedas</h1>
+                <Grid container>
+                    <Grid item xs={12} sm={12} lg={12}>
+                        <h1>ABM DE Monedas</h1>
+
+
+                        
+
+                    </Grid>
+                </Grid>
                 {this.state.toggle
-                ?
+                ? 
+                // Muestra el Componente AgregarMonedas 
                 <div>
+                    
                     <div className="row">
                         <div className="col s12 ">
                             <div className="">
@@ -188,24 +298,33 @@ class Monedas extends Component {
                     </div>
                 </div>
                 :
+                // Boton Agregar 
                 <div>
-                 {/* <p onClick={()=>this.toggle()} className='btn'>  AGREGAR MONEDAS </p> */}
-                 <Button onClick={()=>this.toggle()} variant="contained" color="primary">AGREGAR MONEDAS</Button>
-                 {/* <Button onClick={()=>this.toggle()} variant="fab" color="primary" aria-label="Add" className={this.state.fab}>
-                 </Button>  */}
-                <input onChange={this.search} type="text" value={this.state.filtered}/>
+                    <Button onClick={()=>this.toggle()} variant="contained" color="primary">AGREGAR MONEDAS</Button>
+                
+                {/* muestra cuadro para filtrado */}
+                    <input onChange={this.search} type="text" value={this.state.filtered}/>
+                
                 </div>
                 }
 
                 {!this.state.toggle
                 ?
+                // Muestar la tabla de Monedas
                         <Paper >
                             <Table >
                                 <TableHead>
                                     <TableRow>
-                                        <CustomTableCell onClick={() => this.sortBy("idStkMonedas")} >Código</CustomTableCell>
-                                        <CustomTableCell onClick={() => {this.sortBy("StkMonedasDescripcion"); console.log("ordenar")}}>Descripción</CustomTableCell>
-                                        <CustomTableCell onClick={() => this.sortByNumero("StkMonedasCotizacion")}>Cotización</CustomTableCell>
+                                        {/* <CustomTableCell onClick={() => this.mysort("idStkMonedas")} >Código</CustomTableCell>
+                                        <CustomTableCell onClick={() => this.mysort("StkMonedasDescripcion")}>Descripción</CustomTableCell>
+                                        <CustomTableCell onClick={() => this.mysort("StkMonedasCotizacion")}>Cotización</CustomTableCell> */}
+                                        
+                                        {columns.map((row, index) => {
+                                        // return (<CustomTableCell key={index} onClick={() => this.sortBy(row.accessor,row.tipo)} >{row.Header}</CustomTableCell>)
+                                        return (<CustomTableCell key={index} onClick={()=>{return row.order ? this.sortBy(row.accessor,row.tipo):<span></span>}} >{row.Header}</CustomTableCell>)
+                                        // return (<CustomTableCell key={index} onClick={()=>{return row.order ? console.log('ordena '+row.accessor) :  console.log('No Ordena '+row.accessor)}} >{row.Header}</CustomTableCell>)
+                                        })
+                            }
                                         <CustomTableCell ></CustomTableCell>
                                     </TableRow>
                                 </TableHead>
@@ -213,12 +332,15 @@ class Monedas extends Component {
                                 <TableBody>
                                     {filtrado.map(row => {
                                     return (
-                                        <TableRow key={row.idStkMonedas} onDoubleClick={()=>{
-                                            console.log("actualizo variables")
-                                            this.setState({idStkMonedas:row.idStkMonedas})
-                                            this.setState({StkMonedasDescripcion:row.StkMonedasDescripcion})
-                                            this.setState({StkMonedasCotizacion:row.StkMonedasCotizacion})
-                                            this.togglemodificar()}}>
+                                        <TableRow key={row.idStkMonedas} 
+                                            onDoubleClick={()=>{
+                                                this.setState({idStkMonedas:row.idStkMonedas})
+                                                this.setState({StkMonedasDescripcion:row.StkMonedasDescripcion})
+                                                this.setState({StkMonedasCotizacion:row.StkMonedasCotizacion})
+
+                                                this.togglemodificar()
+                                            }}
+                                        >
                                             
                                             <CustomTableCell>{row.idStkMonedas}</CustomTableCell>
                                             <CustomTableCell>{row.StkMonedasDescripcion}</CustomTableCell>
@@ -235,6 +357,7 @@ class Monedas extends Component {
                 }
                 {this.state.togglemodificar
                     ?  
+                    //Llama al componente ModificarMonedas
                     <div>
                         <div className="row">
                             <div className="col s12 ">
@@ -257,7 +380,11 @@ class Monedas extends Component {
                    :
                     <div></div>    
                 }
-                
+                <Fab onClick={()=>this.toggle()} color="primary" aria-label="Add" style={{ "position" : "absolute",
+                "bottom": "50px",
+                "right": "50px",}}>
+                <AddIcon />
+      </Fab>
             </div>
         )
     }

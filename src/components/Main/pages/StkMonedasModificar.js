@@ -13,6 +13,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 // Material UI   END
 
+import Grid from '@material-ui/core/Grid';
 
 class StkModificarMonedas extends Component {
     constructor(props){
@@ -95,11 +96,17 @@ class StkModificarMonedas extends Component {
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Modificar Moneda</DialogTitle>
+          <Grid container>
+            <Grid item xs={4} sm={4} lg={4}></Grid>
+              <DialogTitle id="form-dialog-title">Modificar Moneda</DialogTitle>
+            <Grid item xs={4} sm={4} lg={4}></Grid>
+          </Grid>
           <DialogContent>
+          <Grid container  spacing={24}>
             <DialogContentText>
               Cargue los Datos y presione enter para cambiar de campo.
             </DialogContentText>
+            <Grid item  xs={6} sm={6} lg={6}>
             <TextField
               autoFocus
               margin="dense"
@@ -112,6 +119,8 @@ class StkModificarMonedas extends Component {
               onChange={this.updateField}
               onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('StkMonedasDescripcion').focus();}}
             />
+            </Grid>
+            <Grid item  xs={6} sm={6} lg={6}>
             <TextField
               margin="dense"
               id="StkMonedasDescripcion"
@@ -123,6 +132,8 @@ class StkModificarMonedas extends Component {
               onChange={this.updateField}
               onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('StkMonedasCotizacion').focus();}}
             />
+            </Grid>
+            <Grid item  xs={6} sm={6} lg={6}>
             <TextField
               margin="dense"
               id="StkMonedasCotizacion"
@@ -134,14 +145,19 @@ class StkModificarMonedas extends Component {
               onChange={this.updateField}
               onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('button--submit').focus();}}
             />
-            
+            </Grid>
+            </Grid>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.props.clickmodificar} color="primary">
-              Cancelar
-            </Button>
-            <Button id="button--submit" onClick={this.submitMoneda} color="primary">
+            <Button 
+              id="button--submit" 
+              onClick={this.submitMoneda} 
+              color="primary"
+            >
               Modificar
+            </Button>
+            <Button onClick={this.props.clickmodificar} color="secondary">
+              Cancelar
             </Button>
 
           </DialogActions>
