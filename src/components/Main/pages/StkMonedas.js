@@ -137,6 +137,7 @@ sortBy(key,tipo){
 
 // Ordena Numeros
     sortByNumero(key) {
+        console.log("Estoy en ordenar por numero")
         this.setState({
           monedas: this.state.monedas.sort((a, b) =>
             this.state.direction[key] === "asc" ? Number(a[key]) - Number(b[key]) : Number(b[key]) - Number(a[key])
@@ -148,9 +149,24 @@ sortBy(key,tipo){
       }
       // ordena Texto
       sortByTexto(key) {
+        console.log("Estoy en ordenar por texto")
+        console.log("Key = ", key)
         this.setState({
           monedas: this.state.monedas.sort((a, b) =>
-            this.state.direction[key] === "asc" ? a[key].toUpperCase() < b[key].toUpperCase() : a[key].toUpperCase() > b[key].toUpperCase()
+            // this.state.direction[key] === "asc" ? a[key].toUpperCase() < b[key].toUpperCase() : a[key].toUpperCase() > b[key].toUpperCase()
+            this.state.direction[key] === "asc" 
+                ?  
+                    a[key] < b[key] 
+                    ?
+                     1
+                    :
+                     -1
+                : 
+                    a[key] > b[key]
+                    ?
+                    1
+                   :
+                    -1
           ),
           direction: {
             [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
@@ -380,11 +396,17 @@ var columns =[
                    :
                     <div></div>    
                 }
-                <Fab onClick={()=>this.toggle()} color="primary" aria-label="Add" style={{ "position" : "absolute",
-                "bottom": "50px",
-                "right": "50px",}}>
-                <AddIcon />
-      </Fab>
+                <Fab 
+                    onClick={()=>this.toggle()} 
+                    color="primary" 
+                    aria-label="Add" 
+                    style={{ 
+                        "position" : "absolute",
+                        "bottom": "50px",
+                        "right": "50px",}}
+                >
+                    <AddIcon />
+                </Fab>
             </div>
         )
     }
