@@ -26,6 +26,10 @@ import Grid from '@material-ui/core/Grid';
 
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import SearchIcon from '@material-ui/icons/Search'
+
+// import Paper from '@material-ui/core/Paper';
+import InputBase from '@material-ui/core/InputBase';
 
 const CustomTableCell = withStyles(theme => ({
     head: {
@@ -86,7 +90,8 @@ class Monedas extends Component {
                 right: '50px',
               },
             //   direction: 'asc'
-            direction:{}
+            direction:{},
+            busqueda: false
 
             
         }
@@ -205,6 +210,8 @@ sortBy(key,tipo){
         toggle: !prevState.toggle
         }))
     }
+
+
     
     togglemodificar(event){             // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***  
         this.toggle()
@@ -215,7 +222,14 @@ sortBy(key,tipo){
     }
 
 //******************************************* Habilita el contenido a mostrar en Pantalla - End *******************************************
-    
+ 
+toggleBusqueda(event){                      // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <AgregarMonedas> ***
+this.setState(prevState => ({
+busqueda: !prevState.busqueda
+}))
+}
+
+
     search=(event)=>{                       // Funcion de busqueda
         // var name  = event.target.name
         var value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value
@@ -316,10 +330,10 @@ var columns =[
                 :
                 // Boton Agregar 
                 <div>
-                    <Button onClick={()=>this.toggle()} variant="contained" color="primary">AGREGAR MONEDAS</Button>
+                    {/* <Button onClick={()=>this.toggle()} variant="contained" color="primary">AGREGAR MONEDAS</Button> */}
                 
                 {/* muestra cuadro para filtrado */}
-                    <input onChange={this.search} type="text" value={this.state.filtered}/>
+                    {/* <input onChange={this.search} type="text" value={this.state.filtered}/> */}
                 
                 </div>
                 }
@@ -401,12 +415,34 @@ var columns =[
                     color="primary" 
                     aria-label="Add" 
                     style={{ 
-                        "position" : "absolute",
-                        "bottom": "50px",
-                        "right": "50px",}}
+                        "position" : "fixed",
+                        "bottom": "10px",
+                        "right": "25px",}}
                 >
                     <AddIcon />
                 </Fab>
+                <Fab 
+                    onClick={()=>this.toggleBusqueda()} 
+                    color="primary" 
+                    aria-label="Add" 
+                    style={{ 
+                        "position" : "fixed",
+                        "bottom": "70px",
+                        "right": "25px",}}
+                >
+                    <SearchIcon />
+                   
+                
+                </Fab>
+                <div style={{ 
+                        "position" : "fixed",
+                        "bottom": "135px",
+                        "right": "25px",}}>    
+                    {/* {this.state.busqueda && <input onChange={this.search} type="text" value={this.state.filtered}/>} */}
+                    {this.state.busqueda && <InputBase style={{background:"grey"}} placeholder="Texto de Busqueda" onChange={this.search} type="text" value={this.state.filtered}/>}
+
+                    
+                </div>
             </div>
         )
     }
