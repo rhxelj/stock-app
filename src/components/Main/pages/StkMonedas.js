@@ -104,61 +104,9 @@ class Monedas extends Component {
    
 //******************************************* Funcion ordernar - Begin *******************************************
 
-    
-// sortBy(key,tipo) {
-//     // console.log("Dentro de la funcion SortBy.... ")
-//     // console.log("KEY ", key)
-//     // console.log("this.state.direction[key] =  ",this.state.direction[key])
-//     this.setState({
-//         monedas: this.state.monedas.sort((a, b) => 
-//             {tipo === "numero"
-//                     ?
-//                         {this.state.direction[key] === "asc" 
-//                             ? a[key] - b[key] 
-//                             : b[key] - a[key]
-//                         }
-//                     :
-//                         {this.state.direction[key] === "asc" 
-//                             ? a[key].toUpperCase() < b[key].toUpperCase() 
-//                             : a[key].toUpperCase() > b[key].toUpperCase()
-//                         }
-//             }
-//     )})
-
-//     this.setState({direction: {[key]: this.state.direction[key] === "asc" ? "desc" : "asc"}})
-//         }
-
-
-
-sortBy(key,tipo){
-    tipo === "numero"
-        ?      
-            this.sortByNumero(key)
-        :   
-        
-        this.sortByTexto(key)
-    
-}
-
-// Ordena Numeros
-    sortByNumero(key) {
-        console.log("Estoy en ordenar por numero")
+    sortBy(key) {
         this.setState({
           monedas: this.state.monedas.sort((a, b) =>
-            this.state.direction[key] === "asc" ? Number(a[key]) - Number(b[key]) : Number(b[key]) - Number(a[key])
-          ),
-          direction: {
-            [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
-          }
-        });
-      }
-      // ordena Texto
-      sortByTexto(key) {
-        console.log("Estoy en ordenar por texto")
-        console.log("Key = ", key)
-        this.setState({
-          monedas: this.state.monedas.sort((a, b) =>
-            // this.state.direction[key] === "asc" ? a[key].toUpperCase() < b[key].toUpperCase() : a[key].toUpperCase() > b[key].toUpperCase()
             this.state.direction[key] === "asc" 
                 ?  
                     a[key] < b[key] 
@@ -179,27 +127,18 @@ sortBy(key,tipo){
         });
       }
 
-      //Alternativa usando la funcion "orderBy" de la libreria lodash
-      mysort(key){
-        this.setState(state=>({
-            monedas: orderBy(this.state.monedas,key,this.state.direction[key])
-            ,
-            direction: {
-              [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
-            }
-          }));
-      }
-
 //******************************************* Funcion ordernar - End *******************************************
     
 //Read
     read = _ => {
+        const url = IpServidor + '/stkmonedasleer'
         request
-        .get(this.state.url)                            //seteado en las variables de estado
+        .get(url)                            
         .set('Content-Type', 'application/json')
             .then(res=> {
             const monedas = JSON.parse(res.text)
-            this.setState({monedas: monedas})
+            // this.setState({monedas: monedas})
+            this.setState({ monedas })
             })
     }
       
@@ -214,7 +153,7 @@ sortBy(key,tipo){
 
     
     togglemodificar(event){             // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***  
-        this.toggle()
+        // this.toggle()
         this.setState(prevState => ({
         togglemodificar: !prevState.togglemodificar
         }))
@@ -238,12 +177,12 @@ busqueda: !prevState.busqueda
     
     // <input onChange={this.search} type="text" value={this.state.filtered}/>
     
-    componentDidMount(){
-        this.read()
-    }
-    
     componentWillUnmount(){
         this.setState({ state: this.state });
+    }
+    
+    componentDidMount(){
+        this.read()
     }
     
 
@@ -260,10 +199,9 @@ busqueda: !prevState.busqueda
             Object.assign(rowData, { borrar:<div className="center-align"><StkMonedasBorrar idMonedas={rowData.idStkMonedas} read={()=>this.read()}></StkMonedasBorrar></div>})
     );
 
-    // ******************************************* Filtrado de datos - Begin *******************************************
+// ******************************************* Filtrado de datos - Begin *******************************************
 
     var filtrado =  this.state.monedas.filter((moneda)=>{
-            // var row = `moneda.${this.state.campo}`
             return( 
                 moneda.idStkMonedas.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1 || 
                 moneda.StkMonedasDescripcion.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
@@ -276,29 +214,29 @@ var columns =[
         {
             Header: "Código",
             accessor: "idStkMonedas",
-            tipo:"texto",
+            // tipo:"texto",
             order: true,
         },
         { 
             Header: "Descripción",
             accessor: "StkMonedasDescripcion",
-            tipo:"texto",
+            // tipo:"texto",
             order: true,
         },
         {
             Header: "Cotización",
             accessor: "StkMonedasCotizacion",
-            tipo:"numero",
+            // tipo:"numero",
+            // tipo:"texto",
             order: true,
         },
         {
             Header: "",
             accessor: "borrar",
-            tipo:"",
+            // tipo:"",
             order: false,
         }
     ]
-
 
 
     return( 
@@ -306,7 +244,6 @@ var columns =[
                 <Grid container>
                     <Grid item xs={12} sm={12} lg={12}>
                         <h1>ABM DE Monedas</h1>
-
 
                         
 
@@ -335,9 +272,9 @@ var columns =[
                 {/* muestra cuadro para filtrado */}
                     {/* <input onChange={this.search} type="text" value={this.state.filtered}/> */}
                 
-                </div>
+                        </div>
                 }
-
+ 
                 {!this.state.toggle
                 ?
                 // Muestar la tabla de Monedas
@@ -345,14 +282,8 @@ var columns =[
                             <Table >
                                 <TableHead>
                                     <TableRow>
-                                        {/* <CustomTableCell onClick={() => this.mysort("idStkMonedas")} >Código</CustomTableCell>
-                                        <CustomTableCell onClick={() => this.mysort("StkMonedasDescripcion")}>Descripción</CustomTableCell>
-                                        <CustomTableCell onClick={() => this.mysort("StkMonedasCotizacion")}>Cotización</CustomTableCell> */}
-                                        
                                         {columns.map((row, index) => {
-                                        // return (<CustomTableCell key={index} onClick={() => this.sortBy(row.accessor,row.tipo)} >{row.Header}</CustomTableCell>)
-                                        return (<CustomTableCell key={index} onClick={()=>{return row.order ? this.sortBy(row.accessor,row.tipo):<span></span>}} >{row.Header}</CustomTableCell>)
-                                        // return (<CustomTableCell key={index} onClick={()=>{return row.order ? console.log('ordena '+row.accessor) :  console.log('No Ordena '+row.accessor)}} >{row.Header}</CustomTableCell>)
+                                            return (<CustomTableCell key={index} onClick={()=>{return row.order && this.sortBy(row.accessor)}} >{row.Header}</CustomTableCell>)
                                         })
                             }
                                         <CustomTableCell ></CustomTableCell>
@@ -424,7 +355,7 @@ var columns =[
                 <Fab 
                     onClick={()=>this.toggleBusqueda()} 
                     color="primary" 
-                    aria-label="Add" 
+                    aria-label="Search" 
                     style={{ 
                         "position" : "fixed",
                         "bottom": "70px",
