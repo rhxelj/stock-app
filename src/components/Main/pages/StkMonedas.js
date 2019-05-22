@@ -1,13 +1,16 @@
+
 import React, { Component} from 'react'
 import request from 'superagent'
-// import ReactTable from 'react-table'
-import 'react-table/react-table.css'
 import IpServidor from './VariablesDeEntorno'
+
+
 
 import orderBy from 'lodash/orderBy'
 
 import Button from '@material-ui/core/Button';
 // import AddIcon from '@material-ui/icons/Add';
+// import ReactTable from 'react-table'
+// import 'react-table/react-table.css'
 
 import StkMonedasAgregar from './StkMonedasAgregar'
 import StkMonedasBorrar from './StkMonedasBorrar'
@@ -15,6 +18,9 @@ import StkMonedasModificar from './StkMonedasModificar'
 
 // para usar las tablas de MUI start
 import { withStyles } from '@material-ui/core/styles';
+
+
+
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -27,9 +33,8 @@ import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search'
-
-// import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
+
 
 const CustomTableCell = withStyles(theme => ({
     head: {
@@ -41,22 +46,24 @@ const CustomTableCell = withStyles(theme => ({
     },
   }))(TableCell);
   
-  const styles = theme => ({
+  const styles = {
     root: {
       width: '100%',
-      marginTop: theme.spacing.unit * 3,
+    //   marginTop: theme.spacing.unit * 3,
       overflowX: 'auto',
     },
     table: {
       minWidth: 700,
     },
     row: {
-      '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: '',
+        '&:nth-of-type(odd)': {
+        // backgroundColor: theme.palette.background.default,
+        backgroundColor: 'red',
       },
     },
     fab: {
-        position: 'absolute',
+        position: 'fixed',
         // bottom: theme.spacing.unit * 2,
         // right: theme.spacing.unit * 2,
         bottom: '100px',
@@ -64,10 +71,25 @@ const CustomTableCell = withStyles(theme => ({
         background:"red",
       },
       icon: {
-        margin: theme.spacing.unit,
+        // margin: theme.spacing.unit,
         fontSize: 32,
       },
-  });
+  };
+
+
+//   const MyButton = styled(Button)({
+//     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+//     border: 0,
+//     borderRadius: 3,
+//     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+//     color: 'white',
+//     height: 48,
+//     padding: '0 30px',
+//   });
+  
+  
+  
+
 
 // para usar las tablas de MUI end
 
@@ -84,11 +106,11 @@ class Monedas extends Component {
             monedas:[],
             filtered:'',
             campo: 'idStkMonedas',
-            fab: {
-                position: 'absolute',
-                bottom: '50px',
-                right: '50px',
-              },
+            // fab: {
+            //     position: 'absolute',
+            //     bottom: '50px',
+            //     right: '50px',
+            //   },
             //   direction: 'asc'
             direction:{},
             busqueda: false
@@ -99,7 +121,7 @@ class Monedas extends Component {
         this.toggle = this.toggle.bind(this);
         this.togglemodificar = this.togglemodificar.bind(this);
         
-        const { classes } = props; // ver si se puede borra es para insertar iconos
+        // const { classes } = props; // ver si se puede borra es para insertar iconos
     }    
    
 //******************************************* Funcion ordernar - Begin *******************************************
@@ -107,23 +129,9 @@ class Monedas extends Component {
     sortBy(key) {
         this.setState({
           monedas: this.state.monedas.sort((a, b) =>
-            this.state.direction[key] === "asc" 
-                ?  
-                    a[key] < b[key] 
-                    ?
-                     1
-                    :
-                     -1
-                : 
-                    a[key] > b[key]
-                    ?
-                    1
-                   :
-                    -1
+            this.state.direction[key] === "asc" ? (a[key] < b[key] ? 1 : -1) : (a[key] > b[key] ? 1 : -1)
           ),
-          direction: {
-            [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
-          }
+          direction: {[key]: this.state.direction[key] === "asc" ? "desc" : "asc"}
         });
       }
 
@@ -160,13 +168,15 @@ class Monedas extends Component {
         
     }
 
+    toggleBusqueda(event){                      
+        this.setState(prevState => ({
+        busqueda: !prevState.busqueda
+        }))
+    }
+        
+
 //******************************************* Habilita el contenido a mostrar en Pantalla - End *******************************************
  
-toggleBusqueda(event){                      // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <AgregarMonedas> ***
-this.setState(prevState => ({
-busqueda: !prevState.busqueda
-}))
-}
 
 
     search=(event)=>{                       // Funcion de busqueda
@@ -177,6 +187,8 @@ busqueda: !prevState.busqueda
     
     // <input onChange={this.search} type="text" value={this.state.filtered}/>
     
+
+
     componentWillUnmount(){
         this.setState({ state: this.state });
     }
@@ -188,16 +200,17 @@ busqueda: !prevState.busqueda
 
     render(){
 
-// Agrego el campo del Boton BORRAR
-    // var monedas = this.state.monedas.map( (rowData,index) => 
-    //     Object.assign(rowData, { borrar: 
-    //         <div className="center-align"><StkMonedasBorrar idMonedas={rowData.idStkMonedas} read={()=>this.read()}></StkMonedasBorrar></div>})
-    //     );
+        const { classes } = styles
+
+//************************************** Agrego el campo del Boton BORRAR - Begin *********************************
 
     this.state.monedas.map( 
         (rowData,index) => 
             Object.assign(rowData, { borrar:<div className="center-align"><StkMonedasBorrar idMonedas={rowData.idStkMonedas} read={()=>this.read()}></StkMonedasBorrar></div>})
     );
+
+//  ************************************ Agrego el campo del Boton BORRAR - end  ***********************************
+
 
 // ******************************************* Filtrado de datos - Begin *******************************************
 
@@ -209,6 +222,9 @@ busqueda: !prevState.busqueda
         })
 
 // ******************************************* Filtrado de datos - end  *******************************************
+
+
+// ******************************************* Encabezado de la tabla a mostrar - Begin  *******************************************
 
 var columns =[
         {
@@ -238,19 +254,19 @@ var columns =[
         }
     ]
 
-
+// ******************************************* Encabezado de la tabla a mostrar - end  *******************************************
     return( 
             <div>
                 <Grid container>
                     <Grid item xs={12} sm={12} lg={12}>
                         <h1>ABM DE Monedas</h1>
-
-                        
-
                     </Grid>
                 </Grid>
-                {this.state.toggle
-                ? 
+
+{/* Muestra el Componente AgregarMonedas  */}
+
+                {this.state.toggle &&
+                // ? 
                 // Muestra el Componente AgregarMonedas 
                 <div>
                     
@@ -264,28 +280,30 @@ var columns =[
                         </div>
                     </div>
                 </div>
-                :
-                // Boton Agregar 
-                <div>
-                    {/* <Button onClick={()=>this.toggle()} variant="contained" color="primary">AGREGAR MONEDAS</Button> */}
+                // :
+                // // Boton Agregar 
+                // <div>
+                //     <Button onClick={()=>this.toggle()} variant="contained" color="primary">AGREGAR MONEDAS</Button>
                 
-                {/* muestra cuadro para filtrado */}
-                    {/* <input onChange={this.search} type="text" value={this.state.filtered}/> */}
+                // muestra cuadro para filtrado
+                //     <input onChange={this.search} type="text" value={this.state.filtered}/>
                 
-                        </div>
+                //          </div>
                 }
- 
-                {!this.state.toggle
-                ?
-                // Muestar la tabla de Monedas
+
+{/* Muestar la tabla de Monedas */}
+
+                {!this.state.toggle &&
+                // ?
                         <Paper >
                             <Table >
                                 <TableHead>
-                                    <TableRow>
+                                    <TableRow className={styles.row} >
+                                        {console.log("Styles === ",styles)}
                                         {columns.map((row, index) => {
                                             return (<CustomTableCell key={index} onClick={()=>{return row.order && this.sortBy(row.accessor)}} >{row.Header}</CustomTableCell>)
-                                        })
-                            }
+                                            })
+                                        }
                                         <CustomTableCell ></CustomTableCell>
                                     </TableRow>
                                 </TableHead>
@@ -313,11 +331,14 @@ var columns =[
                                 </TableBody>
                             </Table>
                         </Paper>
-                        :
-                    <div></div>
+                    //     :
+                    // <div></div>
                 }
-                {this.state.togglemodificar
-                    ?  
+
+{/* Llama al componente ModificarMonedas */}
+
+                {this.state.togglemodificar &&
+                    // ?  
                     //Llama al componente ModificarMonedas
                     <div>
                         <div className="row">
@@ -338,9 +359,12 @@ var columns =[
                             </div>
                         </div>
                     </div>
-                   :
-                    <div></div>    
+                //    :
+                //     <div></div>    
                 }
+
+{/* Muesra los botones Flotantes en la parte inferior de la pantalla */}
+                {console.log("Styles : ",styles)}
                 <Fab 
                     onClick={()=>this.toggle()} 
                     color="primary" 
@@ -371,8 +395,6 @@ var columns =[
                         "right": "25px",}}>    
                     {/* {this.state.busqueda && <input onChange={this.search} type="text" value={this.state.filtered}/>} */}
                     {this.state.busqueda && <InputBase style={{background:"grey"}} placeholder="Texto de Busqueda" onChange={this.search} type="text" value={this.state.filtered}/>}
-
-                    
                 </div>
             </div>
         )
