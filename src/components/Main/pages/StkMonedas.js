@@ -35,6 +35,7 @@ import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search'
 import InputBase from '@material-ui/core/InputBase';
 
+import StkFab from '../../lib/StkFab'
 
 const CustomTableCell = withStyles(theme => ({
     head: {
@@ -56,18 +57,18 @@ const CustomTableCell = withStyles(theme => ({
       minWidth: 700,
     },
     row: {
-        backgroundColor: '',
+        backgroundColor: 'red',
         '&:nth-of-type(odd)': {
         // backgroundColor: theme.palette.background.default,
         backgroundColor: 'red',
       },
     },
     fab: {
-        position: 'fixed',
+        // position: 'fixed',
         // bottom: theme.spacing.unit * 2,
         // right: theme.spacing.unit * 2,
-        bottom: '100px',
-        right: '100px',
+        // bottom: '100px',
+        // right: '100px',
         background:"red",
       },
       icon: {
@@ -200,7 +201,7 @@ class Monedas extends Component {
 
     render(){
 
-        const { classes } = styles
+        // const { classes } = styles
 
 //************************************** Agrego el campo del Boton BORRAR - Begin *********************************
 
@@ -298,7 +299,7 @@ var columns =[
                         <Paper >
                             <Table >
                                 <TableHead>
-                                    <TableRow className={styles.row} >
+                                    <TableRow className={this.props.classes.row} >
                                         {console.log("Styles === ",styles)}
                                         {columns.map((row, index) => {
                                             return (<CustomTableCell key={index} onClick={()=>{return row.order && this.sortBy(row.accessor)}} >{row.Header}</CustomTableCell>)
@@ -311,7 +312,7 @@ var columns =[
                                 <TableBody>
                                     {filtrado.map(row => {
                                     return (
-                                        <TableRow key={row.idStkMonedas} 
+                                        <TableRow className={this.props.classes.row} key={row.idStkMonedas} 
                                             onDoubleClick={()=>{
                                                 this.setState({idStkMonedas:row.idStkMonedas})
                                                 this.setState({StkMonedasDescripcion:row.StkMonedasDescripcion})
@@ -364,8 +365,8 @@ var columns =[
                 }
 
 {/* Muesra los botones Flotantes en la parte inferior de la pantalla */}
-                {console.log("Styles : ",styles)}
-                <Fab 
+                {/* {console.log("Styles : ",styles)} */}
+                {/* <Fab 
                     onClick={()=>this.toggle()} 
                     color="primary" 
                     aria-label="Add" 
@@ -375,8 +376,8 @@ var columns =[
                         "right": "25px",}}
                 >
                     <AddIcon />
-                </Fab>
-                <Fab 
+                </Fab> */}
+                {/* <Fab 
                     onClick={()=>this.toggleBusqueda()} 
                     color="primary" 
                     aria-label="Search" 
@@ -388,17 +389,21 @@ var columns =[
                     <SearchIcon />
                    
                 
-                </Fab>
-                <div style={{ 
-                        "position" : "fixed",
-                        "bottom": "135px",
-                        "right": "25px",}}>    
+                </Fab> */}
+                {/* <div className={this.props.classes.fab} 
+                // style={{ 
+                //         "position" : "fixed",
+                //         "bottom": "135px",
+                //         "right": "25px",}}
+                >     */}
                     {/* {this.state.busqueda && <input onChange={this.search} type="text" value={this.state.filtered}/>} */}
-                    {this.state.busqueda && <InputBase style={{background:"grey"}} placeholder="Texto de Busqueda" onChange={this.search} type="text" value={this.state.filtered}/>}
-                </div>
+                    {/* {this.state.busqueda && <InputBase style={{background:"grey"}} placeholder="Texto de Busqueda" onChange={this.search} type="text" value={this.state.filtered}/>}
+                </div> */}
+            <StkFab toggle={() => this.toggle()} toggleBusqueda={() => this.toggleBusqueda()} busqueda={this.state.busqueda} search={this.search} filtered={this.state.filtered}/>
+            
             </div>
         )
     }
 }
 
-export default Monedas	
+export default withStyles(styles)(Monedas)	

@@ -78,6 +78,7 @@ class StkItemsModificar extends Component {
 
       console.log('this.state.StkItemsDesc',this.state.StkItemsDesc)
       console.log('this.state.StkItemsCantidad',this.state.StkItemsCantidad)
+      console.log('this.state.StkItemsCantDisp',this.state.StkItemsCantDisp)
       console.log('this.state.StkItemsMin',this.state.StkItemsMin)
       console.log('this.state.StkItemsMax',this.state.StkItemsMax)
       // console.log('this.state.StkItemsObserv',this.state.StkItemsObserv)
