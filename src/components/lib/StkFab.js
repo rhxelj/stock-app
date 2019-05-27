@@ -7,12 +7,12 @@ import InputBase from '@material-ui/core/InputBase';
 
 // {/* Muesra los botones Flotantes en la parte inferior de la pantalla */}
 
-const StkFab = ({toggle,toggleBusqueda,busqueda,search,filtered})=>( 
+const StkFab = ({toggleAgregar,toggleBusqueda,toggle_busqueda,search,filtered})=>( 
     <Fragment>           
         
         {/* Agregar datos a la base de datos */}
         <Fab 
-            onClick={toggle} 
+            onClick={toggleAgregar} 
             color="primary" 
             aria-label="Add" 
             style={{ 
@@ -42,7 +42,7 @@ const StkFab = ({toggle,toggleBusqueda,busqueda,search,filtered})=>(
                 "bottom": "135px",
                 "right": "25px",}}
         >     
-            {busqueda && <InputBase style={{background:"grey"}} placeholder="Texto de Busqueda" onChange={search} type="text" value={filtered}/>}
+            {toggle_busqueda && <InputBase style={{background:"grey"}} placeholder="Texto de Busqueda" onChange={search} type="text" value={filtered}/>}
         </div>
 
     </Fragment>

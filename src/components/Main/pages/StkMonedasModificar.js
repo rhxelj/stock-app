@@ -39,7 +39,7 @@ class StkModificarMonedas extends Component {
       };
     // Material UI END
 
-    ActualizaMoneda = () => {
+    actualizaMoneda = () => {
       // const  monedas  = params;
      
     request                  
@@ -68,10 +68,9 @@ class StkModificarMonedas extends Component {
     submitMoneda(e){
         e.preventDefault()
         // this.addMoneda()
-      this.ActualizaMoneda() // revisar si hay que pasar parametros
+      this.actualizaMoneda() // revisar si hay que pasar parametros
       this.props.read()
-      
-      this.props.clickmodificar()
+      this.props.toggleModificar()
       // this.props.read()
     }
 
@@ -156,7 +155,7 @@ class StkModificarMonedas extends Component {
             >
               Modificar
             </Button>
-            <Button onClick={this.props.clickmodificar} color="secondary">
+            <Button onClick={this.props.toggleModificar} color="secondary">
               Cancelar
             </Button>
 

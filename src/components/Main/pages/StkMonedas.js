@@ -1,67 +1,49 @@
 
-import React, { Component} from 'react'
+import React, { Component } from 'react'
 import request from 'superagent'
 import IpServidor from './VariablesDeEntorno'
-
-
-
-import orderBy from 'lodash/orderBy'
-
-import Button from '@material-ui/core/Button';
-// import AddIcon from '@material-ui/icons/Add';
-// import ReactTable from 'react-table'
-// import 'react-table/react-table.css'
 
 import StkMonedasAgregar from './StkMonedasAgregar'
 import StkMonedasBorrar from './StkMonedasBorrar'
 import StkMonedasModificar from './StkMonedasModificar'
+import StkFab from '../../lib/StkFab'
 
-// para usar las tablas de MUI start
-import { withStyles } from '@material-ui/core/styles';
-
-
-
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles'; 
 
-import Grid from '@material-ui/core/Grid';
-
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import SearchIcon from '@material-ui/icons/Search'
-import InputBase from '@material-ui/core/InputBase';
-
-import StkFab from '../../lib/StkFab'
 
 const CustomTableCell = withStyles(theme => ({
     head: {
-      backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white,
+        backgroundColor: theme.palette.common.black,
+        color: theme.palette.common.white,
     },
     body: {
-      fontSize: 14,
+        fontSize: 14,
     },
-  }))(TableCell);
-  
-  const styles = {
+}))(TableCell);
+
+const styles = {
     root: {
-      width: '100%',
-    //   marginTop: theme.spacing.unit * 3,
-      overflowX: 'auto',
+        width: '100%',
+        //   marginTop: theme.spacing.unit * 3,
+        overflowX: 'auto',
     },
     table: {
-      minWidth: 700,
+        minWidth: 700,
     },
     row: {
-        backgroundColor: 'red',
+        // backgroundColor: 'red',
         '&:nth-of-type(odd)': {
-        // backgroundColor: theme.palette.background.default,
-        backgroundColor: 'red',
-      },
+            // backgroundColor: theme.palette.background.default,
+            // backgroundColor: 'red',
+        },
     },
     fab: {
         // position: 'fixed',
@@ -69,194 +51,166 @@ const CustomTableCell = withStyles(theme => ({
         // right: theme.spacing.unit * 2,
         // bottom: '100px',
         // right: '100px',
-        background:"red",
-      },
-      icon: {
+        background: "red",
+    },
+    icon: {
         // margin: theme.spacing.unit,
         fontSize: 32,
-      },
-  };
-
-
-//   const MyButton = styled(Button)({
-//     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-//     border: 0,
-//     borderRadius: 3,
-//     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-//     color: 'white',
-//     height: 48,
-//     padding: '0 30px',
-//   });
-  
-  
-  
-
-
-// para usar las tablas de MUI end
+    },
+};
 
 class Monedas extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
-            url: IpServidor + '/stkmonedasleer',
-            toggle: false,
-            togglemodificar:false,
-            idStkMonedas:'',
-            StkMonedasDescripcion:'',
+            idStkMonedas: '',
+            StkMonedasDescripcion: '',
             StkMonedasCotizacion: 0,
-            monedas:[],
-            filtered:'',
+            monedas: [],
+            filtered: '',
             campo: 'idStkMonedas',
-            // fab: {
-            //     position: 'absolute',
-            //     bottom: '50px',
-            //     right: '50px',
-            //   },
-            //   direction: 'asc'
-            direction:{},
-            busqueda: false
-
-            
+            direction: 'asc',
+            direction: {},
+            toggle_agregar: false,
+            toggle_busqueda: false,
+            toggle_modificar: false,
+            // targetname:"",
+            // targetvalue:""
         }
 
-        this.toggle = this.toggle.bind(this);
-        this.togglemodificar = this.togglemodificar.bind(this);
-        
+        // this.togglemodificar = this.togglemodificar.bind(this);
+
+        // this.toggle = this.toggle.bind(this);
         // const { classes } = props; // ver si se puede borra es para insertar iconos
-    }    
-   
-//******************************************* Funcion ordernar - Begin *******************************************
+    }
+
+    //******************************************* Funcion ordernar - Begin *******************************************
 
     sortBy(key) {
         this.setState({
-          monedas: this.state.monedas.sort((a, b) =>
-            this.state.direction[key] === "asc" ? (a[key] < b[key] ? 1 : -1) : (a[key] > b[key] ? 1 : -1)
-          ),
-          direction: {[key]: this.state.direction[key] === "asc" ? "desc" : "asc"}
+            monedas: this.state.monedas.sort((a, b) =>
+                this.state.direction[key] === "asc" ? (a[key] < b[key] ? 1 : -1) : (a[key] > b[key] ? 1 : -1)
+            ),
+            direction: { [key]: this.state.direction[key] === "asc" ? "desc" : "asc" }
         });
-      }
+    }
 
-//******************************************* Funcion ordernar - End *******************************************
-    
-//Read
+    //******************************************* Funcion ordernar - End *******************************************
+
+    //Read
     read = _ => {
         const url = IpServidor + '/stkmonedasleer'
         request
-        .get(url)                            
-        .set('Content-Type', 'application/json')
-            .then(res=> {
-            const monedas = JSON.parse(res.text)
-            // this.setState({monedas: monedas})
-            this.setState({ monedas })
+            .get(url)
+            .set('Content-Type', 'application/json')
+            .then(res => {
+                const monedas = JSON.parse(res.text)
+                // this.setState({monedas: monedas})
+                this.setState({ monedas })
             })
     }
-      
-//******************************************* Habilita el contenido a mostrar en Pantalla - Begin *******************************************
 
-    toggle(event){                      // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <AgregarMonedas> ***
+    //******************************************* Habilita el contenido a mostrar en Pantalla - Begin *******************************************
+
+    toggleAgregar = () =>{            
         this.setState(prevState => ({
-        toggle: !prevState.toggle
+            toggle_agregar: !prevState.toggle_agregar
+        })) // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <AgregarMonedas> ***
+    }
+
+    toggleModificar = () =>{          
+        this.setState(prevState => ({
+            toggle_modificar: !prevState.toggle_modificar
+        })) // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***  
+    }
+
+    toggleBusqueda = () => {
+        this.setState(prevState => ({
+            toggle_busqueda: !prevState.toggle_busqueda
         }))
     }
 
-
-    
-    togglemodificar(event){             // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***  
-        // this.toggle()
-        this.setState(prevState => ({
-        togglemodificar: !prevState.togglemodificar
-        }))
-        
-    }
-
-    toggleBusqueda(event){                      
-        this.setState(prevState => ({
-        busqueda: !prevState.busqueda
-        }))
-    }
-        
-
-//******************************************* Habilita el contenido a mostrar en Pantalla - End *******************************************
- 
+    //******************************************* Habilita el contenido a mostrar en Pantalla - End *******************************************
 
 
-    search=(event)=>{                       // Funcion de busqueda
+
+    search = (event) => {                       // Funcion de busqueda
         // var name  = event.target.name
         var value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value
-        this.setState({filtered: value})
+        this.setState({ filtered: value })
     }
-    
+
     // <input onChange={this.search} type="text" value={this.state.filtered}/>
-    
 
 
-    componentWillUnmount(){
+
+    componentWillUnmount() {
         this.setState({ state: this.state });
     }
-    
-    componentDidMount(){
+
+    componentDidMount() {
         this.read()
     }
-    
 
-    render(){
+
+    render() {
 
         // const { classes } = styles
 
-//************************************** Agrego el campo del Boton BORRAR - Begin *********************************
+        //************************************** Agrego el campo del Boton BORRAR - Begin *********************************
 
-    this.state.monedas.map( 
-        (rowData,index) => 
-            Object.assign(rowData, { borrar:<div className="center-align"><StkMonedasBorrar idMonedas={rowData.idStkMonedas} read={()=>this.read()}></StkMonedasBorrar></div>})
-    );
+        this.state.monedas.map(
+            (rowData, index) =>
+                Object.assign(rowData, { borrar: <div className="center-align"><StkMonedasBorrar idMonedas={rowData.idStkMonedas} read={() => this.read()}></StkMonedasBorrar></div> })
+        );
 
-//  ************************************ Agrego el campo del Boton BORRAR - end  ***********************************
+        //  ************************************ Agrego el campo del Boton BORRAR - end  ***********************************
 
 
-// ******************************************* Filtrado de datos - Begin *******************************************
+        // ******************************************* Filtrado de datos - Begin *******************************************
 
-    var filtrado =  this.state.monedas.filter((moneda)=>{
-            return( 
-                moneda.idStkMonedas.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1 || 
+        var filtrado = this.state.monedas.filter((moneda) => {
+            return (
+                moneda.idStkMonedas.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1 ||
                 moneda.StkMonedasDescripcion.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
             )
         })
 
-// ******************************************* Filtrado de datos - end  *******************************************
+        // ******************************************* Filtrado de datos - end  *******************************************
 
 
-// ******************************************* Encabezado de la tabla a mostrar - Begin  *******************************************
+        // ******************************************* Encabezado de la tabla a mostrar - Begin  *******************************************
 
-var columns =[
-        {
-            Header: "Código",
-            accessor: "idStkMonedas",
-            // tipo:"texto",
-            order: true,
-        },
-        { 
-            Header: "Descripción",
-            accessor: "StkMonedasDescripcion",
-            // tipo:"texto",
-            order: true,
-        },
-        {
-            Header: "Cotización",
-            accessor: "StkMonedasCotizacion",
-            // tipo:"numero",
-            // tipo:"texto",
-            order: true,
-        },
-        {
-            Header: "",
-            accessor: "borrar",
-            // tipo:"",
-            order: false,
-        }
-    ]
+        var columns = [
+            {
+                Header: "Código",
+                accessor: "idStkMonedas",
+                // tipo:"texto",
+                order: true,
+            },
+            {
+                Header: "Descripción",
+                accessor: "StkMonedasDescripcion",
+                // tipo:"texto",
+                order: true,
+            },
+            {
+                Header: "Cotización",
+                accessor: "StkMonedasCotizacion",
+                // tipo:"numero",
+                // tipo:"texto",
+                order: true,
+            },
+            {
+                Header: "",
+                accessor: "borrar",
+                // tipo:"",
+                order: false,
+            }
+        ]
 
-// ******************************************* Encabezado de la tabla a mostrar - end  *******************************************
-    return( 
+        // ******************************************* Encabezado de la tabla a mostrar - end  *******************************************
+        return (
             <div>
                 <Grid container>
                     <Grid item xs={12} sm={12} lg={12}>
@@ -264,81 +218,81 @@ var columns =[
                     </Grid>
                 </Grid>
 
-{/* Muestra el Componente AgregarMonedas  */}
+                {/* Muestra el Componente AgregarMonedas  */}
 
-                {this.state.toggle &&
-                // ? 
-                // Muestra el Componente AgregarMonedas 
-                <div>
-                    
-                    <div className="row">
-                        <div className="col s12 ">
-                            <div className="">
-                                <div className="card-content  black-text">
-                                    <StkMonedasAgregar click={()=>this.toggle()} read={()=>this.read()}> </StkMonedasAgregar>
+                {this.state.toggle_agregar &&
+                    // ? 
+                    // Muestra el Componente AgregarMonedas 
+                    <div>
+
+                        <div className="row">
+                            <div className="col s12 ">
+                                <div className="">
+                                    <div className="card-content  black-text">
+                                        <StkMonedasAgregar  toggleAgregar={this.toggleAgregar} read={this.read}> </StkMonedasAgregar>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                // :
-                // // Boton Agregar 
-                // <div>
-                //     <Button onClick={()=>this.toggle()} variant="contained" color="primary">AGREGAR MONEDAS</Button>
-                
-                // muestra cuadro para filtrado
-                //     <input onChange={this.search} type="text" value={this.state.filtered}/>
-                
-                //          </div>
+                    // :
+                    // // Boton Agregar 
+                    // <div>
+                    //     <Button onClick={()=>this.toggle()} variant="contained" color="primary">AGREGAR MONEDAS</Button>
+
+                    // muestra cuadro para filtrado
+                    //     <input onChange={this.search} type="text" value={this.state.filtered}/>
+
+                    //          </div>
                 }
 
-{/* Muestar la tabla de Monedas */}
+                {/* Muestar la tabla de Monedas */}
 
-                {!this.state.toggle &&
-                // ?
-                        <Paper >
-                            <Table >
-                                <TableHead>
-                                    <TableRow className={this.props.classes.row} >
-                                        {console.log("Styles === ",styles)}
-                                        {columns.map((row, index) => {
-                                            return (<CustomTableCell key={index} onClick={()=>{return row.order && this.sortBy(row.accessor)}} >{row.Header}</CustomTableCell>)
-                                            })
-                                        }
-                                        <CustomTableCell ></CustomTableCell>
-                                    </TableRow>
-                                </TableHead>
-                             
-                                <TableBody>
-                                    {filtrado.map(row => {
+                {!this.state.toggle_agregar &&
+                    // ?
+                    <Paper >
+                        <Table >
+                            <TableHead>
+                                <TableRow className={this.props.classes.row} >
+                                    {console.log("Styles === ", styles)}
+                                    {columns.map((row, index) => {
+                                        return (<CustomTableCell key={index} onClick={() => { return row.order && this.sortBy(row.accessor) }} >{row.Header}</CustomTableCell>)
+                                    })
+                                    }
+                                    <CustomTableCell ></CustomTableCell>
+                                </TableRow>
+                            </TableHead>
+
+                            <TableBody>
+                                {filtrado.map(row => {
                                     return (
-                                        <TableRow className={this.props.classes.row} key={row.idStkMonedas} 
-                                            onDoubleClick={()=>{
-                                                this.setState({idStkMonedas:row.idStkMonedas})
-                                                this.setState({StkMonedasDescripcion:row.StkMonedasDescripcion})
-                                                this.setState({StkMonedasCotizacion:row.StkMonedasCotizacion})
+                                        <TableRow className={this.props.classes.row} key={row.idStkMonedas}
+                                            onDoubleClick={() => {
+                                                this.setState({ idStkMonedas: row.idStkMonedas })
+                                                this.setState({ StkMonedasDescripcion: row.StkMonedasDescripcion })
+                                                this.setState({ StkMonedasCotizacion: row.StkMonedasCotizacion })
 
-                                                this.togglemodificar()
+                                                this.toggleModificar()
                                             }}
                                         >
-                                            
+
                                             <CustomTableCell>{row.idStkMonedas}</CustomTableCell>
                                             <CustomTableCell>{row.StkMonedasDescripcion}</CustomTableCell>
                                             <CustomTableCell>{row.StkMonedasCotizacion}</CustomTableCell>
                                             <CustomTableCell>{row.borrar}</CustomTableCell>
                                         </TableRow>
-                                        );
-                                    })}
-                                </TableBody>
-                            </Table>
-                        </Paper>
+                                    );
+                                })}
+                            </TableBody>
+                        </Table>
+                    </Paper>
                     //     :
                     // <div></div>
                 }
 
-{/* Llama al componente ModificarMonedas */}
+                {/* Llama al componente ModificarMonedas */}
 
-                {this.state.togglemodificar &&
+                {this.state.toggle_modificar &&
                     // ?  
                     //Llama al componente ModificarMonedas
                     <div>
@@ -346,61 +300,27 @@ var columns =[
                             <div className="col s12 ">
                                 <div className="">
                                     <div className="card-content  black-text">
-                                    <StkMonedasModificar 
-                                        clickmodificar={()=>this.togglemodificar()} 
-                                        read={()=>this.read()}
-                                        idStkMonedas={this.state.idStkMonedas}
-                                        StkMonedasDescripcion={this.state.StkMonedasDescripcion}
-                                        StkMonedasCotizacion={this.state.StkMonedasCotizacion}
-                                    >
-                                    
-                                    </StkMonedasModificar>
+                                        <StkMonedasModificar
+                                            toggleModificar={this.toggleModificar}
+                                            read={() => this.read()}
+                                            idStkMonedas={this.state.idStkMonedas}
+                                            StkMonedasDescripcion={this.state.StkMonedasDescripcion}
+                                            StkMonedasCotizacion={this.state.StkMonedasCotizacion}
+                                        >
+
+                                        </StkMonedasModificar>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                //    :
-                //     <div></div>    
+                    //    :
+                    //     <div></div>    
                 }
 
-{/* Muesra los botones Flotantes en la parte inferior de la pantalla */}
-                {/* {console.log("Styles : ",styles)} */}
-                {/* <Fab 
-                    onClick={()=>this.toggle()} 
-                    color="primary" 
-                    aria-label="Add" 
-                    style={{ 
-                        "position" : "fixed",
-                        "bottom": "10px",
-                        "right": "25px",}}
-                >
-                    <AddIcon />
-                </Fab> */}
-                {/* <Fab 
-                    onClick={()=>this.toggleBusqueda()} 
-                    color="primary" 
-                    aria-label="Search" 
-                    style={{ 
-                        "position" : "fixed",
-                        "bottom": "70px",
-                        "right": "25px",}}
-                >
-                    <SearchIcon />
-                   
-                
-                </Fab> */}
-                {/* <div className={this.props.classes.fab} 
-                // style={{ 
-                //         "position" : "fixed",
-                //         "bottom": "135px",
-                //         "right": "25px",}}
-                >     */}
-                    {/* {this.state.busqueda && <input onChange={this.search} type="text" value={this.state.filtered}/>} */}
-                    {/* {this.state.busqueda && <InputBase style={{background:"grey"}} placeholder="Texto de Busqueda" onChange={this.search} type="text" value={this.state.filtered}/>}
-                </div> */}
-            <StkFab toggle={() => this.toggle()} toggleBusqueda={() => this.toggleBusqueda()} busqueda={this.state.busqueda} search={this.search} filtered={this.state.filtered}/>
-            
+                {/* Muesra los botones Flotantes en la parte inferior de la pantalla Agregar y Busqueda*/}
+                <StkFab toggleAgregar={this.toggleAgregar} toggleBusqueda={this.toggleBusqueda} toggle_busqueda={this.state.toggle_busqueda} search={this.search} filtered={this.state.filtered} />
+
             </div>
         )
     }
