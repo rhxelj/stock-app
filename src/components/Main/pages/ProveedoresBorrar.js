@@ -2,6 +2,11 @@ import React, { Component} from 'react'
 import request from 'superagent'
 // import ReactTable from 'react-table'
 import 'react-table/react-table.css'
+
+import Button from '@material-ui/core/Button';
+import ClearIcon from '@material-ui/icons/Clear';
+import DeleteIcon from '@material-ui/icons/Delete';
+import DoneIcon from '@material-ui/icons/Done';
 import IpServidor from './VariablesDeEntorno'
 
 class ProveedoresBorrar extends Component {
@@ -39,11 +44,10 @@ class ProveedoresBorrar extends Component {
     // }
 
     // //Delete
-      deleteProduct = (id)=> {
-        // console.log("id a borrar :"+id)
-        // const { product } = this.state;
+      borrarProveedor = (id)=> {
+        const url = IpServidor + '/proveedoresborrar/'+id 
         request
-          .delete(IpServidor + '/proveedoresborrar/'+id)
+          .delete(url)
           .set('Content-Type', 'application/json')
           //.set('X-API-Key', 'foobar')
           .then(function(res) {
@@ -73,21 +77,18 @@ class ProveedoresBorrar extends Component {
                 {this.state.toggle 
             ?
             <div>
-                <button 
-                    className=" red accent-4" 
-                    onClick={()=>this.toggle()}
-                    >
-                    Borrar
-                </button>
+               <Button 
+                        className=" red accent-4" 
+                        onClick={()=>this.toggle()}
+                        >
+                        <DeleteIcon  />
+                </Button>
             </div>
             :
                 <div className="center-align">
-                    {/* <i class="material-icons">add</i> */}
-                    <p>Borrar ?</p>
-                    <button className="green "><i className="material-icons" onClick={()=>this.deleteProduct(this.props.idProveedores)}>check</i></button>
-                    {/* <button className=" red accent-4" onClick={()=>this.deleteProduct(this.props.idMonedas)}>Borrar</button> */}
-                    {/* <button className=" blue accent-4" onClick={()=>this.toggle()}>Cancelar</button> */}
-                    <button className="red "><i className="material-icons" onClick={()=>this.toggle()}>cancel</i></button>
+                    <p>Esta seguro de "BORRAR" este Registro?</p>
+                    <Button color="primary" onClick={()=>this.borrarProveedor(this.props.idProveedores)}><DoneIcon/></Button>
+                    <Button color="secondary" onClick={()=>this.toggle()}><ClearIcon/></Button>
                 </div>
             // </div> 
             }

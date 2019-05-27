@@ -1,14 +1,14 @@
 
 import React, { Component } from 'react'
 import request from 'superagent'
-import IpServidor from './VariablesDeEntorno'
 
+import IpServidor from './VariablesDeEntorno'
 import StkMonedasAgregar from './StkMonedasAgregar'
 import StkMonedasBorrar from './StkMonedasBorrar'
 import StkMonedasModificar from './StkMonedasModificar'
 import StkFab from '../../lib/StkFab'
 
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -254,7 +254,6 @@ class Monedas extends Component {
                         <Table >
                             <TableHead>
                                 <TableRow className={this.props.classes.row} >
-                                    {console.log("Styles === ", styles)}
                                     {columns.map((row, index) => {
                                         return (<CustomTableCell key={index} onClick={() => { return row.order && this.sortBy(row.accessor) }} >{row.Header}</CustomTableCell>)
                                     })

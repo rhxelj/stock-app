@@ -124,7 +124,7 @@ class ProveedoresAgregar extends Component {
     e.preventDefault();
     this.addProveedor();
     //      this.props.read()
-    this.props.click();
+    this.props.toggleAgregar();
   }
 
   componentDidMount() {
@@ -141,7 +141,7 @@ class ProveedoresAgregar extends Component {
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">ABMC Proveedores</DialogTitle>
+          <DialogTitle id="form-dialog-title">Agregar Proveedor</DialogTitle>
           <DialogContent>
             <TextField
               id="provdesc"
@@ -367,7 +367,7 @@ class ProveedoresAgregar extends Component {
             <Button
               variant="contained"
               color="secondary"
-              onClick={this.props.click}
+              onClick={this.props.toggleAgregar}
             >
               Cancelar
             </Button>
