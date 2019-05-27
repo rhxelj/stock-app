@@ -79,10 +79,10 @@ class AgregarMonedas extends Component {
     }
 
     submitMoneda(e){
-        e.preventDefault()
-        this.addMoneda()
-       this.props.read()
-       this.props.click()
+      e.preventDefault()
+      this.addMoneda()
+      this.props.read()
+      this.props.toggleAgregar()
     }
 
           
@@ -148,7 +148,7 @@ class AgregarMonedas extends Component {
             <Button id="button--submit" onClick={this.submitMoneda} color="primary">
               Agregar
             </Button>
-            <Button onClick={this.props.click} color="secondary">
+            <Button onClick={this.props.toggleAgregar} color="secondary">
               Cancelar
             </Button>
 
