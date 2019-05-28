@@ -136,6 +136,10 @@ class Proveedores extends Component {
     this.setState({ filtered: value })
   }
 
+  borraFiltered = ()=> {
+    this.setState({ filtered: '' })
+  }
+
 // Funcion De Busqueda - End.
 
   //******************************************* Habilita el contenido a mostrar en Pantalla - Begin *******************************************
@@ -143,13 +147,13 @@ class Proveedores extends Component {
   toggleAgregar = () =>{            
     this.setState(prevState => ({
         toggle_agregar: !prevState.toggle_agregar
-    })) // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <AgregarMonedas> ***
+    })) // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <AgregarProveedores> ***
 }
 
 toggleModificar = () =>{          
     this.setState(prevState => ({
         toggle_modificar: !prevState.toggle_modificar
-    })) // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***  
+    })) // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarProveedores> ***  
 }
 
 toggleBusqueda = () => {
@@ -442,7 +446,7 @@ toggleBusqueda = () => {
         
         {/* Muesra los botones Flotantes en la parte inferior de la pantalla Agregar y Busqueda*/}
 
-        <StkFab toggleAgregar={this.toggleAgregar} toggleBusqueda={this.toggleBusqueda} toggle_busqueda={this.state.toggle_busqueda} search={this.search} filtered={this.state.filtered} />
+        <StkFab borraFiltered={this.borraFiltered} toggleAgregar={this.toggleAgregar} toggleBusqueda={this.toggleBusqueda} toggle_busqueda={this.state.toggle_busqueda} search={this.search} filtered={this.state.filtered} />
       </div>
     )
   }
