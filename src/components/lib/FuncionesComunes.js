@@ -13,8 +13,16 @@ import IpServidor from './VariablesDeEntorno'
         }
 
     // Funcion De Busqueda - End.
-
-    //  Esto se agrega dentro de la funcion render 
+    
+    // Opcion para borrar contenido del cuadro de busqueda - BEGIN    
+        
+        borraFiltered = ()=> {
+            this.setState({ filtered: '' })
+        }
+        
+    // Opcion para borrar contenido del cuadro de busqueda - END
+    
+        //  Esto se agrega dentro de la funcion render 
 
     // Filtrado de datos - Begin 
 
