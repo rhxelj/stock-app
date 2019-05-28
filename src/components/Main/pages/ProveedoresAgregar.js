@@ -4,14 +4,12 @@ import IpServidor from "./VariablesDeEntorno";
 import "react-table/react-table.css";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-// import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from "@material-ui/core/DialogTitle";
-
-// import AgregarMonedas from './StkMonedasAgregar'
+import Grid from '@material-ui/core/Grid';
+import TextField from "@material-ui/core/TextField";
 
 class ProveedoresAgregar extends Component {
   constructor(props) {
@@ -124,7 +122,7 @@ class ProveedoresAgregar extends Component {
     e.preventDefault();
     this.addProveedor();
     //      this.props.read()
-    this.props.click();
+    this.props.toggleAgregar();
   }
 
   componentDidMount() {
@@ -141,8 +139,15 @@ class ProveedoresAgregar extends Component {
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">ABMC Proveedores</DialogTitle>
+        <Grid container>
+          <Grid item xs={4} sm={4} lg={4}></Grid>
+            <DialogTitle id="form-dialog-title">Agregar Proveedor</DialogTitle>
+          <Grid item xs={4} sm={4} lg={4}></Grid>
+        </Grid>
+         
           <DialogContent>
+          <Grid container spacing={24}> 
+          <Grid item  xs={12} sm={12} lg={12}>
             <TextField
               id="provdesc"
               label="Descripción"
@@ -157,7 +162,9 @@ class ProveedoresAgregar extends Component {
                   document.getElementById("provtipo").focus();
               }}
             />
-            <div>
+            </Grid>
+
+            <Grid item  xs={6} sm={6} lg={6}>
               <TextField
                 id="provtipo"
                 select={true}
@@ -175,8 +182,9 @@ class ProveedoresAgregar extends Component {
                   </MenuItem>
                 ))}
               </TextField>
-            </div>
-            <div>
+          
+            </Grid>
+            <Grid item  xs={6} sm={6} lg={6}>
               <TextField
                 id="provcuit"
                 label="C.U.I.T."
@@ -189,8 +197,10 @@ class ProveedoresAgregar extends Component {
                     document.getElementById("provcalle").focus();
                 }}
               />
-            </div>
-            <div>
+            </Grid>
+
+{/* *** Calle INICIO *** */}
+            <Grid item xs={3} sm={3} lg={3}>
               <TextField
                 id="provcalle"
                 label="Calle"
@@ -203,6 +213,11 @@ class ProveedoresAgregar extends Component {
                     document.getElementById("provnrocalle").focus();
                 }}
               />
+              </Grid>
+{/* *** Calle FIN *** */} 
+
+{/* *** Calle Nro INICIO *** */}
+              <Grid item xs={3} sm={3} lg={3}>
               <TextField
                 id="provnrocalle"
                 label="Nro"
@@ -215,6 +230,11 @@ class ProveedoresAgregar extends Component {
                     document.getElementById("provpiso").focus();
                 }}
               />
+              </Grid>
+{/* *** Calle Nro FIN *** */}
+
+{/* *** Piso Nro INICIO *** */}
+              <Grid item xs={3} sm={3} lg={3}>
               <TextField
                 id="provpiso"
                 label="Piso"
@@ -227,6 +247,11 @@ class ProveedoresAgregar extends Component {
                     document.getElementById("provdto").focus();
                 }}
               />
+              </Grid>
+{/* *** Piso Nro FIN *** */}
+
+{/* *** Depto INICIO *** */}
+              <Grid item xs={3} sm={3} lg={3}>
               <TextField
                 id="provdto"
                 label="Dto"
@@ -239,8 +264,11 @@ class ProveedoresAgregar extends Component {
                     document.getElementById("provcodpostal").focus();
                 }}
               />
-            </div>
-            <div>
+              </Grid>
+{/* *** Depto FIN *** */}
+             
+{/* *** CodigoPostal INICIO *** */}             
+             <Grid item xs={4} sm={4} lg={4}>
               <TextField
                 id="provcodpostal"
                 label="Cód.Postal"
@@ -253,6 +281,11 @@ class ProveedoresAgregar extends Component {
                     document.getElementById("provlocalidad").focus();
                 }}
               />
+              </Grid>
+{/* *** CodigoPostal FIN *** */} 
+
+{/* Localidad INICIO */}
+              <Grid item xs={4} sm={4} lg={4}>
               <TextField
                 id="provlocalidad"
                 label="Localidad"
@@ -265,6 +298,11 @@ class ProveedoresAgregar extends Component {
                     document.getElementById("provprovincia").focus();
                 }}
               />
+              </Grid>
+{/* Localidad FIN */}
+
+{/* Provincia INICIO */}
+              <Grid item xs={4} sm={4} lg={4}>
               <TextField
                 id="provprovincia"
                 label="Provincia"
@@ -277,85 +315,105 @@ class ProveedoresAgregar extends Component {
                     document.getElementById("provtelefono").focus();
                 }}
               />
-            </div>
-            <div>
-              <TextField
-                id="provtelefono"
-                label="Teléfono"
-                value={this.state.provtelefono}
-                onChange={this.handleChange("provtelefono")}
-                margin="dense"
-                variant="standard"
-                onKeyPress={event => {
-                  if (event.key === "Enter")
-                    document.getElementById("provcontacto").focus();
-                }}
-              />
-              <TextField
-                id="provcontacto"
-                label="Contacto"
-                value={this.state.provcontacto}
-                onChange={this.handleChange("provcontacto")}
-                margin="dense"
-                variant="standard"
-                onKeyPress={event => {
-                  if (event.key === "Enter")
-                    document.getElementById("provmail").focus();
-                }}
-              />
-            </div>
-            <div>
-              <TextField
-                id="provmail"
-                label="Mail"
-                value={this.state.provmail}
-                onChange={this.handleChange("provmail")}
-                margin="dense"
-                variant="standard"
-                onKeyPress={event => {
-                  if (event.key === "Enter")
-                    document.getElementById("provpagweb").focus();
-                }}
-              />
-              <TextField
-                id="provpagweb"
-                label="Pág.web"
-                value={this.state.provpagweb}
-                onChange={this.handleChange("provpagweb")}
-                margin="dense"
-                variant="standard"
-                onKeyPress={event => {
-                  if (event.key === "Enter")
-                    document.getElementById("provcodmon").focus();
-                }}
-              />
-            </div>
-            <div>
-              <TextField
-                id="provcodmon"
-                select={true}
-                label="Tipo Moneda"
-                value={this.state.provcodmon}
-                onChange={this.handleChange("provcodmon")}
-                onKeyPress={event => {
-                  // event.preventDefault();
-                  if (event.key === "F2")
-                  alert("anda")
-                }}
-              >
-                {this.state.stkmonedas.map(option => (
-                  <MenuItem
-                    key={option.idStkMonedas}
-                    value={option.idStkMonedas}
-                  >
-                    {option.StkMonedasDescripcion}
-                  </MenuItem>
-                ))}
-               
-              </TextField>
-              
-            </div>
+              </Grid>
+{/* Provincia INICIO */}
+
+{/* Telefono INICIO */}
+              <Grid item xs={6} sm={6} lg={6}>
+                <TextField
+                  id="provtelefono"
+                  label="Teléfono"
+                  value={this.state.provtelefono}
+                  onChange={this.handleChange("provtelefono")}
+                  margin="dense"
+                  variant="standard"
+                  onKeyPress={event => {
+                    if (event.key === "Enter")
+                      document.getElementById("provcontacto").focus();
+                  }}
+                />
+              </Grid>
+{/* Telefono FIN */}
+
+{/* Contacto INICIO */}
+              <Grid item xs={6} sm={6} lg={6}>
+                <TextField
+                  id="provcontacto"
+                  label="Contacto"
+                  value={this.state.provcontacto}
+                  onChange={this.handleChange("provcontacto")}
+                  margin="dense"
+                  variant="standard"
+                  onKeyPress={event => {
+                    if (event.key === "Enter")
+                      document.getElementById("provmail").focus();
+                  }}
+                  />
+              </Grid>  
+{/* Contacto FIN */}
+
+{/* Mail INICIO */}
+              <Grid item xs={4} sm={4} lg={4}>
+                <TextField
+                  id="provmail"
+                  label="Mail"
+                  value={this.state.provmail}
+                  onChange={this.handleChange("provmail")}
+                  margin="dense"
+                  variant="standard"
+                  onKeyPress={event => {
+                    if (event.key === "Enter")
+                      document.getElementById("provpagweb").focus();
+                  }}
+                />
+              </Grid>
+{/* Mail FIN */}
+
+{/* Pagina Web INICIO */}       
+              <Grid item xs={4} sm={4} lg={4}> 
+                <TextField
+                  id="provpagweb"
+                  label="Pág.web"
+                  value={this.state.provpagweb}
+                  onChange={this.handleChange("provpagweb")}
+                  margin="dense"
+                  variant="standard"
+                  onKeyPress={event => {
+                    if (event.key === "Enter")
+                      document.getElementById("provcodmon").focus();
+                  }}
+                />
+              </Grid>
+{/* Pagina Web FIN */}
+              <Grid item xs={4} sm={4} lg={4}> 
+                <TextField
+                  id="provcodmon"
+                  select={true}
+                  label="Tipo Moneda"
+                  value={this.state.provcodmon}
+                  onChange={this.handleChange("provcodmon")}
+                  onKeyPress={event => {
+                    // event.preventDefault();
+                    if (event.key === "F2")
+                    alert("anda")
+                  }}
+                >
+                  {this.state.stkmonedas.map(option => (
+                    <MenuItem
+                      key={option.idStkMonedas}
+                      value={option.idStkMonedas}
+                    >
+                      {option.StkMonedasDescripcion}
+                    </MenuItem>
+                  ))}
+                
+                </TextField>
+              </Grid>
+            </Grid>
+            {/* <DialogContent> */}
           </DialogContent>
+
+{/* Botones Agregar / Cancelar    */}
           <DialogActions>
             <Button
               variant="contained"
@@ -367,13 +425,14 @@ class ProveedoresAgregar extends Component {
             <Button
               variant="contained"
               color="secondary"
-              onClick={this.props.click}
+              onClick={this.props.toggleAgregar}
             >
               Cancelar
             </Button>
           </DialogActions>
         </Dialog>
       </div>
+      // </div>            
     );
   }
 }

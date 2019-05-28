@@ -170,7 +170,7 @@ request
         e.preventDefault()
         this.ActualizaProveedor()
         
-        this.props.clickmodificar()
+        this.props.toggleModificar()
         this.props.read()
 
     }
@@ -359,7 +359,7 @@ request
                 <Button variant="contained" color="primary"  onClick={this.submitProveedor}>
                     Modificar
                 </Button>
-                <Button variant="contained" color="secondary" onClick={this.props.clickmodificar}>
+                <Button variant="contained" color="secondary" onClick={this.props.toggleModificar}>
                     Cancelar
                 </Button>
                 </DialogActions>

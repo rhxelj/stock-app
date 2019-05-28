@@ -6,11 +6,11 @@ import request from 'superagent'
 import Button from '@material-ui/core/Button';
 
 // import AgregarProveedor from './ProveedoresAgregar'
-import ProveedoresAgregar from './ProveedoresAgregar';
-import ProveedoresModificar from './ProveedoresModificar';
-import ProveedoresBorrar from './ProveedoresBorrar'
-
 import IpServidor from './VariablesDeEntorno'
+import ProveedoresAgregar from './ProveedoresAgregar';
+import ProveedoresBorrar from './ProveedoresBorrar'
+import ProveedoresModificar from './ProveedoresModificar';
+import StkFab from '../../lib/StkFab'
 
 
 
@@ -60,45 +60,61 @@ class Proveedores extends Component {
     super(props)
     this.state = {
       url: IpServidor + '/proveedoresleer',
-      toggle: false,
-      togglemodificar: false,
       proveedores: [],
-      direction: {} // direccion del ordenamiento asc o desc
+      direction: {}, // direccion del ordenamiento asc o desc
+      toggle_agregar: false,
+      toggle_busqueda: false,
+      toggle_modificar: false,
+      filtered:''
     }
-    this.toggle = this.toggle.bind(this);
+    // this.toggle = this.toggle.bind(this);
   }
 
 
-  //Funcion ordernar Begin
+//Funcion ordernar Begin
 
-  // Ordena Numeros
-  sortByNumero(key) {
-    this.setState({
-      proveedores: this.state.proveedores.sort((a, b) =>
-        this.state.direction[key] === "asc" ? a[key] - b[key] : b[key] - a[key]
-      ),
-      direction: {
-        [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
-      }
-    });
-  }
 
-  sortBy(key,tipo) {
-    this.setState({
-      proveedores: this.state.proveedores.sort((a, b) =>
-      tipo === 'numero' 
-      ? 
-        (this.state.direction[key] === "asc" ? a[key] - b[key] : b[key] - a[key] )
-       :
-        (this.state.direction[key] === "asc" ? a[key].toUpperCase() < b[key].toUpperCase() : b[key].toUpperCase() < a[key].toUpperCase())
-      ),
-      direction: {
-        [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
-      }
-    });
-  }
+// // Ordena Numeros
+  // sortByNumero(key) {
+  //   this.setState({
+  //     proveedores: this.state.proveedores.sort((a, b) =>
+  //       this.state.direction[key] === "asc" ? a[key] - b[key] : b[key] - a[key]
+  //     ),
+  //     direction: {
+  //       [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
+  //     }
+  //   });
+  // }
+
+  // sortBy(key,tipo) {
+  //   this.setState({
+  //     proveedores: this.state.proveedores.sort((a, b) =>
+  //     tipo === 'numero' 
+  //     ? 
+  //       (this.state.direction[key] === "asc" ? a[key] - b[key] : b[key] - a[key] )
+  //      :
+  //       (this.state.direction[key] === "asc" ? a[key].toUpperCase() < b[key].toUpperCase() : b[key].toUpperCase() < a[key].toUpperCase())
+  //     ),
+  //     direction: {
+  //       [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
+  //     }
+  //   });
+  // }
 
 //Funcion ordernar End 
+
+  // Funcion ordernar - Begin 
+
+  sortBy(key) {
+    this.setState({
+        proveedores: this.state.proveedores.sort((a, b) =>
+            this.state.direction[key] === "asc" ? (a[key] < b[key] ? 1 : -1) : (a[key] > b[key] ? 1 : -1)
+        ),
+        direction: { [key]: this.state.direction[key] === "asc" ? "desc" : "asc" }
+    });
+}
+
+// Funcion ordernar - End 
 
 //Read
   read = _ => {
@@ -112,39 +128,43 @@ class Proveedores extends Component {
       })
   }
 
-  // deleteProduct = (id) => {
+// Funcion De Busqueda - Begin
 
-  //   //       const { moneda } = this.state;
-  //   request
-  //     .delete(IpServidor + '/proveedoresborrar/' + id)
-  //     .set('Content-Type', 'application/json')
-  //     //.set('X-API-Key', 'foobar')
-  //     .then(function (res) {
-  //       // res.body, res.headers, res.status
-  //     })
-  //     .catch(err => {
-  //       if (err.status === 411) {
-  //         alert('Código de Proveedor Usado no se puede borrar  ')
-  //       }
-  //     })
-  //   //alert("Borrado")
-  //   //  this.toggle()
-  //   this.read()
-  // }
-
-  toggle(event) {
-    this.setState(prevState => ({
-      toggle: !prevState.toggle
-    }))
+  search = (event) => {                       // Funcion de busqueda
+    // var name  = event.target.name
+    var value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value
+    this.setState({ filtered: value })
   }
 
-  togglemodificar(event) {
-    this.toggle()
-    this.setState(prevState => ({
-      togglemodificar: !prevState.togglemodificar
-    }))
-
+  borraFiltered = ()=> {
+    this.setState({ filtered: '' })
   }
+
+// Funcion De Busqueda - End.
+
+  //******************************************* Habilita el contenido a mostrar en Pantalla - Begin *******************************************
+
+  toggleAgregar = () =>{            
+    this.setState(prevState => ({
+        toggle_agregar: !prevState.toggle_agregar
+    })) // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <AgregarProveedores> ***
+}
+
+toggleModificar = () =>{          
+    this.setState(prevState => ({
+        toggle_modificar: !prevState.toggle_modificar
+    })) // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarProveedores> ***  
+}
+
+toggleBusqueda = () => {
+    this.setState(prevState => ({
+        toggle_busqueda: !prevState.toggle_busqueda
+    }))
+}
+
+//******************************************* Habilita el contenido a mostrar en Pantalla - End *******************************************
+  
+
   
   leetprov = _ => {
     const url = IpServidor + '/stktipoproveedleer';
@@ -166,95 +186,130 @@ class Proveedores extends Component {
 
 
   render() {
-
-    var proveedores = this.state.proveedores.map((rowData, index) =>
+  //************************************** Agrego el campo del Boton BORRAR - Begin *********************************
+    this.state.proveedores.map((rowData, index) =>
       Object.assign(rowData, {
         borrar:
           <div className="center-align"><ProveedoresBorrar idProveedores={rowData.idProveedores} read={() => this.read()}></ProveedoresBorrar></div>
       })
     )
+  //************************************** Agrego el campo del Boton BORRAR - End ***********************************  
+  
+  // ******************************************* Filtrado de datos - Begin *******************************************
 
-    var columns = [
+  var proveedores = this.state.proveedores.filter((proveedor) => {
+    return (
+      proveedor.ProveedoresDesc.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1 
+      // ||
+      // proveedor.ProveedoresTipo.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
+      // ||
+      // proveedor.ProveedoresCUIT.indexOf(this.state.filtered) !== -1 
+      // ||
+      // proveedor.ProveedoresCalle.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
+      ||
+      proveedor.ProveedoresCalle.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
+    )
+})
+
+// ******************************************* Filtrado de datos - end  *******************************************    
+
+  var columns = [
       {
         Header: "Código",
         accessor: "idProveedores",
-        tipo:"numero"
+        tipo:"numero",
+        order: true,
       },
       {
         Header: "Denomiación",
         accessor: "ProveedoresDesc",
-        tipo:""
+        tipo:"",
+        order: true,
       },
       {
         Header: "Tipo",
         accessor: "ProveedoresTipo",
-        tipo:""
+        tipo:"",
+        order: true,
       },
       {
         Header: "CUIT",
         accessor: "ProveedoresCUIT",
-        tipo:"numero"
+        tipo:"numero",
+        order: true,
       },
       {
         Header: "Calle",
         accessor: "ProveedoresCalle",
-        tipo:""
+        tipo:"",
+        order: true,
       },
       {
         Header: "Nro",
         accessor: "ProveedoresNroCalle",
-        tipo:"numero"
+        tipo:"numero",
+        order: true,
       },
       {
         Header: "Piso",
         accessor: "ProveedoresPiso",
-        tipo:"numero"
+        tipo:"numero",
+        order: true,
       },
       {
         Header: "Dto",
         accessor: "ProveedoresDto",
-        tipo:""
+        tipo:"",
+        order: true,
       },
       {
         Header: "Cod.Postal",
         accessor: "ProveedoresCodPos",
-        tipo:"numero"
+        tipo:"numero",
+        order: true,
       },
       {
         Header: "Localidad",
         accessor: "ProveedoresLoc",
-        tipo:""
+        tipo:"",
+        order: true,
       },
       {
         Header: "Provincia",
         accessor: "ProveedoresPcia",
-        tipo:""
+        tipo:"",
+        order: true,
       },
       {
         Header: "Teléfono",
         accessor: "ProveedoresTel",
-        tipo:"numero"
+        tipo:"numero",
+        order: true,
       },
 
       {
         Header: "Contacto",
         accessor: "ProveedoresContacto",
-        tipo:""
+        tipo:"",
+        order: true,
       },
       {
         Header: "mail",
         accessor: "ProveedoresMail",
-        tipo:""
+        tipo:"",
+        order: true,
       },
       {
         Header: "Pág. Web",
         accessor: "ProveedoresWeb",
-        tipo:""
+        tipo:"",
+        order: true,
       },
       {
         Header: "Moneda",
         accessor: "ProveedoresCodMon",
-        tipo:""
+        tipo:"",
+        order: true,
       },
       {
         Header: "",
@@ -268,33 +323,33 @@ class Proveedores extends Component {
         <h1>ABM DE Proveedores</h1>
 
         {/* Agregar Proveedor */}
-        {this.state.toggle
-          ?
+        {this.state.toggle_agregar &&
+          // ?
           <div>
             <div className="row">
               <div className="col s12 ">
                 <div className="">
                   <div className="card-content  white-text">
-                    <ProveedoresAgregar click={() => this.toggle()} read={() => this.read()}> </ProveedoresAgregar>
+                    <ProveedoresAgregar toggleAgregar={this.toggleAgregar} read={() => this.read()}> </ProveedoresAgregar>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          :
-          <Button onClick={() => this.toggle()} variant="contained" color="primary">AGREGAR PROVEEDORES</Button>
+          // :
+          // <Button onClick={() => this.toggle()} variant="contained" color="primary">AGREGAR PROVEEDORES</Button>
         }
 
         {/* Muestro contenido */}
-        {!this.state.toggle
-          ?
+        {!this.state.toggle_agregar &&
+          // ?
           <Paper >
             <Table >
               <TableHead>
                 <TableRow>
                   {
                     columns.map((row, index) => {
-                      return (<CustomTableCell key={index} onClick={() => this.sortBy(row.accessor,row.tipo)} >{row.Header}</CustomTableCell>)
+                      return (<CustomTableCell key={index} onClick={() => {return row.order && this.sortBy(row.accessor)}} >{row.Header}</CustomTableCell>)
                     })
                   }
                 </TableRow>
@@ -307,8 +362,6 @@ class Proveedores extends Component {
                       this.setState({ idProveedores: row.idProveedores })
                       this.setState({ ProveedoresDesc: row.ProveedoresDesc })
                       this.setState({ ProveedoresTipo: row.ProveedoresTipo }) //Proveedores Tipo idStkTipoProveed
-                      // this.setState({ ProveedoresTipo: row.StkTipoProveedDesc }) //Proveedores Tipo
-
                       this.setState({ ProveedoresCUIT: row.ProveedoresCUIT })
                       this.setState({ ProveedoresCalle: row.ProveedoresCalle })
                       this.setState({ ProveedoresNroCalle: row.ProveedoresNroCalle })
@@ -323,9 +376,7 @@ class Proveedores extends Component {
                       this.setState({ ProveedoresWeb: row.ProveedoresWeb })
                       this.setState({ ProveedoresCodMon: row.ProveedoresCodMon })
 
-                      this.togglemodificar()
-                      console.log(`valor de toogle modificar : ${this.state.togglemodificar}`)
-
+                      this.toggleModificar()
                     }
                     } key={row.idProveedores}>
 
@@ -352,20 +403,19 @@ class Proveedores extends Component {
               </TableBody>
             </Table>
           </Paper>
-          :
-          <div></div>
+          // :
+          // <div></div>
         }
 
         {/* modificar */}
-        {this.state.togglemodificar
-          ?
+        {this.state.toggle_modificar &&
           <div>
             <div className="row">
               <div className="col s12 ">
                 <div className="">
                   <div className="card-content  black-text">
                     <ProveedoresModificar
-                      clickmodificar={() => this.togglemodificar()}
+                      toggleModificar={this.toggleModificar}
                       read={() => this.read()}
 
                       idProveedores={this.state.idProveedores}
@@ -392,12 +442,14 @@ class Proveedores extends Component {
               </div>
             </div>
           </div>
-          :
-          <div></div>
         }
+        
+        {/* Muesra los botones Flotantes en la parte inferior de la pantalla Agregar y Busqueda*/}
+
+        <StkFab borraFiltered={this.borraFiltered} toggleAgregar={this.toggleAgregar} toggleBusqueda={this.toggleBusqueda} toggle_busqueda={this.state.toggle_busqueda} search={this.search} filtered={this.state.filtered} />
       </div>
     )
   }
 }
 
-export default Proveedores
+export default withStyles(styles)(Proveedores)

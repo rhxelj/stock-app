@@ -2,11 +2,12 @@ import React, { Component} from 'react'
 import request from 'superagent'
 // import ReactTable from 'react-table'
 // import 'react-table/react-table.css'
-import Button from '@material-ui/core/Button';
 
+import Button from '@material-ui/core/Button';
+import ClearIcon from '@material-ui/icons/Clear';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
-import ClearIcon from '@material-ui/icons/Clear';
+import IpServidor from './VariablesDeEntorno'
 
 
 class StkMonedasBorrar extends Component {
@@ -82,10 +83,7 @@ class StkMonedasBorrar extends Component {
                 :
                     <div className="center-align">
                         <p>Esta seguro de "BORRAR" este Registro?</p>
-                        {/* <button className="green "><i className="material-icons" onClick={()=>this.deleteProduct(this.props.idMonedas)}>check</i></button> */}
                         <Button color="primary" onClick={()=>this.deleteProduct(this.props.idMonedas)}><DoneIcon/></Button>
-                        
-                        {/* <button className="red "><i className="material-icons" onClick={()=>this.toggle()}>cancel</i></button> */}
                         <Button color="secondary" onClick={()=>this.toggle()}><ClearIcon/></Button>
                     </div>
                 }

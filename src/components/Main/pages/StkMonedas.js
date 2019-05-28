@@ -1,14 +1,14 @@
 
 import React, { Component } from 'react'
 import request from 'superagent'
-import IpServidor from './VariablesDeEntorno'
 
+import IpServidor from './VariablesDeEntorno'
 import StkMonedasAgregar from './StkMonedasAgregar'
 import StkMonedasBorrar from './StkMonedasBorrar'
 import StkMonedasModificar from './StkMonedasModificar'
 import StkFab from '../../lib/StkFab'
 
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -108,8 +108,19 @@ class Monedas extends Component {
                 // this.setState({monedas: monedas})
                 this.setState({ monedas })
             })
-    }
-
+        }
+        
+   
+        search = (event) => {                       // Funcion de busqueda
+            // var name  = event.target.name
+            var value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value
+            this.setState({ filtered: value })
+        }
+    
+        borraFiltered = ()=> {
+            this.setState({ filtered: '' })
+        }
+        
     //******************************************* Habilita el contenido a mostrar en Pantalla - Begin *******************************************
 
     toggleAgregar = () =>{            
@@ -134,11 +145,6 @@ class Monedas extends Component {
 
 
 
-    search = (event) => {                       // Funcion de busqueda
-        // var name  = event.target.name
-        var value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value
-        this.setState({ filtered: value })
-    }
 
     // <input onChange={this.search} type="text" value={this.state.filtered}/>
 
@@ -254,7 +260,6 @@ class Monedas extends Component {
                         <Table >
                             <TableHead>
                                 <TableRow className={this.props.classes.row} >
-                                    {console.log("Styles === ", styles)}
                                     {columns.map((row, index) => {
                                         return (<CustomTableCell key={index} onClick={() => { return row.order && this.sortBy(row.accessor) }} >{row.Header}</CustomTableCell>)
                                     })
@@ -319,7 +324,7 @@ class Monedas extends Component {
                 }
 
                 {/* Muesra los botones Flotantes en la parte inferior de la pantalla Agregar y Busqueda*/}
-                <StkFab toggleAgregar={this.toggleAgregar} toggleBusqueda={this.toggleBusqueda} toggle_busqueda={this.state.toggle_busqueda} search={this.search} filtered={this.state.filtered} />
+                <StkFab borraFiltered={this.borraFiltered} toggleAgregar={this.toggleAgregar} toggleBusqueda={this.toggleBusqueda} toggle_busqueda={this.state.toggle_busqueda} search={this.search} filtered={this.state.filtered} />
 
             </div>
         )
