@@ -197,11 +197,11 @@ toggleBusqueda = () => {
   
   // ******************************************* Filtrado de datos - Begin *******************************************
 
-  var proveedores = this.state.proveedores.filter((proveedor) => {
+  var proveedores = this.state.proveedores.filter((proveedor) => { //este proveedores no es el proveedores de this.state.proveedores es una copia local
     return (
       proveedor.ProveedoresDesc.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1 
-      // ||
-      // proveedor.ProveedoresTipo.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
+      ||
+      proveedor.ProveedoresTipo.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
       // ||
       // proveedor.ProveedoresCUIT.indexOf(this.state.filtered) !== -1 
       // ||
