@@ -5,7 +5,7 @@ import 'react-table/react-table.css'
 
 import StkUnMedAgregar from './StkUnMedAgregar'
 import StkUnMedBorrar from './StkUnMedBorrar'
-
+import StkUnMedModificar from './StkUnMedModificar'
 
 import IpServidor from './VariablesDeEntorno'
 import StkFab from '../../lib/StkFab'
@@ -79,7 +79,8 @@ class UnidadMedidas extends Component {
             filtered:'',
             idStkUnMed:'',
             StkUnMedDesc:'',
-            unidad_medidas:[]
+            unidad_medidas:[],
+            direction: 'asc'
         }
         // this.renderEditable = this.renderEditable.bind(this)
         // this.toggle = this.toggle.bind(this);
@@ -111,8 +112,44 @@ class UnidadMedidas extends Component {
 //******************************************* Habilita el contenido a mostrar en Pantalla - End *******************************************
     
     
-    
-    
+
+ // Funcion De Busqueda - Begin
+
+ search = (event) => {                       // Funcion de busqueda
+    // var name  = event.target.name
+    var value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value
+    this.setState({ filtered: value })
+}
+
+// Funcion De Busqueda - End.
+
+// Opcion para borrar contenido del cuadro de busqueda - BEGIN    
+
+borraFiltered = ()=> {
+    this.setState({ filtered: '' })
+}
+
+// Opcion para borrar contenido del cuadro de busqueda - END
+
+
+// Cosas a agregar para la funcion de Ordenar (SortBy) Begin ***************************************************************************************************
+
+    // Funcion ordernar - Begin 
+
+    sortBy(key) {
+        this.setState({
+            unidad_medidas: this.state.unidad_medidas.sort((a, b) =>
+                this.state.direction[key] === "asc" ? (a[key] < b[key] ? 1 : -1) : (a[key] > b[key] ? 1 : -1)
+            ),
+            direction: { [key]: this.state.direction[key] === "asc" ? "desc" : "asc" }
+        });
+    }
+
+// Funcion ordernar - End 
+
+
+// Cosas a agregar para la funcion de Ordenar (SortBy) End ******************************************************************************************************
+
     
     //Read
     read = _ => {
@@ -126,91 +163,18 @@ class UnidadMedidas extends Component {
             })
     }
 
-    // //Update
-    ActualizaUnMed = (params) => {
-     
-        const  datos  = params;
-     
-    request                  
-       .post(this.state.url + '/stkunmedmodificar/' + datos.idStkUnMed)
-       .set('Content-Type', 'application/json')
-       
-    //    .send({ idtipomonedas: this.state.idtipomonedas})
-       .send({ StkUnMedDesc: params.StkUnMedDesc})
-       .set('X-API-Key', 'foobar')
-       .then(function(res) {
-      // res.body, res.headers, res.status
-        });
-       
-        //this.getproveedores();
-     }
-    
-    //  deleteProduct = (id)=> {
-        
-    //     //       const { moneda } = this.state;
-    //            request
-    //              .delete('http://localhost:4000/borrarmonedas/'+id)
-    //              .set('Content-Type', 'application/json')
-    //              //.set('X-API-Key', 'foobar')
-    //              .then(function(res) {
-    //            // res.body, res.headers, res.status
-    //              })
-    //              .catch(err => {
-    //                 if (err.status === 411) 
-    //                         {
-    //                         alert('Código de Moneda Usado no se puede borrar  ') 
-    //                         }
-    //                     })
-    //              //alert("Borrado")
-    //             //  this.toggle()
-    //              this.read()
-    //          }
-    
-    toggle(event){
-        this.setState(prevState => ({
-        toggle: !prevState.toggle
-        }))
-    }
-    
-    // componentWillUnmount(){
-    //     this.read()
-    // }
    
     componentDidMount(){
         this.read()
     }
     
-    // renderEditable(cellInfo) {
-    //     return (
-    //       <div
-    //         style={{ backgroundColor: "#fafafa" }}
-    //         contentEditable
-    //         suppressContentEditableWarning
-    //         onBlur={e => {
-    //           const datos = [...this.state.datos]
-    //           datos[cellInfo.index][cellInfo.column.id] = e.target.innerHTML
-    //           this.setState({ datos })
-    //           this.ActualizaUnMed(cellInfo.original)
-    //         }}
-    //         dangerouslySetInnerHTML={{
-    //           __html: this.state.datos[cellInfo.index][cellInfo.column.id]
-    //         }}
-    //       />
-    //     )
-    //   }
-
-
-    //   funcionTest(){ 
-    //     alert('ggggg')
-        
-    //   }
 
     render(){
         //************************************** Agrego el campo del Boton BORRAR - Begin *********************************
         this.state.unidad_medidas.map( (rowData,index) => 
             Object.assign(rowData, { 
                 borrar: 
-                    <div className="center-align"><StkUnMedBorrar id={rowData.idStkUnMed} read={()=>this.read()}></StkUnMedBorrar></div>})
+                    <div className="center-align"><StkUnMedBorrar idStkUnMed={rowData.idStkUnMed} read={()=>this.read()}></StkUnMedBorrar></div>})
         );
         //************************************** Agrego el campo del Boton BORRAR - End ***********************************  
 
@@ -219,8 +183,8 @@ class UnidadMedidas extends Component {
         var unidad_medidas = this.state.unidad_medidas.filter((unmed) => { //este proveedores no es el proveedores de this.state.proveedores es una copia local
             return (
             unmed.idStkUnMed.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1 
-            // ||
-            // proveedor.ProveedoresTipo.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
+            ||
+            unmed.StkUnMedDesc.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
             // ||
             // proveedor.ProveedoresCUIT.indexOf(this.state.filtered) !== -1 
             // ||
@@ -316,108 +280,36 @@ class UnidadMedidas extends Component {
                             </TableBody>
                         </Table>
                     </Paper>
-                    //     :
-                    // <div></div>
                 }
 
                 {/* Llama al componente ModificarMonedas */}
 
                 {this.state.toggle_modificar &&
-                    // ?  
-                    //Llama al componente ModificarMonedas
                     <div>
                         <div className="row">
                             <div className="col s12 ">
                                 <div className="">
                                     <div className="card-content  black-text">
-                                        {/* <StkMonedasModificar
+                                        <StkUnMedModificar
                                             toggleModificar={this.toggleModificar}
                                             read={() => this.read()}
                                             idStkUnMed={this.state.idStkUnMed}
                                             StkUnMedDesc={this.state.StkUnMedDesc}
-                                            StkMonedasCotizacion={this.state.StkMonedasCotizacion}
                                         >
 
-                                        </StkMonedasModificar> */}
+                                        </StkUnMedModificar>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    //    :
-                    //     <div></div>    
                 }
 
                 {/* Muesra los botones Flotantes en la parte inferior de la pantalla Agregar y Busqueda*/}
                 <StkFab borraFiltered={this.borraFiltered} toggleAgregar={this.toggleAgregar} toggleBusqueda={this.toggleBusqueda} toggle_busqueda={this.state.toggle_busqueda} search={this.search} filtered={this.state.filtered} />
 
             </div>
-            // <div>
-            //     {/* <BorrarMonedas ></BorrarMonedas> */}
-            //     <h1>ABM DE UnidadMedidas</h1>
-                
-                
-            //     {this.state.toggle
-            //     ?
-            //     <div>
-            //         <div className="row">
-            //             <div className="col s12 ">
-            //                 <div className="">
-            //                     <div className="card-content  black-text">
-            //                         <StkUnMedAgregar click={()=>this.toggle()} read={()=>this.read()}> </StkUnMedAgregar>
-            //                     </div>
-            //                 </div>
-            //             </div>
-            //         </div>
-            //     </div>
-            //     :
-            //     // <p onClick={()=>this.toggle()} className='btn'>AGREGAR datos</p>
-            //     <Button onClick={()=>this.toggle()} variant="contained" color="primary">AGREGAR MEDIDAS</Button>
-            //     }
-            //    {!this.state.toggle 
-            //    ? 
-            //     <ReactTable
-            //             data={datosTabla}
-
-            //             filterable
-            //             defaultSorted={[
-            //                 {
-            //                     id: "codigo",
-            //                     desc: true
-            //                 }
-            //             ]}
-
-            //             columns={[
-            //                  {                   
-            //                 columns: [
-            //                         {
-            //                         Header: "Código",
-            //                         id:"codigo",
-            //                         accessor: "idStkUnMed"
-                                    
-            //                         },
-            //                         {
-            //                         Header: "Descripción",
-            //                         accessor: "StkUnMedDesc",
-            //                         Cell: this.renderEditable
-            //                         },
-            //                         {
-            //                             Header: "",
-            //                             accessor: "borrar",
-            //                             // Cell: this.renderEditable
-            //                         }
-                                        
-                                    
-            //                 ]
-            //             }                
-                            
-            //             ]}
-            //             defaultPageSize={20}
-            //             className="-striped -highlight"
-            //         />
-            //         :
-            //         <div></div>}
-            //     </div>
+           
         )
     }
 }

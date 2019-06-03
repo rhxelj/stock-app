@@ -70,7 +70,7 @@ class Monedas extends Component {
             filtered: '',
             campo: 'idStkMonedas',
             direction: 'asc',
-            direction: {},
+            // direction: {},
             toggle_agregar: false,
             toggle_busqueda: false,
             toggle_modificar: false,

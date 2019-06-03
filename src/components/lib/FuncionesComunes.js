@@ -19,7 +19,7 @@ import IpServidor from './VariablesDeEntorno'
         borraFiltered = ()=> {
             this.setState({ filtered: '' })
         }
-        
+
     // Opcion para borrar contenido del cuadro de busqueda - END
     
         //  Esto se agrega dentro de la funcion render 
@@ -73,6 +73,7 @@ this.state = {
     toggle_agregar: false,
     toggle_busqueda: false,
     toggle_modificar: false,
+    filtered:''
 }
 
 // Agregarlo después de los estados antes de la función render

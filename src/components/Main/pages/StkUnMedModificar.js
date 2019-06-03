@@ -13,13 +13,13 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 // Material UI   END
 
-class AgregarUnidadMedidas extends Component {
+class StkUnMedModificar extends Component {
     constructor(props){
         super(props)
         this.state = {
             url: IpServidor +'/stkunmedagregar',
-            idStkUnMed:'',
-            StkUnMedDesc:'',
+            idStkUnMed : props.idStkUnMed,
+            StkUnMedDesc : props.StkUnMedDesc,
             open: true, // Material UI
         }
         this.updateField = this.updateField.bind(this);
@@ -27,37 +27,63 @@ class AgregarUnidadMedidas extends Component {
     }    
 
      
-    // Agregar 
-    add = _=> { 
-        // const url = IpServidor +'/agregarstkunmed'
-        request
-        .post(this.state.url)
-        .set('Content-Type', 'application/json')
-        .send({ idStkUnMed: this.state.idStkUnMed})
-        .send({ StkUnMedDesc: this.state.StkUnMedDesc})    
-        .set('X-API-Key', 'foobar')
-        .then(function(res) {
-        // res.body, res.headers, res.status
-            //     console.log('res.status  ' + res.status);
-            //     console.log('esta aca');
-            //     alert('Agrego correctamente');
-        })
+    // // Agregar 
+    // add = _=> { 
+    //     // const url = IpServidor +'/agregarstkunmed'
+    //     request
+    //     .post(this.state.url)
+    //     .set('Content-Type', 'application/json')
+    //     .send({ idStkUnMed: this.state.idStkUnMed})
+    //     .send({ StkUnMedDesc: this.state.StkUnMedDesc})    
+    //     .set('X-API-Key', 'foobar')
+    //     .then(function(res) {
+    //     // res.body, res.headers, res.status
+    //         //     console.log('res.status  ' + res.status);
+    //         //     console.log('esta aca');
+    //         //     alert('Agrego correctamente');
+    //     })
 
-        .catch(err => {
-            if (err.status === 409) 
-                    {
-                    alert('Código de Moneda EXISTENTE  ') 
-                    }
-                    else
-                    {
-                    if (err.status === 410) 
-                            {
-                            alert('Código de Moneda no puede tener más de 4 dígitos ') 
-                            }     
-               else { console.log('Error nro :  ' + err.status)}
-                        }
-            })
-    }   
+    //     .catch(err => {
+    //         if (err.status === 409) 
+    //                 {
+    //                 alert('Código de Moneda EXISTENTE  ') 
+    //                 }
+    //                 else
+    //                 {
+    //                 if (err.status === 410) 
+    //                         {
+    //                         alert('Código de Moneda no puede tener más de 4 dígitos ') 
+    //                         }     
+    //            else { console.log('Error nro :  ' + err.status)}
+    //                     }
+    //         })
+    // }   
+   
+   
+   
+   //Update
+   stkunmedmodificar = () => {
+    const url =  IpServidor + '/stkunmedmodificar/' + this.state.idStkUnMed 
+   
+  request                  
+     .post(url)
+     .set('Content-Type', 'application/json')
+     
+  //    .send({ idtipomonedas: this.state.idtipomonedas})
+     .send({ idStkUnMed: this.state.idStkUnMed})
+     .send({ StkUnMedDesc: this.state.StkUnMedDesc})
+     .set('X-API-Key', 'foobar')
+     .then(function(res) {
+    // res.body, res.headers, res.status
+      });
+     
+      //this.getproveedores();
+   }
+   
+   
+   
+   
+   
    
     updateField(field){
         this.setState({
@@ -68,9 +94,9 @@ class AgregarUnidadMedidas extends Component {
 
     submitUnMed(e){
       e.preventDefault()
-      this.add()
+      this.stkunmedmodificar()
       this.props.read()
-      this.props.toggleAgregar()
+      this.props.toggleModificar()
     }
 
           
@@ -88,7 +114,7 @@ class AgregarUnidadMedidas extends Component {
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Agregar Nueva Unidad de Medida</DialogTitle>
+          <DialogTitle id="form-dialog-title">Modificar Unidad de Medida</DialogTitle>
           <DialogContent>
             <DialogContentText>
               Cargue los Datos y presione enter para cambiar de campo.
@@ -120,21 +146,21 @@ class AgregarUnidadMedidas extends Component {
           </DialogContent>
           <DialogActions>
             <Button 
-              id="button--submit" 
-              onClick={this.submitUnMed} 
-              color="primary"
+            id="button--submit" 
+            onClick={this.submitUnMed} 
+            color="primary"
+            variant="contained"
+            >
+              Modificar
+            </Button>
+            <Button 
+              onClick={this.props.toggleModificar} 
+              color="secondary" 
               variant="contained"
             >
-              
-              Agregar
-            </Button>
-
-            <Button 
-              variant="contained"
-              onClick={this.props.toggleAgregar} 
-              color="secondary">
               Cancelar
             </Button>
+
           </DialogActions>
         </Dialog>
             </div>
@@ -142,4 +168,4 @@ class AgregarUnidadMedidas extends Component {
     }
 }
 
-export default AgregarUnidadMedidas
+export default StkUnMedModificar
