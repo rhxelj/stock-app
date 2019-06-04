@@ -49,7 +49,7 @@ class StkRubroAgregar extends Component {
       StkGrupoContRubro:0 // borrar
     };
     this.updateField = this.updateField.bind(this);
-    this.submitProveedor = this.submitProveedor.bind(this);
+    this.submitRubro = this.submitRubro.bind(this);
   }
 
   //Material Ui Dialog start
@@ -296,11 +296,11 @@ leetmon = _ => {
     this.setState({ isOpen: !this.state.isOpen });
   };
 
-  submitProveedor(e) {
+  submitRubro(e) {
     e.preventDefault();
     this.add();
     this.props.read()
-    this.props.click();
+    this.props.toggleAgregar();
   }
 
   componentDidMount() {
@@ -523,14 +523,14 @@ leetmon = _ => {
                     id="Grabar"
                     variant="contained"
                     color="primary"
-                    onClick={this.submitProveedor}
+                    onClick={this.submitRubro}
                   >
                     Grabar
                   </Button>
                   <Button
                     variant="contained"
                     color="secondary"
-                    onClick={this.props.click}
+                    onClick={this.props.toggleAgregar}
                   >
                     Cancelar
                   </Button>

@@ -58,22 +58,13 @@ class StkRubroModificar extends Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+
   //Material Ui Dialog start
 
   //esto es para que en el select me muestre el item elegido
   handleChange = prop => event => {
-    // this.setState(()=>{return{ [prop]: event.target.value }});
-    // this.setState({value: event.target.value}, function () {
-    //   console.log(this.state.value) })
-    // this.llama()
-    
-  //   this.setState({[prop]: event.target.value}, function () {
-  //     console.log('contenido de ' +[prop] +" "+ this.state.StkRubroCodGrp) })
-  // };
     this.setState({[prop]: event.target.value})
   };
-
-  // llama = _ => console.log('Codigo de grupo dentro de handleChange : '+this.state.StkRubroCodGrp)
   
   leeXcodgrupo = prop => event => {
     console.log("prop : " + prop)                                         //control se puede Borrar esta linea 
@@ -150,6 +141,12 @@ ActualizaGrupo = () => {
         });
       } 
 
+
+// necesito 
+
+// var idStkRubro = req.query.id;
+// var StkRubroCodGrp = req.query.id2;
+
  //***************************/ 
   
   
@@ -159,7 +156,7 @@ ActualizaGrupo = () => {
   // Create
 
   ModificaRubro = _ => {
-    console.log("dentro de ModificaRubro valor de Proveedores "+ this.state.StkRubroProv)
+    // console.log("dentro de ModificaRubro valor de Proveedores "+ this.state.StkRubroProv)
     
     // **********************   aca llamo a la fucnion ActualizaGrupo *************************
     // this.ActualizaGrupo()
@@ -167,8 +164,8 @@ ActualizaGrupo = () => {
     request
       .post(url)
       .set("Content-Type", "application/json")
-      .send({ idStkRubro: this.state.idStkRubro })
-      .send({ StkRubroCodGrp: this.state.StkRubroCodGrp })
+      // .send({ idStkRubro: this.state.idStkRubro })
+      // .send({ StkRubroCodGrp: this.state.StkRubroCodGrp })
       .send({ StkRubroDesc: this.state.StkRubroDesc })
       .send({ StkRubroAbr: this.state.StkRubroAbr })
       .send({ StkRubroProv: this.state.StkRubroProv })
@@ -177,7 +174,7 @@ ActualizaGrupo = () => {
       .send({ StkRubroUM: this.state.StkRubroUM })
       .send({ StkRubroCosto: this.state.StkRubroCosto })
       .send({ StkRubroTM: this.state.StkRubroTM })
-      .set("X-API-Key", "foobar")
+      // .set("X-API-Key", "foobar")
       .then(function(res) {});
       
     };
@@ -256,7 +253,7 @@ leetmon = _ => {
     e.preventDefault();
     this.ModificaRubro();
     this.props.read()
-    this.props.click();
+    this.props.toggleModificar();
   }
 
   componentDidMount() {
@@ -520,7 +517,7 @@ leetmon = _ => {
             <Button
               variant="contained"
               color="secondary"
-              onClick={this.props.click}
+              onClick={this.props.toggleModificar}
               // onClick={()=>{return alert("GRABO RUBRO")}}
             >
               Cancelar
