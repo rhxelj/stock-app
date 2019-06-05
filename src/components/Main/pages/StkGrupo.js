@@ -15,6 +15,8 @@ import Button from '@material-ui/core/Button';
 import StkGrupoAgregar from './StkGrupoAgregar'
 import StkGrupoBorrar from './StkGrupoBorrar'
 
+import StkFab from '../../lib/StkFab'
+
 import IpServidor from './VariablesDeEntorno'
 
 const CustomTableCell = withStyles(theme => ({
@@ -71,38 +73,14 @@ class StkGrupo extends Component {
             this.setState({grupos: grupos})
             })
     }
-   
-    
-    //  deleteProduct = (id)=> {
-        
-    //     //       const { moneda } = this.state;
-    //            request
-    //              .delete('http://localhost:4000/borrarmonedas/'+id)
-    //              .set('Content-Type', 'application/json')
-    //              //.set('X-API-Key', 'foobar')
-    //              .then(function(res) {
-    //            // res.body, res.headers, res.status
-    //              })
-    //              .catch(err => {
-    //                 if (err.status === 411) 
-    //                         {
-    //                         alert('Código degrupo Usado no se puede borrar  ') 
-    //                         }
-    //                     })
-    //              //alert("Borrado")
-    //             //  this.toggle()
-    //              this.leestkgrupo()
-    //          }
+  
     
     toggle(event){
         this.setState(prevState => ({
         toggle: !prevState.toggle
         }))
     }
-    
-    componentWillUnmount(){
-        // this.leestkgrupo()
-    }
+  
     componentDidMount(){
         this.leestkgrupo()
     }
@@ -155,8 +133,7 @@ class StkGrupo extends Component {
             <div>
                 <h1>ABM DE GRUPOS</h1>
                 
-                {this.state.toggle
-                ?
+                {this.state.toggle &&
                 <div>
                     <div className="row">
                         <div className="col s12 ">
@@ -168,61 +145,53 @@ class StkGrupo extends Component {
                         </div>
                     </div>
                 </div>
-                :
-                <Button onClick={() => this.toggle()} variant="contained" color="primary">AGREGAR GRUPO</Button>
-                // <p onClick={()=>this.toggle()} className='btn'>AGREGAR GRUPO</p>
                 }
                
-                
 
-               {!this.state.toggle
-                ?
+               {!this.state.toggle &&
                 <Paper >
-                <Table >
-                    <TableHead>
-                        {/* <TableRow>
-                            <CustomTableCell onClick={() => this.sortBy("idStkMonedas")} >Código</CustomTableCell>
-                            <CustomTableCell onClick={() => this.sortBy("StkMonedasDescripcion")} >Descripción</CustomTableCell>
-                            <CustomTableCell onClick={() => this.sortByNumero("StkMonedasCotizacion")} numeric>Cotización</CustomTableCell>
-                            <CustomTableCell ></CustomTableCell>
-                        </TableRow> */}
-                        <TableRow>
-                            {
-                                columns.map((row, index) => {
-                                return (<CustomTableCell key={index} onClick={() => this.sortBy(row.accessor,row.tipo)} >{row.Header}</CustomTableCell>)
-                                })
-                            }
-                        </TableRow>
-                    </TableHead>
-                 
-                    <TableBody>
-                        {grupos.map(row => {
-                        return (
-                            <TableRow key={row.idStkGrupo} 
-                                // onDoubleClick={()=>{
-                                // console.log("actualizo variables")
-                                // this.setState({idStkMonedas:row.idStkMonedas})
-                                // this.setState({StkMonedasDescripcion:row.StkMonedasDescripcion})
-                                // this.setState({StkMonedasCotizacion:row.StkMonedasCotizacion})
-                                // this.togglemodificar()}}
-                                >
-                                <CustomTableCell>{row.idStkGrupo}</CustomTableCell>
-                                <CustomTableCell>{row.StkGrupoDesc}</CustomTableCell>
-                                <CustomTableCell>{row.StkGrupoAbr}</CustomTableCell>
-                                <CustomTableCell>{row.StkGrupoContRubro}</CustomTableCell>
-                                <CustomTableCell>{row.borrar}</CustomTableCell>
+                    <Table >
+                        <TableHead>
+                            <TableRow>
+                                {
+                                    columns.map((row, index) => {
+                                    return (<CustomTableCell key={index} onClick={() => this.sortBy(row.accessor,row.tipo)} >{row.Header}</CustomTableCell>)
+                                    })
+                                }
                             </TableRow>
-                            );
-                        })}
-                    </TableBody>
-                </Table>
-            </Paper>
-                :
-                    <div></div>  
+                        </TableHead>
+                    
+                        <TableBody>
+                            {grupos.map(row => {
+                            return (
+                                <TableRow key={row.idStkGrupo} 
+                                    // onDoubleClick={()=>{
+                                    // console.log("actualizo variables")
+                                    // this.setState({idStkMonedas:row.idStkMonedas})
+                                    // this.setState({StkMonedasDescripcion:row.StkMonedasDescripcion})
+                                    // this.setState({StkMonedasCotizacion:row.StkMonedasCotizacion})
+                                    // this.togglemodificar()}}
+                                    >
+                                    <CustomTableCell>{row.idStkGrupo}</CustomTableCell>
+                                    <CustomTableCell>{row.StkGrupoDesc}</CustomTableCell>
+                                    <CustomTableCell>{row.StkGrupoAbr}</CustomTableCell>
+                                    <CustomTableCell>{row.StkGrupoContRubro}</CustomTableCell>
+                                    <CustomTableCell>{row.borrar}</CustomTableCell>
+                                </TableRow>
+                                );
+                            })}
+                        </TableBody>
+                    </Table>
+                </Paper>
                 }
+        {/* FAB BEGIN  */} {/* Muestra los botones Flotantes en la parte inferior de la pantalla Agregar y Busqueda*/}
+
+                <StkFab borraFiltered={this.borraFiltered} toggleAgregar={this.toggleAgregar} toggleBusqueda={this.toggleBusqueda} toggle_busqueda={this.state.toggle_busqueda} search={this.search} filtered={this.state.filtered} />
+
+        {/* FAB END */}
             </div>
         )
     }
 }
 
-export default StkGrupo
+export default withStyles(styles)(StkGrupo)
