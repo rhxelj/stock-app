@@ -343,6 +343,7 @@ toggleBusqueda = () => {
                                 {rubro.map(row => {
                                     return (
                                         // <TableRow key={row.idStkRubro} 
+                                        
                                         <TableRow key={row.StkRubroAbr}
                                             onDoubleClick={()=>{
                                                 this.setState({idStkRubro : row.idStkRubro})
@@ -351,18 +352,19 @@ toggleBusqueda = () => {
                                                 this.setState({StkRubroAbr : row.StkRubroAbr})
                                                 this.setState({StkRubroProv : row.StkRubroProv})//id
                                                 this.setState({StkRubroAncho : row.StkRubroAncho})
-                                                this.setState({StkRubroTM : row.StkRubroPresDes})
+                                                this.setState({StkRubroPresDes : row.StkRubroPresDes})
                                                 this.setState({StkRubroPres : row.StkRubroPres})
                                                 this.setState({StkRubroUM : row.StkRubroUM})
                                                 this.setState({StkRubroCosto : row.StkRubroCosto})
+                                                // this.setState({ProveedoresDesc : row.ProveedoresDesc})
                                                 
                                                 // this.setState({StkGrupoDesc : row.StkGrupoDesc})
-                                                // this.setState({ProveedoresDesc : row.ProveedoresDesc})
-                                                // this.setState({StkRubroTM : row.StkRubroTM})
+                                                this.setState({StkRubroTM : row.StkRubroTM})
                                                 
                                                 this.toggleModificar()}
                                             }
                                         >
+                                            {console.log('presdes en rubro : ',row.StkRubroPresDes)}
                                             <CustomTableCell>{row.idStkRubro}</CustomTableCell>
                                             <CustomTableCell>{row.StkGrupoDesc}</CustomTableCell>
                                             <CustomTableCell>{row.StkRubroDesc}</CustomTableCell>
@@ -402,6 +404,7 @@ toggleBusqueda = () => {
                                             StkRubroProv={this.state.StkRubroProv}
                                             StkRubroAncho={this.state.StkRubroAncho}
                                             StkRubroPres={this.state.StkRubroPres}
+                                            StkRubroPresDes={this.state.StkRubroPresDes}
                                             StkRubroUM={this.state.StkRubroUM}
                                             StkRubroCosto={this.state.StkRubroCosto}
                                             StkRubroTM={this.state.StkRubroTM}

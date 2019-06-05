@@ -18,7 +18,7 @@ class StkRubroModificar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: IpServidor + '/StkRubroModificar',
+      url: IpServidor + '/stkrubromodificar',
       idStkRubro: props.idStkRubro,
       StkRubroCodGrp: props.StkRubroCodGrp, //verificar si esta bien
       StkRubroDesc: props.StkRubroDesc,
@@ -26,6 +26,7 @@ class StkRubroModificar extends Component {
       StkRubroProv: props.StkRubroProv,
       StkRubroAncho: props.StkRubroAncho,
       StkRubroPres: props.StkRubroPres,
+      StkRubroPresDes: props.StkRubroPresDes,
       StkRubroUM:props.StkRubroUM,
       StkRubroCosto:props.StkRubroCosto,
       StkRubroTM:props.StkRubroTM,
@@ -48,6 +49,9 @@ class StkRubroModificar extends Component {
     };
     this.updateField = this.updateField.bind(this);
     this.submitProveedor = this.submitProveedor.bind(this);
+    console.log('presdes en estado : ')
+    console.log('presdes en estado : ',this.state.StkRubroPresDes)
+    console.log('presdes en estado : ',this.state.StkRubroPres)
   }
 
   //Material Ui Dialog start
@@ -126,20 +130,20 @@ class StkRubroModificar extends Component {
   
  //****************************/ 
  //Update
-ActualizaGrupo = () => {
+// ActualizaGrupo = () => {
 
-  request                  
-    .post(IpServidor + '/stkgrupomodificar/'+this.state.idStkGrupo) //pongo el idStkGrupo
-       .set('Content-Type', 'application/json')
-          // .send({ idStkGrupo: this.state.idStkGrupo})
-          .send({ StkGrupoDesc: this.state.StkGrupoDesc})
-          .send({ StkGrupoAbr: this.state.StkGrupoAbr})        
-          .send({ StkGrupoContRubro: this.state.StkGrupoContRubro})
+//   request                  
+//     .post(IpServidor + '/stkgrupomodificar/'+this.state.idStkGrupo) //pongo el idStkGrupo
+//        .set('Content-Type', 'application/json')
+//           // .send({ idStkGrupo: this.state.idStkGrupo})
+//           .send({ StkGrupoDesc: this.state.StkGrupoDesc})
+//           .send({ StkGrupoAbr: this.state.StkGrupoAbr})        
+//           .send({ StkGrupoContRubro: this.state.StkGrupoContRubro})
           
-      //  .set('X-API-Key', 'foobar')
-       .then(function(res) { // res.body, res.headers, res.status
-        });
-      } 
+//       //  .set('X-API-Key', 'foobar')
+//        .then(function(res) { // res.body, res.headers, res.status
+//         });
+//       } 
 
 
 // necesito 
@@ -160,6 +164,8 @@ ActualizaGrupo = () => {
     
     // **********************   aca llamo a la fucnion ActualizaGrupo *************************
     // this.ActualizaGrupo()
+console.log("this.state.StkRubroCodGrp : ",this.state.StkRubroCodGrp)
+
     const url = 'http://localhost:4000/stkrubromodificar/?id='+this.state.idStkRubro+'&id2='+this.state.StkRubroCodGrp ; //'http://localhost:3000/data'
     request
       .post(url)
@@ -171,6 +177,7 @@ ActualizaGrupo = () => {
       .send({ StkRubroProv: this.state.StkRubroProv })
       .send({ StkRubroAncho: this.state.StkRubroAncho })
       .send({ StkRubroPres: this.state.StkRubroPres })
+      .send({ StkRubroPresDes: this.state.StkRubroPresDes })
       .send({ StkRubroUM: this.state.StkRubroUM })
       .send({ StkRubroCosto: this.state.StkRubroCosto })
       .send({ StkRubroTM: this.state.StkRubroTM })
@@ -262,7 +269,7 @@ leetmon = _ => {
     // console.log(this.state.tipoprov)
     // this.leetmon();
     console.log("componentdidmount !!!!")
-    console.log(this.state.stkgrupo)
+    console.log(this.state.StkRubroPresDes)
     // this.leestkgrupo()
   }
 
@@ -272,6 +279,7 @@ leetmon = _ => {
     this.unmedleer()
     this.leetmon()
     console.log("dentro de componentWillMount Valor de idStkRubro : ",this.state.idStkRubro)
+    console.log(this.state.StkRubroPresDes)
     // console.log('tipo proveedor dentro de DIDMOUNT ')
     // console.log(this.state.tipoprov)
     
@@ -314,7 +322,7 @@ leetmon = _ => {
                 label="Grupo"
                 value={this.state.StkRubroCodGrp}
                 // onChange={this.handleChange("StkRubroCodGrp")}
-                onChange={this.leeXcodgrupo("StkRubroCodGrp","OTRO VALOR AGREGADO POR MI")}
+                // onChange={this.leeXcodgrupo("StkRubroCodGrp","OTRO VALOR AGREGADO POR MI")}
               >
                  {this.state.stkgrupo.map(option => (  
                     <MenuItem 
