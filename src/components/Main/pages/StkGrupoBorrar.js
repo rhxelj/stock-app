@@ -84,7 +84,7 @@ class StkMonedasBorrar extends Component {
                         <p>Borrar ?</p>
                         {/* <button className="green "><i className="material-icons" onClick={()=>this.borrarGrupo(this.props.idStkGrupo)}>check</i></button>
                         <button className="red "><i className="material-icons" onClick={()=>this.toggle()}>cancel</i></button> */}
-                        <Button color="primary" onClick={()=>this.deleteProduct(this.props.idMonedas)}><DoneIcon/></Button>
+                        <Button color="primary" onClick={()=>this.borrarGrupo(this.props.idStkGrupo)}><DoneIcon/></Button>
                         <Button color="secondary" onClick={()=>this.toggle()}><ClearIcon/></Button>
                     </div>
                 }

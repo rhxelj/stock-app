@@ -346,20 +346,34 @@ leetmon = _ => {
               <Grid item xs={8} sm={8} lg={8}>
                 <TextField
                   id="idStkGrupo"
-                  select={true}
-                  fullWidth={true}
+                  select
+                  // fullWidth={true}
+                  fullWidth
                   label="Grupo"
+                  SelectProps={{
+                    native: true
+                  }}
                   value={this.state.StkRubroCodGrp}
                   onChange={this.handleChange("StkRubroCodGrp")}
                 >
+                  <option></option>
                   {this.state.stkgrupo.map(option => (  
-                    <MenuItem 
+                    // <MenuItem 
+                    // id="tipogrupo"
+                    // key={option.idStkGrupo}
+                    // value={option.idStkGrupo}
+                    // >
+                    //     {option.StkGrupoDesc} 
+                    // </MenuItem>
+                    
+                    <option 
                     id="tipogrupo"
                     key={option.idStkGrupo}
                     value={option.idStkGrupo}
                     >
                         {option.StkGrupoDesc} 
-                    </MenuItem>))} 
+                    </option>
+                    ))} 
                   {/* ))} */}
                 </TextField>
               </Grid>

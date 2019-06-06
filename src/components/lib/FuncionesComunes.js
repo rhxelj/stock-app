@@ -73,7 +73,8 @@ this.state = {
     toggle_agregar: false,
     toggle_busqueda: false,
     toggle_modificar: false,
-    filtered:''
+    filtered:'',
+    direction: 'asc',
 }
 
 // Agregarlo después de los estados antes de la función render
