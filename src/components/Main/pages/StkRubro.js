@@ -58,7 +58,7 @@ class StkRubro extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            url: IpServidor + '/stkrubroleermezcla',
+            // url: IpServidor + '/stkrubroleermezcla',
             toggle: false,
             togglemodificar: false,
             idStkRubro: '',
@@ -79,9 +79,10 @@ class StkRubro extends Component {
 
     //Read
     read = _ => {
-        // const url = IpServidor + '/leermonedas'; //'http://192.168.2.102:4000/indexprov'
+        const url = IpServidor + '/stkrubroleermezcla'; //'http://192.168.2.102:4000/indexprov'
+
         request
-            .get(this.state.url)
+            .get(url)
             .set('Content-Type', 'application/json')
             .then(res => {
                 const rubro = JSON.parse(res.text)

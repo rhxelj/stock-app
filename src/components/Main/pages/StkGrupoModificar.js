@@ -14,22 +14,14 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 
 // import AgregarMonedas from './StkMonedasAgregar'
 
-class StkGrupoAgregar extends Component {
+class stkgrupomodificar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // url: IpServidor + '/stkgrupoagregar',
-      idStkRubro: 0,
-      StkRubroCodGrp: "",
-      StkRubroDesc: "",
-      StkRubroAbr: "",
-      StkRubroProv: "",
-      StkRubroAncho: "",
-      StkRubroPres: "",
-      StkRubroUM:"",
-      StkRubroCosto:"",
-      StkRubroTM:"",
-      // stkgrupo:{},
+      idStkGrupo : this.props.idStkGrupo,
+      StkGrupoDesc: this.props.StkGrupoDesc,
+      StkGrupoAbr: this.props.StkGrupoAbr,        
+      StkGrupoContRubro:this.props.StkGrupoContRubro,
       stkgrupo:[],
       idStkTipoProveed: 0,
       StkTipoProveedDesc: "",
@@ -41,10 +33,10 @@ class StkGrupoAgregar extends Component {
       unmed:[],
       nuevocodigo:0,
       open: true,
-      idStkGrupo:'',      // borrar 
-      StkGrupoDesc:'',    // borrar
-      StkGrupoAbr:'',     // borrar
-      StkGrupoContRubro:0 // borrar
+      // idStkGrupo:'',      // borrar 
+      // StkGrupoDesc:'',    // borrar
+      // StkGrupoAbr:'',     // borrar
+      // StkGrupoContRubro:0 // borrar
     };
     this.updateField = this.updateField.bind(this);
     // this.submitProveedor = this.submitProveedor.bind(this);
@@ -156,56 +148,60 @@ ActualizaGrupo = () => {
   
   // Create
 
-  add = _ => {
-    const url= IpServidor + '/stkgrupoagregar'
+  modificaGrupo = ()  => {
+    const url= IpServidor + '/stkgrupomodificar/'+ this.state.idStkGrupo
+    console.log('url ' ,url)
+    console.log('this.state.StkGrupoDesc ',this.state.StkGrupoDesc)
+    console.log('this.state.StkGrupoAbr ',this.state.StkGrupoAbr)
+    console.log('this.state.StkGrupoContRubro ',this.state.StkGrupoContRubro)
     request
       .post(url)
       .set("Content-Type", "application/json")
       .send({ StkGrupoDesc: this.state.StkGrupoDesc})
       .send({ StkGrupoAbr: this.state.StkGrupoAbr})        
-      .send({ StkGrupoContRubro: 0}) // Esto va a ser Cero inicialmente.
+      .send({ StkGrupoContRubro: this.state.StkGrupoContRubro }) // Esto va a ser Cero inicialmente.
       .set("X-API-Key", "foobar")
       .then(function(res) {});
       
     };
 
-// Lee tipo Grupo inicio 
-  // leestkgrupo = _ => {
-  //   // const url = 'http://localhost:4000/stkgrupoleer' ; //'http://localhost:3000/data'
-  //   const url = IpServidor + "/stkgrupoleer";
-  //   request
-  //   .get(url)
-  //   .set('Content-Type', 'application/json')
-  //       .then(res=> {
+// // Lee tipo Grupo inicio 
+//   leestkgrupo = _ => {
+//     // const url = 'http://localhost:4000/stkgrupoleer' ; //'http://localhost:3000/data'
+//     const url = IpServidor + "/stkgrupoleer";
+//     request
+//     .get(url)
+//     .set('Content-Type', 'application/json')
+//         .then(res=> {
         
-  //         const stkgrupo = JSON.parse(res.text);
-  //         console.log(`stkgrupo :`)
-  //   console.log(stkgrupo)
-  //       this.setState(()=>{ return {stkgrupo: stkgrupo}});
+//           const stkgrupo = JSON.parse(res.text);
+//           console.log(`stkgrupo :`)
+//     console.log(stkgrupo)
+//         this.setState(()=>{ return {stkgrupo: stkgrupo}});
         
-  //       })
-  //   console.log(`dentro de leestkgrupo `)
-  //   console.log(`this.state.stkgrupo :`)
-  //   console.log(this.state.stkgrupo)
+//         })
+//     console.log(`dentro de leestkgrupo `)
+//     console.log(`this.state.stkgrupo :`)
+//     console.log(this.state.stkgrupo)
     
-  //   // this.marcagrupo()
-  //   }
+    // this.marcagrupo()
+    // }
 // Lee tipo Grupo Fin
 
 // Leo tipo Proveedor Inicio
-//   proveedoresleer = _ => {
-//     const url = IpServidor + "/proveedoresleer";
-//     request
-//       .get(url)
-//       .set("Content-Type", "application/json")
-//       .then(res => {
-//         const proveedores = JSON.parse(res.text);
-//         this.setState({ proveedores: proveedores });
-//       });
-//   };
-// // Leo tipo Proveedor Fin
+  // proveedoresleer = _ => {
+  //   const url = IpServidor + "/proveedoresleer";
+  //   request
+  //     .get(url)
+  //     .set("Content-Type", "application/json")
+  //     .then(res => {
+  //       const proveedores = JSON.parse(res.text);
+  //       this.setState({ proveedores: proveedores });
+  //     });
+  // };
+// Leo tipo Proveedor Fin
 
-// Leo tipo Unidad de medidas Inicio
+// // Leo tipo Unidad de medidas Inicio
 // unmedleer = _ => {
 //   const url = IpServidor +'/stkunmedleer'
 //   request
@@ -216,7 +212,7 @@ ActualizaGrupo = () => {
 //       this.setState({unmed: unmed})
 //       })
 // }
-// // Leo tipo Unidad de medidas Fin
+// Leo tipo Unidad de medidas Fin
 
 // leetmon = _ => {
 //     const url = IpServidor + "/stkmonedasleer";
@@ -242,14 +238,14 @@ ActualizaGrupo = () => {
 
   submitGrupo= (e) => {
     e.preventDefault();
-    this.add();
+    this.modificaGrupo();
     this.props.read()
-    this.props.toggleAgregar();
+    this.props.toggleModificar();
   }
 
   // componentWillMount(){
-  //   this.proveedoresleer()
-  //   this.leestkgrupo()
+  //   // this.proveedoresleer()
+  //   // this.leestkgrupo()
   //   this.unmedleer()
   //   this.leetmon()
   // }
@@ -268,47 +264,8 @@ ActualizaGrupo = () => {
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Aregar Grupo</DialogTitle>
+          <DialogTitle id="form-dialog-title">Modificar Grupo</DialogTitle>
           <DialogContent>
-            {/* <TextField
-              id="idStkRubro"
-              label="Rubro"
-              value={this.state.idStkRubro}
-              onChange={this.handleChange("idStkRubro")}
-              margin="dense"
-              fullWidth
-              variant="standard"
-              autoFocus={true}
-              onKeyPress={event => {
-                if (event.key === "Enter")
-                  document.getElementById("StkRubroCodGrp").focus();
-              }}
-            /> */}
-            <div>
-
-              {/* <TextField
-                id="idStkGrupo"
-                select={true}
-                label="Grupo"
-                value={this.state.StkRubroCodGrp}
-                // onChange={this.handleChange("StkRubroCodGrp")}
-                onChange={this.leeXcodgrupo("StkRubroCodGrp","OTRO VALOR AGREGADO POR MI")}
-              >
-                 {this.state.stkgrupo.map(option => (  
-                  <MenuItem 
-                  id="tipogrupo"
-                  key={option.idStkGrupo}
-                  value={option.idStkGrupo}
-                  onClick={()=>console.log("Hizo Click")}
-                  >
-                      {option.StkGrupoDesc} 
-                   </MenuItem>))} 
-                                
-                ))}
-              </TextField> */}
-
-
-            </div>
            
             <div>
               <TextField
@@ -361,7 +318,7 @@ ActualizaGrupo = () => {
             <Button
               variant="contained"
               color="secondary"
-              onClick={this.props.toggleAgregar}
+              onClick={this.props.toggleModificar}
               // onClick={()=>{return alert("GRABO RUBRO")}}
             >
               Cancelar
@@ -373,4 +330,4 @@ ActualizaGrupo = () => {
   }
 }
 
-export default StkGrupoAgregar;
+export default stkgrupomodificar;

@@ -1,7 +1,5 @@
 import React, { Component} from 'react'
 import request from 'superagent'
-// import ReactTable from 'react-table'
-// import 'react-table/react-table.css'
 
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -14,6 +12,9 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import StkGrupoAgregar from './StkGrupoAgregar'
 import StkGrupoBorrar from './StkGrupoBorrar'
+import StkGrupoModificar from './StkGrupoModificar'
+
+import StkFab from '../../lib/StkFab'
 
 import IpServidor from './VariablesDeEntorno'
 
@@ -50,17 +51,91 @@ class StkGrupo extends Component {
     constructor(props){
         super(props)
         this.state = {
-            toggle: false,
+            toggle: true,
             idStkGrupo:0,
             StkGrupoDesc:'',
             StkGrupoAbr: '',
             StkGrupoContRubro:0,
             grupos:[],
+            toggle_agregar: false,
+            toggle_busqueda: false,
+            toggle_modificar: false,
+            filtered:'',
+            direction: 'asc',
         }
         this.toggle = this.toggle.bind(this);
     }    
     
-    //Read
+    
+    //******************************************* Habilita el contenido a mostrar en Pantalla - Begin *******************************************
+
+    toggleAgregar = () =>{            
+        this.setState(prevState => ({
+            toggle_agregar: !prevState.toggle_agregar
+        })) // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <AgregarMonedas> ***
+    }
+
+    toggleModificar = () =>{          
+        this.setState(prevState => ({
+            toggle_modificar: !prevState.toggle_modificar
+        })) // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***  
+    }
+
+    toggleBusqueda = () => {
+        this.setState(prevState => ({
+            toggle_busqueda: !prevState.toggle_busqueda
+        }))
+    }
+
+//******************************************* Habilita el contenido a mostrar en Pantalla - End *******************************************
+    
+
+
+//  *********************************************** Cosas a agregar para la funcion de Busqueda Begin ***************************************************
+
+    // Funcion De Busqueda - Begin
+
+    search = (event) => {                       // Funcion de busqueda
+        // var name  = event.target.name
+        var value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value
+        this.setState({ filtered: value })
+    }
+
+// Funcion De Busqueda - End.
+
+// Opcion para borrar contenido del cuadro de busqueda - BEGIN    
+    
+    borraFiltered = ()=> {
+        this.setState({ filtered: '' })
+    }
+
+// Opcion para borrar contenido del cuadro de busqueda - END
+
+    
+//*************************************************** Cosas a agregar para la funcion de Busqueda End **********************************************************
+    
+
+// Cosas a agregar para la funcion de Ordenar (SortBy) Begin ***************************************************************************************************
+
+    // Funcion ordernar - Begin 
+
+    sortBy(key) {
+        this.setState({
+            grupos: this.state.grupos.sort((a, b) =>
+                this.state.direction[key] === "asc" ? (a[key] < b[key] ? 1 : -1) : (a[key] > b[key] ? 1 : -1)
+            ),
+            direction: { [key]: this.state.direction[key] === "asc" ? "desc" : "asc" }
+        });
+    }
+
+// Funcion ordernar - End 
+
+
+// Cosas a agregar para la funcion de Ordenar (SortBy) End ******************************************************************************************************
+
+
+
+//Read
     leestkgrupo = _ => {
         const url = IpServidor + '/stkgrupoleer'; 
         request
@@ -71,77 +146,62 @@ class StkGrupo extends Component {
             this.setState({grupos: grupos})
             })
     }
-   
-    
-    //  deleteProduct = (id)=> {
-        
-    //     //       const { moneda } = this.state;
-    //            request
-    //              .delete('http://localhost:4000/borrarmonedas/'+id)
-    //              .set('Content-Type', 'application/json')
-    //              //.set('X-API-Key', 'foobar')
-    //              .then(function(res) {
-    //            // res.body, res.headers, res.status
-    //              })
-    //              .catch(err => {
-    //                 if (err.status === 411) 
-    //                         {
-    //                         alert('Código degrupo Usado no se puede borrar  ') 
-    //                         }
-    //                     })
-    //              //alert("Borrado")
-    //             //  this.toggle()
-    //              this.leestkgrupo()
-    //          }
+  
     
     toggle(event){
         this.setState(prevState => ({
         toggle: !prevState.toggle
         }))
     }
-    
-    componentWillUnmount(){
-        // this.leestkgrupo()
-    }
+  
     componentDidMount(){
         this.leestkgrupo()
     }
 
       
     render(){
-        const grupos = this.state.grupos.map( (rowData,index) => 
+        // const grupos = 
+        this.state.grupos.map( (rowData,index) => 
         // Object.assign(rowData, { borrar: <button className=" red accent-4" onClick={()=>this.deleteProduct(rowData.idStkMonedas)}>Borrar</button> })
         Object.assign(rowData, { borrar: 
             <div className="center-align"><StkGrupoBorrar idStkGrupo={rowData.idStkGrupo} leestkgrupo={()=>this.leestkgrupo()} read={()=>this.leestkgrupo()}></StkGrupoBorrar></div>})
-            // <button 
-            //     className=" red accent-4" 
-            //     onClick={this.funcionTest}
-            //     >
-            //     Borrar
-            // </button> })
         );
+
+
+        //  Esto se agrega dentro de la funcion render 
+
+        // Filtrado de datos - Begin 
+
+        var grupos = this.state.grupos.filter((grupo) => {
+            return (
+                // grupo.idStkGrupo.indexOf(this.state.filtered) !== -1 ||
+                grupo.StkGrupoDesc.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
+            )
+        })
+        // Filtrado de datos - End  
+
 
 
         var columns =[
             {
                 Header: "Grupo(ID)",
                 accessor: "idStkGrupo",
-                tipo:"numero"  
+                order: true,
             },
             {
                 Header: "Descripcion",
                 accessor: "StkGrupoDesc",
-                tipo:"numero"  
+                order: true,  
             },
             {
                 Header: "Abreviatura",
                 accessor: "StkGrupoAbr",
-                tipo:"numero"  
+                order: true, 
             },
             {
                 Header: "Contador de Rubro",
                 accessor: "StkGrupoContRubro",
-                tipo:"numero"  
+                order: true, 
             },
             
             {
@@ -155,74 +215,100 @@ class StkGrupo extends Component {
             <div>
                 <h1>ABM DE GRUPOS</h1>
                 
-                {this.state.toggle
-                ?
+                
+                {this.state.toggle_agregar && // Muestra el componente agregar 
                 <div>
                     <div className="row">
                         <div className="col s12 ">
                             <div className="">
                                 <div className="card-content  white-text">
-                                    <StkGrupoAgregar click={()=>this.toggle()} leestkgrupo={()=>this.leestkgrupo()} read={()=>this.leestkgrupo()}> </StkGrupoAgregar>
+                                    <StkGrupoAgregar toggleAgregar={this.toggleAgregar} leestkgrupo={()=>this.leestkgrupo()} read={()=>this.leestkgrupo()}> </StkGrupoAgregar>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                :
-                <Button onClick={() => this.toggle()} variant="contained" color="primary">AGREGAR GRUPO</Button>
-                // <p onClick={()=>this.toggle()} className='btn'>AGREGAR GRUPO</p>
                 }
                
-                
 
-               {!this.state.toggle
-                ?
+               {!this.state.toggle_agregar && // Muestra la tabla de Grupo
                 <Paper >
-                <Table >
-                    <TableHead>
-                        {/* <TableRow>
-                            <CustomTableCell onClick={() => this.sortBy("idStkMonedas")} >Código</CustomTableCell>
-                            <CustomTableCell onClick={() => this.sortBy("StkMonedasDescripcion")} >Descripción</CustomTableCell>
-                            <CustomTableCell onClick={() => this.sortByNumero("StkMonedasCotizacion")} numeric>Cotización</CustomTableCell>
-                            <CustomTableCell ></CustomTableCell>
-                        </TableRow> */}
-                        <TableRow>
-                            {
-                                columns.map((row, index) => {
-                                return (<CustomTableCell key={index} onClick={() => this.sortBy(row.accessor,row.tipo)} >{row.Header}</CustomTableCell>)
-                                })
-                            }
-                        </TableRow>
-                    </TableHead>
-                 
-                    <TableBody>
-                        {grupos.map(row => {
-                        return (
-                            <TableRow key={row.idStkGrupo} 
-                                // onDoubleClick={()=>{
-                                // console.log("actualizo variables")
-                                // this.setState({idStkMonedas:row.idStkMonedas})
-                                // this.setState({StkMonedasDescripcion:row.StkMonedasDescripcion})
-                                // this.setState({StkMonedasCotizacion:row.StkMonedasCotizacion})
-                                // this.togglemodificar()}}
-                                >
-                                <CustomTableCell>{row.idStkGrupo}</CustomTableCell>
-                                <CustomTableCell>{row.StkGrupoDesc}</CustomTableCell>
-                                <CustomTableCell>{row.StkGrupoAbr}</CustomTableCell>
-                                <CustomTableCell>{row.StkGrupoContRubro}</CustomTableCell>
-                                <CustomTableCell>{row.borrar}</CustomTableCell>
+                    <Table >
+                        <TableHead>
+                            <TableRow>
+                                {
+                                    columns.map((row, index) => {
+                                    return (<CustomTableCell key={index} onClick={() => { return row.order && this.sortBy(row.accessor) }} >{row.Header}</CustomTableCell>)
+                                    })
+                                }
                             </TableRow>
-                            );
-                        })}
-                    </TableBody>
-                </Table>
-            </Paper>
-                :
-                    <div></div>  
+                        </TableHead>
+                    
+                        <TableBody>
+                            {grupos.map(row => {
+                            return (
+                                <TableRow key={row.idStkGrupo} 
+                                    onDoubleClick={()=>{
+                                    console.log("actualizo variables")
+                                    this.setState({idStkGrupo:row.idStkGrupo})
+                                    this.setState({StkGrupoDesc:row.StkGrupoDesc})
+                                    this.setState({StkGrupoAbr:row.StkGrupoAbr})
+                                    this.setState({StkGrupoContRubro:row.StkGrupoContRubro})
+                                    this.toggleModificar()}}
+                                    >
+                                    <CustomTableCell>{row.idStkGrupo}</CustomTableCell>
+                                    <CustomTableCell>{row.StkGrupoDesc}</CustomTableCell>
+                                    <CustomTableCell>{row.StkGrupoAbr}</CustomTableCell>
+                                    <CustomTableCell>{row.StkGrupoContRubro}</CustomTableCell>
+                                    <CustomTableCell>{row.borrar}</CustomTableCell>
+                                </TableRow>
+                                );
+                            })}
+                        </TableBody>
+                    </Table>
+                </Paper>
                 }
+
+                {/* Llama al componente ModificarGrupo */}
+
+                {this.state.toggle_modificar &&
+                                
+                                <div>
+                                    <div className="row">
+                                        <div className="col s12 ">
+                                            <div className="">
+                                                <div className="card-content  black-text">
+                                                    <StkGrupoModificar
+                                                        toggleModificar={this.toggleModificar}
+                                                        read={() => this.leestkgrupo()}
+                                                        idStkGrupo={this.state.idStkGrupo}
+                                                        StkGrupoDesc={this.state.StkGrupoDesc}
+                                                        StkGrupoAbr={this.state.StkGrupoAbr}        
+                                                        StkGrupoContRubro={this.state.StkGrupoContRubro}
+                                                        
+                                                        // idStkMonedas={this.state.idStkMonedas}
+                                                        // StkMonedasDescripcion={this.state.StkMonedasDescripcion}
+                                                        // StkMonedasCotizacion={this.state.StkMonedasCotizacion}
+                                                    >
+
+                                                    </StkGrupoModificar>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            }
+
+
+        {/* FAB BEGIN  */} {/* Muestra los botones Flotantes en la parte inferior de la pantalla Agregar y Busqueda*/}
+
+                <StkFab borraFiltered={this.borraFiltered} toggleAgregar={this.toggleAgregar} toggleBusqueda={this.toggleBusqueda} toggle_busqueda={this.state.toggle_busqueda} search={this.search} filtered={this.state.filtered} />
+
+        {/* FAB END */}
             </div>
         )
     }
 }
 
-export default StkGrupo
+export default withStyles(styles)(StkGrupo)

@@ -298,8 +298,7 @@ class Monedas extends Component {
                 {/* Llama al componente ModificarMonedas */}
 
                 {this.state.toggle_modificar &&
-                    // ?  
-                    //Llama al componente ModificarMonedas
+                
                     <div>
                         <div className="row">
                             <div className="col s12 ">
@@ -319,8 +318,7 @@ class Monedas extends Component {
                             </div>
                         </div>
                     </div>
-                    //    :
-                    //     <div></div>    
+                
                 }
 
                 {/* Muesra los botones Flotantes en la parte inferior de la pantalla Agregar y Busqueda*/}
