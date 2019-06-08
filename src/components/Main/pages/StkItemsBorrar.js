@@ -4,6 +4,11 @@ import IpServidor from './VariablesDeEntorno';
 // import ReactTable from 'react-table'
 // import 'react-table/react-table.css'
 
+import Button from '@material-ui/core/Button';
+import ClearIcon from '@material-ui/icons/Clear';
+import DeleteIcon from '@material-ui/icons/Delete';
+import DoneIcon from '@material-ui/icons/Done';
+
 class StkItemsBorrar extends Component {
     constructor(props){
         super(props)
@@ -72,15 +77,17 @@ class StkItemsBorrar extends Component {
                         className=" red accent-4" 
                         onClick={()=>this.toggle()}
                         >
-                        Borrar
+                        <DeleteIcon  />
                     </button>
                 </div>
                 :
                     <div className="center-align">
                         <p>Borrar ?</p>
                         {/* <button className="green "><i className="material-icons" onClick={()=>this.borrarGrupo(this.props.idStkGrupo)}>check</i></button> */}
-                        <button className="green "><i className="material-icons" onClick={()=>this.borrarGrupo(this.props.StkItem)}>check</i></button>
-                        <button className="red "><i className="material-icons" onClick={()=>this.toggle()}>cancel</i></button>
+                        {/* <button className="green "><i className="material-icons" onClick={()=>this.borrarGrupo(this.props.StkItem)}>check</i></button>
+                        <button className="red "><i className="material-icons" onClick={()=>this.toggle()}>cancel</i></button> */}
+                        <Button color="primary" onClick={()=>this.deleteProduct(this.props.idMonedas)}><DoneIcon/></Button>
+                        <Button color="secondary" onClick={()=>this.toggle()}><ClearIcon/></Button>
                     </div>
                 }
             </div>

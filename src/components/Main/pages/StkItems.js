@@ -340,8 +340,8 @@ sortBy(key,tipo){
             <div>
                 <h1>ABM DE items</h1>
                 
-                {this.state.toggle
-                ?
+                {this.state.toggle_agregar &&
+                // ?
                 // Muestra el Componente AgregarItems 
                 <div>
                     <div className="row">
@@ -349,22 +349,22 @@ sortBy(key,tipo){
                             <div className="">
                                 <div className="card-content  white-text">
                                     {/* <StkItemsAgregar click={()=>this.toggle()} leeStkItemsDetalles={()=>this.leeStkItemsDetalles()} read={()=>this.leeStkItems()}> </StkItemsAgregar> */}
-                                    <StkItemsAgregar click={()=>this.toggle()} leeStkItemsDetalles={()=>this.leeStkItemsDetalles()}> </StkItemsAgregar>
+                                    <StkItemsAgregar toggleAgregar={this.toggleAgregar} leeStkItemsDetalles={()=>this.leeStkItemsDetalles()}> </StkItemsAgregar>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                :
+                // :
                 // Boton Agregar 
                 // <p onClick={()=>this.toggle()} className='btn'>AGREGAR ITEM</p>
-                <Button onClick={() => this.toggle()} variant="contained" color="primary">AGREGAR ITEM</Button>
+                // <Button onClick={() => this.toggle()} variant="contained" color="primary">AGREGAR ITEM</Button>
                 // Aca va el campo de filtrado
                 }
                
                 
 
-               {!this.state.toggle
+               {!this.state.toggle_agregar
                 ?
                 // Muestar la tabla de Items
                 <Paper >
