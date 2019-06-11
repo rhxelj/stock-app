@@ -149,7 +149,7 @@ ActualizaGrupo = () => {
   // Create
 
   modificaGrupo = ()  => {
-    const url= IpServidor + '/stkgrupomodificar/'+ this.state.idStkGrupo
+    const url= IpServidor + '/stkgrupomodificar/?id='+ this.state.idStkGrupo
     console.log('url ' ,url)
     console.log('this.state.StkGrupoDesc ',this.state.StkGrupoDesc)
     console.log('this.state.StkGrupoAbr ',this.state.StkGrupoAbr)
