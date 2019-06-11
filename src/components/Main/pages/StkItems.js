@@ -134,7 +134,7 @@ toggleBusqueda = () => {
 
     sortBy(key) {
         this.setState({
-            monedas: this.state.monedas.sort((a, b) =>
+            items: this.state.items.sort((a, b) =>
                 this.state.direction[key] === "asc" ? (a[key] < b[key] ? 1 : -1) : (a[key] > b[key] ? 1 : -1)
             ),
             direction: { [key]: this.state.direction[key] === "asc" ? "desc" : "asc" }
@@ -185,43 +185,43 @@ toggleBusqueda = () => {
         }
     // }
     
-//   Ordenar Begin
+// //   Ordenar Begin
 
-sortBy(key,tipo){
-    tipo === "numero"
-        ?      
-            this.sortByNumero(key)
-        :   
+// sortBy(key,tipo){
+//     tipo === "numero"
+//         ?      
+//             this.sortByNumero(key)
+//         :   
         
-        this.sortByTexto(key)
-}
+//         this.sortByTexto(key)
+// }
 
-// Ordena Numeros
-    sortByNumero(key) {
-        console.log("Ordena numero")
-        this.setState({
-          items: this.state.items.sort((a, b) =>
-            this.state.direction[key] === "asc" ? a[key] - b[key] : b[key] - a[key]
-          ),
-          direction: {
-            [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
-          }
-        });
-      }
-      // ordena Texto
-      sortByTexto(key) {
-        console.log("Ordena Texto")
-        this.setState({
-          items: this.state.items.sort((a, b) =>
-            this.state.direction[key] === "asc" ? a[key].toUpperCase() < b[key].toUpperCase() : a[key].toUpperCase() > b[key].toUpperCase()
-          ),
-          direction: {
-            [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
-          }
-        });
-      }
+// // Ordena Numeros
+//     sortByNumero(key) {
+//         console.log("Ordena numero")
+//         this.setState({
+//           items: this.state.items.sort((a, b) =>
+//             this.state.direction[key] === "asc" ? a[key] - b[key] : b[key] - a[key]
+//           ),
+//           direction: {
+//             [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
+//           }
+//         });
+//       }
+//       // ordena Texto
+//       sortByTexto(key) {
+//         console.log("Ordena Texto")
+//         this.setState({
+//           items: this.state.items.sort((a, b) =>
+//             this.state.direction[key] === "asc" ? a[key].toUpperCase() < b[key].toUpperCase() : a[key].toUpperCase() > b[key].toUpperCase()
+//           ),
+//           direction: {
+//             [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
+//           }
+//         });
+//       }
 
-// Ordenar End
+// // Ordenar End
 
     toggle(event){
     // toogle = (event)=>{
@@ -380,7 +380,7 @@ sortBy(key,tipo){
                             {
                                 columns.map((row, index) => {
                                 // return (<CustomTableCell key={index} onClick={() => this.sortBy(row.accessor,row.tipo)} >{row.Header}</CustomTableCell>)
-                                return (<CustomTableCell key={index} onClick={()=>{return row.order ? this.sortBy(row.accessor,row.tipo):<span></span>}} >{row.Header}</CustomTableCell>)
+                                return (<CustomTableCell key={index} onClick={()=>{return row.order && this.sortBy(row.accessor)}} >{row.Header}</CustomTableCell>)
                                 // return (<CustomTableCell key={index} onClick={()=>{return row.order ? console.log('ordena '+row.accessor) :  console.log('No Ordena '+row.accessor)}} >{row.Header}</CustomTableCell>)
                                 })
                             }
