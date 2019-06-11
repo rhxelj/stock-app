@@ -400,7 +400,7 @@ toggleBusqueda = () => {
                                     this.setState({StkRubroDesc:row.StkRubroDesc})
                                     this.setState({StkItemsDesc:row.StkItemsDesc})
                                     this.setState({StkItemsCantidad:row.StkItemsCantidad})
-                                    this.setState({StkItemsCantidad:row.StkItemsCantDisp})
+                                    this.setState({StkItemsCantDisp:row.StkItemsCantDisp})
                                     this.setState({StkItemsMin:row.StkItemsMin})
                                     this.setState({StkItemsMax:row.StkItemsMax})
                                     
