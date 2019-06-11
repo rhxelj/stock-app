@@ -249,7 +249,8 @@ toggleBusqueda = () => {
     // Agrego el campo del Boton BORRAR
         this.state.items.map( (rowData,index) => 
             Object.assign(rowData, { borrar: 
-                <div className="center-align"><StkItemsBorrar StkItem={[rowData.idStkItems,rowData.StkItemsGrupo,rowData.StkItemsRubro]} leeStkItems={()=>this.leeStkItems()} read={()=>this.leeStkItems()}></StkItemsBorrar></div>})
+                // <div className="center-align"><StkItemsBorrar StkItem={[rowData.idStkItems,rowData.StkItemsGrupo,rowData.StkItemsRubro]} leeStkItems={()=>this.leeStkItems()} read={()=>this.leeStkItems()}></StkItemsBorrar></div>})
+                <div className="center-align"><StkItemsBorrar idStkItems={rowData.idStkItems} StkItemsGrupo={rowData.StkItemsGrupo} StkItemsRubro={rowData.StkItemsRubro} leeStkItems={()=>this.leeStkItems()} read={()=>this.leeStkItems()}></StkItemsBorrar></div>})
         );
         // Tengo que hacer otro Object.assin para  StkItemsGrupo para mostrar la descripcion o lo hacemos desde el backend?    
 
