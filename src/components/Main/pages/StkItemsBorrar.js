@@ -4,6 +4,11 @@ import IpServidor from './VariablesDeEntorno';
 // import ReactTable from 'react-table'
 // import 'react-table/react-table.css'
 
+import Button from '@material-ui/core/Button';
+import ClearIcon from '@material-ui/icons/Clear';
+import DeleteIcon from '@material-ui/icons/Delete';
+import DoneIcon from '@material-ui/icons/Done';
+
 class StkItemsBorrar extends Component {
     constructor(props){
         super(props)
@@ -13,7 +18,12 @@ class StkItemsBorrar extends Component {
             // filtrado:[],
             filtered:'',
             toggle: true,
-            id:''
+            id:'',
+            idStkItems: this.props.idStkItems,
+            StkItemsGrupo: this.props.StkItemsGrupo,
+            StkItemsRubro: this.props.StkItemsRubro
+
+
         }
         // this.search = this.search.bind(this)
         this.toggle = this.toggle.bind(this);
@@ -28,10 +38,11 @@ class StkItemsBorrar extends Component {
     
     
     // //Delete
-      borrarGrupo = ()=> {
+      borrarItem = ()=> {
     //    const {id0,id1,id2} = {idprops}
-       console.log("id0 id1 id2 ",this.props.StkItem[0],this.props.StkItem[1],this.props.StkItem[2])
-       const url = IpServidor + '/stkitemsborrar/?id1=' + this.props.StkItem[0] + '&id2=' +this.props.StkItem[1]+'&id3='+this.props.StkItem[2]
+    //    console.log("id0 id1 id2 ",idStkItems,StkItemsGrupo,StkItemsRubro)
+    //    const url = IpServidor + '/stkitemsborrar/?id1=' + this.props.StkItem[0] + '&id2=' +this.props.StkItem[1]+'&id3='+this.props.StkItem[2]
+    const url = IpServidor + '/stkitemsborrar/?id1=' + this.state.idStkItems + '&id2=' + this.state.StkItemsGrupo+'&id3=' + this.state.StkItemsRubro
         request
           .delete(url)
           .set('Content-Type', 'application/json')
@@ -72,15 +83,17 @@ class StkItemsBorrar extends Component {
                         className=" red accent-4" 
                         onClick={()=>this.toggle()}
                         >
-                        Borrar
+                        <DeleteIcon  />
                     </button>
                 </div>
                 :
                     <div className="center-align">
                         <p>Borrar ?</p>
                         {/* <button className="green "><i className="material-icons" onClick={()=>this.borrarGrupo(this.props.idStkGrupo)}>check</i></button> */}
-                        <button className="green "><i className="material-icons" onClick={()=>this.borrarGrupo(this.props.StkItem)}>check</i></button>
-                        <button className="red "><i className="material-icons" onClick={()=>this.toggle()}>cancel</i></button>
+                        {/* <button className="green "><i className="material-icons" onClick={()=>this.borrarGrupo(this.props.StkItem)}>check</i></button>
+                        <button className="red "><i className="material-icons" onClick={()=>this.toggle()}>cancel</i></button> */}
+                        <Button color="primary" onClick={()=>this.borrarItem()}><DoneIcon/></Button>
+                        <Button color="secondary" onClick={()=>this.toggle()}><ClearIcon/></Button>
                     </div>
                 }
             </div>

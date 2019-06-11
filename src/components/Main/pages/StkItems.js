@@ -134,7 +134,7 @@ toggleBusqueda = () => {
 
     sortBy(key) {
         this.setState({
-            monedas: this.state.monedas.sort((a, b) =>
+            items: this.state.items.sort((a, b) =>
                 this.state.direction[key] === "asc" ? (a[key] < b[key] ? 1 : -1) : (a[key] > b[key] ? 1 : -1)
             ),
             direction: { [key]: this.state.direction[key] === "asc" ? "desc" : "asc" }
@@ -185,43 +185,43 @@ toggleBusqueda = () => {
         }
     // }
     
-//   Ordenar Begin
+// //   Ordenar Begin
 
-sortBy(key,tipo){
-    tipo === "numero"
-        ?      
-            this.sortByNumero(key)
-        :   
+// sortBy(key,tipo){
+//     tipo === "numero"
+//         ?      
+//             this.sortByNumero(key)
+//         :   
         
-        this.sortByTexto(key)
-}
+//         this.sortByTexto(key)
+// }
 
-// Ordena Numeros
-    sortByNumero(key) {
-        console.log("Ordena numero")
-        this.setState({
-          items: this.state.items.sort((a, b) =>
-            this.state.direction[key] === "asc" ? a[key] - b[key] : b[key] - a[key]
-          ),
-          direction: {
-            [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
-          }
-        });
-      }
-      // ordena Texto
-      sortByTexto(key) {
-        console.log("Ordena Texto")
-        this.setState({
-          items: this.state.items.sort((a, b) =>
-            this.state.direction[key] === "asc" ? a[key].toUpperCase() < b[key].toUpperCase() : a[key].toUpperCase() > b[key].toUpperCase()
-          ),
-          direction: {
-            [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
-          }
-        });
-      }
+// // Ordena Numeros
+//     sortByNumero(key) {
+//         console.log("Ordena numero")
+//         this.setState({
+//           items: this.state.items.sort((a, b) =>
+//             this.state.direction[key] === "asc" ? a[key] - b[key] : b[key] - a[key]
+//           ),
+//           direction: {
+//             [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
+//           }
+//         });
+//       }
+//       // ordena Texto
+//       sortByTexto(key) {
+//         console.log("Ordena Texto")
+//         this.setState({
+//           items: this.state.items.sort((a, b) =>
+//             this.state.direction[key] === "asc" ? a[key].toUpperCase() < b[key].toUpperCase() : a[key].toUpperCase() > b[key].toUpperCase()
+//           ),
+//           direction: {
+//             [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
+//           }
+//         });
+//       }
 
-// Ordenar End
+// // Ordenar End
 
     toggle(event){
     // toogle = (event)=>{
@@ -249,7 +249,8 @@ sortBy(key,tipo){
     // Agrego el campo del Boton BORRAR
         this.state.items.map( (rowData,index) => 
             Object.assign(rowData, { borrar: 
-                <div className="center-align"><StkItemsBorrar StkItem={[rowData.idStkItems,rowData.StkItemsGrupo,rowData.StkItemsRubro]} leeStkItems={()=>this.leeStkItems()} read={()=>this.leeStkItems()}></StkItemsBorrar></div>})
+                // <div className="center-align"><StkItemsBorrar StkItem={[rowData.idStkItems,rowData.StkItemsGrupo,rowData.StkItemsRubro]} leeStkItems={()=>this.leeStkItems()} read={()=>this.leeStkItems()}></StkItemsBorrar></div>})
+                <div className="center-align"><StkItemsBorrar idStkItems={rowData.idStkItems} StkItemsGrupo={rowData.StkItemsGrupo} StkItemsRubro={rowData.StkItemsRubro} leeStkItems={()=>this.leeStkItems()} read={()=>this.leeStkItems()}></StkItemsBorrar></div>})
         );
         // Tengo que hacer otro Object.assin para  StkItemsGrupo para mostrar la descripcion o lo hacemos desde el backend?    
 
@@ -340,8 +341,8 @@ sortBy(key,tipo){
             <div>
                 <h1>ABM DE items</h1>
                 
-                {this.state.toggle
-                ?
+                {this.state.toggle_agregar &&
+                // ?
                 // Muestra el Componente AgregarItems 
                 <div>
                     <div className="row">
@@ -349,22 +350,22 @@ sortBy(key,tipo){
                             <div className="">
                                 <div className="card-content  white-text">
                                     {/* <StkItemsAgregar click={()=>this.toggle()} leeStkItemsDetalles={()=>this.leeStkItemsDetalles()} read={()=>this.leeStkItems()}> </StkItemsAgregar> */}
-                                    <StkItemsAgregar click={()=>this.toggle()} leeStkItemsDetalles={()=>this.leeStkItemsDetalles()}> </StkItemsAgregar>
+                                    <StkItemsAgregar toggleAgregar={this.toggleAgregar} leeStkItemsDetalles={()=>this.leeStkItemsDetalles()}> </StkItemsAgregar>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                :
+                // :
                 // Boton Agregar 
                 // <p onClick={()=>this.toggle()} className='btn'>AGREGAR ITEM</p>
-                <Button onClick={() => this.toggle()} variant="contained" color="primary">AGREGAR ITEM</Button>
+                // <Button onClick={() => this.toggle()} variant="contained" color="primary">AGREGAR ITEM</Button>
                 // Aca va el campo de filtrado
                 }
                
                 
 
-               {!this.state.toggle
+               {!this.state.toggle_agregar
                 ?
                 // Muestar la tabla de Items
                 <Paper >
@@ -380,7 +381,7 @@ sortBy(key,tipo){
                             {
                                 columns.map((row, index) => {
                                 // return (<CustomTableCell key={index} onClick={() => this.sortBy(row.accessor,row.tipo)} >{row.Header}</CustomTableCell>)
-                                return (<CustomTableCell key={index} onClick={()=>{return row.order ? this.sortBy(row.accessor,row.tipo):<span></span>}} >{row.Header}</CustomTableCell>)
+                                return (<CustomTableCell key={index} onClick={()=>{return row.order && this.sortBy(row.accessor)}} >{row.Header}</CustomTableCell>)
                                 // return (<CustomTableCell key={index} onClick={()=>{return row.order ? console.log('ordena '+row.accessor) :  console.log('No Ordena '+row.accessor)}} >{row.Header}</CustomTableCell>)
                                 })
                             }
@@ -400,7 +401,7 @@ sortBy(key,tipo){
                                     this.setState({StkRubroDesc:row.StkRubroDesc})
                                     this.setState({StkItemsDesc:row.StkItemsDesc})
                                     this.setState({StkItemsCantidad:row.StkItemsCantidad})
-                                    this.setState({StkItemsCantidad:row.StkItemsCantDisp})
+                                    this.setState({StkItemsCantDisp:row.StkItemsCantDisp})
                                     this.setState({StkItemsMin:row.StkItemsMin})
                                     this.setState({StkItemsMax:row.StkItemsMax})
                                     

@@ -72,7 +72,7 @@ class StkItemsAgregar extends Component {
       .send({ StkItemsMin: this.state.StkItemsMin})
       .send({ StkItemsMax: this.state.StkItemsMax})
       // .send({ StkItemsObserv: this.state.StkItemsObserv})            
-      .set("X-API-Key", "foobar")
+      // .set("X-API-Key", "foobar")
       .then(function(res) {})
       .catch(function(err){console.log(err)})
   };
@@ -134,8 +134,7 @@ stkrubroleecodgrupo = (id) => {
     this.props.leeStkItemsDetalles()
     // this.leeStkItemsDetalles()
     // window.location.reload() //esto hace que rrecargue la pagina no se por que no anda con la funcion que le estoy pasando ( this.props.leeStkItemsDetalles())
-    this.props.click();
-    // una aclaracion "window.location.reload()" recarga toda la pagina no la tabla revisar eso
+    this.props.toggleAgregar();
   }
  
   componentWillMount(){
@@ -329,7 +328,7 @@ stkrubroleecodgrupo = (id) => {
             <Button
               variant="contained"
               color="secondary"
-              onClick={this.props.click}
+              onClick={this.props.toggleAgregar}
               // onClick={()=>{return alert("GRABO RUBRO")}}
             >
               Cancelar
