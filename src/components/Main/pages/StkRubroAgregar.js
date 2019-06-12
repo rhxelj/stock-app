@@ -212,20 +212,22 @@ class StkRubroAgregar extends Component {
   // Create
 
   add = _ => {
-    console.log("dentro de add valor de url + StkRubroCodGrp "+ this.state.url + this.state.StkRubroCodGrp)
+    console.log("dentro de add valor de State : ")
+    console.log(this.state)
     
     // **********************   aca llamo a la fucnion ActualizaGrupo *************************
     // this.ActualizaGrupo()
-
+    var url=  IpServidor + '/stkrubroagregar/'
     request
       // .get(this.state.url + this.state.StkRubroCodGrp)
-      .post(this.state.url + '?id='+ this.state.StkRubroCodGrp)
+      .post(url + '?id='+ this.state.StkRubroCodGrp)
       .set("Content-Type", "application/json") // .send({ idStkRubro: this.state.idStkRubro }) este lo genero en el back-end
       // .send({ StkRubroCodGrp: this.state.StkRubroCodGrp })
       .send({ StkRubroDesc: this.state.StkRubroDesc })
       .send({ StkRubroAbr: this.state.StkRubroAbr })
       .send({ StkRubroProv: this.state.StkRubroProv })
       .send({ StkRubroAncho: this.state.StkRubroAncho })
+      .send({ StkRubroPresDes: this.state.StkRubroPresDes })
       .send({ StkRubroPres: this.state.StkRubroPres })
       .send({ StkRubroUM: this.state.StkRubroUM })
       .send({ StkRubroCosto: this.state.StkRubroCosto })
@@ -358,14 +360,6 @@ leetmon = _ => {
                 >
                   <option></option>
                   {this.state.stkgrupo.map(option => (  
-                    // <MenuItem 
-                    // id="tipogrupo"
-                    // key={option.idStkGrupo}
-                    // value={option.idStkGrupo}
-                    // >
-                    //     {option.StkGrupoDesc} 
-                    // </MenuItem>
-                    
                     <option 
                     id="tipogrupo"
                     key={option.idStkGrupo}
@@ -374,7 +368,6 @@ leetmon = _ => {
                         {option.StkGrupoDesc} 
                     </option>
                     ))} 
-                  {/* ))} */}
                 </TextField>
               </Grid>
       
@@ -410,7 +403,7 @@ leetmon = _ => {
                 />
               </Grid>
 
-          {/* DESCRIPCION INICIO FIN */}  
+          {/* DESCRIPCION  FIN */}  
          
              <Grid item xs={8} sm={8} lg={8}>
               <TextField
@@ -418,17 +411,21 @@ leetmon = _ => {
                 fullWidth={true}
                 select={true}
                 label="Proveedor"
+                SelectProps={{
+                  native: true
+                }}
                 value={this.state.StkRubroProv}
                 onChange={this.handleChange("StkRubroProv")}
               >
+                <option></option>
                  {this.state.proveedores.map(option => (  
-                  <MenuItem 
+                  <option  
                   id="tipoproveedor"
                   key={option.idProveedores}
                   value={option.idProveedores}
                   >
                       {option.ProveedoresDesc} 
-                   </MenuItem>))} 
+                   </option>))} 
                                 
                 ))}
               </TextField>
@@ -450,6 +447,21 @@ leetmon = _ => {
                 />
             </Grid>
               <Grid item  xs={4} sm={4} lg={4}> 
+              <TextField
+                  id="StkRubroPresDes"
+                  label="Presentacion Descripcion"
+                  value={this.state.StkRubroPresDes}
+                  onChange={this.handleChange("StkRubroPresDes")}
+                  margin="dense"
+                  InputLabelProps={{ shrink: true }}
+                  variant="standard"
+                  onKeyPress={event => {
+                    if (event.key === "Enter")
+                      document.getElementById("StkRubroPres").focus();
+                  }}
+                /> 
+                </Grid> 
+                <Grid item  xs={4} sm={4} lg={4}> 
                 <TextField
                   id="StkRubroPres"
                   label="Presentacion"
@@ -463,6 +475,9 @@ leetmon = _ => {
                   }}
                 />
               </Grid> 
+            
+            
+            
             {/* </div> */}
             
             {/* <div> */}
@@ -472,24 +487,28 @@ leetmon = _ => {
                 select={true}
                 fullWidth={true}
                 margin="dense"
+                SelectProps={{
+                  native: true
+                }}
                 label="Unidad de Medida"
                 value={this.state.StkRubroUM}
                 onChange={this.handleChange("StkRubroUM")}
               >
+                 <option></option>
                  {this.state.unmed.map(option => (  
-                  <MenuItem 
+                  <option 
                   id="unidaddemedida"
                   key={option.idStkUnMed}
                   value={option.idStkUnMed}
                   >
                       {option.StkUnMedDesc} 
-                   </MenuItem>))} 
+                   </option>))} 
                                 
                 ))}
               </TextField>
             </Grid>
             
-              <Grid item  xs={6} sm={6} lg={6}>
+              <Grid item  xs={4} sm={4} lg={4}>
                 <TextField
                   id="StkRubroCosto"
                   label="Costo"
@@ -504,24 +523,28 @@ leetmon = _ => {
                 />
               </Grid>
          
-            <Grid item  xs={6} sm={6} lg={6}>
+            <Grid item  xs={4} sm={4} lg={4}>
                 <TextField
                 id="StkRubroTM"
                 select={true}
                 label="Moneda"
                 fullWidth={true}
                 margin="dense"
+                SelectProps={{
+                  native: true
+                }}
                 value={this.state.StkRubroTM}
                 onChange={this.handleChange("StkRubroTM")}
               >
+                 <option></option>
                  {this.state.stkmonedas.map(option => (  
-                  <MenuItem 
+                  <option 
                   id="unidaddemedida"
                   key={option.idStkMonedas}
                   value={option.idStkMonedas}
                   >
                       {option.StkMonedasDescripcion} 
-                   </MenuItem>))} 
+                   </option>))} 
                                 
                 ))}
               </TextField>

@@ -8,28 +8,27 @@ import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-// import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from "@material-ui/core/DialogTitle";
-// import Select from '@material-ui/core/Select';
+import Grid from '@material-ui/core/Grid';
 
-// import AgregarMonedas from './StkMonedasAgregar'
+// import DialogContentText from '@material-ui/core/DialogContentText';
 
 class StkRubroModificar extends Component {
   constructor(props) {
     super(props);
     this.state = {
       url: IpServidor + '/stkrubromodificar',
-      idStkRubro: props.idStkRubro,
-      StkRubroCodGrp: props.StkRubroCodGrp, //verificar si esta bien
-      StkRubroDesc: props.StkRubroDesc,
-      StkRubroAbr: props.StkRubroAbr,
-      StkRubroProv: props.StkRubroProv,
-      StkRubroAncho: props.StkRubroAncho,
-      StkRubroPres: props.StkRubroPres,
-      StkRubroPresDes: props.StkRubroPresDes,
-      StkRubroUM:props.StkRubroUM,
-      StkRubroCosto:props.StkRubroCosto,
-      StkRubroTM:props.StkRubroTM,
+      idStkRubro: this.props.idStkRubro,
+      StkRubroCodGrp: this.props.StkRubroCodGrp, //verificar si esta bien
+      StkRubroDesc: this.props.StkRubroDesc,
+      StkRubroAbr: this.props.StkRubroAbr,
+      StkRubroProv: this.props.StkRubroProv,
+      StkRubroAncho: this.props.StkRubroAncho,
+      StkRubroPres: this.props.StkRubroPres,
+      StkRubroPresDes: this.props.StkRubroPresDes,
+      StkRubroUM: this.props.StkRubroUM,
+      StkRubroCosto: this.props.StkRubroCosto,
+      StkRubroTM: this.props.StkRubroTM,
       // stkgrupo:{},
       stkgrupo:[],
       idStkTipoProveed: 0,
@@ -294,53 +293,49 @@ leetmon = _ => {
         
         <Dialog
           open={true}
-          // open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
+          <Grid container>
+            <Grid item xs={4} sm={4} lg={4}></Grid>
           <DialogTitle id="form-dialog-title">Modificar Rubro</DialogTitle>
+          <Grid item xs={4} sm={4} lg={4}></Grid>
+          </Grid>
           <DialogContent>
-            {/* <TextField
-              id="idStkRubro"
-              label="Rubro"
-              value={this.state.idStkRubro}
-              onChange={this.handleChange("idStkRubro")}
-              margin="dense"
-              fullWidth
-              variant="standard"
-              autoFocus={true}
-              onKeyPress={event => {
-                if (event.key === "Enter")
-                  document.getElementById("StkRubroCodGrp").focus();
-              }}
-            /> */}
-            <div>
-
-              <TextField
-                id="idStkGrupo"
-                select={true}
-                label="Grupo"
-                value={this.state.StkRubroCodGrp}
-                // onChange={this.handleChange("StkRubroCodGrp")}
-                // onChange={this.leeXcodgrupo("StkRubroCodGrp","OTRO VALOR AGREGADO POR MI")}
-              >
-                 {this.state.stkgrupo.map(option => (  
-                    <MenuItem 
-                    id="tipogrupo"
-                    key={option.idStkGrupo}
-                    value={option.idStkGrupo}
-                    onClick={()=>console.log("Hizo Click")}
-                    >
-                        {option.StkGrupoDesc} 
-                    </MenuItem>))} 
-                                
-                ))}
-              </TextField>
-
-
-            </div>
            
-            <div>
+          {/* GRUPO INICIO*/}
+            <Grid container spacing={24}>
+              <Grid item xs={8} sm={8} lg={8}>
+                <TextField
+                  id="idStkGrupo"
+                  // select={true}
+                  select
+                  label="Grupo"
+                  SelectProps={{
+                    native: true
+                  }}
+                  value={this.state.StkRubroCodGrp}
+                  // onChange={this.handleChange("StkRubroCodGrp")}
+                  // onChange={this.leeXcodgrupo("StkRubroCodGrp","OTRO VALOR AGREGADO POR MI")}
+                >
+                  {this.state.stkgrupo.map(option => (  
+                      <option 
+                      id="tipogrupo"
+                      key={option.idStkGrupo}
+                      value={option.idStkGrupo}
+                      onClick={()=>console.log("Hizo Click")}
+                      >
+                          {option.StkGrupoDesc} 
+                      </option>))} 
+                                  
+                  ))}
+                </TextField>
+              </Grid>
+      
+            {/* GRUPO FIN*/}
+            
+            {/* DESCRIPCION-Abrebiatura INICIO*/}          
+            <Grid item xs={6} sm={6} lg={6}>        
               <TextField
                 id="StkRubroDesc"
                 label="Descripción"
@@ -353,8 +348,9 @@ leetmon = _ => {
                     document.getElementById("StkRubroAbr").focus();
                 }}
               />
-            </div>
-            <div>
+              </Grid>
+              <Grid item xs={6} sm={6} lg={6}>
+
               <TextField
                 id="StkRubroAbr"
                 label="Abreviatura"
@@ -364,29 +360,37 @@ leetmon = _ => {
                 variant="standard"
                 onKeyPress={event => {
                   if (event.key === "Enter")
-                    document.getElementById("StkRubroProv").focus();
+                  document.getElementById("StkRubroProv").focus();
                 }}
-              />
-             
+                />
+                </Grid>
+             {/* DESCRIPCION-Abrebiatura FIN*/}
+             <Grid item xs={8} sm={8} lg={8}>
               <TextField
                 id="StkRubroProv"
                 select={true}
                 label="Proveedor"
+                SelectProps={{
+                  native: true
+                }}
                 value={this.state.StkRubroProv}
                 onChange={this.handleChange("StkRubroProv")}
               >
                  {this.state.proveedores.map(option => (  
-                  <MenuItem 
+                  <option 
                   id="proveedor"
                   key={option.idProveedores}
                   value={option.idProveedores}
                   >
                       {option.ProveedoresDesc} 
-                   </MenuItem>))} 
+                   </option>))} 
                                 
                 ))}
               </TextField>
+              </Grid>
+              <Grid item  xs={4} sm={4} lg={4}></Grid>
 
+           <Grid item  xs={4} sm={4} lg={4}> 
 
               <TextField
                 id="StkRubroAncho"
@@ -400,7 +404,8 @@ leetmon = _ => {
                     document.getElementById("StkRubroPresDes").focus();
                 }}
               />
-
+              </Grid>
+              <Grid item  xs={4} sm={4} lg={4}> 
               <TextField
                 id="StkRubroPresDes"
                 label="Presentacion Descripcion"
@@ -408,11 +413,14 @@ leetmon = _ => {
                 onChange={this.handleChange("StkRubroPresDes")}
                 margin="dense"
                 variant="standard"
+                InputLabelProps={{ shrink: true }}
                 onKeyPress={event => {
                   if (event.key === "Enter")
                     document.getElementById("StkRubroPres").focus();
                 }}
               />  
+              </Grid>
+              <Grid item  xs={4} sm={4} lg={4}>
               <TextField
                 id="StkRubroPres"
                 label="Presentacion"
@@ -422,11 +430,11 @@ leetmon = _ => {
                 variant="standard"
                 onKeyPress={event => {
                   if (event.key === "Enter")
-                    document.getElementById("StkRubroUM").focus();
+                  document.getElementById("StkRubroUM").focus();
                 }}
               />
-            </div>
-            <div>
+               </Grid> 
+            {/* <div> */}
               {/* <TextField
                 id="StkRubroUM"
                 label="Unidad de Medida"
@@ -439,6 +447,7 @@ leetmon = _ => {
                     document.getElementById("StkRubroCosto").focus();
                 }}
               /> */}
+               <Grid item  xs={4} sm={4} lg={4}>
                 <TextField
                 id="StkRubroUM"
                 select={true}
@@ -447,17 +456,18 @@ leetmon = _ => {
                 onChange={this.handleChange("StkRubroUM")}
               >
                  {this.state.unmed.map(option => (  
-                  <MenuItem 
+                  <option 
                   id="unidaddemedida"
                   key={option.idStkUnMed}
                   value={option.idStkUnMed}
                   >
                       {option.StkUnMedDesc} 
-                   </MenuItem>))} 
+                   </option>))} 
                                 
                 ))}
               </TextField>
-
+              </Grid>
+              <Grid item  xs={4} sm={4} lg={4}>
               <TextField
                 id="StkRubroCosto"
                 label="Costo"
@@ -470,6 +480,7 @@ leetmon = _ => {
                     document.getElementById("StkRubroTM").focus();
                 }}
               />
+              </Grid>
               {/* <TextField
                 id="StkRubroTM"
                 label="Moneda"
@@ -482,6 +493,7 @@ leetmon = _ => {
                     document.getElementById("Grabar").focus();
                 }}
               /> */}
+               <Grid item  xs={4} sm={4} lg={4}>
                 <TextField
                 id="StkRubroTM"
                 select={true}
@@ -490,28 +502,29 @@ leetmon = _ => {
                 onChange={this.handleChange("StkRubroTM")}
               >
                  {this.state.stkmonedas.map(option => (  
-                  <MenuItem 
+                  <option 
                   id="tipomoneda"
                   key={option.idStkMonedas}
                   value={option.idStkMonedas}
                   >
                       {option.StkMonedasDescripcion} 
-                   </MenuItem>))} 
+                   </option>))} 
                                 
                 ))}
               </TextField>
+              </Grid>
 
-
-            </div>
-            <div>
+            {/* </div> */}
+            {/* <div>
               
-            </div>
-            <div>
+            </div> */}
+            {/* <div>
               
-            </div>
-            <div>
+            </div> */}
+            {/* <div>
               
-            </div>
+            </div> */}
+            </Grid>
           </DialogContent>
           <DialogActions>
             <Button
@@ -531,6 +544,7 @@ leetmon = _ => {
               Cancelar
             </Button>
           </DialogActions>
+          {/* </Grid> */}
         </Dialog>
       </div>
     );
