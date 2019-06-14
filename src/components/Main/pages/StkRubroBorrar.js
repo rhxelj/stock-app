@@ -33,12 +33,11 @@ class StkRubroBorrar extends Component {
    
 
         //Delete
-    rubroborrar = (idrubro,idgrupo)=> {
-        // console.log("id a borrar :"+id)
-        // const { product } = this.state;
+    rubroborrar = (idStkRubro,StkRubroCodGrp)=> {
+        var url = IpServidor + '/stkrubroborrar/'        
         request
-            // .delete(IpServidor + '/stkrubroborrar/?idrubro='+idrubro+'&idgrupo='+idgrupo)
-            .get(IpServidor + '/stkrubroborrar/?idrubro='+idrubro+'&idgrupo='+idgrupo)
+            // .delete(IpServidor + '/stkrubroborrar/?idStkRubro='+idStkRubro+'&StkRubroCodGrp='+StkRubroCodGrp)
+            .get(url + '?idStkRubro='+idStkRubro+'&StkRubroCodGrp='+StkRubroCodGrp)
             .set('Content-Type', 'application/json')
             .then(function(res) {
                 // res.body, res.headers, res.status
@@ -81,7 +80,7 @@ class StkRubroBorrar extends Component {
                     {/* <button className=" red accent-4" onClick={()=>this.rubroborrar(this.props.idMonedas)}>Borrar</button> */}
                     {/* <button className=" blue accent-4" onClick={()=>this.toggle()}>Cancelar</button> */}
                     {/* <button className="red "><i className="material-icons" onClick={()=>this.toggle()}>cancel</i></button> */}
-                    <Button color="primary" onClick={()=>this.deleteProduct(()=>this.rubroborrar(this.props.idrubro,this.props.idgrupo))}><DoneIcon/></Button>
+                    <Button color="primary" onClick={()=>this.rubroborrar(this.props.idStkRubro,this.props.StkRubroCodGrp)}><DoneIcon/></Button>
                         <Button color="secondary" onClick={()=>this.toggle()}><ClearIcon/></Button>
                 </div>
             // </div> 

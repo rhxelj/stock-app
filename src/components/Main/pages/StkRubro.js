@@ -211,10 +211,11 @@ toggleBusqueda = () => {
 
     render() {
         // Agrego el campo del Boton BORRAR
-            var rubro = this.state.rubro.map((rowData, index) =>
+            // var rubro = this.state.rubro.map((rowData, index) =>
+            this.state.rubro.map((rowData, index) =>
                 Object.assign(rowData, {
                     borrar:
-                        <div className="center-align"><StkRubroBorrar idrubro={rowData.idStkRubro} idgrupo={rowData.StkRubroCodGrp} read={() => this.read()}></StkRubroBorrar></div>
+                        <div className="center-align"><StkRubroBorrar idStkRubro={rowData.idStkRubro} StkRubroCodGrp={rowData.StkRubroCodGrp} read={() => this.read()}></StkRubroBorrar></div>
             })
         );
 

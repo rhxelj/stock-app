@@ -20,14 +20,15 @@ class StkRubroAgregar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: IpServidor + '/stkrubroagregar/',
-      idStkRubro: 0,
+      // url: IpServidor + '/stkrubroagregar/',
+      // idStkRubro: 0,
       StkRubroCodGrp: "",
       StkRubroDesc: "",
       StkRubroAbr: "",
       StkRubroProv: "",
       StkRubroAncho: "",
       StkRubroPres: "",
+      StkRubroPresDes: "",
       StkRubroUM:"",
       StkRubroCosto:"",
       StkRubroTM:"",
@@ -43,10 +44,10 @@ class StkRubroAgregar extends Component {
       unmed:[],
       nuevocodigo:0,
       open: true,
-      idStkGrupo:'',      // borrar 
-      StkGrupoDesc:'',    // borrar
-      StkGrupoAbr:'',     // borrar
-      StkGrupoContRubro:0 // borrar
+      // idStkGrupo:'',      // borrar 
+      // StkGrupoDesc:'',    // borrar
+      // StkGrupoAbr:'',     // borrar
+      // StkGrupoContRubro:0 // borrar
     };
     this.updateField = this.updateField.bind(this);
     this.submitRubro = this.submitRubro.bind(this);
@@ -232,7 +233,7 @@ class StkRubroAgregar extends Component {
       .send({ StkRubroUM: this.state.StkRubroUM })
       .send({ StkRubroCosto: this.state.StkRubroCosto })
       .send({ StkRubroTM: this.state.StkRubroTM })
-      .set("X-API-Key", "foobar")
+      // .set("X-API-Key", "foobar")
       .then(function(res) {});
       
     };
