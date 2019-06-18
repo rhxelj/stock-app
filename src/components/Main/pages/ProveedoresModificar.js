@@ -133,7 +133,8 @@ request
       });
     }
     leetprov = _ => {
-        const url = IpServidor + '/stktipoproveedleer'; 
+        // const url = IpServidor + '/stktipoproveedleer'; 
+        const url = IpServidor + '/stkbgsubrubroleer';
         request
         .get(url)
         .set('Content-Type', 'application/json')
@@ -219,10 +220,13 @@ request
                     {this.state.tipoprov.map(option => (
                         <MenuItem
                             id = 'provtiposelect'
-                            key={option.idStkTipoProveed}
-                            value={option.idStkTipoProveed}
+                            // key={option.idStkTipoProveed}
+                            // value={option.idStkTipoProveed}
+                            key={option.idSubRubro}
+                            value={option.idSubRubro}
                         >
-                            {option.StkTipoProveedDesc}
+                            {/* {option.StkTipoProveedDesc} */}
+                            {option.SubRubroDetalle}
                         </MenuItem>
                     ))}
                     </TextField>

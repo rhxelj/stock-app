@@ -167,7 +167,8 @@ toggleBusqueda = () => {
 
   
   leetprov = _ => {
-    const url = IpServidor + '/stktipoproveedleer';
+    // const url = IpServidor + '/stktipoproveedleer';
+    const url = IpServidor + '/stkbgsubrubroleer';
     request
       .get(url)
       .set('Content-Type', 'application/json')
@@ -382,7 +383,8 @@ toggleBusqueda = () => {
 
                       <CustomTableCell >{row.idProveedores}</CustomTableCell>
                       <CustomTableCell >{row.ProveedoresDesc}</CustomTableCell>
-                      <CustomTableCell >{row.StkTipoProveedDesc}</CustomTableCell> 
+                      {/* <CustomTableCell >{row.StkTipoProveedDesc}</CustomTableCell>  */}
+                      <CustomTableCell >{row.SubRubroDetalle}</CustomTableCell> 
                       <CustomTableCell >{row.ProveedoresCUIT}</CustomTableCell>
                       <CustomTableCell >{row.ProveedoresCalle}</CustomTableCell>
                       <CustomTableCell >{row.ProveedoresNroCalle}</CustomTableCell>
