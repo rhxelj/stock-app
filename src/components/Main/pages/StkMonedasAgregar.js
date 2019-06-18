@@ -11,6 +11,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { number } from 'prop-types';
 // Material UI   END
 
 
@@ -72,7 +73,12 @@ class AgregarMonedas extends Component {
     }   
    
     updateField(field){
-        this.setState({
+      if (typeof(parseInt(field.target.value,10))==='number')
+        console.log("Numero")
+      else 
+        console.log("Texto")
+
+      this.setState({
             [field.target.id]: field.target.value,
         })
         console.log('ESTADO :'+field.target.id + ' Valor :'+field.target.value)
@@ -112,6 +118,20 @@ class AgregarMonedas extends Component {
               label="Código"
               type="text"
               fullWidth
+              inputProps={{
+                // disabled:true,
+                maxlength: 4,
+                // required: true,
+                // pattern:[A-Z],
+                willValidate:true,
+                validationMessage:"Falso estas?"}}
+
+
+              // SelectProps={{
+              //   native: true
+              // }}
+
+
               placeholder="Código"
               // value={this.state.idStkMonedas} 
               onChange={this.updateField}
