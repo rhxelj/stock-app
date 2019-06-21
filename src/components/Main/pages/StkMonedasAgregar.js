@@ -73,11 +73,6 @@ class AgregarMonedas extends Component {
     }   
    
     updateField(field){
-      if (typeof(parseInt(field.target.value,10))==='number')
-        console.log("Numero")
-      else 
-        console.log("Texto")
-
       this.setState({
             [field.target.id]: field.target.value,
         })
