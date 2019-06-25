@@ -65,7 +65,26 @@ class Proveedores extends Component {
       toggle_agregar: false,
       toggle_busqueda: false,
       toggle_modificar: false,
-      filtered:''
+      filtered:'',
+      
+      proveedor:{
+        idProveedores:'',
+        ProveedoresDesc:'',
+        ProveedoresTipo:'',
+        ProveedoresCUIT:'',
+        ProveedoresCalle:'',
+        ProveedoresNroCalle:'',
+        ProveedoresPiso:'',
+        ProveedoresDto:'',
+        ProveedoresCodPos:'',
+        ProveedoresLoc:'',
+        ProveedoresPcia:'',
+        ProveedoresTel:'',
+        ProveedoresContacto:'',
+        ProveedoresMail:'',
+        ProveedoresWeb:'',
+        ProveedoresCodMon:'',
+      }
     }
     // this.toggle = this.toggle.bind(this);
   }
@@ -200,9 +219,12 @@ toggleBusqueda = () => {
 
   var proveedores = this.state.proveedores.filter((proveedor) => { //este proveedores no es el proveedores de this.state.proveedores es una copia local
     return (
-      proveedor.ProveedoresDesc.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1 
-      // ||
-      // proveedor.SubRubroDetalle.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
+      
+      proveedor.ProveedoresDesc == null ? true : 
+        proveedor.ProveedoresDesc.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1 
+      ||
+      proveedor.SubRubroDetalle == null ? true : 
+        proveedor.SubRubroDetalle.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
       // ||
       // proveedor.ProveedoresCalle.indexOf(this.state.filtered) !== -1
       // ||
@@ -357,48 +379,51 @@ toggleBusqueda = () => {
               </TableHead>
 
               <TableBody>
-                {proveedores.map(row => {
+                {proveedores.map(proveedor => {
                   return (
                     <TableRow onDoubleClick={() => {
-                      this.setState({ idProveedores: row.idProveedores })
-                      this.setState({ ProveedoresDesc: row.ProveedoresDesc })
-                      this.setState({ ProveedoresTipo: row.ProveedoresTipo }) //Proveedores Tipo idStkTipoProveed
-                      this.setState({ ProveedoresCUIT: row.ProveedoresCUIT })
-                      this.setState({ ProveedoresCalle: row.ProveedoresCalle })
-                      this.setState({ ProveedoresNroCalle: row.ProveedoresNroCalle })
-                      this.setState({ ProveedoresPiso: row.ProveedoresPiso })
-                      this.setState({ ProveedoresDto: row.ProveedoresDto })
-                      this.setState({ ProveedoresCodPos: row.ProveedoresCodPos })
-                      this.setState({ ProveedoresLoc: row.ProveedoresLoc })
-                      this.setState({ ProveedoresPcia: row.ProveedoresPcia })
-                      this.setState({ ProveedoresTel: row.ProveedoresTel })
-                      this.setState({ ProveedoresContacto: row.ProveedoresContacto })
-                      this.setState({ ProveedoresMail: row.ProveedoresMail })
-                      this.setState({ ProveedoresWeb: row.ProveedoresWeb })
-                      this.setState({ ProveedoresCodMon: row.ProveedoresCodMon })
+                      this.setState({ 
+                        proveedor: {
+                          idProveedores: proveedor.idProveedores,
+                          ProveedoresDesc: proveedor.ProveedoresDesc,
+                          ProveedoresTipo: proveedor.ProveedoresTipo, //Proveedores Tipo idStkTipoProveed
+                          ProveedoresCUIT: proveedor.ProveedoresCUIT,
+                          ProveedoresCalle: proveedor.ProveedoresCalle,
+                          ProveedoresNroCalle: proveedor.ProveedoresNroCalle,
+                          ProveedoresPiso: proveedor.ProveedoresPiso,
+                          ProveedoresDto: proveedor.ProveedoresDto,
+                          ProveedoresCodPos: proveedor.ProveedoresCodPos,
+                          ProveedoresLoc: proveedor.ProveedoresLoc,
+                          ProveedoresPcia: proveedor.ProveedoresPcia,
+                          ProveedoresTel: proveedor.ProveedoresTel,
+                          ProveedoresContacto: proveedor.ProveedoresContacto,
+                          ProveedoresMail: proveedor.ProveedoresMail,
+                          ProveedoresWeb: proveedor.ProveedoresWeb,
+                          ProveedoresCodMon: proveedor.ProveedoresCodMon,
+                        }
+                      })
+                    this.toggleModificar()
+                  }
+                }key={proveedor.idProveedores}>
 
-                      this.toggleModificar()
-                    }
-                    } key={row.idProveedores}>
-
-                      <CustomTableCell >{row.idProveedores}</CustomTableCell>
-                      <CustomTableCell >{row.ProveedoresDesc}</CustomTableCell>
-                      {/* <CustomTableCell >{row.StkTipoProveedDesc}</CustomTableCell>  */}
-                      <CustomTableCell >{row.SubRubroDetalle}</CustomTableCell> 
-                      <CustomTableCell >{row.ProveedoresCUIT}</CustomTableCell>
-                      <CustomTableCell >{row.ProveedoresCalle}</CustomTableCell>
-                      <CustomTableCell >{row.ProveedoresNroCalle}</CustomTableCell>
-                      <CustomTableCell >{row.ProveedoresPiso}</CustomTableCell>
-                      <CustomTableCell >{row.ProveedoresDto}</CustomTableCell>
-                      <CustomTableCell >{row.ProveedoresCodPos}</CustomTableCell>
-                      <CustomTableCell >{row.ProveedoresLoc}</CustomTableCell>
-                      <CustomTableCell >{row.ProveedoresPcia}</CustomTableCell>
-                      <CustomTableCell >{row.ProveedoresTel}</CustomTableCell>
-                      <CustomTableCell >{row.ProveedoresContacto}</CustomTableCell>
-                      <CustomTableCell >{row.ProveedoresMail}</CustomTableCell>
-                      <CustomTableCell >{row.ProveedoresWeb}</CustomTableCell>
-                      <CustomTableCell >{row.ProveedoresCodMon}</CustomTableCell>
-                      <CustomTableCell >{row.borrar}</CustomTableCell>
+                      <CustomTableCell >{proveedor.idProveedores}</CustomTableCell>
+                      <CustomTableCell >{proveedor.ProveedoresDesc}</CustomTableCell>
+                      {/* <CustomTableCell >{proveedor.StkTipoProveedDesc}</CustomTableCell>  */}
+                      <CustomTableCell >{proveedor.SubRubroDetalle}</CustomTableCell> 
+                      <CustomTableCell >{proveedor.ProveedoresCUIT}</CustomTableCell>
+                      <CustomTableCell >{proveedor.ProveedoresCalle}</CustomTableCell>
+                      <CustomTableCell >{proveedor.ProveedoresNroCalle}</CustomTableCell>
+                      <CustomTableCell >{proveedor.ProveedoresPiso}</CustomTableCell>
+                      <CustomTableCell >{proveedor.ProveedoresDto}</CustomTableCell>
+                      <CustomTableCell >{proveedor.ProveedoresCodPos}</CustomTableCell>
+                      <CustomTableCell >{proveedor.ProveedoresLoc}</CustomTableCell>
+                      <CustomTableCell >{proveedor.ProveedoresPcia}</CustomTableCell>
+                      <CustomTableCell >{proveedor.ProveedoresTel}</CustomTableCell>
+                      <CustomTableCell >{proveedor.ProveedoresContacto}</CustomTableCell>
+                      <CustomTableCell >{proveedor.ProveedoresMail}</CustomTableCell>
+                      <CustomTableCell >{proveedor.ProveedoresWeb}</CustomTableCell>
+                      <CustomTableCell >{proveedor.ProveedoresCodMon}</CustomTableCell>
+                      <CustomTableCell >{proveedor.borrar}</CustomTableCell>
                     </TableRow>
                   );
                 })}
@@ -420,23 +445,7 @@ toggleBusqueda = () => {
                       toggleModificar={this.toggleModificar}
                       read={() => this.read()}
 
-                      idProveedores={this.state.idProveedores}
-                      ProveedoresDesc={this.state.ProveedoresDesc}
-                      ProveedoresTipo={this.state.ProveedoresTipo}
-                      ProveedoresCUIT={this.state.ProveedoresCUIT}
-                      ProveedoresCalle={this.state.ProveedoresCalle}
-                      ProveedoresNroCalle={this.state.ProveedoresNroCalle}
-                      ProveedoresPiso={this.state.ProveedoresPiso}
-                      ProveedoresDto={this.state.ProveedoresDto}
-                      ProveedoresCodPos={this.state.ProveedoresCodPos}
-                      ProveedoresLoc={this.state.ProveedoresLoc}
-                      ProveedoresPcia={this.state.ProveedoresPcia}
-                      ProveedoresTel={this.state.ProveedoresTel}
-                      ProveedoresContacto={this.state.ProveedoresContacto}
-                      ProveedoresMail={this.state.ProveedoresMail}
-                      ProveedoresWeb={this.state.ProveedoresWeb}
-                      ProveedoresCodMon={this.state.ProveedoresCodMon}
-                    // StkTipoProveedDesc={this.state.borrar }
+                      proveedor={this.state.proveedor}
                     >
                     </ProveedoresModificar>
                   </div>
