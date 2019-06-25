@@ -63,9 +63,11 @@ class Monedas extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            idStkMonedas: '',
-            StkMonedasDescripcion: '',
-            StkMonedasCotizacion: 0,
+            moneda:{
+                idStkMonedas: '',
+                StkMonedasDescripcion: '',
+                StkMonedasCotizacion: 0,
+            },
             monedas: [],
             filtered: '',
             campo: 'idStkMonedas',
@@ -74,6 +76,12 @@ class Monedas extends Component {
             toggle_agregar: false,
             toggle_busqueda: false,
             toggle_modificar: false,
+            
+            toggle:{
+                agregar: false,
+                busqueda: false,
+                modificar: false,
+            }
             // targetname:"",
             // targetvalue:""
         }
@@ -123,6 +131,16 @@ class Monedas extends Component {
         
     //******************************************* Habilita el contenido a mostrar en Pantalla - Begin *******************************************
 
+    toggle = (arg) =>{            
+        console.log("el argumento es :",arg)
+        this.setState(prevState => ({
+            // toggle:{...this.state.toggle,[arg]: !prevState.toggle[arg]}
+            toggle:{[arg]: !prevState.toggle[arg]}
+        })) // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <AgregarMonedas> ***
+        console.log("el contenido de this.state.toggle  es :",this.state.toggle)
+    }
+    
+    
     toggleAgregar = () =>{            
         this.setState(prevState => ({
             toggle_agregar: !prevState.toggle_agregar
@@ -226,8 +244,8 @@ class Monedas extends Component {
 
                 {/* Muestra el Componente AgregarMonedas  */}
 
-                {this.state.toggle_agregar &&
-                    // ? 
+                {/* this.state.toggle_agregar && */}
+                {this.state.toggle.agregar &&
                     // Muestra el Componente AgregarMonedas 
                     <div>
 
@@ -235,27 +253,19 @@ class Monedas extends Component {
                             <div className="col s12 ">
                                 <div className="">
                                     <div className="card-content  black-text">
-                                        <StkMonedasAgregar  toggleAgregar={this.toggleAgregar} read={this.read}> </StkMonedasAgregar>
+                                        <StkMonedasAgregar  toggleAgregar={()=>this.toggle("agregar")} read={this.read}> </StkMonedasAgregar>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    // :
-                    // // Boton Agregar 
-                    // <div>
-                    //     <Button onClick={()=>this.toggle()} variant="contained" color="primary">AGREGAR MONEDAS</Button>
-
-                    // muestra cuadro para filtrado
-                    //     <input onChange={this.search} type="text" value={this.state.filtered}/>
-
-                    //          </div>
+                 
                 }
 
                 {/* Muestar la tabla de Monedas */}
 
-                {!this.state.toggle_agregar &&
-                    // ?
+                {/* {!this.state.toggle_agregar && */}
+                {!this.state.toggle.agregar &&
                     <Paper >
                         <Table >
                             <TableHead>
@@ -269,61 +279,58 @@ class Monedas extends Component {
                             </TableHead>
 
                             <TableBody>
-                                {filtrado.map(row => {
+                                {filtrado.map(moneda => {
                                     return (
-                                        <TableRow className={this.props.classes.row} key={row.idStkMonedas}
+                                        <TableRow className={this.props.classes.moneda} key={moneda.idStkMonedas}
                                             onDoubleClick={() => {
-                                                this.setState({ idStkMonedas: row.idStkMonedas })
-                                                this.setState({ StkMonedasDescripcion: row.StkMonedasDescripcion })
-                                                this.setState({ StkMonedasCotizacion: row.StkMonedasCotizacion })
-
-                                                this.toggleModificar()
+                                                this.setState({ 
+                                                    moneda: {
+                                                        idStkMonedas: moneda.idStkMonedas,
+                                                        StkMonedasDescripcion: moneda.StkMonedasDescripcion,
+                                                        StkMonedasCotizacion: moneda.StkMonedasCotizacion, 
+                                                    }
+                                                })
+                                                this.toggle("modificar")
+                                                console.log(this.state.toggle)
                                             }}
                                         >
-
-                                            <CustomTableCell>{row.idStkMonedas}</CustomTableCell>
-                                            <CustomTableCell>{row.StkMonedasDescripcion}</CustomTableCell>
-                                            <CustomTableCell>{row.StkMonedasCotizacion}</CustomTableCell>
-                                            <CustomTableCell>{row.borrar}</CustomTableCell>
+                                            <CustomTableCell>{moneda.idStkMonedas}</CustomTableCell>
+                                            <CustomTableCell>{moneda.StkMonedasDescripcion}</CustomTableCell>
+                                            <CustomTableCell>{moneda.StkMonedasCotizacion}</CustomTableCell>
+                                            <CustomTableCell>{moneda.borrar}</CustomTableCell>
                                         </TableRow>
                                     );
                                 })}
                             </TableBody>
                         </Table>
                     </Paper>
-                    //     :
-                    // <div></div>
                 }
 
                 {/* Llama al componente ModificarMonedas */}
 
-                {this.state.toggle_modificar &&
-                
+                {/* {this.state.toggle_modificar && */}
+                {this.state.toggle.modificar &&
                     <div>
                         <div className="row">
                             <div className="col s12 ">
                                 <div className="">
                                     <div className="card-content  black-text">
                                         <StkMonedasModificar
-                                            toggleModificar={this.toggleModificar}
+                                            toggleModificar={()=>this.toggle("modificar")}
                                             read={() => this.read()}
-                                            idStkMonedas={this.state.idStkMonedas}
-                                            StkMonedasDescripcion={this.state.StkMonedasDescripcion}
-                                            StkMonedasCotizacion={this.state.StkMonedasCotizacion}
-                                        >
-
-                                        </StkMonedasModificar>
+                                            moneda={this.state.moneda}
+                                        />
+                                        {/* </StkMonedasModificar> */}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                
                 }
 
                 {/* Muesra los botones Flotantes en la parte inferior de la pantalla Agregar y Busqueda*/}
-                <StkFab borraFiltered={this.borraFiltered} toggleAgregar={this.toggleAgregar} toggleBusqueda={this.toggleBusqueda} toggle_busqueda={this.state.toggle_busqueda} search={this.search} filtered={this.state.filtered} />
-
+                {/* <StkFab borraFiltered={this.borraFiltered} toggleAgregar={this.toggleAgregar} toggleBusqueda={this.toggleBusqueda} toggle_busqueda={this.state.toggle_busqueda} search={this.search} filtered={this.state.filtered} /> */}
+                <StkFab borraFiltered={this.borraFiltered} toggleAgregar={()=>this.toggle("agregar")} toggleBusqueda={this.toggleBusqueda} toggle_busqueda={this.state.toggle_busqueda} search={this.search} filtered={this.state.filtered} />
             </div>
         )
     }

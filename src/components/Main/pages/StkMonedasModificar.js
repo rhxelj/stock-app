@@ -24,6 +24,7 @@ class StkModificarMonedas extends Component {
             StkMonedasDescripcion:this.props.StkMonedasDescripcion,
             StkMonedasCotizacion:this.props.StkMonedasCotizacion,
             open: true, // Material UI
+            moneda:this.props.moneda,
         }
         this.updateField = this.updateField.bind(this);
         this.submitMoneda = this.submitMoneda.bind(this);
@@ -41,14 +42,15 @@ class StkModificarMonedas extends Component {
 
     actualizaMoneda = () => {
       // const  monedas  = params;
-     
+     console.log("valor de moneda : ")
+     console.log(this.state.moneda)
     request                  
-       .post('http://localhost:4000/stkmonedasmodificar/'+this.state.idStkMonedas)
+       .post('http://localhost:4000/stkmonedasmodificar/'+this.state.moneda.idStkMonedas)
        .set('Content-Type', 'application/json')
        
     //    .send({ idtipomonedas: this.state.idtipomonedas})
-       .send({ StkMonedasDescripcion: this.state.StkMonedasDescripcion})
-       .send({ StkMonedasCotizacion: this.state.StkMonedasCotizacion})
+       .send({ StkMonedasDescripcion: this.state.moneda.StkMonedasDescripcion})
+       .send({ StkMonedasCotizacion: this.state.moneda.StkMonedasCotizacion})
        .set('X-API-Key', 'foobar')
        .then(function(res) {
       // res.body, res.headers, res.status
@@ -60,7 +62,7 @@ class StkModificarMonedas extends Component {
    
     updateField(field){
         this.setState({
-            [field.target.id]: field.target.value,
+            moneda:{...this.state.moneda,[field.target.id]: field.target.value},
         })
         console.log('ESTADO :'+field.target.id + ' Valor :'+field.target.value)
     }
@@ -71,6 +73,7 @@ class StkModificarMonedas extends Component {
       this.actualizaMoneda() // revisar si hay que pasar parametros
       this.props.read()
       this.props.toggleModificar()
+      // this.props.toggle()
       // this.props.read()
     }
 
@@ -86,7 +89,6 @@ class StkModificarMonedas extends Component {
     }
 
     render(){
-      
         return( 
        <div>
             <Dialog
@@ -114,7 +116,7 @@ class StkModificarMonedas extends Component {
               type="text"
               fullWidth
               placeholder="Código"
-              value={this.state.idStkMonedas} 
+              value={this.state.moneda.idStkMonedas} 
               onChange={this.updateField}
               onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('StkMonedasDescripcion').focus();}}
             />
@@ -127,7 +129,7 @@ class StkModificarMonedas extends Component {
               type="text"
               fullWidth
               placeholder="Descripción"
-              value={this.state.StkMonedasDescripcion} 
+              value={this.state.moneda.StkMonedasDescripcion} 
               onChange={this.updateField}
               onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('StkMonedasCotizacion').focus();}}
             />
@@ -140,7 +142,7 @@ class StkModificarMonedas extends Component {
               type="number"
               fullWidth
               placeholder="Cotización"
-              value={this.state.StkMonedasCotizacion} 
+              value={this.state.moneda.StkMonedasCotizacion} 
               onChange={this.updateField}
               onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('button--submit').focus();}}
             />
@@ -155,7 +157,7 @@ class StkModificarMonedas extends Component {
             >
               Modificar
             </Button>
-            <Button onClick={this.props.toggleModificar} color="secondary">
+            <Button onClick={this.props.toggle} color="secondary">
               Cancelar
             </Button>
 

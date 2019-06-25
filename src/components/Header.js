@@ -27,7 +27,8 @@ class  Header extends React.Component {
         const { anchorEl } = this.state;
         return (
             <div>
-                <AppBar position="static">
+                {/* <AppBar position="static"> */}
+                <AppBar position="fixed">
                     <div>
                     <Button
                     color="inherit"
