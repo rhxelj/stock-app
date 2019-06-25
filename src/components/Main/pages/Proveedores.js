@@ -201,14 +201,14 @@ toggleBusqueda = () => {
   var proveedores = this.state.proveedores.filter((proveedor) => { //este proveedores no es el proveedores de this.state.proveedores es una copia local
     return (
       proveedor.ProveedoresDesc.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1 
-      ||
-      proveedor.ProveedoresTipo.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
+      // ||
+      // proveedor.SubRubroDetalle.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
+      // ||
+      // proveedor.ProveedoresCalle.indexOf(this.state.filtered) !== -1
       // ||
       // proveedor.ProveedoresCUIT.indexOf(this.state.filtered) !== -1 
       // ||
-      // proveedor.ProveedoresCalle.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
-      ||
-      proveedor.ProveedoresCalle.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
+      // proveedor.ProveedoresDto.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
     )
 })
 
