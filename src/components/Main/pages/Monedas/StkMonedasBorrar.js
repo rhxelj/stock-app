@@ -3,14 +3,20 @@ import request from 'superagent'
 // import ReactTable from 'react-table'
 // import 'react-table/react-table.css'
 
+
+
 import Button from '@material-ui/core/Button';
 import ClearIcon from '@material-ui/icons/Clear';
+import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
-import IpServidor from './VariablesDeEntorno'
+// import IpServidor from '../VariablesDeEntorno'
+import IpServidor from '../VariablesDeEntorno'
 
 
 class StkMonedasBorrar extends Component {
+ 
+ 
     constructor(props){
         super(props)
         this.state = {
@@ -63,7 +69,6 @@ class StkMonedasBorrar extends Component {
     }
 
     render(){
-        
         return( 
            
             <div>
@@ -73,18 +78,22 @@ class StkMonedasBorrar extends Component {
                 {this.state.toggle
                 ?
                 <div>
-                    <Button 
+                    {/* <Button 
                         className=" red accent-4" 
                         onClick={()=>this.toggle()}
                         >
                         <DeleteIcon  />
-                    </Button>
+                    </Button> */}
+
+                    <IconButton  onClick={()=>this.toggle()}aria-label="Delete">
+                        <DeleteIcon />
+                    </IconButton>
                 </div>
                 :
                     <div className="center-align">
                         <p>Esta seguro de "BORRAR" este Registro?</p>
-                        <Button color="primary" onClick={()=>this.deleteProduct(this.props.idMonedas)}><DoneIcon/></Button>
-                        <Button color="secondary" onClick={()=>this.toggle()}><ClearIcon/></Button>
+                        <IconButton color="primary" onClick={()=>this.deleteProduct(this.props.idMonedas)}><DoneIcon/></IconButton>
+                        <IconButton color="secondary" onClick={()=>this.toggle()}><ClearIcon/></IconButton>
                     </div>
                 }
             </div>

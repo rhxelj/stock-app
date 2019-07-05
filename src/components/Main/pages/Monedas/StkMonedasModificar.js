@@ -1,7 +1,7 @@
 import React, { Component} from 'react'
 import request from 'superagent'
 
-import IpServidor from './VariablesDeEntorno'
+import IpServidor from '../VariablesDeEntorno'
 
 // Material UI START
 import Button from '@material-ui/core/Button';
