@@ -17,6 +17,7 @@ class ProveedoresAgregar extends Component {
         super(props)
         this.state = {
             estado:true,
+            
             idProveedores: this.props.idProveedores,
             ProveedoresDesc : this.props.ProveedoresDesc,
             ProveedoresCUIT : this.props.ProveedoresCUIT,
@@ -33,6 +34,9 @@ class ProveedoresAgregar extends Component {
             ProveedoresWeb : this.props.ProveedoresWeb,
             ProveedoresCodMon : this.props.ProveedoresCodMon,
             ProveedoresTipo : this.props.ProveedoresTipo,
+            
+            proveedor:this.props.proveedor,
+            
             tipoprov:[],
             idStkMonedas:'',
             StkMonedasDescripcion:'',
@@ -202,7 +206,7 @@ request
                 <TextField
                     id='ProveedoresDesc'
                     label='Descripción'
-                    value={this.state.ProveedoresDesc}
+                    value={this.state.proveedor.ProveedoresDesc}
                     onChange={this.handleChange('ProveedoresDesc')}
                     margin="dense"
                     fullWidth
@@ -214,7 +218,7 @@ request
                     id="ProveedoresTipo" 
                     select = {true}
                     label= 'Tipo'
-                    value={this.state.ProveedoresTipo}
+                    value={this.state.proveedor.ProveedoresTipo}
                     // onChange = {this.handleChange}>
                     onChange = {this.handleChange('ProveedoresTipo')}>
                     {this.state.tipoprov.map(option => (
@@ -235,7 +239,7 @@ request
                 <TextField
                     id='ProveedoresCUIT'
                     label='C.U.I.T.'
-                    value={this.state.ProveedoresCUIT}
+                    value={this.state.proveedor.ProveedoresCUIT}
                     onChange={this.handleChange('ProveedoresCUIT')}
                     margin="normal"
                     variant="standard"
@@ -245,7 +249,7 @@ request
                 <TextField
                     id='ProveedoresCalle'
                     label='Calle'
-                    value={this.state.ProveedoresCalle}
+                    value={this.state.proveedor.ProveedoresCalle}
                     onChange={this.handleChange('ProveedoresCalle')}
                     margin="dense"
                     variant="standard"
@@ -253,7 +257,7 @@ request
                 <TextField
                     id='ProveedoresNroCalle'
                     label='Nro'
-                    value={this.state.ProveedoresNroCalle}
+                    value={this.state.proveedor.ProveedoresNroCalle}
                     onChange={this.handleChange('ProveedoresNroCalle')}
                     margin="dense"
                     variant="standard"
@@ -261,7 +265,7 @@ request
                 <TextField
                     id='ProveedoresPiso'
                     label='Piso'
-                    value={this.state.ProveedoresPiso}
+                    value={this.state.proveedor.ProveedoresPiso}
                     onChange={this.handleChange('ProveedoresPiso')}
                     margin="dense"
                     variant="standard"
@@ -269,7 +273,7 @@ request
                 <TextField
                     id='ProveedoresDto'
                     label='Dto'
-                    value={this.state.ProveedoresDto}
+                    value={this.state.proveedor.ProveedoresDto}
                     onChange={this.handleChange('ProveedoresDto')}
                     margin="dense"
                     variant="standard"
@@ -279,7 +283,7 @@ request
                 <TextField
                     id='ProveedoresCodPos'
                     label='Cód.Postal'
-                    value={this.state.ProveedoresCodPos}
+                    value={this.state.proveedor.ProveedoresCodPos}
                     onChange={this.handleChange('ProveedoresCodPos')}
                     margin="dense"
                     variant="standard"
@@ -287,7 +291,7 @@ request
                 <TextField
                     id='ProveedoresLoc'
                     label='Localidad'
-                    value={this.state.ProveedoresLoc}
+                    value={this.state.proveedor.ProveedoresLoc}
                     onChange={this.handleChange('ProveedoresLoc')}
                     margin="dense"
                     variant="standard"
@@ -295,7 +299,7 @@ request
                 <TextField
                     id='ProveedoresPcia'
                     label='Provincia'
-                    value={this.state.ProveedoresPcia}
+                    value={this.state.proveedor.ProveedoresPcia}
                     onChange={this.handleChange('ProveedoresPcia')}
                     margin="dense"
                     variant="standard"
@@ -305,7 +309,7 @@ request
                 <TextField
                     id='ProveedoresTel'
                     label='Teléfono'
-                    value={this.state.ProveedoresTel}
+                    value={this.state.proveedor.ProveedoresTel}
                     onChange={this.handleChange('ProveedoresTel')}
                     margin="dense"
                     variant="standard"
@@ -313,7 +317,7 @@ request
                 <TextField
                     id='ProveedoresContacto'
                     label='Contacto'
-                    value={this.state.ProveedoresContacto}
+                    value={this.state.proveedor.ProveedoresContacto}
                     onChange={this.handleChange('ProveedoresContacto')}
                     margin="dense"
                     variant="standard"
@@ -323,7 +327,7 @@ request
                 <TextField
                     id='ProveedoresMail'
                     label='Mail'
-                    value={this.state.ProveedoresMail}
+                    value={this.state.proveedor.ProveedoresMail}
                     onChange={this.handleChange('ProveedoresMail')}
                     margin="dense"
                     variant="standard"
@@ -331,7 +335,7 @@ request
                 <TextField
                     id='ProveedoresWeb'
                     label='Pág.web'
-                    value={this.state.ProveedoresWeb}
+                    value={this.state.proveedor.ProveedoresWeb}
                     onChange={this.handleChange('ProveedoresWeb')}
                     margin="dense"
                     variant="standard"
@@ -342,8 +346,8 @@ request
                     id="ProveedoresCodMon" 
                     select = {true}
                     label= 'Tipo Moneda'
-                    // value={this.state.ProveedoresCodMon}
-                    value={this.state.ProveedoresCodMon}
+                    // value={this.state.proveedor.ProveedoresCodMon}
+                    value={this.state.proveedor.ProveedoresCodMon}
                     onChange = {this.handleChange('ProveedoresCodMon')}>
                     {this.state.stkmonedas.map(option => (
                         <MenuItem key={option.idStkMonedas}
