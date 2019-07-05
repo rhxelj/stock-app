@@ -13,11 +13,11 @@ import { Route } from 'react-router-dom'
 
 import StkMonedas   from './pages/Monedas/StkMonedas'
 import Proveedores  from './pages/Proveedores/Proveedores'
-
 import StkUnMed     from './pages/UnidadMedidas/StkUnMed'
+import StkRubro from './pages/Rubros/StkRubro'
+
 import StkMovimiento from './pages/StkMovimiento'
 import StkMovSalida from './pages/StkMovSalida'
-import StkRubro from './pages/StkRubro'
 import StkGrupo from './pages/StkGrupo';
 import StkItems from './pages/StkItems'
 

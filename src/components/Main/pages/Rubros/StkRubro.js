@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import request from 'superagent'
 // import ReactTable from 'react-table'
 import 'react-table/react-table.css'
-import IpServidor from './VariablesDeEntorno'
+import IpServidor from '../VariablesDeEntorno'
 
+import Grid from '@material-ui/core/Grid';
 
 import Button from '@material-ui/core/Button';
 // import AddIcon from '@material-ui/icons/Add';
@@ -11,7 +12,7 @@ import Button from '@material-ui/core/Button';
 // import StkMonedasAgregar from './StkMonedasAgregar'
 // import StkMonedasBorrar from './StkMonedasBorrar'
 // import StkMonedasModificar from './StkMonedasModificar'
-import StkFab from '../../lib/StkFab'
+import StkFab from '../../../lib/StkFab'
 
 import StkRubroAgregar from './StkRubroAgregar'
 import StkRubroBorrar from './StkRubroBorrar'
@@ -25,6 +26,14 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+
+// Estilo para el botón de borrar
+const style = {
+    marginLeft:'15px',
+    padding:'0px',
+    width:'100px'
+};
+
 
 const CustomTableCell = withStyles(theme => ({
     head: {
@@ -215,7 +224,7 @@ toggleBusqueda = () => {
             this.state.rubro.map((rowData, index) =>
                 Object.assign(rowData, {
                     borrar:
-                        <div className="center-align"><StkRubroBorrar idStkRubro={rowData.idStkRubro} StkRubroCodGrp={rowData.StkRubroCodGrp} read={() => this.read()}></StkRubroBorrar></div>
+                        <StkRubroBorrar idStkRubro={rowData.idStkRubro} StkRubroCodGrp={rowData.StkRubroCodGrp} read={() => this.read()}></StkRubroBorrar>
             })
         );
 
@@ -295,7 +304,16 @@ toggleBusqueda = () => {
         ]
         return (
             <div>
-                <h1>ABM DE RUBRO</h1>
+                {/* <h1>ABM DE RUBRO</h1> */}
+                <Grid container>
+                    <Grid item xs={4} sm={4} lg={4}>
+                    </Grid>
+                    <Grid item xs={4} sm={4} lg={4}>
+                        <h1>ABM DE RUBRO</h1>
+                    </Grid>
+                    <Grid item xs={4} sm={4} lg={4}>
+                    </Grid>
+                </Grid>
                 {/* <input onChange={this.search} type="text" value={this.state.filtered}/>  */}
                 {this.state.toggle_agregar
                     ?
@@ -332,6 +350,7 @@ toggleBusqueda = () => {
                                         <CustomTableCell ></CustomTableCell>
                                     </TableRow> */}
                                 <TableRow>
+                                    <CustomTableCell></CustomTableCell>
                                     {
                                         columns.map((row, index) => {
                                             return (<CustomTableCell key={index} onClick={() => this.sortBy(row.accessor, row.tipo)} >{row.Header}</CustomTableCell>)
@@ -366,7 +385,8 @@ toggleBusqueda = () => {
                                                 this.toggleModificar()}
                                             }
                                         >
-                                            {console.log('presdes en rubro : ',row.StkRubroPresDes)}
+                                            {/* {console.log('presdes en rubro : ',row.StkRubroPresDes)} */}
+                                            <CustomTableCell style={style}>{row.borrar}</CustomTableCell>
                                             <CustomTableCell>{row.idStkRubro}</CustomTableCell>
                                             <CustomTableCell>{row.StkGrupoDesc}</CustomTableCell>
                                             <CustomTableCell>{row.StkRubroDesc}</CustomTableCell>
@@ -378,7 +398,6 @@ toggleBusqueda = () => {
                                             <CustomTableCell>{row.StkRubroUM}</CustomTableCell>
                                             <CustomTableCell>{row.StkRubroCosto}</CustomTableCell>
                                             <CustomTableCell>{row.StkRubroTM}</CustomTableCell>
-                                            <CustomTableCell>{row.borrar}</CustomTableCell>
                                         </TableRow>
                                     );
                                 })}

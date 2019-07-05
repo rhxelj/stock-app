@@ -3,12 +3,12 @@ import request from 'superagent'
 // import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
 
-import IpServidor from './VariablesDeEntorno'
+import IpServidor from '../VariablesDeEntorno'
 
 class StkRubroBorrar extends Component {
     constructor(props){
@@ -65,12 +65,12 @@ class StkRubroBorrar extends Component {
                 {this.state.toggle 
             ?
             <div>
-                <Button 
+                <IconButton 
                     className=" red accent-4" 
                     onClick={()=>this.toggle()}
                     >
                     <DeleteIcon  />
-                </Button>
+                </IconButton>
             </div>
             :
                 <div className="center-align">
@@ -80,8 +80,8 @@ class StkRubroBorrar extends Component {
                     {/* <button className=" red accent-4" onClick={()=>this.rubroborrar(this.props.idMonedas)}>Borrar</button> */}
                     {/* <button className=" blue accent-4" onClick={()=>this.toggle()}>Cancelar</button> */}
                     {/* <button className="red "><i className="material-icons" onClick={()=>this.toggle()}>cancel</i></button> */}
-                    <Button color="primary" onClick={()=>this.rubroborrar(this.props.idStkRubro,this.props.StkRubroCodGrp)}><DoneIcon/></Button>
-                        <Button color="secondary" onClick={()=>this.toggle()}><ClearIcon/></Button>
+                    <IconButton color="primary" onClick={()=>this.rubroborrar(this.props.idStkRubro,this.props.StkRubroCodGrp)}><DoneIcon/></IconButton>
+                        <IconButton color="secondary" onClick={()=>this.toggle()}><ClearIcon/></IconButton>
                 </div>
             // </div> 
             }
