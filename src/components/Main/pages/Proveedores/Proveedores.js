@@ -3,14 +3,15 @@ import request from 'superagent'
 // import ReactTable from 'react-table'
 // import 'react-table/react-table.css'
 
-import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+
 
 // import AgregarProveedor from './ProveedoresAgregar'
-import IpServidor from './VariablesDeEntorno'
+import IpServidor from '../VariablesDeEntorno'
 import ProveedoresAgregar from './ProveedoresAgregar';
 import ProveedoresBorrar from './ProveedoresBorrar'
 import ProveedoresModificar from './ProveedoresModificar';
-import StkFab from '../../lib/StkFab'
+import StkFab from '../../../lib/StkFab'
 
 
 
@@ -22,6 +23,12 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+
+// Estilo para el botón de borrar
+const style = {
+  padding:'0px',
+  width:'47px'
+};
 
 const CustomTableCell = withStyles(theme => ({
   head: {
@@ -210,8 +217,9 @@ toggleBusqueda = () => {
     this.state.proveedores.map((rowData, index) =>
       Object.assign(rowData, {
         borrar:
-          <div className="center-align"><ProveedoresBorrar idProveedores={rowData.idProveedores} read={() => this.read()}></ProveedoresBorrar></div>
-      })
+          // <div className="center-align"><ProveedoresBorrar idProveedores={rowData.idProveedores} read={() => this.read()}></ProveedoresBorrar></div>
+          <ProveedoresBorrar idProveedores={rowData.idProveedores} read={() => this.read()}></ProveedoresBorrar>
+        })
     )
   //************************************** Agrego el campo del Boton BORRAR - End ***********************************  
   
@@ -343,8 +351,16 @@ toggleBusqueda = () => {
 
     return (
       <div>
-        <h1>ABM DE Proveedores</h1>
-
+        {/* <h1>ABM DE Proveedores</h1> */}
+        <Grid container>
+                    <Grid item xs={4} sm={4} lg={4}>
+                    </Grid>
+                    <Grid item xs={4} sm={4} lg={4}>
+                        <h1>ABM DE Proveedores</h1>
+                    </Grid>
+                    <Grid item xs={4} sm={4} lg={4}>
+                    </Grid>
+                </Grid>
         {/* Agregar Proveedor */}
         {this.state.toggle_agregar &&
           // ?
@@ -370,6 +386,7 @@ toggleBusqueda = () => {
             <Table >
               <TableHead>
                 <TableRow>
+                  <CustomTableCell></CustomTableCell>
                   {
                     columns.map((row, index) => {
                       return (<CustomTableCell key={index} onClick={() => {return row.order && this.sortBy(row.accessor)}} >{row.Header}</CustomTableCell>)
@@ -406,6 +423,7 @@ toggleBusqueda = () => {
                   }
                 }key={proveedor.idProveedores}>
 
+                      <CustomTableCell style= {style} >{proveedor.borrar}</CustomTableCell>
                       <CustomTableCell >{proveedor.idProveedores}</CustomTableCell>
                       <CustomTableCell >{proveedor.ProveedoresDesc}</CustomTableCell>
                       {/* <CustomTableCell >{proveedor.StkTipoProveedDesc}</CustomTableCell>  */}
@@ -423,7 +441,6 @@ toggleBusqueda = () => {
                       <CustomTableCell >{proveedor.ProveedoresMail}</CustomTableCell>
                       <CustomTableCell >{proveedor.ProveedoresWeb}</CustomTableCell>
                       <CustomTableCell >{proveedor.ProveedoresCodMon}</CustomTableCell>
-                      <CustomTableCell >{proveedor.borrar}</CustomTableCell>
                     </TableRow>
                   );
                 })}

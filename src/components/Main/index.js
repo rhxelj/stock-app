@@ -11,10 +11,9 @@ import { Route } from 'react-router-dom'
 // import UpdateComponent from './pages/UpdateComponent'
 //import DeleteComponent from './pages/DeleteComponent'
 
-// import StkMonedas   from './pages/StkMonedas'
 import StkMonedas   from './pages/Monedas/StkMonedas'
+import Proveedores  from './pages/Proveedores/Proveedores'
 
-import Proveedores  from './pages/Proveedores'
 import StkUnMed     from './pages/StkUnMed'
 import StkMovimiento from './pages/StkMovimiento'
 import StkMovSalida from './pages/StkMovSalida'
@@ -23,8 +22,6 @@ import StkGrupo from './pages/StkGrupo';
 import StkItems from './pages/StkItems'
 
 
-// import StkMonedasBorrar from './pages/StkMonedasBorrar';
-// import LeerProveedor from './pages/LeerProveedor'
 const Main = () => (
     <main>
         
