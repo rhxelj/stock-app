@@ -1,6 +1,6 @@
 import React, { Component} from 'react'
 import request from 'superagent'
-import IpServidor from './VariablesDeEntorno'
+import IpServidor from '../VariablesDeEntorno'
 import 'react-table/react-table.css'
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
