@@ -14,7 +14,7 @@ import { Route } from 'react-router-dom'
 import StkMonedas   from './pages/Monedas/StkMonedas'
 import Proveedores  from './pages/Proveedores/Proveedores'
 
-import StkUnMed     from './pages/StkUnMed'
+import StkUnMed     from './pages/UnidadMedidas/StkUnMed'
 import StkMovimiento from './pages/StkMovimiento'
 import StkMovSalida from './pages/StkMovSalida'
 import StkRubro from './pages/StkRubro'

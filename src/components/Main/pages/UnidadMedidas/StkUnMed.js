@@ -3,12 +3,12 @@ import request from 'superagent'
 // import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 
-import StkUnMedAgregar from './StkUnMedAgregar'
-import StkUnMedBorrar from './StkUnMedBorrar'
-import StkUnMedModificar from './StkUnMedModificar'
+import StkUnMedAgregar from '../UnidadMedidas/StkUnMedAgregar'
+import StkUnMedBorrar from '../UnidadMedidas/StkUnMedBorrar'
+import StkUnMedModificar from '../UnidadMedidas/StkUnMedModificar'
 
-import IpServidor from './VariablesDeEntorno'
-import StkFab from '../../lib/StkFab'
+import IpServidor from '../VariablesDeEntorno'
+import StkFab from '../../../lib/StkFab'
 
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -26,6 +26,11 @@ import { withStyles } from '@material-ui/core/styles';
 // import StkMonedasModificar from './StkMonedasModificar'
 // import Button from '@material-ui/core/Button';
 
+// Estilo para el botón de borrar
+const style = {
+    padding:'0px',
+    width:'100px'
+};
 
 
 const CustomTableCell = withStyles(theme => ({
@@ -174,7 +179,7 @@ borraFiltered = ()=> {
         this.state.unidad_medidas.map( (rowData,index) => 
             Object.assign(rowData, { 
                 borrar: 
-                    <div className="center-align"><StkUnMedBorrar idStkUnMed={rowData.idStkUnMed} read={()=>this.read()}></StkUnMedBorrar></div>})
+                    <StkUnMedBorrar idStkUnMed={rowData.idStkUnMed} read={()=>this.read()}></StkUnMedBorrar>})
         );
         //************************************** Agrego el campo del Boton BORRAR - End ***********************************  
 
@@ -222,8 +227,12 @@ borraFiltered = ()=> {
         return( 
             <div>
                 <Grid container>
-                    <Grid item xs={12} sm={12} lg={12}>
+                    <Grid item xs={4} sm={4} lg={4}>
+                    </Grid>
+                    <Grid item xs={4} sm={4} lg={4}>
                         <h1>ABM DE UnidadMedidas</h1>
+                    </Grid>
+                    <Grid item xs={4} sm={4} lg={4}>
                     </Grid>
                 </Grid>
 
@@ -251,11 +260,11 @@ borraFiltered = ()=> {
                         <Table >
                             <TableHead>
                                 <TableRow className={this.props.classes.row} >
+                                    <CustomTableCell ></CustomTableCell>
                                     {columns.map((row, index) => {
                                         return (<CustomTableCell key={index} onClick={() => { return row.order && this.sortBy(row.accessor) }} >{row.Header}</CustomTableCell>)
                                     })
                                     }
-                                    <CustomTableCell ></CustomTableCell>
                                 </TableRow>
                             </TableHead>
 
@@ -271,9 +280,9 @@ borraFiltered = ()=> {
                                             }}
                                         >
 
+                                            <CustomTableCell style={style}>{row.borrar}</CustomTableCell>
                                             <CustomTableCell>{row.idStkUnMed}</CustomTableCell>
                                             <CustomTableCell>{row.StkUnMedDesc}</CustomTableCell>
-                                            <CustomTableCell>{row.borrar}</CustomTableCell>
                                         </TableRow>
                                     );
                                 })}
