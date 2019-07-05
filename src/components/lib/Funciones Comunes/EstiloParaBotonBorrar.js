@@ -1,15 +1,17 @@
-// Agregar esto a los imports en el componente "...Borrar.js"
+// Agregar esto al componente "...Borrar.js"
+    // En los imports
+    import IconButton from '@material-ui/core/IconButton';
+    // Cambiar Button por IconButton
+        <IconButton></IconButton>
 
-import IconButton from '@material-ui/core/IconButton';
+// Agregar esto después de los Imports en el componente Principal por ejemplo"StkMonedas.js"
 
-// Agregar esto después de los Imports 
+    // Estilo para el botón de borrar
+    const style = {
+        padding:'0px',
+        width:'100px'
+    };
 
-// Estilo para el botón de borrar
-const style = {
-    padding:'0px',
-    width:'47px'
-  };
+    // y agregar esto style={style}
 
-// Tambien agreagar esto style={style}
-
-<CustomTableCell style= {style}>{NombreDelComponente.borrar}</CustomTableCell>
+    <CustomTableCell style= {style}>{NombreDelComponente.borrar}</CustomTableCell>
