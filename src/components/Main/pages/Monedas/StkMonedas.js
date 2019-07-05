@@ -2,11 +2,13 @@
 import React, { Component } from 'react'
 import request from 'superagent'
 
-import IpServidor from './VariablesDeEntorno'
+import IpServidor from '../../pages/VariablesDeEntorno'
 import StkMonedasAgregar from './StkMonedasAgregar'
 import StkMonedasBorrar from './StkMonedasBorrar'
 import StkMonedasModificar from './StkMonedasModificar'
-import StkFab from '../../lib/StkFab'
+// import StkFab from '../../../lib/StkFab'
+
+import StkFab from '../../../lib/StkFab'
 
 // import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -17,6 +19,13 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { withStyles } from '@material-ui/core/styles'; 
+
+
+// Estilo para el boton de borrar
+const style = {
+    padding:'0px',
+    width:'47px'
+  };
 
 
 const CustomTableCell = withStyles(theme => ({
@@ -185,7 +194,8 @@ class Monedas extends Component {
 
         this.state.monedas.map(
             (rowData, index) =>
-                Object.assign(rowData, { borrar: <div className="center-align"><StkMonedasBorrar idMonedas={rowData.idStkMonedas} read={() => this.read()}></StkMonedasBorrar></div> })
+                // Object.assign(rowData, { borrar: <div className="center-align"><StkMonedasBorrar idMonedas={rowData.idStkMonedas} read={() => this.read()}></StkMonedasBorrar></div> })
+                Object.assign(rowData, { borrar:<StkMonedasBorrar idMonedas={rowData.idStkMonedas} read={() => this.read()}></StkMonedasBorrar> })
         );
 
         //  ************************************ Agrego el campo del Boton BORRAR - end  ***********************************
@@ -237,11 +247,14 @@ class Monedas extends Component {
         return (
             <div>
                 <Grid container>
-                    <Grid item xs={12} sm={12} lg={12}>
+                    <Grid item xs={4} sm={4} lg={4}>
+                    </Grid>
+                    <Grid item xs={4} sm={4} lg={4}>
                         <h1>ABM DE Monedas</h1>
                     </Grid>
+                    <Grid item xs={4} sm={4} lg={4}>
+                    </Grid>
                 </Grid>
-
                 {/* Muestra el Componente AgregarMonedas  */}
 
                 {/* this.state.toggle_agregar && */}
@@ -270,11 +283,11 @@ class Monedas extends Component {
                         <Table >
                             <TableHead>
                                 <TableRow className={this.props.classes.row} >
+                                    <CustomTableCell ></CustomTableCell>
                                     {columns.map((row, index) => {
                                         return (<CustomTableCell key={index} onClick={() => { return row.order && this.sortBy(row.accessor) }} >{row.Header}</CustomTableCell>)
                                     })
                                     }
-                                    <CustomTableCell ></CustomTableCell>
                                 </TableRow>
                             </TableHead>
 
@@ -294,10 +307,10 @@ class Monedas extends Component {
                                                 console.log(this.state.toggle)
                                             }}
                                         >
+                                            <CustomTableCell style= {style}>{moneda.borrar}</CustomTableCell>
                                             <CustomTableCell>{moneda.idStkMonedas}</CustomTableCell>
                                             <CustomTableCell>{moneda.StkMonedasDescripcion}</CustomTableCell>
                                             <CustomTableCell>{moneda.StkMonedasCotizacion}</CustomTableCell>
-                                            <CustomTableCell>{moneda.borrar}</CustomTableCell>
                                         </TableRow>
                                     );
                                 })}

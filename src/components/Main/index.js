@@ -10,7 +10,10 @@ import { Route } from 'react-router-dom'
 // import ReadComponent from './pages/ReadComponent'
 // import UpdateComponent from './pages/UpdateComponent'
 //import DeleteComponent from './pages/DeleteComponent'
-import StkMonedas   from './pages/StkMonedas'
+
+// import StkMonedas   from './pages/StkMonedas'
+import StkMonedas   from './pages/Monedas/StkMonedas'
+
 import Proveedores  from './pages/Proveedores'
 import StkUnMed     from './pages/StkUnMed'
 import StkMovimiento from './pages/StkMovimiento'
