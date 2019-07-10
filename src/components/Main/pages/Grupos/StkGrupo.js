@@ -10,13 +10,20 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import StkGrupoAgregar from './StkGrupoAgregar'
 import StkGrupoBorrar from './StkGrupoBorrar'
 import StkGrupoModificar from './StkGrupoModificar'
 
-import StkFab from '../../lib/StkFab'
+import StkFab from '../../../lib/StkFab'
 
-import IpServidor from './VariablesDeEntorno'
+import IpServidor from '../VariablesDeEntorno'
+
+    // Estilo para el botón de borrar
+    const style = {
+        padding:'0px',
+        width:'100px'
+    };
 
 const CustomTableCell = withStyles(theme => ({
     head: {
@@ -164,7 +171,7 @@ class StkGrupo extends Component {
         this.state.grupos.map( (rowData,index) => 
         // Object.assign(rowData, { borrar: <button className=" red accent-4" onClick={()=>this.deleteProduct(rowData.idStkMonedas)}>Borrar</button> })
         Object.assign(rowData, { borrar: 
-            <div className="center-align"><StkGrupoBorrar idStkGrupo={rowData.idStkGrupo} leestkgrupo={()=>this.leestkgrupo()} read={()=>this.leestkgrupo()}></StkGrupoBorrar></div>})
+            <StkGrupoBorrar idStkGrupo={rowData.idStkGrupo} leestkgrupo={()=>this.leestkgrupo()} read={()=>this.leestkgrupo()}></StkGrupoBorrar>})
         );
 
 
@@ -213,8 +220,16 @@ class StkGrupo extends Component {
 
         return( 
             <div>
-                <h1>ABM DE GRUPOS</h1>
-                
+                {/* <h1>ABM DE GRUPOS</h1> */}
+                <Grid container>
+                    <Grid item xs={4} sm={4} lg={4}>
+                    </Grid>
+                    <Grid item xs={4} sm={4} lg={4}>
+                        <h1>ABM DE GRUPOS</h1>
+                    </Grid>
+                    <Grid item xs={4} sm={4} lg={4}>
+                    </Grid>
+                </Grid>
                 
                 {this.state.toggle_agregar && // Muestra el componente agregar 
                 <div>
@@ -236,6 +251,7 @@ class StkGrupo extends Component {
                     <Table >
                         <TableHead>
                             <TableRow>
+                                <CustomTableCell ></CustomTableCell>
                                 {
                                     columns.map((row, index) => {
                                     return (<CustomTableCell key={index} onClick={() => { return row.order && this.sortBy(row.accessor) }} >{row.Header}</CustomTableCell>)
@@ -256,11 +272,11 @@ class StkGrupo extends Component {
                                     this.setState({StkGrupoContRubro:row.StkGrupoContRubro})
                                     this.toggleModificar()}}
                                     >
+                                    <CustomTableCell style= {style}>{row.borrar}</CustomTableCell>
                                     <CustomTableCell>{row.idStkGrupo}</CustomTableCell>
                                     <CustomTableCell>{row.StkGrupoDesc}</CustomTableCell>
                                     <CustomTableCell>{row.StkGrupoAbr}</CustomTableCell>
                                     <CustomTableCell>{row.StkGrupoContRubro}</CustomTableCell>
-                                    <CustomTableCell>{row.borrar}</CustomTableCell>
                                 </TableRow>
                                 );
                             })}

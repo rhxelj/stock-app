@@ -2,39 +2,39 @@ import IpServidor from './VariablesDeEntorno'
 
 
 
-// Cosas a agregar para la funcion de Busqueda Begin **************************************************************************************************
+// // Cosas a agregar para la funcion de Busqueda Begin **************************************************************************************************
 
-    // Funcion De Busqueda - Begin
+//     // Funcion De Busqueda - Begin
 
-        search = (event) => {                       // Funcion de busqueda
-            // var name  = event.target.name
-            var value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value
-            this.setState({ filtered: value })
-        }
+//         search = (event) => {                       // Funcion de busqueda
+//             // var name  = event.target.name
+//             var value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value
+//             this.setState({ filtered: value })
+//         }
 
-    // Funcion De Busqueda - End.
+//     // Funcion De Busqueda - End.
     
-    // Opcion para borrar contenido del cuadro de busqueda - BEGIN    
+//     // Opcion para borrar contenido del cuadro de busqueda - BEGIN    
         
-        borraFiltered = ()=> {
-            this.setState({ filtered: '' })
-        }
+//         borraFiltered = ()=> {
+//             this.setState({ filtered: '' })
+//         }
 
-    // Opcion para borrar contenido del cuadro de busqueda - END
+//     // Opcion para borrar contenido del cuadro de busqueda - END
     
-        //  Esto se agrega dentro de la funcion render 
+//         //  Esto se agrega dentro de la funcion render 
 
-    // Filtrado de datos - Begin 
+//     // Filtrado de datos - Begin 
 
-        var filtrado = this.state.monedas.filter((moneda) => {
-            return (
-                moneda.idStkMonedas.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1 ||
-                moneda.StkMonedasDescripcion.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
-            )
-        })
-    // Filtrado de datos - End  
+//         var filtrado = this.state.monedas.filter((moneda) => {
+//             return (
+//                 moneda.idStkMonedas.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1 ||
+//                 moneda.StkMonedasDescripcion.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
+//             )
+//         })
+//     // Filtrado de datos - End  
 
-// Cosas a agregar para la funcion de Busqueda End *************************************************************************************************************
+// // Cosas a agregar para la funcion de Busqueda End *************************************************************************************************************
 
 
 
