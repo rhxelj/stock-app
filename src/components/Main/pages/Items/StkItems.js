@@ -11,15 +11,20 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import StkFab from '../../lib/StkFab'
+import StkFab from '../../../lib/StkFab'
 
 import StkItemsAgregar from './StkItemsAgregar'
 import StkItemsBorrar from './StkItemsBorrar'
 import StkItemsModificar from './StkItemsModificar'
-
+import Grid from '@material-ui/core/Grid';
 // import orderBy from 'lodash/orderBy'
 
-import IpServidor from './VariablesDeEntorno'
+import IpServidor from '../VariablesDeEntorno'
+// Estilo para el botón de borrar
+const style = {
+    padding:'0px',
+    width:'100px'
+};
 
 // Estilos Inicio
 const CustomTableCell = withStyles(theme => ({
@@ -185,43 +190,6 @@ toggleBusqueda = () => {
         }
     // }
     
-// //   Ordenar Begin
-
-// sortBy(key,tipo){
-//     tipo === "numero"
-//         ?      
-//             this.sortByNumero(key)
-//         :   
-        
-//         this.sortByTexto(key)
-// }
-
-// // Ordena Numeros
-//     sortByNumero(key) {
-//         console.log("Ordena numero")
-//         this.setState({
-//           items: this.state.items.sort((a, b) =>
-//             this.state.direction[key] === "asc" ? a[key] - b[key] : b[key] - a[key]
-//           ),
-//           direction: {
-//             [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
-//           }
-//         });
-//       }
-//       // ordena Texto
-//       sortByTexto(key) {
-//         console.log("Ordena Texto")
-//         this.setState({
-//           items: this.state.items.sort((a, b) =>
-//             this.state.direction[key] === "asc" ? a[key].toUpperCase() < b[key].toUpperCase() : a[key].toUpperCase() > b[key].toUpperCase()
-//           ),
-//           direction: {
-//             [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
-//           }
-//         });
-//       }
-
-// // Ordenar End
 
     toggle(event){
     // toogle = (event)=>{
@@ -339,10 +307,18 @@ toggleBusqueda = () => {
 
         return( 
             <div>
-                <h1>ABM DE items</h1>
-                
+                <Grid container>
+                    <Grid item xs={4} sm={4} lg={4}>
+                    </Grid>
+                    <Grid item xs={4} sm={4} lg={4}>
+                        <h1>ABM DE ITEMS</h1>
+                    </Grid>
+                    <Grid item xs={4} sm={4} lg={4}>
+                    </Grid>
+                </Grid>
+
+
                 {this.state.toggle_agregar &&
-                // ?
                 // Muestra el Componente AgregarItems 
                 <div>
                     <div className="row">
@@ -356,17 +332,12 @@ toggleBusqueda = () => {
                         </div>
                     </div>
                 </div>
-                // :
-                // Boton Agregar 
-                // <p onClick={()=>this.toggle()} className='btn'>AGREGAR ITEM</p>
-                // <Button onClick={() => this.toggle()} variant="contained" color="primary">AGREGAR ITEM</Button>
-                // Aca va el campo de filtrado
                 }
                
                 
 
-               {!this.state.toggle_agregar
-                ?
+               {!this.state.toggle_agregar &&
+                // ?
                 // Muestar la tabla de Items
                 <Paper >
                 <Table >
@@ -378,6 +349,7 @@ toggleBusqueda = () => {
                             <CustomTableCell ></CustomTableCell>
                         </TableRow> */}
                         <TableRow>
+                            <CustomTableCell></CustomTableCell>
                             {
                                 columns.map((row, index) => {
                                 // return (<CustomTableCell key={index} onClick={() => this.sortBy(row.accessor,row.tipo)} >{row.Header}</CustomTableCell>)
@@ -410,6 +382,7 @@ toggleBusqueda = () => {
                             >
                                 {/* {console.log("row ")} */}
                                 {/* {console.log(row)} */}
+                                <CustomTableCell style= {style}>{row.borrar}</CustomTableCell>
                                 <CustomTableCell>{row.idStkItems}</CustomTableCell>
                                 <CustomTableCell>{row.StkGrupoDesc}</CustomTableCell>
                                 <CustomTableCell>{row.StkRubroDesc}</CustomTableCell>
@@ -419,15 +392,14 @@ toggleBusqueda = () => {
                                 <CustomTableCell>{row.StkItemsFAct}</CustomTableCell> 
                                 <CustomTableCell>{row.StkItemsMin}</CustomTableCell>
                                 <CustomTableCell>{row.StkItemsMax}</CustomTableCell>
-                                <CustomTableCell>{row.borrar}</CustomTableCell>
                             </TableRow>
                             );
                         })}
                     </TableBody>
                 </Table>
             </Paper>
-                :
-                    <div></div>  
+                // :
+                //     <div></div>  
                 }
 
 

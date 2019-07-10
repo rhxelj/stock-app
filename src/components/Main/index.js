@@ -19,7 +19,7 @@ import StkGrupo     from './pages/Grupos/StkGrupo';
 
 import StkMovimiento from './pages/StkMovimiento'
 import StkMovSalida from './pages/StkMovSalida'
-import StkItems from './pages/StkItems'
+import StkItems from './pages/Items/StkItems'
 
 
 const Main = () => (

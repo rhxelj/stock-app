@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import request from "superagent";
-import IpServidor from "./VariablesDeEntorno";
+import IpServidor from "../VariablesDeEntorno";
 import "react-table/react-table.css";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
@@ -8,33 +8,43 @@ import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
+// import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from "@material-ui/core/DialogTitle";
+
 import Grid from '@material-ui/core/Grid';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
 
+// import Select from '@material-ui/core/Select';
 
-class StkItemsAgregar extends Component {
+// import AgregarMonedas from './StkMonedasAgregar'
+
+class StkItemsModificar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      StkItemsGrupo:0 ,
-      StkItemsRubro: 0,
-      StkItemsDesc: "",
-      StkItemsCantidad: 0,
+      idStkItems: this.props.idStkItems ,
+      StkItemsGrupo: this.props.StkItemsGrupo ,
+      StkItemsRubro: this.props.StkItemsRubro,
+      StkGrupoDesc: this.props.StkGrupoDesc ,
+      StkRubroDesc: this.props.StkRubroDesc,
+      StkItemsDesc: this.props.StkItemsDesc,
+      StkItemsCantidad: this.props.StkItemsCantidad ,
+      StkItemsCantDisp: this.props.StkItemsCantDisp ,
+      // StkItemsCantDisp: 0,
       StkItemsFAct: "",
-      StkItemsMin: 0,
-      StkItemsMax:0,
+      StkItemsMin: this.props.StkItemsMin,
+      StkItemsMax:this.props.StkItemsMax,
+      // StkItemsObserv:this.props.StkItemsObserv,
       stkrubro:[],
       stkgrupo:[],
+      // idStkTipoProveed: StkItemsMin
+      // StkTipoProveedDescStkItemsMin
+      // proveedores: [],
+      // idStkMonedas: "",
       open: true,
-      // leeStkItemsDetalles: this.props.leeStkItemsDetalles,
     };
-    this.updateField = this.updateField.bind(this);
-    // this.submitItem = this.submitItem.bind(this);
-    
+    // this.updateField = thisStkItemsMin
+    // this.submitItem = thStkItemsMin
   }
 
 
@@ -61,7 +71,17 @@ class StkItemsAgregar extends Component {
   // Create
 
   add = _ => {
-    const url = IpServidor + '/stkitemsagregar/?id2=' + this.state.StkItemsGrupo + '&id3=' + this.state.StkItemsRubro
+    const url = IpServidor + '/stkitemsmodificar/?id1='+this.state.idStkItems+'&id2=' + this.state.StkItemsGrupo + '&id3=' + this.state.StkItemsRubro
+    console.log('url : '+ url)
+    console.log('this.state.StkItemsGrupo',this.state.StkItemsGrupo)
+      console.log('this.state.StkItemsRubro',this.state.StkItemsRubro)
+
+      console.log('this.state.StkItemsDesc',this.state.StkItemsDesc)
+      console.log('this.state.StkItemsCantidad',this.state.StkItemsCantidad)
+      console.log('this.state.StkItemsCantDisp',this.state.StkItemsCantDisp)
+      console.log('this.state.StkItemsMin',this.state.StkItemsMin)
+      console.log('this.state.StkItemsMax',this.state.StkItemsMax)
+      // console.log('this.state.StkItemsObserv',this.state.StkItemsObserv)
 
     request
       .post(url)
@@ -69,12 +89,22 @@ class StkItemsAgregar extends Component {
       .set("Content-Type", "application/json")
       .send({ StkItemsDesc: this.state.StkItemsDesc})
       .send({ StkItemsCantidad: this.state.StkItemsCantidad})
+      .send({ StkItemsCantDisp: this.state.StkItemsCantDisp})
       .send({ StkItemsMin: this.state.StkItemsMin})
       .send({ StkItemsMax: this.state.StkItemsMax})
       // .send({ StkItemsObserv: this.state.StkItemsObserv})            
-      // .set("X-API-Key", "foobar")
+      .set("X-API-Key", "foobar")
       .then(function(res) {})
       .catch(function(err){console.log(err)})
+
+      console.log('this.state.StkItemsGrupo',this.state.StkItemsGrupo)
+      console.log('this.state.StkItemsRubro',this.state.StkItemsRubro)
+
+      console.log('this.state.StkItemsDesc',this.state.StkItemsDesc)
+      console.log('this.state.StkItemsCantidad',this.state.StkItemsCantidad)
+      console.log('this.state.StkItemsMin',this.state.StkItemsMin)
+      console.log('this.state.StkItemsMax',this.state.StkItemsMax)
+      // console.log('this.state.StkItemsObserv',this.state.StkItemsObserv)
   };
 
 // Lee tipo Grupo inicio 
@@ -85,16 +115,43 @@ class StkItemsAgregar extends Component {
     .get(url)
     .set('Content-Type', 'application/json')
     .then(res=> {
-        const stkgrupo = JSON.parse(res.text);
+        
+          const stkgrupo = JSON.parse(res.text);
+          console.log(`stkgrupo :`)
+    console.log(stkgrupo)
         this.setState(()=>{ return {stkgrupo: stkgrupo}});
         
         })
-   
+    console.log(`dentro de leestkgrupo `)
+    console.log(`this.state.stkgrupo :`)
+    console.log(this.state.stkgrupo)
+    
+    // this.marcagrupo()
     }
 // Lee tipo Grupo Fin
 
 // Lee tipo Rubro inicio 
 
+
+
+
+
+// leestkrubro = _ => {
+//   // const url = 'http://localhost:4000/stkgrupoleer' ; //'http://localhost:3000/data'
+//   const url = IpServidor + "/stkrubroleer";
+//   request
+//   .get(url)
+//   .set('Content-Type', 'application/json')
+//       .then(res=> {
+//         const stkrubro = JSON.parse(res.text);
+//         this.setState(()=>{ return {stkrubro: stkrubro}});
+
+//         console.log('dentro de leestkrubro')
+//         console.log(this.state.stkrubro)
+//       })
+  
+//   // this.marcagrupo()
+//   }
 stkrubroleecodgrupo = (id) => {
   // const url = 'http://localhost:4000/stkgrupoleer' ; //'http://localhost:3000/data'
   const url = IpServidor + "/stkrubroleecodgrupo/"+id;
@@ -108,6 +165,8 @@ stkrubroleecodgrupo = (id) => {
         console.log('dentro de leestkrubro')
         console.log(this.state.stkrubro)
       })
+  
+  // this.marcagrupo()
   }
 
 
@@ -126,25 +185,38 @@ stkrubroleecodgrupo = (id) => {
     this.setState({ isOpen: !this.state.isOpen });
   };
 
+  // submitItem(e) {
+  //   e.preventDefault();
+  //   this.add();
+  //   // aca pongo mensaje de error
+  //   this.props.read()
+  //   // alert("ERROR")
+  //   this.props.click();
+  // }
+
   submitItem = (e) => {
     e.preventDefault();
-    this.add(); 
+    this.add();
     // aca pongo mensaje de error
-    // alert("aca grabo!!!")
+    // this.props.read()
     this.props.leeStkItemsDetalles()
-    // this.leeStkItemsDetalles()
-    // window.location.reload() //esto hace que rrecargue la pagina no se por que no anda con la funcion que le estoy pasando ( this.props.leeStkItemsDetalles())
-    this.props.toggleAgregar();
+    // alert("ERROR")
+    this.props.clickmodificar();
   }
- 
+
   componentWillMount(){
+    // this.proveedoresleer()
     this.leestkgrupo()
+    // this.leestkrubro()
+    // this.unmedleer()
+    // this.leetmon()
+    // console.log('tipo proveedor dentro de DIDMOUNT ')
+    // console.log(this.state.tipoprov)
   }
-
+  
   componentDidMount() {
-   
+    // this.stkrubroleecodgrupo(this.state.StkItemsGrupo)
   }
-
 
   render() {
     
@@ -158,7 +230,7 @@ stkrubroleecodgrupo = (id) => {
         >
         <Grid container>
           <Grid item xs={4} sm={4} lg={4}></Grid>
-            <DialogTitle id="form-dialog-title">Aregar Item</DialogTitle>
+            <DialogTitle id="form-dialog-title">MODIFICAR ITEM</DialogTitle>
           <Grid item xs={4} sm={4} lg={4}></Grid>
         </Grid>
           <DialogContent>
@@ -167,35 +239,32 @@ stkrubroleecodgrupo = (id) => {
 
 {/* Grupo INICIO*/}
               <Grid item  xs={6} sm={6} lg={6}>
-              <TextField
-                SelectProps={{
-                  native: true,
-                }}
+              <p>{this.state.StkGrupoDesc}</p>
+              {/* <TextField
                 id="StkItemsGrupo"
                 select={true}
                 fullWidth={true}
                 label="Grupo"
                 autoFocus={true}
                 InputLabelProps={{ shrink: true }}
-                value={this.state.StkItemsGrupo}
-                // onChange={this.handleChange("StkItemsGrupo")}
+                value={this.state.StkGrupoDesc}
+                onChange={this.handleChange("StkItemsGrupo")}
                 onChange={this.handleChangeGrupo("StkItemsGrupo")}
                 onKeyPress={event => {
                   if (event.key === "Enter")
                     document.getElementById("StkItemsRubro").focus();
                 }}
-              >
-                 <option></option>
-                 {this.state.stkgrupo.map(option => (  
-                  
-                  <option
+              > */}
+                 
+                 {/* {this.state.stkgrupo.map(option => (  
+                  <MenuItem
                   id="tipogrupo"
                   key={option.idStkGrupo}
                   value={option.idStkGrupo}
                   >
                       {option.StkGrupoDesc} 
-                  </option>))} 
-              </TextField>
+                  </MenuItem>))} 
+              </TextField> */}
               </Grid>
 {/* Grupo FIN */}
 
@@ -203,43 +272,41 @@ stkrubroleecodgrupo = (id) => {
 {/* Rubro INICIO */}
             
 <Grid item  xs={6} sm={6} lg={6}>
-              <TextField
-                SelectProps={{
-                  native: true,
-                }}
+              <p>{this.state.StkRubroDesc}</p>
+              {/* <TextField
+                disabled
                 id="StkItemsRubro"
-                select={true}
+                // select={true}
                 label="Rubro"
                 fullWidth={true}
                 InputLabelProps={{ shrink: true }} 
-                value={this.state.StkItemsRubro}
-                onChange={this.handleChange("StkItemsRubro")}
+                value={this.state.StkRubroDesc}
+                // onChange={this.handleChange("StkItemsRubro")}
                 onKeyPress={event => {
                   if (event.key === "Enter")
                     document.getElementById("StkItemsDesc").focus();
                 }}
-              >
-                 <option></option>
+              > */}
+{/*                  
                  {this.state.stkrubro.map(option => (  
-                  // <MenuItem
-                  <option
+                  <MenuItem
                   id="tiporubro"
                   key={option.idStkRubro}
                   value={option.idStkRubro}
                   onClick={()=>console.log("Hizo Click")}
                   >
                       {option.StkRubroDesc} 
-                  {/* </MenuItem>))}  */}
-                  </option>))} 
-              </TextField>
+                  </MenuItem>))}  */}
+              {/* </TextField> */}
               </Grid>
 {/* Rubro FIN */}
-
+    
 {/* Descripción INICIO */}
   <Grid item  xs={12} sm={12} lg={12}>
   <TextField
               id="StkItemsDesc"
               label="descripcion"
+              autoFocus={true}
               value={this.state.StkItemsDesc}
               onChange={this.handleChange("StkItemsDesc")}
               margin="dense"
@@ -253,7 +320,7 @@ stkrubroleecodgrupo = (id) => {
             />
             </Grid>
 {/* Descripción Fin */}
-            <Grid item  xs={4} sm={4} lg={4}>
+            <Grid item  xs={3} sm={3} lg={3}>
               <TextField
                 id="StkItemsCantidad"
                 label="Cantidad"
@@ -262,13 +329,31 @@ stkrubroleecodgrupo = (id) => {
                 onChange={this.handleChange("StkItemsCantidad")}
                 margin="dense"
                 variant="standard"
+                InputLabelProps={{ shrink: true }}
+                onKeyPress={event => {
+                  if (event.key === "Enter")
+                    document.getElementById("StkItemsCantDisp").focus();
+                }}
+              />
+              </Grid>
+              <Grid item  xs={3} sm={3} lg={3}>
+              <TextField
+                id="StkItemsCantDisp"
+                label="Cantidad Disponible"
+                type="number"
+                value={this.state.StkItemsCantDisp}
+                onChange={this.handleChange("StkItemsCantDisp")}
+                margin="dense"
+                variant="standard"
+                InputLabelProps={{ shrink: true }}
                 onKeyPress={event => {
                   if (event.key === "Enter")
                     document.getElementById("StkItemsMin").focus();
                 }}
               />
               </Grid>
-              <Grid item  xs={4} sm={4} lg={4}>
+
+              <Grid item  xs={3} sm={3} lg={3}>
 <TextField
                 id="StkItemsMin"
                 label="Stock Minimo"
@@ -283,7 +368,7 @@ stkrubroleecodgrupo = (id) => {
                 }}
               />
               </Grid>
-              <Grid item  xs={4} sm={4} lg={4}>
+              <Grid item  xs={3} sm={3} lg={3}>
               <TextField
                 id="StkItemsMax"
                 label="Stock Maximo"
@@ -312,8 +397,8 @@ stkrubroleecodgrupo = (id) => {
                     document.getElementById("Grabar").focus();
                 }}
               />
-              </Grid>
-          */}
+              </Grid> */}
+         
             </Grid>
           </DialogContent>
           <DialogActions>
@@ -323,13 +408,13 @@ stkrubroleecodgrupo = (id) => {
               color="primary"
               onClick={this.submitItem}
             >
-              Grabar
+              MODIFICAR
             </Button>
             <Button
               variant="contained"
               color="secondary"
-              onClick={this.props.toggleAgregar}
-              // onClick={()=>{return alert("GRABO RUBRO")}}
+              onClick={this.props.clickmodificar}
+              // onClick={()=>{return alert("cancelo modificar")}}
             >
               Cancelar
             </Button>
@@ -340,4 +425,4 @@ stkrubroleecodgrupo = (id) => {
   }
 }
 
-export default StkItemsAgregar;
+export default StkItemsModificar;
