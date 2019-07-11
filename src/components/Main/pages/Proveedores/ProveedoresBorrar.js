@@ -46,7 +46,7 @@ class ProveedoresBorrar extends Component {
 
     // //Delete
       borrarProveedor = (id)=> {
-        const url = IpServidor + '/proveedoresborrar/'+id 
+        const url = IpServidor + '/proveedoresborrar/?id='+id 
         request
           .delete(url)
           .set('Content-Type', 'application/json')
