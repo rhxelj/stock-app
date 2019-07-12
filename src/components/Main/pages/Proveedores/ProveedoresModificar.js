@@ -120,7 +120,8 @@ ActualizaProveedor = () => {
 console.log("contenido de proveedor ")
     console.log(this.state.proveedor)
 request                  
-  .post(IpServidor + '/proveedoresmodificar/'+this.state.idProveedores)
+  .post(IpServidor + '/proveedoresmodificar/'+this.state.proveedor.idProveedores)
+// .post(IpServidor + '/proveedoresmodificar/?:id'+this.state.proveedor.idProveedores)
      .set('Content-Type', 'application/json')
         .send({ ProveedoresDesc: this.state.proveedor.ProveedoresDesc})
         .send({ ProveedoresTipo: this.state.proveedor.ProveedoresTipo})
