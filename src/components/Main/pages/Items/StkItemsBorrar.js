@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
+import CodigoError from '../../../lib/CodigoError'
 
 class StkItemsBorrar extends Component {
     constructor(props){
@@ -39,28 +40,15 @@ class StkItemsBorrar extends Component {
     
     // //Delete
       borrarItem = ()=> {
-    //    const {id0,id1,id2} = {idprops}
-    //    console.log("id0 id1 id2 ",idStkItems,StkItemsGrupo,StkItemsRubro)
-    //    const url = IpServidor + '/stkitemsborrar/?id1=' + this.props.StkItem[0] + '&id2=' +this.props.StkItem[1]+'&id3='+this.props.StkItem[2]
     const url = IpServidor + '/stkitemsborrar/?id1=' + this.state.idStkItems + '&id2=' + this.state.StkItemsGrupo+'&id3=' + this.state.StkItemsRubro
         request
           .delete(url)
           .set('Content-Type', 'application/json')
-          //.set('X-API-Key', 'foobar')
           .then(function(res) {
-        // res.body, res.headers, res.status
           })
-         
-          .catch(err => {
-            if (err.status === 411) 
-                    {
-                    alert('Código de Moneda Usado no se puede borrar  ') 
-                    }
-                })
+          .catch((err) => CodigoError(err))
                 this.props.read()
                 this.toggle()
-          
-        
       }
     
     

@@ -13,7 +13,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 // import Select from '@material-ui/core/Select';
 
 // import AgregarMonedas from './StkMonedasAgregar'
-
+import CodigoError from '../../../lib/CodigoError'
 import Grid from '@material-ui/core/Grid';
 
 class StkRubroAgregar extends Component {
@@ -234,7 +234,8 @@ class StkRubroAgregar extends Component {
       .send({ StkRubroCosto: this.state.StkRubroCosto })
       .send({ StkRubroTM: this.state.StkRubroTM })
       // .set("X-API-Key", "foobar")
-      .then(function(res) {});
+      .then(function(res) {})
+      .catch((err) => CodigoError(err))
       
     };
 

@@ -11,6 +11,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 // import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+import CodigoError from '../../../lib/CodigoError'
   
 class ProveedoresAgregar extends Component {
     constructor(props){
@@ -85,6 +86,11 @@ this.setState({ open: false });
 handleChange = prop => event => {
     console.log("dentro de handlechange, Valors de event.target.value : "+event.target.value)
     this.setState({ [prop]: event.target.value });
+
+    this.setState({
+        proveedor:{...this.state.proveedor,[event.target.id]: event.target.value},
+    })
+
   };
 
 
@@ -111,30 +117,32 @@ read = _ => {
 
 //Update
 ActualizaProveedor = () => {
-
+console.log("contenido de proveedor ")
+    console.log(this.state.proveedor)
 request                  
   .post(IpServidor + '/proveedoresmodificar/'+this.state.idProveedores)
      .set('Content-Type', 'application/json')
-        .send({ ProveedoresDesc: this.state.ProveedoresDesc})
-        .send({ ProveedoresTipo: this.state.ProveedoresTipo})
-        .send({ ProveedoresCUIT: this.state.ProveedoresCUIT})        
-        .send({ ProveedoresCalle: this.state.ProveedoresCalle})
-        .send({ ProveedoresNroCalle: this.state.ProveedoresNroCalle})
-        .send({ ProveedoresPiso: this.state.ProveedoresPiso})
-        .send({ ProveedoresDto: this.state.ProveedoresDto})
-        .send({ ProveedoresCodPos: this.state.ProveedoresCodPos})
-        .send({ ProveedoresLoc: this.state.ProveedoresLoc})
-        .send({ ProveedoresPcia: this.state.ProveedoresPcia})
-        .send({ ProveedoresTel: this.state.ProveedoresTel})
-        .send({ ProveedoresContacto: this.state.ProveedoresContacto})
-        .send({ ProveedoresMail: this.state.ProveedoresMail})
-        .send({ ProveedoresWeb: this.state.ProveedoresWeb})
-        .send({ ProveedoresCodMon: this.state.ProveedoresCodMon})
+        .send({ ProveedoresDesc: this.state.proveedor.ProveedoresDesc})
+        .send({ ProveedoresTipo: this.state.proveedor.ProveedoresTipo})
+        .send({ ProveedoresCUIT: this.state.proveedor.ProveedoresCUIT})        
+        .send({ ProveedoresCalle: this.state.proveedor.ProveedoresCalle})
+        .send({ ProveedoresNroCalle: this.state.proveedor.ProveedoresNroCalle})
+        .send({ ProveedoresPiso: this.state.proveedor.ProveedoresPiso})
+        .send({ ProveedoresDto: this.state.proveedor.ProveedoresDto})
+        .send({ ProveedoresCodPos: this.state.proveedor.ProveedoresCodPos})
+        .send({ ProveedoresLoc: this.state.proveedor.ProveedoresLoc})
+        .send({ ProveedoresPcia: this.state.proveedor.ProveedoresPcia})
+        .send({ ProveedoresTel: this.state.proveedor.ProveedoresTel})
+        .send({ ProveedoresContacto: this.state.proveedor.ProveedoresContacto})
+        .send({ ProveedoresMail: this.state.proveedor.ProveedoresMail})
+        .send({ ProveedoresWeb: this.state.proveedor.ProveedoresWeb})
+        .send({ ProveedoresCodMon: this.state.proveedor.ProveedoresCodMon})
      
     
      .set('X-API-Key', 'foobar')
      .then(function(res) { // res.body, res.headers, res.status
-      });
+      })
+      .catch((err) => CodigoError(err))
     }
     leetprov = _ => {
         // const url = IpServidor + '/stktipoproveedleer'; 
@@ -216,13 +224,15 @@ request
                 <div>
                 <TextField
                     id="ProveedoresTipo" 
-                    select = {true}
+                    select
                     label= 'Tipo'
                     value={this.state.proveedor.ProveedoresTipo}
                     // onChange = {this.handleChange}>
-                    onChange = {this.handleChange('ProveedoresTipo')}>
+                    onChange = {this.handleChange('ProveedoresTipo')}
+                    SelectProps={{native:true}}
+                    >
                     {this.state.tipoprov.map(option => (
-                        <MenuItem
+                        <option
                             id = 'provtiposelect'
                             // key={option.idStkTipoProveed}
                             // value={option.idStkTipoProveed}
@@ -231,7 +241,7 @@ request
                         >
                             {/* {option.StkTipoProveedDesc} */}
                             {option.SubRubroDetalle}
-                        </MenuItem>
+                        </option>
                     ))}
                     </TextField>
                 </div>
@@ -344,18 +354,27 @@ request
                 <div>
                 <TextField
                     id="ProveedoresCodMon" 
-                    select = {true}
+                    select 
                     label= 'Tipo Moneda'
                     // value={this.state.proveedor.ProveedoresCodMon}
                     value={this.state.proveedor.ProveedoresCodMon}
-                    onChange = {this.handleChange('ProveedoresCodMon')}>
+                    onChange = {this.handleChange('ProveedoresCodMon')}
+                    SelectProps={{native:true}}
+                    >
+
                     {this.state.stkmonedas.map(option => (
-                        <MenuItem key={option.idStkMonedas}
-                                value={option.idStkMonedas}>
-                                {/* {option.StkMonedasDescripcion} */}
-                                {console.log("contenido de this.state.ProveedoresCodMon"+this.state.ProveedoresCodMon)}
-                                {option.idStkMonedas}
-                        </MenuItem>
+                        // <MenuItem key={option.idStkMonedas}
+                        //         value={option.idStkMonedas}>
+                        //         {/* {option.StkMonedasDescripcion} */}
+                        //         {console.log("contenido de this.state.ProveedoresCodMon "+this.state.ProveedoresCodMon)}
+                        //         {option.idStkMonedas}
+                        // </MenuItem>
+                         <option key={option.idStkMonedas}
+                         value={option.idStkMonedas}>
+                         {/* {option.StkMonedasDescripcion} */}
+                         {console.log("contenido de this.state.ProveedoresCodMon "+this.state.ProveedoresCodMon)}
+                         {option.idStkMonedas}
+                        </option>
                     ))}
                     
                     </TextField>

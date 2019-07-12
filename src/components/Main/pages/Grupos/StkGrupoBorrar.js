@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
+import CodigoError from '../../../lib/CodigoError'
 
 class StkMonedasBorrar extends Component {
     constructor(props){
@@ -38,20 +39,11 @@ class StkMonedasBorrar extends Component {
         request
           .delete(this.state.url +id)
           .set('Content-Type', 'application/json')
-          //.set('X-API-Key', 'foobar')
           .then(function(res) {
-        // res.body, res.headers, res.status
           })
-         
-          .catch(err => {
-            if (err.status === 411) 
-                    {
-                    alert('Código de Moneda Usado no se puede borrar  ') 
-                    }
-                })
-                this.props.read()
-                this.toggle()
-          
+          .catch((err) => CodigoError(err))
+
+
         
       }
     
