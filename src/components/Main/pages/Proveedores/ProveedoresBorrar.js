@@ -9,6 +9,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
 import IpServidor from '../VariablesDeEntorno'
 import IconButton from '@material-ui/core/IconButton';
+import CodigoError from '../../../lib/CodigoError'
 
 class ProveedoresBorrar extends Component {
     constructor(props){
@@ -56,12 +57,7 @@ class ProveedoresBorrar extends Component {
           })
           //alert("Borrado")
 
-          .catch(err => {
-            if (err.status === 411) 
-                    {
-                    alert('Código de Proveedor Usado no se puede borrar  ') 
-                    }
-                })
+          .catch((err) => CodigoError(err))
                 this.props.read()
                 this.toggle()
       }

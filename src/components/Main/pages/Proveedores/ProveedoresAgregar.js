@@ -10,7 +10,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Grid from '@material-ui/core/Grid';
 import TextField from "@material-ui/core/TextField";
-
+import CodigoError from '../../../lib/CodigoError'
 class ProveedoresAgregar extends Component {
   constructor(props) {
     super(props);
@@ -80,7 +80,8 @@ class ProveedoresAgregar extends Component {
       .send({ provpagweb: this.state.provpagweb })
       .send({ provcodmon: this.state.provcodmon })
       .set("X-API-Key", "foobar")
-      .then(function(res) {});
+      .then(function(res) {})
+      .catch((err) => CodigoError(err))
   };
 
   leetprov = _ => {

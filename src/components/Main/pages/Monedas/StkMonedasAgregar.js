@@ -15,6 +15,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { number } from 'prop-types';
 // Material UI   END
 
+import CodigoError from '../../../lib/CodigoError'
 
 class AgregarMonedas extends Component {
     constructor(props){
@@ -56,21 +57,7 @@ class AgregarMonedas extends Component {
             //     console.log('esta aca');
             //     alert('Agrego correctamente');
         })
-
-        .catch(err => {
-            if (err.status === 409) 
-                    {
-                    alert('Código de Moneda EXISTENTE  ') 
-                    }
-                    else
-                    {
-                    if (err.status === 410) 
-                            {
-                            alert('Código de Moneda no puede tener más de 4 dígitos ') 
-                            }     
-               else { console.log('Error nro :  ' + err.status)}
-                        }
-            })
+        .catch((err) => CodigoError(err))
     }   
    
     updateField(field){
@@ -114,20 +101,7 @@ class AgregarMonedas extends Component {
               label="Código"
               type="text"
               fullWidth
-              inputProps={{
-                // disabled:true,
-                maxlength: 4,
-                // required: true,
-                // pattern:[A-Z],
-                willValidate:true,
-                validationMessage:"Falso estas?"}}
-
-
-              // SelectProps={{
-              //   native: true
-              // }}
-
-
+              inputProps={{maxlength: 4,}}
               placeholder="Código"
               // value={this.state.idStkMonedas} 
               onChange={this.updateField}

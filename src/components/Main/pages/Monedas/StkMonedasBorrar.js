@@ -12,7 +12,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
 // import IpServidor from '../VariablesDeEntorno'
 import IpServidor from '../VariablesDeEntorno'
-
+import CodigoError from '../../../lib/CodigoError'
 
 class StkMonedasBorrar extends Component {
  
@@ -51,12 +51,7 @@ class StkMonedasBorrar extends Component {
         // res.body, res.headers, res.status
           })
          
-          .catch(err => {
-            if (err.status === 411) 
-                    {
-                    alert('Código de Moneda Usado no se puede borrar  ') 
-                    }
-                })
+          .catch((err) => CodigoError(err))
                 this.props.read()
                 this.toggle()
           

@@ -12,6 +12,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 // Material UI   END
+import CodigoError from '../../../lib/CodigoError'
 
 class AgregarUnidadMedidas extends Component {
     constructor(props){
@@ -43,20 +44,7 @@ class AgregarUnidadMedidas extends Component {
             //     alert('Agrego correctamente');
         })
 
-        .catch(err => {
-            if (err.status === 409) 
-                    {
-                    alert('Código de Moneda EXISTENTE  ') 
-                    }
-                    else
-                    {
-                    if (err.status === 410) 
-                            {
-                            alert('Código de Moneda no puede tener más de 4 dígitos ') 
-                            }     
-               else { console.log('Error nro :  ' + err.status)}
-                        }
-            })
+        .catch((err) => CodigoError(err))
     }   
    
     updateField(field){

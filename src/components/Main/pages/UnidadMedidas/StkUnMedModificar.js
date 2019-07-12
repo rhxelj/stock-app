@@ -12,6 +12,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 // Material UI   END
+import CodigoError from '../../../lib/CodigoError'
 
 class StkUnMedModificar extends Component {
     constructor(props){
@@ -75,7 +76,8 @@ class StkUnMedModificar extends Component {
      .set('X-API-Key', 'foobar')
      .then(function(res) {
     // res.body, res.headers, res.status
-      });
+      })
+      .catch((err) => CodigoError(err))
      
       //this.getproveedores();
    }

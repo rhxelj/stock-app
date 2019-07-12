@@ -11,7 +11,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 // import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from "@material-ui/core/DialogTitle";
 // import Select from '@material-ui/core/Select';
-
+import CodigoError from '../../../lib/CodigoError'
 // import AgregarMonedas from './StkMonedasAgregar'
 
 class stkgrupomodificar extends Component {
@@ -130,20 +130,15 @@ ActualizaGrupo = () => {
   request                  
     .post(IpServidor + '/stkgrupomodificar/'+this.state.idStkGrupo) //pongo el idStkGrupo
        .set('Content-Type', 'application/json')
-          // .send({ idStkGrupo: this.state.idStkGrupo})
           .send({ StkGrupoDesc: this.state.StkGrupoDesc})
           .send({ StkGrupoAbr: this.state.StkGrupoAbr})        
           .send({ StkGrupoContRubro: this.state.StkGrupoContRubro}) // Esto va a ser Cero inicialmente.
-          
-      //  .set('X-API-Key', 'foobar')
        .then(function(res) { // res.body, res.headers, res.status
-        });
+        })
+        .catch((err) => CodigoError(err))
       } 
 
  //***************************/ 
-  
-  
-  
   
   
   // Create

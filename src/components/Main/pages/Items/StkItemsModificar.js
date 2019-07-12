@@ -13,7 +13,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 
 import Grid from '@material-ui/core/Grid';
 import NativeSelect from '@material-ui/core/NativeSelect';
-
+import CodigoError from '../../../lib/CodigoError'
 // import Select from '@material-ui/core/Select';
 
 // import AgregarMonedas from './StkMonedasAgregar'
@@ -72,86 +72,34 @@ class StkItemsModificar extends Component {
 
   add = _ => {
     const url = IpServidor + '/stkitemsmodificar/?id1='+this.state.idStkItems+'&id2=' + this.state.StkItemsGrupo + '&id3=' + this.state.StkItemsRubro
-    console.log('url : '+ url)
-    console.log('this.state.StkItemsGrupo',this.state.StkItemsGrupo)
-      console.log('this.state.StkItemsRubro',this.state.StkItemsRubro)
-
-      console.log('this.state.StkItemsDesc',this.state.StkItemsDesc)
-      console.log('this.state.StkItemsCantidad',this.state.StkItemsCantidad)
-      console.log('this.state.StkItemsCantDisp',this.state.StkItemsCantDisp)
-      console.log('this.state.StkItemsMin',this.state.StkItemsMin)
-      console.log('this.state.StkItemsMax',this.state.StkItemsMax)
-      // console.log('this.state.StkItemsObserv',this.state.StkItemsObserv)
-
     request
       .post(url)
-      // .put(url)
       .set("Content-Type", "application/json")
       .send({ StkItemsDesc: this.state.StkItemsDesc})
       .send({ StkItemsCantidad: this.state.StkItemsCantidad})
       .send({ StkItemsCantDisp: this.state.StkItemsCantDisp})
       .send({ StkItemsMin: this.state.StkItemsMin})
       .send({ StkItemsMax: this.state.StkItemsMax})
-      // .send({ StkItemsObserv: this.state.StkItemsObserv})            
       .set("X-API-Key", "foobar")
       .then(function(res) {})
-      .catch(function(err){console.log(err)})
-
-      console.log('this.state.StkItemsGrupo',this.state.StkItemsGrupo)
-      console.log('this.state.StkItemsRubro',this.state.StkItemsRubro)
-
-      console.log('this.state.StkItemsDesc',this.state.StkItemsDesc)
-      console.log('this.state.StkItemsCantidad',this.state.StkItemsCantidad)
-      console.log('this.state.StkItemsMin',this.state.StkItemsMin)
-      console.log('this.state.StkItemsMax',this.state.StkItemsMax)
-      // console.log('this.state.StkItemsObserv',this.state.StkItemsObserv)
+      .catch((err) => CodigoError(err))
   };
 
 // Lee tipo Grupo inicio 
   leestkgrupo = _ => {
-    // const url = 'http://localhost:4000/stkgrupoleer' ; //'http://localhost:3000/data'
     const url = IpServidor + "/stkgrupoleer";
     request
     .get(url)
     .set('Content-Type', 'application/json')
     .then(res=> {
-        
-          const stkgrupo = JSON.parse(res.text);
-          console.log(`stkgrupo :`)
-    console.log(stkgrupo)
-        this.setState(()=>{ return {stkgrupo: stkgrupo}});
-        
-        })
-    console.log(`dentro de leestkgrupo `)
-    console.log(`this.state.stkgrupo :`)
-    console.log(this.state.stkgrupo)
-    
-    // this.marcagrupo()
+      const stkgrupo = JSON.parse(res.text);
+      this.setState(()=>{ return {stkgrupo: stkgrupo}});
+      })
     }
-// Lee tipo Grupo Fin
-
-// Lee tipo Rubro inicio 
 
 
 
 
-
-// leestkrubro = _ => {
-//   // const url = 'http://localhost:4000/stkgrupoleer' ; //'http://localhost:3000/data'
-//   const url = IpServidor + "/stkrubroleer";
-//   request
-//   .get(url)
-//   .set('Content-Type', 'application/json')
-//       .then(res=> {
-//         const stkrubro = JSON.parse(res.text);
-//         this.setState(()=>{ return {stkrubro: stkrubro}});
-
-//         console.log('dentro de leestkrubro')
-//         console.log(this.state.stkrubro)
-//       })
-  
-//   // this.marcagrupo()
-//   }
 stkrubroleecodgrupo = (id) => {
   // const url = 'http://localhost:4000/stkgrupoleer' ; //'http://localhost:3000/data'
   const url = IpServidor + "/stkrubroleecodgrupo/"+id;

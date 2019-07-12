@@ -14,7 +14,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
-
+import CodigoError from '../../../lib/CodigoError'
 
 class StkItemsAgregar extends Component {
   constructor(props) {
@@ -74,7 +74,7 @@ class StkItemsAgregar extends Component {
       // .send({ StkItemsObserv: this.state.StkItemsObserv})            
       // .set("X-API-Key", "foobar")
       .then(function(res) {})
-      .catch(function(err){console.log(err)})
+      .catch((err) => CodigoError(err))
   };
 
 // Lee tipo Grupo inicio 

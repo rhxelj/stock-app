@@ -77,10 +77,10 @@ class Proveedores extends Component {
       proveedor:{
         idProveedores:'',
         ProveedoresDesc:'',
-        ProveedoresTipo:'',
+        ProveedoresTipo:1,
         ProveedoresCUIT:'',
         ProveedoresCalle:'',
-        ProveedoresNroCalle:'',
+        ProveedoresNroCalle:0,
         ProveedoresPiso:'',
         ProveedoresDto:'',
         ProveedoresCodPos:'',
@@ -463,7 +463,10 @@ toggleBusqueda = () => {
                       read={() => this.read()}
 
                       proveedor={this.state.proveedor}
+                    
                     >
+                    {console.log("dentro de proveedores antes ")}
+                    {console.log(this.state.proveedor)}
                     </ProveedoresModificar>
                   </div>
                 </div>

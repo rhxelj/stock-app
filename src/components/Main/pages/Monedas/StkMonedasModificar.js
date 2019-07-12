@@ -14,6 +14,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 // Material UI   END
 
 import Grid from '@material-ui/core/Grid';
+import CodigoError from '../../../lib/CodigoError'
 
 class StkModificarMonedas extends Component {
     constructor(props){
@@ -54,8 +55,8 @@ class StkModificarMonedas extends Component {
        .set('X-API-Key', 'foobar')
        .then(function(res) {
       // res.body, res.headers, res.status
-        });
-       
+        })
+        .catch((err) => CodigoError(err))
         //this.getproveedores();
      }
     

@@ -9,6 +9,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
 // import IpServidor from './VariablesDeEntorno'
+import CodigoError from '../../../lib/CodigoError'
 
 class BorrarUnidadMedidas extends Component {
     constructor(props){
@@ -42,12 +43,7 @@ class BorrarUnidadMedidas extends Component {
           .then(function(res) {
           })
          
-          .catch(err => {
-            if (err.status === 411) 
-                    {
-                    alert('Código de Moneda Usado no se puede borrar  ') 
-                    }
-                })
+          .catch((err) => CodigoError(err))
                 this.props.read()
                 this.toggle()
           
