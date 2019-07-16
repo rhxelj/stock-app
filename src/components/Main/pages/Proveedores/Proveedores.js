@@ -13,6 +13,7 @@ import ProveedoresBorrar from './ProveedoresBorrar'
 import ProveedoresModificar from './ProveedoresModificar';
 import StkFab from '../../../lib/StkFab'
 
+import '../../../../Styles/TableHeader.css'
 
 
 // para usar las tablas de MUI start
@@ -386,10 +387,11 @@ toggleBusqueda = () => {
             <Table >
               <TableHead>
                 <TableRow>
-                  <CustomTableCell></CustomTableCell>
+                  <CustomTableCell className="headerFijo" ></CustomTableCell>
                   {
                     columns.map((row, index) => {
-                      return (<CustomTableCell key={index} onClick={() => {return row.order && this.sortBy(row.accessor)}} >{row.Header}</CustomTableCell>)
+                      // return (<CustomTableCell style={{position: "sticky", top: 35}}key={index} onClick={() => {return row.order && this.sortBy(row.accessor)}} >{row.Header}</CustomTableCell>)
+                      return (<CustomTableCell className="headerFijo" key={index} onClick={() => {return row.order && this.sortBy(row.accessor)}} >{row.Header}</CustomTableCell>)
                     })
                   }
                 </TableRow>

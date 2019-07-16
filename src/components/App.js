@@ -9,7 +9,6 @@ import Header from './Header';
 import Main from './Main';
 // import Footter from './components/Footter';
 
-
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 const App =() => (
