@@ -6,7 +6,7 @@ import 'react-table/react-table.css'
 import AgregarMonedas from './AgregarMonedas'
 import BorrarMonedas from './BorrarMonedas'
 
-import IpServidor from './VariablesDeEntorno'
+import IpServidor from '../VariablesDeEntorno'
 
 class Monedas extends Component {
     constructor(props){

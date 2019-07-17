@@ -1,7 +1,7 @@
 import React, { Component} from 'react'
 import request from 'superagent'
 //import 'react-table/react-table.css'
-import IpServidor from './VariablesDeEntorno'
+import IpServidor from '../VariablesDeEntorno'
 import ReactToPrint from "react-to-print";
 import IconButton from '@material-ui/core/IconButton';
 import PrintIcon from '@material-ui/icons/Print'
