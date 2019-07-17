@@ -45,8 +45,8 @@ class  Header extends React.Component {
                     open={Boolean(anchorEl)}
                     onClose={this.handleClose}
                     >
-                    <MenuItem onClick={this.handleClose}><Link to="/StkMovimiento">Movimiento</Link></MenuItem>
-                    <MenuItem onClick={this.handleClose}><Link to="/StkMovSalida">Movimiento Salida</Link></MenuItem>
+                    {/* <MenuItem onClick={this.handleClose}><Link to="/StkMovimiento">Movimiento</Link></MenuItem> */}
+                    {/* <MenuItem onClick={this.handleClose}><Link to="/StkMovSalida">Movimiento Salida</Link></MenuItem> */}
                     <MenuItem onClick={this.handleClose}><Link to="/StkMonedas">Monedas</Link></MenuItem>
                     <MenuItem onClick={this.handleClose}><Link to="/Proveedores">Proveedores</Link></MenuItem>
                     <MenuItem onClick={this.handleClose}><Link to="/StkUnMed">Unidad Medida</Link></MenuItem>

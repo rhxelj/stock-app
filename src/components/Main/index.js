@@ -17,8 +17,8 @@ import StkUnMed     from './pages/UnidadMedidas/StkUnMed'
 import StkRubro     from './pages/Rubros/StkRubro'
 import StkGrupo     from './pages/Grupos/StkGrupo';
 
-import StkMovimiento from './pages/StkMovimiento'
-import StkMovSalida from './pages/StkMovSalida'
+// import StkMovimiento from './pages/z_SinClasificarMirar/StkMovimiento'
+// import StkMovSalida from './pages/Movimientos/Salida/StkMovSalida'
 import StkItems from './pages/Items/StkItems'
 
 
@@ -38,8 +38,8 @@ const Main = () => (
             <Route path="/StkMonedas"   component={StkMonedas}/>
             <Route path="/Proveedores"  component={Proveedores}/>
             <Route path="/StkUnMed"     component={StkUnMed}/>
-            <Route path="/StkMovimiento"     component={StkMovimiento}/>
-            <Route path="/StkMovSalida"     component={StkMovSalida}/>
+            {/* <Route path="/StkMovimiento"     component={StkMovimiento}/> */}
+            {/* <Route path="/StkMovSalida"     component={StkMovSalida}/> */}
             <Route path="/StkRubro"     component={StkRubro}/>
             <Route path="/StkGrupo"     component={StkGrupo}/>
             <Route path="/StkItems"     component={StkItems}/>

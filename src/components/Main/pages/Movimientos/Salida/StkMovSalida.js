@@ -1,6 +1,7 @@
 import React, { Component} from 'react'
 import request from 'superagent'
-import IpServidor from "./VariablesDeEntorno";
+import IpServidor from "../../VariablesDeEntorno";
+
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";

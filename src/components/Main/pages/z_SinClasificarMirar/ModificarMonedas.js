@@ -5,7 +5,7 @@ import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 // import { stringify } from 'querystring';
 
-import IpServidor from './VariablesDeEntorno'
+import IpServidor from '../VariablesDeEntorno'
 
 class ModificarMonedas extends Component {
     constructor(props){
