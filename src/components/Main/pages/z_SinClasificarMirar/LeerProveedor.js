@@ -3,7 +3,7 @@ import request from 'superagent'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 
-import IpServidor from './VariablesDeEntorno'
+import IpServidor from '../VariablesDeEntorno'
 class LeerProveedor extends Component {
     constructor(props){
         super(props)

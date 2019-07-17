@@ -4,6 +4,7 @@ import request from 'superagent'
 // import 'react-table/react-table.css'
 
 import { withStyles } from '@material-ui/core/styles';
+import '../../../../Styles/TableHeader.css'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -349,11 +350,11 @@ toggleBusqueda = () => {
                             <CustomTableCell ></CustomTableCell>
                         </TableRow> */}
                         <TableRow>
-                            <CustomTableCell></CustomTableCell>
+                            <CustomTableCell  className="headerFijo" ></CustomTableCell>
                             {
                                 columns.map((row, index) => {
                                 // return (<CustomTableCell key={index} onClick={() => this.sortBy(row.accessor,row.tipo)} >{row.Header}</CustomTableCell>)
-                                return (<CustomTableCell key={index} onClick={()=>{return row.order && this.sortBy(row.accessor)}} >{row.Header}</CustomTableCell>)
+                                return (<CustomTableCell className="headerFijo"  key={index} onClick={()=>{return row.order && this.sortBy(row.accessor)}} >{row.Header}</CustomTableCell>)
                                 // return (<CustomTableCell key={index} onClick={()=>{return row.order ? console.log('ordena '+row.accessor) :  console.log('No Ordena '+row.accessor)}} >{row.Header}</CustomTableCell>)
                                 })
                             }

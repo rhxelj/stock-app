@@ -1,6 +1,6 @@
 import React, { Component} from 'react'
 import request from 'superagent'
-import IpServidor from './VariablesDeEntorno'
+import IpServidor from '../VariablesDeEntorno'
 
 class AgregarComponent extends Component {
     constructor(props){

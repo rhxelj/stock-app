@@ -19,7 +19,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { withStyles } from '@material-ui/core/styles'; 
-
+import '../../../../Styles/TableHeader.css'
 
 // Estilo para el boton de borrar
 const style = {
@@ -283,9 +283,9 @@ class Monedas extends Component {
                         <Table >
                             <TableHead>
                                 <TableRow className={this.props.classes.row} >
-                                    <CustomTableCell ></CustomTableCell>
+                                    <CustomTableCell className="headerFijo"  ></CustomTableCell>
                                     {columns.map((row, index) => {
-                                        return (<CustomTableCell key={index} onClick={() => { return row.order && this.sortBy(row.accessor) }} >{row.Header}</CustomTableCell>)
+                                        return (<CustomTableCell className="headerFijo"  key={index} onClick={() => { return row.order && this.sortBy(row.accessor) }} >{row.Header}</CustomTableCell>)
                                     })
                                     }
                                 </TableRow>

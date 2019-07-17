@@ -20,6 +20,8 @@ import StkRubroModificar from './StkRubroModificar'
 
 // para usar las tablas de MUI start
 import { withStyles } from '@material-ui/core/styles';
+import '../../../../Styles/TableHeader.css'
+
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -350,10 +352,10 @@ toggleBusqueda = () => {
                                         <CustomTableCell ></CustomTableCell>
                                     </TableRow> */}
                                 <TableRow>
-                                    <CustomTableCell></CustomTableCell>
+                                    <CustomTableCell className="headerFijo" ></CustomTableCell>
                                     {
                                         columns.map((row, index) => {
-                                            return (<CustomTableCell key={index} onClick={() => this.sortBy(row.accessor, row.tipo)} >{row.Header}</CustomTableCell>)
+                                            return (<CustomTableCell className="headerFijo"  key={index} onClick={() => this.sortBy(row.accessor, row.tipo)} >{row.Header}</CustomTableCell>)
                                         })
                                     }
                                 </TableRow>
