@@ -83,8 +83,8 @@ class StkMovEntrada extends React.Component {
   // Lee Grupo inicio 
 leestkgrupo = _ => {
   const url = IpServidor + "/stkgrupoleer";
-  console.log ('url ')
-  console.log (url)
+  // console.log ('url ')
+  // console.log (url)
   request
   .get(url)
   .set('Content-Type', 'application/json')
@@ -111,10 +111,7 @@ leestkgrupo = _ => {
     //lee ubicacion física según la ubicación geografica
     
     stkubfisicaleerUbG = (id) => {
-      console.log('id  ')
-      console.log(id)
       const url = IpServidor + "/stkubfisicaleerUbG/?id="+id;
-      console.log(url)
       request
       .get(url)
       .set('Content-Type', 'application/json')
@@ -132,11 +129,19 @@ leestkgrupo = _ => {
       .set('Content-Type', 'application/json')
           .then(res=> {
             const stkrubroele = JSON.parse(res.text);
+            // this.setState(()=>{ return {stkrubroele: stkrubroele}});
+            // this.setState({StkRubroAncho: this.state.stkrubroele[0].StkRubroAncho})
+            // this.setState({StkRubroPresDes: this.state.stkrubroele[0].StkRubroPresDes})
+            // this.setState({StkRubroPres: this.state.stkrubroele[0].StkRubroPres})
+            // this.setState({StkRubroUM: this.state.stkrubroele[0].StkRubroUM})
+
             this.setState(()=>{ return {stkrubroele: stkrubroele}});
-            this.setState({StkRubroAncho: this.state.stkrubroele[0].StkRubroAncho})
-            this.setState({StkRubroPresDes: this.state.stkrubroele[0].StkRubroPresDes})
-            this.setState({StkRubroPres: this.state.stkrubroele[0].StkRubroPres})
-            this.setState({StkRubroUM: this.state.stkrubroele[0].StkRubroUM})
+            this.setState({
+              StkRubroAncho: this.state.stkrubroele[0].StkRubroAncho,
+              StkRubroPresDes: this.state.stkrubroele[0].StkRubroPresDes,
+              StkRubroPres: this.state.stkrubroele[0].StkRubroPres,
+              StkRubroUM: this.state.stkrubroele[0].StkRubroUM
+            })
           })
       
       // this.marcagrupo()
@@ -164,12 +169,24 @@ leestkgrupo = _ => {
         .set('Content-Type', 'application/json')
             .then(res=> {
               const stkitemse = JSON.parse(res.text);
-              this.setState({stkitemse: stkitemse})
-              this.setState({StkItemsCantidad: this.state.stkitemse[0].StkItemsCantidad})
-              this.setState({StkItemsCantDisp: this.state.stkitemse[0].StkItemsCantDisp})
-              this.setState({StkItemsFAct: this.state.stkitemse[0].StkItemsFAct})
-              this.setState({StkItemsMin: this.state.stkitemse[0].StkItemsMin})
-              this.setState({StkItemsMax: this.state.stkitemse[0].StkItemsMax})
+              // this.setState({stkitemse: stkitemse})
+              // this.setState({StkItemsCantidad: this.state.stkitemse[0].StkItemsCantidad})
+              // this.setState({StkItemsCantDisp: this.state.stkitemse[0].StkItemsCantDisp})
+              // this.setState({StkItemsFAct: this.state.stkitemse[0].StkItemsFAct})
+              // this.setState({StkItemsMin: this.state.stkitemse[0].StkItemsMin})
+              // this.setState({StkItemsMax: this.state.stkitemse[0].StkItemsMax})
+              // var recorte = this.state.StkItemsFAct.substr(0,10);
+              // this.setState({StkItemsFAct: recorte})
+
+
+              this.setState({
+                stkitemse: stkitemse,
+                StkItemsCantidad: this.state.stkitemse[0].StkItemsCantidad,
+                StkItemsCantDisp: this.state.stkitemse[0].StkItemsCantDisp,
+                StkItemsFAct: this.state.stkitemse[0].StkItemsFAct,
+                StkItemsMin: this.state.stkitemse[0].StkItemsMin,
+                StkItemsMax: this.state.stkitemse[0].StkItemsMax
+              })
               var recorte = this.state.StkItemsFAct.substr(0,10);
               this.setState({StkItemsFAct: recorte})
             })
@@ -186,39 +203,43 @@ componentWillUnmount() {
 componentDidMount () {
 
 }
-handleChange = prop => event => {
-  this.setState({[prop]: event.target.value})
- 
-  
-};
 
-handleChangeGrupo = prop => event => {
-  this.setState({[prop]: event.target.value},()=> this.stkrubroleecodgrupo(this.state.StkItemsGrupo))
-};  
+// Handles VARIOS REVISAR si se pueden "REDUCIR" - INICIO
+//***********************************************************//
+    handleChange = prop => event => {
+      this.setState({[prop]: event.target.value})
+    
+      
+    };
 
-handleChangeUbicacion = prop => event => {
-  this.setState({[prop]: event.target.value},()=> this.stkubfisicaleerUbG(this.state.StkEnvaseUbG))
-};
+    handleChangeGrupo = prop => event => {
+      this.setState({[prop]: event.target.value},()=> this.stkrubroleecodgrupo(this.state.StkItemsGrupo))
+    };  
+
+    handleChangeUbicacion = prop => event => {
+      this.setState({[prop]: event.target.value},()=> this.stkubfisicaleerUbG(this.state.StkEnvaseUbG))
+    };
+
+    handleChangeRubro = prop => event => {
+      this.setState({[prop]: event.target.value},()=> this.stkrubroleecodgryrb())
+      this.setState({[prop]: event.target.value},()=> this.stkitemsleecodgryrb(this.state.StkItemsRubro))
+    };
 
 
-handleChangeRubro = prop => event => {
-  this.setState({[prop]: event.target.value},()=> this.stkrubroleecodgryrb())
-  this.setState({[prop]: event.target.value},()=> this.stkitemsleecodgryrb(this.state.StkItemsRubro))
-};
+    handleChangeItems = prop => event => {
+      this.setState({[prop]: event.target.value},()=> this.stkitemsleecodgrrbit())
+    };
 
+    handleClickOpen = () => {
+      this.setState({ open: true });
+    };
 
-handleChangeItems = prop => event => {
-  this.setState({[prop]: event.target.value},()=> this.stkitemsleecodgrrbit())
-};
+    handleClose = () =>  {
+      this.setState({ open: false });
+    };
 
-handleClickOpen = () => {
-  this.setState({ open: true });
-};
-
-handleClose = () =>  {
-  this.setState({ open: false });
-};
-
+// Handles VARIOS REVISAR si se pueden "REDUCIR" - FIN
+//***********************************************************//
 
 toggleImprimir = () =>{          
   this.setState(prevState => ({
@@ -308,16 +329,32 @@ render () {
       aria-labelledby="form-dialog-title"
        >   */}
       <Paper style={styles}>
-      <Grid container>
+      {/* <Grid container> */}
 
       
+      {/* <Grid item xs={6} sm={6} lg={6}></Grid> */}
+        {/* <DialogTitle id="form-dialog-title">Entradas de stock</DialogTitle> */}
+        {/* <Grid item xs={6} sm={6} lg={6}><h1>Entradas de stock</h1></Grid>
       <Grid item xs={6} sm={6} lg={6}></Grid>
-        <DialogTitle id="form-dialog-title">Entradas de stock</DialogTitle>
-      <Grid item xs={6} sm={6} lg={6}></Grid>
+      </Grid> */}
+
+
+
+      <Grid container>
+        <Grid item xs={4} sm={4} lg={4}>
+        </Grid>
+        <Grid item xs={4} sm={4} lg={4}>
+            <h1 style={{color:"Black"}}>Entradas de stock</h1>
+        </Grid>
+        <Grid item xs={4} sm={4} lg={4}>
+        </Grid>
       </Grid>
+
+
+
       {/* <DialogContent> */}
       <Grid container  spacing={32}>
-        <Grid item  xs={6} sm={6} lg={6}>
+        <Grid item  xs={4} sm={4} lg={4}>
        
           <TextField
             id="StkItemsGrupo"
@@ -340,7 +377,7 @@ render () {
                 ))}
           </TextField>
         </Grid> 
-        <Grid item  xs={6} sm={6} lg={6}>
+        <Grid item  xs={4} sm={4} lg={4}>
           <TextField
             id="StkItemsRubro"
             select
@@ -363,7 +400,7 @@ render () {
               </option>))} 
           </TextField>
         </Grid> 
-        <Grid item  xs={6} sm={6} lg={6}>
+        <Grid item  xs={4} sm={4} lg={4}>
           <TextField
             id="StkItems"
             select
@@ -386,7 +423,8 @@ render () {
               </option>))} 
           </TextField>
         </Grid>
-         {this.state.StkItemsCantDisp < this.state.StkItemsMin
+         
+         {/* {this.state.StkItemsCantDisp < this.state.StkItemsMin
             ?
               <Grid item  xs={6} sm={6} lg={6}>
                 <TextField
@@ -409,31 +447,38 @@ render () {
                       >
                 </TextField>
               </Grid> 
-         }
-          {this.state.StkItemsCantidad < this.state.StkItemsMin
-            ?
-              <Grid item  xs={6} sm={6} lg={6}>
-                <TextField
-                id="Cantidad"
-                label="Cantidad "
-                value={this.state.StkItemsCantidad}
-                style={{background: "#f92c19" }}
-                disabled    
-                      >
-                </TextField>
-              </Grid> 
-            :
+         } */}
+
+
+
+    <Grid item  xs={6} sm={6} lg={6}>
+      <TextField
+        id="CantDisp"
+        label="Cantidad Disponible"
+        value={this.state.StkItemsCantDisp}
+        style={
+          this.state.StkItemsCantDisp < this.state.StkItemsMin 
+            ? {background: "#f92c19" }
+            : {background:"#00e676"}}
+        disabled    
+      >
+      </TextField>
+    </Grid> 
+
               <Grid item  xs={6} sm={6} lg={6}>
                 <TextField
                   id="Cantidad"
                   label="Cantidad "
                   value={this.state.StkItemsCantidad}
-                  style={{background:"#00e676"}}
+                  style={
+                    this.state.StkItemsCantidad < this.state.StkItemsMin 
+                      ? {background: "#f92c19" }
+                      : {background:"#00e676"}
+                  }
                   disabled    
-                      >
+                >
                 </TextField>
               </Grid> 
-         }
 
         <Grid item  xs={6} sm={6} lg={6}>
           <TextField
