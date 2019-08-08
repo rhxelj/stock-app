@@ -169,7 +169,7 @@ leestkgrupo = _ => {
         .set('Content-Type', 'application/json')
             .then(res=> {
               const stkitemse = JSON.parse(res.text);
-              // this.setState({stkitemse: stkitemse})
+              this.setState({stkitemse: stkitemse})
               // this.setState({StkItemsCantidad: this.state.stkitemse[0].StkItemsCantidad})
               // this.setState({StkItemsCantDisp: this.state.stkitemse[0].StkItemsCantDisp})
               // this.setState({StkItemsFAct: this.state.stkitemse[0].StkItemsFAct})
@@ -180,13 +180,14 @@ leestkgrupo = _ => {
 
 
               this.setState({
-                stkitemse: stkitemse,
+                // stkitemse: stkitemse,
                 StkItemsCantidad: this.state.stkitemse[0].StkItemsCantidad,
                 StkItemsCantDisp: this.state.stkitemse[0].StkItemsCantDisp,
                 StkItemsFAct: this.state.stkitemse[0].StkItemsFAct,
                 StkItemsMin: this.state.stkitemse[0].StkItemsMin,
                 StkItemsMax: this.state.stkitemse[0].StkItemsMax
               })
+              
               var recorte = this.state.StkItemsFAct.substr(0,10);
               this.setState({StkItemsFAct: recorte})
             })
