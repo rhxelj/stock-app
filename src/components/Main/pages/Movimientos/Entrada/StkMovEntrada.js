@@ -13,6 +13,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 
 
+import Typography from '@material-ui/core/Typography';
 // import Radio from '@material-ui/core/Radio';
 // import RadioGroup from '@material-ui/core/RadioGroup';
 // import FormLabel from '@material-ui/core/FormLabel';
@@ -352,9 +353,68 @@ render () {
       </Grid>
 
 
+          <Grid container  spacing={32}>
+
+        <Grid item  xs={3} sm={3} lg={3}>
+          <TextField
+            id="CantDisp"
+            label="Cantidad Disponible"
+            value={this.state.StkItemsCantDisp}
+            style={
+              this.state.StkItemsCantDisp < this.state.StkItemsMin 
+                ? {background: "#f92c19" }
+                : {background:"#00e676"}}
+            disabled    
+          >
+          </TextField>
+        </Grid> 
+    
+                  <Grid item  xs={3} sm={3} lg={3}>
+                    <TextField
+                      id="Cantidad"
+                      label="Cantidad "
+                      value={this.state.StkItemsCantidad}
+                      style={
+                        this.state.StkItemsCantidad < this.state.StkItemsMin 
+                          ? {background: "#f92c19" }
+                          : {background:"#00e676"}
+                      }
+                      disabled    
+                    >
+                    </TextField>
+                  </Grid> 
+    
+            <Grid item  xs={2} sm={2} lg={2}>
+              <TextField
+               id="MinStock"
+               label="Mínimo Stock"
+               value={this.state.StkItemsMin}
+               disabled    
+                    >
+              </TextField>
+            </Grid> 
+              <Grid item  xs={2} sm={2} lg={2}>
+                <TextField
+                id="MaxStock"
+                label="Máximo Stock"
+                value={this.state.StkItemsMax}
+                disabled    
+                      >
+                </TextField>
+              </Grid> 
+            <Grid item  xs={2} sm={2} lg={2}>
+              <TextField
+                InputLabelProps={{ shrink: true }} 
+                type="date"
+                id="FechaAct"
+                label="Fecha Actualización"
+                value={this.state.StkItemsFAct}
+                disabled    
+                      >
+              </TextField>
+            </Grid> 
 
       {/* <DialogContent> */}
-      <Grid container  spacing={32}>
         <Grid item  xs={4} sm={4} lg={4}>
        
           <TextField
@@ -424,93 +484,9 @@ render () {
               </option>))} 
           </TextField>
         </Grid>
-         
-         {/* {this.state.StkItemsCantDisp < this.state.StkItemsMin
-            ?
-              <Grid item  xs={6} sm={6} lg={6}>
-                <TextField
-                id="CantDisp"
-                label="Cantidad Disponible"
-                value={this.state.StkItemsCantDisp}
-                style={{background: "#f92c19" }}
-                disabled    
-                      >
-                </TextField>
-              </Grid> 
-            :
-              <Grid item  xs={6} sm={6} lg={6}>
-                <TextField
-                  id="CantDisp"
-                  label="Cantidad Disponible"
-                  value={this.state.StkItemsCantDisp}
-                  style={{background:"#00e676"}}
-                  disabled    
-                      >
-                </TextField>
-              </Grid> 
-         } */}
-
-
-
-    <Grid item  xs={6} sm={6} lg={6}>
-      <TextField
-        id="CantDisp"
-        label="Cantidad Disponible"
-        value={this.state.StkItemsCantDisp}
-        style={
-          this.state.StkItemsCantDisp < this.state.StkItemsMin 
-            ? {background: "#f92c19" }
-            : {background:"#00e676"}}
-        disabled    
-      >
-      </TextField>
-    </Grid> 
-
-              <Grid item  xs={6} sm={6} lg={6}>
-                <TextField
-                  id="Cantidad"
-                  label="Cantidad "
-                  value={this.state.StkItemsCantidad}
-                  style={
-                    this.state.StkItemsCantidad < this.state.StkItemsMin 
-                      ? {background: "#f92c19" }
-                      : {background:"#00e676"}
-                  }
-                  disabled    
-                >
-                </TextField>
-              </Grid> 
-
-        <Grid item  xs={6} sm={6} lg={6}>
-          <TextField
-           id="MinStock"
-           label="Mínimo Stock"
-           value={this.state.StkItemsMin}
-           disabled    
-                >
-          </TextField>
-        </Grid> 
-          <Grid item  xs={6} sm={6} lg={6}>
-            <TextField
-            id="MaxStock"
-            label="Máximo Stock"
-            value={this.state.StkItemsMax}
-            disabled    
-                  >
-            </TextField>
-          </Grid> 
-        <Grid item  xs={6} sm={6} lg={6}>
-          <TextField
-            type="date"
-            id="FechaAct"
-            label="Fecha Actualización"
-            value={this.state.StkItemsFAct}
-            disabled    
-                  >
-          </TextField>
-        </Grid> 
         
-        <Grid item  xs={6} sm={6} lg={6}>
+{/* Cantidad/ StkRubroPresDes / StkRubroPres / StkRubroUM */}
+        <Grid item  xs={2} sm={2} lg={2}>
           <TextField
             id="cantidad"
             label="Cantidad"
@@ -522,8 +498,10 @@ render () {
             >
           </TextField>
         </Grid>
-        <Grid item  xs={6} sm={6} lg={6}>
+        
+        <Grid item  xs={2} sm={2} lg={2}>
           <TextField
+            label= " "
             type="text"
             fullWidth
             value={this.state.StkRubroPresDes}
@@ -531,11 +509,22 @@ render () {
             >
           </TextField>
         </Grid>
-        <Grid item  xs={6} sm={6} lg={6}>
-          <label>de : </label>
-          </Grid>
-          <Grid item  xs={6} sm={6} lg={6}>
+        
+        
+        {/* <Grid item  xs={2} sm={2} lg={2}> */}
+          {/* <h1>de : </h1> */}
+          <br></br>
+          {/* <Typography variant="h6" component="h6">
+            de :
+          </Typography>
+        </Grid> */}
+
+        <Grid item  xs={4} sm={4} lg={4}>
+          <Typography variant="h6" component="h6">
+            de :
+          
           <TextField
+            label=" "
             id="StkRubroPres"
             type="Number"
             // fullWidth
@@ -544,14 +533,23 @@ render () {
             autoFocus={true}
             >
           </TextField>
-          </Grid>
-          <Grid item  xs={6} sm={6} lg={6}>
-          <label>{this.state.StkRubroUM} x </label>
+            </Typography>
+        </Grid>
+        <Grid item  xs={2} sm={2} lg={2}>
+          {/* <label>{this.state.StkRubroUM} x </label> */}
+          
+          <TextField 
+            label="X"
+            fullWidth 
+            value={this.state.StkRubroUM}
+            type="number"
+          >
+          </TextField>
+
         </Grid>
 
-
        
-        <Grid item  xs={6} sm={6} lg={6}>
+        <Grid item  xs={2} sm={2} lg={2}>
           <TextField
             id="StkRubroAncho"
             label="Ancho"
@@ -563,7 +561,9 @@ render () {
             >
           </TextField>
          </Grid>
-         <Grid item  xs={6} sm={6} lg={6}>
+        
+        {/* Partida Ubicación-Geografica Ubicación-Fisica */}
+         <Grid item  xs={4} sm={4} lg={4}>
           <TextField
             id='StkEnvasePartida'
             type="text"
@@ -576,7 +576,7 @@ render () {
         </Grid>
          
          
-         <Grid item  xs={6} sm={6} lg={6}>
+         <Grid item  xs={4} sm={4} lg={4}>
           <TextField
            id="StkEnvaseUbG"
            select
@@ -599,7 +599,7 @@ render () {
              </option>))} 
           </TextField>
          </Grid>
-         <Grid item  xs={6} sm={6} lg={6}>
+         <Grid item  xs={4} sm={4} lg={4}>
           <TextField
            id="StkEnvaseUbF"
            select
@@ -624,7 +624,7 @@ render () {
           </TextField>
          </Grid>
 
-         <Grid item  xs={6} sm={6} lg={6}>
+         <Grid item  xs={12} sm={12} lg={12}>
           <TextField
             id='StkEnvaseObserv'
             type="text"
@@ -634,21 +634,31 @@ render () {
             onChange={this.handleChange('StkEnvaseObserv')}
             >
           </TextField>
+
+          
         </Grid>
 
         </Grid>
           {/* </DialogContent>
          <DialogActions> */}
-       
-                <div>
+              <Grid>
+                <br></br>
+                <br></br>
+              </Grid>
+              <Grid 
+                container
+                direction="row"
+                justify="flex-end"
+                alignItems="flex-end"
+              
+              >
                 <Button  variant="contained" color="primary"  onClick={this.agregastock}>
                     Confirmar
                 </Button>
                 <Button variant="contained" color="secondary" onClick={this.handleClose}>
                     Cancelar
                 </Button>
-                </div>
-          
+                </Grid>
              
           {/* </DialogActions> */}
        
