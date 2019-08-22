@@ -64,8 +64,16 @@ render () {
   
     <div >
     <form>
+     
+     <br></br>
+     <br></br>
+     <br></br>
       <button type="button" onClick={()=>printJS({maxWidth : 800,  scanStyles : false, printable : 'mostrar', type : 'html'})}>
         Imprime
+      </button>
+
+      <button type="button" onClick={()=>this.props.cancelaImpresion()}>
+        Cancelar
       </button>
       <Grid 
         id = "mostrar"
