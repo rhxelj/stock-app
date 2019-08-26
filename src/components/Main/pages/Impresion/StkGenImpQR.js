@@ -6,7 +6,7 @@ import printJS from 'print-js'
 import IpServidor from "../../pages/VariablesDeEntorno";
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-// import { Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 
 
@@ -52,12 +52,6 @@ class StkGenImpQR extends Component {
     this.stkenvaseleeimp()  
   }      
 
-   
-
-
- 
-
-
 render () {
 
     return (
@@ -68,13 +62,22 @@ render () {
      <br></br>
      <br></br>
      <br></br>
-      <button type="button" onClick={()=>printJS({maxWidth : 800,  scanStyles : false, printable : 'mostrar', type : 'html'})}>
+      {/* <button type="button" onClick={()=>printJS({maxWidth : 800,  scanStyles : false, printable : 'mostrar', type : 'html'})}>
         Imprime
       </button>
 
       <button type="button" onClick={()=>this.props.cancelaImpresion()}>
         Cancelar
-      </button>
+      </button> */}
+
+<Button variant="contained" color="primary" onClick={()=>printJS({maxWidth : 800,  scanStyles : false, printable : 'mostrar', type : 'html'})}>
+        Imprime
+      </Button>
+
+      <Button variant="contained" color="secondary" onClick={()=>this.props.cancelaImpresion()}>
+        Cancelar
+      </Button>
+      
       <Grid 
         id = "mostrar"
         container
