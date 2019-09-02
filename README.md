@@ -48,5 +48,6 @@ Aditional to this this is our naming convention
 
 * Back end are all in "lower case".
 * FrontEnd Components name  are in "PascalCase".
-* We use the filename as the component name.
-* Variables names "var_name"
+* The filename is the same as the component name.
+* Variables names "var_name".
+* Function names are "camelCase".
