@@ -85,7 +85,7 @@ class AgregarUnidadMedidas extends Component {
               autoFocus
               margin="dense"
               id="idStkUnMed"
-              label="Código"
+              label="Código - (Máx. 4 Dígitos)"
               type="text"
               fullWidth
               placeholder="Código"

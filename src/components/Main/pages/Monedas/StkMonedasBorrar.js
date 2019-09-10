@@ -10,7 +10,6 @@ import ClearIcon from '@material-ui/icons/Clear';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
-// import IpServidor from '../VariablesDeEntorno'
 import IpServidor from '../VariablesDeEntorno'
 import CodigoError from '../../../lib/CodigoError'
 
@@ -20,7 +19,7 @@ class StkMonedasBorrar extends Component {
     constructor(props){
         super(props)
         this.state = {
-            url:'http://localhost:4000/stkmonedasborrar/',
+            // url:'http://localhost:4000/stkmonedasborrar/',
             monedas:[],
             // filtrado:[],
             filtered:'',
@@ -42,9 +41,10 @@ class StkMonedasBorrar extends Component {
     // //Delete
       deleteProduct = (id)=> {
        
- //       const { moneda } = this.state;
+       const url = IpServidor+'/stkmonedasborrar/'+id;
         request
-          .delete(this.state.url +id)
+        //   .delete(this.state.url +id)
+        .delete(url)
           .set('Content-Type', 'application/json')
           //.set('X-API-Key', 'foobar')
           .then(function(res) {

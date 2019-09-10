@@ -4,6 +4,7 @@ import request from 'superagent'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import { stringify } from 'querystring';
+import IpServidor from '../VariablesDeEntorno'
 
 class ModificarTipoProv extends Component {
     constructor(props){
@@ -18,7 +19,8 @@ class ModificarTipoProv extends Component {
     
     //Read
     read = _ => {
-        const url = 'http://localhost:4000/leertipoprov'; //'http://192.168.2.102:4000/indexprov'
+        // const url = 'http://localhost:4000/leertipoprov'; //'http://192.168.2.102:4000/indexprov'
+        const url = IpServidor + '/leertipoprov'
         request
         .get(url)
         .set('Content-Type', 'application/json')
@@ -32,9 +34,10 @@ class ModificarTipoProv extends Component {
     updateProduct = (params) => {
      
       const  tipoprov  = params;
-     
+      const url = IpServidor + '/modificartipoprov/' + tipoprov.idTipoProveed
     request                  
-       .post('http://localhost:4000/modificartipoprov/'+tipoprov.idTipoProveed)
+    // .post('http://localhost:4000/modificartipoprov/'+tipoprov.idTipoProveed)   
+      .post(url)
        .set('Content-Type', 'application/json')
        
     //    .send({ idtipotipoprov: this.state.idtipotipoprov})

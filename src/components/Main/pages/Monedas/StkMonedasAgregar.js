@@ -98,7 +98,7 @@ class AgregarMonedas extends Component {
               autoFocus
               margin="dense"
               id="idStkMonedas"
-              label="Código"
+              label="Código - (Máx. 4 Dígitos)"
               type="text"
               fullWidth
               inputProps={{maxlength: 4,}}

@@ -2,7 +2,7 @@ import React, { Component} from 'react'
 import request from 'superagent'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
-
+import IpServidor from '../VariablesDeEntorno'
 
 class LeerTipoProv extends Component {
     constructor(props){
@@ -14,7 +14,8 @@ class LeerTipoProv extends Component {
     
     //Read
     read = _ => {
-        const url = 'http://localhost:4000/leertipoprov' ; //'http://localhost:3000/data'
+        // const url = 'http://localhost:4000/leertipoprov' ; //'http://localhost:3000/data'
+        const url = IpServidor + '/leertipoprov' 
         request
         .get(url)
         .set('Content-Type', 'application/json')

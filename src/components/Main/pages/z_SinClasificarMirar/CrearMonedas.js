@@ -1,5 +1,6 @@
 import React, { Component} from 'react'
 import request from 'superagent'
+import IpServidor from '../VariablesDeEntorno';
 
 class CrearMonedas extends Component {
     constructor(props){
@@ -17,7 +18,8 @@ class CrearMonedas extends Component {
     
  // Create
     addProduct = _=> { 
-        const url = 'http://localhost:4000/agregamonedas' 
+        // const url = 'http://localhost:4000/agregamonedas' 
+        const url = IpServidor + '/agregamonedas'
         request
         .post(url)
         .set('Content-Type', 'application/json')

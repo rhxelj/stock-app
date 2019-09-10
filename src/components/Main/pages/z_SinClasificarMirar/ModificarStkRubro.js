@@ -4,6 +4,7 @@ import request from 'superagent'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
 import { stringify } from 'querystring';
+import IpServidor from '../VariablesDeEntorno'
 
 class ModificarStkGrupo extends Component {
     constructor(props){
@@ -38,9 +39,10 @@ class ModificarStkGrupo extends Component {
     updateProduct = (params) => {
      
       const  stkgrupo  = params;
-     
+      const url = IpServidor + '/modificarstkgrupo/' + stkgrupo.idStkGrupo
     request                  
-       .post('http://localhost:4000/modificarstkgrupo/'+stkgrupo.idStkGrupo)
+      //  .post('http://localhost:4000/modificarstkgrupo/'+stkgrupo.idStkGrupo)
+      .post(url)
        .set('Content-Type', 'application/json')
          /*
                 idStkGrupo : req.body.idStkGrupo,

@@ -1,5 +1,6 @@
 import React, { Component} from 'react'
 import request from 'superagent'
+import IpServidor from '../VariablesDeEntorno';
 // import 'materialize-css/sass/components/forms/_select.scss';
 
 class AgregarStkGrupo extends Component {
@@ -22,7 +23,8 @@ class AgregarStkGrupo extends Component {
 
     // Create
     addProduct = _=> { 
-        const url = 'http://localhost:4000/agregarstkgrupo' 
+        // const url = 'http://localhost:4000/agregarstkgrupo'
+        const url = IpServidor + '/agregarstkgrupo' 
         request
         .post(url)
         .set('Content-Type', 'application/json')

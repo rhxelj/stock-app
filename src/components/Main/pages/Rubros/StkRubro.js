@@ -107,7 +107,8 @@ class StkRubro extends Component {
     leegrupodesc(prop) {
         // if (this.state.StkRubroProv1 !== 0) {
         if (prop !== 0) {
-            const url = 'http://localhost:4000/stkgrupoleercod/' + prop; //'http://localhost:3000/data'
+            // const url = 'http://localhost:4000/stkgrupoleercod/' + prop; //'http://localhost:3000/data'
+            const url = IpServidor + '/stkgrupoleercod/' + prop
             request
                 .get(url)
                 .set('Content-Type', 'application/json')

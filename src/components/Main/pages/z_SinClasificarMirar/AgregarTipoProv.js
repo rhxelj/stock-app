@@ -1,5 +1,6 @@
 import React, { Component} from 'react'
 import request from 'superagent'
+import IpServidor from '../VariablesDeEntorno';
 
 class AgregarTipoProv extends Component {
     constructor(props){
@@ -17,7 +18,8 @@ class AgregarTipoProv extends Component {
     
  // Create
     addProduct = _=> { 
-        const url = 'http://localhost:4000/agregartipoprov' 
+        // const url = 'http://localhost:4000/agregartipoprov' 
+        const url = IpServidor + '/agregartipoprov' 
         request
         .post(url)
         .set('Content-Type', 'application/json')

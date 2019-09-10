@@ -42,11 +42,10 @@ class StkModificarMonedas extends Component {
     // Material UI END
 
     actualizaMoneda = () => {
-      // const  monedas  = params;
-     console.log("valor de moneda : ")
-     console.log(this.state.moneda)
+      const  url  = IpServidor + '/stkmonedasmodificar/' + this.state.moneda.idStkMonedas
     request                  
-       .post('http://localhost:4000/stkmonedasmodificar/'+this.state.moneda.idStkMonedas)
+      //  .post('http://localhost:4000/stkmonedasmodificar/'+this.state.moneda.idStkMonedas)
+      .post(url)
        .set('Content-Type', 'application/json')
        
     //    .send({ idtipomonedas: this.state.idtipomonedas})
@@ -69,11 +68,11 @@ class StkModificarMonedas extends Component {
     }
 
     submitMoneda(e){
-        e.preventDefault()
-        // this.addMoneda()
+      e.preventDefault()
       this.actualizaMoneda() // revisar si hay que pasar parametros
       this.props.read()
       this.props.toggleModificar()
+      // this.addMoneda()
       // this.props.toggle()
       // this.props.read()
     }

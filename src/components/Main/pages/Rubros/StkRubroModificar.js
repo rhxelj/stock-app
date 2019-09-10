@@ -165,7 +165,8 @@ class StkRubroModificar extends Component {
     // this.ActualizaGrupo()
 console.log("this.state.StkRubroCodGrp : ",this.state.StkRubroCodGrp)
 
-    const url = 'http://localhost:4000/stkrubromodificar/?id='+this.state.idStkRubro+'&id2='+this.state.StkRubroCodGrp ; //'http://localhost:3000/data'
+    // const url = 'http://localhost:4000/stkrubromodificar/?id='+this.state.idStkRubro+'&id2='+this.state.StkRubroCodGrp ; //'http://localhost:3000/data'
+    const url = IpServidor + '/stkrubromodificar/?id=' + this.state.idStkRubro + '&id2=' + this.state.StkRubroCodGrp
     request
       .post(url)
       .set("Content-Type", "application/json")

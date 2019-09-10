@@ -1,6 +1,6 @@
 import React, { Component} from 'react'
 import request from 'superagent'
-// import ReactTable from 'react-table'
+import IpServidor from '../VariablesDeEntorno'
 // import 'react-table/react-table.css'
 
 class BorrarMonedas extends Component {
@@ -40,9 +40,10 @@ class BorrarMonedas extends Component {
     // //Delete
       deleteProduct = (id)=> {
        
- //       const { moneda } = this.state;
+       const url = IpServidor + '/borrarmonedas/' + id
         request
-          .delete('http://localhost:4000/borrarmonedas/'+id)
+        //   .delete('http://localhost:4000/borrarmonedas/'+id)
+        .delete(url)
           .set('Content-Type', 'application/json')
           //.set('X-API-Key', 'foobar')
           .then(function(res) {

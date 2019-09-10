@@ -16,6 +16,10 @@ import TableRow from '@material-ui/core/TableRow';
 import { withStyles } from '@material-ui/core/styles'; 
 import Typography from '@material-ui/core/Typography'; 
 
+
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+
 const CustomTableCell = withStyles(theme => ({
   head: {
       backgroundColor: theme.palette.common.black,
@@ -40,6 +44,7 @@ const styles = theme => ({
       backgroundColor: theme.palette.background.default,
     },
   },
+  
 });
 
 
@@ -80,14 +85,26 @@ class StkGenImpQR extends Component {
            
     }
 
-  componentDidMount(){
-    this.stkenvaseleeimp()  
-  }      
-
-  render () {
+    handleChange = name => event => {
+      this.setState({[name]: event.target.checked })
+      console.log(name+" :")
+      console.log(this.state[name]);
+      
+    };
+    
+    
+    componentDidMount(){
+      this.stkenvaseleeimp()  
+    }      
+    
+    
+    render () {
     return (
     <div>
-      <Paper >
+     <br></br>
+     <br></br>
+     <br></br>
+      <Paper id="mostrar">
         <Table>
             {/* <TableHead>
                 <TableRow className={this.props.classes.row} >
@@ -101,9 +118,31 @@ class StkGenImpQR extends Component {
 
           <TableBody>
             {this.state.envaseimp.map((option, indice) => {
+              // console.log("Indice con this.state : "+this.state.indice)
+              // console.log("Indice : "+indice)
+              const idc = `${option.idStkEnvase}`+`${option.StkEnvaseGrupo}`+`${option.StkEnvaseRubro}`+`${option.StkEnvaseItem}`
+              // console.log("idc = "+idc)
               return (
-                <TableRow>
-                  <CustomTableCell>BORRAR</CustomTableCell>
+                <TableRow key={idc}>
+                  <CustomTableCell>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          // checked={option.StkEnvaseImprimio=='S'||this.state[indice]?true:false}
+                          checked={this.state[idc]?true:false}
+                          // checked={this.state[idc]?false:true}
+                          // onChange={this.handleChange('checkedB')}
+                          // onChange={this.handleChange(indice)}
+                          onChange={this.handleChange(idc)}
+                          // value="checkedB"
+                          // value={indice}
+                          value={idc}
+                          color="primary"
+                        />
+                      }
+                      // label="Secondary"
+                    />
+                  </CustomTableCell>
                   <CustomTableCell>
                     <Typography variant="body2" gutterBottom >Envase : { option.idStkEnvase }</Typography>
                     <Typography variant="body2" gutterBottom >{ option.StkGrupoDesc  }</Typography>
@@ -142,7 +181,10 @@ class StkGenImpQR extends Component {
           </TableBody>
         </Table>
       </Paper>
-    
+          <div style={{ 
+                "position" : "fixed",
+                "bottom": "10px",
+                "right": "25px",}}>
         <Button variant="contained" color="primary" onClick={()=>printJS({maxWidth : 800,  scanStyles : false, printable : 'mostrar', type : 'html'})}>
           Imprime
         </Button>
@@ -150,6 +192,7 @@ class StkGenImpQR extends Component {
         <Button variant="contained" color="secondary" onClick={()=>this.props.cancelaImpresion()}>
           Cancelar
         </Button>
+        </div>
     </div>   
     )
   }
