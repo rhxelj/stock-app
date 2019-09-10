@@ -3,3 +3,7 @@ V1.1
 
 V1.2 17-07-2019
     Modificar los componentes base para que cuando la tabla sea grande y el listado exeda la pantalla y haga un scroll el encabezado quede fijo.
+
+V1.2.1 10-09-2019
+    Arreglar urls que en vez de usar IpServidor seguía usando http:\\localhost...
+    cambios en los mensajes de error. y modificación de los labels en stkUnidad de medidas (Código)y en StkMonedas (código) por código - (Max. 4 dígitos)
