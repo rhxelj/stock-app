@@ -2,6 +2,7 @@ import React, { Component} from 'react'
 import request from 'superagent'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
+import IpServidor from '../VariablesDeEntorno';
 
 class BorrarStkGrupo extends Component {
     constructor(props){
@@ -26,7 +27,8 @@ class BorrarStkGrupo extends Component {
     
     //Read
     read = _ => {
-        const url = 'http://localhost:4000/leerstkgrupo'; //'http://192.168.2.102:4000/indexprov'
+        // const url = 'http://localhost:4000/leerstkgrupo'; //'http://192.168.2.102:4000/indexprov'
+        const url = IpServidor + '/leerstkgrupo' //'http://192.168.2.102:4000/indexprov'
         request
         .get(url)
         .set('Content-Type', 'application/json')
@@ -40,9 +42,10 @@ class BorrarStkGrupo extends Component {
     // //Delete
       deleteProduct = (id)=> {
         
- //       const { stkgrp } = this.state;
+        const url = IpServidor + '/borrarstkgrupo/' + id
         request
-          .delete('http://localhost:4000/borrarstkgrupo/'+id)
+        //   .delete('http://localhost:4000/borrarstkgrupo/'+id)
+        .delete(url)
           .set('Content-Type', 'application/json')
           //.set('X-API-Key', 'foobar')
           .then(function(res) {

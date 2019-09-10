@@ -1,6 +1,7 @@
 import React, { Component} from 'react'
 import request from 'superagent'
 import Select from 'react-select'
+import IpServidor from '../VariablesDeEntorno';
 /*
 import  'materialize-css/dist/css/materialize.min.css'
 import $ from 'jquery'
@@ -37,7 +38,8 @@ class AgregarStkRubro extends Component {
      
     }    
     read = _ => {
-        const url = 'http://192.168.2.102:4000/leerstkgrupo' ; //'http://localhost:3000/data'
+        // const url = 'http://192.168.2.102:4000/leerstkgrupo' ; //'http://localhost:3000/data'
+        const url = IpServidor + '/leerstkgrupo'
         request
         .get(url)
         .set('Content-Type', 'application/json')
@@ -55,7 +57,8 @@ class AgregarStkRubro extends Component {
     }
  // Create
     addProduct = _=> { 
-        const url = 'http://localhost:4000/agregarstkrubro' 
+        // const url = 'http://localhost:4000/agregarstkrubro' 
+        const url = IpServidor + '/agregarstkrubro' 
         request
         .post(url)
         .set('Content-Type', 'application/json')

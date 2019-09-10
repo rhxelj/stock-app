@@ -1,6 +1,6 @@
 import React, { Component} from 'react'
 import request from 'superagent'
-// import ReactTable from 'react-table'
+import IpServidor from '../VariablesDeEntorno'
 // import 'react-table/react-table.css'
 
 import IconButton from '@material-ui/core/IconButton';
@@ -13,7 +13,7 @@ class StkMonedasBorrar extends Component {
     constructor(props){
         super(props)
         this.state = {
-            url:'http://localhost:4000/stkgrupoborrar/',
+            // url:'http://localhost:4000/stkgrupoborrar/',
             monedas:[],
             // filtrado:[],
             filtered:'',
@@ -35,9 +35,10 @@ class StkMonedasBorrar extends Component {
     // //Delete
       borrarGrupo = (id)=> {
        
- //       const { moneda } = this.state;
+        const url  = IpServidor + '/stkgrupoborrar/'+id;
         request
-          .delete(this.state.url +id)
+        //   .delete(this.state.url +id)
+        .delete(url)
           .set('Content-Type', 'application/json')
           .then(function(res) {
           })

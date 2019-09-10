@@ -1,6 +1,6 @@
 import React, { Component} from 'react'
 import request from 'superagent'
-import ReactTable from 'react-table'
+import IpServidor from '../VariablesDeEntorno'
 import 'react-table/react-table.css'
 
 class BorrarTipoProv extends Component {
@@ -26,7 +26,8 @@ class BorrarTipoProv extends Component {
     
     //Read
     read = _ => {
-        const url = 'http://localhost:4000/leertipoprov'; //'http://192.168.2.102:4000/indexprov'
+        // const url = 'http://localhost:4000/leertipoprov'; //'http://192.168.2.102:4000/indexprov'
+        const url = Ipservidor + '/leertipoprov'
         request
         .get(url)
         .set('Content-Type', 'application/json')
@@ -40,9 +41,10 @@ class BorrarTipoProv extends Component {
     // //Delete
       deleteProduct = (id)=> {
         
- //       const { tipprov } = this.state;
+       const url = IpServidor + '/borrartipoprov/' + id
         request
-          .delete('http://localhost:4000/borrartipoprov/'+id)
+        //   .delete('http://localhost:4000/borrartipoprov/'+id)
+          .delete(url)
           .set('Content-Type', 'application/json')
           //.set('X-API-Key', 'foobar')
           .then(function(res) {

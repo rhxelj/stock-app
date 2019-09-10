@@ -3,16 +3,16 @@ import React from "react";
 function CodigoError(err) {
     switch(err.status){
         case 409: 
-            alert('Código de Moneda EXISTENTE  ')
+            alert('Código ingresado EXISTENTE  ')
             break
         case 410: 
-            alert('Código de Moneda no puede tener más de 4 dígitos ')
+            alert('El Código excede la cantidad de dígitos permitidos ')
             break
         case 411: 
-            alert(' Código  Usado no se puede borrar ')
+            alert('Código  Usado no se puede borrar ')
             break
         case 412: 
-            alert('el campo numérico más grande de lo que corresponde ')
+            alert('El campo numérico es más grande de lo que corresponde ')
             break
         case 413: 
             alert('Faltan datos para ingresar información en tabla')

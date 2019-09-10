@@ -14,7 +14,6 @@ class StkItemsBorrar extends Component {
     constructor(props){
         super(props)
         this.state = {
-            url:'http://localhost:4000/stkgrupoborrar/',
             monedas:[],
             // filtrado:[],
             filtered:'',

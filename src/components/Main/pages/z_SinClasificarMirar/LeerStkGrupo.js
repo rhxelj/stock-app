@@ -2,7 +2,7 @@ import React, { Component} from 'react'
 import request from 'superagent'
 import ReactTable from 'react-table'
 import 'react-table/react-table.css'
-
+import IpServidor from '../VariablesDeEntorno'
 
 class LeerStkGrupo extends Component {
     constructor(props){
@@ -14,7 +14,8 @@ class LeerStkGrupo extends Component {
     
     //Read
     read = _ => {
-        const url = 'http://192.168.2.102:4000/leerstkgrupo' ; //'http://localhost:3000/data'
+        // const url = 'http://192.168.2.102:4000/leerstkgrupo' ; //'http://localhost:3000/data'
+        const url = IpServidor + '/leerstkgrupo' ; //'http://localhost:3000/data'
         request
         .get(url)
         .set('Content-Type', 'application/json')

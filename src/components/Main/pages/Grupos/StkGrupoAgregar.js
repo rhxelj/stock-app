@@ -268,7 +268,7 @@ ActualizaGrupo = () => {
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Aregar Grupo</DialogTitle>
+          <DialogTitle id="form-dialog-title">Agregar Grupo</DialogTitle>
           <DialogContent>
             {/* <TextField
               id="idStkRubro"

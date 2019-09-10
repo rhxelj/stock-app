@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import { QRCode } from "react-qr-svg";
-// import printJS from 'print-js'
+import IpServidor from '../VariablesDeEntorno'
 
   
 class StkMovimiento extends Component {
@@ -73,7 +73,8 @@ class StkMovimiento extends Component {
                     
     }
     leestkgrupo = _ => {
-        const url = 'http://localhost:4000/stkgrupoleer' ; //'http://localhost:3000/data'
+        // const url = 'http://localhost:4000/stkgrupoleer' ; //'http://localhost:3000/data'
+        const url = IpServidor + '/stkgrupoleer'
         request
         .get(url)
         .set('Content-Type', 'application/json')
@@ -87,7 +88,8 @@ class StkMovimiento extends Component {
     }
 
     leestkrubro = _ => {
-        const url = 'http://localhost:4000/stkrubroleecodgrupo/'+this.state.grupostk ; //'http://localhost:3000/data'
+        // const url = 'http://localhost:4000/stkrubroleecodgrupo/'+this.state.grupostk ; //'http://localhost:3000/data'
+        const url = IpServidor + '/stkrubroleecodgrupo/' + this.state.grupostk
         request
         .get(url)
         .set('Content-Type', 'application/json')
@@ -100,7 +102,8 @@ class StkMovimiento extends Component {
     }
     leestkrubropRyG = _ => {
         //desde Postman http://localhost:4000/stkrubroleecodgryrb/?id1=10&id2=1
-        const url = 'http://localhost:4000/stkrubroleecodgryrb/?id1='+this.state.rubrostk+'&id2='+this.state.grupostk ; //'http://localhost:3000/data'
+        // const url = 'http://localhost:4000/stkrubroleecodgryrb/?id1='+this.state.rubrostk+'&id2='+this.state.grupostk ; //'http://localhost:3000/data'
+        const url = IpServidor + '/stkrubroleecodgryrb/?id1=' + this.state.rubrostk + '&id2=' + this.state.grupostk
         request
         .get(url)
         .set('Content-Type', 'application/json')
@@ -124,7 +127,8 @@ class StkMovimiento extends Component {
 
     leeproveedor = _ => {
         if (this.state.StkRubroProv1 !== 0) {
-        const url = 'http://localhost:4000/proveedoresleercod/'+this.state.StkRubroProv1 ; //'http://localhost:3000/data'
+        // const url = 'http://localhost:4000/proveedoresleercod/'+this.state.StkRubroProv1 ; //'http://localhost:3000/data'
+        const url = IpServidor + '/proveedoresleercod/' + this.state.StkRubroProv1 
         request
         .get(url)
         .set('Content-Type', 'application/json')
@@ -139,7 +143,8 @@ class StkMovimiento extends Component {
 
     leestkitems = _ => {
         //desde Postman http://localhost:4000/stkrubroleecodgryrb/?id1=10&id2=1
-        const url = 'http://localhost:4000/stkitemsleecodgryrb/?id2='+this.state.grupostk+'&id3='+this.state.rubrostk  ; //'http://localhost:3000/data'
+        // const url = 'http://localhost:4000/stkitemsleecodgryrb/?id2='+this.state.grupostk+'&id3='+this.state.rubrostk  ; //'http://localhost:3000/data'
+        const url = IpServidor + '/stkitemsleecodgryrb/?id2='+this.state.grupostk+'&id3='+this.state.rubrostk  ; //'http://localhost:3000/data'
         request
         .get(url)
         .set('Content-Type', 'application/json')
@@ -156,7 +161,8 @@ class StkMovimiento extends Component {
         if (this.state.itemsstk !== 0) {
             
         //desde Postman //stkitemsleecodgrrbit/?id1=3&id2=1&id3=1
-        const url = 'http://localhost:4000/stkitemsleecodgrrbit/?id1='+this.state.itemsstk+'&id2='+this.state.grupostk +'&id3='+this.state.rubrostk ; //'http://localhost:3000/data'
+        // const url = 'http://localhost:4000/stkitemsleecodgrrbit/?id1='+this.state.itemsstk+'&id2='+this.state.grupostk +'&id3='+this.state.rubrostk ; //'http://localhost:3000/data'
+        const url = IpServidor + '/stkitemsleecodgrrbit/?id1=' + this.state.itemsstk + '&id2=' + this.state.grupostk +'&id3=' + this.state.rubrostk
         request
         .get(url)
         .set('Content-Type', 'application/json')
@@ -198,7 +204,8 @@ modcantstkitem = _ => {
 //     console.log('fecha  ' + fecha)
     // var fecha = new Date();
     // console.log( fecha.getFullYear() + "/" + (fecha.getMonth() +1) + "/" +  fecha.getDate())
-    const url = 'http://localhost:4000/stkitemsmodificacant/?id1='+this.state.itemsstk+'&id2='+this.state.grupostk +'&id3='+this.state.rubrostk ; //'http://localhost:3000/data'
+    // const url = 'http://localhost:4000/stkitemsmodificacant/?id1='+this.state.itemsstk+'&id2='+this.state.grupostk +'&id3='+this.state.rubrostk ; //'http://localhost:3000/data'
+    const url = IpServidor + '/stkitemsmodificacant/?id1=' + this.state.itemsstk + '&id2=' + this.state.grupostk + '&id3=' + this.state.rubrostk
     request
     .post(url)
     .set('Content-Type', 'application/json')

@@ -38,10 +38,11 @@ class Monedas extends Component {
     //Update
     ActualizaMoneda = (params) => {
      
-      const  monedas  = params;
-     
+        const  monedas  = params;
+        const url = IpServidor + '/modificarmonedas/' + monedas.idStkMonedas
     request                  
-       .post('http://localhost:4000/modificarmonedas/'+monedas.idStkMonedas)
+    //    .post('http://localhost:4000/modificarmonedas/'+monedas.idStkMonedas)
+    .post(url)
        .set('Content-Type', 'application/json')
        
     //    .send({ idtipomonedas: this.state.idtipomonedas})
@@ -57,9 +58,10 @@ class Monedas extends Component {
     
      deleteProduct = (id)=> {
         
-        //       const { moneda } = this.state;
+              const url = Ipservidor + '/borrarmonedas/' + id
                request
-                 .delete('http://localhost:4000/borrarmonedas/'+id)
+                //  .delete('http://localhost:4000/borrarmonedas/'+id)
+                .delete(url)
                  .set('Content-Type', 'application/json')
                  //.set('X-API-Key', 'foobar')
                  .then(function(res) {

@@ -35,9 +35,10 @@ class ModificarMonedas extends Component {
     ActualizaMoneda = (params) => {
      
       const  monedas  = params;
-     
+      const url = IpServidor + '/modificarmonedas/' + monedas.idStkMonedas
     request                  
-       .post('http://localhost:4000/modificarmonedas/'+monedas.idStkMonedas)
+      //  .post('http://localhost:4000/modificarmonedas/'+monedas.idStkMonedas)
+      .post(url)
        .set('Content-Type', 'application/json')
        
     //    .send({ idtipomonedas: this.state.idtipomonedas})
