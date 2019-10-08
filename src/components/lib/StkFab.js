@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 
 import AddIcon from '@material-ui/icons/Add';
 import ClearIcon from '@material-ui/icons/Clear'
+import PrintIcon from '@material-ui/icons/Print';
 import Fab from '@material-ui/core/Fab';
 import SearchIcon from '@material-ui/icons/Search'
 import InputBase from '@material-ui/core/InputBase';
@@ -19,11 +20,23 @@ import DirectionsIcon from '@material-ui/icons/Directions';
 
 
 
-
 // {/* Muesra los botones Flotantes en la parte inferior de la pantalla */}
 
-const StkFab = ({toggleAgregar,toggleBusqueda,toggle_busqueda,search,filtered,borraFiltered})=>( 
+const StkFab = ({toggleAgregar,toggleBusqueda,toggle_busqueda,search,filtered,borraFiltered,toggleImprimir})=>( 
     <Fragment>           
+        {/* Boton de impresion */}
+        <Fab 
+            onClick={toggleImprimir}
+            color="primary" 
+            aria-label="Add" 
+            style={{ 
+                "position" : "fixed",
+                "bottom": "130px",
+                "right": "25px",}}
+        >
+            <PrintIcon />
+        </Fab>
+
         {/* Agregar datos a la base de datos */}
         <Fab 
             onClick={toggleAgregar} 

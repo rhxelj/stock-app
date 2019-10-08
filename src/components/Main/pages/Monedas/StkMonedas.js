@@ -21,6 +21,8 @@ import TableRow from '@material-ui/core/TableRow';
 import { withStyles } from '@material-ui/core/styles'; 
 import '../../../../Styles/TableHeader.css'
 
+import SelecCampos from '../Impresion/SelecCampos'
+
 // Estilo para el boton de borrar
 const style = {
     padding:'0px',
@@ -77,19 +79,21 @@ class Monedas extends Component {
                 StkMonedasDescripcion: '',
                 StkMonedasCotizacion: 0,
             },
+            opcion:"",
             monedas: [],
             filtered: '',
             campo: 'idStkMonedas',
             direction: 'asc',
             // direction: {},
-            toggle_agregar: false,
-            toggle_busqueda: false,
-            toggle_modificar: false,
-            
+            // toggle_agregar: false,
+            // toggle_busqueda: false,
+            // toggle_modificar: false,
+            opcion: "",            
             toggle:{
                 agregar: false,
                 busqueda: false,
                 modificar: false,
+                seleccampos: false,
             }
             // targetname:"",
             // targetvalue:""
@@ -150,23 +154,23 @@ class Monedas extends Component {
     }
     
     
-    toggleAgregar = () =>{            
-        this.setState(prevState => ({
-            toggle_agregar: !prevState.toggle_agregar
-        })) // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <AgregarMonedas> ***
-    }
+    // toggleAgregar = () =>{            
+    //     this.setState(prevState => ({
+    //         toggle_agregar: !prevState.toggle_agregar
+    //     })) // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <AgregarMonedas> ***
+    // }
 
-    toggleModificar = () =>{          
-        this.setState(prevState => ({
-            toggle_modificar: !prevState.toggle_modificar
-        })) // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***  
-    }
+    // toggleModificar = () =>{          
+    //     this.setState(prevState => ({
+    //         toggle_modificar: !prevState.toggle_modificar
+    //     })) // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***  
+    // }
 
-    toggleBusqueda = () => {
-        this.setState(prevState => ({
-            toggle_busqueda: !prevState.toggle_busqueda
-        }))
-    }
+    // toggleBusqueda = () => {
+    //     this.setState(prevState => ({
+    //         toggle_busqueda: !prevState.toggle_busqueda
+    //     }))
+    // }
 
     //******************************************* Habilita el contenido a mostrar en Pantalla - End *******************************************
 
@@ -244,6 +248,13 @@ class Monedas extends Component {
         ]
 
         // ******************************************* Encabezado de la tabla a mostrar - end  *******************************************
+        
+        // var properties = [
+        //         // { field: 'idStkMonedas', displayName: 'ID'},
+        //         { field: 'StkMonedasDescripcion', displayName: 'Descripción'},
+        //         { field: 'StkMonedasCotizacion', displayName: 'Cotizacion'}
+        //     ]
+        
         return (
             <div>
                 <Grid container>
@@ -340,10 +351,27 @@ class Monedas extends Component {
                         </div>
                     </div>
                 }
+                
+                {this.state.toggle.seleccampos &&
+                    // Componente Imprimir cuando apreto el boton imprimir mando el contenido de filtrado
+                    <SelecCampos 
+                        datos={filtrado} 
+                        toggleImprimir={()=>this.toggle("seleccampos")} 
+                        headerTabla={columns}
+                    />
+                }
 
                 {/* Muesra los botones Flotantes en la parte inferior de la pantalla Agregar y Busqueda*/}
                 {/* <StkFab borraFiltered={this.borraFiltered} toggleAgregar={this.toggleAgregar} toggleBusqueda={this.toggleBusqueda} toggle_busqueda={this.state.toggle_busqueda} search={this.search} filtered={this.state.filtered} /> */}
-                <StkFab borraFiltered={this.borraFiltered} toggleAgregar={()=>this.toggle("agregar")} toggleBusqueda={this.toggleBusqueda} toggle_busqueda={this.state.toggle_busqueda} search={this.search} filtered={this.state.filtered} />
+                <StkFab 
+                    borraFiltered={this.borraFiltered} 
+                    toggleAgregar={()=>this.toggle("agregar")} 
+                    toggleImprimir={()=>this.toggle("seleccampos")}
+                    toggleBusqueda={()=>this.toggle("busqueda")} 
+                    toggle_busqueda={this.state.toggle.busqueda} 
+                    search={this.search} 
+                    filtered={this.state.filtered} 
+                />
             </div>
         )
     }

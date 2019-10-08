@@ -73,6 +73,7 @@ class Proveedores extends Component {
       toggle_agregar: false,
       toggle_busqueda: false,
       toggle_modificar: false,
+      toggle_imprimir: false,
       filtered:'',
       
       proveedor:{
@@ -189,25 +190,31 @@ toggleBusqueda = () => {
     }))
 }
 
+toggleImprimir = () => {
+  this.setState(prevState => ({
+      toggle_imprimir: !prevState.toggle_imprimir
+  }))
+}
+
 //******************************************* Habilita el contenido a mostrar en Pantalla - End *******************************************
   
 
   
-  leetprov = _ => {
-    // const url = IpServidor + '/stktipoproveedleer';
-    const url = IpServidor + '/stkbgsubrubroleer';
-    request
-      .get(url)
-      .set('Content-Type', 'application/json')
-      .then(res => {
-        const tipoprov = JSON.parse(res.text)
-        this.setState({ tipoprov: tipoprov })
-      })
+  // leetprov = _ => {
+  //   // const url = IpServidor + '/stktipoproveedleer';
+  //   const url = IpServidor + '/stkbgsubrubroleer';
+  //   request
+  //     .get(url)
+  //     .set('Content-Type', 'application/json')
+  //     .then(res => {
+  //       const tipoprov = JSON.parse(res.text)
+  //       this.setState({ tipoprov: tipoprov })
+  //     })
 
-  }
+  // }
 
   componentDidMount() {
-    this.leetprov()
+    // this.leetprov()
     this.read()
   }
 

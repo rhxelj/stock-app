@@ -116,15 +116,26 @@ class StkGenImpQR extends Component {
                 </TableRow>
             </TableHead> */}
 
+            
           <TableBody>
+            {/* {this.state.envaseimp.map((option, indice) => { */}
             {this.state.envaseimp.map((option, indice) => {
+              console.log(option)
+              console.log(`option : ${option}`)
+              console.log(`index : ${indice}`)
+              console.log(`option[indice] : ${option[indice]}`)
+
+
+
               // console.log("Indice con this.state : "+this.state.indice)
               // console.log("Indice : "+indice)
               const idc = `${option.idStkEnvase}`+`${option.StkEnvaseGrupo}`+`${option.StkEnvaseRubro}`+`${option.StkEnvaseItem}`
               // console.log("idc = "+idc)
               return (
+               
                 <TableRow key={idc}>
-                  <CustomTableCell>
+
+                  {/* <CustomTableCell>
                     <FormControlLabel
                       control={
                         <Checkbox
@@ -142,7 +153,7 @@ class StkGenImpQR extends Component {
                       }
                       // label="Secondary"
                     />
-                  </CustomTableCell>
+                  </CustomTableCell> */}
                   <CustomTableCell>
                     <Typography variant="body2" gutterBottom >Envase : { option.idStkEnvase }</Typography>
                     <Typography variant="body2" gutterBottom >{ option.StkGrupoDesc  }</Typography>
@@ -157,7 +168,9 @@ class StkGenImpQR extends Component {
                   <CustomTableCell>
                     <QRCode 
                       id="codigo-QR"
-                      value={ option.idStkEnvase +  
+                      value={ 
+                         option.StkEnvaseObserv +
+                        '     ' +  option.idStkEnvase +  
                         ':' + option.StkEnvaseGrupo + 
                         ':' + option.StkEnvaseRubro + 
                         ':' + option.StkEnvaseItem + 
@@ -167,8 +180,8 @@ class StkGenImpQR extends Component {
                         ' - ' + option.StkItemsDesc + 
                         ' - Cant ' + option.StkEnvaseCant + 
                         ' - Ubic ' + option.StkEnvaseUbG + '--' + option.StkEnvaseUbF +
-                        ' - ' + option.stkenvasefecha + 
-                        ' - ' + option.StkEnvaseObserv
+                        ' - ' + option.stkenvasefecha 
+                        // + ' - ' + option.StkEnvaseObserv
                       } 
                       style={{ width: 256 }}
                       renderAs='svg'
