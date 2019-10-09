@@ -12,7 +12,7 @@ import ProveedoresAgregar from './ProveedoresAgregar';
 import ProveedoresBorrar from './ProveedoresBorrar'
 import ProveedoresModificar from './ProveedoresModificar';
 import StkFab from '../../../lib/StkFab'
-
+import SelecCampos from '../Impresion/SelecCampos'
 
 
 // para usar las tablas de MUI start
@@ -70,6 +70,12 @@ class Proveedores extends Component {
       url: IpServidor + '/proveedoresleer',
       proveedores: [],
       direction: {}, // direccion del ordenamiento asc o desc
+      toggle:{
+        agregar: false,
+        busqueda: false,
+        modificar: false,
+        seleccampos: false,
+    },
       toggle_agregar: false,
       toggle_busqueda: false,
       toggle_modificar: false,
@@ -101,33 +107,6 @@ class Proveedores extends Component {
 
 //Funcion ordernar Begin
 
-
-// // Ordena Numeros
-  // sortByNumero(key) {
-  //   this.setState({
-  //     proveedores: this.state.proveedores.sort((a, b) =>
-  //       this.state.direction[key] === "asc" ? a[key] - b[key] : b[key] - a[key]
-  //     ),
-  //     direction: {
-  //       [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
-  //     }
-  //   });
-  // }
-
-  // sortBy(key,tipo) {
-  //   this.setState({
-  //     proveedores: this.state.proveedores.sort((a, b) =>
-  //     tipo === 'numero' 
-  //     ? 
-  //       (this.state.direction[key] === "asc" ? a[key] - b[key] : b[key] - a[key] )
-  //      :
-  //       (this.state.direction[key] === "asc" ? a[key].toUpperCase() < b[key].toUpperCase() : b[key].toUpperCase() < a[key].toUpperCase())
-  //     ),
-  //     direction: {
-  //       [key]: this.state.direction[key] === "asc" ? "desc" : "asc"
-  //     }
-  //   });
-  // }
 
 //Funcion ordernar End 
 
@@ -172,6 +151,16 @@ class Proveedores extends Component {
 
   //******************************************* Habilita el contenido a mostrar en Pantalla - Begin *******************************************
 
+  toggle = (arg) =>{            
+    console.log("el argumento es :",arg)
+    this.setState(prevState => ({
+        // toggle:{...this.state.toggle,[arg]: !prevState.toggle[arg]}
+        toggle:{[arg]: !prevState.toggle[arg]}
+    })) // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <AgregarMonedas> ***
+    console.log("el contenido de this.state.toggle  es :",this.state.toggle)
+}
+  
+  
   toggleAgregar = () =>{            
     this.setState(prevState => ({
         toggle_agregar: !prevState.toggle_agregar
@@ -484,9 +473,25 @@ toggleImprimir = () => {
           </div>
         }
         
+
+{this.state.toggle.seleccampos &&
+  <SelecCampos 
+      datos={proveedores} 
+      toggleImprimir={()=>this.toggle("seleccampos")} 
+      headerTabla={columns}
+  />
+}
+
         {/* Muesra los botones Flotantes en la parte inferior de la pantalla Agregar y Busqueda*/}
 
-        <StkFab borraFiltered={this.borraFiltered} toggleAgregar={this.toggleAgregar} toggleBusqueda={this.toggleBusqueda} toggle_busqueda={this.state.toggle_busqueda} search={this.search} filtered={this.state.filtered} />
+        <StkFab 
+          borraFiltered={this.borraFiltered} 
+          toggleAgregar={this.toggleAgregar} 
+          toggleImprimir={()=>this.toggle("seleccampos")} 
+          toggleBusqueda={this.toggleBusqueda} 
+          toggle_busqueda={this.state.toggle_busqueda} 
+          search={this.search} 
+          filtered={this.state.filtered} />
       </div>
     )
   }

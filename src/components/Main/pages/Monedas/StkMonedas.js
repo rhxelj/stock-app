@@ -153,25 +153,7 @@ class Monedas extends Component {
         console.log("el contenido de this.state.toggle  es :",this.state.toggle)
     }
     
-    
-    // toggleAgregar = () =>{            
-    //     this.setState(prevState => ({
-    //         toggle_agregar: !prevState.toggle_agregar
-    //     })) // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <AgregarMonedas> ***
-    // }
-
-    // toggleModificar = () =>{          
-    //     this.setState(prevState => ({
-    //         toggle_modificar: !prevState.toggle_modificar
-    //     })) // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***  
-    // }
-
-    // toggleBusqueda = () => {
-    //     this.setState(prevState => ({
-    //         toggle_busqueda: !prevState.toggle_busqueda
-    //     }))
-    // }
-
+  
     //******************************************* Habilita el contenido a mostrar en Pantalla - End *******************************************
 
 

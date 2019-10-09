@@ -19,12 +19,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { withStyles } from '@material-ui/core/styles'; 
 import '../../../../Styles/TableHeader.css'
-
-// import Button from '@material-ui/core/Button';
-// import StkMonedasAgregar from './StkMonedasAgregar'
-// import StkMonedasBorrar from './StkMonedasBorrar'
-// import StkMonedasModificar from './StkMonedasModificar'
-// import Button from '@material-ui/core/Button';
+import SelecCampos from '../Impresion/SelecCampos'
 
 // Estilo para el botón de borrar
 const style = {
@@ -78,9 +73,15 @@ class UnidadMedidas extends Component {
         super(props)
         this.state = {
             url: IpServidor,
-            toggle_agregar: false,
-            toggle_busqueda: false,
-            toggle_modificar: false,
+            toggle:{
+                agregar: false,
+                busqueda: false,
+                modificar: false,
+                seleccampos: false, 
+            },
+            // toggle_agregar: false,
+            // toggle_busqueda: false,
+            // toggle_modificar: false,
             filtered:'',
             idStkUnMed:'',
             StkUnMedDesc:'',
@@ -94,24 +95,13 @@ class UnidadMedidas extends Component {
     
     
     
-    //******************************************* Habilita el contenido a mostrar en Pantalla - Begin *******************************************
+//******************************************* Habilita el contenido a mostrar en Pantalla - Begin *******************************************
 
-    toggleAgregar = () =>{            
+    toggle = (arg) =>{            
+        console.log("el argumento es :",arg)
         this.setState(prevState => ({
-            toggle_agregar: !prevState.toggle_agregar
-        })) // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <AgregarMonedas> ***
-    }
-
-    toggleModificar = () =>{          
-        this.setState(prevState => ({
-            toggle_modificar: !prevState.toggle_modificar
-        })) // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***  
-    }
-
-    toggleBusqueda = () => {
-        this.setState(prevState => ({
-            toggle_busqueda: !prevState.toggle_busqueda
-        }))
+            toggle:{[arg]: !prevState.toggle[arg]}
+        })) // estado inicial "FALSE" muestra la tabla de "..." en "TRUE" llama al componente <ComponenteParticular>
     }
 
 //******************************************* Habilita el contenido a mostrar en Pantalla - End *******************************************
@@ -238,13 +228,13 @@ borraFiltered = ()=> {
 
                 {/* Muestra el Componente Unidad de Medidas  */}
 
-                {this.state.toggle_agregar &&
+                {this.state.toggle.agregar &&
                     <div>
                         <div className="row">
                             <div className="col s12 ">
                                 <div className="">
                                     <div className="card-content  black-text">
-                                        <StkUnMedAgregar toggleAgregar={this.toggleAgregar} read={this.read}> </StkUnMedAgregar>
+                                        <StkUnMedAgregar toggleAgregar={()=>this.toggle("agregar")} read={this.read}> </StkUnMedAgregar>
                                     </div>
                                 </div>
                             </div>
@@ -255,7 +245,7 @@ borraFiltered = ()=> {
 
                 {/* Muestar la tabla de Unidad de Medidas */}
 
-                {!this.state.toggle_agregar &&
+                {!this.state.toggle.agregar &&
                     <Paper >
                         <Table >
                             <TableHead>
@@ -276,7 +266,7 @@ borraFiltered = ()=> {
                                                 this.setState({ idStkUnMed: row.idStkUnMed })
                                                 this.setState({ StkUnMedDesc: row.StkUnMedDesc })
 
-                                                this.toggleModificar()
+                                                this.toggle("modificar")
                                             }}
                                         >
 
@@ -291,16 +281,16 @@ borraFiltered = ()=> {
                     </Paper>
                 }
 
-                {/* Llama al componente ModificarMonedas */}
+                {/* Llama al componente ModificarMedidas */}
 
-                {this.state.toggle_modificar &&
+                {this.state.toggle.modificar &&
                     <div>
                         <div className="row">
                             <div className="col s12 ">
                                 <div className="">
                                     <div className="card-content  black-text">
                                         <StkUnMedModificar
-                                            toggleModificar={this.toggleModificar}
+                                            toggleModificar={()=>this.toggle("modificar")}
                                             read={() => this.read()}
                                             idStkUnMed={this.state.idStkUnMed}
                                             StkUnMedDesc={this.state.StkUnMedDesc}
@@ -314,8 +304,24 @@ borraFiltered = ()=> {
                     </div>
                 }
 
+                {this.state.toggle.seleccampos &&
+                    <SelecCampos 
+                        datos={unidad_medidas} 
+                        toggleImprimir={()=>this.toggle("seleccampos")} 
+                        headerTabla={columns}
+                    />
+                }
+
+
                 {/* Muesra los botones Flotantes en la parte inferior de la pantalla Agregar y Busqueda*/}
-                <StkFab borraFiltered={this.borraFiltered} toggleAgregar={this.toggleAgregar} toggleBusqueda={this.toggleBusqueda} toggle_busqueda={this.state.toggle_busqueda} search={this.search} filtered={this.state.filtered} />
+                <StkFab 
+                    borraFiltered={this.borraFiltered} 
+                    toggleAgregar={()=>this.toggle("agregar")} 
+                    toggleImprimir={()=>this.toggle("seleccampos")}
+                    toggleBusqueda={()=>this.toggle("busqueda")} 
+                    toggle_busqueda={this.state.toggle.busqueda} 
+                    search={this.search} 
+                    filtered={this.state.filtered} />
 
             </div>
            

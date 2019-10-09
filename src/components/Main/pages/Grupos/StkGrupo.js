@@ -18,6 +18,7 @@ import StkGrupoModificar from './StkGrupoModificar'
 import StkFab from '../../../lib/StkFab'
 
 import IpServidor from '../VariablesDeEntorno'
+import SelecCampos from '../Impresion/SelecCampos'
 
     // Estilo para el botón de borrar
     const style = {
@@ -64,9 +65,17 @@ class StkGrupo extends Component {
             StkGrupoAbr: '',
             StkGrupoContRubro:0,
             grupos:[],
+            toggle:{
+                agregar: false,
+                busqueda: false,
+                modificar: false,
+                seleccampos: false,
+            },
+           
             toggle_agregar: false,
             toggle_busqueda: false,
             toggle_modificar: false,
+            
             filtered:'',
             direction: 'asc',
         }
@@ -76,23 +85,32 @@ class StkGrupo extends Component {
     
     //******************************************* Habilita el contenido a mostrar en Pantalla - Begin *******************************************
 
-    toggleAgregar = () =>{            
+    toggle = (arg) =>{            
+        console.log("el argumento es :",arg)
         this.setState(prevState => ({
-            toggle_agregar: !prevState.toggle_agregar
-        })) // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <AgregarMonedas> ***
+            toggle:{[arg]: !prevState.toggle[arg]}
+        })) // estado inicial "FALSE" muestra la tabla de "..." en "TRUE" llama al componente <ComponenteParticular>
     }
+    
+    
+    
+    // toggleAgregar = () =>{            
+    //     this.setState(prevState => ({
+    //         toggle_agregar: !prevState.toggle_agregar
+    //     })) // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <AgregarMonedas> ***
+    // }
 
-    toggleModificar = () =>{          
-        this.setState(prevState => ({
-            toggle_modificar: !prevState.toggle_modificar
-        })) // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***  
-    }
+    // toggleModificar = () =>{          
+    //     this.setState(prevState => ({
+    //         toggle_modificar: !prevState.toggle_modificar
+    //     })) // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***  
+    // }
 
-    toggleBusqueda = () => {
-        this.setState(prevState => ({
-            toggle_busqueda: !prevState.toggle_busqueda
-        }))
-    }
+    // toggleBusqueda = () => {
+    //     this.setState(prevState => ({
+    //         toggle_busqueda: !prevState.toggle_busqueda
+    //     }))
+    // }
 
 //******************************************* Habilita el contenido a mostrar en Pantalla - End *******************************************
     
@@ -231,13 +249,13 @@ class StkGrupo extends Component {
                     </Grid>
                 </Grid>
                 
-                {this.state.toggle_agregar && // Muestra el componente agregar 
+                {this.state.toggle.agregar && // Muestra el componente agregar 
                 <div>
                     <div className="row">
                         <div className="col s12 ">
                             <div className="">
                                 <div className="card-content  white-text">
-                                    <StkGrupoAgregar toggleAgregar={this.toggleAgregar} leestkgrupo={()=>this.leestkgrupo()} read={()=>this.leestkgrupo()}> </StkGrupoAgregar>
+                                    <StkGrupoAgregar toggleAgregar={()=>this.toggle("agregar")} leestkgrupo={()=>this.leestkgrupo()} read={()=>this.leestkgrupo()}> </StkGrupoAgregar>
                                 </div>
                             </div>
                         </div>
@@ -246,7 +264,7 @@ class StkGrupo extends Component {
                 }
                
 
-               {!this.state.toggle_agregar && // Muestra la tabla de Grupo
+               {!this.state.toggle.agregar && // Muestra la tabla de Grupo
                 <Paper >
                     <Table >
                         <TableHead>
@@ -270,7 +288,7 @@ class StkGrupo extends Component {
                                     this.setState({StkGrupoDesc:row.StkGrupoDesc})
                                     this.setState({StkGrupoAbr:row.StkGrupoAbr})
                                     this.setState({StkGrupoContRubro:row.StkGrupoContRubro})
-                                    this.toggleModificar()}}
+                                    this.toggle("modificar")}}
                                     >
                                     <CustomTableCell style= {style}>{row.borrar}</CustomTableCell>
                                     <CustomTableCell>{row.idStkGrupo}</CustomTableCell>
@@ -287,7 +305,7 @@ class StkGrupo extends Component {
 
                 {/* Llama al componente ModificarGrupo */}
 
-                {this.state.toggle_modificar &&
+                {this.state.toggle.modificar &&
                                 
                                 <div>
                                     <div className="row">
@@ -295,7 +313,7 @@ class StkGrupo extends Component {
                                             <div className="">
                                                 <div className="card-content  black-text">
                                                     <StkGrupoModificar
-                                                        toggleModificar={this.toggleModificar}
+                                                        toggleModificar={()=>this.toggle("modificar")}
                                                         read={() => this.leestkgrupo()}
                                                         idStkGrupo={this.state.idStkGrupo}
                                                         StkGrupoDesc={this.state.StkGrupoDesc}
@@ -315,11 +333,25 @@ class StkGrupo extends Component {
                                 </div>
                             
                             }
-
+                {this.state.toggle.seleccampos &&
+                    <SelecCampos 
+                        datos={grupos} 
+                        toggleImprimir={()=>this.toggle("seleccampos")} 
+                        headerTabla={columns}
+                    />
+                }
 
         {/* FAB BEGIN  */} {/* Muestra los botones Flotantes en la parte inferior de la pantalla Agregar y Busqueda*/}
 
-                <StkFab borraFiltered={this.borraFiltered} toggleAgregar={this.toggleAgregar} toggleBusqueda={this.toggleBusqueda} toggle_busqueda={this.state.toggle_busqueda} search={this.search} filtered={this.state.filtered} />
+                <StkFab 
+                    borraFiltered={this.borraFiltered} 
+                    toggleAgregar={()=>this.toggle("agregar")}
+                    toggleImprimir={()=>this.toggle("seleccampos")} 
+                    toggleBusqueda={()=>this.toggle("busqueda")} 
+                    toggle_busqueda={this.state.toggle.busqueda} 
+                    search={this.search} 
+                    filtered={this.state.filtered} 
+                />
 
         {/* FAB END */}
             </div>

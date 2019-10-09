@@ -79,8 +79,9 @@ this.state = {
 
 // Agregarlo después de los estados antes de la función render
 
-//******************************************* Habilita el contenido a mostrar en Pantalla - Begin *******************************************
+# *Habilita el contenido a mostrar en Pantalla - Begin (Opcion uno)*
 
+```javascript
     toggleAgregar = () =>{            
         this.setState(prevState => ({
             toggle_agregar: !prevState.toggle_agregar
@@ -98,9 +99,17 @@ this.state = {
             toggle_busqueda: !prevState.toggle_busqueda
         }))
     }
+```
+# *Habilita el contenido a mostrar en Pantalla (Opcion dos - PREFERIDA)*
 
-//******************************************* Habilita el contenido a mostrar en Pantalla - End *******************************************
-
+```javascript
+    toggle = (arg) =>{            
+        console.log("el argumento es :",arg)
+        this.setState(prevState => ({
+            toggle:{[arg]: !prevState.toggle[arg]}
+        })) // estado inicial "FALSE" muestra la tabla de "..." en "TRUE" llama al componente <ComponenteParticular>
+    }
+```
 
 // Agregarlo al final de la tabla
 

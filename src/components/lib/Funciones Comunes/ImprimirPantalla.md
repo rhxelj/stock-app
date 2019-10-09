@@ -31,7 +31,7 @@ import SelecCampos from '../Impresion/SelecCampos'
 
 ```
 
-* Agrego el componente de Seleccion de Campos al final antes de <StkFab> ... </StkFab>
+### **Agrego el componente de Seleccion de Campos al final antes de "<StkFab> ... </StkFab>"**
 
 ```javascript
 

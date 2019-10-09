@@ -28,6 +28,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import SelecCampos from '../Impresion/SelecCampos'
+
 
 // Estilo para el botón de borrar
 const style = {
@@ -71,14 +73,20 @@ class StkRubro extends Component {
         this.state = {
             // url: IpServidor + '/stkrubroleermezcla',
             toggle: false,
-            togglemodificar: false,
+            // togglemodificar: false,
             idStkRubro: '',
             StkMonedasDescripcion: '',
             StkMonedasCotizacion: 0,
             rubro: [],
-            toggle_agregar: false,
-            toggle_busqueda: false,
-            toggle_modificar: false,
+            toggle:{
+                agregar: false,
+                busqueda: false,
+                modificar: false,
+                seleccampos: false,
+            },
+            // toggle.agregar: false,
+            // toggle_busqueda: false,
+            // toggle.modificar: false,
             filtered:'',
             campo: 'idStkRubro',
             direction: { // direccion del ordenamiento asc o des
@@ -144,22 +152,11 @@ class StkRubro extends Component {
 
 //******************************************* Habilita el contenido a mostrar en Pantalla - Begin *******************************************
 
-toggleAgregar = () =>{            
+toggle = (arg) =>{            
+    console.log("el argumento es :",arg)
     this.setState(prevState => ({
-        toggle_agregar: !prevState.toggle_agregar
-    })) // estado inicial "FALSE" muestra la tabla de "rubro"  en "TRUE" llama al componente *** <StkRubroAgregar> ***
-}
-
-toggleModificar = () =>{          
-    this.setState(prevState => ({
-        toggle_modificar: !prevState.toggle_modificar
-    })) // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <StkRubroModificar> ***  
-}
-
-toggleBusqueda = () => {
-    this.setState(prevState => ({
-        toggle_busqueda: !prevState.toggle_busqueda
-    }))
+        toggle:{[arg]: !prevState.toggle[arg]}
+    })) // estado inicial "FALSE" muestra la tabla de "..." en "TRUE" llama al componente <ComponenteParticular>
 }
 
 // Cosas a agregar para la funcion de Busqueda Begin **************************************************************************************************
@@ -188,22 +185,6 @@ toggleBusqueda = () => {
 
 
 //******************************************* Habilita el contenido a mostrar en Pantalla - End *******************************************
-
-
-
-    // toggle(event) {
-    //     this.setState(prevState => ({
-    //         toggle: !prevState.toggle
-    //     }))
-    // }
-
-    // togglemodificar(event) {
-    //     this.toggle()
-    //     this.setState(prevState => ({
-    //         togglemodificar: !prevState.togglemodificar
-    //     }))
-
-    // }
 
 
     componentWillUnmount() {
@@ -318,14 +299,14 @@ toggleBusqueda = () => {
                     </Grid>
                 </Grid>
                 {/* <input onChange={this.search} type="text" value={this.state.filtered}/>  */}
-                {this.state.toggle_agregar
+                {this.state.toggle.agregar
                     ?
                     <div>
                         <div className="row">
                             <div className="col s12 ">
                                 <div className="">
                                     <div className="card-content  black-text">
-                                        <StkRubroAgregar toggleAgregar={this.toggleAgregar} read={() => this.read()}> </StkRubroAgregar>
+                                        <StkRubroAgregar toggleAgregar={()=>this.toggle("agregar")} read={() => this.read()}> </StkRubroAgregar>
                                     </div>
                                 </div>
                             </div>
@@ -341,7 +322,7 @@ toggleBusqueda = () => {
                     </div>
                 }
                 {/* Muestro contenido */}
-                {!this.state.toggle_agregar
+                {!this.state.toggle.agregar
                     ?
                     <Paper >
                         <Table >
@@ -385,7 +366,7 @@ toggleBusqueda = () => {
                                                 // this.setState({StkGrupoDesc : row.StkGrupoDesc})
                                                 this.setState({StkRubroTM : row.StkRubroTM})
                                                 
-                                                this.toggleModificar()}
+                                                this.toggle("modificar")}
                                             }
                                         >
                                             {/* {console.log('presdes en rubro : ',row.StkRubroPresDes)} */}
@@ -410,7 +391,7 @@ toggleBusqueda = () => {
                     :
                     <div></div>
                 }
-                {this.state.toggle_modificar
+                {this.state.toggle.modificar
                     ?
                     <div>
                         <div className="row">
@@ -418,7 +399,7 @@ toggleBusqueda = () => {
                                 <div className="">
                                     <div className="card-content  black-text">
                                         <StkRubroModificar 
-                                            toggleModificar={this.toggleModificar} 
+                                            toggleModificar={()=>this.toggle("modificar")} 
                                             read={()=>this.read()}
 
                                             idStkRubro={this.state.idStkRubro}
@@ -447,9 +428,25 @@ toggleBusqueda = () => {
                     <div></div>
                 }
 
+                {this.state.toggle.seleccampos &&
+                    <SelecCampos 
+                        datos={rubro} 
+                        toggleImprimir={()=>this.toggle("seleccampos")} 
+                        headerTabla={columns}
+                    />
+                }
+
 {/* Muesra los botones Flotantes en la parte inferior de la pantalla Agregar y Busqueda*/}
 
-                <StkFab borraFiltered={this.borraFiltered} toggleAgregar={this.toggleAgregar} toggleBusqueda={this.toggleBusqueda} toggle_busqueda={this.state.toggle_busqueda} search={this.search} filtered={this.state.filtered} />
+                <StkFab 
+                    borraFiltered={this.borraFiltered} 
+                    toggleAgregar={()=>this.toggle("agregar")} 
+                    toggleImprimir={()=>this.toggle("seleccampos")}
+                    toggleBusqueda={()=>this.toggle("busqueda")} 
+                    toggle_busqueda={this.state.toggle.busqueda} 
+                    search={this.search} 
+                    filtered={this.state.filtered} 
+                />
             </div>
         )
     }

@@ -212,7 +212,6 @@ const url = IpServidor +  '/stkverificadisp'
   //   alert('descarga stock')
   //   } 
 descargastock = _ => {     
-     console.log('esta en descarga')
 const url = IpServidor +  '/stkitemsmoddisp/?id1='+this.state.StkItems+'&id2='+this.state.StkItemsGrupo +'&id3='+this.state.StkItemsRubro
     request
     .post(url)
@@ -225,7 +224,7 @@ const url = IpServidor +  '/stkitemsmoddisp/?id1='+this.state.StkItems+'&id2='+t
       })
   
   // const url1 = 'http://localhost:4000/stkmovvtaagregar/?id1='+this.state.StkItems+'&id2='+this.state.StkItemsGrupo +'&id3='+this.state.StkItemsRubro ; //'http://localhost:3000/data'
-  const url1 = Ipservidor + '/stkmovvtaagregar/?id1=' + this.state.StkItems + '&id2=' + this.state.StkItemsGrupo + '&id3=' + this.state.StkItemsRubro
+  const url1 = IpServidor + '/stkmovvtaagregar/?id1=' + this.state.StkItems + '&id2=' + this.state.StkItemsGrupo + '&id3=' + this.state.StkItemsRubro
   request
   .post(url1)
   .set('Content-Type', 'application/json')

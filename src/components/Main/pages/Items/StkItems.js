@@ -19,6 +19,7 @@ import StkItemsBorrar from './StkItemsBorrar'
 import StkItemsModificar from './StkItemsModificar'
 import Grid from '@material-ui/core/Grid';
 // import orderBy from 'lodash/orderBy'
+import SelecCampos from '../Impresion/SelecCampos'
 
 import IpServidor from '../VariablesDeEntorno'
 // Estilo para el botón de borrar
@@ -74,6 +75,12 @@ class StkItems extends Component {
             items:[],       
             itemsdetalles:[],
             stkgrupoitem:[],
+            toggle:{
+                agregar: false,
+                busqueda: false,
+                modificar: false,
+                seleccampos: false,  
+            },
             toggle_agregar: false,
             toggle_busqueda: false,
             toggle_modificar: false,
@@ -87,23 +94,31 @@ class StkItems extends Component {
 
 //******************************************* Habilita el contenido a mostrar en Pantalla - Begin *******************************************
 
-toggleAgregar = () =>{            
+toggle = (arg) =>{            
+    console.log("el argumento es :",arg)
     this.setState(prevState => ({
-        toggle_agregar: !prevState.toggle_agregar
-    })) // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <AgregarMonedas> ***
+        toggle:{[arg]: !prevState.toggle[arg]}
+    })) // estado inicial "FALSE" muestra la tabla de "..." en "TRUE" llama al componente <ComponenteParticular>
 }
 
-toggleModificar = () =>{          
-    this.setState(prevState => ({
-        toggle_modificar: !prevState.toggle_modificar
-    })) // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***  
-}
 
-toggleBusqueda = () => {
-    this.setState(prevState => ({
-        toggle_busqueda: !prevState.toggle_busqueda
-    }))
-}
+// toggleAgregar = () =>{            
+//     this.setState(prevState => ({
+//         toggle_agregar: !prevState.toggle_agregar
+//     })) // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <AgregarMonedas> ***
+// }
+
+// toggleModificar = () =>{          
+//     this.setState(prevState => ({
+//         toggle_modificar: !prevState.toggle_modificar
+//     })) // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***  
+// }
+
+// toggleBusqueda = () => {
+//     this.setState(prevState => ({
+//         toggle_busqueda: !prevState.toggle_busqueda
+//     }))
+// }
 
 //******************************************* Habilita el contenido a mostrar en Pantalla - End *******************************************
 
@@ -319,7 +334,7 @@ toggleBusqueda = () => {
                 </Grid>
 
 
-                {this.state.toggle_agregar &&
+                {this.state.toggle.agregar &&
                 // Muestra el Componente AgregarItems 
                 <div>
                     <div className="row">
@@ -327,7 +342,7 @@ toggleBusqueda = () => {
                             <div className="">
                                 <div className="card-content  white-text">
                                     {/* <StkItemsAgregar click={()=>this.toggle()} leeStkItemsDetalles={()=>this.leeStkItemsDetalles()} read={()=>this.leeStkItems()}> </StkItemsAgregar> */}
-                                    <StkItemsAgregar toggleAgregar={this.toggleAgregar} leeStkItemsDetalles={()=>this.leeStkItemsDetalles()}> </StkItemsAgregar>
+                                    <StkItemsAgregar toggleAgregar={()=>this.toggle("agregar")} leeStkItemsDetalles={()=>this.leeStkItemsDetalles()}> </StkItemsAgregar>
                                 </div>
                             </div>
                         </div>
@@ -337,7 +352,7 @@ toggleBusqueda = () => {
                
                 
 
-               {!this.state.toggle_agregar &&
+               {!this.state.toggle.agregar &&
                 // ?
                 // Muestar la tabla de Items
                 <Paper >
@@ -378,7 +393,7 @@ toggleBusqueda = () => {
                                     this.setState({StkItemsMin:row.StkItemsMin})
                                     this.setState({StkItemsMax:row.StkItemsMax})
                                     
-                                    this.togglemodificar()
+                                    this.toggle("modificar")
                                 }}
                             >
                                 {/* {console.log("row ")} */}
@@ -404,7 +419,7 @@ toggleBusqueda = () => {
                 }
 
 
-                    {this.state.togglemodificar
+                    {this.state.toggle.modificar
                         ?  
                          //Llama al componente ModificarItems
                         <div>
@@ -413,7 +428,7 @@ toggleBusqueda = () => {
                                     <div className="">
                                         <div className="card-content  black-text">
                                         <StkItemsModificar 
-                                            clickmodificar={()=>this.togglemodificar()} 
+                                            clickmodificar={()=>this.toggle("modificar")} 
                                             // read={()=>this.read()}
 
                                             idStkItems={this.state.idStkItems}
@@ -443,11 +458,27 @@ toggleBusqueda = () => {
                     :
                         <div></div>    
     }
+
+            {this.state.toggle.seleccampos &&
+                <SelecCampos 
+                    datos={items} 
+                    toggleImprimir={()=>this.toggle("seleccampos")} 
+                    headerTabla={columns}
+                />
+            }
+
             {/* // FAB BEGIN  */}
 
                 {/* Muesra los botones Flotantes en la parte inferior de la pantalla Agregar y Busqueda*/}
 
-                <StkFab borraFiltered={this.borraFiltered} toggleAgregar={this.toggleAgregar} toggleBusqueda={this.toggleBusqueda} toggle_busqueda={this.state.toggle_busqueda} search={this.search} filtered={this.state.filtered} />
+                <StkFab 
+                    borraFiltered={this.borraFiltered} 
+                    toggleAgregar={()=>this.toggle("agregar")} 
+                    toggleImprimir={()=>this.toggle("seleccampos")}
+                    toggleBusqueda={()=>this.toggle("busqueda")} 
+                    toggle_busqueda={this.state.toggle.busqueda} 
+                    search={this.search} 
+                    filtered={this.state.filtered} />
 
             {/* // FAB END */}
             </div>
