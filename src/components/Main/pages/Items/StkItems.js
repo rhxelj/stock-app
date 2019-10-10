@@ -478,7 +478,9 @@ toggle = (arg) =>{
                     toggleBusqueda={()=>this.toggle("busqueda")} 
                     toggle_busqueda={this.state.toggle.busqueda} 
                     search={this.search} 
-                    filtered={this.state.filtered} />
+                    filtered={this.state.filtered} 
+                    agrega={true}
+                    />
 
             {/* // FAB END */}
             </div>

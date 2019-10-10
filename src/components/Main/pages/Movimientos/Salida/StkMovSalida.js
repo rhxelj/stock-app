@@ -1,7 +1,6 @@
 import React, { Component} from 'react'
 import request from 'superagent'
-import IpServidor from "../../VariablesDeEntorno";
-
+import IpServidor from '../../VariablesDeEntorno'
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -9,38 +8,16 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-// import { confirmAlert } from 'react-confirm-alert';
+// import { confirmAlert } from 'react-confirm-alert' 
+import {confirmAlert} from 'react'
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { FormControl, DialogContentText } from '@material-ui/core';
 import { throws } from 'assert';
-// import { AlertWarning } from 'material-ui/svg-icons';
+// import { AlertWarning } from  '@material-ui/svg-icons';
 
-
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-  },
-  dense: {
-    marginTop: 16,
-  },
-  menu: {
-    width: 200,
-  },
-});
 
 const TipoConfeccion = [
   {
@@ -55,7 +32,10 @@ const TipoConfeccion = [
     indice: 3,
     detalle: 'Paño Unido',
   },
- 
+  {
+    indice: 4,
+    detalle: 'Enrollable',
+  },
 ];
 class StkMovSalida extends React.Component {
     constructor () {
@@ -76,39 +56,43 @@ class StkMovSalida extends React.Component {
         faltante : 0.00,
         total : 0.00,
         datostraid : [],
-        marcaver : false,
-        open: true
+        open: true,
+        marcaver : false
       }
     }
-    // submit = () => {
-    //   confirmAlert({
-    //     title: 'La Cantidad excede la Disponibilidad',
-    //     message: 'Confirma el Movimiento',
-    //     buttons: [
-    //       {
-    //         label: 'Si',
-    //         onClick: () => alert('Click Yes')
-    //       },
-    //       {
-    //         label: 'No',
-    //         onClick: () => alert('Click No')
-    //       }
-    //     ]
-    //   })}
-    handleClose = () => {
-      this.setState({ open: false });
-    };
+    submit = () => {
+      confirmAlert({
+        title: 'La Cantidad excede la Disponibilidad',
+        message: 'Confirma el Movimiento',
+        buttons: [
+          {
+            label: 'Si',
+            onClick: () => alert('Click Yes')
+          },
+          {
+            label: 'No',
+            onClick: () => alert('Click No')
+          }
+        ]
+      })}
+
+
    
   // Lee Grupo inicio 
 leestkgrupo = _ => {
   const url = IpServidor + "/stkgrupoleer";
+  console.log ('url ')
+  console.log (url)
   request
   .get(url)
   .set('Content-Type', 'application/json')
   .then(res=> {
       const stkgrupo = JSON.parse(res.text);
       this.setState(()=>{ return {stkgrupo: stkgrupo}});
+      
       })
+      console.log('this.state.stkgrupo')
+      console.log(this.state.stkgrupo)
   }
 
   //lee rubro por código de grupo
@@ -155,7 +139,8 @@ leestkgrupo = _ => {
               this.setState({StkItemsFAct: this.state.stkitemse[0].StkItemsFAct})
               this.setState({StkItemsMin: this.state.stkitemse[0].StkItemsMin})
               this.setState({StkItemsMax: this.state.stkitemse[0].StkItemsMax})
-  
+              var recorte = this.state.StkItemsFAct.substr(0,10);
+              this.setState({StkItemsFAct: recorte})
             })
         }
   
@@ -180,6 +165,14 @@ handleChangeItems = prop => event => {
   this.setState({[prop]: event.target.value},()=> this.stkitemsleecodgrrbit())
 };
 
+handleClickOpen = () => {
+  this.setState({ open: true });
+};
+
+handleClose = () =>  {
+  this.setState({ open: false });
+};
+     
 
 verificadisp = _ => {
   var cant = Number(this.state.cantidad)
@@ -187,10 +180,7 @@ verificadisp = _ => {
   var anch = Number(this.state.ancho)
 
 const url = IpServidor +  '/stkverificadisp'
-
-
     request
-    
     .post(url)
     .set('Content-Type', 'application/json')
     .send({cant: cant})
@@ -212,7 +202,7 @@ const url = IpServidor +  '/stkverificadisp'
   //   alert('descarga stock')
   //   } 
 descargastock = _ => {     
-const url = IpServidor +  '/stkitemsmoddisp/?id1='+this.state.StkItems+'&id2='+this.state.StkItemsGrupo +'&id3='+this.state.StkItemsRubro
+     const url = IpServidor +  '/stkitemsmoddisp/?id1='+this.state.StkItems+'&id2='+this.state.StkItemsGrupo +'&id3='+this.state.StkItemsRubro ; //'http://localhost:3000/data'
     request
     .post(url)
     .set('Content-Type', 'application/json')
@@ -220,35 +210,39 @@ const url = IpServidor +  '/stkitemsmoddisp/?id1='+this.state.StkItems+'&id2='+t
     .send({StkItemsCantDisp: this.state.StkItemsCantDisp })
     .then(res=> {
       const total1 = JSON.parse(res.text)
-      alert(total1)
+      //this.setState({marcaver:true})
       })
-  
-  // const url1 = 'http://localhost:4000/stkmovvtaagregar/?id1='+this.state.StkItems+'&id2='+this.state.StkItemsGrupo +'&id3='+this.state.StkItemsRubro ; //'http://localhost:3000/data'
-  const url1 = IpServidor + '/stkmovvtaagregar/?id1=' + this.state.StkItems + '&id2=' + this.state.StkItemsGrupo + '&id3=' + this.state.StkItemsRubro
+
+if (this.state.total > 0) {
+const url1 = IpServidor +  '/stkmovvtaagregar';
   request
   .post(url1)
   .set('Content-Type', 'application/json')
   .send({StkMovVtaCantidad: this.state.total})
+  .send({StkMovVtaItem:this.state.StkItems})
+  .send({StkMovVtaGrupo: this.state.StkItemsGrupo})
+  .send({StkMovVtaRubro: this.state.StkItemsRubro})
   .then(function(res) {
       // res.body, res.headers, res.status
-          });            
-     }
+          });   
+        }
+}
 
-salida = _=> {
-}     
-   
+ 
+
+
 render () {
+  
   return(
     <div>
       <Dialog
-      // open={true}
       open={this.state.open}
-      // onClose={this.handleClose}
+      onClose={this.handleClose}
       aria-labelledby="form-dialog-title"
       >  
       <Grid container>
       <Grid item xs={6} sm={6} lg={6}></Grid>
-        <DialogTitle id="form-dialog-title">Salidas de stock por Confección</DialogTitle>
+        <DialogTitle id="form-dialog-title">Salidas de stock por Confección en Venta</DialogTitle>
       <Grid item xs={6} sm={6} lg={6}></Grid>
       </Grid>
       <DialogContent>
@@ -321,17 +315,14 @@ render () {
               </option>))} 
           </TextField>
         </Grid>
-         
-         
-         
-         {/* {this.state.StkItemsCantDisp < this.state.StkItemsMin
+         {this.state.StkItemsCantDisp < this.state.StkItemsMin
             ?
               <Grid item  xs={6} sm={6} lg={6}>
                 <TextField
                 id="CantDisp"
                 label="Cantidad Disponible"
                 value={this.state.StkItemsCantDisp}
-                style={{background:"#f44336"}}
+                style={{background: "#f92c19" }}
                 disabled    
                       >
                 </TextField>
@@ -347,20 +338,7 @@ render () {
                       >
                 </TextField>
               </Grid> 
-         } */}
-
-<Grid item  xs={6} sm={6} lg={6}>
-                <TextField
-                id="CantDisp"
-                label="Cantidad Disponible"
-                value={this.state.StkItemsCantDisp}
-                style={(this.state.StkItemsCantDisp < this.state.StkItemsMin) ? {background:"#f44336"}:{background:"#00e676"}}
-                disabled    
-                      >
-                </TextField>
-              </Grid> 
-
-
+         }
         <Grid item  xs={6} sm={6} lg={6}>
           <TextField
            id="MinStock"
@@ -483,9 +461,9 @@ render () {
                     </div>
                     :
                     <div>
-                      <label  >DESCARGA</label> 
+                      <label  >DESCARGO EXITOSAMENTE</label> 
                       {this.descargastock()}
-                      {this.handleClose()}
+                      {/* {this.handleClose()} */}
                     </div>
                   ]
               
@@ -505,8 +483,7 @@ render () {
 
 
 
-export default StkMovSalida
-
+export default StkMovSalida 
 
 
 
