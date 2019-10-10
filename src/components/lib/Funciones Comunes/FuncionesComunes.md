@@ -1,42 +1,48 @@
-import IpServidor from './VariablesDeEntorno'
+# Esto lo importo en cada componente que necesite aceder al backend
+```javascript 
+    import IpServidor from './VariablesDeEntorno'
+```
 
 
+# Cosas a agregar para la funcion de Busqueda 
 
-// // Cosas a agregar para la funcion de Busqueda Begin **************************************************************************************************
+```javascript
 
-//     // Funcion De Busqueda - Begin
+    // Funcion De Busqueda - Begin
 
-//         search = (event) => {                       // Funcion de busqueda
-//             // var name  = event.target.name
-//             var value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value
-//             this.setState({ filtered: value })
-//         }
+            search = (event) => {                       // Funcion de busqueda
+                // var name  = event.target.name
+                var value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value
+                this.setState({ filtered: value })
+            }
 
-//     // Funcion De Busqueda - End.
-    
-//     // Opcion para borrar contenido del cuadro de busqueda - BEGIN    
+    // Funcion De Busqueda - End.
         
-//         borraFiltered = ()=> {
-//             this.setState({ filtered: '' })
-//         }
+    // Opcion para borrar contenido del cuadro de busqueda - BEGIN    
+            
+            borraFiltered = ()=> {
+                this.setState({ filtered: '' })
+            }
 
-//     // Opcion para borrar contenido del cuadro de busqueda - END
-    
-//         //  Esto se agrega dentro de la funcion render 
+    // Opcion para borrar contenido del cuadro de busqueda - END
 
-//     // Filtrado de datos - Begin 
+```
+        
+# Esto se agrega dentro de la función render
 
-//         var filtrado = this.state.monedas.filter((moneda) => {
-//             return (
-//                 moneda.idStkMonedas.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1 ||
-//                 moneda.StkMonedasDescripcion.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
-//             )
-//         })
-//     // Filtrado de datos - End  
+```javascript
+    // Filtrado de datos - Begin 
 
-// // Cosas a agregar para la funcion de Busqueda End *************************************************************************************************************
+            var filtrado = this.state.monedas.filter((moneda) => {
+                return (
+                    moneda.idStkMonedas.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1 ||
+                    moneda.StkMonedasDescripcion.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
+                )
+            })
 
+    // Filtrado de datos - End  
 
+```
 
 
 

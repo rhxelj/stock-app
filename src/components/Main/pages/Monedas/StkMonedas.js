@@ -248,9 +248,9 @@ class Monedas extends Component {
                     <Grid item xs={4} sm={4} lg={4}>
                     </Grid>
                 </Grid>
-                {/* Muestra el Componente AgregarMonedas  */}
 
-                {/* this.state.toggle_agregar && */}
+            {/* Muestra el Componente AgregarMonedas  */}
+                
                 {this.state.toggle.agregar &&
                     // Muestra el Componente AgregarMonedas 
                     <div>
@@ -268,9 +268,8 @@ class Monedas extends Component {
                  
                 }
 
-                {/* Muestar la tabla de Monedas */}
+            {/* Muestar la tabla de Monedas */}
 
-                {/* {!this.state.toggle_agregar && */}
                 {!this.state.toggle.agregar &&
                     <Paper >
                         <Table >
@@ -278,8 +277,15 @@ class Monedas extends Component {
                                 <TableRow className={this.props.classes.row} >
                                     <CustomTableCell className="headerFijo"  ></CustomTableCell>
                                     {columns.map((row, index) => {
-                                        return (<CustomTableCell className="headerFijo"  key={index} onClick={() => { return row.order && this.sortBy(row.accessor) }} >{row.Header}</CustomTableCell>)
-                                    })
+                                        return (
+                                            <CustomTableCell 
+                                                className="headerFijo"  
+                                                key={index} 
+                                                onClick={() => { return row.order && this.sortBy(row.accessor) }} 
+                                            >
+                                                {row.Header}
+                                            </CustomTableCell>)
+                                        })
                                     }
                                 </TableRow>
                             </TableHead>

@@ -131,7 +131,7 @@ class ListaPrecios extends Component {
     this.setState(prevState => ({
         // toggle:{...this.state.toggle,[arg]: !prevState.toggle[arg]}
         toggle:{[arg]: !prevState.toggle[arg]}
-    })) // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <AgregarMonedas> ***
+    })) // estado inicial "FALSE" muestra la tabla de "listaprecios"  en "TRUE" llama al componente *** <Agregarlistaprecios> ***
     console.log("el contenido de this.state.toggle  es :",this.state.toggle)
 }
   
@@ -139,7 +139,7 @@ class ListaPrecios extends Component {
     // this.setState(prevState => ({
     //     toggle_desplegar: !prevState.toggle_desplegar
     // }))
-     // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <desplegarProveedores> ***
+     // estado inicial "FALSE" muestra la tabla de "listaprecios"  en "TRUE" llama al componente *** <desplegarProveedores> ***
     this.toggleDialogo()
     this.setState({codgrupo : StkRubroCodGrp})
     this.setState({codrubro : idStkRubro})
@@ -151,15 +151,33 @@ class ListaPrecios extends Component {
     }))
   }
 
+
+//******************************************* Funcion ordernar - Begin *******************************************
+
+sortBy(key) {
+  this.setState({
+      listaprecios: this.state.listaprecios.sort((a, b) =>
+          this.state.direction[key] === "asc" ? (a[key] < b[key] ? 1 : -1) : (a[key] > b[key] ? 1 : -1)
+      ),
+      direction: { [key]: this.state.direction[key] === "asc" ? "desc" : "asc" }
+  });
+}
+
+//******************************************* Funcion ordernar - End *******************************************
+
+
 render (){
-  var listaprecios = this.state.listaprecios.filter((lisprecios) => { //este listaprecios no es el listaprecios de this.state.proveedores es una copia local
-    return (
-      
-      lisprecios.StkGrupoDesc == null ? true : 
-      lisprecios.StkGrupoDesc.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1 
-   
-    )
-})
+ 
+  // Filtrado de datos - Begin 
+    var listaprecios = this.state.listaprecios.filter((lisprecios) => { //este listaprecios no es el listaprecios de this.state.proveedores es una copia local
+      return (
+        lisprecios.StkRubroDesc == null ? true : 
+        lisprecios.StkRubroDesc.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
+        
+      )
+    })
+  // Filtrado de datos - End 
+
   var columns = [
     {
       Header: "Descripción",
@@ -195,7 +213,7 @@ render (){
       Header: "",
       accessor: "",
       tipo:"",
-      order: true,
+      order: false,
     }
   ]
     return(
@@ -213,12 +231,27 @@ render (){
         <Paper >
         <Table  stickyHeader>
             <TableHead   className="headerFijo" >
-              {/* <TableRow> */}
-                <CustomTableCell >Descripción</CustomTableCell>
+              <TableRow>
+                {/* <CustomTableCell >Descripción</CustomTableCell>
                 <CustomTableCell numeric>Precio Púb.</CustomTableCell>
                 <CustomTableCell numeric>Precio May</CustomTableCell>
                 <CustomTableCell numeric>Paño Unid</CustomTableCell>
-                <CustomTableCell numeric>Paño Unid Rec</CustomTableCell>
+                <CustomTableCell numeric>Paño Unid Rec</CustomTableCell> */}
+                
+                {/* <CustomTableCell className="headerFijo"  > */}
+                                    {columns.map((row, index) => {
+                                      return (
+                                        <CustomTableCell 
+                                        className="headerFijo"  
+                                        key={index} 
+                                        onClick={() => { return row.order && this.sortBy(row.accessor) }} 
+                                        >
+                                                {row.Header}
+                                            </CustomTableCell>)
+                                        
+                                      })
+                                    }
+                </TableRow>
             </TableHead>
 
 
@@ -238,6 +271,7 @@ render (){
                   <CustomTableCell numeric>$ {lisprecios.PMay.toFixed(2)}</CustomTableCell>
                   <CustomTableCell numeric>$ {lisprecios.PMayPU.toFixed(2)}</CustomTableCell>
                   <CustomTableCell numeric>$ {lisprecios.PMayPUR.toFixed(2)}</CustomTableCell>
+                  <CustomTableCell ></CustomTableCell>
                   </TableRow>
                 )}
               )}
