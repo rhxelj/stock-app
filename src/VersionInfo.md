@@ -7,3 +7,7 @@ V1.2 17-07-2019
 V1.2.1 10-09-2019
     Arreglar urls que en vez de usar IpServidor seguía usando http:\\localhost...
     cambios en los mensajes de error. y modificación de los labels en stkUnidad de medidas (Código)y en StkMonedas (código) por código - (Max. 4 dígitos)
+
+V2 10-10-2019
+    Cambio de MENU presenta dos opciones "Movimientos" y "Tablas". También agregamos la opción de imprimir y modificamos el componente <StkFab> para que muestre o no la opción de agregar dependiendo el lugar.
+    
