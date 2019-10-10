@@ -16,10 +16,12 @@ import Proveedores  from './pages/Proveedores/Proveedores'
 import StkUnMed     from './pages/UnidadMedidas/StkUnMed'
 import StkRubro     from './pages/Rubros/StkRubro'
 import StkGrupo     from './pages/Grupos/StkGrupo';
+import StkUbFisica from './pages/UbicacionFisica/StkUbFisica'
+import ListaPrecios from './pages/ListaPrecios/ListaPrecios'
 import StkMovEntrada     from './pages/Movimientos/Entrada/StkMovEntrada';
-
+import StkMovSalida from './pages/Movimientos/Salida/StkMovSalida'
+import StkSalidaFinal from './pages/Movimientos/Salida/StkSalidaFinal'
 // import StkMovimiento from './pages/z_SinClasificarMirar/StkMovimiento'
-// import StkMovSalida from './pages/Movimientos/Salida/StkMovSalida'
 import StkItems from './pages/Items/StkItems'
 
 
@@ -40,11 +42,14 @@ const Main = () => (
             <Route path="/Proveedores"  component={Proveedores}/>
             <Route path="/StkUnMed"     component={StkUnMed}/>
             {/* <Route path="/StkMovimiento"     component={StkMovimiento}/> */}
-            {/* <Route path="/StkMovSalida"     component={StkMovSalida}/> */}
+            <Route path="/StkMovSalida"     component={StkMovSalida}/>
+            <Route path="/StkSalidaFinal"     component={StkSalidaFinal}/>
+            <Route path="/ListaPrecios"     component={ListaPrecios}/>
             <Route path="/StkRubro"     component={StkRubro}/>
             <Route path="/StkGrupo"     component={StkGrupo}/>
             <Route path="/StkItems"     component={StkItems}/>
             <Route path="/StkMovEntrada"     component={StkMovEntrada}/>
+            <Route path="/StkUbFisica"     component={StkUbFisica}/>
             {/* <Route path="/AgregarMonedas" component={AgregarMonedas}/> */}
             {/* <Route path="/BorrarMonedas" component={BorrarMonedas}/> */}
             {/* <Route path="/ModificarMonedas" component={ModificarMonedas}/> */}

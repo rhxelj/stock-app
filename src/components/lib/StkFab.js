@@ -22,7 +22,7 @@ import DirectionsIcon from '@material-ui/icons/Directions';
 
 // {/* Muesra los botones Flotantes en la parte inferior de la pantalla */}
 
-const StkFab = ({toggleAgregar,toggleBusqueda,toggle_busqueda,search,filtered,borraFiltered,toggleImprimir})=>( 
+const StkFab = ({toggleAgregar,toggleBusqueda,toggle_busqueda,search,filtered,borraFiltered,toggleImprimir,agrega})=>( 
     <Fragment>           
         {/* Boton de impresion */}
         <Fab 
@@ -38,6 +38,7 @@ const StkFab = ({toggleAgregar,toggleBusqueda,toggle_busqueda,search,filtered,bo
         </Fab>
 
         {/* Agregar datos a la base de datos */}
+        {agrega &&
         <Fab 
             onClick={toggleAgregar} 
             color="primary" 
@@ -48,7 +49,7 @@ const StkFab = ({toggleAgregar,toggleBusqueda,toggle_busqueda,search,filtered,bo
                 "right": "25px",}}
         >
             <AddIcon />
-        </Fab>
+        </Fab>}
         
         {/* Filtro de busqueda */}
         <Fab 

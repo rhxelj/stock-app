@@ -17,7 +17,9 @@ import Paper from '@material-ui/core/Paper';
 import { Dialog } from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
-import DialogActions from '@material-ui/core/DialogActions';
+import DialogActions from '@material-ui/core/DialogActions'
+import StkFab from '../../../lib/StkFab'
+import SelecCampos from '../Impresion/SelecCampos'
 // import ExpansionPanel, {
 //   ExpansionPanelSummary,
 //   ExpansionPanelDetails,
@@ -64,6 +66,13 @@ class ListaPrecios extends Component {
       toggle_busqueda: false,
       toggle_modificar: false,
       filtered:'',
+
+      toggle:{
+        agregar: false,
+        busqueda: false,
+        modificar: false,
+        seleccampos: false,
+    },
       
       lisprecios : {
         idStkRubro : 0,
@@ -96,6 +105,36 @@ class ListaPrecios extends Component {
     this.leer()
   }
 
+  // Funcion De Busqueda - Begin
+
+  search = (event) => {                       // Funcion de busqueda
+    // var name  = event.target.name
+    var value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value
+    this.setState({ filtered: value })
+}
+
+// Funcion De Busqueda - End.
+
+// Cosas a agregar para la funcion de Busqueda End *************************************************************************************************************
+  
+  
+   // Opcion para borrar contenido del cuadro de busqueda - BEGIN    
+        
+   borraFiltered = ()=> {
+    this.setState({ filtered: '' })
+}
+
+// Opcion para borrar contenido del cuadro de busqueda - END
+  
+  toggle = (arg) =>{            
+    console.log("el argumento es :",arg)
+    this.setState(prevState => ({
+        // toggle:{...this.state.toggle,[arg]: !prevState.toggle[arg]}
+        toggle:{[arg]: !prevState.toggle[arg]}
+    })) // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <AgregarMonedas> ***
+    console.log("el contenido de this.state.toggle  es :",this.state.toggle)
+}
+  
   toggleDesplegar = (idStkRubro, StkRubroCodGrp) =>{         
     // this.setState(prevState => ({
     //     toggle_desplegar: !prevState.toggle_desplegar
@@ -138,6 +177,24 @@ render (){
       Header: "Precio May",
       accessor: "PMay",
       tipo:"numero",
+      order: true,
+    },
+    {
+      Header: "Paño Unido",
+      accessor: "PMayPU",
+      tipo:"",
+      order: true,
+    },
+    {
+      Header: "Paño Unido Rec",
+      accessor: "PMayPUR",
+      tipo:"",
+      order: true,
+    },
+    {
+      Header: "",
+      accessor: "",
+      tipo:"",
       order: true,
     }
   ]
@@ -213,6 +270,26 @@ render (){
       
        </Grid>
               </Grid>
+              
+
+              {this.state.toggle.seleccampos &&
+        <SelecCampos 
+            datos={listaprecios} 
+            toggleImprimir={()=>this.toggle("seleccampos")} 
+            headerTabla={columns}
+        />
+    }
+
+              <StkFab 
+                    borraFiltered={this.borraFiltered} 
+                    toggleAgregar={()=>this.toggle("agregar")} 
+                    toggleImprimir={()=>this.toggle("seleccampos")}
+                    toggleBusqueda={()=>this.toggle("busqueda")} 
+                    toggle_busqueda={this.state.toggle.busqueda} 
+                    search={this.search} 
+                    filtered={this.state.filtered} 
+                    agrega={false}
+                />
     </div>
   )
 }

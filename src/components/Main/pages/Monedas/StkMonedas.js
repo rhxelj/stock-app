@@ -353,6 +353,7 @@ class Monedas extends Component {
                     toggle_busqueda={this.state.toggle.busqueda} 
                     search={this.search} 
                     filtered={this.state.filtered} 
+                    agrega={true}
                 />
             </div>
         )

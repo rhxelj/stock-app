@@ -38,7 +38,7 @@ export default function SelecCampos(props) {
   const [open, setOpen] = React.useState(false);
   const [properties, setProperties] = React.useState(false);
  
-  props.headerTabla.pop() //Saco el campo borrar
+  // props.headerTabla.pop() //Saco el campo borrar
   
   const handleToggle = value => () => {
     const currentIndex = checked.indexOf(value);

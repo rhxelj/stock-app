@@ -282,7 +282,15 @@ borraFiltered = ()=> {
 
 
                 {/* Muesra los botones Flotantes en la parte inferior de la pantalla Agregar y Busqueda*/}
-                <StkFab borraFiltered={this.borraFiltered} toggleAgregar={this.toggleAgregar} toggleBusqueda={this.toggleBusqueda} toggle_busqueda={this.state.toggle_busqueda} search={this.search} filtered={this.state.filtered} />
+                <StkFab 
+                    borraFiltered={this.borraFiltered} 
+                    toggleAgregar={this.toggleAgregar} 
+                    toggleBusqueda={this.toggleBusqueda} 
+                    toggle_busqueda={this.state.toggle_busqueda} 
+                    search={this.search} 
+                    filtered={this.state.filtered} 
+                    agrega={true}
+                />
 
             </div>
            

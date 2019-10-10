@@ -491,7 +491,9 @@ toggleImprimir = () => {
           toggleBusqueda={this.toggleBusqueda} 
           toggle_busqueda={this.state.toggle_busqueda} 
           search={this.search} 
-          filtered={this.state.filtered} />
+          filtered={this.state.filtered} 
+          agrega={true}
+          />
       </div>
     )
   }
