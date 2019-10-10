@@ -38,6 +38,7 @@ export default function SelecCampos(props) {
   const [open, setOpen] = React.useState(false);
   const [properties, setProperties] = React.useState(false);
  
+  props.headerTabla.pop() //Saco el campo borrar
   
   const handleToggle = value => () => {
     const currentIndex = checked.indexOf(value);
@@ -64,6 +65,7 @@ export default function SelecCampos(props) {
       })
       setProperties(campoVisible)
   }
+
 
   // *********
 
@@ -94,7 +96,7 @@ export default function SelecCampos(props) {
               />
             </ListItemIcon>
             <ListItemText id={labelId} primary={`${value.Header }`} />
-            <ListItemText id={labelId} primary={`${value.accessor }`} />
+            {/* <ListItemText id={labelId} primary={`${value.accessor }`} /> */}
            
           </ListItem>
           
