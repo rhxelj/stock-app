@@ -10,4 +10,6 @@ V1.2.1 10-09-2019
 
 V2 10-10-2019
     Cambio de MENU presenta dos opciones "Movimientos" y "Tablas". También agregamos la opción de imprimir y modificamos el componente <StkFab> para que muestre o no la opción de agregar dependiendo el lugar.
-    
+
+V2.0.1 11-10-2019
+    Arreglar la búsqueda en el componente <ListaPrecios> agregar la función de ordenamiento.
