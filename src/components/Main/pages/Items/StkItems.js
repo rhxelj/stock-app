@@ -95,7 +95,6 @@ class StkItems extends Component {
 //******************************************* Habilita el contenido a mostrar en Pantalla - Begin *******************************************
 
 toggle = (arg) =>{            
-    console.log("el argumento es :",arg)
     this.setState(prevState => ({
         toggle:{[arg]: !prevState.toggle[arg]}
     })) // estado inicial "FALSE" muestra la tabla de "..." en "TRUE" llama al componente <ComponenteParticular>
@@ -243,10 +242,17 @@ toggle = (arg) =>{
         // Filtrado de datos - Begin 
 
             var items = this.state.items.filter((item) => {
+               
                 return (
                     item.StkItemsDesc.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1 
-                    // ||
-                    // item.StkItemsCantidad.indexOf(this.state.filtered) !== -1
+                    ||
+                    item.StkRubroDesc.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1 
+                    ||
+                    item.StkGrupoDesc.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1 
+                    // item.StkItemsGrupo.indexOf(this.state.filtered) !== -1
+                    // item.StktemsFAct.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1 
+                    ||
+                    item.StkItemsFAct.indexOf(this.state.filtered) !== -1
                 )
             })
         // Filtrado de datos - End  

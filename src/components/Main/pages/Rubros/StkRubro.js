@@ -217,8 +217,10 @@ toggle = (arg) =>{
             var rubro = this.state.rubro.filter((rbr) => {
                 return (
                     rbr.StkGrupoDesc.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1 
-                    // || 
-                    // moneda.StkMonedasDescripcion.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
+                    || 
+                    rbr.StkRubroDesc.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
+                    || 
+                    rbr.ProveedoresDesc.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
                 )
             })
         // Filtrado de datos - End  

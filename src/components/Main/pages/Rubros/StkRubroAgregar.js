@@ -26,7 +26,7 @@ class StkRubroAgregar extends Component {
       StkRubroDesc: "",
       StkRubroAbr: "",
       StkRubroProv: "",
-      StkRubroAncho: "",
+      StkRubroAncho: 0,
       StkRubroPres: "",
       StkRubroPresDes: "",
       StkRubroUM:"",
