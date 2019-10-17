@@ -27,10 +27,10 @@ class StkRubroAgregar extends Component {
       StkRubroAbr: "",
       StkRubroProv: "",
       StkRubroAncho: 0,
-      StkRubroPres: "",
+      StkRubroPres: 0.00,
       StkRubroPresDes: "",
       StkRubroUM:"",
-      StkRubroCosto:"",
+      StkRubroCosto:0.00,
       StkRubroTM:"",
       // stkgrupo:{},
       stkgrupo:[],
@@ -457,7 +457,8 @@ leetmon = _ => {
                   margin="dense"
                   InputLabelProps={{ shrink: true }}
                   variant="standard"
-                  onKeyPress={event => {
+                  
+                  nKeyPress={event => {
                     if (event.key === "Enter")
                       document.getElementById("StkRubroPres").focus();
                   }}
@@ -470,6 +471,7 @@ leetmon = _ => {
                   value={this.state.StkRubroPres}
                   onChange={this.handleChange("StkRubroPres")}
                   margin="dense"
+                  type="number"
                   variant="standard"
                   onKeyPress={event => {
                     if (event.key === "Enter")
@@ -518,6 +520,7 @@ leetmon = _ => {
                   onChange={this.handleChange("StkRubroCosto")}
                   margin="dense"
                   variant="standard"
+                  type="number"
                   onKeyPress={event => {
                     if (event.key === "Enter")
                       document.getElementById("StkRubroTM").focus();

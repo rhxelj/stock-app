@@ -103,7 +103,7 @@ class Header extends React.Component {
             onClick={this.toggleDrawer('left', true)}
         >
             <MenuIcon
-              onClick={this.toggleDrawer('left', true)}
+              // onClick={this.toggleDrawer('left', true)}
             >
             </MenuIcon>
         </IconButton>

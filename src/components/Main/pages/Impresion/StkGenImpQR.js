@@ -4,21 +4,21 @@ import  QRCode  from "qrcode.react";
 import printJS from 'print-js'
 
 import IpServidor from "../../pages/VariablesDeEntorno";
-import Grid from '@material-ui/core/Grid';
+// import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
+// import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { withStyles } from '@material-ui/core/styles'; 
 import Typography from '@material-ui/core/Typography'; 
 
 
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import Checkbox from '@material-ui/core/Checkbox';
 
 const CustomTableCell = withStyles(theme => ({
   head: {
@@ -80,7 +80,7 @@ class StkGenImpQR extends Component {
         .post(url)
         .set('Content-Type', 'application/json')
         .then(res=> {
-        const envasecambiaimp = JSON.parse(res.text)
+        // const envasecambiaimp = JSON.parse(res.text)
             })
            
     }
@@ -129,8 +129,11 @@ class StkGenImpQR extends Component {
 
               // console.log("Indice con this.state : "+this.state.indice)
               // console.log("Indice : "+indice)
-              const idc = `${option.idStkEnvase}`+`${option.StkEnvaseGrupo}`+`${option.StkEnvaseRubro}`+`${option.StkEnvaseItem}`
-              // console.log("idc = "+idc)
+              
+              // const idc = `${option.idStkEnvase}`+`${option.StkEnvaseGrupo}`+`${option.StkEnvaseRubro}`+`${option.StkEnvaseItem}`
+              const idc = `${option.idStkEnvase}${option.StkEnvaseGrupo}${option.StkEnvaseRubro}${option.StkEnvaseItem}`
+              
+              console.log("idc = "+idc)
               return (
                
                 <TableRow key={idc}>
