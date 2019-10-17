@@ -13,3 +13,6 @@ V2 10-10-2019
 
 V2.0.1 11-10-2019
     Arreglar la búsqueda en el componente <ListaPrecios> agregar la función de ordenamiento.
+
+V2.1 17-10-2019
+    Definir los campos de búsqueda de Items y Rubro. y definir con valor por defecto 0 al ancho en StkRubroAgregar.Corregir varios componentes para que no tiren warnings cuando compila.
