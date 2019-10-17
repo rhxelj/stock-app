@@ -1,11 +1,12 @@
 import React, { Component} from 'react'
 import printJS from 'print-js'
-import { Dialog } from '@material-ui/core';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles'; 
-import TableCell from '@material-ui/core/TableCell';
+
+// import { Dialog } from '@material-ui/core';
+// import DialogActions from '@material-ui/core/DialogActions';
+// import DialogTitle from '@material-ui/core/DialogTitle';
+// import Button from '@material-ui/core/Button';
+// import TableCell from '@material-ui/core/TableCell';
 
 const styles = theme => ({
   root: {

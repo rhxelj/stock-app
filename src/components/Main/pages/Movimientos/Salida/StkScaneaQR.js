@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import QrReader from 'react-qr-reader'
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Grid from '@material-ui/core/Grid';
+
+// import Dialog from "@material-ui/core/Dialog";
+// import DialogContent from "@material-ui/core/DialogContent";
+
 class StkScaneaQR extends Component {
   constructor(props) {
     super(props)

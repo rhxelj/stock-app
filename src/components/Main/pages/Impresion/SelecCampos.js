@@ -62,6 +62,7 @@ export default function SelecCampos(props) {
                 field: valor.accessor
               }
         campoVisible.push(encabezado)
+        return null //agregado para que no tire un warning
       })
       setProperties(campoVisible)
   }

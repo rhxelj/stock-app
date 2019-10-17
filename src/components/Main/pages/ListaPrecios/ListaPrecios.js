@@ -1,12 +1,12 @@
 import React, { Component} from 'react'
 import request from 'superagent'
-import  QRCode  from "qrcode.react";
-import printJS from 'print-js'
+// import  QRCode  from "qrcode.react";
+// import printJS from 'print-js'
 import { withStyles } from '@material-ui/core/styles'; 
 import IpServidor from "../VariablesDeEntorno";
 import StkItemsRed from './StkItemsRed'
 
-import DialogContentText from "@material-ui/core/DialogContentText";
+// import DialogContentText from "@material-ui/core/DialogContentText";
 import Grid from '@material-ui/core/Grid';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -15,7 +15,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Dialog } from '@material-ui/core';
-import Modal from '@material-ui/core/Modal';
+// import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions'
 import StkFab from '../../../lib/StkFab'

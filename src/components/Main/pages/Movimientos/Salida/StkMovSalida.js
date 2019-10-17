@@ -1,21 +1,24 @@
-import React, { Component} from 'react'
+// import React, { Component} from 'react'
+import React from 'react'
 import request from 'superagent'
 import IpServidor from '../../VariablesDeEntorno'
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-// import { confirmAlert } from 'react-confirm-alert' 
 import {confirmAlert} from 'react'
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { FormControl, DialogContentText } from '@material-ui/core';
-import { throws } from 'assert';
+
+// import { confirmAlert } from 'react-confirm-alert' 
+// import Radio from '@material-ui/core/Radio';
+// import RadioGroup from '@material-ui/core/RadioGroup';
+// import FormLabel from '@material-ui/core/FormLabel';
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import { FormControl, DialogContentText } from '@material-ui/core';
+// import { throws } from 'assert';
 // import { AlertWarning } from  '@material-ui/svg-icons';
 
 
@@ -209,7 +212,7 @@ descargastock = _ => {
     .send({total: Number(this.state.total)})
     .send({StkItemsCantDisp: this.state.StkItemsCantDisp })
     .then(res=> {
-      const total1 = JSON.parse(res.text)
+      // const total1 = JSON.parse(res.text)
       //this.setState({marcaver:true})
       })
 

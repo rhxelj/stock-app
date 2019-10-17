@@ -9,7 +9,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import StkGrupoAgregar from './StkGrupoAgregar'
 import StkGrupoBorrar from './StkGrupoBorrar'
@@ -59,7 +59,7 @@ class StkGrupo extends Component {
     constructor(props){
         super(props)
         this.state = {
-            toggle: true,
+            // toggle: true,
             idStkGrupo:0,
             StkGrupoDesc:'',
             StkGrupoAbr: '',

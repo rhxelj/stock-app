@@ -6,7 +6,7 @@ import IpServidor from '../VariablesDeEntorno'
 
 import Grid from '@material-ui/core/Grid';
 
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 // import AddIcon from '@material-ui/icons/Add';
 
 // import StkMonedasAgregar from './StkMonedasAgregar'
@@ -49,21 +49,21 @@ const CustomTableCell = withStyles(theme => ({
     },
 }))(TableCell);
 
-const styles = theme => ({
-    root: {
-        width: '100%',
-        marginTop: theme.spacing.unit * 3,
-        overflowX: 'auto',
-    },
-    table: {
-        minWidth: 700,
-    },
-    row: {
-        '&:nth-of-type(odd)': {
-            backgroundColor: theme.palette.background.default,
-        },
-    },
-});
+// const styles = theme => ({
+//     root: {
+//         width: '100%',
+//         marginTop: theme.spacing.unit * 3,
+//         overflowX: 'auto',
+//     },
+//     table: {
+//         minWidth: 700,
+//     },
+//     row: {
+//         '&:nth-of-type(odd)': {
+//             backgroundColor: theme.palette.background.default,
+//         },
+//     },
+// });
 
 // para usar las tablas de MUI end
 
@@ -72,7 +72,7 @@ class StkRubro extends Component {
         super(props)
         this.state = {
             // url: IpServidor + '/stkrubroleermezcla',
-            toggle: false,
+            // toggle: false,
             // togglemodificar: false,
             idStkRubro: '',
             StkMonedasDescripcion: '',

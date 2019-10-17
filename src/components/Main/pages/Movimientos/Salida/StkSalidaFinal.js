@@ -1,4 +1,4 @@
-import React, { Component} from 'react'
+import React from 'react'
 import request from 'superagent'
 import IpServidor from '../../VariablesDeEntorno'
 import DialogTitle from "@material-ui/core/DialogTitle";

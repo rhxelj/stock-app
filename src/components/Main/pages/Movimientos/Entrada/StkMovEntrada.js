@@ -1,18 +1,18 @@
-import React, { Component, Fragment} from 'react'
+import React, {Fragment} from 'react'
 import request from 'superagent'
 import IpServidor from "../../VariablesDeEntorno";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
+// import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { FormControl, DialogContentText } from '@material-ui/core';
+// import { FormControl, DialogContentText } from '@material-ui/core';
 import StkGenImpQR from '../../Impresion/StkGenImpQR';
 
-const styles = { color: 'white', backgroundColor: 'white',padding: 15 }
+// const styles = { color: 'white', backgroundColor: 'white',padding: 15 }
 
 class StkMovEntrada extends React.Component {
     constructor () {

@@ -79,7 +79,7 @@ class Monedas extends Component {
                 StkMonedasDescripcion: '',
                 StkMonedasCotizacion: 0,
             },
-            opcion:"",
+            // opcion:"",
             monedas: [],
             filtered: '',
             campo: 'idStkMonedas',

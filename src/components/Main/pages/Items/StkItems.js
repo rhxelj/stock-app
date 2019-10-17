@@ -11,7 +11,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import StkFab from '../../../lib/StkFab'
 
 import StkItemsAgregar from './StkItemsAgregar'
@@ -39,21 +39,21 @@ const CustomTableCell = withStyles(theme => ({
     },
   }))(TableCell);
 
-  const styles = theme => ({
-    root: {
-      width: '100%',
-      marginTop: theme.spacing.unit * 3,
-      overflowX: 'auto',
-    },
-    table: {
-      minWidth: 700,
-    },
-    row: {
-      '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.background.default,
-      },
-    },
-  });
+//   const styles = theme => ({
+//     root: {
+//       width: '100%',
+//       marginTop: theme.spacing.unit * 3,
+//       overflowX: 'auto',
+//     },
+//     table: {
+//       minWidth: 700,
+//     },
+//     row: {
+//       '&:nth-of-type(odd)': {
+//         backgroundColor: theme.palette.background.default,
+//       },
+//     },
+//   });
 // Estilos Fin 
 
 
@@ -62,7 +62,7 @@ class StkItems extends Component {
     constructor(props){
         super(props)
         this.state = {
-            toggle: false,
+            // toggle: false,
             togglemodificar:false,
             idStkItems:0,
             StkItemsGrupo:0,
