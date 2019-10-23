@@ -16,3 +16,6 @@ V2.0.1 11-10-2019
 
 V2.1 17-10-2019
     Definir los campos de búsqueda de Items y Rubro. y definir con valor por defecto 0 al ancho en StkRubroAgregar.Corregir varios componentes para que no tiren warnings cuando compila.
+
+V2.1.1 23-10-2019
+    Corregir el problema que daba error 500 cuando queria agregar un Rubro nuevo.
