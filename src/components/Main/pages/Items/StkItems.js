@@ -1,7 +1,5 @@
 import React, { Component} from 'react'
 import request from 'superagent'
-// import ReactTable from 'react-table'
-// import 'react-table/react-table.css'
 
 import { withStyles } from '@material-ui/core/styles';
 import '../../../../Styles/TableHeader.css'
@@ -11,18 +9,23 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-// import Button from '@material-ui/core/Button';
 import StkFab from '../../../lib/StkFab'
 
 import StkItemsAgregar from './StkItemsAgregar'
 import StkItemsBorrar from './StkItemsBorrar'
 import StkItemsModificar from './StkItemsModificar'
 import Grid from '@material-ui/core/Grid';
-// import orderBy from 'lodash/orderBy'
 import SelecCampos from '../Impresion/SelecCampos'
-
 import IpServidor from '../VariablesDeEntorno'
+
+// import 'react-table/react-table.css'
+// import ReactTable from 'react-table'
+// import Button from '@material-ui/core/Button';
+// import orderBy from 'lodash/orderBy'
+
+
 // Estilo para el botón de borrar
+
 const style = {
     padding:'0px',
     width:'100px'
@@ -99,25 +102,6 @@ toggle = (arg) =>{
         toggle:{[arg]: !prevState.toggle[arg]}
     })) // estado inicial "FALSE" muestra la tabla de "..." en "TRUE" llama al componente <ComponenteParticular>
 }
-
-
-// toggleAgregar = () =>{            
-//     this.setState(prevState => ({
-//         toggle_agregar: !prevState.toggle_agregar
-//     })) // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <AgregarMonedas> ***
-// }
-
-// toggleModificar = () =>{          
-//     this.setState(prevState => ({
-//         toggle_modificar: !prevState.toggle_modificar
-//     })) // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***  
-// }
-
-// toggleBusqueda = () => {
-//     this.setState(prevState => ({
-//         toggle_busqueda: !prevState.toggle_busqueda
-//     }))
-// }
 
 //******************************************* Habilita el contenido a mostrar en Pantalla - End *******************************************
 

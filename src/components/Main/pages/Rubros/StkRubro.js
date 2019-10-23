@@ -105,7 +105,8 @@ class StkRubro extends Component {
             .set('Content-Type', 'application/json')
             .then(res => {
                 const rubro = JSON.parse(res.text)
-                this.setState({ rubro: rubro }, () => {
+                this.setState({ rubro: rubro }
+                    , () => {
                     console.log(`Rubro :`)
                     console.log(this.state.rubro)
                 })
