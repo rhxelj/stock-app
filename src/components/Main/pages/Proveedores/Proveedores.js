@@ -67,7 +67,7 @@ class Proveedores extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      url: IpServidor + '/proveedoresleer',
+      // url: IpServidor + '/proveedoresleer',
       proveedores: [],
       direction: {}, // direccion del ordenamiento asc o desc
       toggle:{
@@ -126,8 +126,9 @@ class Proveedores extends Component {
 //Read
   read = _ => {
     // const url = IpServidor + '/proveedoresleer'; //'http://192.168.2.102:4000/indexprov'
+    const url = IpServidor + '/proveedoresleer'
     request
-      .get(this.state.url)
+      .get(url)
       .set('Content-Type', 'application/json')
       .then(res => {
         const proveedores = JSON.parse(res.text)
