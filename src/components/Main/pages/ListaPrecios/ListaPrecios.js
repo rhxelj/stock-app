@@ -73,6 +73,7 @@ class ListaPrecios extends Component {
         busqueda: false,
         modificar: false,
         seleccampos: false,
+        modprecios:false
     },
       
       lisprecios : {
@@ -172,12 +173,12 @@ render (){
 
     // Agrego el campo del Boton Modificar
             // var rubro = this.state.rubro.map((rowData, index) =>
-            this.state.listaprecios.map((rowData, index) =>
-                Object.assign(rowData, {
-                    modificar:
-                        <ModPrecios idStkRubro={rowData.idStkRubro} StkRubroCodGrp={rowData.StkRubroCodGrp} read={() => this.read()}></ModPrecios>
-            })
-        );
+        //     this.state.listaprecios.map((rowData, index) =>
+        //         Object.assign(rowData, {
+        //             modificar:
+        //                 <ModPrecios idStkRubro={rowData.idStkRubro} StkRubroCodGrp={rowData.StkRubroCodGrp} read={() => this.read()}></ModPrecios>
+        //     })
+        // );
 
 
   var columns = [
@@ -227,8 +228,12 @@ render (){
           
           <Grid item xs={12} sm={8} lg={12}>
           
-            <Button>modificar</Button>
-          
+            <Button onClick={()=>this.toggle("modprecios")}>
+              modificar
+            </Button>
+            {this.state.toggle.modprecios &&
+            <ModPrecios/>
+            }
           {/* Desplegar Stock */}
           {/* {!this.state.toggle_desplegar && */}
           {/* {true && */}
@@ -271,7 +276,7 @@ render (){
                       // onDoubleClick={()=>alert("Hizo Doble Click")}
                       key={lisprecios.StkRubroDesc}
                     >
-                      <CustomTableCell >{lisprecios.modificar}</CustomTableCell>
+                      {/* <CustomTableCell >{lisprecios.modificar}</CustomTableCell> */}
                       <CustomTableCell >{lisprecios.StkRubroDesc}</CustomTableCell>
                       <CustomTableCell numeric>$ {lisprecios.PPub.toFixed(2)}</CustomTableCell>
                       <CustomTableCell numeric>$ {lisprecios.PMay.toFixed(2)}</CustomTableCell>

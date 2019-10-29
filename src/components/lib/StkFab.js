@@ -22,68 +22,76 @@ import IconButton from '@material-ui/core/IconButton';
 
 // {/* Muesra los botones Flotantes en la parte inferior de la pantalla */}
 
-const StkFab = ({toggleAgregar,toggleBusqueda,toggle_busqueda,search,filtered,borraFiltered,toggleImprimir,agrega})=>( 
-    <Fragment>           
-        {/* Boton de impresion */}
-        <Fab 
-            onClick={toggleImprimir}
-            color="primary" 
-            aria-label="Add" 
-            style={{ 
-                "position" : "fixed",
-                "bottom": "130px",
-                "right": "25px",}}
-        >
-            <PrintIcon />
-        </Fab>
+// const StkFab = ({toggleAgregar,toggleBusqueda,toggle_busqueda,search,filtered,borraFiltered,toggleImprimir,agrega})=>( 
+const StkFab = (props) => {
+    const { toggleAgregar, toggleBusqueda, toggle_busqueda, search, filtered, borraFiltered, toggleImprimir, agrega } = props;
+    return (
+        <Fragment>
+            {/* Boton de impresion */}
+            <Fab
+                onClick={toggleImprimir}
+                color="primary"
+                aria-label="Add"
+                style={{
+                    "position": "fixed",
+                    "bottom": "130px",
+                    "right": "25px",
+                }}
+            >
+                <PrintIcon />
+            </Fab>
 
-        {/* Agregar datos a la base de datos */}
-        {agrega &&
-        <Fab 
-            onClick={toggleAgregar} 
-            color="primary" 
-            aria-label="Add" 
-            style={{ 
-                "position" : "fixed",
-                "bottom": "10px",
-                "right": "25px",}}
-        >
-            <AddIcon />
-        </Fab>}
-        
-        {/* Filtro de busqueda */}
-        <Fab 
-            onClick={toggleBusqueda} 
-            color="primary" 
-            aria-label="Search" 
-            style={{ 
-                "position" : "fixed",
-                "bottom": "70px",
-                "right": "25px",}}
-        >
-            <SearchIcon />
-        </Fab>
-                    
-        <div      // className={this.props.classes.fab}
-            style={{ 
-                "position" : "fixed",
-                "bottom": "135px",
-                "right": "25px",}}
-                
-        >     
-            {toggle_busqueda && 
-              <ClickAwayListener onClickAway={toggleBusqueda}>
-              <Paper >
-                    <InputBase style={{marginLeft:"10px"}} placeholder="Texto de Busqueda" onChange={search} type="text" value={filtered}/>
-                        <IconButton onClick={borraFiltered} aria-label="Search">
-                            <ClearIcon/>
-                        </IconButton>
-                </Paper>
-                </ClickAwayListener>
-            }
-        </div>
-        
-    </Fragment>
-)
+            {/* Agregar datos a la base de datos */}
+            {agrega &&
+                <Fab
+                    onClick={toggleAgregar}
+                    color="primary"
+                    aria-label="Add"
+                    style={{
+                        "position": "fixed",
+                        "bottom": "10px",
+                        "right": "25px",
+                    }}
+                >
+                    <AddIcon />
+                </Fab>}
+
+            {/* Filtro de busqueda */}
+            <Fab
+                onClick={toggleBusqueda}
+                color="primary"
+                aria-label="Search"
+                style={{
+                    "position": "fixed",
+                    "bottom": "70px",
+                    "right": "25px",
+                }}
+            >
+                <SearchIcon />
+            </Fab>
+
+            <div      // className={this.props.classes.fab}
+                style={{
+                    "position": "fixed",
+                    "bottom": "135px",
+                    "right": "25px",
+                }}
+
+            >
+                {toggle_busqueda &&
+                    <ClickAwayListener onClickAway={toggleBusqueda}>
+                        <Paper >
+                            <InputBase style={{ marginLeft: "10px" }} placeholder="Texto de Busqueda" onChange={search} type="text" value={filtered} />
+                            <IconButton onClick={borraFiltered} aria-label="Search">
+                                <ClearIcon />
+                            </IconButton>
+                        </Paper>
+                    </ClickAwayListener>
+                }
+            </div>
+
+        </Fragment>
+    )
+}
 
 export default StkFab
