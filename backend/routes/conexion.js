@@ -14,4 +14,4 @@ var conexion = mysql.createConnection({
 
 module.exports = conexion;
 
-// ignorado
+// ignorado anda?

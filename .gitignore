@@ -3,6 +3,7 @@
 # Backend
 
 /backend/node_modules
+# /backend/routes/conexion
 
 # dependencies
 /node_modules
