@@ -38,8 +38,8 @@ class ModPrecios extends Component {
       unmed:[],
       nuevocodigo:0,
       open: true,
-      // idStkGrupo:'',      // borrar 
-      // StkGrupoDesc:'',    // borrar
+      Importe:0,      // borrar 
+      Porcentage:0,    // borrar
       // StkGrupoAbr:'',     // borrar
       // StkGrupoContRubro:0 // borrar
     };
@@ -154,7 +154,7 @@ class ModPrecios extends Component {
                       key={proveedor.idProveedor}
                       value={proveedor.idProveedores}
                   >
-                      {/* {proveedor.idProveedores}  */}
+                      {proveedor.idProveedores} 
                       {proveedor.ProveedoresDesc}
                   </option>
               ))}
@@ -201,14 +201,28 @@ class ModPrecios extends Component {
               type="number"
               fullWidth
               placeholder="Porcentage"
-              value={this.state.importe} 
+              value={this.state.porcentage} 
               onChange={this.handleChange('Porcentage')}
               // onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('button--submit').focus();}}
             />
 
             {/* Nota para Rogelio falta llamar al backend que hizo sandra y mandar los cuatro datos que recabo de aca.         */}
 
-
+            <Button
+              onClick={ 
+                ()=>{
+                  var Importe = parseInt (this.state.Importe , 10)
+                  var Porcentage = parseInt (this.state.Porcentage , 10)
+                  
+                if( ( Importe && !Porcentage ) || ( !Importe && Porcentage ) ) {
+                  alert(`Correcto Importe = ${Importe} Porcentage = ${Porcentage}`)
+                }else 
+                  alert(`InCorrecto Importe = ${Importe} Porcentage = ${Porcentage}`)
+                }
+              }
+            >
+              Enviar
+            </Button>      
        
       </div>
     );
