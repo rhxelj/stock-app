@@ -40,6 +40,12 @@ class ModPrecios extends Component {
       open: true,
       Importe:0,      // borrar 
       Porcentage:0,    // borrar
+      
+      idProveedores: 0,
+      idStkGrupo: 0,
+      importemod: 0,        
+      porcentmod: 0,
+      
       // StkGrupoAbr:'',     // borrar
       // StkGrupoContRubro:0 // borrar
     };
@@ -56,6 +62,47 @@ class ModPrecios extends Component {
     this.setState({ open: false });
   };
   //Material Ui Dialog start
+
+
+
+  ModPrecio = () => {
+    console.log("contenido a enviar :")
+    console.log(this.state.idProveedores,this.state.idStkGrupo,this.state.Importe,this.state.Porcentage)
+    const url = IpServidor + '/modprecios/'
+    request                  
+      .post(url)
+         .set('Content-Type', 'application/json')
+            .send({ 
+              idProveedores: this.state.idProveedores,
+              idStkGrupo: this.state.idStkGrupo,
+              importemod: this.state.Importe,
+              porcentmod: this.state.Porcentage
+            })
+            // .send({ idStkGrupo: this.state.idStkGrupo})
+            // .send({ importemod: this.state.Importe})        
+            // .send({ porcentmod: this.state.Porcentage})
+         .then(function(res) { // res.body, res.headers, res.status
+          })
+          .catch((err) => CodigoError(err))
+        }
+
+        submitModPrecio(state){
+            var idProveedores = parseInt(state.idProveedores , 10)
+            var idStkGrupo = parseInt(state.idStkGrupo , 10)
+            
+            var Importe = parseInt (state.Importe , 10)
+            var Porcentage = parseInt (state.Porcentage , 10)
+            
+            if(( idProveedores && !idStkGrupo ) || ( !idProveedores && idStkGrupo )){
+              if( ( Importe && !Porcentage ) || ( !Importe && Porcentage ) ) {
+                // alert(`Correcto Importe = ${Importe} Porcentage = ${Porcentage}`)
+                this.ModPrecio()
+              }else 
+                alert(`InCorrecto Importe = ${Importe} Porcentage = ${Porcentage}`)
+            }else
+              alert("Icorrecto Solo un valor puede ser 0 id grupo o id proveedor")
+      }
+
 
   handleChange = prop => event => {
     console.log("dentro de handlechange, Valor de event.target.value : " + event.target.value)
@@ -143,12 +190,13 @@ class ModPrecios extends Component {
           } */}
 
           <TextField
-            id="CodigoProveedor" 
+            id="idProveedores" 
             select={true}
             label= 'Proveedor'
             SelectProps={{native:true}}
-            onChange = {this.handleChange('CodigoProveedor')}
+            onChange = {this.handleChange('idProveedores')}
             >
+              <option value="0">0</option>
               {this.state.proveedores.map(proveedor => (
                   <option
                       key={proveedor.idProveedor}
@@ -163,12 +211,13 @@ class ModPrecios extends Component {
         <p>[ Codigo de Grupo | 0 ]</p>
 
           <TextField
-              id="CodigoGrupo" 
+              id="idStkGrupo" 
               select
               label= 'Grupo'
               SelectProps={{native:true}}
-              onChange = {this.handleChange('CodigoGrupo')}
+              onChange = {this.handleChange('idStkGrupo')}
               >
+                <option value="0">0</option>
                 {this.state.grupos.map(grupo => (
                     <option
                         // key={grupo.idStkGrupo}
@@ -188,7 +237,7 @@ class ModPrecios extends Component {
               type="number"
               fullWidth
               placeholder="Importe"
-              value={this.state.importe} 
+              value={this.state.Importe} 
               onChange={this.handleChange('Importe')}
               // onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('button--submit').focus();}}
             />
@@ -201,7 +250,7 @@ class ModPrecios extends Component {
               type="number"
               fullWidth
               placeholder="Porcentage"
-              value={this.state.porcentage} 
+              value={this.state.Porcentage} 
               onChange={this.handleChange('Porcentage')}
               // onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('button--submit').focus();}}
             />
@@ -210,15 +259,23 @@ class ModPrecios extends Component {
 
             <Button
               onClick={ 
-                ()=>{
-                  var Importe = parseInt (this.state.Importe , 10)
-                  var Porcentage = parseInt (this.state.Porcentage , 10)
+                ()=>this.submitModPrecio(this.state)
+                // ()=>{
+                //   var idProveedores = parseInt(this.state.idProveedores , 10)
+                //   var idStkGrupo = parseInt(this.state.idStkGrupo , 10)
                   
-                if( ( Importe && !Porcentage ) || ( !Importe && Porcentage ) ) {
-                  alert(`Correcto Importe = ${Importe} Porcentage = ${Porcentage}`)
-                }else 
-                  alert(`InCorrecto Importe = ${Importe} Porcentage = ${Porcentage}`)
-                }
+                //   var Importe = parseInt (this.state.Importe , 10)
+                //   var Porcentage = parseInt (this.state.Porcentage , 10)
+                  
+                //   if(( idProveedores && !idStkGrupo ) || ( !idProveedores && idStkGrupo )){
+                //     if( ( Importe && !Porcentage ) || ( !Importe && Porcentage ) ) {
+                //       // alert(`Correcto Importe = ${Importe} Porcentage = ${Porcentage}`)
+                //       this.ModPrecio
+                //     }else 
+                //       alert(`InCorrecto Importe = ${Importe} Porcentage = ${Porcentage}`)
+                //   }else
+                //     alert("Icorrecto Solo un valor puede ser 0 id grupo o id proveedor")
+                // }
               }
             >
               Enviar
