@@ -18,6 +18,7 @@ import StkRubro     from './pages/Rubros/StkRubro'
 import StkGrupo     from './pages/Grupos/StkGrupo';
 import StkUbFisica from './pages/UbicacionFisica/StkUbFisica'
 import ListaPrecios from './pages/ListaPrecios/ListaPrecios'
+import ModPrecios from './pages/ListaPrecios/ModPrecios'
 import StkMovEntrada     from './pages/Movimientos/Entrada/StkMovEntrada';
 import StkMovSalida from './pages/Movimientos/Salida/StkMovSalida'
 import StkSalidaFinal from './pages/Movimientos/Salida/StkSalidaFinal'
@@ -45,6 +46,7 @@ const Main = () => (
             <Route path="/StkMovSalida"     component={StkMovSalida}/>
             <Route path="/StkSalidaFinal"     component={StkSalidaFinal}/>
             <Route path="/ListaPrecios"     component={ListaPrecios}/>
+            <Route path="/ModPrecios"     component={ModPrecios}/>
             <Route path="/StkRubro"     component={StkRubro}/>
             <Route path="/StkGrupo"     component={StkGrupo}/>
             <Route path="/StkItems"     component={StkItems}/>

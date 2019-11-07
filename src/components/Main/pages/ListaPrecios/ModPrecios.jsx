@@ -6,8 +6,12 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import DialogContent from "@material-ui/core/DialogContent";
 
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
 // import MenuItem from "@material-ui/core/MenuItem";
+
 import Dialog from "@material-ui/core/Dialog";
+
 import DialogActions from "@material-ui/core/DialogActions";
 // import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -16,6 +20,10 @@ import CodigoError from '../../../lib/CodigoError'
 // import AgregarMonedas from './StkMonedasAgregar'
 import IconButton from '@material-ui/core/IconButton';
 import CreateIcon from '@material-ui/icons/Create';
+import Grid from '@material-ui/core/Grid';
+
+
+
 
 class ModPrecios extends Component {
   constructor(props) {
@@ -81,7 +89,16 @@ class ModPrecios extends Component {
             // .send({ idStkGrupo: this.state.idStkGrupo})
             // .send({ importemod: this.state.Importe})        
             // .send({ porcentmod: this.state.Porcentage})
-         .then(function(res) { // res.body, res.headers, res.status
+         .then(function(res) { 
+          const respuesta = JSON.parse(res.text)
+          if (respuesta.affectedRows !=0)
+             alert("EXITO")
+          else 
+            alert("No modifico")
+          // console.log(respuesta.affectedRows) 
+          // text: "{"fieldCount":0,"affectedRows":1,"insertId":0,"serverStatus":2,"warningCount":0,"message":"(Rows matched: 1  Changed: 1  Warnings: 0","protocol41":true,"changedRows":1}"
+          
+          // res.body, res.headers, res.status
           })
           .catch((err) => CodigoError(err))
         }
@@ -172,23 +189,33 @@ class ModPrecios extends Component {
   this.gruposleer()
   }
 
+  
   render() {
     
     return (
       <div>
-        <h1>ModPrecio</h1>
+        <Paper>
+        <Grid container>
+            <Grid item xs={4} sm={4} lg={4}></Grid>
+              <DialogTitle id="form-dialog-title">Modificar Precio</DialogTitle>
+            <Grid item xs={4} sm={4} lg={4}></Grid>
+          </Grid>
+        
+        {/* <h1>ModPrecio</h1>
         <br></br>
         <br></br>
         <h2>Estos son los datos que tienen que estar en este componente</h2>
         <br></br>
-        <br></br>
-        <p>[Codigo de Proveedores | 0 ]</p>
+        <br></br> */}
+        <Grid container   spacing={24}>
+        {/* <p>[Codigo de Proveedores | 0 ]</p> */}
           
           {/* {this.state.proveedores.map(proveedor => {
            return(<p>{proveedor.ProveedoresDesc}</p>)
           })
           } */}
-
+<Grid item  xs={1} sm={1} lg={1}></Grid>
+<Grid item  xs={3} sm={3} lg={3}>
           <TextField
             id="idProveedores" 
             select={true}
@@ -196,20 +223,20 @@ class ModPrecios extends Component {
             SelectProps={{native:true}}
             onChange = {this.handleChange('idProveedores')}
             >
-              <option value="0">0</option>
+              <option value="0"></option>
               {this.state.proveedores.map(proveedor => (
                   <option
                       key={proveedor.idProveedor}
                       value={proveedor.idProveedores}
                   >
-                      {proveedor.idProveedores} 
+                      {/* {proveedor.idProveedores}  */}
                       {proveedor.ProveedoresDesc}
                   </option>
               ))}
           </TextField>
-
-        <p>[ Codigo de Grupo | 0 ]</p>
-
+          </Grid>
+        {/* <p>[ Codigo de Grupo | 0 ]</p> */}
+        <Grid item  xs={3} sm={3} lg={3}>
           <TextField
               id="idStkGrupo" 
               select
@@ -217,19 +244,21 @@ class ModPrecios extends Component {
               SelectProps={{native:true}}
               onChange = {this.handleChange('idStkGrupo')}
               >
-                <option value="0">0</option>
+                <option value="0"></option>
                 {this.state.grupos.map(grupo => (
                     <option
                         // key={grupo.idStkGrupo}
                         value={grupo.idStkGrupo}
                     >
-                        {grupo.idStkGrupo} {grupo.StkGrupoDesc}
+                        {/* {grupo.idStkGrupo}  */}
+                        {grupo.StkGrupoDesc}
                     </option>
                 ))}
           </TextField>
+          </Grid>
 
-        <p>[ Importe = 0 || Importe != 0 ]</p>
-
+        {/* <p>[ Importe = 0 || Importe != 0 ]</p> */}
+        <Grid item  xs={2} sm={2} lg={2}>
         <TextField
               margin="dense"
               id="Importe"
@@ -240,9 +269,11 @@ class ModPrecios extends Component {
               value={this.state.Importe} 
               onChange={this.handleChange('Importe')}
               // onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('button--submit').focus();}}
-            />
-        <p>[ % | 0 ]</p>
+          />
+        </Grid>
+        {/* <p>[ % | 0 ]</p> */}
 
+        <Grid item  xs={2} sm={2} lg={2}>
         <TextField
               margin="dense"
               id="Porcentage"
@@ -253,34 +284,40 @@ class ModPrecios extends Component {
               value={this.state.Porcentage} 
               onChange={this.handleChange('Porcentage')}
               // onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('button--submit').focus();}}
-            />
-
+          />
+        </Grid>
+        <Grid item  xs={1} sm={1} lg={1}></Grid>
             {/* Nota para Rogelio falta llamar al backend que hizo sandra y mandar los cuatro datos que recabo de aca.         */}
 
             <Button
-              onClick={ 
-                ()=>this.submitModPrecio(this.state)
-                // ()=>{
-                //   var idProveedores = parseInt(this.state.idProveedores , 10)
-                //   var idStkGrupo = parseInt(this.state.idStkGrupo , 10)
-                  
-                //   var Importe = parseInt (this.state.Importe , 10)
-                //   var Porcentage = parseInt (this.state.Porcentage , 10)
-                  
-                //   if(( idProveedores && !idStkGrupo ) || ( !idProveedores && idStkGrupo )){
-                //     if( ( Importe && !Porcentage ) || ( !Importe && Porcentage ) ) {
-                //       // alert(`Correcto Importe = ${Importe} Porcentage = ${Porcentage}`)
-                //       this.ModPrecio
-                //     }else 
-                //       alert(`InCorrecto Importe = ${Importe} Porcentage = ${Porcentage}`)
-                //   }else
-                //     alert("Icorrecto Solo un valor puede ser 0 id grupo o id proveedor")
-                // }
-              }
+              color="primary"
+              onClick={()=>this.submitModPrecio(this.state)}
             >
               Enviar
             </Button>      
        
+            {/* <DialogActions>
+            <Button 
+              id="button--submit" 
+              onClick={this.submitMoneda} 
+              color="primary"
+            >
+              Modificar
+            </Button>
+            <Button onClick={this.props.toggle} color="secondary">
+              Cancelar
+            </Button>
+
+          </DialogActions> */}
+            </Grid>
+
+            </Paper>
+
+
+
+
+
+
       </div>
     );
   }
