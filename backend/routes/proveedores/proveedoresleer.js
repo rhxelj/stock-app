@@ -61,7 +61,7 @@ conexion.query(
                 res.json(result);
             }
         });
-        
+       
 });
 conexion.end;
 
