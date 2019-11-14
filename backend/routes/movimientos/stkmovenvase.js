@@ -25,7 +25,7 @@ var idStkItems = req.query.id1;
 var StkItemsGrupo = req.query.id2;
 var StkItemsRubro = req.query.id3;
 var envase = req.query.id4;
-
+var q
 var cantidad = req.body.cantidad2;
 var cantidad1 = req.body.cantidad3;
 var cantmod =  (cantidad * cantidad1 * -1);
@@ -34,21 +34,27 @@ finalDate = d.toISOString().split('T')[0]
 var StkItemsFAct = finalDate;
 // Desde Postman http://localhost:4000/stkmovsalfinal?id1=1&id2=1&id3=1
  
- 
+ q = ['UPDATE StkEnvase',
+     'SET StkEnvaseCant = (StkEnvaseCant + ' + cantmod ,
+     '), StkEnvaseFechaAct = "'+ StkItemsFAct ,
+     '" WHERE  idStkEnvase = ' + envase,
+     ' and StkEnvaseItem = ' + idStkItems,
+     ' and  StkEnvaseGrupo = ' + StkItemsGrupo,
+     ' and  StkEnvaseRubro = ' + StkItemsRubro,
+    ].join(' ')  
 
-        conexion.query('UPDATE StkEnvase SET StkEnvaseCant = (StkEnvaseCant + ' + cantmod + 
-                                     '), StkEnvaseFechaAct = "'+ StkItemsFAct + 
-                                      '" WHERE  idStkEnvase = ' + envase + ' and StkEnvaseItem = ' + idStkItems + ' and  StkEnvaseGrupo = ' + StkItemsGrupo + ' and  StkEnvaseRubro = ' + StkItemsRubro,
-        function(err, result) {
-            if (err) {
-                console.log(err);
-            } else {
-                res.json(result);
-                };
-            });
-
-
+    // 'UPDATE StkEnvase SET StkEnvaseCant = (StkEnvaseCant + ' + cantmod + 
+    //                                  '), StkEnvaseFechaAct = "'+ StkItemsFAct + 
+    //                                   '" WHERE  idStkEnvase = ' + envase + ' and StkEnvaseItem = ' + idStkItems + ' and  StkEnvaseGrupo = ' + StkItemsGrupo + ' and  StkEnvaseRubro = ' + StkItemsRubro,
+        conexion.query(
+            q,
+                function(err, result) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.json(result);
+                        };
+                    });
         });
-    //    UPDATE `BaseStock`.`StkEnvase` SET `StkEnvaseCant`='10.00' WHERE `idStkEnvase`='153' and`StkEnvaseGrupo`='1' and`StkEnvaseRubro`='1' and`StkEnvaseItem`='1';
-
+conexion.end
 module.exports = router;
