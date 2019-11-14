@@ -44,6 +44,7 @@ if (idProveedores != 0 && importemod != 0)
             console.log(err); 
 
         } else {
+           
             res.json(result);
         }
     });
@@ -70,6 +71,7 @@ if (idProveedores != 0 && importemod != 0)
             console.log(err); 
 
         } else {
+           
             res.json(result);
         }
     });

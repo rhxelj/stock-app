@@ -147,6 +147,10 @@ class Header extends React.Component {
                        <ListItem button component={Link} to="/ModPrecios">
                           <ListItemText primary="Modifica Precios" />
                           </ListItem>
+            
+                       <ListItem button component={Link} to="/PresupPant">
+                          <ListItemText primary="Presupuesto" />
+                          </ListItem>
                           <ListItem button component={Link} to="/ListaPrecios">
                           <ListItemText primary="Lista de Precios" />
                           </ListItem>

@@ -25,6 +25,8 @@ import StkSalidaFinal from './pages/Movimientos/Salida/StkSalidaFinal'
 // import StkMovimiento from './pages/z_SinClasificarMirar/StkMovimiento'
 import StkItems from './pages/Items/StkItems'
 
+import PresupPant from './pages/Presupuesto/PresupPant.js'
+
 
 const Main = () => (
     <main>
@@ -46,7 +48,7 @@ const Main = () => (
             <Route path="/StkMovSalida"     component={StkMovSalida}/>
             <Route path="/StkSalidaFinal"     component={StkSalidaFinal}/>
             <Route path="/ListaPrecios"     component={ListaPrecios}/>
-            <Route path="/ModPrecios"     component={ModPrecios}/>
+            <Route path="/PresupPant"     component={PresupPant}/>
             <Route path="/StkRubro"     component={StkRubro}/>
             <Route path="/StkGrupo"     component={StkGrupo}/>
             <Route path="/StkItems"     component={StkItems}/>
