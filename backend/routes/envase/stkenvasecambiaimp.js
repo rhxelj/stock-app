@@ -7,9 +7,9 @@ var conexion = require('../conexion');
 var http = require('http');
 conexion.connect(function(err) {
     if (!err) {
-        console.log("base de datos conectada en stkenvaseleeimp");
+        console.log("base de datos conectada en stkenvasecambiaimp");
     } else {
-        console.log("no se conecto en stkenvaseleeimp");
+        console.log("no se conecto en stkenvasecambiaimp");
     }
 });
 
@@ -27,8 +27,15 @@ router.post('/', async function(req, res, next) {
     StkEnvaseUbG = req.query.id;
  console.log('StkEnvaseUbG ')
  console.log(StkEnvaseUbG)
-    conexion.query('UPDATE StkEnvase SET StkEnvaseImprimio = "S"  WHERE StkEnvaseImprimio = "N"' +
-            ' and StkEnvaseUbG = "' + StkEnvaseUbG + '"',
+ 
+//  'UPDATE StkEnvase SET StkEnvaseImprimio = "S"  WHERE StkEnvaseImprimio = "N"' +
+//  ' and StkEnvaseUbG = "' + StkEnvaseUbG + '"'
+var q = ['UPDATE StkEnvase',
+      'SET StkEnvaseImprimio = "S"  WHERE StkEnvaseImprimio = "N"',
+      ' and StkEnvaseUbG = "' + StkEnvaseUbG + '"'
+     ].join(' ')
+        conexion.query(
+            q,
             function(err, result) {
                 if (err) {
                     console.log(err);
@@ -36,8 +43,7 @@ router.post('/', async function(req, res, next) {
                     res.json(result);
                 }
     }); 
-    
-
-
+      
 })
+conexion.end
 module.exports = router;

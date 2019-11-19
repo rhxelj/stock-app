@@ -94,6 +94,7 @@ var modprecios = require('./routes/listaprecios/modprecios');
 // PRESUPUESTO
 var presupunid = require('./routes/presupuesto/presupunid')
 var presuppu = require('./routes/presupuesto/presuppu')
+var presupgraba = require('./routes/presupuesto/presupgraba')
 
 
 // function agregada por el error CROS
@@ -216,7 +217,7 @@ app.use('/modprecios', modprecios);
 //PRESUPUESTO
 app.use('/presupunid', presupunid);
 app.use('/presuppu', presuppu);
-
+app.use('/presupgraba', presupgraba);
 // app.use('/clientesleer', clientesleer);
 
 app.use(function(req, res, next) {

@@ -18,8 +18,9 @@ conexion.connect(function(err) {
 var router = express();
 
 router.get('/', function(req, res, next) {
-  
-    conexion.query('Select * from StkGrupo ' ,
+  //'Select * from StkGrupo '
+  var q = ['Select * from StkGrupo '].join(' ')
+    conexion.query(q,
     function(err, result) {
         if (err) {
             console.log(err);
@@ -29,5 +30,5 @@ router.get('/', function(req, res, next) {
     });
     
 });
-
+conexion.end
 module.exports = router;
