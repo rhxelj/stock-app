@@ -24,6 +24,15 @@ import CodigoError from '../../../lib/CodigoError'
 import Mensajes from '../../../lib/Mensajes'
 
 
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+
+
+
 
 class ModPrecios extends Component {
   constructor(props) {
@@ -46,7 +55,8 @@ class ModPrecios extends Component {
       unmed:[],
       nuevocodigo:0,
       open: true,
-      Importe:0,      // borrar 
+      Importe:0,      // borrar
+      value:"", 
       Porcentage:0, 
       rta:"",   // borrar
       
@@ -55,9 +65,9 @@ class ModPrecios extends Component {
       importemod: 0,        
       porcentmod: 0,
       toggle:{
-        // agregar: false,
-        // busqueda: false,
-        // modificar: false,
+        proveedor: false,
+        grupo: false,
+        rubro: false,
         mensaje: false,
     },
       
@@ -74,6 +84,13 @@ class ModPrecios extends Component {
 
   handleClose = () => {
     this.setState({ open: false });
+  };
+
+
+  handleC = event => {
+    // setValue(event.target.value);
+    this.setState({value:event.target.value});
+    console.log(event.target.value)
   };
   //Material Ui Dialog start
 
@@ -171,7 +188,6 @@ class ModPrecios extends Component {
 
   rubroleer = _ => {
     const url = IpServidor + '/stkrubroleer'
-
     request
         .get(url)
         .set('Content-Type', 'application/json')
@@ -209,6 +225,43 @@ class ModPrecios extends Component {
     return (
       <div>
       <button onClick={()=>this.toggle("mensaje")}>CLICK</button>
+      
+      
+      <FormControl component="fieldset" >
+        <FormLabel component="legend">Gender</FormLabel>
+        <RadioGroup aria-label="gender" name="gender2" value={this.state.value} onChange={this.handleC}>
+          <FormControlLabel
+            value="female"
+            control={<Radio color="primary" />}
+            label="Female"
+            labelPlacement="start"
+            onClick={()=>alert("presiono aca")}
+          />
+          <FormControlLabel
+            value="male"
+            control={<Radio color="primary" />}
+            label="Male"
+            labelPlacement="start"
+          />
+          <FormControlLabel
+            value="other"
+            control={<Radio color="primary" />}
+            label="Other"
+            labelPlacement="start"
+          />
+          <FormControlLabel
+            value="disabled"
+            disabled
+            control={<Radio />}
+            label="(Disabled option)"
+            labelPlacement="start"
+          />
+        </RadioGroup>
+        <FormHelperText>labelPlacement start</FormHelperText>
+      </FormControl>
+
+
+      
       {this.state.toggle.mensaje && <Mensajes props={"HOLA"}><h1>DIALOGO</h1></Mensajes>} 
         <Paper>
         <Grid container>
