@@ -169,6 +169,21 @@ class ModPrecios extends Component {
     })
   }
 
+  rubroleer = _ => {
+    const url = IpServidor + '/stkrubroleer'
+
+    request
+        .get(url)
+        .set('Content-Type', 'application/json')
+        .then(res => {
+            const rubro = JSON.parse(res.text)
+            this.setState({ rubro: rubro }
+                , () => {
+                console.log(`Rubro :`)
+                console.log(this.state.rubro)
+            })
+        })
+}
   // submitGrupo= (e) => {
   //   e.preventDefault();
   //   this.modificaGrupo();
@@ -186,6 +201,7 @@ class ModPrecios extends Component {
   componentDidMount() {
     this.proveedoresleer()
     this.gruposleer()
+
   }
 
   

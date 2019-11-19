@@ -54,6 +54,7 @@ const Main = () => (
             <Route path="/StkItems"     component={StkItems}/>
             <Route path="/StkMovEntrada"     component={StkMovEntrada}/>
             <Route path="/StkUbFisica"     component={StkUbFisica}/>
+            <Route path="/ModPrecios"     component={ModPrecios}/>
             {/* <Route path="/AgregarMonedas" component={AgregarMonedas}/> */}
             {/* <Route path="/BorrarMonedas" component={BorrarMonedas}/> */}
             {/* <Route path="/ModificarMonedas" component={ModificarMonedas}/> */}
