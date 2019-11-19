@@ -19,10 +19,13 @@ conexion.connect(function(err) {
 
 router.post('/', async function(req, res) {
     var d = new Date()
+    var q1 
     finalDate = d.toISOString().split('T')[0]
-
-    console.log('finalDate  '  +  finalDate)
-  conexion.query('Select max(idStkMovVta) as UltMovVta from StkMovVta where StkMovVtaFecha = "' + finalDate + '"' ,  
+    //'Select max(idStkMovVta) as UltMovVta from StkMovVta where StkMovVtaFecha = "' + finalDate + '"' ,  
+    var q = [
+        'Select max(idStkMovVta) as UltMovVta from StkMovVta where StkMovVtaFecha = "' + finalDate + '"' ,  
+        ].join(' ')
+  conexion.query(q,
   function(err, result) {
     if (err) {
         if (err.errno === 1054) {
@@ -44,8 +47,11 @@ router.post('/', async function(req, res) {
         StkMovVtaItem : req.body.StkMovVtaItem,
         StkMovVtaCantidad : Number(req.body.StkMovVtaCantidad)
     }
-
-    conexion.query('INSERT INTO StkMovVta SET ?', registro, 
+    // 'INSERT INTO StkMovVta SET ?', registro, 
+    q1 = ['INSERT', 
+          'INTO StkMovVta SET ?', registro, 
+        ].join(' ')
+    conexion.query(q1,
         function(err, result) {
             if (err) {
                 console.log('ERROR ');
@@ -58,5 +64,5 @@ router.post('/', async function(req, res) {
 });
 
 
-
+conexion.end
 module.exports =router;

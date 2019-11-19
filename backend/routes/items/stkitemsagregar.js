@@ -24,8 +24,13 @@ conexion.connect(function(err) {
 router.post('/', async function(req, res) {
     var StkItemsGrupo = req.query.id2;
     var StkItemsRubro = req.query.id3;
- 
-  conexion.query('Select max(idStkItems) as UltItem from StkItems where StkItemsGrupo  = ' + StkItemsGrupo  + ' and  StkItemsRubro  = ' + StkItemsRubro, 
+
+    //'Select max(idStkItems) as UltItem from StkItems where StkItemsGrupo  = ' + StkItemsGrupo  + ' and  StkItemsRubro  = ' + StkItemsRubro, 
+ var q =['Select max(idStkItems) as UltItem', 
+         'from StkItems where StkItemsGrupo  = ' + StkItemsGrupo,
+         ' and  StkItemsRubro  = ' + StkItemsRubro, 
+        ].join(' ')
+  conexion.query(q,
   function(err, result) {
     if (err) {
         if (err.errno === 1054) {
