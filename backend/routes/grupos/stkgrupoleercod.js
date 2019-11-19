@@ -19,7 +19,11 @@ var router = express();
 
 router.get('/', async function(req, res, next) {
     indice = req.query.id;
-    conexion.query('Select * from StkGrupo  where idStkGrupo = ' + indice,
+    //'Select * from StkGrupo  where idStkGrupo = ' + indice,
+    var q = [ 'Select * from StkGrupo',
+            'where idStkGrupo = ' + indice,
+    ].join(' ')
+    conexion.query(q,
         function(err, result) {
             if (err) {
                 console.log(err);
@@ -29,5 +33,5 @@ router.get('/', async function(req, res, next) {
         });
 
 });
-
+conexion.end
 module.exports = router;

@@ -25,8 +25,15 @@ router.post('/', async function(req, res, next) {
  abrev = req.body.StkGrupoAbr;
  contRubro = req.body.StkGrupoContRubro;
  
- 
-    conexion.query('UPDATE StkGrupo SET StkGrupoDesc = "' + descr + '", StkGrupoAbr = "' + abrev + '", StkGrupoContRubro = '+ contRubro + ' WHERE idStkGrupo = "' + indice + '"',
+//  'UPDATE StkGrupo SET StkGrupoDesc = "' + descr + '", StkGrupoAbr = "' + abrev + '", StkGrupoContRubro = '+ contRubro + ' WHERE idStkGrupo = "' + indice + '"',
+ var q = ['UPDATE StkGrupo SET',
+                  'StkGrupoDesc = "' + descr + '",',
+                  'StkGrupoAbr = "' + abrev + '",', 
+                  'StkGrupoContRubro = ' + contRubro,
+                  ' WHERE idStkGrupo = "' + indice + '"',
+                ].join(' ')
+console.log(q)
+    conexion.query(q,
         function(err, result) {
             if (err) {
                 if (err.errno == 1062) 
@@ -41,5 +48,5 @@ router.post('/', async function(req, res, next) {
             });
         });
 
-
+conexion.end
 module.exports = router;

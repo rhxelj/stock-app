@@ -12,12 +12,15 @@ conexion.connect(function(err) {
     }
 });
 var GrupoDescripcion = ''
-
+var q
 function leegrupo(codgrupo)
 
 {
- 
-  conexion.query('Select StkGrupoDesc as GrupoDesc from StkGrupo  where idStkGrupo = ' + codgrupo,
+    //'Select StkGrupoDesc as GrupoDesc from StkGrupo  where idStkGrupo = ' + codgrupo,
+  q = ['Select StkGrupoDesc as GrupoDesc',
+       'from StkGrupo  where idStkGrupo = ' + codgrupo,
+        ].join(' ')
+  conexion.query(q,
     function(err, result) {
         if (err) {
             console.log('Error LEER StkGrupo');
