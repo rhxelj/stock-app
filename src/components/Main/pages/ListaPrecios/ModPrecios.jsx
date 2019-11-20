@@ -58,6 +58,7 @@ class ModPrecios extends Component {
       Importe:0,      // borrar
       value:"", 
       Porcentage:0, 
+      valueIp:"",
       rta:"",   // borrar
       
       idProveedores: 0,
@@ -69,6 +70,8 @@ class ModPrecios extends Component {
         grupo: false,
         rubro: false,
         mensaje: false,
+        importe:false,
+        porcentage: false
     },
       
     }
@@ -90,6 +93,12 @@ class ModPrecios extends Component {
   handleC = event => {
     // setValue(event.target.value);
     this.setState({value:event.target.value});
+    console.log(event.target.value)
+  };
+
+  handleCIp = event => {
+    // setValue(event.target.value);
+    this.setState({valueIp:event.target.value});
     console.log(event.target.value)
   };
   //Material Ui Dialog start
@@ -157,7 +166,74 @@ class ModPrecios extends Component {
         toggle:{[arg]: !prevState.toggle[arg]}
     })) // estado inicial "FALSE" muestra la tabla de "..." en "TRUE" llama al componente <ComponenteParticular>
   }
-            
+  
+  toggleTipo = (tipo)=>{
+    switch(tipo){
+      case 
+        'proveedor':
+          this.setState(
+            ()=>({
+              toggle:{
+                proveedor: true,
+                grupo: false,
+                rubro: false,  
+              }
+            })
+          )
+            // console.log("Proveedor!!!!")
+          break
+        case 
+        'grupo': 
+        this.setState(()=>({
+          toggle:{
+            proveedor: false,
+            grupo: true,
+            rubro: false,  
+        }
+
+        }))
+        // console.log("Grupo")
+        break
+      case
+        "rubro": 
+        this.setState(()=>({
+          toggle:{
+            proveedor: false,
+            grupo: false,
+            rubro: true,  
+        }
+        }))
+        // console.log("Rubro")
+        break
+
+        case 
+        'importe':
+          this.setState(
+            ()=>({
+              toggle:{
+                importe: true,
+                porcentage: false,
+              }
+            })
+          )
+            // console.log("Proveedor!!!!")
+          break
+          case 
+        'porcentage':
+          this.setState(
+            ()=>({
+              toggle:{
+                importe: false,
+                // porcentage: !prevState.toggle.porcentage,  
+                porcentage: true,  
+              }
+            })
+          )
+            // console.log("Proveedor!!!!")
+          break
+    }
+  }
+
   handleChange = prop => event => {
     this.setState({ [prop]: event.target.value });
   };
@@ -222,48 +298,22 @@ class ModPrecios extends Component {
 
   
   render() {
+    console.log("this.state.toggle ")
+    console.log(this.state.toggle)
     return (
       <div>
-      <button onClick={()=>this.toggle("mensaje")}>CLICK</button>
+      {/* <button onClick={()=>this.toggle("mensaje")}>CLICK</button> */}
       
       
-      <FormControl component="fieldset" >
-        <FormLabel component="legend">Gender</FormLabel>
-        <RadioGroup aria-label="gender" name="gender2" value={this.state.value} onChange={this.handleC}>
-          <FormControlLabel
-            value="female"
-            control={<Radio color="primary" />}
-            label="Female"
-            labelPlacement="start"
-            onClick={()=>alert("presiono aca")}
-          />
-          <FormControlLabel
-            value="male"
-            control={<Radio color="primary" />}
-            label="Male"
-            labelPlacement="start"
-          />
-          <FormControlLabel
-            value="other"
-            control={<Radio color="primary" />}
-            label="Other"
-            labelPlacement="start"
-          />
-          <FormControlLabel
-            value="disabled"
-            disabled
-            control={<Radio />}
-            label="(Disabled option)"
-            labelPlacement="start"
-          />
-        </RadioGroup>
-        <FormHelperText>labelPlacement start</FormHelperText>
-      </FormControl>
+      
 
 
       
       {this.state.toggle.mensaje && <Mensajes props={"HOLA"}><h1>DIALOGO</h1></Mensajes>} 
         <Paper>
+       
+       
+       
         <Grid container>
             <Grid item xs={4} sm={4} lg={4}></Grid>
               <DialogTitle id="form-dialog-title">Modificar Precio</DialogTitle>
@@ -284,7 +334,38 @@ class ModPrecios extends Component {
           })
           } */}
           <Grid item  xs={1} sm={1} lg={1}></Grid>
+          
+          <FormControl component="fieldset" >
+        <FormLabel component="legend">Elija una opcion</FormLabel>
+        <RadioGroup aria-label="gender" name="pgr" value={this.state.value} onChange={this.handleC}>
+          <FormControlLabel
+            value="proveedor"
+            control={<Radio color="primary" />}
+            label="Proveedor"
+            labelPlacement="start"
+            onClick={()=>this.toggleTipo("proveedor")}
+          />
+          <FormControlLabel
+            value="grupo"
+            control={<Radio color="primary" />}
+            label="Grupo"
+            labelPlacement="start"
+            onClick={()=>this.toggleTipo("grupo")}
+          />
+          <FormControlLabel
+            value="rubro"
+            control={<Radio color="primary" />}
+            label="Rubro"
+            labelPlacement="start"
+            onClick={()=>this.toggleTipo("rubro")}
+          />
+        </RadioGroup>
+        {/* <FormHelperText>labelPlacement start</FormHelperText> */}
+      </FormControl>
+          
+          
           <Grid item  xs={3} sm={3} lg={3}>
+           {this.state.toggle.proveedor &&
             <TextField
               id="idProveedores" 
               select={true}
@@ -303,9 +384,11 @@ class ModPrecios extends Component {
                     </option>
                 ))}
             </TextField>
-          </Grid>
+          }
+          {/* </Grid> */}
         {/* <p>[ Codigo de Grupo | 0 ]</p> */}
-        <Grid item  xs={3} sm={3} lg={3}>
+        {/* <Grid item  xs={3} sm={3} lg={3}> */}
+        {this.state.toggle.grupo &&
           <TextField
               id="idStkGrupo" 
               select
@@ -324,11 +407,62 @@ class ModPrecios extends Component {
                     </option>
                 ))}
           </TextField>
-          </Grid>
+          }
+          {/* </Grid> */}
+
+          {this.state.toggle.rubro &&
+          <TextField
+              id="idStkGrupo" 
+              select
+              label= 'Rubro'
+              SelectProps={{native:true}}
+              onChange = {this.handleChange('idStkGrupo')}
+              >
+                <option value="0"></option>
+                {this.state.grupos.map(grupo => (
+                    <option
+                        // key={grupo.idStkGrupo}
+                        value={grupo.idStkGrupo}
+                    >
+                        {/* {grupo.idStkGrupo}  */}
+                        {grupo.StkGrupoDesc}
+                    </option>
+                ))}
+          </TextField>
+          }
+        </Grid>
+
+
+
 
         {/* <p>[ Importe = 0 || Importe != 0 ]</p> */}
         <Grid item  xs={2} sm={2} lg={2}>
-          <TextField
+      
+        <FormControl component="fieldset" >
+        <FormLabel component="legend">Elija una opcion</FormLabel>
+        <RadioGroup aria-label="ip" name="ip" value={this.state.valueIp} onChange={this.handleCIp}>
+          <FormControlLabel
+            value="importe"
+            control={<Radio color="primary" />}
+            label="Importe"
+            labelPlacement="start"
+            onClick={()=>this.toggleTipo("importe")}
+          />
+          <FormControlLabel
+            value="porcentage"
+            control={<Radio color="primary" />}
+            label="Porcentage"
+            labelPlacement="start"
+            onClick={()=>this.toggleTipo("porcentage")}
+          />
+         
+        </RadioGroup>
+        {/* <FormHelperText>labelPlacement start</FormHelperText> */}
+      </FormControl>
+        
+        
+          {this.state.toggle.importe &&
+            <TextField
                 margin="dense"
                 id="Importe"
                 label="Importe"
@@ -339,11 +473,13 @@ class ModPrecios extends Component {
                 onChange={this.handleChange('Importe')}
                 // onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('button--submit').focus();}}
             />
-        </Grid>
+          }
+        {/* </Grid> */}
         {/* <p>[ % | 0 ]</p> */}
 
-        <Grid item  xs={2} sm={2} lg={2}>
-          <TextField
+        {/* <Grid item  xs={2} sm={2} lg={2}> */}
+          { this.state.toggle.porcentage &&
+            <TextField
                 margin="dense"
                 id="Porcentage"
                 label="Porcentage"
@@ -354,6 +490,7 @@ class ModPrecios extends Component {
                 onChange={this.handleChange('Porcentage')}
                 // onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('button--submit').focus();}}
             />
+          }
         </Grid>
         <Grid item  xs={1} sm={1} lg={1}></Grid>
             {/* Nota para Rogelio falta llamar al backend que hizo sandra y mandar los cuatro datos que recabo de aca.         */}
