@@ -67,7 +67,6 @@ class Proveedores extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      // url: IpServidor + '/proveedoresleer',
       proveedores: [],
       direction: {}, // direccion del ordenamiento asc o desc
       toggle: {
