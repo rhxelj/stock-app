@@ -48,6 +48,7 @@ class ModPrecios extends Component {
       StkTipoProveedDesc: "",
       proveedores: [],
       grupos: [],
+      rubros:[],
       idStkMonedas: "",
       StkMonedasDescripcion: "",
       StkMonedasCotizacion: 0,
@@ -79,28 +80,28 @@ class ModPrecios extends Component {
     // this.submitProveedor = this.submitProveedor.bind(this);
   }
 
-  //Material Ui Dialog start
-  handleClickOpen = () => {
-    // this.setState({ open: true });
-    this.setState({ toggle:{mensaje: true} });
-  };
+  // //Material Ui Dialog start
+  // handleClickOpen = () => {
+  //   // this.setState({ open: true });
+  //   this.setState({ toggle:{mensaje: true} });
+  // };
 
-  handleClose = () => {
-    this.setState({ open: false });
-  };
+  // handleClose = () => {
+  //   this.setState({ open: false });
+  // };
 
 
-  handleC = event => {
-    // setValue(event.target.value);
-    this.setState({value:event.target.value});
-    console.log(event.target.value)
-  };
+  // handleC = event => {
+  //   // setValue(event.target.value);
+  //   this.setState({value:event.target.value});
+  //   console.log(event.target.value)
+  // };
 
-  handleCIp = event => {
-    // setValue(event.target.value);
-    this.setState({valueIp:event.target.value});
-    console.log(event.target.value)
-  };
+  // handleCIp = event => {
+  //   // setValue(event.target.value);
+  //   this.setState({valueIp:event.target.value});
+  //   console.log(event.target.value)
+  // };
   //Material Ui Dialog start
 
   ModPrecio = () => {
@@ -134,24 +135,24 @@ class ModPrecios extends Component {
           })
           .catch((err) => CodigoError(err))
         }
-        submitModPrecio(state){
-            var idProveedores = parseInt(state.idProveedores , 10)
-            var idStkGrupo = parseInt(state.idStkGrupo , 10)
+        // submitModPrecio(state){
+        //     var idProveedores = parseInt(state.idProveedores , 10)
+        //     var idStkGrupo = parseInt(state.idStkGrupo , 10)
             
-            var Importe = parseInt (state.Importe , 10)
-            var Porcentage = parseInt (state.Porcentage , 10)
+        //     var Importe = parseInt (state.Importe , 10)
+        //     var Porcentage = parseInt (state.Porcentage , 10)
             
-            if(( idProveedores && !idStkGrupo ) || ( !idProveedores && idStkGrupo )){
-              if( ( Importe && !Porcentage ) || ( !Importe && Porcentage ) ) {
-                // alert(`Correcto Importe = ${Importe} Porcentage = ${Porcentage}`)
-                // this.toggle("modprecio")
-                this.ModPrecio()
-              }else 
-                alert(`InCorrecto Importe = ${Importe} Porcentage = ${Porcentage}`)
-            }else
+        //     if(( idProveedores && !idStkGrupo ) || ( !idProveedores && idStkGrupo )){
+        //       if( ( Importe && !Porcentage ) || ( !Importe && Porcentage ) ) {
+        //         // alert(`Correcto Importe = ${Importe} Porcentage = ${Porcentage}`)
+        //         // this.toggle("modprecio")
+        //         this.ModPrecio()
+        //       }else 
+        //         alert(`InCorrecto Importe = ${Importe} Porcentage = ${Porcentage}`)
+        //     }else
                 
-              alert("Icorrecto Solo un valor puede ser 0 id grupo o id proveedor")
-            }
+        //       alert("Icorrecto Solo un valor puede ser 0 id grupo o id proveedor")
+        //     }
             
   // updateField(field) {
   //   this.setState({
@@ -168,12 +169,18 @@ class ModPrecios extends Component {
   }
   
   toggleTipo = (tipo)=>{
+    const toggle = {...this.state.toggle}
+    
     switch(tipo){
+      
       case 
         'proveedor':
           this.setState(
             ()=>({
-              toggle:{
+                idProveedor:"",
+                idStkGrupo:"",
+                idStkRubro:"",
+                toggle:{...toggle,
                 proveedor: true,
                 grupo: false,
                 rubro: false,  
@@ -185,7 +192,10 @@ class ModPrecios extends Component {
         case 
         'grupo': 
         this.setState(()=>({
-          toggle:{
+          idProveedor:"",
+                idStkGrupo:"",
+                idStkRubro:"",
+          toggle:{...toggle,
             proveedor: false,
             grupo: true,
             rubro: false,  
@@ -197,7 +207,10 @@ class ModPrecios extends Component {
       case
         "rubro": 
         this.setState(()=>({
-          toggle:{
+          idProveedor:"",
+                idStkGrupo:"",
+                idStkRubro:"",
+          toggle:{...toggle,
             proveedor: false,
             grupo: false,
             rubro: true,  
@@ -210,7 +223,9 @@ class ModPrecios extends Component {
         'importe':
           this.setState(
             ()=>({
-              toggle:{
+              Importe:0,
+              Porcentage:0,
+              toggle:{...toggle,
                 importe: true,
                 porcentage: false,
               }
@@ -222,7 +237,9 @@ class ModPrecios extends Component {
         'porcentage':
           this.setState(
             ()=>({
-              toggle:{
+              Importe:0,
+              Porcentage:0,
+              toggle:{...toggle,
                 importe: false,
                 // porcentage: !prevState.toggle.porcentage,  
                 porcentage: true,  
@@ -262,17 +279,17 @@ class ModPrecios extends Component {
     })
   }
 
-  rubroleer = _ => {
+  rubrosleer = _ => {
     const url = IpServidor + '/stkrubroleer'
     request
         .get(url)
         .set('Content-Type', 'application/json')
         .then(res => {
-            const rubro = JSON.parse(res.text)
-            this.setState({ rubro: rubro }
+            const rubros = JSON.parse(res.text)
+            this.setState({ rubros: rubros }
                 , () => {
                 console.log(`Rubro :`)
-                console.log(this.state.rubro)
+                console.log(this.state.rubros)
             })
         })
 }
@@ -293,21 +310,14 @@ class ModPrecios extends Component {
   componentDidMount() {
     this.proveedoresleer()
     this.gruposleer()
-
+    this.rubrosleer()
   }
 
   
   render() {
-    console.log("this.state.toggle ")
-    console.log(this.state.toggle)
+    
     return (
       <div>
-      {/* <button onClick={()=>this.toggle("mensaje")}>CLICK</button> */}
-      
-      
-      
-
-
       
       {this.state.toggle.mensaje && <Mensajes props={"HOLA"}><h1>DIALOGO</h1></Mensajes>} 
         <Paper>
@@ -336,8 +346,9 @@ class ModPrecios extends Component {
           <Grid item  xs={1} sm={1} lg={1}></Grid>
           
           <FormControl component="fieldset" >
-        <FormLabel component="legend">Elija una opcion</FormLabel>
-        <RadioGroup aria-label="gender" name="pgr" value={this.state.value} onChange={this.handleC}>
+        {/* <FormLabel component="legend">Elija una opcion</FormLabel> */}
+        {/* <RadioGroup aria-label="gender" name="pgr" value={this.state.value} onChange={this.handleC}> */}
+        <RadioGroup aria-label="gender" name="pgr" value={this.state.value} onChange={this.handleChange("value")}>
           <FormControlLabel
             value="proveedor"
             control={<Radio color="primary" />}
@@ -365,6 +376,9 @@ class ModPrecios extends Component {
           
           
           <Grid item  xs={3} sm={3} lg={3}>
+          
+          <br></br>
+          <br></br>
            {this.state.toggle.proveedor &&
             <TextField
               id="idProveedores" 
@@ -412,20 +426,20 @@ class ModPrecios extends Component {
 
           {this.state.toggle.rubro &&
           <TextField
-              id="idStkGrupo" 
+              id="idStkRubro" 
               select
               label= 'Rubro'
               SelectProps={{native:true}}
-              onChange = {this.handleChange('idStkGrupo')}
+              onChange = {this.handleChange('idStkRubro')}
               >
                 <option value="0"></option>
-                {this.state.grupos.map(grupo => (
+                {this.state.rubros.map(rubro => (
                     <option
                         // key={grupo.idStkGrupo}
-                        value={grupo.idStkGrupo}
+                        value={rubro.idStkRubro}
                     >
                         {/* {grupo.idStkGrupo}  */}
-                        {grupo.StkGrupoDesc}
+                        {rubro.StkRubroDesc}
                     </option>
                 ))}
           </TextField>
@@ -433,14 +447,11 @@ class ModPrecios extends Component {
         </Grid>
 
 
-
-
         {/* <p>[ Importe = 0 || Importe != 0 ]</p> */}
-        <Grid item  xs={2} sm={2} lg={2}>
       
         <FormControl component="fieldset" >
-        <FormLabel component="legend">Elija una opcion</FormLabel>
-        <RadioGroup aria-label="ip" name="ip" value={this.state.valueIp} onChange={this.handleCIp}>
+        {/* <FormLabel component="legend">Elija una opcion</FormLabel> */}
+        <RadioGroup aria-label="ip" name="ip" value={this.state.valueIp} onChange={this.handleChange("valueIp")}>
           <FormControlLabel
             value="importe"
             control={<Radio color="primary" />}
@@ -461,6 +472,7 @@ class ModPrecios extends Component {
       </FormControl>
         
         
+                                <Grid item  xs={1} sm={1} lg={1}>
           {this.state.toggle.importe &&
             <TextField
                 margin="dense"
@@ -497,35 +509,15 @@ class ModPrecios extends Component {
 
             <Button
               color="primary"
-              onClick={()=>this.submitModPrecio(this.state)}
+              // onClick={()=>this.submitModPrecio(this.state)}
+              onClick={()=>this.ModPrecio()}
             >
               Enviar
             </Button>      
-       
-            {/* <DialogActions>
-            <Button 
-              id="button--submit" 
-              onClick={this.submitMoneda} 
-              color="primary"
-            >
-              Modificar
-            </Button>
-            <Button onClick={this.props.toggle} color="secondary">
-              Cancelar
-            </Button>
-
-          </DialogActions> */}
+            
             </Grid>
 
             </Paper>
-
-            {/* <Dialog
-              open={this.state.toggle.mensaje}
-              // onClose={this.handleClose}
-              aria-labelledby="form-dialog-title"
-            >
-              <Mensajes/>
-            </Dialog> */}
 
 
       </div>
