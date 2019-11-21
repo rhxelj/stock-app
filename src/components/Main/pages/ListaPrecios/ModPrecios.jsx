@@ -38,7 +38,6 @@ class ModPrecios extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      idStkGrupo : this.props.idStkGrupo,
       StkGrupoDesc: this.props.StkGrupoDesc,
       StkGrupoAbr: this.props.StkGrupoAbr,        
       StkGrupoContRubro:this.props.StkGrupoContRubro,
@@ -63,6 +62,8 @@ class ModPrecios extends Component {
       rta:"",   // borrar
       controlenvio:0,
       idProveedores: 0,
+      idStkGrupo : 0,
+      StkRubroAbr:"",
       importemod: 0,        
       porcentmod: 0,
       toggle:{
@@ -108,14 +109,18 @@ class ModPrecios extends Component {
     // console.log("valor de toggle.mensaje antes de llamar a request: ")
     // console.log(this.state.toggle.mensaje)
     // this.toggle("mensaje")
+    console.log("this.state en ModPrecio")
+    console.log(this.state)
     request                  
       .post(url)
          .set('Content-Type', 'application/json')
             .send({ 
               idProveedores: this.state.idProveedores,
               idStkGrupo: this.state.idStkGrupo,
+              StkRubroAbr: this.state.StkRubroAbr,             
               importemod: this.state.Importe,
               porcentmod: this.state.Porcentaje
+
             })
          .then( res => { 
             const respuesta = JSON.parse(res.text)
@@ -123,9 +128,9 @@ class ModPrecios extends Component {
             console.log(`rta ` , rta)
             if (rta){
               // if (respuesta.affectedRows !==0){
-              console.log("cambio efectuado ")
+              alert("cambio efectuado ")
               // alert("Modificado Correctamente")
-              this.toggle("mensaje")
+              // this.toggle("mensaje")
               // this.Mensajes("MENSAJE DESDE MODPRECIO")
               
             }
@@ -192,9 +197,9 @@ class ModPrecios extends Component {
         'proveedor':
           this.setState(
             ()=>({
-                idProveedor:"",
-                idStkGrupo:"",
-                idStkRubro:"",
+                idProveedores:0,
+                idStkGrupo:0,
+                StkRubroAbr:"",
                 toggle:{...toggle,
                 proveedor: true,
                 grupo: false,
@@ -207,9 +212,9 @@ class ModPrecios extends Component {
         case 
         'grupo': 
         this.setState(()=>({
-          idProveedor:"",
-                idStkGrupo:"",
-                idStkRubro:"",
+          idProveedores:0,
+                idStkGrupo:0,
+                StkRubroAbr:"",
           toggle:{...toggle,
             proveedor: false,
             grupo: true,
@@ -222,9 +227,9 @@ class ModPrecios extends Component {
       case
         "rubro": 
         this.setState(()=>({
-          idProveedor:"",
-                idStkGrupo:"",
-                idStkRubro:"",
+          idProveedores:0,
+                idStkGrupo:0,
+                StkRubroAbr:"",
           toggle:{...toggle,
             proveedor: false,
             grupo: false,
@@ -330,11 +335,11 @@ class ModPrecios extends Component {
 
   
   render() {
-    
     return (
       <div>
+      {/* {Mensajes("FUNCIONO!!")} */}
       
-      {this.state.toggle.mensaje && <Mensajes msg={"HOLA"}><h1>DIALOGO</h1></Mensajes>} 
+      {this.state.toggle.mensaje && <Mensajes msg={"HOLA"} toggle={()=>this.toggle("mensaje")}><h1>DIALOGO</h1></Mensajes>} 
         <Paper>
        
        
@@ -445,13 +450,13 @@ class ModPrecios extends Component {
               select
               label= 'Rubro'
               SelectProps={{native:true}}
-              onChange = {this.handleChange('idStkRubro')}
+              onChange = {this.handleChange('StkRubroAbr')}
               >
                 <option value="0"></option>
                 {this.state.rubros.map(rubro => (
                     <option
                         // key={grupo.idStkGrupo}
-                        value={rubro.idStkRubro}
+                        value={rubro.StkRubroAbr}
                     >
                         {/* {grupo.idStkGrupo}  */}
                         {rubro.StkRubroDesc}

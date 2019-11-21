@@ -14,7 +14,9 @@ const Mensajes = (props) =>(
             >
              <DialogTitle id="max-width-dialog-title">Optional sizes</DialogTitle>
               {props.msg}
+              {/* {props} */}
               {/* {props.children} */}
+              <button onClick={props.toggle}>OK</button>
             </Dialog>
     </div>
 );
