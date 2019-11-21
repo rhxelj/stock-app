@@ -58,12 +58,11 @@ class ModPrecios extends Component {
       open: true,
       Importe:0,      // borrar
       value:"", 
-      Porcentage:0, 
+      Porcentaje:0, 
       valueIp:"",
       rta:"",   // borrar
-      
+      controlenvio:0,
       idProveedores: 0,
-      // idStkGrupo: 0,
       importemod: 0,        
       porcentmod: 0,
       toggle:{
@@ -72,7 +71,7 @@ class ModPrecios extends Component {
         rubro: false,
         mensaje: false,
         importe:false,
-        porcentage: false
+        porcentaje: false
     },
       
     }
@@ -116,7 +115,7 @@ class ModPrecios extends Component {
               idProveedores: this.state.idProveedores,
               idStkGrupo: this.state.idStkGrupo,
               importemod: this.state.Importe,
-              porcentmod: this.state.Porcentage
+              porcentmod: this.state.Porcentaje
             })
          .then( res => { 
             const respuesta = JSON.parse(res.text)
@@ -127,6 +126,7 @@ class ModPrecios extends Component {
               console.log("cambio efectuado ")
               // alert("Modificado Correctamente")
               this.toggle("mensaje")
+              // this.Mensajes("MENSAJE DESDE MODPRECIO")
               
             }
             else 
@@ -135,24 +135,39 @@ class ModPrecios extends Component {
           })
           .catch((err) => CodigoError(err))
         }
-        // submitModPrecio(state){
-        //     var idProveedores = parseInt(state.idProveedores , 10)
-        //     var idStkGrupo = parseInt(state.idStkGrupo , 10)
+        
+        submitModPrecio(state){
+            // var idProveedores = parseInt(state.idProveedores , 10)
+            // var idStkGrupo = parseInt(state.idStkGrupo , 10)
             
-        //     var Importe = parseInt (state.Importe , 10)
-        //     var Porcentage = parseInt (state.Porcentage , 10)
+            // var Importe = parseInt (state.Importe , 10)
+            // var Porcentaje = parseInt (state.Porcentaje , 10)
             
-        //     if(( idProveedores && !idStkGrupo ) || ( !idProveedores && idStkGrupo )){
-        //       if( ( Importe && !Porcentage ) || ( !Importe && Porcentage ) ) {
-        //         // alert(`Correcto Importe = ${Importe} Porcentage = ${Porcentage}`)
-        //         // this.toggle("modprecio")
-        //         this.ModPrecio()
-        //       }else 
-        //         alert(`InCorrecto Importe = ${Importe} Porcentage = ${Porcentage}`)
-        //     }else
+            // if(( idProveedores && !idStkGrupo ) || ( !idProveedores && idStkGrupo )){
+            //   if( ( Importe && !Porcentaje ) || ( !Importe && Porcentaje ) ) {
+            //     // alert(`Correcto Importe = ${Importe} Porcentaje = ${Porcentaje}`)
+            //     // this.toggle("modprecio")
+            //     this.ModPrecio()
+            //   }else 
+            //     alert(`InCorrecto Importe = ${Importe} Porcentaje = ${Porcentaje}`)
+            // }else
                 
-        //       alert("Icorrecto Solo un valor puede ser 0 id grupo o id proveedor")
-        //     }
+            //   alert("Icorrecto Solo un valor puede ser 0 id grupo o id proveedor")
+            // }
+
+            
+            if (this.state.controlenvio == 2){
+              alert("Modificado correctamente")
+                // this.ModPrecio()
+              }else 
+                alert(`InCorrecto no puede ir un campo vacio`)
+            
+            }
+
+
+
+
+
             
   // updateField(field) {
   //   this.setState({
@@ -224,25 +239,25 @@ class ModPrecios extends Component {
           this.setState(
             ()=>({
               Importe:0,
-              Porcentage:0,
+              Porcentaje:0,
               toggle:{...toggle,
                 importe: true,
-                porcentage: false,
+                porcentaje: false,
               }
             })
           )
             // console.log("Proveedor!!!!")
           break
           case 
-        'porcentage':
+        'porcentaje':
           this.setState(
             ()=>({
               Importe:0,
-              Porcentage:0,
+              Porcentaje:0,
               toggle:{...toggle,
                 importe: false,
-                // porcentage: !prevState.toggle.porcentage,  
-                porcentage: true,  
+                // porcentaje: !prevState.toggle.porcentaje,  
+                porcentaje: true,  
               }
             })
           )
@@ -319,7 +334,7 @@ class ModPrecios extends Component {
     return (
       <div>
       
-      {this.state.toggle.mensaje && <Mensajes props={"HOLA"}><h1>DIALOGO</h1></Mensajes>} 
+      {this.state.toggle.mensaje && <Mensajes msg={"HOLA"}><h1>DIALOGO</h1></Mensajes>} 
         <Paper>
        
        
@@ -460,11 +475,11 @@ class ModPrecios extends Component {
             onClick={()=>this.toggleTipo("importe")}
           />
           <FormControlLabel
-            value="porcentage"
+            value="porcentaje"
             control={<Radio color="primary" />}
-            label="Porcentage"
+            label="Porcentaje"
             labelPlacement="start"
-            onClick={()=>this.toggleTipo("porcentage")}
+            onClick={()=>this.toggleTipo("porcentaje")}
           />
          
         </RadioGroup>
@@ -490,16 +505,16 @@ class ModPrecios extends Component {
         {/* <p>[ % | 0 ]</p> */}
 
         {/* <Grid item  xs={2} sm={2} lg={2}> */}
-          { this.state.toggle.porcentage &&
+          { this.state.toggle.porcentaje &&
             <TextField
                 margin="dense"
-                id="Porcentage"
-                label="Porcentage"
+                id="Porcentaje"
+                label="Porcentaje"
                 type="number"
                 fullWidth
-                placeholder="Porcentage"
-                value={this.state.Porcentage} 
-                onChange={this.handleChange('Porcentage')}
+                placeholder="Porcentaje"
+                value={this.state.Porcentaje} 
+                onChange={this.handleChange('Porcentaje')}
                 // onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('button--submit').focus();}}
             />
           }

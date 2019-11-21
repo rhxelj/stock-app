@@ -13,7 +13,8 @@ const Mensajes = (props) =>(
               aria-labelledby="form-dialog-title"
             >
              <DialogTitle id="max-width-dialog-title">Optional sizes</DialogTitle>
-              {props.children}
+              {props.msg}
+              {/* {props.children} */}
             </Dialog>
     </div>
 );
