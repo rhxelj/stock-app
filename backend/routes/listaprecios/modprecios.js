@@ -16,66 +16,56 @@ var router = express();
 
 router.post('/', async function(req, res, next) {
 
-var idProveedores = req.body.idProveedores;
-var idStkGrupo = req.body.idStkGrupo;
+var compbody, compmysql
+
+if (req.body.idProveedores != 0) {
+    compbody = req.body.idProveedores
+    compmysql = 'StkRubroProv'
+}
+if (req.body.idStkGrupo != 0) {
+    compbody = req.body.idStkGrupo
+    compmysql = 'StkRubroCodGrp'
+}
+if (req.body.StkRubroAbr) {
+    compbody = '"' + req.body.StkRubroAbr + '"'
+    compmysql =  'StkRubroAbr' 
+}
 
 var importemod = req.body.importemod;
 var porcentmod = req.body.porcentmod;
 
-if (idProveedores != 0 && importemod != 0)
- {
-    conexion.query('UPDATE StkRubro SET StkRubroCosto =  StkRubroCosto + ' + importemod + ' WHERE StkRubroProv = '  + idProveedores,
-    function(err, result) {
-        if (err) {
-            console.log('Error en UPDATE modprecios en  (idProveedores != 0 && importemod != 0)');
-            console.log(err); 
+if (importemod != 0)
+    {
+    var q = ['UPDATE StkRubro SET',
+            ' StkRubroCosto = StkRubroCosto + ' + importemod,
+            ' WHERE ' + compmysql + ' = '  + compbody,
+            ].join(' ')
+    }
+    else 
+    {
+    var q = ['UPDATE StkRubro SET',
+            ' StkRubroCosto = StkRubroCosto + ',
+            '(StkRubroCosto * ' + porcentmod / 100 +  ')',
+            ' WHERE ' + compmysql + ' = '  + compbody,
+            ].join(' ')
+    }
+conexion.query(q,
+            function(err, result) {
+                if (err) {
+                    if (err.errno == 1054) 
+                        {
+                        return res.status(414).send({message : "Faltan datos para leer información en tabl"});
+                        }
+                    else
+                    console.log('Error en UPDATE modprecios en ' +  compmysql);
+                    console.log(err); 
+                } 
+                else 
+                {
+                    res.json(result);
+                }
+            })
 
-        } else {
-            res.json(result);
-        }
-    });
- }
- if (idProveedores == 0 && importemod != 0)
- {
-    conexion.query('UPDATE StkRubro SET StkRubroCosto =  StkRubroCosto + ' + importemod + ' WHERE StkRubroCodGrp = '  + idStkGrupo,
-    function(err, result) {
-        if (err) {
-            console.log('Error en UPDATE modprecios en  (idProveedores === 0 && importemod != 0)');
-            console.log(err); 
-
-        } else {
-           
-            res.json(result);
-        }
-    });
- }
- if (idProveedores != 0 && importemod == 0)
- {
-    conexion.query('UPDATE StkRubro SET StkRubroCosto =  StkRubroCosto + (StkRubroCosto * ' + porcentmod / 100 +  ') WHERE StkRubroProv = '  + idProveedores,
-    function(err, result) {
-        if (err) {
-            console.log('Error en UPDATE modprecios en  (idProveedores != 0 && importemod == 0)');
-            console.log(err); 
-
-        } else {
-            res.json(result);
-        }
-    });
- }
- if (idProveedores == 0 && importemod == 0)
- {
-    conexion.query('UPDATE StkRubro SET StkRubroCosto =  StkRubroCosto + (StkRubroCosto * ' +  porcentmod / 100 +  ') WHERE StkRubroCodGrp = '  + idStkGrupo,
-    function(err, result) {
-        if (err) {
-            console.log('Error en UPDATE modprecios en (idProveedores == 0 && importemod == 0)');
-            console.log(err); 
-
-        } else {
-           
-            res.json(result);
-        }
-    });
- }
 })
 
 module.exports = router;
