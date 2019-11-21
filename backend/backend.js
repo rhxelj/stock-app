@@ -91,6 +91,12 @@ var stkenvasecambiaimp = require('./routes/envase/stkenvasecambiaimp');
 var listaprecios = require('./routes/listaprecios/listaprecios');
 var modprecios = require('./routes/listaprecios/modprecios');
 
+// PRESUPUESTO
+var presupunid = require('./routes/presupuesto/presupunid')
+var presuppu = require('./routes/presupuesto/presuppu')
+var presupgraba = require('./routes/presupuesto/presupgraba')
+
+
 // function agregada por el error CROS
 function perimitirCrossDomain(req, res, next) {
     //en vez de * se puede definir SÓLO los orígenes que permitimos
@@ -207,6 +213,11 @@ app.use('/stkmovvtaagregar', stkmovvtaagregar);
 app.use('/listaprecios', listaprecios);
 app.use('/modprecios', modprecios);
 
+
+//PRESUPUESTO
+app.use('/presupunid', presupunid);
+app.use('/presuppu', presuppu);
+app.use('/presupgraba', presupgraba);
 // app.use('/clientesleer', clientesleer);
 
 app.use(function(req, res, next) {
@@ -221,9 +232,12 @@ app.use(function(err, req, res, next) {
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
 
+
     // render the error page
     res.status(err.status || 500);
-    res.render('error');
+    res.render('error ');
+    
+   
 
    
 });

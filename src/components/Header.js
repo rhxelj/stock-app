@@ -70,15 +70,15 @@ class Header extends React.Component {
 
   handleClickMovimientos = () => {
     this.setState(prevState => ({
-      abrir_movimientos: !prevState.abrir_movimientos
-      
+      abrir_movimientos: !prevState.abrir_movimientos,
+      // abrir_tablas: !prevState.abrir_tablas
     }))
   };
 
   handleClickTablas = () => {   
     this.setState(prevState => ({
-      abrir_tablas: !prevState.abrir_tablas
-      
+      abrir_tablas: !prevState.abrir_tablas,
+      // abrir_movimientos: !prevState.abrir_movimientos
     }))
       // this.setState({[prop]: event.currentTarget})
   };
@@ -144,9 +144,13 @@ class Header extends React.Component {
                       salida
                     </MenuItem> */}
                      <List component="div" disablePadding>
-                    {/*    <ListItem button component={Link} to="/ListaPrecios">
-                          <ListItemText primary="Lista Precios" />
-                          </ListItem>*/}
+                       <ListItem button component={Link} to="/ModPrecios">
+                          <ListItemText primary="Modifica Precios" />
+                          </ListItem>
+            
+                       <ListItem button component={Link} to="/PresupPant">
+                          <ListItemText primary="Presupuesto" />
+                          </ListItem>
                           <ListItem button component={Link} to="/ListaPrecios">
                           <ListItemText primary="Lista de Precios" />
                           </ListItem>

@@ -16,22 +16,24 @@ conexion.connect(function(err) {
 
 router.delete('/?:id', function(req, res, next) {
     indice = req.params.id;
-
-
-  conexion.query('delete from StkGrupo where idStkGrupo = "' + indice + '"', 
-                                         function(err, result) {
-                                            if (err) {
-                                                if (err.errno == 1451) 
-                                                    {
-                                                      return res.status(411).send({message : "error Código de Grupo usado en otra tabla"});
-                                                     }
-                                                  {
-                                                console.log(err);
-                                                  }
-                                            } else {
-                                                res.json(result.rows);
-                                            }
-                                        }); 
-                                    });   
-
+    //'delete from StkGrupo where idStkGrupo = "' + indice + '"', 
+    var q = ['delete',
+            ' from StkGrupo where idStkGrupo = "', indice + '"', 
+            ].join(' ')
+    conexion.query(q,
+                    function(err, result) {
+                    if (err) {
+                        if (err.errno == 1451) 
+                            {
+                                return res.status(411).send({message : "error Código de Grupo usado en otra tabla"});
+                                }
+                            {
+                        console.log(err);
+                            }
+                    } else {
+                        res.json(result.rows);
+                    }
+                    }); 
+            });   
+conexion.end
 module.exports = router;

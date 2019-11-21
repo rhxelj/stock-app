@@ -20,31 +20,49 @@ idStkItems
 var router = express();
 
 
-
-
 router.get('/', function(req, res, next) {
-    //?:id/?:id2
     StkEnvaseUbG = req.query.id;
-  // conexion.query('Select idStkEnvase, StkGrupo.StkGrupoDesc, StkRubro.StkRubroDesc, StkItems.StkItemsDesc, StkEnvaseCant, StkEnvaseFechaAct, StkEnvaseUb, StkEnvaseObserv from StkEnvase, StkItems, StkGrupo, StkRubro where (StkEnvase.StkEnvaseGrupo = StkGrupo.idStkGrupo) and (StkEnvase.StkEnvaseRubro = StkRubro.idStkRubro) and (StkEnvase.StkEnvaseItem = StkItems.idStkItems) and  (StkEnvaseImprimio = "N")' , 
-  conexion.query('select idStkEnvase, StkEnvaseGrupo, StkEnvaseRubro, StkEnvaseItem, StkGrupo.StkGrupoDesc,  StkRubro.StkRubroDesc, StkItems.StkItemsDesc, StkEnvasePartida, StkEnvaseUbG, StkEnvaseUbF,  date_format(StkEnvaseFechaAct, "%d-%m-%Y") as stkenvasefecha, StkEnvaseCant, StkEnvaseImprimio, StkEnvaseObserv  from StkEnvase, StkItems, StkGrupo, StkRubro' + 
-  ' where (StkEnvase.StkEnvaseGrupo = StkGrupo.idStkGrupo)' +
-  ' and (StkEnvase.StkEnvaseRubro = StkRubro.idStkRubro)' +
-  ' and (StkEnvase.StkEnvaseItem = StkItems.idStkItems)' +
-  ' and (StkRubro.StkRubroCodGrp = StkGrupo.idStkGrupo)' + 
-  ' and (StkItems.StkItemsRubro = StkRubro.idStkRubro)' +
-  ' and (StkItems.StkItemsGrupo = StkGrupo.idStkGrupo)' +
-  ' and StkEnvaseImprimio = "N"' +
-  ' and StkEnvaseUbG = "' + StkEnvaseUbG + '"',
-  // conexion.query('Select * from StkEnvase where StkEnvaseImprimio = "N" ',
-  function(err, result) {
-    if (err) {
-        console.log(err);
-    } else {
-        res.json(result);
-    }
-    }); 
-    
-
-
+    // 'select idStkEnvase, StkEnvaseGrupo, StkEnvaseRubro, StkEnvaseItem, StkGrupo.StkGrupoDesc,  StkRubro.StkRubroDesc, StkItems.StkItemsDesc, StkEnvasePartida, StkEnvaseUbG, StkEnvaseUbF,  date_format(StkEnvaseFechaAct, "%d-%m-%Y") as stkenvasefecha, StkEnvaseCant, StkEnvaseImprimio, StkEnvaseObserv  from StkEnvase, StkItems, StkGrupo, StkRubro' + 
+    // ' where (StkEnvase.StkEnvaseGrupo = StkGrupo.idStkGrupo)' +
+    // ' and (StkEnvase.StkEnvaseRubro = StkRubro.idStkRubro)' +
+    // ' and (StkEnvase.StkEnvaseItem = StkItems.idStkItems)' +
+    // ' and (StkRubro.StkRubroCodGrp = StkGrupo.idStkGrupo)' + 
+    // ' and (StkItems.StkItemsRubro = StkRubro.idStkRubro)' +
+    // ' and (StkItems.StkItemsGrupo = StkGrupo.idStkGrupo)' +
+    // ' and StkEnvaseImprimio = "N"' +
+    // ' and StkEnvaseUbG = "' + StkEnvaseUbG + '"',
+    var q = ['SELECT idStkEnvase,',
+                 'StkEnvaseGrupo,',
+                 'StkEnvaseRubro,',
+                 'StkEnvaseItem,',
+                 'StkGrupo.StkGrupoDesc,',
+                 'StkRubro.StkRubroDesc,',
+                 'StkItems.StkItemsDesc,',
+                 'StkEnvasePartida,',
+                 'StkEnvaseUbG,',
+                 'StkEnvaseUbF,',
+                 'date_format(StkEnvaseFechaAct, "%d-%m-%Y") as stkenvasefecha,',
+                 'StkEnvaseCant,',
+                 'StkEnvaseImprimio,',
+                 'StkEnvaseObserv',
+                 'from StkEnvase, StkItems, StkGrupo, StkRubro', 
+                 'where (StkEnvase.StkEnvaseGrupo = StkGrupo.idStkGrupo)', 
+                 'and (StkEnvase.StkEnvaseRubro = StkRubro.idStkRubro)', 
+                 'and (StkEnvase.StkEnvaseItem = StkItems.idStkItems)', 
+                 'and (StkRubro.StkRubroCodGrp = StkGrupo.idStkGrupo)',  
+                 'and (StkItems.StkItemsRubro = StkRubro.idStkRubro)', 
+                 'and (StkItems.StkItemsGrupo = StkGrupo.idStkGrupo)', 
+                 'and StkEnvaseImprimio = "N"', 
+                 'and StkEnvaseUbG = "' + StkEnvaseUbG + '"',
+        ].join(' ')
+    conexion.query(q,
+                function(err, result) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.json(result);
+                    }
+                    }); 
 })
+conexion.end
 module.exports = router;

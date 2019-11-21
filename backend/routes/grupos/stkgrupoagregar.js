@@ -24,9 +24,9 @@ router.post('/', function(req, res, next) {
     StkGrupoContRubro : 0
     
   }
+//   'INSERT INTO StkGrupo SET ?', registro, 
+  
  
-   
-
         conexion.query('INSERT INTO StkGrupo SET ?', registro, 
         function(err, result) {
             if (err) {
@@ -38,11 +38,9 @@ router.post('/', function(req, res, next) {
                           console.log(err.errno);
                           }
                 } else {
-                res.json(result.rows);
+                res.json(result);
             }
         });
 });
-
-
-
+conexion.end
 module.exports = router;

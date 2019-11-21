@@ -18,11 +18,14 @@ import StkRubro     from './pages/Rubros/StkRubro'
 import StkGrupo     from './pages/Grupos/StkGrupo';
 import StkUbFisica from './pages/UbicacionFisica/StkUbFisica'
 import ListaPrecios from './pages/ListaPrecios/ListaPrecios'
+import ModPrecios from './pages/ListaPrecios/ModPrecios'
 import StkMovEntrada     from './pages/Movimientos/Entrada/StkMovEntrada';
 import StkMovSalida from './pages/Movimientos/Salida/StkMovSalida'
 import StkSalidaFinal from './pages/Movimientos/Salida/StkSalidaFinal'
 // import StkMovimiento from './pages/z_SinClasificarMirar/StkMovimiento'
 import StkItems from './pages/Items/StkItems'
+
+import PresupPant from './pages/Presupuesto/PresupPant.js'
 
 
 const Main = () => (
@@ -45,11 +48,13 @@ const Main = () => (
             <Route path="/StkMovSalida"     component={StkMovSalida}/>
             <Route path="/StkSalidaFinal"     component={StkSalidaFinal}/>
             <Route path="/ListaPrecios"     component={ListaPrecios}/>
+            <Route path="/PresupPant"     component={PresupPant}/>
             <Route path="/StkRubro"     component={StkRubro}/>
             <Route path="/StkGrupo"     component={StkGrupo}/>
             <Route path="/StkItems"     component={StkItems}/>
             <Route path="/StkMovEntrada"     component={StkMovEntrada}/>
             <Route path="/StkUbFisica"     component={StkUbFisica}/>
+            <Route path="/ModPrecios"     component={ModPrecios}/>
             {/* <Route path="/AgregarMonedas" component={AgregarMonedas}/> */}
             {/* <Route path="/BorrarMonedas" component={BorrarMonedas}/> */}
             {/* <Route path="/ModificarMonedas" component={ModificarMonedas}/> */}

@@ -44,8 +44,9 @@
 
 ```
 
+# Función Ordenar
 
-
+```javascript
 
 // Cosas a agregar para la funcion de Ordenar (SortBy) Begin ***************************************************************************************************
 
@@ -64,7 +65,7 @@
 
 
 // Cosas a agregar para la funcion de Ordenar (SortBy) End ******************************************************************************************************
-
+```
 
 
 
