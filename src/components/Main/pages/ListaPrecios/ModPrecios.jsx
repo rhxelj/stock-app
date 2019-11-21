@@ -24,6 +24,15 @@ import CodigoError from '../../../lib/CodigoError'
 import Mensajes from '../../../lib/Mensajes'
 
 
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+
+
+
 
 class ModPrecios extends Component {
   constructor(props) {
@@ -39,6 +48,7 @@ class ModPrecios extends Component {
       StkTipoProveedDesc: "",
       proveedores: [],
       grupos: [],
+      rubros:[],
       idStkMonedas: "",
       StkMonedasDescripcion: "",
       StkMonedasCotizacion: 0,
@@ -46,19 +56,22 @@ class ModPrecios extends Component {
       unmed:[],
       nuevocodigo:0,
       open: true,
-      Importe:0,      // borrar 
-      Porcentage:0, 
+      Importe:0,      // borrar
+      value:"", 
+      Porcentaje:0, 
+      valueIp:"",
       rta:"",   // borrar
-      
+      controlenvio:0,
       idProveedores: 0,
-      // idStkGrupo: 0,
       importemod: 0,        
       porcentmod: 0,
       toggle:{
-        // agregar: false,
-        // busqueda: false,
-        // modificar: false,
+        proveedor: false,
+        grupo: false,
+        rubro: false,
         mensaje: false,
+        importe:false,
+        porcentaje: false
     },
       
     }
@@ -66,15 +79,28 @@ class ModPrecios extends Component {
     // this.submitProveedor = this.submitProveedor.bind(this);
   }
 
-  //Material Ui Dialog start
-  handleClickOpen = () => {
-    // this.setState({ open: true });
-    this.setState({ toggle:{mensaje: true} });
-  };
+  // //Material Ui Dialog start
+  // handleClickOpen = () => {
+  //   // this.setState({ open: true });
+  //   this.setState({ toggle:{mensaje: true} });
+  // };
 
-  handleClose = () => {
-    this.setState({ open: false });
-  };
+  // handleClose = () => {
+  //   this.setState({ open: false });
+  // };
+
+
+  // handleC = event => {
+  //   // setValue(event.target.value);
+  //   this.setState({value:event.target.value});
+  //   console.log(event.target.value)
+  // };
+
+  // handleCIp = event => {
+  //   // setValue(event.target.value);
+  //   this.setState({valueIp:event.target.value});
+  //   console.log(event.target.value)
+  // };
   //Material Ui Dialog start
 
   ModPrecio = () => {
@@ -89,7 +115,7 @@ class ModPrecios extends Component {
               idProveedores: this.state.idProveedores,
               idStkGrupo: this.state.idStkGrupo,
               importemod: this.state.Importe,
-              porcentmod: this.state.Porcentage
+              porcentmod: this.state.Porcentaje
             })
          .then( res => { 
             const respuesta = JSON.parse(res.text)
@@ -100,6 +126,7 @@ class ModPrecios extends Component {
               console.log("cambio efectuado ")
               // alert("Modificado Correctamente")
               this.toggle("mensaje")
+              // this.Mensajes("MENSAJE DESDE MODPRECIO")
               
             }
             else 
@@ -108,24 +135,39 @@ class ModPrecios extends Component {
           })
           .catch((err) => CodigoError(err))
         }
+        
         submitModPrecio(state){
-            var idProveedores = parseInt(state.idProveedores , 10)
-            var idStkGrupo = parseInt(state.idStkGrupo , 10)
+            // var idProveedores = parseInt(state.idProveedores , 10)
+            // var idStkGrupo = parseInt(state.idStkGrupo , 10)
             
-            var Importe = parseInt (state.Importe , 10)
-            var Porcentage = parseInt (state.Porcentage , 10)
+            // var Importe = parseInt (state.Importe , 10)
+            // var Porcentaje = parseInt (state.Porcentaje , 10)
             
-            if(( idProveedores && !idStkGrupo ) || ( !idProveedores && idStkGrupo )){
-              if( ( Importe && !Porcentage ) || ( !Importe && Porcentage ) ) {
-                // alert(`Correcto Importe = ${Importe} Porcentage = ${Porcentage}`)
-                // this.toggle("modprecio")
-                this.ModPrecio()
-              }else 
-                alert(`InCorrecto Importe = ${Importe} Porcentage = ${Porcentage}`)
-            }else
+            // if(( idProveedores && !idStkGrupo ) || ( !idProveedores && idStkGrupo )){
+            //   if( ( Importe && !Porcentaje ) || ( !Importe && Porcentaje ) ) {
+            //     // alert(`Correcto Importe = ${Importe} Porcentaje = ${Porcentaje}`)
+            //     // this.toggle("modprecio")
+            //     this.ModPrecio()
+            //   }else 
+            //     alert(`InCorrecto Importe = ${Importe} Porcentaje = ${Porcentaje}`)
+            // }else
                 
-              alert("Icorrecto Solo un valor puede ser 0 id grupo o id proveedor")
+            //   alert("Icorrecto Solo un valor puede ser 0 id grupo o id proveedor")
+            // }
+
+            
+            if (this.state.controlenvio == 2){
+              alert("Modificado correctamente")
+                // this.ModPrecio()
+              }else 
+                alert(`InCorrecto no puede ir un campo vacio`)
+            
             }
+
+
+
+
+
             
   // updateField(field) {
   //   this.setState({
@@ -140,7 +182,90 @@ class ModPrecios extends Component {
         toggle:{[arg]: !prevState.toggle[arg]}
     })) // estado inicial "FALSE" muestra la tabla de "..." en "TRUE" llama al componente <ComponenteParticular>
   }
-            
+  
+  toggleTipo = (tipo)=>{
+    const toggle = {...this.state.toggle}
+    
+    switch(tipo){
+      
+      case 
+        'proveedor':
+          this.setState(
+            ()=>({
+                idProveedor:"",
+                idStkGrupo:"",
+                idStkRubro:"",
+                toggle:{...toggle,
+                proveedor: true,
+                grupo: false,
+                rubro: false,  
+              }
+            })
+          )
+            // console.log("Proveedor!!!!")
+          break
+        case 
+        'grupo': 
+        this.setState(()=>({
+          idProveedor:"",
+                idStkGrupo:"",
+                idStkRubro:"",
+          toggle:{...toggle,
+            proveedor: false,
+            grupo: true,
+            rubro: false,  
+        }
+
+        }))
+        // console.log("Grupo")
+        break
+      case
+        "rubro": 
+        this.setState(()=>({
+          idProveedor:"",
+                idStkGrupo:"",
+                idStkRubro:"",
+          toggle:{...toggle,
+            proveedor: false,
+            grupo: false,
+            rubro: true,  
+        }
+        }))
+        // console.log("Rubro")
+        break
+
+        case 
+        'importe':
+          this.setState(
+            ()=>({
+              Importe:0,
+              Porcentaje:0,
+              toggle:{...toggle,
+                importe: true,
+                porcentaje: false,
+              }
+            })
+          )
+            // console.log("Proveedor!!!!")
+          break
+          case 
+        'porcentaje':
+          this.setState(
+            ()=>({
+              Importe:0,
+              Porcentaje:0,
+              toggle:{...toggle,
+                importe: false,
+                // porcentaje: !prevState.toggle.porcentaje,  
+                porcentaje: true,  
+              }
+            })
+          )
+            // console.log("Proveedor!!!!")
+          break
+    }
+  }
+
   handleChange = prop => event => {
     this.setState({ [prop]: event.target.value });
   };
@@ -169,18 +294,17 @@ class ModPrecios extends Component {
     })
   }
 
-  rubroleer = _ => {
+  rubrosleer = _ => {
     const url = IpServidor + '/stkrubroleer'
-
     request
         .get(url)
         .set('Content-Type', 'application/json')
         .then(res => {
-            const rubro = JSON.parse(res.text)
-            this.setState({ rubro: rubro }
+            const rubros = JSON.parse(res.text)
+            this.setState({ rubros: rubros }
                 , () => {
                 console.log(`Rubro :`)
-                console.log(this.state.rubro)
+                console.log(this.state.rubros)
             })
         })
 }
@@ -201,16 +325,20 @@ class ModPrecios extends Component {
   componentDidMount() {
     this.proveedoresleer()
     this.gruposleer()
-
+    this.rubrosleer()
   }
 
   
   render() {
+    
     return (
       <div>
-      <button onClick={()=>this.toggle("mensaje")}>CLICK</button>
-      {this.state.toggle.mensaje && <Mensajes props={"HOLA"}><h1>DIALOGO</h1></Mensajes>} 
+      
+      {this.state.toggle.mensaje && <Mensajes msg={"HOLA"}><h1>DIALOGO</h1></Mensajes>} 
         <Paper>
+       
+       
+       
         <Grid container>
             <Grid item xs={4} sm={4} lg={4}></Grid>
               <DialogTitle id="form-dialog-title">Modificar Precio</DialogTitle>
@@ -231,7 +359,42 @@ class ModPrecios extends Component {
           })
           } */}
           <Grid item  xs={1} sm={1} lg={1}></Grid>
+          
+          <FormControl component="fieldset" >
+        {/* <FormLabel component="legend">Elija una opcion</FormLabel> */}
+        {/* <RadioGroup aria-label="gender" name="pgr" value={this.state.value} onChange={this.handleC}> */}
+        <RadioGroup aria-label="gender" name="pgr" value={this.state.value} onChange={this.handleChange("value")}>
+          <FormControlLabel
+            value="proveedor"
+            control={<Radio color="primary" />}
+            label="Proveedor"
+            labelPlacement="start"
+            onClick={()=>this.toggleTipo("proveedor")}
+          />
+          <FormControlLabel
+            value="grupo"
+            control={<Radio color="primary" />}
+            label="Grupo"
+            labelPlacement="start"
+            onClick={()=>this.toggleTipo("grupo")}
+          />
+          <FormControlLabel
+            value="rubro"
+            control={<Radio color="primary" />}
+            label="Rubro"
+            labelPlacement="start"
+            onClick={()=>this.toggleTipo("rubro")}
+          />
+        </RadioGroup>
+        {/* <FormHelperText>labelPlacement start</FormHelperText> */}
+      </FormControl>
+          
+          
           <Grid item  xs={3} sm={3} lg={3}>
+          
+          <br></br>
+          <br></br>
+           {this.state.toggle.proveedor &&
             <TextField
               id="idProveedores" 
               select={true}
@@ -250,9 +413,11 @@ class ModPrecios extends Component {
                     </option>
                 ))}
             </TextField>
-          </Grid>
+          }
+          {/* </Grid> */}
         {/* <p>[ Codigo de Grupo | 0 ]</p> */}
-        <Grid item  xs={3} sm={3} lg={3}>
+        {/* <Grid item  xs={3} sm={3} lg={3}> */}
+        {this.state.toggle.grupo &&
           <TextField
               id="idStkGrupo" 
               select
@@ -271,11 +436,60 @@ class ModPrecios extends Component {
                     </option>
                 ))}
           </TextField>
-          </Grid>
+          }
+          {/* </Grid> */}
+
+          {this.state.toggle.rubro &&
+          <TextField
+              id="idStkRubro" 
+              select
+              label= 'Rubro'
+              SelectProps={{native:true}}
+              onChange = {this.handleChange('idStkRubro')}
+              >
+                <option value="0"></option>
+                {this.state.rubros.map(rubro => (
+                    <option
+                        // key={grupo.idStkGrupo}
+                        value={rubro.idStkRubro}
+                    >
+                        {/* {grupo.idStkGrupo}  */}
+                        {rubro.StkRubroDesc}
+                    </option>
+                ))}
+          </TextField>
+          }
+        </Grid>
+
 
         {/* <p>[ Importe = 0 || Importe != 0 ]</p> */}
-        <Grid item  xs={2} sm={2} lg={2}>
-          <TextField
+      
+        <FormControl component="fieldset" >
+        {/* <FormLabel component="legend">Elija una opcion</FormLabel> */}
+        <RadioGroup aria-label="ip" name="ip" value={this.state.valueIp} onChange={this.handleChange("valueIp")}>
+          <FormControlLabel
+            value="importe"
+            control={<Radio color="primary" />}
+            label="Importe"
+            labelPlacement="start"
+            onClick={()=>this.toggleTipo("importe")}
+          />
+          <FormControlLabel
+            value="porcentaje"
+            control={<Radio color="primary" />}
+            label="Porcentaje"
+            labelPlacement="start"
+            onClick={()=>this.toggleTipo("porcentaje")}
+          />
+         
+        </RadioGroup>
+        {/* <FormHelperText>labelPlacement start</FormHelperText> */}
+      </FormControl>
+        
+        
+                                <Grid item  xs={1} sm={1} lg={1}>
+          {this.state.toggle.importe &&
+            <TextField
                 margin="dense"
                 id="Importe"
                 label="Importe"
@@ -286,56 +500,39 @@ class ModPrecios extends Component {
                 onChange={this.handleChange('Importe')}
                 // onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('button--submit').focus();}}
             />
-        </Grid>
+          }
+        {/* </Grid> */}
         {/* <p>[ % | 0 ]</p> */}
 
-        <Grid item  xs={2} sm={2} lg={2}>
-          <TextField
+        {/* <Grid item  xs={2} sm={2} lg={2}> */}
+          { this.state.toggle.porcentaje &&
+            <TextField
                 margin="dense"
-                id="Porcentage"
-                label="Porcentage"
+                id="Porcentaje"
+                label="Porcentaje"
                 type="number"
                 fullWidth
-                placeholder="Porcentage"
-                value={this.state.Porcentage} 
-                onChange={this.handleChange('Porcentage')}
+                placeholder="Porcentaje"
+                value={this.state.Porcentaje} 
+                onChange={this.handleChange('Porcentaje')}
                 // onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('button--submit').focus();}}
             />
+          }
         </Grid>
         <Grid item  xs={1} sm={1} lg={1}></Grid>
             {/* Nota para Rogelio falta llamar al backend que hizo sandra y mandar los cuatro datos que recabo de aca.         */}
 
             <Button
               color="primary"
-              onClick={()=>this.submitModPrecio(this.state)}
+              // onClick={()=>this.submitModPrecio(this.state)}
+              onClick={()=>this.ModPrecio()}
             >
               Enviar
             </Button>      
-       
-            {/* <DialogActions>
-            <Button 
-              id="button--submit" 
-              onClick={this.submitMoneda} 
-              color="primary"
-            >
-              Modificar
-            </Button>
-            <Button onClick={this.props.toggle} color="secondary">
-              Cancelar
-            </Button>
-
-          </DialogActions> */}
+            
             </Grid>
 
             </Paper>
-
-            {/* <Dialog
-              open={this.state.toggle.mensaje}
-              // onClose={this.handleClose}
-              aria-labelledby="form-dialog-title"
-            >
-              <Mensajes/>
-            </Dialog> */}
 
 
       </div>
