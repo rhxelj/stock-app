@@ -16,7 +16,7 @@ import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions'
 import StkFab from '../../../lib/StkFab'
 import SelecCampos from '../Impresion/SelecCampos'
-import ModPrecios from '../ListaPrecios/ModPrecios'
+// import ModPrecios from '../ListaPrecios/ModPrecios'
 
 // import  QRCode  from "qrcode.react";
 // import printJS from 'print-js'
@@ -73,7 +73,7 @@ class ListaPrecios extends Component {
         busqueda: false,
         modificar: false,
         seleccampos: false,
-        modprecios:false
+        // modprecios:false
     },
       
       lisprecios : {
@@ -212,12 +212,12 @@ render (){
       tipo:"",
       order: true,
     },
-    {
-      Header: "",
-      accessor: "modificar",
-      tipo:"",
-      order: false,
-    }
+    // {
+    //   Header: "",
+    //   accessor: "modificar",
+    //   tipo:"",
+    //   order: false,
+    // }
   ]
     return(
       <div>
@@ -228,12 +228,12 @@ render (){
           
           <Grid item xs={12} sm={8} lg={12}>
           
-            <Button onClick={()=>this.toggle("modprecios")}>
+            {/* <Button onClick={()=>this.toggle("modprecios")}>
               modificar
-            </Button>
-            {this.state.toggle.modprecios &&
+            </Button> */}
+            {/* {this.state.toggle.modprecios &&
             <ModPrecios/>
-            }
+            } */}
           {/* Desplegar Stock */}
           {/* {!this.state.toggle_desplegar && */}
           {/* {true && */}
@@ -248,7 +248,7 @@ render (){
                       <CustomTableCell numeric>Paño Unid Rec</CustomTableCell> */}
                       
                       {/* <CustomTableCell className="headerFijo"  > */}
-                      <CustomTableCell>Modificar</CustomTableCell> 
+                      {/* <CustomTableCell>Modificar</CustomTableCell>  */}
                       {columns.map((row, index) => {
                         return (
                           <CustomTableCell 

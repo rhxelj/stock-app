@@ -18,6 +18,7 @@ import StkRubro     from './pages/Rubros/StkRubro'
 import StkGrupo     from './pages/Grupos/StkGrupo';
 import StkUbFisica from './pages/UbicacionFisica/StkUbFisica'
 import ListaPrecios from './pages/ListaPrecios/ListaPrecios'
+import ModPrecios from './pages/ListaPrecios/ModPrecios'
 import StkMovEntrada     from './pages/Movimientos/Entrada/StkMovEntrada';
 import StkMovSalida from './pages/Movimientos/Salida/StkMovSalida'
 import StkSalidaFinal from './pages/Movimientos/Salida/StkSalidaFinal'
@@ -53,6 +54,7 @@ const Main = () => (
             <Route path="/StkItems"     component={StkItems}/>
             <Route path="/StkMovEntrada"     component={StkMovEntrada}/>
             <Route path="/StkUbFisica"     component={StkUbFisica}/>
+            <Route path="/ModPrecios"     component={ModPrecios}/>
             {/* <Route path="/AgregarMonedas" component={AgregarMonedas}/> */}
             {/* <Route path="/BorrarMonedas" component={BorrarMonedas}/> */}
             {/* <Route path="/ModificarMonedas" component={ModificarMonedas}/> */}

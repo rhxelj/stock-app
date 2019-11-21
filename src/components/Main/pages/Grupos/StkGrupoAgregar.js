@@ -165,7 +165,14 @@ ActualizaGrupo = () => {
       .send({ StkGrupoAbr: this.state.StkGrupoAbr})        
       .send({ StkGrupoContRubro: 0}) // Esto va a ser Cero inicialmente.
       .set("X-API-Key", "foobar")
-      .then(function(res) {});
+      .then(function(res) {
+        const respuesta = JSON.parse(res.text)
+          if (respuesta.affectedRows !=0)
+             alert("EXITO")
+          else 
+            alert("No modifico")
+      })
+      .catch((err) => CodigoError(err))
       
     };
 

@@ -154,7 +154,6 @@ class StkRubro extends Component {
 //******************************************* Habilita el contenido a mostrar en Pantalla - Begin *******************************************
 
 toggle = (arg) =>{            
-    console.log("el argumento es :",arg)
     this.setState(prevState => ({
         toggle:{[arg]: !prevState.toggle[arg]}
     })) // estado inicial "FALSE" muestra la tabla de "..." en "TRUE" llama al componente <ComponenteParticular>
