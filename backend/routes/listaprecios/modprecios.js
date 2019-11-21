@@ -26,9 +26,9 @@ if (req.body.idStkGrupo != 0) {
     compbody = req.body.idStkGrupo
     compmysql = 'StkRubroCodGrp'
 }
-if (req.body.StkRubroAbr != '') {
-    compbody = req.body.StkRubroAbr
-    compmysql = 'StkRubroAbr'
+if (req.body.StkRubroAbr) {
+    compbody = '"' + req.body.StkRubroAbr + '"'
+    compmysql =  'StkRubroAbr' 
 }
 
 var importemod = req.body.importemod;
@@ -49,10 +49,14 @@ if (importemod != 0)
             ' WHERE ' + compmysql + ' = '  + compbody,
             ].join(' ')
     }
-
 conexion.query(q,
             function(err, result) {
                 if (err) {
+                    if (err.errno == 1054) 
+                        {
+                        return res.status(414).send({message : "Faltan datos para leer información en tabl"});
+                        }
+                    else
                     console.log('Error en UPDATE modprecios en ' +  compmysql);
                     console.log(err); 
                 } 
