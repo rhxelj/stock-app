@@ -18,8 +18,8 @@ conexion.connect(function(err) {
 var router = express();
 
 router.get('/', function(req, res, next) {
-  
-    conexion.query('Select * from StkItems ' ,
+  var q = ['Select * from StkItems '].join(' ')
+    conexion.query(q,
         function(err, result) {
             if (err) {
                 console.log(err);
