@@ -7,23 +7,9 @@ import Button from "@material-ui/core/Button";
 import Paper from '@material-ui/core/Paper';
 
 import Grid from '@material-ui/core/Grid';
-// import CreateIcon from '@material-ui/icons/Create';
-// import IconButton from '@material-ui/core/IconButton';
-
-// import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
-// import DialogContent from "@material-ui/core/DialogContent";
-// import DialogActions from "@material-ui/core/DialogActions";
-
-// import MenuItem from "@material-ui/core/MenuItem";
-// import DialogContentText from '@material-ui/core/DialogContentText';
-// import Select from '@material-ui/core/Select';
-// import AgregarMonedas from './StkMonedasAgregar'
 import CodigoError from '../../../lib/CodigoError'
-// import { makeStyles } from '@material-ui/core/styles';
 import Mensajes from '../../../lib/Mensajes'
-
-
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -32,15 +18,30 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
 
+// import CreateIcon from '@material-ui/icons/Create';
+// import IconButton from '@material-ui/core/IconButton';
+
+// import Dialog from "@material-ui/core/Dialog";
+// import DialogContent from "@material-ui/core/DialogContent";
+// import DialogActions from "@material-ui/core/DialogActions";
+
+// import MenuItem from "@material-ui/core/MenuItem";
+// import DialogContentText from '@material-ui/core/DialogContentText';
+// import Select from '@material-ui/core/Select';
+// import AgregarMonedas from './StkMonedasAgregar'
+// import { makeStyles } from '@material-ui/core/styles';
+
+
+
 
 
 class ModPrecios extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      StkGrupoDesc: this.props.StkGrupoDesc,
-      StkGrupoAbr: this.props.StkGrupoAbr,        
-      StkGrupoContRubro:this.props.StkGrupoContRubro,
+      // StkGrupoDesc: this.props.StkGrupoDesc,
+      // StkGrupoAbr: this.props.StkGrupoAbr,        
+      // StkGrupoContRubro:this.props.StkGrupoContRubro,
       stkgrupo:[],
       codigo_grupo:"Valor Inicial",
       idStkTipoProveed: 0,
@@ -48,11 +49,11 @@ class ModPrecios extends Component {
       proveedores: [],
       grupos: [],
       rubros:[],
-      idStkMonedas: "",
-      StkMonedasDescripcion: "",
-      StkMonedasCotizacion: 0,
-      stkmonedas: [],
-      unmed:[],
+      // idStkMonedas: "",
+      // StkMonedasDescripcion: "",
+      // StkMonedasCotizacion: 0,
+      // stkmonedas: [],
+      // unmed:[],
       nuevocodigo:0,
       open: true,
       Importe:0,      // borrar
@@ -127,8 +128,8 @@ class ModPrecios extends Component {
             const rta = respuesta.affectedRows !==0
             console.log(`rta ` , rta)
             if (rta){
-              // if (respuesta.affectedRows !==0){
               alert("cambio efectuado ")
+              // if (respuesta.affectedRows !==0){
               // alert("Modificado Correctamente")
               // this.toggle("mensaje")
               // this.Mensajes("MENSAJE DESDE MODPRECIO")
@@ -138,37 +139,51 @@ class ModPrecios extends Component {
               alert("No Se Pudo Modificar")
             
           })
+          .then(
+            this.setState(()=>({
+              idProveedores: 0,
+              idStkGrupo: 0,
+              StkRubroAbr: "",             
+              Importe: 0,
+              Porcentaje: 0,
+            }))
+            )
           .catch((err) => CodigoError(err))
         }
         
         submitModPrecio(state){
-            // var idProveedores = parseInt(state.idProveedores , 10)
-            // var idStkGrupo = parseInt(state.idStkGrupo , 10)
+        
+          this.ModPrecio()
+          // .then(
+          //   this.setState(()=>({
+          //     idProveedores: 0,
+          //     idStkGrupo: 0,
+          //     StkRubroAbr: "",             
+          //     Importe: 0,
+          //     Porcentaje: 0,
+          //   }))
+          //   )
+          }
+        //     var idProveedores = parseInt(state.idProveedores , 10)
+        //     var idStkGrupo = parseInt(state.idStkGrupo , 10)
             
-            // var Importe = parseInt (state.Importe , 10)
-            // var Porcentaje = parseInt (state.Porcentaje , 10)
+        //     var Importe = parseInt (state.Importe , 10)
+        //     var Porcentaje = parseInt (state.Porcentaje , 10)
             
-            // if(( idProveedores && !idStkGrupo ) || ( !idProveedores && idStkGrupo )){
-            //   if( ( Importe && !Porcentaje ) || ( !Importe && Porcentaje ) ) {
-            //     // alert(`Correcto Importe = ${Importe} Porcentaje = ${Porcentaje}`)
-            //     // this.toggle("modprecio")
-            //     this.ModPrecio()
-            //   }else 
-            //     alert(`InCorrecto Importe = ${Importe} Porcentaje = ${Porcentaje}`)
-            // }else
+        //     if(( idProveedores && !idStkGrupo ) || ( !idProveedores && idStkGrupo )){
+        //       if( ( Importe && !Porcentaje ) || ( !Importe && Porcentaje ) ) {
+        //         // alert(`Correcto Importe = ${Importe} Porcentaje = ${Porcentaje}`)
+        //         // this.toggle("modprecio")
+        //         this.ModPrecio()
+        //       }else 
+        //         alert(`InCorrecto Importe = ${Importe} Porcentaje = ${Porcentaje}`)
+        //     }else
                 
-            //   alert("Icorrecto Solo un valor puede ser 0 id grupo o id proveedor")
-            // }
+        //       alert("Icorrecto Solo un valor puede ser 0 id grupo o id proveedor")
+        //     }
 
             
-            if (this.state.controlenvio == 2){
-              alert("Modificado correctamente")
-                // this.ModPrecio()
-              }else 
-                alert(`InCorrecto no puede ir un campo vacio`)
             
-            }
-
 
 
 
@@ -529,8 +544,8 @@ class ModPrecios extends Component {
 
             <Button
               color="primary"
-              // onClick={()=>this.submitModPrecio(this.state)}
-              onClick={()=>this.ModPrecio()}
+              onClick={()=>this.submitModPrecio()}
+              // onClick={()=>this.ModPrecio()}
             >
               Enviar
             </Button>      
