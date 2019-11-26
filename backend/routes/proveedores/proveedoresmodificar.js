@@ -36,8 +36,8 @@ router.post('/?:id', function(req, res) {
     var provmail = req.body.ProveedoresMail;
     var provpagweb = req.body.ProveedoresWeb;
     var provcodmon = req.body.ProveedoresCodMon;
-    
-  conexion.query('update BasesGenerales.Proveedores set ProveedoresDesc = "' + provdesc + 
+/*
+'update BasesGenerales.Proveedores set ProveedoresDesc = "' + provdesc + 
                                         '" , ProveedoresTipo = ' + provtipo + 
                                         ' ,  ProveedoresCUIT = "' + provcuit + 
                                         '" , ProveedoresCalle = "' + provcalle + 
@@ -52,7 +52,26 @@ router.post('/?:id', function(req, res) {
                                         '" , ProveedoresMail = "' + provmail +
                                         '" , ProveedoresWeb = "' + provpagweb +
                                         '" , ProveedoresCodMon = "' + provcodmon + 
-                                         '" where idProveedores = ' + indice, 
+                                         '" where idProveedores = ' + indice
+*/
+var q = ['update BasesGenerales.Proveedores set ProveedoresDesc = "', provdesc, 
+        '" , ProveedoresTipo = ', provtipo, 
+        ' ,  ProveedoresCUIT = "', provcuit, 
+        '" , ProveedoresCalle = "', provcalle, 
+        '" , ProveedoresNroCalle = ', provnrocalle,
+        ' , ProveedoresPiso = "', provpiso,
+        '" , ProveedoresDto = "', provdto,
+        '" , ProveedoresCodPos = "', provcodpostal,
+        '" , ProveedoresLoc = "', provlocalidad,
+        '" , ProveedoresPcia = "', provprovincia,
+        '" , ProveedoresTel = "', provtelefono,
+        '" , ProveedoresContacto = "', provcontacto,
+        '" , ProveedoresMail = "', provmail,
+        '" , ProveedoresWeb = "', provpagweb,
+        '" , ProveedoresCodMon = "', provcodmon, 
+        '" where idProveedores = ', indice].join(' ')
+        console.log(q)
+  conexion.query(q, 
                                          function(err, result) {
                                             if (err) 
                                              {

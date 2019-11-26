@@ -27,10 +27,10 @@ router.post('/', async function(req, res, next) {
  
 //  'UPDATE StkGrupo SET StkGrupoDesc = "' + descr + '", StkGrupoAbr = "' + abrev + '", StkGrupoContRubro = '+ contRubro + ' WHERE idStkGrupo = "' + indice + '"',
  var q = ['UPDATE StkGrupo SET',
-                  'StkGrupoDesc = "' + descr + '",',
-                  'StkGrupoAbr = "' + abrev + '",', 
-                  'StkGrupoContRubro = ' + contRubro,
-                  ' WHERE idStkGrupo = "' + indice + '"',
+                  'StkGrupoDesc = "', descr, '",',
+                  'StkGrupoAbr = "', abrev, '",', 
+                  'StkGrupoContRubro = ', contRubro,
+                  ' WHERE idStkGrupo = "', indice, '"',
                 ].join(' ')
 console.log(q)
     conexion.query(q,

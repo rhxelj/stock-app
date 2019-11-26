@@ -22,8 +22,14 @@ router.get('/', async function(req, res, next) {
 var idStkItems = req.query.id1;
 var StkItemsGrupo = req.query.id2;
 var StkItemsRubro = req.query.id3;
-
-    conexion.query('Select * from StkItems where idStkItems = ' + idStkItems  + ' and  StkItemsGrupo  = ' + StkItemsGrupo  + ' and  StkItemsRubro  = ' + StkItemsRubro, 
+/*
+'Select * from StkItems where idStkItems = ' + idStkItems  + ' and  StkItemsGrupo  = ' + StkItemsGrupo  + ' and  StkItemsRubro  = ' + StkItemsRubro
+*/
+var q = ['Select * from StkItems where idStkItems = ', idStkItems , 
+        ' and  StkItemsGrupo  = ', StkItemsGrupo , 
+        ' and  StkItemsRubro  = ', StkItemsRubro
+        ].join(' ')
+    conexion.query(q, 
         function(err, result) {
             if (err) {
                 console.log(err);

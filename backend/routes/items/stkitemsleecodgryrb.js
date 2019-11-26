@@ -20,8 +20,12 @@ var router = express();
 router.get('/', async function(req, res, next) {
     var StkItemsGrupo = req.query.id2;
     var StkItemsRubro = req.query.id3;
+
+    var q = ['Select * from StkItems where StkItemsGrupo  = ', StkItemsGrupo , 
+            ' and  StkItemsRubro  = ', StkItemsRubro 
+            ].join(' ')
     
-    conexion.query('Select * from StkItems where StkItemsGrupo  = ' + StkItemsGrupo  + ' and  StkItemsRubro  = ' + StkItemsRubro, 
+    conexion.query(q, 
         function(err, result) {
             if (err) {
                 console.log(err);
@@ -29,7 +33,6 @@ router.get('/', async function(req, res, next) {
                 res.json(result);
             }
         });
-  
 
 });
 

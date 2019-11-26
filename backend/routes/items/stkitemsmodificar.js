@@ -33,13 +33,25 @@ var StkItemsFAct = finalDate;
 var StkItemsMin = req.body.StkItemsMin;
 var StkItemsMax = req.body.StkItemsMax;
 
-    conexion.query('UPDATE StkItems SET StkItemsDesc = "' + StkItemsDesc +
+/* 'UPDATE StkItems SET StkItemsDesc = "' + StkItemsDesc +
                                      '", StkItemsCantidad = ' + StkItemsCantidad + 
                                      ', StkItemsCantDisp = ' + StkItemsCantDisp + 
                                      ', StkItemsFAct = "' + StkItemsFAct + 
                                      '", StkItemsMin = ' + StkItemsMin + 
                                      ', StkItemsMax = ' + StkItemsMax +
-                                     ' WHERE idStkItems = ' + idStkItems + ' and StkItemsGrupo = ' + StkItemsGrupo + ' and  StkItemsRubro = ' + StkItemsRubro,
+                                     ' WHERE idStkItems = ' + idStkItems + ' and StkItemsGrupo = ' + StkItemsGrupo + ' and  StkItemsRubro = ' + StkItemsRubro */
+
+var q = ['UPDATE StkItems SET StkItemsDesc = "', StkItemsDesc,
+        '", StkItemsCantidad = ', StkItemsCantidad, 
+        ', StkItemsCantDisp = ', StkItemsCantDisp, 
+        ', StkItemsFAct = "', StkItemsFAct, 
+        '", StkItemsMin = ', StkItemsMin, 
+        ', StkItemsMax = ', StkItemsMax,
+        ' WHERE idStkItems = ', idStkItems, 
+        ' and StkItemsGrupo = ', StkItemsGrupo, 
+        ' and  StkItemsRubro = ', StkItemsRubro
+        ].join(' ')
+    conexion.query(q,
         function(err, result) {
             if (err) {
                 console.log(err);

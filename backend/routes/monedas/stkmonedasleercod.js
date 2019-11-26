@@ -16,7 +16,8 @@ var router = express();
 
 router.get('/?:id', function(req, res, next) {
     indice = req.params.id;
-    conexion.query('Select * from StkMonedas where idStkMonedas = "'  + indice + '"',
+    var q = ['Select * from StkMonedas where idStkMonedas = "'  + indice + '"'].join(' ')
+    conexion.query(q,
         function(err, result) {
             if (err) {
                 console.log(err);
