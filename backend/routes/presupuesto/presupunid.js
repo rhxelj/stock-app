@@ -34,13 +34,13 @@ datosrec.map(datos => {
      
         q = ['Select',
                       'StkRubroDesc, ',
-                      '(StkRubroCosto * StkMonedasCotizacion * ' + coeficiente + ' ) as ImpUnitario, ', 
-                      '(StkRubroCosto * StkMonedasCotizacion * ' + coeficiente + ' * ' + cantidad + ' ) as ImpItem, ', 
+                      '(StkRubroCosto * StkMonedasCotizacion * ', coeficiente, ' ) as ImpUnitario, ', 
+                      '(StkRubroCosto * StkMonedasCotizacion * ', coeficiente, ' * ', cantidad, ' ) as ImpItem, ', 
                       'StkRubroCosto,',
                       'StkMonedasCotizacion',
                       'from BaseStock.StkRubro JOIN  BaseStock.StkMonedas, ', 
                       'reparacion.parametrosrep ',
-                      'where StkRubro.StkRubroAbr = "' + StkRubroAbrP +'" ', 
+                      'where StkRubro.StkRubroAbr = "', StkRubroAbrP,'" ', 
                       'and StkRubro.StkRubroTM = idStkMonedas',
            ].join(' ')  
         conexion.query(
