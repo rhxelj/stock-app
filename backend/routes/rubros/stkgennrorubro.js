@@ -17,7 +17,11 @@ conexion.connect(function(err) {
 
 function buscacodigo(codgrupo)
 {
-  conexion.query('UPDATE StkGrupo SET StkGrupoContRubro = StkGrupoContRubro + ' + 1 +  ' where idStkGrupo = ' + codgrupo,
+    var q = ['UPDATE StkGrupo ',
+        ' SET StkGrupoContRubro = StkGrupoContRubro + ' , 1 ,  
+        ' where idStkGrupo = ' , codgrupo,
+        ].join(' ')
+  conexion.query(q,
     function(err, result) {
         if (err) {
             console.log('Error en UPDATE StkGrupo');
