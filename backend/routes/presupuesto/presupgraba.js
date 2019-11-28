@@ -31,10 +31,6 @@ router.post('/',  (req, res, next) => {
   datosrec = (req.body.renglon)
  // datosrec = JSON.parse(req.body.renglon)
   totalreg = datosrec.length
-console.log('datosrec["0"]["0"].StkRubroDesc')
-console.log(datosrec["0"]["0"].StkRubroDesc)
-console.log('datosrec[1]')
-console.log(datosrec[1])
 // var resultado = ``;
 //   for (var i in datosrec) {
 //     //objeto.hasOwnProperty se usa para filtrar las propiedades del objeto
@@ -45,9 +41,9 @@ console.log(datosrec[1])
 //   console.log('resultado')
 //   console.log(resultado)
 
-  console.log(mostrarPropiedades(datosrec, "datosrec") );
 datosrec.map(datos => {  
-  console.log(datos)
+  console.log(Object.getOwnPropertyNames(datos[0]))
+ console.log(Object.values(datos[0]))
 
       // cantidad = datos.cantidad;
       // StkRubroAbrP = datos.StkRubroAbr;

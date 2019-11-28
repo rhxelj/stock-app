@@ -15,8 +15,8 @@ conexion.connect(function(err) {
 
 router.delete('/?:id', function(req, res, next) {
     indice = req.params.id;
-
-  conexion.query('delete from StkMonedas where idStkMonedas = "' + indice + '"', 
+var q = ['delete from StkMonedas where idStkMonedas = "' + indice + '"'].join(' ')
+  conexion.query(q, 
                                          function(err, result) {
                                             if (err) {
                                                 if (err.errno == 1451) 

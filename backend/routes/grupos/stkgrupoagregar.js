@@ -26,7 +26,6 @@ router.post('/', function(req, res, next) {
   }
 //   'INSERT INTO StkGrupo SET ?', registro, 
   
- 
         conexion.query('INSERT INTO StkGrupo SET ?', registro, 
         function(err, result) {
             if (err) {

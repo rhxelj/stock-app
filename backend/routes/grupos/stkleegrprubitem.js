@@ -18,7 +18,7 @@ function leegrupo(codgrupo)
 {
     //'Select StkGrupoDesc as GrupoDesc from StkGrupo  where idStkGrupo = ' + codgrupo,
   q = ['Select StkGrupoDesc as GrupoDesc',
-       'from StkGrupo  where idStkGrupo = ' + codgrupo,
+       'from StkGrupo  where idStkGrupo = ', codgrupo,
         ].join(' ')
   conexion.query(q,
     function(err, result) {

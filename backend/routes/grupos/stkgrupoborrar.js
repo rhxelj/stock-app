@@ -18,7 +18,7 @@ router.delete('/?:id', function(req, res, next) {
     indice = req.params.id;
     //'delete from StkGrupo where idStkGrupo = "' + indice + '"', 
     var q = ['delete',
-            ' from StkGrupo where idStkGrupo = "', indice + '"', 
+            ' from StkGrupo where idStkGrupo = "', indice, '"', 
             ].join(' ')
     conexion.query(q,
                     function(err, result) {

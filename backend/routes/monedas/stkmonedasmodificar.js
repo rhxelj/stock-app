@@ -26,9 +26,16 @@ indice = req.params.id;
 
  descr = req.body.StkMonedasDescripcion.toUpperCase();
  cotiz = req.body.StkMonedasCotizacion;
+/*
+'UPDATE StkMonedas SET StkMonedasDescripcion = "' + descr + '", StkMonedasCotizacion = ' + cotiz + ' WHERE idStkMonedas = "' + indice + '"'
+*/
+var q = ['UPDATE StkMonedas SET ', 
+        'StkMonedasDescripcion = "' + descr + '",', 
+        'StkMonedasCotizacion = ' + cotiz,
+        ' WHERE idStkMonedas = "' + indice + '"'  
+        ].join(' ')
 
-   conexion.query ('UPDATE StkMonedas SET StkMonedasDescripcion = "' + descr + '", StkMonedasCotizacion = ' + cotiz + ' WHERE idStkMonedas = "' + indice + '"',
-
+conexion.query (q,
         function(err, result) {
             if (err) {
                 if (err.errno == 1264) 

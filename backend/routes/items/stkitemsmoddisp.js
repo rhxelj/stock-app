@@ -34,10 +34,16 @@ var d = new Date()
 finalDate = d.toISOString().split('T')[0]
 var StkItemsFAct = finalDate;
 // Desde Postman http://localhost:4000/stkitemsmodificar?id1=1&id2=1&id3=1
- 
-    conexion.query('UPDATE StkItems SET StkItemsCantDisp = ' + CantDisp + 
+/* 'UPDATE StkItems SET StkItemsCantDisp = ' + CantDisp + 
                                      ', StkItemsFAct = "'+ StkItemsFAct + 
-                                      '" WHERE idStkItems = ' + idStkItems + ' and  StkItemsGrupo = ' + StkItemsGrupo + ' and  StkItemsRubro = ' + StkItemsRubro,
+                                      '" WHERE idStkItems = ' + idStkItems + ' and  StkItemsGrupo = ' + StkItemsGrupo + ' and  StkItemsRubro = ' + StkItemsRubro */
+var q = ['UPDATE StkItems SET StkItemsCantDisp = ', CantDisp, 
+        ' StkItemsFAct = "',  StkItemsFAct, 
+        '" WHERE idStkItems = ', idStkItems, 
+        ' and  StkItemsGrupo = ', StkItemsGrupo, 
+        ' and  StkItemsRubro = ', StkItemsRubro
+        ].join(' ')
+    conexion.query(q,
         function(err, result) {
             if (err) {
                 console.log(err);

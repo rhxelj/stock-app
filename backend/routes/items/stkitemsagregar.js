@@ -27,8 +27,8 @@ router.post('/', async function(req, res) {
 
     //'Select max(idStkItems) as UltItem from StkItems where StkItemsGrupo  = ' + StkItemsGrupo  + ' and  StkItemsRubro  = ' + StkItemsRubro, 
  var q =['Select max(idStkItems) as UltItem', 
-         'from StkItems where StkItemsGrupo  = ' + StkItemsGrupo,
-         ' and  StkItemsRubro  = ' + StkItemsRubro, 
+         'from StkItems where StkItemsGrupo  = ', StkItemsGrupo,
+         ' and  StkItemsRubro  = ', StkItemsRubro, 
         ].join(' ')
   conexion.query(q,
   function(err, result) {
