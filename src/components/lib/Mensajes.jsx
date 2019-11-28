@@ -9,15 +9,15 @@ const Mensajes = (props) =>(
     <div>
          <Dialog
               open={true}
-              // onClose={this.handleClose}
+              onClose={props.toggle}
               aria-labelledby="form-dialog-title"
             >
-             <DialogTitle id="max-width-dialog-title">Optional sizes</DialogTitle>
-              {props.msg}
+             <DialogTitle id="max-width-dialog-title">{props.msg}</DialogTitle>
+              
               {/* {props} */}
               {/* {props.children} */}
-              <button onClick={props.toggle}>OK</button>
-            </Dialog>
+              {/* <button onClick={props.toggle}>OK</button> */}
+          </Dialog>
     </div>
 );
 
