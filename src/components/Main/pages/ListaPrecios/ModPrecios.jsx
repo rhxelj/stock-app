@@ -12,10 +12,10 @@ import CodigoError from '../../../lib/CodigoError'
 import Mensajes from '../../../lib/Mensajes'
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
+// import FormHelperText from '@material-ui/core/FormHelperText';
+// import FormLabel from '@material-ui/core/FormLabel';
 
 
 // import CreateIcon from '@material-ui/icons/Create';
@@ -60,6 +60,7 @@ class ModPrecios extends Component {
       value:"", 
       Porcentaje:0, 
       valueIp:"",
+      msg_respuesta:"",
       rta:"",   // borrar
       controlenvio:0,
       idProveedores: 0,
@@ -77,41 +78,12 @@ class ModPrecios extends Component {
     },
       
     }
-    // this.updateField = this.updateField.bind(this);
-    // this.submitProveedor = this.submitProveedor.bind(this);
   }
 
-  // //Material Ui Dialog start
-  // handleClickOpen = () => {
-  //   // this.setState({ open: true });
-  //   this.setState({ toggle:{mensaje: true} });
-  // };
-
-  // handleClose = () => {
-  //   this.setState({ open: false });
-  // };
-
-
-  // handleC = event => {
-  //   // setValue(event.target.value);
-  //   this.setState({value:event.target.value});
-  //   console.log(event.target.value)
-  // };
-
-  // handleCIp = event => {
-  //   // setValue(event.target.value);
-  //   this.setState({valueIp:event.target.value});
-  //   console.log(event.target.value)
-  // };
-  //Material Ui Dialog start
-
+ 
   ModPrecio = () => {
     const url = IpServidor + '/modprecios/'
-    // console.log("valor de toggle.mensaje antes de llamar a request: ")
-    // console.log(this.state.toggle.mensaje)
-    // this.toggle("mensaje")
-    console.log("this.state en ModPrecio")
-    console.log(this.state)
+  
     request                  
       .post(url)
          .set('Content-Type', 'application/json')
@@ -126,18 +98,14 @@ class ModPrecios extends Component {
          .then( res => { 
             const respuesta = JSON.parse(res.text)
             const rta = respuesta.affectedRows !==0
-            console.log(`rta ` , rta)
             if (rta){
-              alert("cambio efectuado ")
-              // if (respuesta.affectedRows !==0){
-              // alert("Modificado Correctamente")
-              // this.toggle("mensaje")
-              // this.Mensajes("MENSAJE DESDE MODPRECIO")
-              
+              this.setState(()=>({msg_respuesta:"Cambio Efectuado Correctamente"}))
+              this.toggle("mensaje")
             }
-            else 
-              alert("No Se Pudo Modificar")
-            
+            else {
+              this.setState(()=>({msg_respuesta:"No Se Pudo Modificar"}))
+              this.toggle("mensaje")
+            }
           })
           .then(
             this.setState(()=>({
@@ -197,7 +165,6 @@ class ModPrecios extends Component {
   // }
   
   toggle = (arg) =>{            
-    console.log("entro en toggle")
     this.setState(prevState => ({
         toggle:{[arg]: !prevState.toggle[arg]}
     })) // estado inicial "FALSE" muestra la tabla de "..." en "TRUE" llama al componente <ComponenteParticular>
@@ -222,37 +189,34 @@ class ModPrecios extends Component {
               }
             })
           )
-            // console.log("Proveedor!!!!")
           break
         case 
-        'grupo': 
-        this.setState(()=>({
-          idProveedores:0,
-                idStkGrupo:0,
-                StkRubroAbr:"",
-          toggle:{...toggle,
-            proveedor: false,
-            grupo: true,
-            rubro: false,  
-        }
-
-        }))
-        // console.log("Grupo")
-        break
+          'grupo': 
+            this.setState(()=>({
+              idProveedores:0,
+              idStkGrupo:0,
+              StkRubroAbr:"",
+              toggle:{
+                ...toggle,
+                proveedor: false,
+                grupo: true,
+                rubro: false,  
+              }
+            }))
+          break
       case
         "rubro": 
-        this.setState(()=>({
-          idProveedores:0,
-                idStkGrupo:0,
-                StkRubroAbr:"",
-          toggle:{...toggle,
-            proveedor: false,
-            grupo: false,
-            rubro: true,  
-        }
-        }))
-        // console.log("Rubro")
-        break
+          this.setState(()=>({
+            idProveedores:0,
+            idStkGrupo:0,
+            StkRubroAbr:"",
+            toggle:{...toggle,
+              proveedor: false,
+              grupo: false,
+              rubro: true,  
+          }
+          }))
+          break
 
         case 
         'importe':
@@ -266,7 +230,6 @@ class ModPrecios extends Component {
               }
             })
           )
-            // console.log("Proveedor!!!!")
           break
           case 
         'porcentaje':
@@ -281,8 +244,9 @@ class ModPrecios extends Component {
               }
             })
           )
-            // console.log("Proveedor!!!!")
           break
+          default:
+            break
     }
   }
 
@@ -321,11 +285,7 @@ class ModPrecios extends Component {
         .set('Content-Type', 'application/json')
         .then(res => {
             const rubros = JSON.parse(res.text)
-            this.setState({ rubros: rubros }
-                , () => {
-                console.log(`Rubro :`)
-                console.log(this.state.rubros)
-            })
+            this.setState({ rubros: rubros })
         })
 }
   // submitGrupo= (e) => {
@@ -354,7 +314,15 @@ class ModPrecios extends Component {
       <div>
       {/* {Mensajes("FUNCIONO!!")} */}
       
-      {this.state.toggle.mensaje && <Mensajes msg={"HOLA"} toggle={()=>this.toggle("mensaje")}><h1>DIALOGO</h1></Mensajes>} 
+        {this.state.toggle.mensaje && 
+          <Mensajes 
+            msg={this.state.msg_respuesta} 
+            toggle={()=>this.toggle("mensaje")}
+          >
+            {/* <h1>DIALOGO</h1> */}
+          </Mensajes>
+        } 
+        
         <Paper>
        
        
