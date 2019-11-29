@@ -15,7 +15,10 @@ conexion.connect(function(err) {
 });
 
 function codigorubronuevo(codigogen) {
-   conexion.query('Select StkGrupoContRubro as CuentaRubro from StkGrupo where idStkGrupo = ' + codigogen,
+  var q = ['Select StkGrupoContRubro as CuentaRubro',
+          ' from StkGrupo where idStkGrupo = ', codigogen
+          ].join(' ')
+   conexion.query(q,
   function(err, result) {
       if (err) {
         console.log('Error  Select StkGrupoContRubro as CuentaRubro from StkGrupo');
