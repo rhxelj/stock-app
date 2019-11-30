@@ -21,6 +21,7 @@ function buscacodigo(codgrupo)
         ' SET StkGrupoContRubro = StkGrupoContRubro + ' , 1 ,  
         ' where idStkGrupo = ' , codgrupo,
         ].join(' ')
+        
   conexion.query(q,
     function(err, result) {
         if (err) {

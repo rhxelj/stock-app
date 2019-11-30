@@ -35,7 +35,9 @@ router.all('/',  function(req, res) {
       StkRubroCosto     : req.body.StkRubroCosto,
       StkRubroTM        : req.body.StkRubroTM
     }
-      conexion.query('INSERT INTO StkRubro SET ?', registro, 
+    var q = ['INSERT INTO StkRubro SET ?', registro
+            ].join(' ')
+      conexion.query(q, 
         function(err, result) {
             if (err) {
                 if (err.errno == 1062) 
@@ -63,5 +65,6 @@ router.all('/',  function(req, res) {
        
 });
 
-
+conexion.end;
 module.exports = router;
+

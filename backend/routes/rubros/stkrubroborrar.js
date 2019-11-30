@@ -13,9 +13,16 @@ conexion.connect(function(err) {
 });
 
 router.all('/', async function(req, res, next) {
-    idStkRubro  = req.query.id1;
-    StkRubroCodGrp = req.query.id2;
-    conexion.query('delete from StkRubro where idStkRubro = ' + idStkRubro + ' and StkRubroCodGrp = ' + StkRubroCodGrp, 
+    idStkRubro  = req.query.idStkRubro;
+    StkRubroCodGrp = req.query.StkRubroCodGrp;
+    console.log(idStkRubro)
+    console.log(StkRubroCodGrp)
+    var q = ['delete from StkRubro where idStkRubro = ', idStkRubro ,
+            ' and StkRubroCodGrp = ' , StkRubroCodGrp
+            ].join(' ')
+
+    console.log(q)
+    conexion.query(q, 
         function(err, result) {
             if (err) {
                 if (err.errno == 1451) 
@@ -31,6 +38,7 @@ router.all('/', async function(req, res, next) {
             }
         });
   
-
 });
+
+conexion.end;
 module.exports = router;

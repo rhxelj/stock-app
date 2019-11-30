@@ -18,7 +18,12 @@ var router = express();
 
 router.get('/',  function(req, res) {
   codgrupo = req.query.id;
-   conexion.query('Select StkGrupoContRubro + 1 as CodRubroNuevo from StkGrupo where idStkGrupo = ' + codgrupo,
+
+  var q = ['Select StkGrupoContRubro + 1 as CodRubroNuevo ',
+          'from StkGrupo where idStkGrupo = ' , codgrupo
+          ].join(' ')
+
+   conexion.query(q,
   function(err, result) {
       if (err) {
         console.log('Error  Select StkGrupoContRubro as CuentaRubro from StkGrupo');
@@ -33,5 +38,5 @@ router.get('/',  function(req, res) {
   });
         
      
-  
+  conexion.end;
   module.exports = router;
