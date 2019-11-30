@@ -32,16 +32,19 @@ var StkRubroUM = req.body.StkRubroUM;
 var StkRubroCosto = req.body.StkRubroCosto;
 var StkRubroTM = req.body.StkRubroTM;
 
-    conexion.query('UPDATE StkRubro SET StkRubroDesc = "' + StkRubroDesc +
-                                     '", StkRubroAbr = "' + StkRubroAbr + 
-                                     '", StkRubroProv = '+ StkRubroProv + 
-                                     ', StkRubroAncho = '+ StkRubroAncho + 
-                                     ', StkRubroPresDes = "' + StkRubroPresDes +
-                                     '", StkRubroPres = ' + StkRubroPres +
-                                     ', StkRubroUM = "' + StkRubroUM +
-                                     '", StkRubroCosto = '+ StkRubroCosto +
-                                     ', StkRubroTM = "'+ StkRubroTM + 
-                                     '" WHERE idStkRubro = ' + idStkRubro + ' and  StkRubroCodGrp = ' + StkRubroCodGrp,
+var q = ['UPDATE StkRubro SET StkRubroDesc = "', StkRubroDesc,
+        '", StkRubroAbr = "', StkRubroAbr, 
+        '", StkRubroProv = ', StkRubroProv, 
+        ', StkRubroAncho = ', StkRubroAncho, 
+        ', StkRubroPresDes = "', StkRubroPresDes,
+        '", StkRubroPres = ', StkRubroPres,
+        ', StkRubroUM = "', StkRubroUM,
+        '", StkRubroCosto = '+ StkRubroCosto,
+        ', StkRubroTM = "'+ StkRubroTM, 
+        '" WHERE idStkRubro = ', idStkRubro, ' and  StkRubroCodGrp = ', StkRubroCodGrp
+        ].join(' ')
+
+    conexion.query(q,
         function(err, result) {
             if (err) {
                 if (err.errno == 1062) 
@@ -63,5 +66,5 @@ var StkRubroTM = req.body.StkRubroTM;
             });
         });
 
-
+conexion.end;
 module.exports = router;

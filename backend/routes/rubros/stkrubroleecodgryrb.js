@@ -21,7 +21,11 @@ router.get('/', async function(req, res, next) {
     idStkRubro  = req.query.id1;
     StkRubroCodGrp = req.query.id2;
     
-    conexion.query('Select * from StkRubro where idStkRubro = ' + idStkRubro  + ' and  StkRubroCodGrp  = ' + StkRubroCodGrp, 
+    var q = ['Select * from StkRubro where idStkRubro = ' , idStkRubro  , 
+            ' and  StkRubroCodGrp  = ' , StkRubroCodGrp
+            ].join(' ')
+
+    conexion.query(q, 
         function(err, result) {
             if (err) {
                 console.log(err);
@@ -34,4 +38,5 @@ router.get('/', async function(req, res, next) {
 
 });
 
+conexion.end;
 module.exports = router;

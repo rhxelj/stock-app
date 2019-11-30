@@ -19,7 +19,11 @@ var router = express();
 
 router.get('/?:id', function(req, res, next) {
     indice = req.params.id;
-    conexion.query('Select * from StkRubro where StkRubroCodGrp = ' + indice, 
+
+    var q = ['Select * from StkRubro where StkRubroCodGrp = ' , indice
+            ].join(' ')
+
+    conexion.query(q, 
         function(err, result) {
             if (err) {
                 console.log(err);
@@ -31,4 +35,5 @@ router.get('/?:id', function(req, res, next) {
 
 });
 
+conexion.end;
 module.exports = router;
