@@ -38,7 +38,7 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 // }))
 
 const Header = props => {
-  // the useState hook can be used as many times as you want, storing different pieces of state,
+  // TODO 👀📐 the useState hook can be used as many times as you want, storing different pieces of state,
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   // or all together like this
   const [state, setState] = useState({
@@ -63,7 +63,7 @@ const Header = props => {
       return;
     }
 
-    // useState doesn't spread the old state for you, we have to do it manually (it's more explicit)
+    // TODO 👀📐 useState doesn't spread the old state for you, we have to do it manually (it's more explicit)
     // const newState = { ...state, overrideThis: newValue }
     // setState(newState)
     setState({ ...state, [side]: open });
@@ -81,7 +81,7 @@ const Header = props => {
     setState({ ...state, [prop]: null });
   };
 
-  // no render, just return
+  // TODO 👀📐 no render, just return
   // no more "this."
   const { abrir_movimientos, abrir_tablas } = state;
   return (

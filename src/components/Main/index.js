@@ -27,7 +27,7 @@ import StkItems from "./pages/Items/StkItems";
 
 import PresupPant from "./pages/Presupuesto/PresupPant.js";
 
-// nothing changed here, just auto-formatting
+// TODO 👀📐 nothing changed here, just auto-formatting
 // all this auto-formatting is coming from the Prettier extension
 // https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
 // and the setting "format on save"

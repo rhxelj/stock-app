@@ -37,7 +37,7 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 // },
 // }))
 
-// TODO 1: we don't have to use class components anymore, we can use function components with React's new Hooks api
+// TODO 👀📐 1: we don't have to use class components anymore, we can use function components with React's new Hooks api
 // I've refactored it in HeaderHooks.jsx
 class Header extends React.Component {
   constructor(props) {
@@ -58,11 +58,11 @@ class Header extends React.Component {
   }
 
   toggleDrawer = (side, open) => event => {
-    // TODO 2: for complex conditional statements, give them a readable constant name so we don't have to figure out what the code is doing
+    // TODO 👀📐 2: for complex conditional statements, give them a readable constant name so we don't have to figure out what the code is doing
     const isTabOrShiftKeyPress =
       event &&
       event.type === "keydown" &&
-      /* TODO 3: shortcut for === || === is [].includes */ [
+      /* TODO 👀📐 3: shortcut for === || === is [].includes */ [
         "Tab",
         "Shift"
       ].includes(event.key);
@@ -73,7 +73,7 @@ class Header extends React.Component {
     this.setState({ [side]: open });
   };
 
-  // TODO 4: we could use one function instead of two here
+  // TODO 👀📐 4: we could use one function instead of two here
   // getToggleState = (stateToToggle) => this.setState(prevState=>({[stateToToggle]: !prevState[stateToToggle]}))
   handleClickMovimientos = () => {
     this.setState(prevState => ({
@@ -114,7 +114,7 @@ class Header extends React.Component {
               STOCK
             </Typography>
 
-            {/* TODO 5: when a file gets near or > 200 lines, we can refactor it to make it more readable */}
+            {/* TODO 👀📐 5: when a file gets near or > 200 lines, we can refactor it to make it more readable */}
             {/* check out the extension "VSCode React Refactor" https://marketplace.visualstudio.com/items?itemName=planbcoding.vscode-react-refactor*/}
             {/* I would extract the entire Drawer here into a component called LeftDrawer */}
             <SwipeableDrawer
@@ -150,7 +150,7 @@ class Header extends React.Component {
                       salida
                     </MenuItem> */}
                     <List component="div" disablePadding>
-                      {/* TODO 6: there's a lot of repetition here */}
+                      {/* TODO 👀📐 6: there's a lot of repetition here */}
                       {/* consider mapping out an array of items like this */}
                       {/* {[
                         { link: "/ModPrecios", primary: "Modifica Precios" },
@@ -190,7 +190,7 @@ class Header extends React.Component {
                           <ListItemText primary="Impresión de Etiquetas" />
                           </ListItem> */}
                     </List>
-                    {/* TODO 7: do we need a collapse here?
+                    {/* TODO 👀📐 7: do we need a collapse here?
                     if we can save the user a click,
                     maybe a sidebar with overflow: scroll could be a better solution?
                     here's how to visually separate menus
@@ -209,7 +209,7 @@ class Header extends React.Component {
                   </ListItem>
                   <Collapse in={abrir_tablas} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
-                      {/* TODO 6: map from an array here too */}
+                      {/* TODO 👀📐 6: map from an array here too */}
                       <ListItem button component={Link} to="/Proveedores">
                         <ListItemText primary="Proveedores" />
                       </ListItem>
