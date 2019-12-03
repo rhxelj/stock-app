@@ -1,28 +1,28 @@
 ### Cosas a agregar para la funcion de Busqueda
 
 ```javascript
+// Funcion De Busqueda - Begin
 
+search = event => {
+  // Funcion de busqueda
+  // var name  = event.target.name
+  var value =
+    event.target.type === "checkbox"
+      ? event.target.checked
+      : event.target.value;
+  this.setState({ filtered: value });
+};
 
+// Funcion De Busqueda - End.
 
-    // Funcion De Busqueda - Begin
-
-        search = (event) => {                       // Funcion de busqueda
-            // var name  = event.target.name
-            var value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value
-            this.setState({ filtered: value })
-        }
-
-    // Funcion De Busqueda - End.
-    
 // Cosas a agregar para la funcion de Busqueda End *************************************************************************************************************
-
 ```
 
-### Opción para borrar contenido del cuadro de busqueda  
+### Opción para borrar contenido del cuadro de busqueda
 
 ```JavaScript
-   // Opcion para borrar contenido del cuadro de busqueda - BEGIN    
-        
+   // Opcion para borrar contenido del cuadro de busqueda - BEGIN
+
         borraFiltered = ()=> {
             this.setState({ filtered: '' })
         }
@@ -31,12 +31,12 @@
 
 ```
 
-###  Esto se agrega dentro de la función render 
+### Esto se agrega dentro de la función render
 
 ```JavaScript
-//  Esto se agrega dentro de la funcion render 
+//  Esto se agrega dentro de la funcion render
 
-    // Filtrado de datos - Begin 
+    // Filtrado de datos - Begin
 
         var filtrado = this.state.monedas.filter((moneda) => {
             return (
@@ -44,5 +44,5 @@
                 moneda.StkMonedasDescripcion.toLowerCase().indexOf(this.state.filtered.toLowerCase()) !== -1
             )
         })
-    // Filtrado de datos - End  
+    // Filtrado de datos - End
 ```

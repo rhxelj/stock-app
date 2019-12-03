@@ -5,7 +5,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 // import 'material-design-icons/iconfont/material-icons.css';
 // import 'materialize-css/dist/js/materialize.min.js'
 
-import Header from "./Header";
+import Header from "./Header/Header";
 import Main from "./Main";
 // import Footter from './components/Footter';
 

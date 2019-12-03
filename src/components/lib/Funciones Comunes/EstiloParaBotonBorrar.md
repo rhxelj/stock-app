@@ -1,8 +1,8 @@
 // Agregar esto al componente "...Borrar.js"
-    // En los imports
-    import IconButton from '@material-ui/core/IconButton';
-    // Cambiar Button por IconButton
-        <IconButton></IconButton>
+// En los imports
+import IconButton from '@material-ui/core/IconButton';
+// Cambiar Button por IconButton
+<IconButton></IconButton>
 
 // Agregar esto después de los Imports en el componente Principal por ejemplo"StkMonedas.js"
 
