@@ -1,9 +1,9 @@
-import React, { Component} from 'react'
+import React, { Component } from 'react'
 import request from 'superagent'
 
 import IpServidor from "../VariablesDeEntorno";
 import Button from '@material-ui/core/Button';
-import Table from  '@material-ui/core/Table';
+import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
@@ -73,142 +73,224 @@ const TipoConfeccion = [
 ];
 
 class PresupPant extends Component {
-  
-    constructor(props){
-      super(props)
-      this.state = {
-          stkrubro:[],
-          renglon : [],
-          open: true,
-          Cliente : '',
-          cantidad: 1.00,
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      stkrubro: [],
+      renglon: [],
+      open: true,
+      Cliente: '',
+      cantidad: 1.00,
+    }
   }
-}
 
-// presupunid = () => {
-//  var datoscalculo = [
-//    {
-//     StkRubroAbr  : "STD",
-//     minmay   : 2,
-//     cantidad  : 10,
-//    },
-//    {
-//     StkRubroAbr  : "STD3",
-//     minmay   : 1,
-//     cantidad  : 20,
-//    },
-//   ]
-//   var datoscalculos = JSON.stringify(datoscalculo)
+  presupunid = () => {
+   var datoscalculo = [
+     {
+      StkRubroAbr  : "STD",
+      minmay   : 2,
+      cantidad  : 10,
+     },
+     {
+      StkRubroAbr  : "STD3",
+      minmay   : 1,
+      cantidad  : 20,
+     },
+    ]
+    var datoscalculos = JSON.stringify(datoscalculo)
 
-//   const url = IpServidor + "/presupunid/?datoscalculo="+datoscalculos
-//    console.log(url)
-//   request
-//   .get(url)
-//   .set('Content-Type', 'application/json')
-//       .then(res=> {
-//         const renglon = JSON.parse(res.text)
-//         this.setState(()=>{ return {renglon: renglon}});
-//         console.log(renglon)
-//       })
-//   }
- 
+    const url = IpServidor + "/presupunid/?datoscalculo="+datoscalculos
+     console.log(url)
+    request
+    .get(url)
+    .set('Content-Type', 'application/json')
+        .then(res=> {
+          const renglon = JSON.parse(res.text)
+          this.setState(()=>{ return {renglon: renglon}});
+          console.log(renglon)
+        })
+    }
+
 
 
   presuppu = () => {
     var datoscalculo = [
       {
-       StkRubroAbr  : "STD",
-       cantidad  : 3,
-       largo : 5,
+        StkRubroAbr: "STD",
+        minmay   : 2,
+        cantidad: 3,
+        largo: 5,
       },
       {
-       StkRubroAbr  : "STD3",
-       cantidad  : 7,
-       largo : 8.5,
+        StkRubroAbr: "STD3",
+        minmay   : 1,
+        cantidad: 7,
+        largo: 8.5,
       },
-     ]
-     var datoscalculos = JSON.stringify(datoscalculo)
-   
-     const url = IpServidor + "/presuppu/?datoscalculo="+datoscalculos
-     console.log(url)
-     request
-     .get(url)
-     .set('Content-Type', 'application/json')
-         .then(res=> {
-           const renglon = JSON.parse(res.text)
-           this.setState(()=>{ return {renglon: renglon}});
-          console.log(renglon)
-         })
-     }
-    
+    ]
+    var datoscalculos = JSON.stringify(datoscalculo)
+
+    const url = IpServidor + "/presuppu/?datoscalculo=" + datoscalculos
+    console.log(url)
+    request
+      .get(url)
+      .set('Content-Type', 'application/json')
+      .then(res => {
+        const renglon = JSON.parse(res.text)
+        this.setState(() => { return { renglon: renglon } });
+        console.log(renglon)
+      })
+  }
+
+  presupconfajas = () => {
+    var datoscalculo = [
+      {
+        StkRubroAbr: "STD",
+        minmay   : 2,
+        cantidad: 1,
+        largo: 5,
+        ancho: 3.25,
+      },
+      {
+        StkRubroAbr: "STD3",
+        minmay   : 1,
+        cantidad: 7,
+        largo: 8.5,
+        ancho: 2.75,
+      },
+    ]
+    var datoscalculos = JSON.stringify(datoscalculo)
+
+    const url = IpServidor + "/presupfajas/?datoscalculo=" + datoscalculos
+    // console.log(url)
+    request
+      .get(url)
+      .set('Content-Type', 'application/json')
+      .then(res => {
+        const renglon = JSON.parse(res.text)
+        this.setState(() => { return { renglon: renglon } });
+        console.log(renglon)
+      })
+  }
+
+  presuplonaconf = () => {
+    var datoscalculo = [
+      {
+        StkRubroAbr: "STD",
+        minmay   : 2,
+        cantidad: 1,
+        largo: 5,
+        ancho: 3.25,
+      },
+      {
+        StkRubroAbr: "STD3",
+        minmay   : 1,
+        cantidad: 7,
+        largo: 8.5,
+        ancho: 2.75,
+      },
+    ]
+    var datoscalculos = JSON.stringify(datoscalculo)
+
+    const url = IpServidor + "/presuplonaconf/?datoscalculo=" + datoscalculos
+    // console.log(url)
+    request
+      .get(url)
+      .set('Content-Type', 'application/json')
+      .then(res => {
+        const renglon = JSON.parse(res.text)
+        this.setState(() => { return { renglon: renglon } });
+        console.log('renglon')
+        console.log(renglon)
+      })
+  }
+
   grabapresup = _ => {
     console.log(this.state.renglon)
-      const url = IpServidor + "/presupgraba";
-      request
-        .post(url)
-        .set("Content-Type", "application/json")
-        .send( {renglon: this.state.renglon} )
-        .set("X-API-Key", "foobar")
-        .then(function(res) {})
-        .catch((err) => CodigoError(err))
+    const url = IpServidor + "/presupgraba";
+    request
+      .post(url)
+      .set("Content-Type", "application/json")
+      .send({ renglon: this.state.renglon })
+      .set("X-API-Key", "foobar")
+      .then(function (res) { })
+      .catch((err) => CodigoError(err))
   }
-  handleClose = () =>  {
+  handleClose = () => {
     this.setState({ open: false });
   };
 
   handleChange = prop => event => {
-    this.setState({[prop]: event.target.value})
+    this.setState({ [prop]: event.target.value })
   };
-render () {
+  render() {
 
     return (
-  
-    <div > 
-       <Dialog
-        open={this.state.open}
-        onClose={this.handleClose}
-        aria-labelledby="form-dialog-title">
-        <DialogActions>
-        {/* <Button 
+
+      <div >
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby="form-dialog-title">
+          <DialogActions>
+            <Button 
         id="button--submit" 
         onClick={this.presupunid} 
         color="primary"
         variant="contained"
         >
           Presupuestar Unid
-        </Button> */}
+        </Button>
+            <Button
+              id="button--submit"
+              onClick={this.presuppu}
+              color="primary"
+              variant="contained"
+            >
+              Presupuestar Paño
+        </Button>
+            <TextField
+              id='Cliente'
+              type="text"
+              label='Cliente'
+              fullWidth
+              value={this.state.Cliente}
+              onChange={this.handleChange('Cliente')}
+            >
+            </TextField>
+            <Button 
+              id="button--submit" 
+              onClick={this.presupconfajas} 
+              color="primary"
+              variant="contained"
+              >
+                Presupuestar Con Fajas
+        </Button>
         <Button 
-        id="button--submit" 
-        onClick={this.presuppu} 
-        color="primary"
-        variant="contained"
-        >
-          Presupuestar Paño
+              id="button--submit" 
+              onClick={this.presuplonaconf} 
+              color="primary"
+              variant="contained"
+              >
+                Presupuestar Confección
         </Button>
-        <TextField
-                id='Cliente'
-                type="text"
-                label = 'Cliente'
-                fullWidth
-                value={this.state.Cliente}
-                onChange={this.handleChange('Cliente')}
-                >
-              </TextField>
-              <Button 
-                  id="button--submit" 
-                  onClick={this.grabapresup} 
-                  color="primary"
-                  variant="contained"
-                  >
-                    Graba Prespuesto
+        
+            <Button
+              id="button--submit"
+              onClick={this.grabapresup}
+              color="primary"
+              variant="contained"
+            >
+              Graba Prespuesto
         </Button>
-      </DialogActions>
-        </Dialog>  
-  </div>       
+          </DialogActions>
+        </Dialog>
+      </div>
     )
-       
-    }
-   
+
   }
+
+}
 
 export default withStyles(styles)(PresupPant)	

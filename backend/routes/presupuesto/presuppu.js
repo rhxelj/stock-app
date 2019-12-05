@@ -25,7 +25,14 @@ datosrec.map(datos => {
       cantidad = datos.cantidad;
       StkRubroAbrP = datos.StkRubroAbr;
       largo = datos.largo
-      coeficiente = param.coeficientemay
+      if (datos.minmay == 1) 
+      {
+        coeficiente = param.coeficientemay
+      }
+      else 
+      {
+        coeficiente = param.coeficientemin
+      }
       minutosunion = param.cantminpu
    
         q = ['Select',
@@ -43,10 +50,9 @@ datosrec.map(datos => {
                       'REPValorMOT',
                       'from BaseStock.StkRubro JOIN  BaseStock.StkMonedas, ', 
                       'reparacion.parametrosrep ',
-                      'where StkRubro.StkRubroAbr = "', StkRubroAbrP,'" ', 
-                      'and StkRubro.StkRubroTM = idStkMonedas',
+                      'where StkRubro.StkRubroAbr = "' + StkRubroAbrP + '" ', 
+                      'and StkRubro.StkRubroTM = idStkMonedas '
            ].join(' ')  
-           console.log(q)
         conexion.query(
                  q,              
                       function(err, result) {
