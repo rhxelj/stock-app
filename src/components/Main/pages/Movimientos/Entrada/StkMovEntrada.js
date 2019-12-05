@@ -25,7 +25,12 @@ const useStyles = makeStyles({
     height: 48,
     padding: "0 30px"
   },
-  cuerpo: { padding: "0px" }
+  cuerpo: { padding: "10px" },
+  cajas: {
+    marginLeft: "4px",
+    marginRight: "4px"
+    // width: auto
+  }
 });
 
 var StkMovEntrada = props => {
@@ -265,10 +270,15 @@ var StkMovEntrada = props => {
 
   const handleChangeGrupo = prop => event => {
     setState({ ...state, [prop]: event.target.value });
-    console.log("TCL: prop", prop);
-    console.log("TCL: event.target.value", event.target.value);
+    console.log(
+      "TCL: componentDidMount -> event.target.value",
+      event.target.value
+    );
     stkrubroleecodgrupo(state.StkItemsGrupo);
-    console.log("TCL: state.StkItemsGrupo", state.StkItemsGrupo);
+    console.log(
+      "TCL: componentDidMount -> state.StkItemsGrupo",
+      state.StkItemsGrupo
+    );
   };
 
   const handleChangeUbicacion = prop => event => {
@@ -513,6 +523,7 @@ var StkMovEntrada = props => {
             {/* <DialogContent> */}
             <Grid item xs={4} sm={4} lg={4}>
               <TextField
+                className={classes.cajas}
                 id="StkItemsGrupo"
                 select
                 label="Grupo"
@@ -531,6 +542,7 @@ var StkMovEntrada = props => {
             </Grid>
             <Grid item xs={4} sm={4} lg={4}>
               <TextField
+                className={classes.cajas}
                 id="StkItemsRubro"
                 select
                 label="Rubro"
@@ -706,7 +718,7 @@ var StkMovEntrada = props => {
               </TextField>
             </Grid>
 
-            <Grid item xs={12} sm={12} lg={12}>
+            <Grid item xs={2} sm={12} lg={12}>
               <TextField
                 id="StkEnvaseObserv"
                 type="text"
