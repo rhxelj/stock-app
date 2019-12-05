@@ -30,9 +30,9 @@ router.post('/', async function(req, res, next) {
    //'Select max(idStkEnvase) as UltEnvase from StkEnvase where StkEnvaseGrupo = ' + StkEnvaseGrupo + ' and StkEnvaseRubro = ' + StkEnvaseRubro + ' and StkEnvaseItem = ' + StkEnvaseItem, 
    q = ['Select ',
        'max(idStkEnvase) as UltEnvase',
-       'from StkEnvase where StkEnvaseGrupo = ' + StkEnvaseGrupo ,
-                        'and StkEnvaseRubro = ' + StkEnvaseRubro,
-                        ' and StkEnvaseItem = ' + StkEnvaseItem, 
+       'from StkEnvase where StkEnvaseGrupo = ', StkEnvaseGrupo ,
+                        'and StkEnvaseRubro = ', StkEnvaseRubro,
+                        ' and StkEnvaseItem = ', StkEnvaseItem, 
         ].join(' ')
 
    conexion.query(q,

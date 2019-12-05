@@ -32,18 +32,18 @@ var StkRubroUM = req.body.StkRubroUM;
 var StkRubroCosto = req.body.StkRubroCosto;
 var StkRubroTM = req.body.StkRubroTM;
 
-var q = ['UPDATE StkRubro SET StkRubroDesc = "', StkRubroDesc,
-        '", StkRubroAbr = "', StkRubroAbr, 
+var q = ['UPDATE StkRubro SET StkRubroDesc = "', StkRubroDesc , 
+        '", StkRubroAbr = "', StkRubroAbr , 
         '", StkRubroProv = ', StkRubroProv, 
         ', StkRubroAncho = ', StkRubroAncho, 
-        ', StkRubroPresDes = "', StkRubroPresDes,
+        ', StkRubroPresDes = "', StkRubroPresDes ,
         '", StkRubroPres = ', StkRubroPres,
-        ', StkRubroUM = "', StkRubroUM,
-        '", StkRubroCosto = '+ StkRubroCosto,
-        ', StkRubroTM = "'+ StkRubroTM, 
+        ', StkRubroUM = "', StkRubroUM ,
+        '", StkRubroCosto = ', StkRubroCosto,
+        ', StkRubroTM = "', StkRubroTM , 
         '" WHERE idStkRubro = ', idStkRubro, ' and  StkRubroCodGrp = ', StkRubroCodGrp
-        ].join(' ')
-
+        ].join('')
+console.log(q)
     conexion.query(q,
         function(err, result) {
             if (err) {
