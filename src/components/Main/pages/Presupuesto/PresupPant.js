@@ -201,9 +201,11 @@ class PresupPant extends Component {
       .then(res => {
         const renglon = JSON.parse(res.text)
         this.setState(() => { return { renglon: renglon } });
+        console.log('renglon')
         console.log(renglon)
       })
   }
+
   grabapresup = _ => {
     console.log(this.state.renglon)
     const url = IpServidor + "/presupgraba";

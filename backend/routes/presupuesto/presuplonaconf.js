@@ -74,12 +74,12 @@ datosrec.map(datos => {
                           } 
                           else {
                            datosenvio.push(result)
-                           i++ 
-                            if (i === totalreg)
-                            {
-                              res.json(datosenvio)
-                              datosenvio = []
-                            }
+                          //  i++ 
+                            // if (i === totalreg)
+                            // {
+                            //   res.json(datosenvio)
+                            //   datosenvio = []
+                            // }
                           }
                   })
                   conexion.query(
@@ -90,12 +90,19 @@ datosrec.map(datos => {
                              console.log(err)
                              } 
                              else {
-                              datosenvio1.push(result)
+                              datosenvio.push(result)
                               i++ 
                                if (i === totalreg)
                                {
-                                 res.json(datosenvio1)
-                                 datosenvio1 = []
+                                 
+                                // datosenvio2 = (datosenvio1.concat(datosenvio))
+                                // console.log(datosenvio2)
+                                // console.log(datosenvio1)
+                                // console.log(datosenvio)
+                                  res.json(datosenvio) 
+                                 datosenvio = []
+                                //  datosenvio1 = []
+                                //  datosenvio2 = []
                                }
                              }
                      })
