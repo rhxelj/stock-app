@@ -43,11 +43,12 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
---------------
+---
+
 Aditional to this this is our naming convention
 
-* Back end are all in "lower case".
-* FrontEnd Components name  are in "PascalCase".
-* The filename is the same as the component name.
-* Variables names "var_name".
-* Function names are "camelCase".
+- Back end are all in "lower case".
+- FrontEnd Components name are in "PascalCase".
+- The filename of a component is the same as the component name.
+- Variables names "var_name".
+- Function names are "camelCase".
