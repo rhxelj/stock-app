@@ -454,13 +454,15 @@ var StkMovEntrada = props => {
     <div>
       {/* {!this.state.toggle_imprimir && // toggle_imprimir = FALSE */}
       {state.toggle_state.entrada && ( // toggle_imprimir = FALSE
-        <Fragment>
+        // <Fragment>
+        <Dialog open={true} maxWidth="lg" fullWidth={true}>
           {/* <Grid container> */}
           {/* <Grid item xs={4} sm={4} lg={4}></Grid> */}
           {/* <Grid item xs={4} sm={4} lg={4}> */}
-          <Container maxWidth="xs">
-            <h1>Entradas de stock</h1>
-          </Container>
+          {/* <Container maxWidth="xs"> */}
+          <DialogTitle id="form-dialog-title">Entradas de stock</DialogTitle>
+          {/* <h1>Entradas de stock</h1> */}
+          {/* </Container> */}
           {/* </Grid> */}
           {/* <Grid item xs={4} sm={4} lg={4}></Grid> */}
           {/* </Grid> */}
@@ -746,7 +748,30 @@ var StkMovEntrada = props => {
           </Grid>
           {/* </DialogContent>
             <DialogActions> */}
-          <Grid>
+          <DialogActions>
+            <br></br>
+            <br></br>
+            {/* </Grid> */}
+            {/* <Grid
+            container
+            direction="row"
+            justify="flex-end"
+            alignItems="flex-end"
+          > */}
+            <Button variant="contained" color="primary" onClick={agregastock}>
+              Confirmar
+            </Button>
+
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={limpioPantalla}
+            >
+              Cancelar
+            </Button>
+          </DialogActions>
+
+          {/* <Grid>
             <br></br>
             <br></br>
           </Grid>
@@ -767,8 +792,9 @@ var StkMovEntrada = props => {
             >
               Cancelar
             </Button>
-          </Grid>
-        </Fragment>
+          </Grid> */}
+          {/* </Fragment> */}
+        </Dialog>
       )}
 
       {/* IMPRESION */}
