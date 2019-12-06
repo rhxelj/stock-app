@@ -1,13 +1,15 @@
 import React, { Fragment, useState, useEffect } from "react";
 import request from "superagent";
 import {
+  Button,
+  Container,
   Dialog,
   DialogActions,
   DialogTitle,
-  TextField,
   Grid,
-  Button,
+  InputAdornment,
   Paper,
+  TextField,
   Typography
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -15,7 +17,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import IpServidor from "../../VariablesDeEntorno";
 import StkGenImpQR from "../../Impresion/StkGenImpQR";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
     border: 0,
@@ -25,13 +27,14 @@ const useStyles = makeStyles({
     height: 48,
     padding: "0 30px"
   },
+  //*  cuerpo: { padding: theme.spacing(5) },
   cuerpo: { padding: "10px" },
   cajas: {
     marginLeft: "4px",
     marginRight: "4px"
     // width: auto
   }
-});
+}));
 
 var StkMovEntrada = props => {
   const [state, setState] = useState({
@@ -251,16 +254,18 @@ var StkMovEntrada = props => {
     });
     leestkgrupo();
   };
+
   useEffect(() => {
     leestkgrupo();
   }, []);
+
   function componentWillMount() {
     leestkgrupo();
   }
 
-  function componentWillUnmount() {}
+  // function componentWillUnmount() {}
 
-  function componentDidMount() {}
+  // function componentDidMount() {}
 
   // Handles VARIOS REVISAR si se pueden "REDUCIR" - INICIO
   //***********************************************************//
@@ -348,9 +353,6 @@ var StkMovEntrada = props => {
   const cancelaImpresion = () => {
     setState(...state, {
       toggle_state: {
-        // entrada: !prevState.toggle_state.entrada,
-        // dialogo: !prevState.toggle_state.dialogo,
-        // imprimir:!prevState.toggle_state.imprimir,
         entrada: true,
         dialogo: false,
         imprimir: false
@@ -449,21 +451,19 @@ var StkMovEntrada = props => {
   ];
   const classes = useStyles();
   return (
-    // console.log("toggle_state.entrada :" + this.state.toggle_state.entrada);
-    // console.log("toggle_state.dialogo :" + this.state.toggle_state.dialogo);
-    // console.log("toggle_state.imprimir :" + this.state.toggle_state.imprimir);
-
     <div>
       {/* {!this.state.toggle_imprimir && // toggle_imprimir = FALSE */}
       {state.toggle_state.entrada && ( // toggle_imprimir = FALSE
         <Fragment>
-          <Grid container>
-            <Grid item xs={4} sm={4} lg={4}></Grid>
-            <Grid item xs={4} sm={4} lg={4}>
-              <h1 className={classes.root}>Entradas de stock</h1>
-            </Grid>
-            <Grid item xs={4} sm={4} lg={4}></Grid>
-          </Grid>
+          {/* <Grid container> */}
+          {/* <Grid item xs={4} sm={4} lg={4}></Grid> */}
+          {/* <Grid item xs={4} sm={4} lg={4}> */}
+          <Container maxWidth="xs">
+            <h1>Entradas de stock</h1>
+          </Container>
+          {/* </Grid> */}
+          {/* <Grid item xs={4} sm={4} lg={4}></Grid> */}
+          {/* </Grid> */}
           <Grid className={classes.cuerpo} container spacing={32}>
             <Grid item xs={3} sm={3} lg={3}>
               <TextField
@@ -519,6 +519,7 @@ var StkMovEntrada = props => {
                 disabled
               ></TextField>
             </Grid>
+            {/* Primera linea Fin */}
 
             {/* <DialogContent> */}
             <Grid item xs={4} sm={4} lg={4}>
@@ -584,8 +585,10 @@ var StkMovEntrada = props => {
               </TextField>
             </Grid>
 
+            {/* Segunda linea FIN */}
             {/* Cantidad/ StkRubroPresDes / StkRubroPres / StkRubroUM */}
-            <Grid item xs={2} sm={2} lg={2}>
+
+            <Grid item xs={3} sm={3} lg={3}>
               <TextField
                 id="cantidad"
                 label="Cantidad"
@@ -596,7 +599,7 @@ var StkMovEntrada = props => {
                 autoFocus={true}
               ></TextField>
             </Grid>
-
+            {/* 
             <Grid item xs={2} sm={2} lg={2}>
               <TextField
                 label=" "
@@ -605,11 +608,11 @@ var StkMovEntrada = props => {
                 value={state.StkRubroPresDes}
                 disabled
               ></TextField>
-            </Grid>
+            </Grid> */}
 
             {/* <Grid item  xs={2} sm={2} lg={2}> */}
             {/* <h1>de : </h1> */}
-            <br></br>
+            {/* <br></br> */}
             {/* <Typography variant="h6" component="h6">
                 de :
               </Typography>
@@ -618,34 +621,46 @@ var StkMovEntrada = props => {
             {/* <Grid item xs={1} sm={1} lg={1}>
               <Typography variant="h6" component="h6"></Typography>
             </Grid> */}
-            <Grid item xs={4} sm={4} lg={4}>
-              <br></br>
-              <Typography variant="h6" component="h6">
-                de :
-                <TextField
-                  label=""
-                  id="StkRubroPres"
-                  type="Number"
-                  // fullWidth
-                  value={state.StkRubroPres}
-                  onChange={handleChange("StkRubroPres")}
-                  autoFocus={true}
-                ></TextField>
-              </Typography>
+            <Grid item xs={3} sm={3} lg={3}>
+              {/* <br></br> */}
+              {/* <Typography variant="h6" component="h6"> */}
+              {/* de : */}
+              <TextField
+                label=" "
+                id="StkRubroPres"
+                type="Number"
+                // fullWidth
+                value={state.StkRubroPres}
+                onChange={handleChange("StkRubroPres")}
+                autoFocus={true}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">de: </InputAdornment>
+                  )
+                }}
+              ></TextField>
+              {/* </Typography> */}
             </Grid>
 
-            <Grid item xs={2} sm={2} lg={2}>
+            <Grid item xs={3} sm={3} lg={3}>
               {/* <label>{this.state.StkRubroUM} x </label> */}
-
+              {/* <br></br> */}
               <TextField
-                label="X"
+                label=" "
                 fullWidth
                 value={state.StkRubroUM}
                 type="number"
-              ></TextField>
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">X</InputAdornment>
+                  )
+                }}
+              />
+
+              {/* </TextField> */}
             </Grid>
 
-            <Grid item xs={2} sm={2} lg={2}>
+            <Grid item xs={3} sm={3} lg={3}>
               <TextField
                 id="StkRubroAncho"
                 label="Ancho"
