@@ -5,6 +5,7 @@ import {
   Container,
   Dialog,
   DialogActions,
+  DialogContent,
   DialogTitle,
   Grid,
   InputAdornment,
@@ -33,6 +34,9 @@ const useStyles = makeStyles(theme => ({
     marginLeft: "4px",
     marginRight: "4px"
     // width: auto
+  },
+  textField: {
+    width: 200
   }
 }));
 
@@ -456,152 +460,157 @@ var StkMovEntrada = props => {
       {state.toggle_state.entrada && ( // toggle_imprimir = FALSE
         // <Fragment>
         <Dialog open={true} maxWidth="lg" fullWidth={true}>
-          {/* <Grid container> */}
-          {/* <Grid item xs={4} sm={4} lg={4}></Grid> */}
-          {/* <Grid item xs={4} sm={4} lg={4}> */}
-          {/* <Container maxWidth="xs"> */}
-          <DialogTitle id="form-dialog-title">Entradas de stock</DialogTitle>
-          {/* <h1>Entradas de stock</h1> */}
-          {/* </Container> */}
-          {/* </Grid> */}
-          {/* <Grid item xs={4} sm={4} lg={4}></Grid> */}
-          {/* </Grid> */}
-          <Grid className={classes.cuerpo} container spacing={32}>
-            <Grid item xs={3} sm={3} lg={3}>
-              <TextField
-                id="CantDisp"
-                label="Cantidad Disponible"
-                value={state.StkItemsCantDisp}
-                style={
-                  state.StkItemsCantDisp < state.StkItemsMin
-                    ? { background: "#f92c19" }
-                    : { background: "#00e676" }
-                }
-                disabled
-              ></TextField>
-            </Grid>
+          
+          <Grid container direction="row" justify="center" alignItems="center">
+            <DialogTitle id="form-dialog-title">Entradas de stock</DialogTitle>
+          </Grid>
 
-            <Grid item xs={3} sm={3} lg={3}>
-              <TextField
-                id="Cantidad"
-                label="Cantidad "
-                value={state.StkItemsCantidad}
-                style={
-                  state.StkItemsCantidad < state.StkItemsMin
-                    ? { background: "#f92c19" }
-                    : { background: "#00e676" }
-                }
-                disabled
-              ></TextField>
-            </Grid>
+          <DialogContent>
+            <Grid className={classes.cuerpo} container spacing={32}>
+              <Grid item xs={3} sm={3} lg={3}>
+                <TextField
+                  id="CantDisp"
+                  label="Cantidad Disponible"
+                  value={state.StkItemsCantDisp}
+                  style={
+                    state.StkItemsCantDisp < state.StkItemsMin
+                      ? { background: "#f92c19" }
+                      : { background: "#00e676" }
+                  }
+                  disabled
+                  className={classes.textField}
+                />
+              </Grid>
 
-            <Grid item xs={2} sm={2} lg={2}>
-              <TextField
-                id="MinStock"
-                label="Mínimo Stock"
-                value={state.StkItemsMin}
-                disabled
-              ></TextField>
-            </Grid>
-            <Grid item xs={2} sm={2} lg={2}>
-              <TextField
-                id="MaxStock"
-                label="Máximo Stock"
-                value={state.StkItemsMax}
-                disabled
-              ></TextField>
-            </Grid>
-            <Grid item xs={2} sm={2} lg={2}>
-              <TextField
-                InputLabelProps={{ shrink: true }}
-                type="date"
-                id="FechaAct"
-                label="Fecha Actualización"
-                value={state.StkItemsFAct}
-                disabled
-              ></TextField>
-            </Grid>
-            {/* Primera linea Fin */}
+              <Grid item xs={3} sm={3} lg={3}>
+                <TextField
+                  id="Cantidad"
+                  label="Cantidad "
+                  value={state.StkItemsCantidad}
+                  style={
+                    state.StkItemsCantidad < state.StkItemsMin
+                      ? { background: "#f92c19" }
+                      : { background: "#00e676" }
+                  }
+                  className={classes.textField}
+                  disabled
+                />
+              </Grid>
 
-            {/* <DialogContent> */}
-            <Grid item xs={4} sm={4} lg={4}>
-              <TextField
-                className={classes.cajas}
-                id="StkItemsGrupo"
-                select
-                label="Grupo"
-                fullWidth
-                value={state.StkItemsGrupo}
-                onChange={handleChangeGrupo("StkItemsGrupo")}
-                SelectProps={{ native: true }}
-              >
-                <option></option>
-                {state.stkgrupo.map(option => (
-                  <option key={option.idStkGrupo} value={option.idStkGrupo}>
-                    {option.StkGrupoDesc}
-                  </option>
-                ))}
-              </TextField>
-            </Grid>
-            <Grid item xs={4} sm={4} lg={4}>
-              <TextField
-                className={classes.cajas}
-                id="StkItemsRubro"
-                select
-                label="Rubro"
-                fullWidth
-                value={state.StkItemsRubro}
-                onChange={handleChangeRubro("StkItemsRubro")}
-                SelectProps={{
-                  native: true
-                }}
-                autoFocus={true}
-              >
-                <option></option>
-                {state.stkrubro.map(option => (
-                  <option key={option.idStkRubro} value={option.idStkRubro}>
-                    {option.StkRubroDesc}
-                  </option>
-                ))}
-              </TextField>
-            </Grid>
-            <Grid item xs={4} sm={4} lg={4}>
-              <TextField
-                id="StkItems"
-                select
-                label="Items"
-                fullWidth
-                value={state.StkItems}
-                onChange={handleChangeItems("StkItems")}
-                SelectProps={{
-                  native: true
-                }}
-                autoFocus={true}
-              >
-                <option></option>
-                {state.stkitems.map(option => (
-                  <option key={option.idStkItems} value={option.idStkItems}>
-                    {option.StkItemsDesc}
-                  </option>
-                ))}
-              </TextField>
-            </Grid>
+              <Grid item xs={2} sm={2} lg={2}>
+                <TextField
+                  id="MinStock"
+                  label="Mínimo Stock"
+                  value={state.StkItemsMin}
+                  disabled
+                  className={classes.textField}
+                />
+              </Grid>
+              <Grid item xs={2} sm={2} lg={2}>
+                <TextField
+                  id="MaxStock"
+                  label="Máximo Stock"
+                  value={state.StkItemsMax}
+                  disabled
+                  className={classes.textField}
+                />
+              </Grid>
+              <Grid item xs={2} sm={2} lg={2}>
+                <TextField
+                  InputLabelProps={{ shrink: true }}
+                  type="date"
+                  id="FechaAct"
+                  label="Fecha Actualización"
+                  value={state.StkItemsFAct}
+                  disabled
+                  className={classes.textField}
+                />
+              </Grid>
+              {/* Primera linea Fin */}
 
-            {/* Segunda linea FIN */}
-            {/* Cantidad/ StkRubroPresDes / StkRubroPres / StkRubroUM */}
+              {/* <DialogContent> */}
+              <Grid item xs={4} sm={4} lg={4}>
+                <TextField
+                  className={classes.cajas}
+                  id="StkItemsGrupo"
+                  select
+                  label="Grupo"
+                  fullWidth
+                  value={state.StkItemsGrupo}
+                  onChange={handleChangeGrupo("StkItemsGrupo")}
+                  SelectProps={{ native: true }}
+                  className={classes.textField}
+                >
+                  <option></option>
+                  {state.stkgrupo.map(option => (
+                    <option key={option.idStkGrupo} value={option.idStkGrupo}>
+                      {option.StkGrupoDesc}
+                    </option>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid item xs={4} sm={4} lg={4}>
+                <TextField
+                  className={classes.cajas}
+                  id="StkItemsRubro"
+                  select
+                  label="Rubro"
+                  fullWidth
+                  value={state.StkItemsRubro}
+                  onChange={handleChangeRubro("StkItemsRubro")}
+                  SelectProps={{
+                    native: true
+                  }}
+                  autoFocus={true}
+                  className={classes.textField}
+                >
+                  <option></option>
+                  {state.stkrubro.map(option => (
+                    <option key={option.idStkRubro} value={option.idStkRubro}>
+                      {option.StkRubroDesc}
+                    </option>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid item xs={4} sm={4} lg={4}>
+                <TextField
+                  id="StkItems"
+                  select
+                  label="Items"
+                  fullWidth
+                  value={state.StkItems}
+                  onChange={handleChangeItems("StkItems")}
+                  SelectProps={{
+                    native: true
+                  }}
+                  autoFocus={true}
+                  className={classes.textField}
+                >
+                  <option></option>
+                  {state.stkitems.map(option => (
+                    <option key={option.idStkItems} value={option.idStkItems}>
+                      {option.StkItemsDesc}
+                    </option>
+                  ))}
+                </TextField>
+              </Grid>
 
-            <Grid item xs={3} sm={3} lg={3}>
-              <TextField
-                id="cantidad"
-                label="Cantidad"
-                type="number"
-                fullWidth
-                value={state.cantidad}
-                onChange={handleChange("cantidad")}
-                autoFocus={true}
-              ></TextField>
-            </Grid>
-            {/* 
+              {/* Segunda linea FIN */}
+              {/* Cantidad/ StkRubroPresDes / StkRubroPres / StkRubroUM */}
+
+              <Grid item xs={3} sm={3} lg={3}>
+                <TextField
+                  id="cantidad"
+                  label="Cantidad"
+                  type="number"
+                  fullWidth
+                  value={state.cantidad}
+                  onChange={handleChange("cantidad")}
+                  autoFocus={true}
+                  className={classes.textField}
+                />
+              </Grid>
+              {/* 
             <Grid item xs={2} sm={2} lg={2}>
               <TextField
                 label=" "
@@ -612,152 +621,148 @@ var StkMovEntrada = props => {
               ></TextField>
             </Grid> */}
 
-            {/* <Grid item  xs={2} sm={2} lg={2}> */}
-            {/* <h1>de : </h1> */}
-            {/* <br></br> */}
-            {/* <Typography variant="h6" component="h6">
+              {/* <Grid item  xs={2} sm={2} lg={2}> */}
+              {/* <h1>de : </h1> */}
+              {/* <br></br> */}
+              {/* <Typography variant="h6" component="h6">
                 de :
               </Typography>
             </Grid> */}
 
-            {/* <Grid item xs={1} sm={1} lg={1}>
+              {/* <Grid item xs={1} sm={1} lg={1}>
               <Typography variant="h6" component="h6"></Typography>
             </Grid> */}
-            <Grid item xs={3} sm={3} lg={3}>
-              {/* <br></br> */}
-              {/* <Typography variant="h6" component="h6"> */}
-              {/* de : */}
-              <TextField
-                label=" "
-                id="StkRubroPres"
-                type="Number"
-                // fullWidth
-                value={state.StkRubroPres}
-                onChange={handleChange("StkRubroPres")}
-                autoFocus={true}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">de: </InputAdornment>
-                  )
-                }}
-              ></TextField>
-              {/* </Typography> */}
-            </Grid>
+              <Grid item xs={3} sm={3} lg={3}>
+                {/* <br></br> */}
+                {/* <Typography variant="h6" component="h6"> */}
+                {/* de : */}
+                <TextField
+                  label=" "
+                  id="StkRubroPres"
+                  type="Number"
+                  // fullWidth
+                  value={state.StkRubroPres}
+                  onChange={handleChange("StkRubroPres")}
+                  autoFocus={true}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">de: </InputAdornment>
+                    )
+                  }}
+                  className={classes.textField}
+                />
+                {/* </Typography> */}
+              </Grid>
 
-            <Grid item xs={3} sm={3} lg={3}>
-              {/* <label>{this.state.StkRubroUM} x </label> */}
-              {/* <br></br> */}
-              <TextField
-                label=" "
-                fullWidth
-                value={state.StkRubroUM}
-                type="number"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">X</InputAdornment>
-                  )
-                }}
-              />
+              <Grid item xs={3} sm={3} lg={3}>
+                {/* <label>{this.state.StkRubroUM} x </label> */}
+                {/* <br></br> */}
+                <TextField
+                  label=" "
+                  fullWidth
+                  value={state.StkRubroUM}
+                  type="number"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">X</InputAdornment>
+                    )
+                  }}
+                  className={classes.textField}
+                />
 
-              {/* </TextField> */}
-            </Grid>
+                {/* </TextField> */}
+              </Grid>
 
-            <Grid item xs={3} sm={3} lg={3}>
-              <TextField
-                id="StkRubroAncho"
-                label="Ancho"
-                type="number"
-                fullWidth
-                value={state.StkRubroAncho}
-                onChange={handleChange("StkRubroAncho")}
-                autoFocus={true}
-              ></TextField>
-            </Grid>
+              <Grid item xs={3} sm={3} lg={3}>
+                <TextField
+                  id="StkRubroAncho"
+                  label="Ancho"
+                  type="number"
+                  fullWidth
+                  value={state.StkRubroAncho}
+                  onChange={handleChange("StkRubroAncho")}
+                  autoFocus={true}
+                  className={classes.textField}
+                />
+              </Grid>
 
-            {/* Partida Ubicación-Geografica Ubicación-Fisica */}
-            <Grid item xs={4} sm={4} lg={4}>
-              <TextField
-                id="StkEnvasePartida"
-                type="text"
-                label="Partida"
-                fullWidth
-                value={state.StkEnvasePartida}
-                onChange={handleChange("StkEnvasePartida")}
-              ></TextField>
-            </Grid>
+              {/* Partida Ubicación-Geografica Ubicación-Fisica */}
+              <Grid item xs={4} sm={4} lg={4}>
+                <TextField
+                  id="StkEnvasePartida"
+                  type="text"
+                  label="Partida"
+                  fullWidth
+                  value={state.StkEnvasePartida}
+                  onChange={handleChange("StkEnvasePartida")}
+                ></TextField>
+              </Grid>
 
-            <Grid item xs={4} sm={4} lg={4}>
-              <TextField
-                id="StkEnvaseUbG"
-                select
-                label="Ubicación Geografica"
-                fullWidth
-                // value={this.state.indiceub}
-                value={state.StkEnvaseUbG}
-                onChange={handleChangeUbicacion("StkEnvaseUbG")}
-                SelectProps={{
-                  native: true
-                }}
-                autoFocus={true}
-              >
-                <option default></option>
+              <Grid item xs={4} sm={4} lg={4}>
+                <TextField
+                  id="StkEnvaseUbG"
+                  select
+                  label="Ubicación Geografica"
+                  fullWidth
+                  // value={this.state.indiceub}
+                  value={state.StkEnvaseUbG}
+                  onChange={handleChangeUbicacion("StkEnvaseUbG")}
+                  SelectProps={{
+                    native: true
+                  }}
+                  autoFocus={true}
+                  className={classes.textField}
+                >
+                  <option default></option>
 
-                {/* {this.state.ubicacion.map(option => (   */}
-                {ubicacion.map(option => (
-                  <option key={option.indiceub} value={option.indiceub}>
-                    {option.detalleub}
-                  </option>
-                ))}
-              </TextField>
-            </Grid>
-            <Grid item xs={4} sm={4} lg={4}>
-              <TextField
-                id="StkEnvaseUbF"
-                select
-                label="Ubicación Física"
-                fullWidth
-                value={state.StkEnvaseUbF}
-                onChange={handleChange("StkEnvaseUbF")}
-                SelectProps={{
-                  native: true
-                }}
-                autoFocus={true}
-              >
-                <option></option>
-                {state.ubicacionf.map(option => (
-                  <option
-                    key={option.idStkUbFisica}
-                    value={option.idStkUbFisica}
-                  >
-                    {option.idStkUbFisica}
-                  </option>
-                ))}
-              </TextField>
-            </Grid>
+                  {/* {this.state.ubicacion.map(option => (   */}
+                  {ubicacion.map(option => (
+                    <option key={option.indiceub} value={option.indiceub}>
+                      {option.detalleub}
+                    </option>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid item xs={4} sm={4} lg={4}>
+                <TextField
+                  id="StkEnvaseUbF"
+                  select
+                  label="Ubicación Física"
+                  fullWidth
+                  value={state.StkEnvaseUbF}
+                  onChange={handleChange("StkEnvaseUbF")}
+                  SelectProps={{
+                    native: true
+                  }}
+                  autoFocus={true}
+                  className={classes.textField}
+                >
+                  <option></option>
+                  {state.ubicacionf.map(option => (
+                    <option
+                      key={option.idStkUbFisica}
+                      value={option.idStkUbFisica}
+                    >
+                      {option.idStkUbFisica}
+                    </option>
+                  ))}
+                </TextField>
+              </Grid>
 
-            <Grid item xs={2} sm={12} lg={12}>
-              <TextField
-                id="StkEnvaseObserv"
-                type="text"
-                label="Observación"
-                fullWidth
-                value={state.StkEnvaseObserv}
-                onChange={handleChange("StkEnvaseObserv")}
-              ></TextField>
+              <Grid item xs={2} sm={12} lg={12}>
+                <TextField
+                  id="StkEnvaseObserv"
+                  type="text"
+                  label="Observación"
+                  fullWidth
+                  value={state.StkEnvaseObserv}
+                  onChange={handleChange("StkEnvaseObserv")}
+                  className={classes.textField}
+                />
+              </Grid>
             </Grid>
-          </Grid>
-          {/* </DialogContent>
-            <DialogActions> */}
+          </DialogContent>
           <DialogActions>
-            <br></br>
-            <br></br>
-            {/* </Grid> */}
-            {/* <Grid
-            container
-            direction="row"
-            justify="flex-end"
-            alignItems="flex-end"
-          > */}
             <Button variant="contained" color="primary" onClick={agregastock}>
               Confirmar
             </Button>
@@ -770,30 +775,6 @@ var StkMovEntrada = props => {
               Cancelar
             </Button>
           </DialogActions>
-
-          {/* <Grid>
-            <br></br>
-            <br></br>
-          </Grid>
-          <Grid
-            container
-            direction="row"
-            justify="flex-end"
-            alignItems="flex-end"
-          >
-            <Button variant="contained" color="primary" onClick={agregastock}>
-              Confirmar
-            </Button>
-
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={limpioPantalla}
-            >
-              Cancelar
-            </Button>
-          </Grid> */}
-          {/* </Fragment> */}
         </Dialog>
       )}
 
