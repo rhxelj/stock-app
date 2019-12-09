@@ -123,40 +123,33 @@ class StkRubroModificar extends Component {
     request
       .post(url)
       .set("Content-Type", "application/json")
-      .send({ StkRubroDesc: this.state.StkRubroDesc })
-      .send({ StkRubroAbr: this.state.StkRubroAbr })
-      .send({ StkRubroProv: this.state.StkRubroProv })
-      .send({ StkRubroAncho: this.state.StkRubroAncho })
-      .send({ StkRubroPres: this.state.StkRubroPres })
-      .send({ StkRubroPresDes: this.state.StkRubroPresDes })
-      .send({ StkRubroUM: this.state.StkRubroUM })
-      .send({ StkRubroCosto: this.state.StkRubroCosto })
-      .send({ StkRubroTM: this.state.StkRubroTM })
-      // .set("X-API-Key", "foobar")
+      .send({
+        StkRubroDesc: this.state.StkRubroDesc,
+        StkRubroAbr: this.state.StkRubroAbr,
+        StkRubroProv: this.state.StkRubroProv,
+        StkRubroAncho: this.state.StkRubroAncho,
+        StkRubroPres: this.state.StkRubroPres,
+        StkRubroPresDes: this.state.StkRubroPresDes,
+        StkRubroUM: this.state.StkRubroUM,
+        StkRubroCosto: this.state.StkRubroCosto,
+        StkRubroTM: this.state.StkRubroTM
+      })
       .then(function(res) {})
       .catch(err => CodigoError(err));
   };
 
   // Lee tipo Grupo inicio
   leestkgrupo = _ => {
-    // const url = 'http://localhost:4000/stkgrupoleer' ; //'http://localhost:3000/data'
     const url = IpServidor + "/stkgrupoleer";
     request
       .get(url)
       .set("Content-Type", "application/json")
       .then(res => {
         const stkgrupo = JSON.parse(res.text);
-        // console.log(`stkgrupo :`)
-        // console.log(stkgrupo)
         this.setState(() => {
           return { stkgrupo: stkgrupo };
         });
       });
-    console.log(`dentro de leestkgrupo `);
-    console.log(`this.state.stkgrupo :`);
-    console.log(this.state.stkgrupo);
-
-    // this.marcagrupo()
   };
   // Lee tipo Grupo Fin
 
@@ -220,11 +213,6 @@ class StkRubroModificar extends Component {
     this.proveedoresleer();
     this.unmedleer();
     this.leetmon();
-    // console.log('tipo proveedor dentro de DIDMOUNT ')
-    // console.log(this.state.tipoprov)
-    console.log("componentdidmount dentro de StkRubroModificar !!!!");
-    console.log(this.state.StkRubroPresDes);
-    // this.leestkgrupo()
   }
 
   // componentWillMount() {
@@ -267,8 +255,6 @@ class StkRubroModificar extends Component {
                     native: true
                   }}
                   value={this.state.StkRubroCodGrp}
-                  // onChange={this.handleChange("StkRubroCodGrp")}
-                  // onChange={this.leeXcodgrupo("StkRubroCodGrp","OTRO VALOR AGREGADO POR MI")}
                 >
                   {this.state.stkgrupo.map(option => (
                     <option
@@ -384,19 +370,7 @@ class StkRubroModificar extends Component {
                   }}
                 />
               </Grid>
-              {/* <div> */}
-              {/* <TextField
-                  id="StkRubroUM"
-                  label="Unidad de Medida"
-                  value={this.state.StkRubroUM}
-                  onChange={this.handleChange("StkRubroUM")}
-                  margin="dense"
-                  variant="standard"
-                  onKeyPress={event => {
-                    if (event.key === "Enter")
-                      document.getElementById("StkRubroCosto").focus();
-                  }}
-                /> */}
+
               <Grid item xs={4} sm={4} lg={4}>
                 <TextField
                   id="StkRubroUM"
@@ -414,7 +388,6 @@ class StkRubroModificar extends Component {
                       {option.StkUnMedDesc}
                     </option>
                   ))}
-                  {/* ))} */}
                 </TextField>
               </Grid>
               <Grid item xs={4} sm={4} lg={4}>
@@ -431,18 +404,7 @@ class StkRubroModificar extends Component {
                   }}
                 />
               </Grid>
-              {/* <TextField
-                  id="StkRubroTM"
-                  label="Moneda"
-                  value={this.state.StkRubroTM}
-                  onChange={this.handleChange("StkRubroTM")}
-                  margin="dense"
-                  variant="standard"
-                  onKeyPress={event => {
-                    if (event.key === "Enter")
-                      document.getElementById("Grabar").focus();
-                  }}
-                /> */}
+
               <Grid item xs={4} sm={4} lg={4}>
                 <TextField
                   id="StkRubroTM"
@@ -460,20 +422,8 @@ class StkRubroModificar extends Component {
                       {option.StkMonedasDescripcion}
                     </option>
                   ))}
-                  {/* ))} */}
                 </TextField>
               </Grid>
-
-              {/* </div> */}
-              {/* <div>
-
-              </div> */}
-              {/* <div>
-
-              </div> */}
-              {/* <div>
-
-              </div> */}
             </Grid>
           </DialogContent>
           <DialogActions>
@@ -489,12 +439,10 @@ class StkRubroModificar extends Component {
               variant="contained"
               color="secondary"
               onClick={this.props.toggleModificar}
-              // onClick={()=>{return alert("GRABO RUBRO")}}
             >
               Cancelar
             </Button>
           </DialogActions>
-          {/* </Grid> */}
         </Dialog>
       </div>
     );
