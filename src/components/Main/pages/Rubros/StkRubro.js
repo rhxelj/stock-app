@@ -1,34 +1,23 @@
 import React, { Component } from "react";
-import request from "superagent";
-// import ReactTable from 'react-table'
-import "react-table/react-table.css";
+import {
+  Grid,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Paper
+} from "@material-ui/core";
 import IpServidor from "../VariablesDeEntorno";
+import request from "superagent";
+import "../../../../Styles/TableHeader.css";
+import { withStyles } from "@material-ui/core/styles";
 
-import Grid from "@material-ui/core/Grid";
-
-// import Button from '@material-ui/core/Button';
-// import AddIcon from '@material-ui/icons/Add';
-
-// import StkMonedasAgregar from './StkMonedasAgregar'
-// import StkMonedasBorrar from './StkMonedasBorrar'
-// import StkMonedasModificar from './StkMonedasModificar'
-import StkFab from "../../../lib/StkFab";
-
+import SelecCampos from "../Impresion/SelecCampos";
 import StkRubroAgregar from "./StkRubroAgregar";
 import StkRubroBorrar from "./StkRubroBorrar";
 import StkRubroModificar from "./StkRubroModificar";
-
-// para usar las tablas de MUI start
-import { withStyles } from "@material-ui/core/styles";
-import "../../../../Styles/TableHeader.css";
-
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import SelecCampos from "../Impresion/SelecCampos";
+import StkFab from "../../../lib/StkFab";
 
 // Estilo para el botón de borrar
 const style = {
@@ -47,31 +36,10 @@ const CustomTableCell = withStyles(theme => ({
   }
 }))(TableCell);
 
-// const styles = theme => ({
-//     root: {
-//         width: '100%',
-//         marginTop: theme.spacing.unit * 3,
-//         overflowX: 'auto',
-//     },
-//     table: {
-//         minWidth: 700,
-//     },
-//     row: {
-//         '&:nth-of-type(odd)': {
-//             backgroundColor: theme.palette.background.default,
-//         },
-//     },
-// });
-
-// para usar las tablas de MUI end
-
 class StkRubro extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // url: IpServidor + '/stkrubroleermezcla',
-      // toggle: false,
-      // togglemodificar: false,
       idStkRubro: "",
       StkMonedasDescripcion: "",
       StkMonedasCotizacion: 0,
@@ -82,9 +50,6 @@ class StkRubro extends Component {
         modificar: false,
         seleccampos: false
       },
-      // toggle.agregar: false,
-      // toggle_busqueda: false,
-      // toggle.modificar: false,
       filtered: "",
       campo: "idStkRubro",
       direction: {
@@ -95,8 +60,7 @@ class StkRubro extends Component {
 
   //Read
   read = _ => {
-    const url = IpServidor + "/stkrubroleermezcla"; //'http://192.168.2.102:4000/indexprov'
-
+    const url = IpServidor + "/stkrubroleermezcla";
     request
       .get(url)
       .set("Content-Type", "application/json")
@@ -110,9 +74,7 @@ class StkRubro extends Component {
   };
 
   leegrupodesc(prop) {
-    // if (this.state.StkRubroProv1 !== 0) {
     if (prop !== 0) {
-      // const url = 'http://localhost:4000/stkgrupoleercod/' + prop; //'http://localhost:3000/data'
       const url = IpServidor + "/stkgrupoleercod/" + prop;
       request
         .get(url)
@@ -190,14 +152,6 @@ class StkRubro extends Component {
   componentDidMount() {
     this.read();
   }
-
-  // search = (event) => {
-  //     var name = event.target.name
-  //     var value = (event.target.type === 'checkbox') ? event.target.checked : event.target.value
-  //     this.setState({ filtered: value })
-  // }
-
-  // <input onChange={this.search} type="text" value={this.state.filtered}/>
 
   render() {
     // Agrego el campo del Boton BORRAR
@@ -304,7 +258,7 @@ class StkRubro extends Component {
           <Grid item xs={4} sm={4} lg={4}></Grid>
         </Grid>
         {/* <input onChange={this.search} type="text" value={this.state.filtered}/>  */}
-        {this.state.toggle.agregar ? (
+        {this.state.toggle.agregar && (
           <div>
             <div className="row">
               <div className="col s12 ">
@@ -321,17 +275,9 @@ class StkRubro extends Component {
               </div>
             </div>
           </div>
-        ) : (
-          <div>
-            {/* <p onClick={()=>this.toggle()} className='btn'>  AGREGAR MONEDAS </p> */}
-            {/* <Button onClick={() => this.toggle()} variant="contained" color="primary">AGREGAR RUBRO</Button> */}
-            {/* <Button variant="fab" color="primary" aria-label="Add" className={this.state.fab}>
-                         <AddIcon /> </Button> */}
-            {/* <input onChange={this.search} type="text" value={this.state.filtered} /> */}
-          </div>
         )}
         {/* Muestro contenido */}
-        {!this.state.toggle.agregar ? (
+        {!this.state.toggle.agregar && (
           <Paper>
             <Table>
               <TableHead>
@@ -365,25 +311,23 @@ class StkRubro extends Component {
                     <TableRow
                       key={row.StkRubroAbr}
                       onDoubleClick={() => {
-                        this.setState({ idStkRubro: row.idStkRubro });
-                        this.setState({ StkRubroCodGrp: row.StkRubroCodGrp });
-                        this.setState({ StkRubroDesc: row.StkRubroDesc });
-                        this.setState({ StkRubroAbr: row.StkRubroAbr });
-                        this.setState({ StkRubroProv: row.StkRubroProv }); //id
-                        this.setState({ StkRubroAncho: row.StkRubroAncho });
-                        this.setState({ StkRubroPresDes: row.StkRubroPresDes });
-                        this.setState({ StkRubroPres: row.StkRubroPres });
-                        this.setState({ StkRubroUM: row.StkRubroUM });
-                        this.setState({ StkRubroCosto: row.StkRubroCosto });
-                        // this.setState({ProveedoresDesc : row.ProveedoresDesc})
-
-                        // this.setState({StkGrupoDesc : row.StkGrupoDesc})
-                        this.setState({ StkRubroTM: row.StkRubroTM });
+                        this.setState({
+                          idStkRubro: row.idStkRubro,
+                          StkRubroCodGrp: row.StkRubroCodGrp,
+                          StkRubroDesc: row.StkRubroDesc,
+                          StkRubroAbr: row.StkRubroAbr,
+                          StkRubroProv: row.StkRubroProv,
+                          StkRubroAncho: row.StkRubroAncho,
+                          StkRubroPresDes: row.StkRubroPresDes,
+                          StkRubroPres: row.StkRubroPres,
+                          StkRubroUM: row.StkRubroUM,
+                          StkRubroCosto: row.StkRubroCosto,
+                          StkRubroTM: row.StkRubroTM
+                        });
 
                         this.toggle("modificar");
                       }}
                     >
-                      {/* {console.log('presdes en rubro : ',row.StkRubroPresDes)} */}
                       <CustomTableCell style={style}>
                         {row.borrar}
                       </CustomTableCell>
@@ -404,8 +348,6 @@ class StkRubro extends Component {
               </TableBody>
             </Table>
           </Paper>
-        ) : (
-          <div></div>
         )}
         {this.state.toggle.modificar ? (
           <div>
@@ -427,7 +369,7 @@ class StkRubro extends Component {
                       StkRubroUM={this.state.StkRubroUM}
                       StkRubroCosto={this.state.StkRubroCosto}
                       StkRubroTM={this.state.StkRubroTM}
-                      //  borrar={this.state.borrar}
+                      //   borrar={this.state.borrar}
                       // ProveedoresDesc={this.state.ProveedoresDesc}
                       // StkGrupoDesc={this.state.StkGrupoDesc}
                     ></StkRubroModificar>
