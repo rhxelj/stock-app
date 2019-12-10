@@ -1,7 +1,8 @@
 import React, { Component} from 'react'
 import request from 'superagent'
 
-import IpServidor from '../VariablesDeEntorno'
+// import IpServidor from '../VariablesDeEntorno'
+import IpServidor from '../../VariablesDeEntorno'
 
 // Material UI START
 import Button from '@material-ui/core/Button';
@@ -11,21 +12,20 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+// import { number } from 'prop-types';
 // Material UI   END
 
-import Grid from '@material-ui/core/Grid';
-import CodigoError from '../../../lib/CodigoError'
+import CodigoError from '../../../../lib/CodigoError'
 
-class StkModificarMonedas extends Component {
+class AgregarMonedas extends Component {
     constructor(props){
         super(props)
         this.state = {
             url: IpServidor +'/stkmonedasagregar',
-            idStkMonedas: this.props.idStkMonedas,
-            StkMonedasDescripcion:this.props.StkMonedasDescripcion,
-            StkMonedasCotizacion:this.props.StkMonedasCotizacion,
+            idStkMonedas:'',
+            StkMonedasDescripcion:'',
+            StkMonedasCotizacion:0.00,
             open: true, // Material UI
-            moneda:this.props.moneda,
         }
         this.updateField = this.updateField.bind(this);
         this.submitMoneda = this.submitMoneda.bind(this);
@@ -41,54 +41,46 @@ class StkModificarMonedas extends Component {
       };
     // Material UI END
 
-    actualizaMoneda = () => {
-      const  url  = IpServidor + '/stkmonedasmodificar/' + this.state.moneda.idStkMonedas
-    request                  
-      //  .post('http://localhost:4000/stkmonedasmodificar/'+this.state.moneda.idStkMonedas)
-      .post(url)
-       .set('Content-Type', 'application/json')
-       
-    //    .send({ idtipomonedas: this.state.idtipomonedas})
-       .send({ StkMonedasDescripcion: this.state.moneda.StkMonedasDescripcion})
-       .send({ StkMonedasCotizacion: this.state.moneda.StkMonedasCotizacion})
-       .set('X-API-Key', 'foobar')
-       .then(function(res) {
-      // res.body, res.headers, res.status
+    // Agregar Moneda
+    addMoneda = _=> { 
+        // const url = IpServidor +'/agregarmonedas' 
+        request
+        .post(this.state.url)
+        .set('Content-Type', 'application/json')
+        .send({ idStkMonedas: this.state.idStkMonedas})
+        .send({ StkMonedasDescripcion: this.state.StkMonedasDescripcion})    
+        .send({ StkMonedasCotizacion: this.state.StkMonedasCotizacion})
+        .set('X-API-Key', 'foobar')
+        .then(function(res) {
+        // res.body, res.headers, res.status
+            //     console.log('res.status  ' + res.status);
+            //     console.log('esta aca');
+            //     alert('Agrego correctamente');
         })
         .catch((err) => CodigoError(err))
-        //this.getproveedores();
-     }
-    
+    }   
    
     updateField(field){
-        this.setState({
-            moneda:{...this.state.moneda,[field.target.id]: field.target.value},
+      this.setState({
+            [field.target.id]: field.target.value,
         })
         console.log('ESTADO :'+field.target.id + ' Valor :'+field.target.value)
     }
 
     submitMoneda(e){
       e.preventDefault()
-      this.actualizaMoneda() // revisar si hay que pasar parametros
+      this.addMoneda()
       this.props.read()
-      this.props.toggleModificar()
-      // this.addMoneda()
-      // this.props.toggle()
-      // this.props.read()
+      this.props.toggleAgregar()
     }
 
-    componentDidUpdate(){
-      // this.props.read()
-      
-  }    
+          
     componentDidMount(){
     }
 
-    componentWillUnmount(){
-      // this.props.read()
-    }
 
     render(){
+      
         return( 
        <div>
             <Dialog
@@ -97,31 +89,25 @@ class StkModificarMonedas extends Component {
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <Grid container>
-            <Grid item xs={4} sm={4} lg={4}></Grid>
-              <DialogTitle id="form-dialog-title">Modificar Moneda</DialogTitle>
-            <Grid item xs={4} sm={4} lg={4}></Grid>
-          </Grid>
+          <DialogTitle id="form-dialog-title">Agregar Nueva Moneda</DialogTitle>
           <DialogContent>
-          <Grid container  spacing={24}>
             <DialogContentText>
               Cargue los Datos y presione enter para cambiar de campo.
             </DialogContentText>
-            <Grid item  xs={6} sm={6} lg={6}>
             <TextField
               autoFocus
               margin="dense"
               id="idStkMonedas"
-              label="Código"
+              label="Código - (Máx. 4 Dígitos)"
               type="text"
               fullWidth
+              inputProps={{maxlength: 4,}}
               placeholder="Código"
-              value={this.state.moneda.idStkMonedas} 
+              // value={this.state.idStkMonedas} 
               onChange={this.updateField}
               onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('StkMonedasDescripcion').focus();}}
+              value={this.state.idStkMonedas}  
             />
-            </Grid>
-            <Grid item  xs={6} sm={6} lg={6}>
             <TextField
               margin="dense"
               id="StkMonedasDescripcion"
@@ -129,12 +115,11 @@ class StkModificarMonedas extends Component {
               type="text"
               fullWidth
               placeholder="Descripción"
-              value={this.state.moneda.StkMonedasDescripcion} 
+              // value={this.state.StkMonedasDescripcion} 
               onChange={this.updateField}
               onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('StkMonedasCotizacion').focus();}}
+              value={this.state.StkMonedasDescripcion}  
             />
-            </Grid>
-            <Grid item  xs={6} sm={6} lg={6}>
             <TextField
               margin="dense"
               id="StkMonedasCotizacion"
@@ -142,22 +127,18 @@ class StkModificarMonedas extends Component {
               type="number"
               fullWidth
               placeholder="Cotización"
-              value={this.state.moneda.StkMonedasCotizacion} 
+              // value={this.state.StkMonedasCotizacion} 
               onChange={this.updateField}
               onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('button--submit').focus();}}
+              value={this.state.StkMonedasCotizacion}  
             />
-            </Grid>
-            </Grid>
+            
           </DialogContent>
           <DialogActions>
-            <Button 
-              id="button--submit" 
-              onClick={this.submitMoneda} 
-              color="primary"
-            >
-              Modificar
+            <Button id="button--submit" onClick={this.submitMoneda} color="primary">
+              Agregar
             </Button>
-            <Button onClick={this.props.toggle} color="secondary">
+            <Button onClick={this.props.toggleAgregar} color="secondary">
               Cancelar
             </Button>
 
@@ -169,4 +150,4 @@ class StkModificarMonedas extends Component {
     }
 }
 
-export default StkModificarMonedas
+export default AgregarMonedas

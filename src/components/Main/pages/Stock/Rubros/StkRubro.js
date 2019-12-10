@@ -8,16 +8,16 @@ import {
   TableRow,
   Paper
 } from "@material-ui/core";
-import IpServidor from "../VariablesDeEntorno";
+import IpServidor from "../../VariablesDeEntorno";
 import request from "superagent";
-import "../../../../Styles/TableHeader.css";
+import "../../../../../Styles/TableHeader.css";
 import { withStyles } from "@material-ui/core/styles";
 
-import SelecCampos from "../Impresion/SelecCampos";
+import SelecCampos from "../../Impresion/SelecCampos";
 import StkRubroAgregar from "./StkRubroAgregar";
 import StkRubroBorrar from "./StkRubroBorrar";
 import StkRubroModificar from "./StkRubroModificar";
-import StkFab from "../../../lib/StkFab";
+import StkFab from "../../../../lib/StkFab";
 
 // Estilo para el botón de borrar
 const style = {

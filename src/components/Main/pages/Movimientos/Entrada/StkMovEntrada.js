@@ -1,101 +1,98 @@
 import React, { Fragment, useState, useEffect } from "react";
-import request from "superagent";
 import {
+  Button,
+  Container,
   Dialog,
   DialogActions,
+  DialogContent,
   DialogTitle,
-  TextField,
   Grid,
-  Button,
+  IconButton,
+  InputAdornment,
   Paper,
+  TextField,
   Typography
 } from "@material-ui/core";
+// import ClearIcon from "@material-ui/icons/Clear";
+import DeleteIcon from "@material-ui/icons/Delete";
 import { makeStyles } from "@material-ui/core/styles";
+import request from "superagent";
 
 import IpServidor from "../../VariablesDeEntorno";
 import StkGenImpQR from "../../Impresion/StkGenImpQR";
+import ubicacion from "./UbicacionGeografica";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+    // background: "lightblue",
     border: 0,
     borderRadius: 3,
-    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+    // boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
     color: "white",
     height: 48,
     padding: "0 30px"
   },
+  //*  cuerpo: { padding: theme.spacing(5) },
   cuerpo: { padding: "10px" },
   cajas: {
     marginLeft: "4px",
     marginRight: "4px"
     // width: auto
+  },
+  textField_60: {
+    width: 60
+  },
+  textField_80: {
+    width: 80
+  },
+  textField_150: {
+    width: 150
+  },
+  textField_370: {
+    width: 370
   }
-});
-
+}));
+const initial_state = {
+  dialogo_imprimir: false,
+  stkrubro: [],
+  stkgrupo: [],
+  stkitems: [],
+  stkenvaseubg: [],
+  ubicacionf: [],
+  stkrubroele: [],
+  StkItemsCantidad: 0.0,
+  StkItemsCantDisp: 0.0,
+  StkItemsFAct: "",
+  StkItemsMin: 0.0,
+  StkItemsMax: 0.0,
+  StkRubroAncho: 0.0,
+  StkRubroPresDes: "",
+  StkRubroPres: 0.0,
+  StkRubroUM: 0.0,
+  cantidad: 1.0,
+  largo: 0.0,
+  ancho: 0.0,
+  faltante: 0.0,
+  total: 0.0,
+  datostraid: [],
+  open: true,
+  toggle_imprimir: false,
+  marcagenqr: false,
+  imp_conf: false,
+  marcaagregado: false,
+  StkEnvaseUb: "",
+  StkEnvaseObserv: "",
+  StkEnvasePartida: "",
+  toggle_state: {
+    entrada: true,
+    dialogo: false, //TODO antiguamente dialogo borrar una vez que funcione
+    imprimir: false
+  }
+};
 var StkMovEntrada = props => {
-  const [state, setState] = useState({
-    ubicacion: [
-      {
-        indiceub: "PAR",
-        detalleub: "PARQUE"
-      },
-      {
-        indiceub: "RUT",
-        detalleub: "RUTA"
-      },
-      {
-        indiceub: "GB",
-        detalleub: "GRUNBEING"
-      }
-    ],
-    dialogo_imprimir: false,
-    stkrubro: [],
-    stkgrupo: [],
-    stkitems: [],
-    stkenvaseubg: [],
-    ubicacionf: [],
-    stkrubroele: [],
-    StkItemsCantidad: 0.0,
-    StkItemsCantDisp: 0.0,
-    StkItemsFAct: "",
-    StkItemsMin: 0.0,
-    StkItemsMax: 0.0,
-    StkRubroAncho: 0.0,
-    StkRubroPresDes: "",
-    StkRubroPres: 0.0,
-    StkRubroUM: 0.0,
-    cantidad: 1.0,
-    largo: 0.0,
-    ancho: 0.0,
-    faltante: 0.0,
-    total: 0.0,
-    datostraid: [],
-    open: true,
-    toggle_imprimir: false,
-    marcagenqr: false,
-    imp_conf: false,
-    marcaagregado: false,
-    StkEnvaseUb: "",
-    StkEnvaseObserv: "",
-    StkEnvasePartida: "",
-    toggle_state: {
-      entrada: true,
-      dialogo: false,
-      imprimir: false
-    }
-  });
-  // const useStyles = makeStyles({
-  //   root: {
-  //     background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
-  //     border: 0,
-  //     borderRadius: 3,
-  //     boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-  //     color: "white",
-  //     height: 48,
-  //     padding: "0 30px"
-  //   }
-  // });
+  const [state, setState] = useState(initial_state);
+  console.log("TCL: initial_state", initial_state);
 
   // Lee Grupo inicio
   const leestkgrupo = _ => {
@@ -108,6 +105,7 @@ var StkMovEntrada = props => {
         setState({ ...state, stkgrupo: stkgrupo });
       });
   };
+  console.log("TCL: state.stkgrupo", state.stkgrupo);
 
   //lee rubro por código de grupo
   const stkrubroleecodgrupo = id => {
@@ -211,56 +209,61 @@ var StkMovEntrada = props => {
   };
 
   const limpioPantalla = () => {
-    setState({
-      stkrubro: [],
-      stkgrupo: [],
-      stkitems: [],
-      stkItems: [],
-      stkenvaseubg: [],
-      ubicacionf: [],
-      // ubicacion:[],
-      stkrubroele: [],
-      StkItemsCantidad: 0.0,
-      StkItemsCantDisp: 0.0,
-      StkItemsFAct: "",
-      StkItemsMin: 0.0,
-      StkItemsMax: 0.0,
-      StkRubroAncho: 0.0,
-      StkRubroPresDes: "",
-      StkRubroPres: 0.0,
-      StkRubroUM: 0.0,
-      cantidad: 1.0,
-      largo: 0.0,
-      ancho: 0.0,
-      faltante: 0.0,
-      total: 0.0,
-      datostraid: [],
-      open: true,
-      marcagenqr: false,
-      imp_conf: false,
-      marcaagregado: false,
-      StkEnvaseUb: "",
-      StkEnvaseObserv: "",
-      StkEnvasePartida: "",
-      indiceub: [],
-      StkItemsGrupo: [],
-      StkItemsRubro: "",
-      StkItems: [],
-      StkEnvaseUbF: [],
-      StkEnvaseUbG: []
-    });
+    setState(
+      initial_state //TODO revisar esto no me pone en cero todo averiguar como poner en cero
+      //   {
+      //   stkrubro: [],
+      //   // stkgrupo: [],
+      //   stkitems: [],
+      //   stkItems: [],
+      //   stkenvaseubg: [],
+      //   ubicacionf: [],
+      //   // ubicacion:[],
+      //   stkrubroele: [],
+      //   StkItemsCantidad: 0.0,
+      //   StkItemsCantDisp: 0.0,
+      //   StkItemsFAct: "",
+      //   StkItemsMin: 0.0,
+      //   StkItemsMax: 0.0,
+      //   StkRubroAncho: 0.0,
+      //   StkRubroPresDes: "",
+      //   StkRubroPres: 0.0,
+      //   StkRubroUM: 0.0,
+      //   cantidad: 1.0,
+      //   largo: 0.0,
+      //   ancho: 0.0,
+      //   faltante: 0.0,
+      //   total: 0.0,
+      //   datostraid: [],
+      //   open: true,
+      //   marcagenqr: false,
+      //   imp_conf: false,
+      //   marcaagregado: false,
+      //   StkEnvaseUb: "",
+      //   StkEnvaseObserv: "",
+      //   StkEnvasePartida: "",
+      //   indiceub: [],
+      //   StkItemsGrupo: [],
+      //   StkItemsRubro: "",
+      //   StkItems: [],
+      //   StkEnvaseUbF: [],
+      //   StkEnvaseUbG: []
+      // }
+    );
     leestkgrupo();
   };
+
   useEffect(() => {
     leestkgrupo();
   }, []);
+
   function componentWillMount() {
     leestkgrupo();
   }
 
-  function componentWillUnmount() {}
+  // function componentWillUnmount() {}
 
-  function componentDidMount() {}
+  // function componentDidMount() {}
 
   // Handles VARIOS REVISAR si se pueden "REDUCIR" - INICIO
   //***********************************************************//
@@ -348,9 +351,6 @@ var StkMovEntrada = props => {
   const cancelaImpresion = () => {
     setState(...state, {
       toggle_state: {
-        // entrada: !prevState.toggle_state.entrada,
-        // dialogo: !prevState.toggle_state.dialogo,
-        // imprimir:!prevState.toggle_state.imprimir,
         entrada: true,
         dialogo: false,
         imprimir: false
@@ -399,6 +399,7 @@ var StkMovEntrada = props => {
           console.log("Error nro en StkMovEntrada 1:  " + err.status);
         }
       });
+
     const url1 =
       IpServidor +
       "/stkenvaseagregar/?id1=" +
@@ -432,98 +433,104 @@ var StkMovEntrada = props => {
     toggleEntradaDatos();
   };
 
-  // render() {
-  const ubicacion = [
-    {
-      indiceub: "PAR",
-      detalleub: "PARQUE"
-    },
-    {
-      indiceub: "RUT",
-      detalleub: "RUTA"
-    },
-    {
-      indiceub: "GB",
-      detalleub: "GRUNBEING"
-    }
-  ];
   const classes = useStyles();
   return (
-    // console.log("toggle_state.entrada :" + this.state.toggle_state.entrada);
-    // console.log("toggle_state.dialogo :" + this.state.toggle_state.dialogo);
-    // console.log("toggle_state.imprimir :" + this.state.toggle_state.imprimir);
-
     <div>
-      {/* {!this.state.toggle_imprimir && // toggle_imprimir = FALSE */}
-      {state.toggle_state.entrada && ( // toggle_imprimir = FALSE
-        <Fragment>
-          <Grid container>
-            <Grid item xs={4} sm={4} lg={4}></Grid>
-            <Grid item xs={4} sm={4} lg={4}>
-              <h1 className={classes.root}>Entradas de stock</h1>
-            </Grid>
-            <Grid item xs={4} sm={4} lg={4}></Grid>
-          </Grid>
-          <Grid className={classes.cuerpo} container spacing={32}>
-            <Grid item xs={3} sm={3} lg={3}>
-              <TextField
-                id="CantDisp"
-                label="Cantidad Disponible"
-                value={state.StkItemsCantDisp}
-                style={
-                  state.StkItemsCantDisp < state.StkItemsMin
-                    ? { background: "#f92c19" }
-                    : { background: "#00e676" }
-                }
-                disabled
-              ></TextField>
-            </Grid>
+      {/* {state.toggle_state.entrada && ( // toggle_imprimir = FALSE */}
+      {/* // <Dialog open={true} maxWidth="xs" fullWidth={true}> */}
+      <Dialog open={true} maxWidth="xs" fullWidth={true}>
+        <Grid
+          container
+          className={classes.root}
+          direction="row"
+          justify="space-around"
+          alignItems="center"
+        >
+          <DialogTitle id="form-dialog-title">Entradas de stock</DialogTitle>
+        </Grid>
 
-            <Grid item xs={3} sm={3} lg={3}>
-              <TextField
-                id="Cantidad"
-                label="Cantidad "
-                value={state.StkItemsCantidad}
-                style={
-                  state.StkItemsCantidad < state.StkItemsMin
-                    ? { background: "#f92c19" }
-                    : { background: "#00e676" }
-                }
-                disabled
-              ></TextField>
-            </Grid>
+        <DialogContent>
+          <Grid container spacing={32}>
+            <Grid
+              container
+              spacing={2}
+              alignItems="center"
+              justify="space-between"
+            >
+              {/* <Grid item xs={12} sm={12} lg={12}> */}
+              <Grid container spacing={22} justify="space-around">
+                <TextField
+                  InputLabelProps={{ shrink: true }}
+                  type="date"
+                  id="FechaAct"
+                  label="Fecha Actualización"
+                  value={state.StkItemsFAct}
+                  disabled
+                  className={classes.textField}
+                />
+              </Grid>
 
-            <Grid item xs={2} sm={2} lg={2}>
-              <TextField
-                id="MinStock"
-                label="Mínimo Stock"
-                value={state.StkItemsMin}
-                disabled
-              ></TextField>
-            </Grid>
-            <Grid item xs={2} sm={2} lg={2}>
-              <TextField
-                id="MaxStock"
-                label="Máximo Stock"
-                value={state.StkItemsMax}
-                disabled
-              ></TextField>
-            </Grid>
-            <Grid item xs={2} sm={2} lg={2}>
-              <TextField
-                InputLabelProps={{ shrink: true }}
-                type="date"
-                id="FechaAct"
-                label="Fecha Actualización"
-                value={state.StkItemsFAct}
-                disabled
-              ></TextField>
-            </Grid>
+              <Grid item xs={6} sm={6} lg={6}>
+                <TextField
+                  id="CantDisp"
+                  label="Cantidad Disponible"
+                  value={state.StkItemsCantDisp}
+                  style={
+                    state.StkItemsCantDisp < state.StkItemsMin
+                      ? { background: "#f92c19" }
+                      : { background: "#00e676" }
+                  }
+                  disabled
+                  className={classes.textField}
+                />
+                {/* </Grid> */}
 
-            {/* <DialogContent> */}
-            <Grid item xs={4} sm={4} lg={4}>
+                {/* <Grid item xs={3} sm={3} lg={3}> */}
+                <TextField
+                  id="Cantidad"
+                  label="Cantidad "
+                  value={state.StkItemsCantidad}
+                  style={
+                    state.StkItemsCantidad < state.StkItemsMin
+                      ? { background: "#f92c19" }
+                      : { background: "#00e676" }
+                  }
+                  className={classes.textField}
+                  disabled
+                />
+              </Grid>
+              {/* </Grid> */}
+              {/* <Grid container justify="space-between"> */}
+              <Grid item xs={6} sm={6} lg={6}>
+                <TextField
+                  id="MinStock"
+                  label="Mínimo Stock"
+                  value={state.StkItemsMin}
+                  disabled
+                  className={classes.textField}
+                />
+                {/* </Grid> */}
+                {/* <Grid item xs={2} sm={2} lg={2}> */}
+                <TextField
+                  id="MaxStock"
+                  label="Máximo Stock"
+                  value={state.StkItemsMax}
+                  disabled
+                  className={classes.textField}
+                />
+              </Grid>
+            </Grid>
+            {/* Primera linea Fin */}
+
+            <Grid
+              container
+              // direction="row"
+              justify="space-between"
+              // alignItems="center"
+            >
+              {/* <Grid item xs> */}
               <TextField
-                className={classes.cajas}
+                // className={classes.cajas}
                 id="StkItemsGrupo"
                 select
                 label="Grupo"
@@ -531,6 +538,7 @@ var StkMovEntrada = props => {
                 value={state.StkItemsGrupo}
                 onChange={handleChangeGrupo("StkItemsGrupo")}
                 SelectProps={{ native: true }}
+                className={classes.textField_370}
               >
                 <option></option>
                 {state.stkgrupo.map(option => (
@@ -539,10 +547,11 @@ var StkMovEntrada = props => {
                   </option>
                 ))}
               </TextField>
-            </Grid>
-            <Grid item xs={4} sm={4} lg={4}>
+              {/* </Grid> */}
+              {/* <Grid item xs={4} sm={4} lg={4}> */}
+              {/* <Grid item xs> */}
               <TextField
-                className={classes.cajas}
+                // className={classes.cajas}
                 id="StkItemsRubro"
                 select
                 label="Rubro"
@@ -553,6 +562,7 @@ var StkMovEntrada = props => {
                   native: true
                 }}
                 autoFocus={true}
+                className={classes.textField_150}
               >
                 <option></option>
                 {state.stkrubro.map(option => (
@@ -561,8 +571,9 @@ var StkMovEntrada = props => {
                   </option>
                 ))}
               </TextField>
-            </Grid>
-            <Grid item xs={4} sm={4} lg={4}>
+              {/* </Grid> */}
+              {/* <Grid item xs={4} sm={4} lg={4}> */}
+              {/* <Grid item xs> */}
               <TextField
                 id="StkItems"
                 select
@@ -574,6 +585,7 @@ var StkMovEntrada = props => {
                   native: true
                 }}
                 autoFocus={true}
+                className={classes.textField_150}
               >
                 <option></option>
                 {state.stkitems.map(option => (
@@ -582,83 +594,71 @@ var StkMovEntrada = props => {
                   </option>
                 ))}
               </TextField>
+              {/* </Grid> */}
             </Grid>
-
+            {/* Segunda linea FIN */}
             {/* Cantidad/ StkRubroPresDes / StkRubroPres / StkRubroUM */}
-            <Grid item xs={2} sm={2} lg={2}>
-              <TextField
-                id="cantidad"
-                label="Cantidad"
-                type="number"
-                fullWidth
-                value={state.cantidad}
-                onChange={handleChange("cantidad")}
-                autoFocus={true}
-              ></TextField>
-            </Grid>
-
-            <Grid item xs={2} sm={2} lg={2}>
-              <TextField
-                label=" "
-                type="text"
-                fullWidth
-                value={state.StkRubroPresDes}
-                disabled
-              ></TextField>
-            </Grid>
-
-            {/* <Grid item  xs={2} sm={2} lg={2}> */}
-            {/* <h1>de : </h1> */}
-            <br></br>
-            {/* <Typography variant="h6" component="h6">
-                de :
-              </Typography>
-            </Grid> */}
-
-            {/* <Grid item xs={1} sm={1} lg={1}>
-              <Typography variant="h6" component="h6"></Typography>
-            </Grid> */}
-            <Grid item xs={4} sm={4} lg={4}>
-              <br></br>
-              <Typography variant="h6" component="h6">
-                de :
+            <Grid container spacing={2} justify="flex-start">
+              <Grid item xs={3}>
                 <TextField
-                  label=""
+                  id="cantidad"
+                  label="Cantidad"
+                  type="number"
+                  fullWidth
+                  value={state.cantidad}
+                  onChange={handleChange("cantidad")}
+                  autoFocus={true}
+                  // className={classes.textField_60}
+                />
+              </Grid>
+
+              <Grid item xs={3}>
+                <TextField
+                  label=" "
                   id="StkRubroPres"
                   type="Number"
                   // fullWidth
                   value={state.StkRubroPres}
                   onChange={handleChange("StkRubroPres")}
                   autoFocus={true}
-                ></TextField>
-              </Typography>
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">de: </InputAdornment>
+                    )
+                  }}
+                />
+              </Grid>
+
+              <Grid item xs={3}>
+                <TextField
+                  label=" "
+                  fullWidth
+                  value={state.StkRubroUM}
+                  type="number"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">X</InputAdornment>
+                    )
+                  }}
+                />
+              </Grid>
+
+              <Grid item xs={3}>
+                <TextField
+                  id="StkRubroAncho"
+                  label="Ancho"
+                  type="number"
+                  fullWidth
+                  value={state.StkRubroAncho}
+                  onChange={handleChange("StkRubroAncho")}
+                  autoFocus={true}
+                  // className={classes.textField_60}
+                />
+              </Grid>
+              {/* Partida Ubicación-Geografica Ubicación-Fisica */}
+              {/* <Grid item xs> */}
             </Grid>
-
-            <Grid item xs={2} sm={2} lg={2}>
-              {/* <label>{this.state.StkRubroUM} x </label> */}
-
-              <TextField
-                label="X"
-                fullWidth
-                value={state.StkRubroUM}
-                type="number"
-              ></TextField>
-            </Grid>
-
-            <Grid item xs={2} sm={2} lg={2}>
-              <TextField
-                id="StkRubroAncho"
-                label="Ancho"
-                type="number"
-                fullWidth
-                value={state.StkRubroAncho}
-                onChange={handleChange("StkRubroAncho")}
-                autoFocus={true}
-              ></TextField>
-            </Grid>
-
-            {/* Partida Ubicación-Geografica Ubicación-Fisica */}
-            <Grid item xs={4} sm={4} lg={4}>
+            <Grid container>
               <TextField
                 id="StkEnvasePartida"
                 type="text"
@@ -666,10 +666,12 @@ var StkMovEntrada = props => {
                 fullWidth
                 value={state.StkEnvasePartida}
                 onChange={handleChange("StkEnvasePartida")}
+                // className={classes.textField_150}
               ></TextField>
+              {/* </Grid> */}
             </Grid>
 
-            <Grid item xs={4} sm={4} lg={4}>
+            <Grid item xs>
               <TextField
                 id="StkEnvaseUbG"
                 select
@@ -682,6 +684,8 @@ var StkMovEntrada = props => {
                   native: true
                 }}
                 autoFocus={true}
+                className={classes.textField_150}
+                InputLabelProps={{ shrink: true }}
               >
                 <option default></option>
 
@@ -693,7 +697,7 @@ var StkMovEntrada = props => {
                 ))}
               </TextField>
             </Grid>
-            <Grid item xs={4} sm={4} lg={4}>
+            <Grid item xs>
               <TextField
                 id="StkEnvaseUbF"
                 select
@@ -705,6 +709,7 @@ var StkMovEntrada = props => {
                   native: true
                 }}
                 autoFocus={true}
+                className={classes.textField_150}
               >
                 <option></option>
                 {state.ubicacionf.map(option => (
@@ -726,35 +731,32 @@ var StkMovEntrada = props => {
                 fullWidth
                 value={state.StkEnvaseObserv}
                 onChange={handleChange("StkEnvaseObserv")}
-              ></TextField>
+                className={classes.textField}
+              />
             </Grid>
           </Grid>
-          {/* </DialogContent>
-            <DialogActions> */}
-          <Grid>
-            <br></br>
-            <br></br>
+        </DialogContent>
+        <DialogActions>
+          <Grid container justify="flex-start">
+            <IconButton onClick={limpioPantalla}>
+              <DeleteIcon />
+            </IconButton>
           </Grid>
-          <Grid
-            container
-            direction="row"
-            justify="flex-end"
-            alignItems="flex-end"
-          >
-            <Button variant="contained" color="primary" onClick={agregastock}>
-              Confirmar
-            </Button>
 
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={limpioPantalla}
-            >
-              Cancelar
-            </Button>
-          </Grid>
-        </Fragment>
-      )}
+          <Button variant="contained" color="primary" onClick={agregastock}>
+            Confirmar
+          </Button>
+
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={limpioPantalla}
+          >
+            Cancelar
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {/* )} descomentar */}
 
       {/* IMPRESION */}
       {/* ********* */}
