@@ -1,10 +1,10 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-var path = require('path');
-var conexion = require('../conexion');
-var param = require('../parametros')
+var path = require("path");
+var conexion = require("../conexion");
+var param = require("../parametros");
 
-conexion.connect(function (err) {
+conexion.connect(function(err) {
   if (!err) {
     console.log("base de datos conectada en presuppu");
   } else {
@@ -12,103 +12,136 @@ conexion.connect(function (err) {
   }
 });
 
-var datosenvio = []
+var datosenvio = [];
 
-var datosenvio1 = []
+var datosenvio1 = [];
 var router = express();
-router.get('/',  (req, res, next) => {
-  var q, i = 0
-  var coeficiente = 0, cantidad = 0, StkRubroAbrP = '', largo = 0, ancho = 0.00
-  var enteroancho = 0, decimancho = 0.00
-  datosrec = JSON.parse(req.query.datoscalculo)
-  totalreg = datosrec.length
+router.get("/", (req, res, next) => {
+  var q,
+    i = 0;
+  var coeficiente = 0,
+    cantidad = 0,
+    StkRubroAbrP = "",
+    largo = 0,
+    ancho = 0.0;
+  var enteroancho = 0,
+    decimancho = 0.0;
+  datosrec = JSON.parse(req.query.datoscalculo);
+  totalreg = datosrec.length;
 
-datosrec.map(datos => {  
-      cantidad = datos.cantidad;
-      StkRubroAbrP = datos.StkRubroAbr;
-      largo = datos.largo + 0.12
-      ancho = datos.ancho + 0.12
-      enteroancho = Math.trunc(ancho  / 1.50)
-      decimancho = (ancho  / 1.5) - enteroancho
-      if (decimancho < 0.50) 
-        {
-          ancho = enteroancho + 0.50
-        }
-        else
-        {
-         ancho = enteroancho + 1
-        }
-      if (datos.minmay == 1) 
-        {
-          coeficiente = param.coeficientemay
-        }
-        else 
-        {
-          coeficiente = param.coeficientemin
-        }
-      minutosunion = (datos.ancho + 0.12) * largo * 5
+  datosrec.map(datos => {
+    cantidad = datos.cantidad;
+    StkRubroAbrP = datos.StkRubroAbr;
+    // largo = datos.largo + 0.12;
+    // ancho = datos.ancho + 0.12;
+    // enteroancho = Math.trunc(ancho / 1.5);
+    // decimancho = ancho / 1.5 - enteroancho;
+    // if (decimancho < 0.5) {
+    //   ancho = enteroancho + 0.5;
+    // } else {
+    //   ancho = enteroancho + 1;
+    // }
+    if (datos.minmay == 1) {
+      coeficiente = param.coeficientemay;
+      tipoojal = param.abrojales28;
+      sogachicote = param.sogachicotemay;
+    } else {
+      coeficiente = param.coeficientemin;
+      tipoojal = param.abrojales3hz;
+      sogachicote = param.sogachicotemin;
+    }
+    minutosunion = (datos.ancho + 0.12) * largo * 5;
+    sogadobladillo = param.sogadobladillo;
+    valorflete = param.flete;
+    valorMOT = param.MOTpM2;
 
-      q = ['Select ',
-                      'StkRubroDesc, ',
-                      '(StkRubroCosto * StkMonedasCotizacion * ', coeficiente, 
-                      ' * ', cantidad,
-                      ' * ', ancho,
-                      ' * ', largo , ') as Costo',
-                      ' from BaseStock.StkRubro JOIN  BaseStock.StkMonedas ', 
-                      'where StkRubro.StkRubroAbr = "' , StkRubroAbrP , '" ' , 
-                      'and StkRubro.StkRubroTM = idStkMonedas '
-                    ].join('')
-      q1 = ['Select ',
-                      '(REPValorMOT / 60 * ', minutosunion, ')',
-                      ' as ImpConFajas ', 
-                      'from reparacion.parametrosrep '
-           ].join('')  
-          console.log(q)
-          console.log(q1)
-           conexion.query(
-                 q,              
-                      function(err, result) {
-                      if (err) {
-                          console.log('error en mysql')
-                          console.log(err)
-                          } 
-                          else {
-                           datosenvio.push(result)
-                          //  i++ 
-                            // if (i === totalreg)
-                            // {
-                            //   res.json(datosenvio)
-                            //   datosenvio = []
-                            // }
-                          }
-                  })
-                  conexion.query(
-                    q1,              
-                         function(err, result) {
-                         if (err) {
-                             console.log('error en mysql')
-                             console.log(err)
-                             } 
-                             else {
-                              datosenvio.push(result)
-                              i++ 
-                               if (i === totalreg)
-                               {
-                                 
-                                // datosenvio2 = (datosenvio1.concat(datosenvio))
-                                // console.log(datosenvio2)
-                                // console.log(datosenvio1)
-                                // console.log(datosenvio)
-                                  res.json(datosenvio) 
-                                 datosenvio = []
-                                //  datosenvio1 = []
-                                //  datosenvio2 = []
-                               }
-                             }
-                     })
-  })
+    mcuadcob = [
+      "Select ",
+      "StkRubroDesc, ",
+      "(StkRubroCosto * StkMonedasCotizacion / 1.50 * 1.02 ) as CostoCobMC, ",
+      "(StkRubroCosto * StkMonedasCotizacion * 0.20 / 11 ) as CostoRefuerzo",
+      " from BaseStock.StkRubro JOIN  BaseStock.StkMonedas ",
+      'where StkRubro.StkRubroAbr = "',
+      StkRubroAbrP,
+      '" ',
+      "and StkRubro.StkRubroTM = idStkMonedas"
+    ].join("");
+
+    msogachicote = [
+      "Select ",
+      "(StkRubroCosto * StkMonedasCotizacion / 1000 * 1.65) as CostoMSChicote ",
+      "from BaseStock.StkRubro JOIN  BaseStock.StkMonedas ",
+      "where StkRubro.StkRubroAbr = '",
+      sogachicote,
+      "'",
+      "and StkRubro.StkRubroTM = idStkMonedas"
+    ].join("");
+
+    msogadobladillo = [
+      "Select ",
+      "(StkRubroCosto * StkMonedasCotizacion / 50) as CostoMSDobladillo ",
+      "from BaseStock.StkRubro JOIN  BaseStock.StkMonedas ",
+      "where StkRubro.StkRubroAbr = '",
+      sogadobladillo,
+      "'",
+      "and StkRubro.StkRubroTM = idStkMonedas"
+    ].join("");
+
+    ojales = [
+      "Select ",
+      "(StkRubroCosto * StkMonedasCotizacion / 125) as CostoOjalM2 ",
+      "from BaseStock.StkRubro JOIN  BaseStock.StkMonedas ",
+      "where StkRubro.StkRubroAbr = '",
+      tipoojal,
+      "'",
+      " and StkRubro.StkRubroTM = idStkMonedas"
+    ].join("");
+
+    conexion.query(mcuadcob, function(err, result) {
+      if (err) {
+        console.log("error en mysql");
+        console.log(err);
+      } else {
+        datosenvio.push(result);
+      }
+    });
+
+    conexion.query(msogachicote, function(err, result) {
+      if (err) {
+        console.log("error en mysql");
+        console.log(err);
+      } else {
+        datosenvio.push(result);
+      }
+    });
+
+    conexion.query(msogadobladillo, function(err, result) {
+      if (err) {
+        console.log("error en mysql");
+        console.log(err);
+      } else {
+        datosenvio.push(result);
+      }
+    });
+
+    conexion.query(ojales, function(err, result) {
+      if (err) {
+        console.log("error en mysql");
+        console.log(err);
+      } else {
+        datosenvio.push(result);
+        i++;
+        if (i === totalreg) {
+          for (var j = 0; j < i; j++) {
+            console.log(datosenvio[j].StkRubroDesc);
+          }
+          res.json(datosenvio);
+          datosenvio = [];
+        }
+      }
+    });
+  });
 });
 
-
-conexion.end
+conexion.end;
 module.exports = router;
