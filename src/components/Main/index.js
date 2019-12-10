@@ -11,7 +11,7 @@ import { Route } from "react-router-dom";
 // import UpdateComponent from './pages/UpdateComponent'
 //import DeleteComponent from './pages/DeleteComponent'
 
-import StkMonedas from "./pages/Monedas/StkMonedas";
+import StkMonedas from "./pages/Stock/Monedas/StkMonedas";
 import Proveedores from "./pages/Proveedores/Proveedores";
 import StkUnMed from "./pages/UnidadMedidas/StkUnMed";
 import StkRubro from "./pages/Rubros/StkRubro";
