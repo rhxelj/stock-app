@@ -1,6 +1,6 @@
 import React, { Component} from 'react'
 import request from 'superagent'
-import IpServidor from '../VariablesDeEntorno'
+import IpServidor from '../../VariablesDeEntorno'
 import 'react-table/react-table.css'
 // import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
@@ -11,7 +11,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 // import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import CodigoError from '../../../lib/CodigoError'
+import CodigoError from '../../../../lib/CodigoError'
   
 class ProveedoresAgregar extends Component {
     constructor(props){

@@ -9,8 +9,8 @@ import {
   TextField
 } from "@material-ui/core";
 
-import CodigoError from "../../../lib/CodigoError";
-import IpServidor from "../VariablesDeEntorno";
+import CodigoError from "../../../../lib/CodigoError";
+import IpServidor from "../../VariablesDeEntorno";
 import request from "superagent";
 
 class StkRubroModificar extends Component {

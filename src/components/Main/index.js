@@ -12,9 +12,9 @@ import { Route } from "react-router-dom";
 //import DeleteComponent from './pages/DeleteComponent'
 
 import StkMonedas from "./pages/Stock/Monedas/StkMonedas";
-import Proveedores from "./pages/Proveedores/Proveedores";
+import Proveedores from "./pages/Stock/Proveedores/Proveedores";
 import StkUnMed from "./pages/UnidadMedidas/StkUnMed";
-import StkRubro from "./pages/Rubros/StkRubro";
+import StkRubro from "./pages/Stock/Rubros/StkRubro";
 import StkGrupo from "./pages/Stock/Grupos/StkGrupo";
 import StkUbFisica from "./pages/UbicacionFisica/StkUbFisica";
 import ListaPrecios from "./pages/ListaPrecios/ListaPrecios";
