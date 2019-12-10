@@ -23,7 +23,7 @@ import StkMovEntrada from "./pages/Movimientos/Entrada/StkMovEntrada";
 import StkMovSalida from "./pages/Movimientos/Salida/StkMovSalida";
 import StkSalidaFinal from "./pages/Movimientos/Salida/StkSalidaFinal";
 // import StkMovimiento from './pages/z_SinClasificarMirar/StkMovimiento'
-import StkItems from "./pages/Items/StkItems";
+import StkItems from "./pages/Stock/Items/StkItems";
 
 import PresupPant from "./pages/Presupuesto/PresupPant.js";
 
