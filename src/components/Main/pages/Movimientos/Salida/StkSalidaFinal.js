@@ -55,7 +55,7 @@ datosscaneados = (codigo) =>  {
   var grupo = codigo.split(':')[1]
   var rubro = codigo.split(':')[2]
 
-  const url = IpServidor + "/stkrubroleecodgryrb/?id1="+rubro+'&id2='+grupo;
+  const url = IpServidor + "/stkrubroleecodrbygr/?id1="+rubro+'&id2='+grupo;
   request
   .get(url)
   .set('Content-Type', 'application/json')

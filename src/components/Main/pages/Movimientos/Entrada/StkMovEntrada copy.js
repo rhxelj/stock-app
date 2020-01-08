@@ -98,7 +98,7 @@ var StkMovEntrada = props => {
   var [state, setState] = useState(initial_state);
 
   // Lee Grupo
-  const stkgrupoleer = _ => {
+  const leestkgrupo = _ => {
     const url = IpServidor + "/stkgrupoleer";
     request
       .get(url)
@@ -117,146 +117,137 @@ var StkMovEntrada = props => {
       .set("Content-Type", "application/json")
       .then(res => {
         const stkrubro = JSON.parse(res.text);
-        // setState({ ...state, stkrubro: stkrubro });
         setState({ ...state, stkrubro: stkrubro });
       });
   };
 
-  // //lee ubicacion física según la ubicación geografica
-  // const stkubfisicaleerUbG = id => {
-  //   const url = IpServidor + "/stkubfisicaleerUbG/?id=" + id;
-  //   request
-  //     .get(url)
-  //     .set("Content-Type", "application/json")
-  //     .then(res => {
-  //       const ubicacionf = JSON.parse(res.text);
-  //       setState({ ...state, ubicacionf: ubicacionf });
-  //     });
-  // };
+  //lee ubicacion física según la ubicación geografica
+  const stkubfisicaleerUbG = id => {
+    const url = IpServidor + "/stkubfisicaleerUbG/?id=" + id;
+    request
+      .get(url)
+      .set("Content-Type", "application/json")
+      .then(res => {
+        const ubicacionf = JSON.parse(res.text);
+        setState({ ...state, ubicacionf: ubicacionf });
+      });
+  };
 
-  // const stkrubroleecodrbygr = () => {
-  //   const url =
-  //     IpServidor +
-  //     "/stkrubroleecodrbygr/?id1=" +
-  //     state.StkItemsRubro +
-  //     "&id2=" +
-  //     state.StkItemsGrupo;
-  //   request
-  //     .get(url)
-  //     .set("Content-Type", "application/json")
-  //     .then(res => {
-  //       const stkrubroele = JSON.parse(res.text);
-  //       setState({ ...state, stkrubroele: stkrubroele });
-  //       setState({
-  //         ...state,
-  //         StkRubroAncho: stkrubroele[0].StkRubroAncho, // ! revisar esto
-  //         StkRubroPresDes: stkrubroele[0].StkRubroPresDes,
-  //         StkRubroPres: stkrubroele[0].StkRubroPres,
-  //         StkRubroUM: stkrubroele[0].StkRubroUM
+  const stkrubroleecodrbygr = () => {
+    const url =
+      IpServidor +
+      "/stkrubroleecodrbygr/?id1=" +
+      state.StkItemsRubro +
+      "&id2=" +
+      state.StkItemsGrupo;
+    request
+      .get(url)
+      .set("Content-Type", "application/json")
+      .then(res => {
+        const stkrubroele = JSON.parse(res.text);
+        setState({ ...state, stkrubroele: stkrubroele });
+        setState({
+          ...state,
+          StkRubroAncho: stkrubroele[0].StkRubroAncho, // ! revisar esto
+          StkRubroPresDes: stkrubroele[0].StkRubroPresDes,
+          StkRubroPres: stkrubroele[0].StkRubroPres,
+          StkRubroUM: stkrubroele[0].StkRubroUM
 
-  //         // StkRubroAncho: state.stkrubroele[0].StkRubroAncho,
-  //         // StkRubroPresDes: state.stkrubroele[0].StkRubroPresDes,
-  //         // StkRubroPres: state.stkrubroele[0].StkRubroPres,
-  //         // StkRubroUM: state.stkrubroele[0].StkRubroUM
-  //       });
-  //     });
-  // };
+          // StkRubroAncho: state.stkrubroele[0].StkRubroAncho,
+          // StkRubroPresDes: state.stkrubroele[0].StkRubroPresDes,
+          // StkRubroPres: state.stkrubroele[0].StkRubroPres,
+          // StkRubroUM: state.stkrubroele[0].StkRubroUM
+        });
+      });
+  };
 
-  // const stkitemsleecodgryrb = id3 => {
-  //   var id2 = state.StkItemsGrupo;
-  //   const url = IpServidor + "/stkitemsleecodgryrb/?id2=" + id2 + "&id3=" + id3;
-  //   request
-  //     .get(url)
-  //     .set("Content-Type", "application/json")
-  //     .then(res => {
-  //       const stkitems = JSON.parse(res.text);
-  //       setState({ ...state, stkitems: stkitems });
-  //     });
-  // };
+  const stkitemsleecodgryrb = id3 => {
+    var id2 = state.StkItemsGrupo;
+    const url = IpServidor + "/stkitemsleecodgryrb/?id2=" + id2 + "&id3=" + id3;
+    request
+      .get(url)
+      .set("Content-Type", "application/json")
+      .then(res => {
+        const stkitems = JSON.parse(res.text);
+        setState({ ...state, stkitems: stkitems });
+      });
+  };
 
-  // const stkitemsleecodgrrbit = () => {
-  //   var id1 = state.StkItems;
-  //   var id2 = state.StkItemsGrupo;
-  //   var id3 = state.StkItemsRubro;
-  //   const url =
-  //     IpServidor +
-  //     "/stkitemsleecodgrrbit/?id1=" +
-  //     id1 +
-  //     "&id2=" +
-  //     id2 +
-  //     "&id3=" +
-  //     id3;
-  //   request
-  //     .get(url)
-  //     .set("Content-Type", "application/json")
-  //     .then(res => {
-  //       const stkitemse = JSON.parse(res.text);
-  //       setState({ ...state, stkitemse: stkitemse });
-  //       setState({
-  //         ...state,
-  //         StkItemsCantidad: state.stkitemse[0].StkItemsCantidad,
-  //         StkItemsCantDisp: state.stkitemse[0].StkItemsCantDisp,
-  //         StkItemsFAct: state.stkitemse[0].StkItemsFAct,
-  //         StkItemsMin: state.stkitemse[0].StkItemsMin,
-  //         StkItemsMax: state.stkitemse[0].StkItemsMax
-  //       });
-  //       var recorte = state.StkItemsFAct.substr(0, 10);
-  //       setState({ ...state, StkItemsFAct: recorte });
-  //     });
-  // };
+  const stkitemsleecodgrrbit = () => {
+    var id1 = state.StkItems;
+    var id2 = state.StkItemsGrupo;
+    var id3 = state.StkItemsRubro;
+    const url =
+      IpServidor +
+      "/stkitemsleecodgrrbit/?id1=" +
+      id1 +
+      "&id2=" +
+      id2 +
+      "&id3=" +
+      id3;
+    request
+      .get(url)
+      .set("Content-Type", "application/json")
+      .then(res => {
+        const stkitemse = JSON.parse(res.text);
+        setState({ ...state, stkitemse: stkitemse });
+        setState({
+          ...state,
+          StkItemsCantidad: state.stkitemse[0].StkItemsCantidad,
+          StkItemsCantDisp: state.stkitemse[0].StkItemsCantDisp,
+          StkItemsFAct: state.stkitemse[0].StkItemsFAct,
+          StkItemsMin: state.stkitemse[0].StkItemsMin,
+          StkItemsMax: state.stkitemse[0].StkItemsMax
+        });
+        var recorte = state.StkItemsFAct.substr(0, 10);
+        setState({ ...state, StkItemsFAct: recorte });
+      });
+  };
 
-  // const limpioPantalla = () => {
-  //   setState(
-  //     initial_state //TODO revisar esto no me pone en cero todo averiguar como poner en cero
-  //     //   {
-  //     //   stkrubro: [],
-  //     //   // stkgrupo: [],
-  //     //   stkitems: [],
-  //     //   stkItems: [],
-  //     //   stkenvaseubg: [],
-  //     //   ubicacionf: [],
-  //     //   // ubicacion:[],
-  //     //   stkrubroele: [],
-  //     //   StkItemsCantidad: 0.0,
-  //     //   StkItemsCantDisp: 0.0,
-  //     //   StkItemsFAct: "",
-  //     //   StkItemsMin: 0.0,
-  //     //   StkItemsMax: 0.0,
-  //     //   StkRubroAncho: 0.0,
-  //     //   StkRubroPresDes: "",
-  //     //   StkRubroPres: 0.0,
-  //     //   StkRubroUM: 0.0,
-  //     //   cantidad: 1.0,
-  //     //   largo: 0.0,
-  //     //   ancho: 0.0,
-  //     //   faltante: 0.0,
-  //     //   total: 0.0,
-  //     //   datostraid: [],
-  //     //   open: true,
-  //     //   marcagenqr: false,
-  //     //   imp_conf: false,
-  //     //   marcaagregado: false,
-  //     //   StkEnvaseUb: "",
-  //     //   StkEnvaseObserv: "",
-  //     //   StkEnvasePartida: "",
-  //     //   indiceub: [],
-  //     //   StkItemsGrupo: [],
-  //     //   StkItemsRubro: "",
-  //     //   StkItems: [],
-  //     //   StkEnvaseUbF: [],
-  //     //   StkEnvaseUbG: []
-  //     // }
-  //   );
-  //   stkgrupoleer();
-  // };
-
-  // useEffect(() => {
-  //   console.log(
-  //     "dentro de useEffect contenido de state.idStkGrupo ",
-  //     state.idStkGrupo
-  //   );
-  //   stkrubroleecodgrupo(state.idStkGrupo);
-  // }, [state.idStkGrupo]);
+  const limpioPantalla = () => {
+    setState(
+      initial_state //TODO revisar esto no me pone en cero todo averiguar como poner en cero
+      //   {
+      //   stkrubro: [],
+      //   // stkgrupo: [],
+      //   stkitems: [],
+      //   stkItems: [],
+      //   stkenvaseubg: [],
+      //   ubicacionf: [],
+      //   // ubicacion:[],
+      //   stkrubroele: [],
+      //   StkItemsCantidad: 0.0,
+      //   StkItemsCantDisp: 0.0,
+      //   StkItemsFAct: "",
+      //   StkItemsMin: 0.0,
+      //   StkItemsMax: 0.0,
+      //   StkRubroAncho: 0.0,
+      //   StkRubroPresDes: "",
+      //   StkRubroPres: 0.0,
+      //   StkRubroUM: 0.0,
+      //   cantidad: 1.0,
+      //   largo: 0.0,
+      //   ancho: 0.0,
+      //   faltante: 0.0,
+      //   total: 0.0,
+      //   datostraid: [],
+      //   open: true,
+      //   marcagenqr: false,
+      //   imp_conf: false,
+      //   marcaagregado: false,
+      //   StkEnvaseUb: "",
+      //   StkEnvaseObserv: "",
+      //   StkEnvasePartida: "",
+      //   indiceub: [],
+      //   StkItemsGrupo: [],
+      //   StkItemsRubro: "",
+      //   StkItems: [],
+      //   StkEnvaseUbF: [],
+      //   StkEnvaseUbG: []
+      // }
+    );
+    leestkgrupo();
+  };
 
   useEffect(() => {
     console.log(
@@ -267,24 +258,24 @@ var StkMovEntrada = props => {
   }, [state.idStkGrupo]);
 
   useEffect(() => {
-    stkgrupoleer();
+    leestkgrupo();
     console.log("leyo leestokgrupo");
   }, []);
 
-  // // function componentWillMount() {
-  // //   stkgrupoleer();
-  // // }
+  // function componentWillMount() {
+  //   leestkgrupo();
+  // }
 
-  // // function componentWillUnmount() {}
+  // function componentWillUnmount() {}
 
-  // // function componentDidMount() {}
+  // function componentDidMount() {}
 
-  // // Handles VARIOS REVISAR si se pueden "REDUCIR" - INICIO
-  // //***********************************************************//
+  // Handles VARIOS REVISAR si se pueden "REDUCIR" - INICIO
+  //***********************************************************//
 
-  // // const handleChange = prop => event => {
-  // //   setState({ ...state, [prop]: event.target.value });
-  // // };
+  // const handleChange = prop => event => {
+  //   setState({ ...state, [prop]: event.target.value });
+  // };
 
   const handleChangeGrupo = prop => event => {
     console.log("Evente en change grupo ", event.target.id);
@@ -297,167 +288,162 @@ var StkMovEntrada = props => {
   const handleChange = event => {
     console.log("Entro en handlechange de ", event.target.id);
     const id = event.target.id;
-    setState({ ...state, [id]: event.target.value });
+    setState({ ...state, id: event.target.value });
     console.log("TCL: componentDidMount -> id", id);
-    // console.log(
-    //   "TCL: componentDidMount -> event.target.value",
-    //   event.target.value
-    // );
-
     console.log(
       "TCL: componentDidMount -> event.target.value",
-      state.idStkGrupo
+      event.target.value
     );
   };
 
-  // const handleChangeRubro = prop => event => {
-  //   setState({ ...state, [prop]: event.target.value });
-  //   stkrubroleecodrbygr();
-  //   setState({ ...state, [prop]: event.target.value });
-  //   stkitemsleecodgryrb(state.StkItemsRubro);
-  // };
+  const handleChangeRubro = prop => event => {
+    setState({ ...state, [prop]: event.target.value });
+    stkrubroleecodrbygr();
+    setState({ ...state, [prop]: event.target.value });
+    stkitemsleecodgryrb(state.StkItemsRubro);
+  };
 
-  // const handleChangeItems = prop => event => {
-  //   setState({ ...state, [prop]: event.target.value });
-  //   stkitemsleecodgrrbit();
-  // };
+  const handleChangeItems = prop => event => {
+    setState({ ...state, [prop]: event.target.value });
+    stkitemsleecodgrrbit();
+  };
 
-  // const handleChangeUbicacion = prop => event => {
-  //   setState({ ...state, [prop]: event.target.value });
-  //   stkubfisicaleerUbG(state.StkEnvaseUbG);
-  // };
+  const handleChangeUbicacion = prop => event => {
+    setState({ ...state, [prop]: event.target.value });
+    stkubfisicaleerUbG(state.StkEnvaseUbG);
+  };
 
   // handleClickOpen = () => {
   //   this.setState({ open: true });
   // };
 
-  // const handleClose = () => {
-  //   // this.setState({ open: false });
-  //   // this.toggleImprimir()
-  //   limpioPantalla();
-  //   toggleEntradaDatos();
-  // };
+  const handleClose = () => {
+    // this.setState({ open: false });
+    // this.toggleImprimir()
+    limpioPantalla();
+    toggleEntradaDatos();
+  };
 
   // Handles VARIOS REVISAR si se pueden "REDUCIR" - FIN
   //***********************************************************//
 
   // TODO inicio : Revisar tambien estos toggles creo que se pueden reducir a uno solo
 
-  // const toggleState = prop => event => {
-  //   setState({ ...state, [prop]: event.target.value });
-  //   alert(`Cambio el estado de ${[prop]}`);
-  // };
+  const toggleState = prop => event => {
+    setState({ ...state, [prop]: event.target.value });
+    alert(`Cambio el estado de ${[prop]}`);
+  };
 
   // Manejo de Pantalla - INICIO
-  // const toggleEntradaDatos = () => {
-  //   // console.log("valor de toggle_entrada : "+this.state.toggle_state.entrada)
-  //   setState({
-  //     ...state,
-  //     toggle_state: {
-  //       // entrada:!prevState.toggle_state.entrada,
-  //       entrada: state.toggle_state.entrada,
-  //       dialogo: !state.toggle_state.dialogo,
-  //       imprimir: state.toggle_state.imprimir
-  //     }
-  //   }); // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***
-  // };
+  const toggleEntradaDatos = () => {
+    // console.log("valor de toggle_entrada : "+this.state.toggle_state.entrada)
+    setState({
+      ...state,
+      toggle_state: {
+        // entrada:!prevState.toggle_state.entrada,
+        entrada: state.toggle_state.entrada,
+        dialogo: !state.toggle_state.dialogo,
+        imprimir: state.toggle_state.imprimir
+      }
+    }); // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***
+  };
 
-  // const toggleImprimir = () => {
-  //   setState(...state, {
-  //     toggle_state: {
-  //       entrada: !state.toggle_state.entrada,
-  //       dialogo: !state.toggle_state.dialogo,
-  //       imprimir: !state.toggle_state.imprimir
-  //     }
-  //   }); // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***
-  // };
+  const toggleImprimir = () => {
+    setState(...state, {
+      toggle_state: {
+        entrada: !state.toggle_state.entrada,
+        dialogo: !state.toggle_state.dialogo,
+        imprimir: !state.toggle_state.imprimir
+      }
+    }); // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***
+  };
 
   // TODO Fin: Hasta aca
 
-  // const cancelaImpresion = () => {
-  //   setState(...state, {
-  //     toggle_state: {
-  //       entrada: true,
-  //       dialogo: false,
-  //       imprimir: false
-  //     }
-  //   }); // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***
-  //   limpioPantalla();
-  // };
+  const cancelaImpresion = () => {
+    setState(...state, {
+      toggle_state: {
+        entrada: true,
+        dialogo: false,
+        imprimir: false
+      }
+    }); // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***
+    limpioPantalla();
+  };
   // Manejo de Pantalla - FIN
 
-  // const MarcaGenQr = () => {
-  //   setState(...state, {
-  //     marcagenqr: !state.marcagenqr
-  //   });
-  // };
+  const MarcaGenQr = () => {
+    setState(...state, {
+      marcagenqr: !state.marcagenqr
+    });
+  };
 
-  // const ImpConf = () => {
-  //   setState(...state, {
-  //     imp_conf: !state.imp_conf,
-  //     dialogo_imprimir: !state.dialogo_imprimir
-  //   });
-  //   // this.toggleImprimir()
-  //   toggleEntradaDatos();
-  // };
-  // //aca
+  const ImpConf = () => {
+    setState(...state, {
+      imp_conf: !state.imp_conf,
+      dialogo_imprimir: !state.dialogo_imprimir
+    });
+    // this.toggleImprimir()
+    toggleEntradaDatos();
+  };
+  //aca
 
-  // const agregastock = _ => {
-  //   const url =
-  //     IpServidor +
-  //     "/stkitemsmodstock/?id1=" +
-  //     state.StkItems +
-  //     "&id2=" +
-  //     state.StkItemsGrupo +
-  //     "&id3=" +
-  //     state.StkItemsRubro; //'http://localhost:3000/data'
-  //   request
-  //     .post(url)
-  //     .set("Content-Type", "application/json")
-  //     .send({ cantidad: state.cantidad })
-  //     .send({ StkRubroPres: state.StkRubroPres })
-  //     .send({ StkItemsCantDisp: state.StkItemsCantDisp })
-  //     .send({ StkItemsCantidad: state.StkItemsCantidad })
-  //     .catch(err => {
-  //       if (err.status === 414) {
-  //         alert("Falta información para modificar Items  ");
-  //       } else {
-  //         console.log("Error nro en StkMovEntrada 1:  " + err.status);
-  //       }
-  //     });
+  const agregastock = _ => {
+    const url =
+      IpServidor +
+      "/stkitemsmodstock/?id1=" +
+      state.StkItems +
+      "&id2=" +
+      state.StkItemsGrupo +
+      "&id3=" +
+      state.StkItemsRubro; //'http://localhost:3000/data'
+    request
+      .post(url)
+      .set("Content-Type", "application/json")
+      .send({ cantidad: state.cantidad })
+      .send({ StkRubroPres: state.StkRubroPres })
+      .send({ StkItemsCantDisp: state.StkItemsCantDisp })
+      .send({ StkItemsCantidad: state.StkItemsCantidad })
+      .catch(err => {
+        if (err.status === 414) {
+          alert("Falta información para modificar Items  ");
+        } else {
+          console.log("Error nro en StkMovEntrada 1:  " + err.status);
+        }
+      });
 
-  //   const url1 =
-  //     IpServidor +
-  //     "/stkenvaseagregar/?id1=" +
-  //     state.StkItems +
-  //     "&id2=" +
-  //     state.StkItemsGrupo +
-  //     "&id3=" +
-  //     state.StkItemsRubro; //'http://localhost:3000/data'
-  //   request
-  //     .post(url1)
-  //     .set("Content-Type", "application/json")
-  //     // .send({total: Number(this.state.total)})
-  //     .send({ cantidad: state.cantidad })
-  //     .send({ StkRubroPres: state.StkRubroPres })
-  //     .send({ StkEnvasePartida: state.StkEnvasePartida })
-  //     .send({ StkEnvaseUbG: state.StkEnvaseUbG })
-  //     .send({ StkEnvaseUbF: state.StkEnvaseUbF })
-  //     .send({ StkEnvaseObserv: state.StkEnvaseObserv })
-  //     .then(res => {
-  //       // const total1 = JSON.parse(res.text)
-  //       setState({ ...state, marcaagregado: true });
-  //     })
-  //     .catch(err => {
-  //       if (err.status === 413) {
-  //         alert("Falta información para agregar Envase  ");
-  //       } else {
-  //         console.log("Error nro en StkMovEntrada 2 :  " + err.status);
-  //       }
-  //     });
-  //   // this.toggleImprimir()
-  //   toggleEntradaDatos();
-  // };
+    const url1 =
+      IpServidor +
+      "/stkenvaseagregar/?id1=" +
+      state.StkItems +
+      "&id2=" +
+      state.StkItemsGrupo +
+      "&id3=" +
+      state.StkItemsRubro; //'http://localhost:3000/data'
+    request
+      .post(url1)
+      .set("Content-Type", "application/json")
+      // .send({total: Number(this.state.total)})
+      .send({ cantidad: state.cantidad })
+      .send({ StkRubroPres: state.StkRubroPres })
+      .send({ StkEnvasePartida: state.StkEnvasePartida })
+      .send({ StkEnvaseUbG: state.StkEnvaseUbG })
+      .send({ StkEnvaseUbF: state.StkEnvaseUbF })
+      .send({ StkEnvaseObserv: state.StkEnvaseObserv })
+      .then(res => {
+        // const total1 = JSON.parse(res.text)
+        setState({ ...state, marcaagregado: true });
+      })
+      .catch(err => {
+        if (err.status === 413) {
+          alert("Falta información para agregar Envase  ");
+        } else {
+          console.log("Error nro en StkMovEntrada 2 :  " + err.status);
+        }
+      });
+    // this.toggleImprimir()
+    toggleEntradaDatos();
+  };
 
   const classes = useStyles();
   return (
@@ -580,13 +566,12 @@ var StkMovEntrada = props => {
 
               <TextField
                 // className={classes.cajas}
-                id="idStkRubro"
+                id="Rubro"
                 select
                 label="Rubro"
                 fullWidth
                 value={state.idStkRubro}
-                // onChange={() => handleChangeRubro("idStkRubro")}
-                onChange={handleChange}
+                onChange={() => handleChangeRubro("idStkRubro")}
                 SelectProps={{
                   native: true
                 }}
@@ -601,7 +586,7 @@ var StkMovEntrada = props => {
                 ))}
               </TextField>
 
-              {/* <TextField
+              <TextField
                 id="Items"
                 select
                 label="Items"
@@ -620,13 +605,12 @@ var StkMovEntrada = props => {
                     {option.StkItemsDesc}
                   </option>
                 ))}
-              </TextField> */}
-
+              </TextField>
               {/* </Grid> */}
             </Grid>
             {/* Segunda linea FIN */}
             {/* Cantidad/ StkRubroPresDes / StkRubroPres / StkRubroUM */}
-            {/* <Grid container spacing={2} justify="flex-start">
+            <Grid container spacing={2} justify="flex-start">
               <Grid item xs={3}>
                 <TextField
                   id="cantidad"
@@ -638,9 +622,9 @@ var StkMovEntrada = props => {
                   autoFocus={true}
                   // className={classes.textField_60}
                 />
-              </Grid> */}
+              </Grid>
 
-            {/* <Grid item xs={3}>
+              <Grid item xs={3}>
                 <TextField
                   label=" "
                   id="StkRubroPres"
@@ -655,9 +639,9 @@ var StkMovEntrada = props => {
                     )
                   }}
                 />
-              </Grid> */}
+              </Grid>
 
-            {/* <Grid item xs={3}>
+              <Grid item xs={3}>
                 <TextField
                   label=" "
                   fullWidth
@@ -669,9 +653,9 @@ var StkMovEntrada = props => {
                     )
                   }}
                 />
-              </Grid> */}
+              </Grid>
 
-            {/* <Grid item xs={3}>
+              <Grid item xs={3}>
                 <TextField
                   id="StkRubroAncho"
                   label="Ancho"
@@ -682,11 +666,11 @@ var StkMovEntrada = props => {
                   autoFocus={true}
                   // className={classes.textField_60}
                 />
-              </Grid> */}
-            {/* Partida Ubicación-Geografica Ubicación-Fisica */}
-            {/* <Grid item xs> */}
-          </Grid>
-          {/* <Grid container>
+              </Grid>
+              {/* Partida Ubicación-Geografica Ubicación-Fisica */}
+              {/* <Grid item xs> */}
+            </Grid>
+            <Grid container>
               <TextField
                 id="StkEnvasePartida"
                 type="text"
@@ -696,9 +680,10 @@ var StkMovEntrada = props => {
                 onChange={() => handleChange("StkEnvasePartida")}
                 // className={classes.textField_150}
               ></TextField>
-              {/* </Grid> 
-          {/* </Grid> 
-          {/* <Grid item xs>
+              {/* </Grid> */}
+            </Grid>
+
+            <Grid item xs>
               <TextField
                 id="StkEnvaseUbG"
                 select
@@ -717,14 +702,14 @@ var StkMovEntrada = props => {
                 <option default></option>
 
                 {/* {this.state.ubicacion.map(option => (   */}
-          {/* {ubicacion.map(option => (
+                {ubicacion.map(option => (
                   <option key={option.indiceub} value={option.indiceub}>
                     {option.detalleub}
                   </option>
                 ))}
-              </TextField> */}
-          {/* </Grid> */} */}
-          {/* <Grid item xs>
+              </TextField>
+            </Grid>
+            <Grid item xs>
               <TextField
                 id="StkEnvaseUbF"
                 select
@@ -748,8 +733,9 @@ var StkMovEntrada = props => {
                   </option>
                 ))}
               </TextField>
-            </Grid> */}
-          {/* <Grid item xs={2} sm={12} lg={12}>
+            </Grid>
+
+            <Grid item xs={2} sm={12} lg={12}>
               <TextField
                 id="StkEnvaseObserv"
                 type="text"
@@ -759,10 +745,10 @@ var StkMovEntrada = props => {
                 onChange={() => handleChange("StkEnvaseObserv")}
                 className={classes.textField}
               />
-            </Grid> */}
-          {/* </Grid> */}
+            </Grid>
+          </Grid>
         </DialogContent>
-        {/* <DialogActions>
+        <DialogActions>
           <Grid container justify="flex-start">
             <IconButton onClick={limpioPantalla}>
               <DeleteIcon />
@@ -780,8 +766,46 @@ var StkMovEntrada = props => {
           >
             Cancelar
           </Button>
-        </DialogActions> */}
+        </DialogActions>
       </Dialog>
+      {/* )} descomentar */}
+
+      {/* IMPRESION */}
+      {/* ********* */}
+
+      {/* {this.state.toggle_imprimir && */}
+      <Dialog
+        open={state.toggle_state.dialogo}
+        // aria-labelledby="form-dialog-title"
+        // onClose={this.toggleImprimir}
+
+        // open={this.state.toggle_im<Button variant="contained" color="primary" onClick = {this.ImpConf}  >primir}  // toggle_imprimir = TRUE
+
+        onClose={handleClose}
+      >
+        <DialogTitle id="form-dialog-title">Desea Imprimir ?</DialogTitle>
+        <DialogActions>
+          {/* <Button variant="contained" color="primary" onClick = {this.ImpConf}  > */}
+          <Button variant="contained" color="primary" onClick={toggleImprimir}>
+            Imprimir
+          </Button>
+          {/* <Button variant="contained" color="secondary" onClick={this.toggleImprimir}> */}
+          {/* <Button variant="contained"x color="secondary" onClick={() => alert("Aprete boton cancelar")}> */}
+          <Button variant="contained" color="secondary" onClick={handleClose}>
+            Cancelar
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {/* } */}
+
+      {/* {this.state.imp_conf && <StkGenImpQR ubicaG = {this.state.StkEnvaseUbG} />} */}
+
+      {state.toggle_state.imprimir && (
+        <StkGenImpQR
+          ubicaG={state.StkEnvaseUbG}
+          cancelaImpresion={cancelaImpresion}
+        />
+      )}
     </div>
   );
 };

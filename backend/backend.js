@@ -52,7 +52,7 @@ var stkrubroagregar = require("./routes/rubros/stkrubroagregar");
 var stkrubromodificar = require("./routes/rubros/stkrubromodificar");
 var stkrubroborrar = require("./routes/rubros/stkrubroborrar");
 var stkrubroleecodgrupo = require("./routes/rubros/stkrubroleecodgrupo");
-var stkrubroleecodgryrb = require("./routes/rubros/stkrubroleecodgryrb");
+var stkrubroleecodrbygr = require("./routes/rubros/stkrubroleecodrbygr");
 var stkrubroleeultnro = require("./routes/rubros/stkrubroleeultnro");
 
 var stkitemsleer = require("./routes/items/stkitemsleer");
@@ -166,7 +166,7 @@ app.use("/stkrubroagregar", stkrubroagregar);
 app.use("/stkrubromodificar", stkrubromodificar);
 app.use("/stkrubroborrar", stkrubroborrar);
 app.use("/stkrubroleecodgrupo", stkrubroleecodgrupo);
-app.use("/stkrubroleecodgryrb", stkrubroleecodgryrb);
+app.use("/stkrubroleecodrbygr", stkrubroleecodrbygr);
 app.use("/stkrubroleeultnro", stkrubroleeultnro);
 
 app.use("/stkitemsleer", stkitemsleer);

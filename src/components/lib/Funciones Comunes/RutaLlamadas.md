@@ -1,7 +1,8 @@
 # Grupos
+
 ```
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/Grupos/StkGrupo.js
-  145,9:         const url = IpServidor + '/stkgrupoleer'; 
+  145,9:         const url = IpServidor + '/stkgrupoleer';
 
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/Grupos/StkGrupoAgregar.js
   82,9:         const url = IpServidor +'/stkgrupoleercod/'+ this.state.StkRubroCodGrp
@@ -9,23 +10,24 @@
   204,8: //     const url = IpServidor + "/proveedoresleer";
   217,6: //   const url = IpServidor +'/stkunmedleer'
   229,8: //     const url = IpServidor + "/stkmonedasleer";
-  
+
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/Grupos/StkGrupoModificar.js
   73,9:         const url = IpServidor +'/stkgrupoleercod/'+ this.state.StkRubroCodGrp
 
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/Grupos/StkGrupoBorrar.js
-  38,9:         const url  = IpServidor + '/stkgrupoborrar/'+id;  
+  38,9:         const url  = IpServidor + '/stkgrupoborrar/'+id;
 ```
 
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/Impresion/StkGenImpQR.js
-  65,9:         const url = IpServidor +  '/stkenvaseleeimp/?id='+this.props.ubicaG ; 
-  77,9:         const url = IpServidor +  '/stkenvasecambiaimp/?id='+this.props.ubicaG ; 
+65,9: const url = IpServidor + '/stkenvaseleeimp/?id='+this.props.ubicaG ;
+77,9: const url = IpServidor + '/stkenvasecambiaimp/?id='+this.props.ubicaG ;
 
 # Items
+
 ```
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/Items/StkItems.js
-  156,9:         const url = IpServidor + '/stkitemsleer'; 
-  168,9:         const url = IpServidor + '/stkitemsleedetalles'; 
+  156,9:         const url = IpServidor + '/stkitemsleer';
+  168,9:         const url = IpServidor + '/stkitemsleedetalles';
   178,9:         const url = IpServidor + "/stkgrupoleercod/?id="+id;
 
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/Items/StkItemsAgregar.js
@@ -41,12 +43,14 @@
   90,5:     const url = IpServidor + "/stkgrupoleer";
   105,3:   const url = IpServidor + "/stkrubroleecodgrupo/"+id;
 ```
+
 # Lista de Precios
+
 ```
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/ListaPrecios/ModPrecios.jsx
   85,5:     const url = IpServidor + '/modprecios/'
   260,5:     const url = IpServidor + "/proveedoresleer";
-  271,5:     const url = IpServidor + '/stkgrupoleer'; 
+  271,5:     const url = IpServidor + '/stkgrupoleer';
   282,5:     const url = IpServidor + '/stkrubroleer'
 
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/ListaPrecios/StkItemsRed.js
@@ -56,29 +60,33 @@
   96,5:     const url =  IpServidor + '/listaprecios'
 
 ```
+
 # Monedas
+
 ```
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/Monedas/StkMonedas.js
   123,9:         const url = IpServidor + '/stkmonedasleer'
 
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/Monedas/StkMonedasAgregar.js
-  46,12:         // const url = IpServidor +'/agregarmonedas'  
+  46,12:         // const url = IpServidor +'/agregarmonedas'
 
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/Monedas/StkMonedasBorrar.js
   44,8:        const url = IpServidor+'/stkmonedasborrar/'+id;
 
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/Monedas/StkMonedasModificar.js
-  45,7:       const  url  = IpServidor + '/stkmonedasmodificar/' + this.state.moneda.idStkMonedas  
+  45,7:       const  url  = IpServidor + '/stkmonedasmodificar/' + this.state.moneda.idStkMonedas
 ```
+
 # Movimientos
+
 ```
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/Movimientos/Entrada/StkMovEntrada.js
   77,5:     const url = IpServidor + "/stkgrupoleer";
   89,5:     const url = IpServidor + "/stkrubroleecodgrupo/"+id;
-  101,5:     const url = IpServidor + "/stkubfisicaleerUbG/?id="+id;
-  112,5:     const url = IpServidor + "/stkrubroleecodgryrb/?id1="+this.state.StkItemsRubro+'&id2='+this.state.StkItemsGrupo;
+  101,5:     const url = IpServidor + "localhost:4000/stkrubroleecodgrupo/?id=1;
+  112,5:     const url = IpServidor + "/stkrubroleecodrbygr/?id1="+this.state.StkItemsRubro+'&id2='+this.state.StkItemsGrupo;
   130,5:     const url = IpServidor + "/stkitemsleecodgryrb/?id2="+id2+'&id3='+id3;
-  144,5:     const url = IpServidor + "/stkitemsleecodgrrbit/?id1="+id1+"&id2="+id2+'&id3='+id3;
+  144,5:     const url = IpServidor + "
   314,3:   const url = IpServidor +  '/stkitemsmodstock/?id1='+this.state.StkItems+'&id2='+this.state.StkItemsGrupo +'&id3='+this.state.StkItemsRubro ; //'http://localhost:3000/data'
 
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/Movimientos/Salida/StkMovSalida.js
@@ -90,18 +98,22 @@
   208,6:      const url = IpServidor +  '/stkitemsmoddisp/?id1='+this.state.StkItems+'&id2='+this.state.StkItemsGrupo +'&id3='+this.state.StkItemsRubro ; //'http://localhost:3000/data'
 
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/Movimientos/Salida/StkSalidaFinal.js
-  58,3:   const url = IpServidor + "/stkrubroleecodgryrb/?id1="+rubro+'&id2='+grupo;
+  58,3:   const url = IpServidor + "/stkrubroleecodrbygr/?id1="+rubro+'&id2='+grupo;
   80,3:   const url = IpServidor +  '/stkmovsalfinal/?id1='+item+'&id2='+grupo +'&id3='+rubro ; //'http://localhost:3000/data'
 
 ```
+
 # Presupuestos
+
 ```
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/Presupuesto/PresupPant.js
   103,6: //   const url = IpServidor + "/presupunid/?datoscalculo="+datoscalculos
   132,6:      const url = IpServidor + "/presuppu/?datoscalculo="+datoscalculos
   146,7:       const url = IpServidor + "/presupgraba";
 ```
+
 # Proveedores
+
 ```
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/Proveedores/Proveedores.js
   127,8:     // const url = IpServidor + '/proveedoresleer'; //'http://192.168.2.102:4000/indexprov'
@@ -117,17 +129,18 @@
 
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/Proveedores/ProveedoresBorrar.js
   37,12:     //     const url = IpServidor + '/proveedoresleer'; //'http://192.168.2.102:4000/indexprov'
-  50,9:         const url = IpServidor + '/proveedoresborrar/?id='+id 
+  50,9:         const url = IpServidor + '/proveedoresborrar/?id='+id
 
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/Proveedores/ProveedoresModificar.js
   99,8:     // const url = IpServidor + '/proveedoresleercod/'; //'http://192.168.2.102:4000/indexprov'
   101,5:     const url = IpServidor + '/proveedoresleercod/'+id
-  149,12:         // const url = IpServidor + '/stktipoproveedleer'; 
+  149,12:         // const url = IpServidor + '/stktipoproveedleer';
   150,9:         const url = IpServidor + '/stkbgsubrubroleer';
-  162,9:         const url = IpServidor + '/stkmonedasleer'; 
+  162,9:         const url = IpServidor + '/stkmonedasleer';
 ```
 
 # Rubros
+
 ```
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/Rubros/StkRubro.js
   101,9:         const url = IpServidor + '/stkrubroleermezcla'; //'http://192.168.2.102:4000/indexprov'
@@ -148,13 +161,14 @@
   239,5:     const url = IpServidor + "/stkmonedasleer";
 
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/Rubros/StkRubroBorrar.js
-  38,9:         var url = IpServidor + '/stkrubroborrar/'        
+  38,9:         var url = IpServidor + '/stkrubroborrar/'
 ```
 
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/UbicacionFisica/StkUbFisica.js
-  150,9:         const url = IpServidor + '/stkubfisicaleer'
+150,9: const url = IpServidor + '/stkubfisicaleer'
 
 # Unidad de Medidas
+
 ```
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/UnidadMedidas/StkUnMed.js
   151,9:         const url = IpServidor + '/stkunmedleer'
@@ -168,6 +182,7 @@
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/UnidadMedidas/StkUnMedModificar.js
   33,15:     //     // const url = IpServidor +'/agregarstkunmed'
 ```
+
 # Ubicación Física
 
 ```
@@ -177,29 +192,28 @@
   21,13:             url: IpServidor +'/stkubfisicaagregar',
 
  /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/UbicacionFisica/StkUbFisicaBorrar.js
-  18,16:             // url: IpServidor +'/stkunmedborrar/', 
+  18,16:             // url: IpServidor +'/stkunmedborrar/',
 
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/UnidadMedidas/StkUnMedModificar.js
-  21,13:             url: IpServidor +'/stkunmedagregar',  
+  21,13:             url: IpServidor +'/stkunmedagregar',
 
 ```
-
 
 # Sin Clasificar
 
 ```
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/z_SinClasificarMirar/AgregarComponent.js
-  22,9:         const url = IpServidor + '/agregarmonedas' 
+  22,9:         const url = IpServidor + '/agregarmonedas'
 
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/z_SinClasificarMirar/AgregarMonedas.js
-  20,9:         const url = IpServidor +'/agregarmonedas' 
+  20,9:         const url = IpServidor +'/agregarmonedas'
 
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/z_SinClasificarMirar/AgregarStkRubro.js
   42,9:         const url = IpServidor + '/leerstkgrupo'
-  61,9:         const url = IpServidor + '/agregarstkrubro' 
+  61,9:         const url = IpServidor + '/agregarstkrubro'
 
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/z_SinClasificarMirar/AgregarTipoProv.js
-  22,9:         const url = IpServidor + '/agregartipoprov' 
+  22,9:         const url = IpServidor + '/agregartipoprov'
 
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/z_SinClasificarMirar/BorrarStkGrupo.js
   31,9:         const url = IpServidor + '/leerstkgrupo' //'http://192.168.2.102:4000/indexprov'
@@ -229,7 +243,7 @@
   18,9:         const url = IpServidor + '/leerstkgrupo' ; //'http://localhost:3000/data'
 
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/z_SinClasificarMirar/LeerStkRubro.js
-  18,9:         const url = IpServidor + '/leerstkgrupo' 
+  18,9:         const url = IpServidor + '/leerstkgrupo'
 
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/z_SinClasificarMirar/LeerTipoProv.js
   18,9:         const url = IpServidor + '/leertipoprov'
@@ -242,7 +256,7 @@
   42,7:       const url = IpServidor + '/modificarstkgrupo/' + stkgrupo.idStkGrupo
 
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/z_SinClasificarMirar/ModificarStkRubro.js
-  42,7:       const url = IpServidor + '/modificarstkgrupo/' + stkgrupo.idStkGrupo   
+  42,7:       const url = IpServidor + '/modificarstkgrupo/' + stkgrupo.idStkGrupo
 
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/z_SinClasificarMirar/ModificarTipoProv.js
   23,9:         const url = IpServidor + '/leertipoprov'
@@ -259,12 +273,9 @@
 /home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/z_SinClasificarMirar/StkMovimiento.js
   77,9:         const url = IpServidor + '/stkgrupoleer'
   92,9:         const url = IpServidor + '/stkrubroleecodgrupo/' + this.state.grupostk
-  106,9:         const url = IpServidor + '/stkrubroleecodgryrb/?id1=' + this.state.rubrostk + '&id2=' + this.state.grupostk
-  131,9:         const url = IpServidor + '/proveedoresleercod/' + this.state.StkRubroProv1 
+  106,9:         const url = IpServidor + '/stkrubroleecodrbygr/?id1=' + this.state.rubrostk + '&id2=' + this.state.grupostk
+  131,9:         const url = IpServidor + '/proveedoresleercod/' + this.state.StkRubroProv1
   147,9:         const url = IpServidor + '/stkitemsleecodgryrb/?id2='+this.state.grupostk+'&id3='+this.state.rubrostk  ; //'http://localhost:3000/data'
   165,9:         const url = IpServidor + '/stkitemsleecodgrrbit/?id1=' + this.state.itemsstk + '&id2=' + this.state.grupostk +'&id3=' + this.state.rubrostk
   208,5:     const url = IpServidor + '/stkitemsmodificacant/?id1=' + this.state.itemsstk + '&id2=' + this.state.grupostk + '&id3=' + this.state.rubrostk
 ```
-
-
-
