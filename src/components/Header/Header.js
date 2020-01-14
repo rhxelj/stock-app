@@ -161,6 +161,7 @@ class Header extends React.Component {
     const movimientos = [
       { link: "/ModPrecios", primary: "Modifica Precios" },
       { link: "/PresupPant", primary: "Presupuesto" },
+      { link: "/ImprimeQR", primary: "ImprimeQR" },
       { link: "/ListaPrecios", primary: "Lista de Precios" },
       {
         link: "/StkMovEntrada",

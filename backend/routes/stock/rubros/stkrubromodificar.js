@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var path = require("path");
-var conexion = require("../conexion");
+var conexion = require("../../conexion");
 
 conexion.connect(function(err) {
   if (!err) {
