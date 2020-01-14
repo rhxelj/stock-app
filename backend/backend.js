@@ -32,11 +32,11 @@ var stkunmedagregar = require("./routes/unidadmedidas/stkunmedagregar");
 var stkunmedmodificar = require("./routes/unidadmedidas/stkunmedmodificar");
 var stkunmedborrar = require("./routes/unidadmedidas/stkunmedborrar");
 
-var stkgrupoleer = require("./routes/grupos/stkgrupoleer");
-var stkgrupoleercod = require("./routes/grupos/stkgrupoleercod");
-var stkgrupoagregar = require("./routes/grupos/stkgrupoagregar");
-var stkgrupomodificar = require("./routes/grupos/stkgrupomodificar");
-var stkgrupoborrar = require("./routes/grupos/stkgrupoborrar");
+var stkgrupoleer = require("./routes/stock/grupos/stkgrupoleer");
+var stkgrupoleercod = require("./routes/stock/grupos/stkgrupoleercod");
+var stkgrupoagregar = require("./routes/stock/grupos/stkgrupoagregar");
+var stkgrupomodificar = require("./routes/stock/grupos/stkgrupomodificar");
+var stkgrupoborrar = require("./routes/stock/grupos/stkgrupoborrar");
 
 var stkubfisicaleer = require("./routes/ubfisica/stkubfisicaleer");
 // var stkubfisicaleercod = require('./routes/ubfisica/stkubfisicaleercod');

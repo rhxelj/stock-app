@@ -11,18 +11,18 @@ import DialogContent from "@material-ui/core/DialogContent";
 // import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from "@material-ui/core/DialogTitle";
 // import Select from '@material-ui/core/Select';
-import CodigoError from '../../../lib/CodigoError'
+import CodigoError from "../../../lib/CodigoError";
 // import AgregarMonedas from './StkMonedasAgregar'
 
 class stkgrupomodificar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      idStkGrupo : this.props.idStkGrupo,
+      idStkGrupo: this.props.idStkGrupo,
       StkGrupoDesc: this.props.StkGrupoDesc,
-      StkGrupoAbr: this.props.StkGrupoAbr,        
-      StkGrupoContRubro:this.props.StkGrupoContRubro,
-      stkgrupo:[],
+      StkGrupoAbr: this.props.StkGrupoAbr,
+      StkGrupoContRubro: this.props.StkGrupoContRubro,
+      stkgrupo: [],
       idStkTipoProveed: 0,
       StkTipoProveedDesc: "",
       proveedores: [],
@@ -30,10 +30,10 @@ class stkgrupomodificar extends Component {
       StkMonedasDescripcion: "",
       StkMonedasCotizacion: 0,
       stkmonedas: [],
-      unmed:[],
-      nuevocodigo:0,
-      open: true,
-      // idStkGrupo:'',      // borrar 
+      unmed: [],
+      nuevocodigo: 0,
+      open: true
+      // idStkGrupo:'',      // borrar
       // StkGrupoDesc:'',    // borrar
       // StkGrupoAbr:'',     // borrar
       // StkGrupoContRubro:0 // borrar
@@ -57,79 +57,89 @@ class stkgrupomodificar extends Component {
     // this.setState(()=>{return{ [prop]: event.target.value }});
     // this.setState({value: event.target.value}, function () {
     //   console.log(this.state.value) })
-    this.llama()
-    
-    this.setState({[prop]: event.target.value}, function () {
-      console.log('contenido de ' +[prop] +" "+ this.state.StkRubroCodGrp) })
+    this.llama();
+
+    this.setState({ [prop]: event.target.value }, function() {
+      console.log("contenido de " + [prop] + " " + this.state.StkRubroCodGrp);
+    });
   };
 
-  llama = _ => console.log('Codigo de grupo dentro de handleChange : '+this.state.StkRubroCodGrp)
-  
+  llama = _ =>
+    console.log(
+      "Codigo de grupo dentro de handleChange : " + this.state.StkRubroCodGrp
+    );
+
   leeXcodgrupo = prop => event => {
-    console.log("prop : " + prop)                                         //control se puede Borrar esta linea 
-    this.setState({[prop]: event.target.value}, 
+    console.log("prop : " + prop); //control se puede Borrar esta linea
+    this.setState(
+      { [prop]: event.target.value },
       //aca leo grupo X Código
-      function () {
-        const url = IpServidor +'/stkgrupoleercod/'+ this.state.StkRubroCodGrp
+      function() {
+        const url =
+          IpServidor + "/stkgrupoleercod/" + this.state.StkRubroCodGrp;
         // console.log("la url es : "+url)                                   //control se puede Borrar esta linea
         request
-        .get(url)
-        .set('Content-Type', 'application/json')
-        .then(res=> {
-          // const grupoitem = JSON.parse(res.text)
-          // this.setState({grupoitem:grupoitem[0]}, // como esta en un arreglo lo paso a un solo objeto
-          var grupoitem = JSON.parse(res.text)
-          var {idStkGrupo,StkGrupoDesc,StkGrupoAbr,StkGrupoContRubro} = grupoitem[0]
-          // this.setState({idStkGrupo,StkGrupoDesc,StkGrupoAbr,StkGrupoContRubro:idStkGrupo,StkGrupoDesc,StkGrupoAbr,StkGrupoContRubro}, // como esta en un arreglo lo paso a un solo objeto  
-          this.setState({idStkGrupo,StkGrupoDesc,StkGrupoAbr,StkGrupoContRubro}, // como esta en un arreglo lo paso a un solo objeto  
-            
-            ()=>{
-             
-            }
-          )
-          // console.log("contenodo de grupo por separado fuera del callback ",this.state.idStkGrupo,this.state.StkGrupoDesc,this.state.StkGrupoAbr,this.state.StkGrupoContRubro)
-          this.setState((state) =>({StkGrupoContRubro:state.StkGrupoContRubro+1}))
-          this.setState({idStkRubro:this.state.StkGrupoContRubro},console.log("idStkRubro : ",this.state.idStkRubro))
-          }
-        )
+          .get(url)
+          .set("Content-Type", "application/json")
+          .then(res => {
+            // const grupoitem = JSON.parse(res.text)
+            // this.setState({grupoitem:grupoitem[0]}, // como esta en un arreglo lo paso a un solo objeto
+            var grupoitem = JSON.parse(res.text);
+            var {
+              idStkGrupo,
+              StkGrupoDesc,
+              StkGrupoAbr,
+              StkGrupoContRubro
+            } = grupoitem[0];
+            // this.setState({idStkGrupo,StkGrupoDesc,StkGrupoAbr,StkGrupoContRubro:idStkGrupo,StkGrupoDesc,StkGrupoAbr,StkGrupoContRubro}, // como esta en un arreglo lo paso a un solo objeto
+            this.setState(
+              { idStkGrupo, StkGrupoDesc, StkGrupoAbr, StkGrupoContRubro }, // como esta en un arreglo lo paso a un solo objeto
+
+              () => {}
+            );
+            // console.log("contenodo de grupo por separado fuera del callback ",this.state.idStkGrupo,this.state.StkGrupoDesc,this.state.StkGrupoAbr,this.state.StkGrupoContRubro)
+            this.setState(state => ({
+              StkGrupoContRubro: state.StkGrupoContRubro + 1
+            }));
+            this.setState(
+              { idStkRubro: this.state.StkGrupoContRubro },
+              console.log("idStkRubro : ", this.state.idStkRubro)
+            );
+          });
       }
-    )
-  }
-  
-  
- //****************************/ 
- //Update
-ActualizaGrupo = () => {
+    );
+  };
 
-  request                  
-    .post(IpServidor + '/stkgrupomodificar/'+this.state.idStkGrupo) //pongo el idStkGrupo
-       .set('Content-Type', 'application/json')
-          .send({ StkGrupoDesc: this.state.StkGrupoDesc})
-          .send({ StkGrupoAbr: this.state.StkGrupoAbr})        
-          .send({ StkGrupoContRubro: this.state.StkGrupoContRubro}) // Esto va a ser Cero inicialmente.
-       .then(function(res) { // res.body, res.headers, res.status
-        })
-        .catch((err) => CodigoError(err))
-      } 
+  //****************************/
+  //Update
+  ActualizaGrupo = () => {
+    request
+      .post(IpServidor + "/stkgrupomodificar/" + this.state.idStkGrupo) //pongo el idStkGrupo
+      .set("Content-Type", "application/json")
+      .send({ StkGrupoDesc: this.state.StkGrupoDesc })
+      .send({ StkGrupoAbr: this.state.StkGrupoAbr })
+      .send({ StkGrupoContRubro: this.state.StkGrupoContRubro }) // Esto va a ser Cero inicialmente.
+      .then(function(res) {
+        // res.body, res.headers, res.status
+      })
+      .catch(err => CodigoError(err));
+  };
 
- //***************************/ 
-  
-  
+  //***************************/
+
   // Create
 
-  modificaGrupo = ()  => {
-    const url= IpServidor + '/stkgrupomodificar/?id='+ this.state.idStkGrupo
+  modificaGrupo = () => {
+    const url = IpServidor + "/stkgrupomodificar/?id=" + this.state.idStkGrupo;
     request
       .post(url)
       .set("Content-Type", "application/json")
-      .send({ StkGrupoDesc: this.state.StkGrupoDesc})
-      .send({ StkGrupoAbr: this.state.StkGrupoAbr})        
+      .send({ StkGrupoDesc: this.state.StkGrupoDesc })
+      .send({ StkGrupoAbr: this.state.StkGrupoAbr })
       .send({ StkGrupoContRubro: this.state.StkGrupoContRubro }) // Esto va a ser Cero inicialmente.
       .set("X-API-Key", "foobar")
       .then(function(res) {});
-      
-    };
-
+  };
 
   updateField(field) {
     this.setState({
@@ -142,12 +152,12 @@ ActualizaGrupo = () => {
     this.setState({ isOpen: !this.state.isOpen });
   };
 
-  submitGrupo= (e) => {
+  submitGrupo = e => {
     e.preventDefault();
     this.modificaGrupo();
-    this.props.read()
+    this.props.read();
     this.props.toggleModificar();
-  }
+  };
 
   // componentWillMount(){
   //   // this.proveedoresleer()
@@ -155,15 +165,13 @@ ActualizaGrupo = () => {
   //   this.unmedleer()
   //   this.leetmon()
   // }
- 
+
   // componentDidMount() {
   // }
 
   render() {
-    
     return (
       <div>
-        
         <Dialog
           open={true}
           // open={this.state.open}
@@ -172,7 +180,6 @@ ActualizaGrupo = () => {
         >
           <DialogTitle id="form-dialog-title">Modificar Grupo</DialogTitle>
           <DialogContent>
-           
             <div>
               <TextField
                 id="StkGrupoDesc"
@@ -197,20 +204,13 @@ ActualizaGrupo = () => {
                 variant="standard"
                 onKeyPress={event => {
                   if (event.key === "Enter")
-                    document.getElementById("Grabar ").focus();
+                    document.getElementById("Grabar").focus();
                 }}
               />
-
             </div>
-            <div>
-              
-            </div>
-            <div>
-              
-            </div>
-            <div>
-              
-            </div>
+            <div></div>
+            <div></div>
+            <div></div>
           </DialogContent>
           <DialogActions>
             <Button
