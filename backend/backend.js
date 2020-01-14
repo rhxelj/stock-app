@@ -70,9 +70,9 @@ var stkitemsmodstock = require("./routes/stock/items/stkitemsmodstock");
 
 var stkitemsventa = require("./routes/stock/items/stkitemsventa"); //una prueba
 
-var stkverificadisp = require("./routes/movimientos/stkverificadisp");
-var stkmovsalfinal = require("./routes/movimientos/stkmovsalfinal");
-var stkmovenvase = require("./routes/movimientos/stkmovenvase");
+var stkverificadisp = require("./routes/stock/movimientos/stkverificadisp");
+var stkmovsalfinal = require("./routes/stock/movimientos/stkmovsalfinal");
+var stkmovenvase = require("./routes/stock/movimientos/stkmovenvase");
 
 var stkmovvtaagregar = require("./routes/stock/envase/stkmovvtaagregar");
 var stkenvaseagregar = require("./routes/stock/envase/stkenvaseagregar");
