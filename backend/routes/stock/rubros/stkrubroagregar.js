@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 var path = require("path");
 var moment = require("moment");
-var conexion = require("../conexion");
+var conexion = require("../../conexion");
 var gencodrubro = require("./stkgennrorubro");
 // var ultnrorubro = require('./stkleeultnrorubro')
 
