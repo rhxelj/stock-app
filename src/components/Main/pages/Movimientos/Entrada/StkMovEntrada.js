@@ -55,7 +55,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 var initial_state = {
-  idStkGrupo: 0,
+  idStkGrupo: "",
+  idStkRubro: "",
+  idStkItems: "",
   dialogo_imprimir: false,
   stkrubro: [],
   stkgrupo: [],
@@ -67,12 +69,12 @@ var initial_state = {
   StkItemsCantidad: 0.0,
   StkItemsCantDisp: 0.0,
   StkItemsFAct: "",
-  StkItemsMin: 0.0,
-  StkItemsMax: 0.0,
-  StkRubroAncho: 0.0,
+  StkItemsMin: null,
+  StkItemsMax: null,
+  StkRubroAncho: null,
   StkRubroPresDes: "",
   StkRubroPres: 0.0,
-  StkRubroUM: 0.0,
+  StkRubroUM: null,
   cantidad: 1.0,
   largo: 0.0,
   ancho: 0.0,
@@ -104,8 +106,12 @@ var StkMovEntrada = props => {
       .get(url)
       .set("Content-Type", "application/json")
       .then(res => {
+        console.log("TCL: res", res);
         const stkgrupo = JSON.parse(res.text);
+        console.log("TCL: stkgrupo", stkgrupo);
+
         setState({ ...state, stkgrupo: stkgrupo });
+        console.log("TCL: stkgrupo.state", state.stkgrupo);
       });
   };
 
@@ -134,142 +140,170 @@ var StkMovEntrada = props => {
   //     });
   // };
 
-  // const stkrubroleecodrbygr = () => {
-  //   const url =
-  //     IpServidor +
-  //     "/stkrubroleecodrbygr/?id1=" +
-  //     state.StkItemsRubro +
-  //     "&id2=" +
-  //     state.StkItemsGrupo;
-  //   request
-  //     .get(url)
-  //     .set("Content-Type", "application/json")
-  //     .then(res => {
-  //       const stkrubroele = JSON.parse(res.text);
-  //       setState({ ...state, stkrubroele: stkrubroele });
-  //       setState({
-  //         ...state,
-  //         StkRubroAncho: stkrubroele[0].StkRubroAncho, // ! revisar esto
-  //         StkRubroPresDes: stkrubroele[0].StkRubroPresDes,
-  //         StkRubroPres: stkrubroele[0].StkRubroPres,
-  //         StkRubroUM: stkrubroele[0].StkRubroUM
+  const stkrubroleecodrbygr = () => {
+    const url =
+      IpServidor +
+      "/stkrubroleecodrbygr/?id1=" +
+      // state.StkItemsRubro +
+      state.idStkRubro +
+      "&id2=" +
+      // state.StkItemsGrupo;
+      state.idStkGrupo;
+    request
+      .get(url)
+      .set("Content-Type", "application/json")
+      .then(res => {
+        const stkrubroele = JSON.parse(res.text);
+        console.log("TCL: stkrubroleecodrbygr -> stkrubroele", stkrubroele);
+        setState({ ...state, stkrubroele: stkrubroele });
+        setState({
+          ...state,
+          StkRubroAncho: stkrubroele[0].StkRubroAncho, // ! revisar esto
+          StkRubroPresDes: stkrubroele[0].StkRubroPresDes,
+          StkRubroPres: stkrubroele[0].StkRubroPres,
+          StkRubroUM: stkrubroele[0].StkRubroUM
 
-  //         // StkRubroAncho: state.stkrubroele[0].StkRubroAncho,
-  //         // StkRubroPresDes: state.stkrubroele[0].StkRubroPresDes,
-  //         // StkRubroPres: state.stkrubroele[0].StkRubroPres,
-  //         // StkRubroUM: state.stkrubroele[0].StkRubroUM
-  //       });
-  //     });
-  // };
+          // StkRubroAncho: state.stkrubroele[0].StkRubroAncho,
+          // StkRubroPresDes: state.stkrubroele[0].StkRubroPresDes,
+          // StkRubroPres: state.stkrubroele[0].StkRubroPres,
+          // StkRubroUM: state.stkrubroele[0].StkRubroUM
+        });
+      });
+    console.log(
+      "contenido de StkRubroUM dentro de stkrubroleecodrbygr: ",
+      state.StkRubroUM
+    );
+    console.log("contenido de state dentro de stkrubroleecodrbygr: ", state);
+  };
 
-  // const stkitemsleecodgryrb = id3 => {
-  //   var id2 = state.StkItemsGrupo;
-  //   const url = IpServidor + "/stkitemsleecodgryrb/?id2=" + id2 + "&id3=" + id3;
-  //   request
-  //     .get(url)
-  //     .set("Content-Type", "application/json")
-  //     .then(res => {
-  //       const stkitems = JSON.parse(res.text);
-  //       setState({ ...state, stkitems: stkitems });
-  //     });
-  // };
+  const stkitemsleecodgryrb = _ => {
+    // var id2 = state.StkItemsGrupo;
+    const url =
+      IpServidor +
+      "/stkitemsleecodgryrb/?id2=" +
+      state.idStkGrupo +
+      "&id3=" +
+      state.idStkRubro;
+    request
+      .get(url)
+      .set("Content-Type", "application/json")
+      .then(res => {
+        const stkitems = JSON.parse(res.text);
+        setState({ ...state, stkitems: stkitems });
+      });
+  };
 
-  // const stkitemsleecodgrrbit = () => {
-  //   var id1 = state.StkItems;
-  //   var id2 = state.StkItemsGrupo;
-  //   var id3 = state.StkItemsRubro;
-  //   const url =
-  //     IpServidor +
-  //     "/stkitemsleecodgrrbit/?id1=" +
-  //     id1 +
-  //     "&id2=" +
-  //     id2 +
-  //     "&id3=" +
-  //     id3;
-  //   request
-  //     .get(url)
-  //     .set("Content-Type", "application/json")
-  //     .then(res => {
-  //       const stkitemse = JSON.parse(res.text);
-  //       setState({ ...state, stkitemse: stkitemse });
-  //       setState({
-  //         ...state,
-  //         StkItemsCantidad: state.stkitemse[0].StkItemsCantidad,
-  //         StkItemsCantDisp: state.stkitemse[0].StkItemsCantDisp,
-  //         StkItemsFAct: state.stkitemse[0].StkItemsFAct,
-  //         StkItemsMin: state.stkitemse[0].StkItemsMin,
-  //         StkItemsMax: state.stkitemse[0].StkItemsMax
-  //       });
-  //       var recorte = state.StkItemsFAct.substr(0, 10);
-  //       setState({ ...state, StkItemsFAct: recorte });
-  //     });
-  // };
+  const stkitemsleecodgrrbit = () => {
+    var id1 = state.idStkItems;
+    var id2 = state.idStkGrupo;
+    var id3 = state.idStkRubro;
 
-  // const limpioPantalla = () => {
-  //   setState(
-  //     initial_state //TODO revisar esto no me pone en cero todo averiguar como poner en cero
-  //     //   {
-  //     //   stkrubro: [],
-  //     //   // stkgrupo: [],
-  //     //   stkitems: [],
-  //     //   stkItems: [],
-  //     //   stkenvaseubg: [],
-  //     //   ubicacionf: [],
-  //     //   // ubicacion:[],
-  //     //   stkrubroele: [],
-  //     //   StkItemsCantidad: 0.0,
-  //     //   StkItemsCantDisp: 0.0,
-  //     //   StkItemsFAct: "",
-  //     //   StkItemsMin: 0.0,
-  //     //   StkItemsMax: 0.0,
-  //     //   StkRubroAncho: 0.0,
-  //     //   StkRubroPresDes: "",
-  //     //   StkRubroPres: 0.0,
-  //     //   StkRubroUM: 0.0,
-  //     //   cantidad: 1.0,
-  //     //   largo: 0.0,
-  //     //   ancho: 0.0,
-  //     //   faltante: 0.0,
-  //     //   total: 0.0,
-  //     //   datostraid: [],
-  //     //   open: true,
-  //     //   marcagenqr: false,
-  //     //   imp_conf: false,
-  //     //   marcaagregado: false,
-  //     //   StkEnvaseUb: "",
-  //     //   StkEnvaseObserv: "",
-  //     //   StkEnvasePartida: "",
-  //     //   indiceub: [],
-  //     //   StkItemsGrupo: [],
-  //     //   StkItemsRubro: "",
-  //     //   StkItems: [],
-  //     //   StkEnvaseUbF: [],
-  //     //   StkEnvaseUbG: []
-  //     // }
-  //   );
-  //   stkgrupoleer();
-  // };
+    const url =
+      IpServidor +
+      "/stkitemsleecodgrrbit/?id1=" +
+      id1 +
+      "&id2=" +
+      id2 +
+      "&id3=" +
+      id3;
+    request
+      .get(url)
+      .set("Content-Type", "application/json")
+      .then(res => {
+        const stkitemse = JSON.parse(res.text);
+        console.log("TCL: stkitemsleecodgrrbit -> stkitemse", stkitemse);
+        // setState({ ...state, stkitemse: stkitemse });
+        setState({
+          ...state,
+          StkItemsCantidad: stkitemse[0].StkItemsCantidad,
+          StkItemsCantDisp: stkitemse[0].StkItemsCantDisp,
+          StkItemsFAct: stkitemse[0].StkItemsFAct,
+          StkItemsMin: stkitemse[0].StkItemsMin,
+          StkItemsMax: stkitemse[0].StkItemsMax
+        });
+        var recorte = state.StkItemsFAct.substr(0, 10);
+        setState({ ...state, StkItemsFAct: recorte });
+        console.log("State.StkItemsMax =>", state.StkItemsMax);
+        console.log("stkitemse[0].StkItemsMax =>", stkitemse[0].StkItemsMax);
+        console.log("state =>", state);
+      });
+  };
 
-  // useEffect(() => {
-  //   console.log(
-  //     "dentro de useEffect contenido de state.idStkGrupo ",
-  //     state.idStkGrupo
-  //   );
-  //   stkrubroleecodgrupo(state.idStkGrupo);
-  // }, [state.idStkGrupo]);
+  const limpioPantalla = () => {
+    setState(
+      // initial_state //TODO revisar esto no me pone en cero todo averiguar como poner en cero
+      {
+        ...state,
+        // stkrubro: [],
+        //   // stkgrupo: [],
+        // stkitems: [],
+        idStkGrupo: "",
+        idStkRubro: "",
+        idStkItems: ""
+        //   stkItems: [],stkgrupo
+        //   stkrubroele: [],
+        //   StkItemsCantidad: 0.0,
+        //   StkItemsCantDisp: 0.0,
+        //   StkItemsFAct: "",
+        //   StkItemsMin: 0.0,
+        //   StkItemsMax: 0.0,
+        //   StkRubroAncho: 0.0,
+        //   StkRubroPresDes: "",
+        //   StkRubroPres: 0.0,
+        //   StkRubroUM: 0.0,
+        //   cantidad: 1.0,
+        //   largo: 0.0,
+        //   ancho: 0.0,
+        //   faltante: 0.0,
+        //   total: 0.0,
+        //   datostraid: [],
+        //   open: true,
+        //   marcagenqr: false,
+        //   imp_conf: false,
+        //   marcaagregado: false,
+        //   StkEnvaseUb: "",
+        //   StkEnvaseObserv: "",
+        //   StkEnvasePartida: "",
+        //   indiceub: [],
+        //   StkItemsGrupo: [],
+        //   StkItemsRubro: "",
+        //   StkItems: [],
+        //   StkEnvaseUbF: [],
+        //   StkEnvaseUbG: []
+      }
+    );
+    // stkgrupoleer();
+  };
 
   useEffect(() => {
-    console.log(
-      "dentro de useEffect contenido de state.idStkGrupo ",
-      state.idStkGrupo
-    );
-    stkrubroleecodgrupo(state.idStkGrupo);
+    stkgrupoleer(); //leo grupos
+  }, []);
+
+  useEffect(() => {
+    if (state.idStkGrupo != "") {
+      stkrubroleecodgrupo(state.idStkGrupo); //leo rubros apartir del grupo seleccionado
+    }
   }, [state.idStkGrupo]);
 
   useEffect(() => {
-    stkgrupoleer();
-    console.log("leyo leestokgrupo");
-  }, []);
+    if (state.idStkGrupo != "" && state.idStkRubro != "") {
+      console.log("estoy en el useEffect que lanza stkrubroleecodrbygr()");
+      stkrubroleecodrbygr();
+    }
+  }, [state.idStkGrupo, state.idStkRubro]);
+
+  useEffect(() => {
+    if (state.idStkRubro != "") {
+      console.log("corro stkitemsleecodgryrb() ");
+      stkitemsleecodgryrb(); //leo items apartir del grupo y rubro seleccionados
+    }
+  }, [state.idStkRubro]);
+
+  useEffect(() => {
+    if (state.idStkRubro != "") {
+      stkitemsleecodgrrbit(); //leo item especifico apartir del grupo y rubro seleccionado
+    }
+  }, [state.idStkItems]);
 
   // // function componentWillMount() {
   // //   stkgrupoleer();
@@ -286,28 +320,20 @@ var StkMovEntrada = props => {
   // //   setState({ ...state, [prop]: event.target.value });
   // // };
 
-  const handleChangeGrupo = prop => event => {
-    console.log("Evente en change grupo ", event.target.id);
-    setState({ ...state, [prop]: event.target.value });
-    // setState({ ...state, idStkGrupo: parseInt(event.target.value) });
-    // stkrubroleecodgrupo(idStkGrupo);
-    // stkrubroleecodgrupo(event.target.value);
-  };
+  // const handleChangeGrupo = prop => event => {
+  //   console.log("Evente en change grupo ", event.target.id);
+  //   setState({ ...state, [prop]: event.target.value });
+  //   // setState({ ...state, idStkGrupo: parseInt(event.target.value) });
+  //   // stkrubroleecodgrupo(idStkGrupo);
+  //   // stkrubroleecodgrupo(event.target.value);
+  // };
 
   const handleChange = event => {
-    console.log("Entro en handlechange de ", event.target.id);
     const id = event.target.id;
-    setState({ ...state, [id]: event.target.value });
-    console.log("TCL: componentDidMount -> id", id);
-    // console.log(
-    //   "TCL: componentDidMount -> event.target.value",
-    //   event.target.value
-    // );
-
-    console.log(
-      "TCL: componentDidMount -> event.target.value",
-      state.idStkGrupo
-    );
+    console.log("Nombre de evento lanzado usando id:", id);
+    console.log("Nombre de evento lanzado usando [id]:", [id]);
+    setState({ ...state, [id]: event.target.value }); //Todo revisar !!!!!!!!
+    // setState({ ...state, id: event.target.value });
   };
 
   // const handleChangeRubro = prop => event => {
@@ -531,6 +557,7 @@ var StkMovEntrada = props => {
                 <TextField
                   id="MinStock"
                   label="Mínimo Stock"
+                  InputLabelProps={{ shrink: true }}
                   value={state.StkItemsMin}
                   disabled
                   className={classes.textField}
@@ -540,6 +567,7 @@ var StkMovEntrada = props => {
                 <TextField
                   id="MaxStock"
                   label="Máximo Stock"
+                  InputLabelProps={{ shrink: true }}
                   value={state.StkItemsMax}
                   disabled
                   className={classes.textField}
@@ -547,7 +575,6 @@ var StkMovEntrada = props => {
               </Grid>
             </Grid>
             {/* Primera linea Fin */}
-
             <Grid
               container
               // direction="row"
@@ -559,11 +586,12 @@ var StkMovEntrada = props => {
                 // className={classes.cajas}
                 // id="Grupo"
                 id="idStkGrupo"
+                // name="Prueba de nombre"
                 select
                 label="Grupo"
                 fullWidth
                 // value={state.StkItemsGrupo}
-                // value={state.idStkGrupo}
+                value={state.idStkGrupo} //todo mirar que valor poner puse este de forma arbitraria para ver si borra
                 // value={state.StkGrupoDesc}
                 // onChange={handleChangeGrupo("idStkGrupo")}
                 onChange={handleChange}
@@ -571,6 +599,10 @@ var StkMovEntrada = props => {
                 className={classes.textField_370}
               >
                 <option></option>
+                {console.log(
+                  "state.stkgrupo dentro de option :",
+                  state.stkgrupo
+                )}
                 {state.stkgrupo.map(option => (
                   <option key={option.idStkGrupo} value={option.idStkGrupo}>
                     {option.StkGrupoDesc}
@@ -584,7 +616,7 @@ var StkMovEntrada = props => {
                 select
                 label="Rubro"
                 fullWidth
-                value={state.idStkRubro}
+                value={state.idStkRubro} //todo mirar idem grupo
                 // onChange={() => handleChangeRubro("idStkRubro")}
                 onChange={handleChange}
                 SelectProps={{
@@ -601,13 +633,14 @@ var StkMovEntrada = props => {
                 ))}
               </TextField>
 
-              {/* <TextField
-                id="Items"
+              <TextField
+                id="idStkItems"
                 select
                 label="Items"
                 fullWidth
-                value={state.StkItems}
-                onChange={() => handleChangeItems("StkItems")}
+                value={state.idStkItems} //todo idem grupo
+                // onChange={() => handleChangeItems("StkItems")}
+                onChange={handleChange}
                 SelectProps={{
                   native: true
                 }}
@@ -620,13 +653,13 @@ var StkMovEntrada = props => {
                     {option.StkItemsDesc}
                   </option>
                 ))}
-              </TextField> */}
+              </TextField>
 
               {/* </Grid> */}
             </Grid>
             {/* Segunda linea FIN */}
             {/* Cantidad/ StkRubroPresDes / StkRubroPres / StkRubroUM */}
-            {/* <Grid container spacing={2} justify="flex-start">
+            <Grid container spacing={2} justify="flex-start">
               <Grid item xs={3}>
                 <TextField
                   id="cantidad"
@@ -634,20 +667,22 @@ var StkMovEntrada = props => {
                   type="number"
                   fullWidth
                   value={state.cantidad}
-                  onChange={() => handleChange("cantidad")}
+                  // onChange={() => handleChange("cantidad")}
+                  onChange={handleChange}
                   autoFocus={true}
                   // className={classes.textField_60}
                 />
-              </Grid> */}
+              </Grid>
 
-            {/* <Grid item xs={3}>
+              <Grid item xs={3}>
                 <TextField
                   label=" "
                   id="StkRubroPres"
-                  type="Number"
+                  // type="Number"
                   // fullWidth
                   value={state.StkRubroPres}
-                  onChange={() => handleChange("StkRubroPres")}
+                  // onChange={() => handleChange("StkRubroPres")}
+                  onChange={handleChange}
                   autoFocus={true}
                   InputProps={{
                     startAdornment: (
@@ -655,38 +690,42 @@ var StkMovEntrada = props => {
                     )
                   }}
                 />
-              </Grid> */}
+              </Grid>
 
-            {/* <Grid item xs={3}>
+              <Grid item xs={3}>
                 <TextField
+                  id="StkRubroUM"
                   label=" "
                   fullWidth
                   value={state.StkRubroUM}
-                  type="number"
+                  // value="escribir aca"
+                  // type="number"
                   InputProps={{
                     startAdornment: (
-                      <InputAdornment position="start">X</InputAdornment>
+                      // <InputAdornment position="start">X</InputAdornment>
+                      <InputAdornment position="end">X</InputAdornment>
                     )
                   }}
                 />
-              </Grid> */}
+              </Grid>
 
-            {/* <Grid item xs={3}>
+              <Grid item xs={3}>
                 <TextField
                   id="StkRubroAncho"
                   label="Ancho"
                   type="number"
                   fullWidth
                   value={state.StkRubroAncho}
-                  onChange={() => handleChange("StkRubroAncho")}
+                  // onChange={() => handleChange("StkRubroAncho")}
+                  onChange={handleChange}
                   autoFocus={true}
                   // className={classes.textField_60}
                 />
-              </Grid> */}
-            {/* Partida Ubicación-Geografica Ubicación-Fisica */}
-            {/* <Grid item xs> */}
-          </Grid>
-          {/* <Grid container>
+              </Grid>
+              {/* Partida Ubicación-Geografica Ubicación-Fisica */}
+              {/* <Grid item xs> */}
+            </Grid>
+            {/* <Grid container>
               <TextField
                 id="StkEnvasePartida"
                 type="text"
@@ -717,14 +756,14 @@ var StkMovEntrada = props => {
                 <option default></option>
 
                 {/* {this.state.ubicacion.map(option => (   */}
-          {/* {ubicacion.map(option => (
+            {/* {ubicacion.map(option => (
                   <option key={option.indiceub} value={option.indiceub}>
                     {option.detalleub}
                   </option>
                 ))}
               </TextField> */}
-          {/* </Grid> */} */}
-          {/* <Grid item xs>
+            {/* </Grid> */}
+            {/* <Grid item xs>
               <TextField
                 id="StkEnvaseUbF"
                 select
@@ -749,7 +788,7 @@ var StkMovEntrada = props => {
                 ))}
               </TextField>
             </Grid> */}
-          {/* <Grid item xs={2} sm={12} lg={12}>
+            {/* <Grid item xs={2} sm={12} lg={12}>
               <TextField
                 id="StkEnvaseObserv"
                 type="text"
@@ -760,16 +799,20 @@ var StkMovEntrada = props => {
                 className={classes.textField}
               />
             </Grid> */}
-          {/* </Grid> */}
+          </Grid>
         </DialogContent>
-        {/* <DialogActions>
+        <DialogActions>
           <Grid container justify="flex-start">
             <IconButton onClick={limpioPantalla}>
               <DeleteIcon />
             </IconButton>
           </Grid>
 
-          <Button variant="contained" color="primary" onClick={agregastock}>
+          <Button
+            variant="contained"
+            color="primary"
+            // onClick={agregastock}
+          >
             Confirmar
           </Button>
 
@@ -780,7 +823,7 @@ var StkMovEntrada = props => {
           >
             Cancelar
           </Button>
-        </DialogActions> */}
+        </DialogActions>
       </Dialog>
     </div>
   );
