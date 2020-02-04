@@ -141,6 +141,7 @@ var StkMovEntrada = props => {
   //     });
   // };
 
+  // estaba mal el nombre stkrubroleecodrbygr, es stkrubroleecodgryrb
   const stkrubroleecodgryrb = () => {
     const url =
       IpServidor +

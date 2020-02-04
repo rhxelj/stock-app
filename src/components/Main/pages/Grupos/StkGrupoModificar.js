@@ -204,7 +204,7 @@ class stkgrupomodificar extends Component {
                 variant="standard"
                 onKeyPress={event => {
                   if (event.key === "Enter")
-                    document.getElementById("Grabar ").focus();
+                    document.getElementById("Grabar").focus();
                 }}
               />
             </div>

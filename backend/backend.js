@@ -26,68 +26,68 @@ var stkmonedasborrar = require("./routes/monedas/stkmonedasborrar");
 
 var stktipoproveedleer = require("./routes/proveedores/stktipoproveedleer");
 
-var stkunmedleer = require("./routes/unidadmedidas/stkunmedleer");
-var stkunmedleercod = require("./routes/unidadmedidas/stkunmedleercod");
-var stkunmedagregar = require("./routes/unidadmedidas/stkunmedagregar");
-var stkunmedmodificar = require("./routes/unidadmedidas/stkunmedmodificar");
-var stkunmedborrar = require("./routes/unidadmedidas/stkunmedborrar");
+var stkunmedleer = require("./routes/stock/unidadmedidas/stkunmedleer");
+var stkunmedleercod = require("./routes/stock/unidadmedidas/stkunmedleercod");
+var stkunmedagregar = require("./routes/stock/unidadmedidas/stkunmedagregar");
+var stkunmedmodificar = require("./routes/stock/unidadmedidas/stkunmedmodificar");
+var stkunmedborrar = require("./routes/stock/unidadmedidas/stkunmedborrar");
 
-var stkgrupoleer = require("./routes/grupos/stkgrupoleer");
-var stkgrupoleercod = require("./routes/grupos/stkgrupoleercod");
-var stkgrupoagregar = require("./routes/grupos/stkgrupoagregar");
-var stkgrupomodificar = require("./routes/grupos/stkgrupomodificar");
-var stkgrupoborrar = require("./routes/grupos/stkgrupoborrar");
+var stkgrupoleer = require("./routes/stock/grupos/stkgrupoleer");
+var stkgrupoleercod = require("./routes/stock/grupos/stkgrupoleercod");
+var stkgrupoagregar = require("./routes/stock/grupos/stkgrupoagregar");
+var stkgrupomodificar = require("./routes/stock/grupos/stkgrupomodificar");
+var stkgrupoborrar = require("./routes/stock/grupos/stkgrupoborrar");
 
-var stkubfisicaleer = require("./routes/ubfisica/stkubfisicaleer");
+var stkubfisicaleer = require("./routes/stock/ubfisica/stkubfisicaleer");
 // var stkubfisicaleercod = require('./routes/ubfisica/stkubfisicaleercod');
-var stkubfisicaagregar = require("./routes/ubfisica/stkubfisicaagregar");
+var stkubfisicaagregar = require("./routes/stock/ubfisica/stkubfisicaagregar");
 // var stkubfisicamodificar = require('./routes/ubfisica/stkubfisicamodificar');
-var stkubfisicaborrar = require("./routes/ubfisica/stkubfisicaborrar");
-var stkubfisicaleerUbG = require("./routes/ubfisica/stkubfisicaleerUbG");
+var stkubfisicaborrar = require("./routes/stock/ubfisica/stkubfisicaborrar");
+var stkubfisicaleerUbG = require("./routes/stock/ubfisica/stkubfisicaleerUbG");
 
-var stkrubroleer = require("./routes/rubros/stkrubroleer");
-var stkrubroleermezcla = require("./routes/rubros/stkrubroleermezcla");
-var stkrubroleercod = require("./routes/rubros/stkrubroleercod");
-var stkrubroagregar = require("./routes/rubros/stkrubroagregar");
-var stkrubromodificar = require("./routes/rubros/stkrubromodificar");
-var stkrubroborrar = require("./routes/rubros/stkrubroborrar");
-var stkrubroleecodgrupo = require("./routes/rubros/stkrubroleecodgrupo");
-var stkrubroleecodrbygr = require("./routes/rubros/stkrubroleecodrbygr");
-var stkrubroleeultnro = require("./routes/rubros/stkrubroleeultnro");
+var stkrubroleer = require("./routes/stock/rubros/stkrubroleer");
+var stkrubroleermezcla = require("./routes/stock/rubros/stkrubroleermezcla");
+var stkrubroleercod = require("./routes/stock/rubros/stkrubroleercod");
+var stkrubroagregar = require("./routes/stock/rubros/stkrubroagregar");
+var stkrubromodificar = require("./routes/stock/rubros/stkrubromodificar");
+var stkrubroborrar = require("./routes/stock/rubros/stkrubroborrar");
+var stkrubroleecodgrupo = require("./routes/stock/rubros/stkrubroleecodgrupo");
+var stkrubroleecodgryrb = require("./routes/stock/rubros/stkrubroleecodgryrb");
+var stkrubroleeultnro = require("./routes/stock/rubros/stkrubroleeultnro");
 
-var stkitemsleer = require("./routes/items/stkitemsleer");
-var stkitemsagregar = require("./routes/items/stkitemsagregar");
-var stkitemsmodificar = require("./routes/items/stkitemsmodificar");
-var stkitemsborrar = require("./routes/items/stkitemsborrar");
-var stkitemsleecod = require("./routes/items/stkitemsleecod");
-var stkitemsleecodgryrb = require("./routes/items/stkitemsleecodgryrb");
-var stkitemsleecodgrrbit = require("./routes/items/stkitemsleecodgrrbit");
-var stkitemsleedetalles = require("./routes/items/stkitemsleedetalles");
+var stkitemsleer = require("./routes/stock/items/stkitemsleer");
+var stkitemsagregar = require("./routes/stock/items/stkitemsagregar");
+var stkitemsmodificar = require("./routes/stock/items/stkitemsmodificar");
+var stkitemsborrar = require("./routes/stock/items/stkitemsborrar");
+var stkitemsleecod = require("./routes/stock/items/stkitemsleecod");
+var stkitemsleecodgryrb = require("./routes/stock/items/stkitemsleecodgryrb");
+var stkitemsleecodgrrbit = require("./routes/stock/items/stkitemsleecodgrrbit");
+var stkitemsleedetalles = require("./routes/stock/items/stkitemsleedetalles");
 
-var stkitemsmodificacant = require("./routes/items/stkitemsmodificacant");
-var stkitemsmoddisp = require("./routes/items/stkitemsmoddisp");
-var stkitemsmodstock = require("./routes/items/stkitemsmodstock");
+var stkitemsmodificacant = require("./routes/stock/items/stkitemsmodificacant");
+var stkitemsmoddisp = require("./routes/stock/items/stkitemsmoddisp");
+var stkitemsmodstock = require("./routes/stock/items/stkitemsmodstock");
 
-var stkitemsventa = require("./routes/items/stkitemsventa"); //una prueba
+var stkitemsventa = require("./routes/stock/items/stkitemsventa"); //una prueba
 
-var stkverificadisp = require("./routes/movimientos/stkverificadisp");
-var stkmovsalfinal = require("./routes/movimientos/stkmovsalfinal");
-var stkmovenvase = require("./routes/movimientos/stkmovenvase");
+var stkverificadisp = require("./routes/stock/movimientos/stkverificadisp");
+var stkmovsalfinal = require("./routes/stock/movimientos/stkmovsalfinal");
+var stkmovenvase = require("./routes/stock/movimientos/stkmovenvase");
 
-var stkmovvtaagregar = require("./routes/envase/stkmovvtaagregar");
-var stkenvaseagregar = require("./routes/envase/stkenvaseagregar");
-var stkenvaseleeimp = require("./routes/envase/stkenvaseleeimp");
-var stkenvasecambiaimp = require("./routes/envase/stkenvasecambiaimp");
+var stkmovvtaagregar = require("./routes/stock/envase/stkmovvtaagregar");
+var stkenvaseagregar = require("./routes/stock/envase/stkenvaseagregar");
+var stkenvaseleeimp = require("./routes/stock/envase/stkenvaseleeimp");
+var stkenvasecambiaimp = require("./routes/stock/envase/stkenvasecambiaimp");
 
 var listaprecios = require("./routes/listaprecios/listaprecios");
 var modprecios = require("./routes/listaprecios/modprecios");
 
 // PRESUPUESTO
-// var presupunid = require('./routes/presupuesto/presupunid')
-// var presuppu = require('./routes/presupuesto/presuppu')
-// var presupfajas = require('./routes/presupuesto/presupfajas')
-// var presuplonaconf = require('./routes/presupuesto/presuplonaconf')
-// var presupgraba = require('./routes/presupuesto/presupgraba')
+var presupunid = require("./routes/presupuesto/presupunid");
+var presuppu = require("./routes/presupuesto/presuppu");
+var presupfajas = require("./routes/presupuesto/presupfajas");
+var presuplonaconf = require("./routes/presupuesto/presuplonaconf");
+var presupgraba = require("./routes/presupuesto/presupgraba");
 
 // function agregada por el error CROS
 function perimitirCrossDomain(req, res, next) {
@@ -166,7 +166,7 @@ app.use("/stkrubroagregar", stkrubroagregar);
 app.use("/stkrubromodificar", stkrubromodificar);
 app.use("/stkrubroborrar", stkrubroborrar);
 app.use("/stkrubroleecodgrupo", stkrubroleecodgrupo);
-app.use("/stkrubroleecodrbygr", stkrubroleecodrbygr);
+app.use("/stkrubroleecodgryrb", stkrubroleecodgryrb);
 app.use("/stkrubroleeultnro", stkrubroleeultnro);
 
 app.use("/stkitemsleer", stkitemsleer);
@@ -198,11 +198,11 @@ app.use("/listaprecios", listaprecios);
 app.use("/modprecios", modprecios);
 
 //PRESUPUESTO
-// app.use('/presupunid', presupunid);
-// app.use('/presuppu', presuppu);
-// app.use('/presupfajas', presupfajas);
-// app.use('/presuplonaconf', presuplonaconf);
-// app.use('/presupgraba', presupgraba);
+app.use("/presupunid", presupunid);
+app.use("/presuppu", presuppu);
+app.use("/presupfajas", presupfajas);
+app.use("/presuplonaconf", presuplonaconf);
+app.use("/presupgraba", presupgraba);
 
 // app.use('/clientesleer', clientesleer);
 
