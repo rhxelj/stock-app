@@ -14,8 +14,8 @@ conexion.connect(function(err) {
 var router = express();
 
 router.get("/", async function(req, res, next) {
-  var StkItemsGrupo = req.query.id2;
-  var StkItemsRubro = req.query.id3;
+  var StkItemsGrupo = req.query.idStkGrupo;
+  var StkItemsRubro = req.query.idStkRubro;
 
   var q = [
     "Select * from StkItems where StkItemsGrupo  = ",

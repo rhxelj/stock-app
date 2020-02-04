@@ -34,25 +34,38 @@ router.post("/", async function(req, res, next) {
   /* 'UPDATE StkItems SET StkItemsCantDisp = ' + CantDisp + 
                                      ', StkItemsFAct = "'+ StkItemsFAct + 
                                       '" WHERE idStkItems = ' + idStkItems + ' and  StkItemsGrupo = ' + StkItemsGrupo + ' and  StkItemsRubro = ' + StkItemsRubro */
-  var q = [
-    "UPDATE StkItems SET StkItemsCantDisp = ",
-    CantDisp,
-    ' StkItemsFAct = "',
-    StkItemsFAct,
-    '" WHERE idStkItems = ',
-    idStkItems,
-    " and  StkItemsGrupo = ",
-    StkItemsGrupo,
-    " and  StkItemsRubro = ",
-    StkItemsRubro
-  ].join(" ");
-  conexion.query(q, function(err, result) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.json(result);
+  // var q = [
+  //   "UPDATE StkItems SET StkItemsCantDisp = ",
+  //   CantDisp,
+  //   ' StkItemsFAct = "',
+  //   StkItemsFAct,
+  //   '" WHERE idStkItems = ',
+  //   idStkItems,
+  //   " and  StkItemsGrupo = ",
+  //   StkItemsGrupo,
+  //   " and  StkItemsRubro = ",
+  //   StkItemsRubro
+  // ].join(" ");
+  // conexion.query(q, function(err, result) {
+  conexion.query(
+    "UPDATE StkItems SET StkItemsCantDisp = " +
+      CantDisp +
+      ', StkItemsFAct = "' +
+      StkItemsFAct +
+      '" WHERE idStkItems = ' +
+      idStkItems +
+      " and  StkItemsGrupo = " +
+      StkItemsGrupo +
+      " and  StkItemsRubro = " +
+      StkItemsRubro,
+    function(err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json(result);
+      }
     }
-  });
+  );
 });
 
 module.exports = router;

@@ -107,7 +107,6 @@ router.get("/", (req, res, next) => {
       codmoneda,
       "'"
     ].join("");
-    console.log(cotizacion);
     conexion.query(mcuadcob, function(err, result) {
       if (err) {
         console.log("error en mysql");
@@ -158,7 +157,7 @@ router.get("/", (req, res, next) => {
           while (j < fin) {
             console.log(datosenvio);
             costooriginal =
-              datosenvio[j][0].CostoCobMC + +datosenvio[j][0].CostoRefuerzo;
+              datosenvio[j][0].CostoCobMC + datosenvio[j][0].CostoRefuerzo;
             j++;
             costooriginal = costooriginal + datosenvio[j][0].CostoMSChicote;
             j++;
@@ -172,13 +171,13 @@ router.get("/", (req, res, next) => {
             costooriginal = costooriginal + datosenvio[j][0].CostoOjalM2;
             j++;
             costooriginal = costooriginal * 1.35 * 1.245;
-            console.log("costooriginal");
-            console.log(costooriginal);
-            datosenvio.push(costooriginal);
+            // console.log("costooriginal");
+            // console.log(costooriginal);
+            datosenvio1.push(costooriginal);
             costooriginal = 0;
           }
-          res.json(datosenvio);
-          datosenvio = [];
+          res.json(datosenvio1);
+          datosenvio1 = [];
         }
       }
     });
