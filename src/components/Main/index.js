@@ -11,11 +11,11 @@ import { Route } from "react-router-dom";
 // import UpdateComponent from './pages/UpdateComponent'
 //import DeleteComponent from './pages/DeleteComponent'
 
-import StkMonedas from "./pages/Monedas/StkMonedas";
-import Proveedores from "./pages/Proveedores/Proveedores";
+import StkMonedas from "./pages/Stock/Monedas/StkMonedas";
+import Proveedores from "./pages/Stock/Proveedores/Proveedores";
 import StkUnMed from "./pages/UnidadMedidas/StkUnMed";
-import StkRubro from "./pages/Rubros/StkRubro";
-import StkGrupo from "./pages/Grupos/StkGrupo";
+import StkRubro from "./pages/Stock/Rubros/StkRubro";
+import StkGrupo from "./pages/Stock/Grupos/StkGrupo";
 import StkUbFisica from "./pages/UbicacionFisica/StkUbFisica";
 import ListaPrecios from "./pages/ListaPrecios/ListaPrecios";
 import ModPrecios from "./pages/ListaPrecios/ModPrecios";
@@ -23,7 +23,7 @@ import StkMovEntrada from "./pages/Movimientos/Entrada/StkMovEntrada";
 import StkMovSalida from "./pages/Movimientos/Salida/StkMovSalida";
 import StkSalidaFinal from "./pages/Movimientos/Salida/StkSalidaFinal";
 // import StkMovimiento from './pages/z_SinClasificarMirar/StkMovimiento'
-import StkItems from "./pages/Items/StkItems";
+import StkItems from "./pages/Stock/Items/StkItems";
 
 import PresupPant from "./pages/Presupuesto/PresupPant.js";
 import ImprimeQR from "./pages/Impresion/ImprimeQR";

@@ -21,7 +21,6 @@ import request from "superagent";
 import IpServidor from "../../VariablesDeEntorno";
 import StkGenImpQR from "../../Impresion/StkGenImpQR";
 import ubicacion from "./UbicacionGeografica";
-import stkgrupoleer from "./StkGrupoleer";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -101,20 +100,20 @@ var StkMovEntrada = props => {
   var [state, setState] = useState(initial_state);
 
   // Lee Grupo
-  // const stkgrupoleer = _ => {
-  //   const url = IpServidor + "/stkgrupoleer";
-  //   request
-  //     .get(url)
-  //     .set("Content-Type", "application/json")
-  //     .then(res => {
-  //       console.log("TCL: res", res);
-  //       const stkgrupo = JSON.parse(res.text);
-  //       console.log("TCL: stkgrupo", stkgrupo);
+  const stkgrupoleer = _ => {
+    const url = IpServidor + "/stkgrupoleer";
+    request
+      .get(url)
+      .set("Content-Type", "application/json")
+      .then(res => {
+        console.log("TCL: res", res);
+        const stkgrupo = JSON.parse(res.text);
+        console.log("TCL: stkgrupo", stkgrupo);
 
-  //       setState({ ...state, stkgrupo: stkgrupo });
-  //       console.log("TCL: stkgrupo.state", state.stkgrupo);
-  //     });
-  // };
+        setState({ ...state, stkgrupo: stkgrupo });
+        console.log("TCL: stkgrupo.state", state.stkgrupo);
+      });
+  };
 
   //lee rubro por código de grupo
   const stkrubroleecodgrupo = id => {
@@ -141,7 +140,6 @@ var StkMovEntrada = props => {
   //     });
   // };
 
-  // estaba mal el nombre stkrubroleecodrbygr, es stkrubroleecodgryrb
   const stkrubroleecodgryrb = () => {
     const url =
       IpServidor +
@@ -273,8 +271,7 @@ var StkMovEntrada = props => {
   };
 
   useEffect(() => {
-    const leegrupo = async(stkgrupoleer.stkgrupoleer());
-    setState({ ...state, stkgrupo: leegrupo }); //leo grupos
+    stkgrupoleer();
   }, []);
 
   useEffect(() => {

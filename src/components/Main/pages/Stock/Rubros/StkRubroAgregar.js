@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import request from "superagent";
-import IpServidor from "../VariablesDeEntorno";
+import IpServidor from "../../VariablesDeEntorno";
 import "react-table/react-table.css";
 // import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
@@ -13,7 +13,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 // import Select from '@material-ui/core/Select';
 
 // import AgregarMonedas from './StkMonedasAgregar'
-import CodigoError from '../../../lib/CodigoError'
+import CodigoError from '../../../../lib/CodigoError'
 import Grid from '@material-ui/core/Grid';
 
 class StkRubroAgregar extends Component {
