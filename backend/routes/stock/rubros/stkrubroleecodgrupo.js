@@ -13,6 +13,7 @@ conexion.connect(function(err) {
 
 var router = express();
 
+//router.all("/", async function(req, res, next) {
 router.get("/?:id", function(req, res, next) {
   indice = req.params.id;
 

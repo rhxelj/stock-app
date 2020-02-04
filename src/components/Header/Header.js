@@ -167,7 +167,7 @@ class Header extends React.Component {
         link: "/StkMovEntrada",
         primary: "Entrada Mercadería"
       },
-      { link: "/StkMovSalida", primary: "Salida Virtual" },
+      { link: "/StkMovSalida", primary: "Salida de Disponible" },
       { link: "/StkSalidaFinal", primary: "Salida Final" }
     ];
     return (

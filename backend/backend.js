@@ -26,11 +26,11 @@ var stkmonedasborrar = require("./routes/monedas/stkmonedasborrar");
 
 var stktipoproveedleer = require("./routes/proveedores/stktipoproveedleer");
 
-var stkunmedleer = require("./routes/unidadmedidas/stkunmedleer");
-var stkunmedleercod = require("./routes/unidadmedidas/stkunmedleercod");
-var stkunmedagregar = require("./routes/unidadmedidas/stkunmedagregar");
-var stkunmedmodificar = require("./routes/unidadmedidas/stkunmedmodificar");
-var stkunmedborrar = require("./routes/unidadmedidas/stkunmedborrar");
+var stkunmedleer = require("./routes/stock/unidadmedidas/stkunmedleer");
+var stkunmedleercod = require("./routes/stock/unidadmedidas/stkunmedleercod");
+var stkunmedagregar = require("./routes/stock/unidadmedidas/stkunmedagregar");
+var stkunmedmodificar = require("./routes/stock/unidadmedidas/stkunmedmodificar");
+var stkunmedborrar = require("./routes/stock/unidadmedidas/stkunmedborrar");
 
 var stkgrupoleer = require("./routes/stock/grupos/stkgrupoleer");
 var stkgrupoleercod = require("./routes/stock/grupos/stkgrupoleercod");
@@ -38,12 +38,12 @@ var stkgrupoagregar = require("./routes/stock/grupos/stkgrupoagregar");
 var stkgrupomodificar = require("./routes/stock/grupos/stkgrupomodificar");
 var stkgrupoborrar = require("./routes/stock/grupos/stkgrupoborrar");
 
-var stkubfisicaleer = require("./routes/ubfisica/stkubfisicaleer");
+var stkubfisicaleer = require("./routes/stock/ubfisica/stkubfisicaleer");
 // var stkubfisicaleercod = require('./routes/ubfisica/stkubfisicaleercod');
-var stkubfisicaagregar = require("./routes/ubfisica/stkubfisicaagregar");
+var stkubfisicaagregar = require("./routes/stock/ubfisica/stkubfisicaagregar");
 // var stkubfisicamodificar = require('./routes/ubfisica/stkubfisicamodificar');
-var stkubfisicaborrar = require("./routes/ubfisica/stkubfisicaborrar");
-var stkubfisicaleerUbG = require("./routes/ubfisica/stkubfisicaleerUbG");
+var stkubfisicaborrar = require("./routes/stock/ubfisica/stkubfisicaborrar");
+var stkubfisicaleerUbG = require("./routes/stock/ubfisica/stkubfisicaleerUbG");
 
 var stkrubroleer = require("./routes/stock/rubros/stkrubroleer");
 var stkrubroleermezcla = require("./routes/stock/rubros/stkrubroleermezcla");

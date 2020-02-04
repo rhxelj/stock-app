@@ -33,36 +33,52 @@ router.post("/", async function(req, res, next) {
   var d = new Date();
   finalDate = d.toISOString().split("T")[0];
   var StkItemsFAct = finalDate;
+  console.log("StkItemsFAct  " + StkItemsFAct);
   // Desde Postman http://localhost:4000/stkitemsmodificar?id1=1&id2=1&id3=1
 
-  var q = [
-    "UPDATE StkItems SET StkItemsCantDisp = ",
-    CantDisp,
-    ", StkItemsCantidad = ",
-    Cantidads,
-    ', StkItemsFAct = "',
-    StkItemsFAct,
-    '" WHERE idStkItems = ',
-    idStkItems,
-    " and  StkItemsGrupo = ",
-    StkItemsGrupo,
-    " and  StkItemsRubro = ",
-    StkItemsRubro
-  ].join(" ");
-  conexion.query(q, function(err, result) {
-    if (err) {
-      if (err.errno == 1054) {
-        return res
-          .status(414)
-          .send({ message: "Faltan datos para ingresar la mercadería" });
+  // var q = [
+  //   "UPDATE StkItems SET StkItemsCantDisp = ",
+  //   CantDisp,
+  //   ", StkItemsCantidad = ",
+  //   Cantidads,
+  //   ', StkItemsFAct = "',
+  //   StkItemsFAct,
+  //   '" WHERE idStkItems = ',
+  //   idStkItems,
+  //   " and  StkItemsGrupo = ",
+  //   StkItemsGrupo,
+  //   " and  StkItemsRubro = ",
+  //   StkItemsRubro
+  // ].join(" ");
+  // conexion.query(q, function(err, result) {
+  conexion.query(
+    "UPDATE StkItems SET StkItemsCantDisp = " +
+      CantDisp +
+      ", StkItemsCantidad = " +
+      Cantidads +
+      ', StkItemsFAct = "' +
+      StkItemsFAct +
+      '" WHERE idStkItems = ' +
+      idStkItems +
+      " and  StkItemsGrupo = " +
+      StkItemsGrupo +
+      " and  StkItemsRubro = " +
+      StkItemsRubro,
+    function(err, result) {
+      if (err) {
+        if (err.errno == 1054) {
+          return res
+            .status(414)
+            .send({ message: "Faltan datos para ingresar la mercadería" });
+        } else {
+          console.log("error en stkitemsmodstock");
+          console.log(err.errno);
+        }
       } else {
-        console.log("error en stkitemsmodstock");
-        console.log(err.errno);
+        res.json(result.rows);
       }
-    } else {
-      res.json(result.rows);
     }
-  });
+  );
 });
 
 module.exports = router;
