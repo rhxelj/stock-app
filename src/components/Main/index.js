@@ -26,7 +26,7 @@ import StkSalidaFinal from "./pages/Movimientos/Salida/StkSalidaFinal";
 import StkItems from "./pages/Stock/Items/StkItems";
 
 import PresupPant from "./pages/Presupuesto/PresupPant.js";
-
+import ImprimeQR from "./pages/Impresion/ImprimeQR";
 // TODO 👀📐 nothing changed here, just auto-formatting
 // all this auto-formatting is coming from the Prettier extension
 // https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
@@ -53,6 +53,7 @@ const Main = () => (
       <Route path="/StkSalidaFinal" component={StkSalidaFinal} />
       <Route path="/ListaPrecios" component={ListaPrecios} />
       <Route path="/PresupPant" component={PresupPant} />
+      <Route path="/ImprimeQR" component={ImprimeQR} />
       <Route path="/StkRubro" component={StkRubro} />
       <Route path="/StkGrupo" component={StkGrupo} />
       <Route path="/StkItems" component={StkItems} />

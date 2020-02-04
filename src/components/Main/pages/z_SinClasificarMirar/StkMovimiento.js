@@ -101,9 +101,9 @@ class StkMovimiento extends Component {
             this.marcarubro()
     }
     leestkrubropRyG = _ => {
-        //desde Postman http://localhost:4000/stkrubroleecodgryrb/?id1=10&id2=1
-        // const url = 'http://localhost:4000/stkrubroleecodgryrb/?id1='+this.state.rubrostk+'&id2='+this.state.grupostk ; //'http://localhost:3000/data'
-        const url = IpServidor + '/stkrubroleecodgryrb/?id1=' + this.state.rubrostk + '&id2=' + this.state.grupostk
+        //desde Postman http://localhost:4000/stkrubroleecodrbygr/?id1=10&id2=1
+        // const url = 'http://localhost:4000/stkrubroleecodrbygr/?id1='+this.state.rubrostk+'&id2='+this.state.grupostk ; //'http://localhost:3000/data'
+        const url = IpServidor + '/stkrubroleecodrbygr/?id1=' + this.state.rubrostk + '&id2=' + this.state.grupostk
         request
         .get(url)
         .set('Content-Type', 'application/json')
@@ -142,7 +142,7 @@ class StkMovimiento extends Component {
     }
 
     leestkitems = _ => {
-        //desde Postman http://localhost:4000/stkrubroleecodgryrb/?id1=10&id2=1
+        //desde Postman http://localhost:4000/stkrubroleecodrbygr/?id1=10&id2=1
         // const url = 'http://localhost:4000/stkitemsleecodgryrb/?id2='+this.state.grupostk+'&id3='+this.state.rubrostk  ; //'http://localhost:3000/data'
         const url = IpServidor + '/stkitemsleecodgryrb/?id2='+this.state.grupostk+'&id3='+this.state.rubrostk  ; //'http://localhost:3000/data'
         request

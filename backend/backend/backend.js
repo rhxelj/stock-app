@@ -49,7 +49,7 @@ var stkrubroagregar = require('./routes/stkrubroagregar');
 var stkrubromodificar = require('./routes/stkrubromodificar');
 var stkrubroborrar = require('./routes/stkrubroborrar');
 var stkrubroleecodgrupo = require('./routes/stkrubroleecodgrupo');
-var stkrubroleecodgryrb = require('./routes/stkrubroleecodgryrb');
+var stkrubroleecodrbygr = require('./routes/stkrubroleecodrbygr');
 
 
 
@@ -149,7 +149,7 @@ app.use('/stkrubroagregar', stkrubroagregar);
 app.use('/stkrubromodificar', stkrubromodificar);
 app.use('/stkrubroborrar', stkrubroborrar);
 app.use('/stkrubroleecodgrupo', stkrubroleecodgrupo);
-app.use('/stkrubroleecodgryrb', stkrubroleecodgryrb);
+app.use('/stkrubroleecodrbygr', stkrubroleecodrbygr);
 
 
 app.use('/stkitemsleer', stkitemsleer);

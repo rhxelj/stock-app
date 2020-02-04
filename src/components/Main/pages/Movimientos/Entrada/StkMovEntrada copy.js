@@ -21,7 +21,6 @@ import request from "superagent";
 import IpServidor from "../../VariablesDeEntorno";
 import StkGenImpQR from "../../Impresion/StkGenImpQR";
 import ubicacion from "./UbicacionGeografica";
-import stkgrupoleer from "./StkGrupoleer";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -56,9 +55,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 var initial_state = {
-  idStkGrupo: "",
-  idStkRubro: "",
-  idStkItems: "",
+  idStkGrupo: 0,
   dialogo_imprimir: false,
   stkrubro: [],
   stkgrupo: [],
@@ -70,12 +67,12 @@ var initial_state = {
   StkItemsCantidad: 0.0,
   StkItemsCantDisp: 0.0,
   StkItemsFAct: "",
-  StkItemsMin: null,
-  StkItemsMax: null,
-  StkRubroAncho: null,
-  StkRubroPresDes: null,
-  StkRubroPres: null,
-  StkRubroUM: null,
+  StkItemsMin: 0.0,
+  StkItemsMax: 0.0,
+  StkRubroAncho: 0.0,
+  StkRubroPresDes: "",
+  StkRubroPres: 0.0,
+  StkRubroUM: 0.0,
   cantidad: 1.0,
   largo: 0.0,
   ancho: 0.0,
@@ -101,20 +98,16 @@ var StkMovEntrada = props => {
   var [state, setState] = useState(initial_state);
 
   // Lee Grupo
-  // const stkgrupoleer = _ => {
-  //   const url = IpServidor + "/stkgrupoleer";
-  //   request
-  //     .get(url)
-  //     .set("Content-Type", "application/json")
-  //     .then(res => {
-  //       console.log("TCL: res", res);
-  //       const stkgrupo = JSON.parse(res.text);
-  //       console.log("TCL: stkgrupo", stkgrupo);
-
-  //       setState({ ...state, stkgrupo: stkgrupo });
-  //       console.log("TCL: stkgrupo.state", state.stkgrupo);
-  //     });
-  // };
+  const leestkgrupo = _ => {
+    const url = IpServidor + "/stkgrupoleer";
+    request
+      .get(url)
+      .set("Content-Type", "application/json")
+      .then(res => {
+        const stkgrupo = JSON.parse(res.text);
+        setState({ ...state, stkgrupo: stkgrupo });
+      });
+  };
 
   //lee rubro por código de grupo
   const stkrubroleecodgrupo = id => {
@@ -124,39 +117,34 @@ var StkMovEntrada = props => {
       .set("Content-Type", "application/json")
       .then(res => {
         const stkrubro = JSON.parse(res.text);
-        // setState({ ...state, stkrubro: stkrubro });
         setState({ ...state, stkrubro: stkrubro });
       });
   };
 
-  // //lee ubicacion física según la ubicación geografica
-  // const stkubfisicaleerUbG = id => {
-  //   const url = IpServidor + "/stkubfisicaleerUbG/?id=" + id;
-  //   request
-  //     .get(url)
-  //     .set("Content-Type", "application/json")
-  //     .then(res => {
-  //       const ubicacionf = JSON.parse(res.text);
-  //       setState({ ...state, ubicacionf: ubicacionf });
-  //     });
-  // };
+  //lee ubicacion física según la ubicación geografica
+  const stkubfisicaleerUbG = id => {
+    const url = IpServidor + "/stkubfisicaleerUbG/?id=" + id;
+    request
+      .get(url)
+      .set("Content-Type", "application/json")
+      .then(res => {
+        const ubicacionf = JSON.parse(res.text);
+        setState({ ...state, ubicacionf: ubicacionf });
+      });
+  };
 
-  // estaba mal el nombre stkrubroleecodrbygr, es stkrubroleecodgryrb
-  const stkrubroleecodgryrb = () => {
+  const stkrubroleecodrbygr = () => {
     const url =
       IpServidor +
-      "/stkrubroleecodgryrb/?idStkRubro=" +
-      // state.StkItemsRubro +
-      state.idStkRubro +
-      "&idStkGrupo=" +
-      // state.StkItemsGrupo;
-      state.idStkGrupo;
+      "/stkrubroleecodrbygr/?id1=" +
+      state.StkItemsRubro +
+      "&id2=" +
+      state.StkItemsGrupo;
     request
       .get(url)
       .set("Content-Type", "application/json")
       .then(res => {
         const stkrubroele = JSON.parse(res.text);
-        console.log("TCL: stkrubroleecodrbygr -> stkrubroele", stkrubroele);
         setState({ ...state, stkrubroele: stkrubroele });
         setState({
           ...state,
@@ -164,23 +152,18 @@ var StkMovEntrada = props => {
           StkRubroPresDes: stkrubroele[0].StkRubroPresDes,
           StkRubroPres: stkrubroele[0].StkRubroPres,
           StkRubroUM: stkrubroele[0].StkRubroUM
+
+          // StkRubroAncho: state.stkrubroele[0].StkRubroAncho,
+          // StkRubroPresDes: state.stkrubroele[0].StkRubroPresDes,
+          // StkRubroPres: state.stkrubroele[0].StkRubroPres,
+          // StkRubroUM: state.stkrubroele[0].StkRubroUM
         });
       });
-    console.log(
-      "contenido de StkRubroUM dentro de stkrubroleecodrbygr: ",
-      state.StkRubroUM
-    );
-    console.log("contenido de state dentro de stkrubroleecodrbygr: ", state);
   };
 
-  const stkitemsleecodgryrb = _ => {
-    // var id2 = state.StkItemsGrupo;
-    const url =
-      IpServidor +
-      "/stkitemsleecodgryrb/?idStkGrupo=" +
-      state.idStkGrupo +
-      "&idStkRubro=" +
-      state.idStkRubro;
+  const stkitemsleecodgryrb = id3 => {
+    var id2 = state.StkItemsGrupo;
+    const url = IpServidor + "/stkitemsleecodgryrb/?id2=" + id2 + "&id3=" + id3;
     request
       .get(url)
       .set("Content-Type", "application/json")
@@ -191,297 +174,276 @@ var StkMovEntrada = props => {
   };
 
   const stkitemsleecodgrrbit = () => {
-    var idStkItems = state.idStkItems;
-    var idStkGrupo = state.idStkGrupo;
-    var idStkRubro = state.idStkRubro;
-
+    var id1 = state.StkItems;
+    var id2 = state.StkItemsGrupo;
+    var id3 = state.StkItemsRubro;
     const url =
       IpServidor +
-      "/stkitemsleecodgrrbit/?idStkItems=" +
-      idStkItems +
-      "&idStkGrupo=" +
-      idStkGrupo +
-      "&idStkRubro=" +
-      idStkRubro;
+      "/stkitemsleecodgrrbit/?id1=" +
+      id1 +
+      "&id2=" +
+      id2 +
+      "&id3=" +
+      id3;
     request
       .get(url)
       .set("Content-Type", "application/json")
       .then(res => {
         const stkitemse = JSON.parse(res.text);
-        console.log("TCL: stkitemsleecodgrrbit -> stkitemse", stkitemse);
-        // setState({ ...state, stkitemse: stkitemse });
+        setState({ ...state, stkitemse: stkitemse });
         setState({
           ...state,
-          StkItemsCantidad: stkitemse[0].StkItemsCantidad,
-          StkItemsCantDisp: stkitemse[0].StkItemsCantDisp,
-          StkItemsFAct: stkitemse[0].StkItemsFAct,
-          StkItemsMin: stkitemse[0].StkItemsMin,
-          StkItemsMax: stkitemse[0].StkItemsMax
+          StkItemsCantidad: state.stkitemse[0].StkItemsCantidad,
+          StkItemsCantDisp: state.stkitemse[0].StkItemsCantDisp,
+          StkItemsFAct: state.stkitemse[0].StkItemsFAct,
+          StkItemsMin: state.stkitemse[0].StkItemsMin,
+          StkItemsMax: state.stkitemse[0].StkItemsMax
         });
         var recorte = state.StkItemsFAct.substr(0, 10);
         setState({ ...state, StkItemsFAct: recorte });
-        console.log("State.StkItemsMax =>", state.StkItemsMax);
-        console.log("stkitemse[0].StkItemsMax =>", stkitemse[0].StkItemsMax);
-        console.log("state =>", state);
       });
   };
 
   const limpioPantalla = () => {
     setState(
-      // initial_state //TODO revisar esto no me pone en cero todo averiguar como poner en cero
-      {
-        ...state,
-        // stkrubro: [],
-        //   // stkgrupo: [],
-        // stkitems: [],
-        idStkGrupo: "",
-        idStkRubro: "",
-        idStkItems: ""
-        //   stkItems: [],stkgrupo
-        //   stkrubroele: [],
-        //   StkItemsCantidad: 0.0,
-        //   StkItemsCantDisp: 0.0,
-        //   StkItemsFAct: "",
-        //   StkItemsMin: 0.0,
-        //   StkItemsMax: 0.0,
-        //   StkRubroAncho: 0.0,
-        //   StkRubroPresDes: "",
-        //   StkRubroPres: 0.0,
-        //   StkRubroUM: 0.0,
-        //   cantidad: 1.0,
-        //   largo: 0.0,
-        //   ancho: 0.0,
-        //   faltante: 0.0,
-        //   total: 0.0,
-        //   datostraid: [],
-        //   open: true,
-        //   marcagenqr: false,
-        //   imp_conf: false,
-        //   marcaagregado: false,
-        //   StkEnvaseUb: "",
-        //   StkEnvaseObserv: "",
-        //   StkEnvasePartida: "",
-        //   indiceub: [],
-        //   StkItemsGrupo: [],
-        //   StkItemsRubro: "",
-        //   StkItems: [],
-        //   StkEnvaseUbF: [],
-        //   StkEnvaseUbG: []
-      }
+      initial_state //TODO revisar esto no me pone en cero todo averiguar como poner en cero
+      //   {
+      //   stkrubro: [],
+      //   // stkgrupo: [],
+      //   stkitems: [],
+      //   stkItems: [],
+      //   stkenvaseubg: [],
+      //   ubicacionf: [],
+      //   // ubicacion:[],
+      //   stkrubroele: [],
+      //   StkItemsCantidad: 0.0,
+      //   StkItemsCantDisp: 0.0,
+      //   StkItemsFAct: "",
+      //   StkItemsMin: 0.0,
+      //   StkItemsMax: 0.0,
+      //   StkRubroAncho: 0.0,
+      //   StkRubroPresDes: "",
+      //   StkRubroPres: 0.0,
+      //   StkRubroUM: 0.0,
+      //   cantidad: 1.0,
+      //   largo: 0.0,
+      //   ancho: 0.0,
+      //   faltante: 0.0,
+      //   total: 0.0,
+      //   datostraid: [],
+      //   open: true,
+      //   marcagenqr: false,
+      //   imp_conf: false,
+      //   marcaagregado: false,
+      //   StkEnvaseUb: "",
+      //   StkEnvaseObserv: "",
+      //   StkEnvasePartida: "",
+      //   indiceub: [],
+      //   StkItemsGrupo: [],
+      //   StkItemsRubro: "",
+      //   StkItems: [],
+      //   StkEnvaseUbF: [],
+      //   StkEnvaseUbG: []
+      // }
     );
-    // stkgrupoleer();
+    leestkgrupo();
   };
 
   useEffect(() => {
-    const leegrupo = async(stkgrupoleer.stkgrupoleer());
-    setState({ ...state, stkgrupo: leegrupo }); //leo grupos
-  }, []);
-
-  useEffect(() => {
-    if (state.idStkGrupo != "") {
-      stkrubroleecodgrupo(state.idStkGrupo); //leo rubros apartir del grupo seleccionado
-    }
+    console.log(
+      "dentro de useEffect contenido de state.idStkGrupo ",
+      state.idStkGrupo
+    );
+    stkrubroleecodgrupo(state.idStkGrupo);
   }, [state.idStkGrupo]);
 
   useEffect(() => {
-    if (state.idStkGrupo != "" && state.idStkRubro != "") {
-      console.log("estoy en el useEffect que lanza stkrubroleecodrbygr()");
-      stkrubroleecodgryrb();
-    }
-  }, [state.idStkGrupo, state.idStkRubro]);
+    leestkgrupo();
+    console.log("leyo leestokgrupo");
+  }, []);
 
-  useEffect(() => {
-    if (state.idStkRubro != "") {
-      console.log("corro stkitemsleecodgryrb() ");
-      stkitemsleecodgryrb(); //leo items apartir del grupo y rubro seleccionados
-    }
-  }, [state.idStkRubro]);
+  // function componentWillMount() {
+  //   leestkgrupo();
+  // }
 
-  useEffect(() => {
-    if (state.idStkRubro != "") {
-      stkitemsleecodgrrbit(); //leo item especifico apartir del grupo y rubro seleccionado
-    }
-  }, [state.idStkItems]);
+  // function componentWillUnmount() {}
 
-  // // function componentWillMount() {
-  // //   stkgrupoleer();
-  // // }
+  // function componentDidMount() {}
 
-  // // function componentWillUnmount() {}
+  // Handles VARIOS REVISAR si se pueden "REDUCIR" - INICIO
+  //***********************************************************//
 
-  // // function componentDidMount() {}
-
-  // // Handles VARIOS REVISAR si se pueden "REDUCIR" - INICIO
-  // //***********************************************************//
-
-  // // const handleChange = prop => event => {
-  // //   setState({ ...state, [prop]: event.target.value });
-  // // };
-
-  // const handleChangeGrupo = prop => event => {
-  //   console.log("Evente en change grupo ", event.target.id);
+  // const handleChange = prop => event => {
   //   setState({ ...state, [prop]: event.target.value });
-  //   // setState({ ...state, idStkGrupo: parseInt(event.target.value) });
-  //   // stkrubroleecodgrupo(idStkGrupo);
-  //   // stkrubroleecodgrupo(event.target.value);
   // };
 
-  const handleChange = event => {
-    const id = event.target.id;
-    console.log("Nombre de evento lanzado usando id:", id);
-    console.log("Nombre de evento lanzado usando [id]:", [id]);
-    setState({ ...state, [id]: event.target.value }); //Todo revisar !!!!!!!!
-    // setState({ ...state, id: event.target.value });
+  const handleChangeGrupo = prop => event => {
+    console.log("Evente en change grupo ", event.target.id);
+    setState({ ...state, [prop]: event.target.value });
+    // setState({ ...state, idStkGrupo: parseInt(event.target.value) });
+    // stkrubroleecodgrupo(idStkGrupo);
+    // stkrubroleecodgrupo(event.target.value);
   };
 
-  // const handleChangeRubro = prop => event => {
-  //   setState({ ...state, [prop]: event.target.value });
-  //   stkrubroleecodrbygr();
-  //   setState({ ...state, [prop]: event.target.value });
-  //   stkitemsleecodgryrb(state.StkItemsRubro);
-  // };
+  const handleChange = event => {
+    console.log("Entro en handlechange de ", event.target.id);
+    const id = event.target.id;
+    setState({ ...state, id: event.target.value });
+    console.log("TCL: componentDidMount -> id", id);
+    console.log(
+      "TCL: componentDidMount -> event.target.value",
+      event.target.value
+    );
+  };
 
-  // const handleChangeItems = prop => event => {
-  //   setState({ ...state, [prop]: event.target.value });
-  //   stkitemsleecodgrrbit();
-  // };
+  const handleChangeRubro = prop => event => {
+    setState({ ...state, [prop]: event.target.value });
+    stkrubroleecodrbygr();
+    setState({ ...state, [prop]: event.target.value });
+    stkitemsleecodgryrb(state.StkItemsRubro);
+  };
 
-  // const handleChangeUbicacion = prop => event => {
-  //   setState({ ...state, [prop]: event.target.value });
-  //   stkubfisicaleerUbG(state.StkEnvaseUbG);
-  // };
+  const handleChangeItems = prop => event => {
+    setState({ ...state, [prop]: event.target.value });
+    stkitemsleecodgrrbit();
+  };
+
+  const handleChangeUbicacion = prop => event => {
+    setState({ ...state, [prop]: event.target.value });
+    stkubfisicaleerUbG(state.StkEnvaseUbG);
+  };
 
   // handleClickOpen = () => {
   //   this.setState({ open: true });
   // };
 
-  // const handleClose = () => {
-  //   // this.setState({ open: false });
-  //   // this.toggleImprimir()
-  //   limpioPantalla();
-  //   toggleEntradaDatos();
-  // };
+  const handleClose = () => {
+    // this.setState({ open: false });
+    // this.toggleImprimir()
+    limpioPantalla();
+    toggleEntradaDatos();
+  };
 
   // Handles VARIOS REVISAR si se pueden "REDUCIR" - FIN
   //***********************************************************//
 
   // TODO inicio : Revisar tambien estos toggles creo que se pueden reducir a uno solo
 
-  // const toggleState = prop => event => {
-  //   setState({ ...state, [prop]: event.target.value });
-  //   alert(`Cambio el estado de ${[prop]}`);
-  // };
+  const toggleState = prop => event => {
+    setState({ ...state, [prop]: event.target.value });
+    alert(`Cambio el estado de ${[prop]}`);
+  };
 
   // Manejo de Pantalla - INICIO
-  // const toggleEntradaDatos = () => {
-  //   // console.log("valor de toggle_entrada : "+this.state.toggle_state.entrada)
-  //   setState({
-  //     ...state,
-  //     toggle_state: {
-  //       // entrada:!prevState.toggle_state.entrada,
-  //       entrada: state.toggle_state.entrada,
-  //       dialogo: !state.toggle_state.dialogo,
-  //       imprimir: state.toggle_state.imprimir
-  //     }
-  //   }); // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***
-  // };
+  const toggleEntradaDatos = () => {
+    // console.log("valor de toggle_entrada : "+this.state.toggle_state.entrada)
+    setState({
+      ...state,
+      toggle_state: {
+        // entrada:!prevState.toggle_state.entrada,
+        entrada: state.toggle_state.entrada,
+        dialogo: !state.toggle_state.dialogo,
+        imprimir: state.toggle_state.imprimir
+      }
+    }); // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***
+  };
 
-  // const toggleImprimir = () => {
-  //   setState(...state, {
-  //     toggle_state: {
-  //       entrada: !state.toggle_state.entrada,
-  //       dialogo: !state.toggle_state.dialogo,
-  //       imprimir: !state.toggle_state.imprimir
-  //     }
-  //   }); // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***
-  // };
+  const toggleImprimir = () => {
+    setState(...state, {
+      toggle_state: {
+        entrada: !state.toggle_state.entrada,
+        dialogo: !state.toggle_state.dialogo,
+        imprimir: !state.toggle_state.imprimir
+      }
+    }); // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***
+  };
 
   // TODO Fin: Hasta aca
 
-  // const cancelaImpresion = () => {
-  //   setState(...state, {
-  //     toggle_state: {
-  //       entrada: true,
-  //       dialogo: false,
-  //       imprimir: false
-  //     }
-  //   }); // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***
-  //   limpioPantalla();
-  // };
+  const cancelaImpresion = () => {
+    setState(...state, {
+      toggle_state: {
+        entrada: true,
+        dialogo: false,
+        imprimir: false
+      }
+    }); // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarMonedas> ***
+    limpioPantalla();
+  };
   // Manejo de Pantalla - FIN
 
-  // const MarcaGenQr = () => {
-  //   setState(...state, {
-  //     marcagenqr: !state.marcagenqr
-  //   });
-  // };
+  const MarcaGenQr = () => {
+    setState(...state, {
+      marcagenqr: !state.marcagenqr
+    });
+  };
 
-  // const ImpConf = () => {
-  //   setState(...state, {
-  //     imp_conf: !state.imp_conf,
-  //     dialogo_imprimir: !state.dialogo_imprimir
-  //   });
-  //   // this.toggleImprimir()
-  //   toggleEntradaDatos();
-  // };
-  // //aca
+  const ImpConf = () => {
+    setState(...state, {
+      imp_conf: !state.imp_conf,
+      dialogo_imprimir: !state.dialogo_imprimir
+    });
+    // this.toggleImprimir()
+    toggleEntradaDatos();
+  };
+  //aca
 
-  // const agregastock = _ => {
-  //   const url =
-  //     IpServidor +
-  //     "/stkitemsmodstock/?id1=" +
-  //     state.StkItems +
-  //     "&id2=" +
-  //     state.StkItemsGrupo +
-  //     "&id3=" +
-  //     state.StkItemsRubro; //'http://localhost:3000/data'
-  //   request
-  //     .post(url)
-  //     .set("Content-Type", "application/json")
-  //     .send({ cantidad: state.cantidad })
-  //     .send({ StkRubroPres: state.StkRubroPres })
-  //     .send({ StkItemsCantDisp: state.StkItemsCantDisp })
-  //     .send({ StkItemsCantidad: state.StkItemsCantidad })
-  //     .catch(err => {
-  //       if (err.status === 414) {
-  //         alert("Falta información para modificar Items  ");
-  //       } else {
-  //         console.log("Error nro en StkMovEntrada 1:  " + err.status);
-  //       }
-  //     });
+  const agregastock = _ => {
+    const url =
+      IpServidor +
+      "/stkitemsmodstock/?id1=" +
+      state.StkItems +
+      "&id2=" +
+      state.StkItemsGrupo +
+      "&id3=" +
+      state.StkItemsRubro; //'http://localhost:3000/data'
+    request
+      .post(url)
+      .set("Content-Type", "application/json")
+      .send({ cantidad: state.cantidad })
+      .send({ StkRubroPres: state.StkRubroPres })
+      .send({ StkItemsCantDisp: state.StkItemsCantDisp })
+      .send({ StkItemsCantidad: state.StkItemsCantidad })
+      .catch(err => {
+        if (err.status === 414) {
+          alert("Falta información para modificar Items  ");
+        } else {
+          console.log("Error nro en StkMovEntrada 1:  " + err.status);
+        }
+      });
 
-  //   const url1 =
-  //     IpServidor +
-  //     "/stkenvaseagregar/?id1=" +
-  //     state.StkItems +
-  //     "&id2=" +
-  //     state.StkItemsGrupo +
-  //     "&id3=" +
-  //     state.StkItemsRubro; //'http://localhost:3000/data'
-  //   request
-  //     .post(url1)
-  //     .set("Content-Type", "application/json")
-  //     // .send({total: Number(this.state.total)})
-  //     .send({ cantidad: state.cantidad })
-  //     .send({ StkRubroPres: state.StkRubroPres })
-  //     .send({ StkEnvasePartida: state.StkEnvasePartida })
-  //     .send({ StkEnvaseUbG: state.StkEnvaseUbG })
-  //     .send({ StkEnvaseUbF: state.StkEnvaseUbF })
-  //     .send({ StkEnvaseObserv: state.StkEnvaseObserv })
-  //     .then(res => {
-  //       // const total1 = JSON.parse(res.text)
-  //       setState({ ...state, marcaagregado: true });
-  //     })
-  //     .catch(err => {
-  //       if (err.status === 413) {
-  //         alert("Falta información para agregar Envase  ");
-  //       } else {
-  //         console.log("Error nro en StkMovEntrada 2 :  " + err.status);
-  //       }
-  //     });
-  //   // this.toggleImprimir()
-  //   toggleEntradaDatos();
-  // };
+    const url1 =
+      IpServidor +
+      "/stkenvaseagregar/?id1=" +
+      state.StkItems +
+      "&id2=" +
+      state.StkItemsGrupo +
+      "&id3=" +
+      state.StkItemsRubro; //'http://localhost:3000/data'
+    request
+      .post(url1)
+      .set("Content-Type", "application/json")
+      // .send({total: Number(this.state.total)})
+      .send({ cantidad: state.cantidad })
+      .send({ StkRubroPres: state.StkRubroPres })
+      .send({ StkEnvasePartida: state.StkEnvasePartida })
+      .send({ StkEnvaseUbG: state.StkEnvaseUbG })
+      .send({ StkEnvaseUbF: state.StkEnvaseUbF })
+      .send({ StkEnvaseObserv: state.StkEnvaseObserv })
+      .then(res => {
+        // const total1 = JSON.parse(res.text)
+        setState({ ...state, marcaagregado: true });
+      })
+      .catch(err => {
+        if (err.status === 413) {
+          alert("Falta información para agregar Envase  ");
+        } else {
+          console.log("Error nro en StkMovEntrada 2 :  " + err.status);
+        }
+      });
+    // this.toggleImprimir()
+    toggleEntradaDatos();
+  };
 
   const classes = useStyles();
   return (
@@ -555,7 +517,6 @@ var StkMovEntrada = props => {
                 <TextField
                   id="MinStock"
                   label="Mínimo Stock"
-                  InputLabelProps={{ shrink: true }}
                   value={state.StkItemsMin}
                   disabled
                   className={classes.textField}
@@ -565,7 +526,6 @@ var StkMovEntrada = props => {
                 <TextField
                   id="MaxStock"
                   label="Máximo Stock"
-                  InputLabelProps={{ shrink: true }}
                   value={state.StkItemsMax}
                   disabled
                   className={classes.textField}
@@ -573,6 +533,7 @@ var StkMovEntrada = props => {
               </Grid>
             </Grid>
             {/* Primera linea Fin */}
+
             <Grid
               container
               // direction="row"
@@ -584,12 +545,11 @@ var StkMovEntrada = props => {
                 // className={classes.cajas}
                 // id="Grupo"
                 id="idStkGrupo"
-                // name="Prueba de nombre"
                 select
                 label="Grupo"
                 fullWidth
                 // value={state.StkItemsGrupo}
-                value={state.idStkGrupo} //todo mirar que valor poner puse este de forma arbitraria para ver si borra
+                // value={state.idStkGrupo}
                 // value={state.StkGrupoDesc}
                 // onChange={handleChangeGrupo("idStkGrupo")}
                 onChange={handleChange}
@@ -597,10 +557,6 @@ var StkMovEntrada = props => {
                 className={classes.textField_370}
               >
                 <option></option>
-                {console.log(
-                  "state.stkgrupo dentro de option :",
-                  state.stkgrupo
-                )}
                 {state.stkgrupo.map(option => (
                   <option key={option.idStkGrupo} value={option.idStkGrupo}>
                     {option.StkGrupoDesc}
@@ -610,13 +566,12 @@ var StkMovEntrada = props => {
 
               <TextField
                 // className={classes.cajas}
-                id="idStkRubro"
+                id="Rubro"
                 select
                 label="Rubro"
                 fullWidth
-                value={state.idStkRubro} //todo mirar idem grupo
-                // onChange={() => handleChangeRubro("idStkRubro")}
-                onChange={handleChange}
+                value={state.idStkRubro}
+                onChange={() => handleChangeRubro("idStkRubro")}
                 SelectProps={{
                   native: true
                 }}
@@ -632,13 +587,12 @@ var StkMovEntrada = props => {
               </TextField>
 
               <TextField
-                id="idStkItems"
+                id="Items"
                 select
                 label="Items"
                 fullWidth
-                value={state.idStkItems} //todo idem grupo
-                // onChange={() => handleChangeItems("StkItems")}
-                onChange={handleChange}
+                value={state.StkItems}
+                onChange={() => handleChangeItems("StkItems")}
                 SelectProps={{
                   native: true
                 }}
@@ -652,7 +606,6 @@ var StkMovEntrada = props => {
                   </option>
                 ))}
               </TextField>
-
               {/* </Grid> */}
             </Grid>
             {/* Segunda linea FIN */}
@@ -665,8 +618,7 @@ var StkMovEntrada = props => {
                   type="number"
                   fullWidth
                   value={state.cantidad}
-                  // onChange={() => handleChange("cantidad")}
-                  onChange={handleChange}
+                  onChange={() => handleChange("cantidad")}
                   autoFocus={true}
                   // className={classes.textField_60}
                 />
@@ -675,30 +627,11 @@ var StkMovEntrada = props => {
               <Grid item xs={3}>
                 <TextField
                   label=" "
-                  id="StkRubroPresDes"
-                  // type="Number"
-                  // fullWidth
-                  value={state.StkRubroPresDes}
-                  // onChange={() => handleChange("StkRubroPres")}
-                  onChange={handleChange}
-                  autoFocus={true}
-                  // InputProps={{
-                  //   startAdornment: (
-                  //     <InputAdornment position="start">de: </InputAdornment>
-                  //   )
-                  // }}
-                />
-              </Grid>
-
-              <Grid item xs={3}>
-                <TextField
-                  label=" "
                   id="StkRubroPres"
-                  // type="Number"
+                  type="Number"
                   // fullWidth
                   value={state.StkRubroPres}
-                  // onChange={() => handleChange("StkRubroPres")}
-                  onChange={handleChange}
+                  onChange={() => handleChange("StkRubroPres")}
                   autoFocus={true}
                   InputProps={{
                     startAdornment: (
@@ -710,12 +643,15 @@ var StkMovEntrada = props => {
 
               <Grid item xs={3}>
                 <TextField
-                  id="StkRubroUM"
                   label=" "
                   fullWidth
                   value={state.StkRubroUM}
-                  // value="escribir aca"
-                  // type="number"
+                  type="number"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">X</InputAdornment>
+                    )
+                  }}
                 />
               </Grid>
 
@@ -726,22 +662,15 @@ var StkMovEntrada = props => {
                   type="number"
                   fullWidth
                   value={state.StkRubroAncho}
-                  // onChange={() => handleChange("StkRubroAncho")}
-                  onChange={handleChange}
+                  onChange={() => handleChange("StkRubroAncho")}
                   autoFocus={true}
                   // className={classes.textField_60}
-                  InputProps={{
-                    startAdornment: (
-                      // <InputAdornment position="start">X</InputAdornment>
-                      <InputAdornment position="start">x</InputAdornment>
-                    )
-                  }}
                 />
               </Grid>
               {/* Partida Ubicación-Geografica Ubicación-Fisica */}
               {/* <Grid item xs> */}
             </Grid>
-            {/* <Grid container>
+            <Grid container>
               <TextField
                 id="StkEnvasePartida"
                 type="text"
@@ -751,9 +680,10 @@ var StkMovEntrada = props => {
                 onChange={() => handleChange("StkEnvasePartida")}
                 // className={classes.textField_150}
               ></TextField>
-              {/* </Grid> 
-          {/* </Grid> 
-          {/* <Grid item xs>
+              {/* </Grid> */}
+            </Grid>
+
+            <Grid item xs>
               <TextField
                 id="StkEnvaseUbG"
                 select
@@ -772,14 +702,14 @@ var StkMovEntrada = props => {
                 <option default></option>
 
                 {/* {this.state.ubicacion.map(option => (   */}
-            {/* {ubicacion.map(option => (
+                {ubicacion.map(option => (
                   <option key={option.indiceub} value={option.indiceub}>
                     {option.detalleub}
                   </option>
                 ))}
-              </TextField> */}
-            {/* </Grid> */}
-            {/* <Grid item xs>
+              </TextField>
+            </Grid>
+            <Grid item xs>
               <TextField
                 id="StkEnvaseUbF"
                 select
@@ -803,8 +733,9 @@ var StkMovEntrada = props => {
                   </option>
                 ))}
               </TextField>
-            </Grid> */}
-            {/* <Grid item xs={2} sm={12} lg={12}>
+            </Grid>
+
+            <Grid item xs={2} sm={12} lg={12}>
               <TextField
                 id="StkEnvaseObserv"
                 type="text"
@@ -814,7 +745,7 @@ var StkMovEntrada = props => {
                 onChange={() => handleChange("StkEnvaseObserv")}
                 className={classes.textField}
               />
-            </Grid> */}
+            </Grid>
           </Grid>
         </DialogContent>
         <DialogActions>
@@ -824,11 +755,7 @@ var StkMovEntrada = props => {
             </IconButton>
           </Grid>
 
-          <Button
-            variant="contained"
-            color="primary"
-            // onClick={agregastock}
-          >
+          <Button variant="contained" color="primary" onClick={agregastock}>
             Confirmar
           </Button>
 
@@ -841,6 +768,44 @@ var StkMovEntrada = props => {
           </Button>
         </DialogActions>
       </Dialog>
+      {/* )} descomentar */}
+
+      {/* IMPRESION */}
+      {/* ********* */}
+
+      {/* {this.state.toggle_imprimir && */}
+      <Dialog
+        open={state.toggle_state.dialogo}
+        // aria-labelledby="form-dialog-title"
+        // onClose={this.toggleImprimir}
+
+        // open={this.state.toggle_im<Button variant="contained" color="primary" onClick = {this.ImpConf}  >primir}  // toggle_imprimir = TRUE
+
+        onClose={handleClose}
+      >
+        <DialogTitle id="form-dialog-title">Desea Imprimir ?</DialogTitle>
+        <DialogActions>
+          {/* <Button variant="contained" color="primary" onClick = {this.ImpConf}  > */}
+          <Button variant="contained" color="primary" onClick={toggleImprimir}>
+            Imprimir
+          </Button>
+          {/* <Button variant="contained" color="secondary" onClick={this.toggleImprimir}> */}
+          {/* <Button variant="contained"x color="secondary" onClick={() => alert("Aprete boton cancelar")}> */}
+          <Button variant="contained" color="secondary" onClick={handleClose}>
+            Cancelar
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {/* } */}
+
+      {/* {this.state.imp_conf && <StkGenImpQR ubicaG = {this.state.StkEnvaseUbG} />} */}
+
+      {state.toggle_state.imprimir && (
+        <StkGenImpQR
+          ubicaG={state.StkEnvaseUbG}
+          cancelaImpresion={cancelaImpresion}
+        />
+      )}
     </div>
   );
 };

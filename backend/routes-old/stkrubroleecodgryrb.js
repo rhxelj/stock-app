@@ -6,9 +6,9 @@ var conexion = require('./conexion');
 
 conexion.connect(function(err) {
     if (!err) {
-        console.log("base de datos conectada en en en en stkrubroleecodgryrb");
+        console.log("base de datos conectada en en en en stkrubroleecodrbygr");
     } else {
-        console.log("no se conecto en en stkrubroleecodgryrb");
+        console.log("no se conecto en en stkrubroleecodrbygr");
     }
 });
 

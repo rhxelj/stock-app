@@ -19,6 +19,7 @@ var router = express();
 router.get("/", (req, res, next) => {
   var q,
     i = 0;
+  var costooriginal = 0;
   var coeficiente = 0,
     cantidad = 0,
     StkRubroAbrP = "",
@@ -54,13 +55,14 @@ router.get("/", (req, res, next) => {
     sogadobladillo = param.sogadobladillo;
     valorflete = param.flete;
     valorMOT = param.MOTpM2;
+    codmoneda = param.codmoneda;
 
     mcuadcob = [
       "Select ",
       "StkRubroDesc, ",
       "(StkRubroCosto * StkMonedasCotizacion / 1.50 * 1.02 ) as CostoCobMC, ",
-      "(StkRubroCosto * StkMonedasCotizacion * 0.20 / 11 ) as CostoRefuerzo",
-      " from BaseStock.StkRubro JOIN  BaseStock.StkMonedas ",
+      "(StkRubroCosto * StkMonedasCotizacion * 0.20 / 11 ) as CostoRefuerzo ",
+      "from BaseStock.StkRubro JOIN  BaseStock.StkMonedas ",
       'where StkRubro.StkRubroAbr = "',
       StkRubroAbrP,
       '" ',
@@ -97,6 +99,14 @@ router.get("/", (req, res, next) => {
       " and StkRubro.StkRubroTM = idStkMonedas"
     ].join("");
 
+    cotizacion = [
+      "Select ",
+      "StkMonedasCotizacion ",
+      "from   BaseStock.StkMonedas ",
+      "where  StkMonedas.idStkMonedas = '",
+      codmoneda,
+      "'"
+    ].join("");
     conexion.query(mcuadcob, function(err, result) {
       if (err) {
         console.log("error en mysql");
@@ -124,6 +134,15 @@ router.get("/", (req, res, next) => {
       }
     });
 
+    conexion.query(cotizacion, function(err, result) {
+      if (err) {
+        console.log("error en mysql");
+        console.log(err);
+      } else {
+        datosenvio.push(result);
+      }
+    });
+
     conexion.query(ojales, function(err, result) {
       if (err) {
         console.log("error en mysql");
@@ -132,11 +151,33 @@ router.get("/", (req, res, next) => {
         datosenvio.push(result);
         i++;
         if (i === totalreg) {
-          for (var j = 0; j < i; j++) {
-            console.log(datosenvio[j].StkRubroDesc);
+          j = 0;
+          fin = totalreg * 4;
+          console.log(fin);
+          while (j < fin) {
+            console.log(datosenvio);
+            costooriginal =
+              datosenvio[j][0].CostoCobMC + datosenvio[j][0].CostoRefuerzo;
+            j++;
+            costooriginal = costooriginal + datosenvio[j][0].CostoMSChicote;
+            j++;
+            costooriginal = costooriginal + datosenvio[j][0].CostoMSDobladillo;
+            j++;
+            costooriginal =
+              costooriginal +
+              datosenvio[j][0].StkMonedasCotizacion * valorflete +
+              +(datosenvio[j][0].StkMonedasCotizacion * valorMOT);
+            j++;
+            costooriginal = costooriginal + datosenvio[j][0].CostoOjalM2;
+            j++;
+            costooriginal = costooriginal * 1.35 * 1.245;
+            // console.log("costooriginal");
+            // console.log(costooriginal);
+            datosenvio1.push(costooriginal);
+            costooriginal = 0;
           }
-          res.json(datosenvio);
-          datosenvio = [];
+          res.json(datosenvio1);
+          datosenvio1 = [];
         }
       }
     });

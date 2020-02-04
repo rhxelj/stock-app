@@ -269,6 +269,7 @@ class PresupPant extends Component {
             >
               Presupuestar Con Fajas
             </Button>
+
             <Button
               id="button--submit"
               onClick={this.presuplonaconf}
@@ -284,7 +285,7 @@ class PresupPant extends Component {
               color="primary"
               variant="contained"
             >
-              Graba Prespuesto
+              Graba Presupuesto
             </Button>
           </DialogActions>
         </Dialog>

@@ -394,9 +394,42 @@ export default function Header() {
         ))}
       </TabPanel>
 
-      <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel>
-    </div>
-  );
+  render() {
+    const { abrir_movimientos, abrir_tablas } = this.state;
+    const movimientos = [
+      { link: "/ModPrecios", primary: "Modifica Precios" },
+      { link: "/PresupPant", primary: "Presupuesto" },
+      { link: "/ImprimeQR", primary: "ImprimeQR" },
+      { link: "/ListaPrecios", primary: "Lista de Precios" },
+      {
+        link: "/StkMovEntrada",
+        primary: "Entrada Mercadería"
+      },
+      { link: "/StkMovSalida", primary: "Salida de Disponible" },
+      { link: "/StkSalidaFinal", primary: "Salida Final" }
+    ];
+    return (
+      <div>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              // onClick={this.toggleDrawer("left", true)}
+            >
+              <MenuIcon onClick={this.toggleDrawer("left", true)}></MenuIcon>
+            </IconButton>
+            <Typography variant="h6" color="inherit">
+              OlsaSG
+            </Typography>
+            {/* TODO 👀📐 5: when a file gets near or > 200 lines, we can refactor it to make it more readable */}
+            {/* check out the extension "VSCode React Refactor" https://marketplace.visualstudio.com/items?itemName=planbcoding.vscode-react-refactor*/}
+            {/* I would extract the entire Drawer here into a component called LeftDrawer */}
+            {this.newMethod(abrir_movimientos, movimientos, abrir_tablas)}
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  }
 }
