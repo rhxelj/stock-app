@@ -21,6 +21,7 @@ import request from "superagent";
 import IpServidor from "../../VariablesDeEntorno";
 import StkGenImpQR from "../../Impresion/StkGenImpQR";
 import ubicacion from "./UbicacionGeografica";
+import stkgrupoleer from "./StkGrupoleer";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -72,8 +73,8 @@ var initial_state = {
   StkItemsMin: null,
   StkItemsMax: null,
   StkRubroAncho: null,
-  StkRubroPresDes: "",
-  StkRubroPres: 0.0,
+  StkRubroPresDes: null,
+  StkRubroPres: null,
   StkRubroUM: null,
   cantidad: 1.0,
   largo: 0.0,
@@ -100,20 +101,20 @@ var StkMovEntrada = props => {
   var [state, setState] = useState(initial_state);
 
   // Lee Grupo
-  const stkgrupoleer = _ => {
-    const url = IpServidor + "/stkgrupoleer";
-    request
-      .get(url)
-      .set("Content-Type", "application/json")
-      .then(res => {
-        console.log("TCL: res", res);
-        const stkgrupo = JSON.parse(res.text);
-        console.log("TCL: stkgrupo", stkgrupo);
+  // const stkgrupoleer = _ => {
+  //   const url = IpServidor + "/stkgrupoleer";
+  //   request
+  //     .get(url)
+  //     .set("Content-Type", "application/json")
+  //     .then(res => {
+  //       console.log("TCL: res", res);
+  //       const stkgrupo = JSON.parse(res.text);
+  //       console.log("TCL: stkgrupo", stkgrupo);
 
-        setState({ ...state, stkgrupo: stkgrupo });
-        console.log("TCL: stkgrupo.state", state.stkgrupo);
-      });
-  };
+  //       setState({ ...state, stkgrupo: stkgrupo });
+  //       console.log("TCL: stkgrupo.state", state.stkgrupo);
+  //     });
+  // };
 
   //lee rubro por código de grupo
   const stkrubroleecodgrupo = id => {
@@ -140,13 +141,13 @@ var StkMovEntrada = props => {
   //     });
   // };
 
-  const stkrubroleecodrbygr = () => {
+  const stkrubroleecodgryrb = () => {
     const url =
       IpServidor +
-      "/stkrubroleecodrbygr/?id1=" +
+      "/stkrubroleecodgryrb/?idStkRubro=" +
       // state.StkItemsRubro +
       state.idStkRubro +
-      "&id2=" +
+      "&idStkGrupo=" +
       // state.StkItemsGrupo;
       state.idStkGrupo;
     request
@@ -162,11 +163,6 @@ var StkMovEntrada = props => {
           StkRubroPresDes: stkrubroele[0].StkRubroPresDes,
           StkRubroPres: stkrubroele[0].StkRubroPres,
           StkRubroUM: stkrubroele[0].StkRubroUM
-
-          // StkRubroAncho: state.stkrubroele[0].StkRubroAncho,
-          // StkRubroPresDes: state.stkrubroele[0].StkRubroPresDes,
-          // StkRubroPres: state.stkrubroele[0].StkRubroPres,
-          // StkRubroUM: state.stkrubroele[0].StkRubroUM
         });
       });
     console.log(
@@ -180,9 +176,9 @@ var StkMovEntrada = props => {
     // var id2 = state.StkItemsGrupo;
     const url =
       IpServidor +
-      "/stkitemsleecodgryrb/?id2=" +
+      "/stkitemsleecodgryrb/?idStkGrupo=" +
       state.idStkGrupo +
-      "&id3=" +
+      "&idStkRubro=" +
       state.idStkRubro;
     request
       .get(url)
@@ -194,18 +190,18 @@ var StkMovEntrada = props => {
   };
 
   const stkitemsleecodgrrbit = () => {
-    var id1 = state.idStkItems;
-    var id2 = state.idStkGrupo;
-    var id3 = state.idStkRubro;
+    var idStkItems = state.idStkItems;
+    var idStkGrupo = state.idStkGrupo;
+    var idStkRubro = state.idStkRubro;
 
     const url =
       IpServidor +
-      "/stkitemsleecodgrrbit/?id1=" +
-      id1 +
-      "&id2=" +
-      id2 +
-      "&id3=" +
-      id3;
+      "/stkitemsleecodgrrbit/?idStkItems=" +
+      idStkItems +
+      "&idStkGrupo=" +
+      idStkGrupo +
+      "&idStkRubro=" +
+      idStkRubro;
     request
       .get(url)
       .set("Content-Type", "application/json")
@@ -276,7 +272,8 @@ var StkMovEntrada = props => {
   };
 
   useEffect(() => {
-    stkgrupoleer(); //leo grupos
+    const leegrupo = async(stkgrupoleer.stkgrupoleer());
+    setState({ ...state, stkgrupo: leegrupo }); //leo grupos
   }, []);
 
   useEffect(() => {
@@ -288,7 +285,7 @@ var StkMovEntrada = props => {
   useEffect(() => {
     if (state.idStkGrupo != "" && state.idStkRubro != "") {
       console.log("estoy en el useEffect que lanza stkrubroleecodrbygr()");
-      stkrubroleecodrbygr();
+      stkrubroleecodgryrb();
     }
   }, [state.idStkGrupo, state.idStkRubro]);
 
@@ -677,6 +674,24 @@ var StkMovEntrada = props => {
               <Grid item xs={3}>
                 <TextField
                   label=" "
+                  id="StkRubroPresDes"
+                  // type="Number"
+                  // fullWidth
+                  value={state.StkRubroPresDes}
+                  // onChange={() => handleChange("StkRubroPres")}
+                  onChange={handleChange}
+                  autoFocus={true}
+                  // InputProps={{
+                  //   startAdornment: (
+                  //     <InputAdornment position="start">de: </InputAdornment>
+                  //   )
+                  // }}
+                />
+              </Grid>
+
+              <Grid item xs={3}>
+                <TextField
+                  label=" "
                   id="StkRubroPres"
                   // type="Number"
                   // fullWidth
@@ -700,12 +715,6 @@ var StkMovEntrada = props => {
                   value={state.StkRubroUM}
                   // value="escribir aca"
                   // type="number"
-                  InputProps={{
-                    startAdornment: (
-                      // <InputAdornment position="start">X</InputAdornment>
-                      <InputAdornment position="end">X</InputAdornment>
-                    )
-                  }}
                 />
               </Grid>
 
@@ -720,6 +729,12 @@ var StkMovEntrada = props => {
                   onChange={handleChange}
                   autoFocus={true}
                   // className={classes.textField_60}
+                  InputProps={{
+                    startAdornment: (
+                      // <InputAdornment position="start">X</InputAdornment>
+                      <InputAdornment position="start">x</InputAdornment>
+                    )
+                  }}
                 />
               </Grid>
               {/* Partida Ubicación-Geografica Ubicación-Fisica */}
