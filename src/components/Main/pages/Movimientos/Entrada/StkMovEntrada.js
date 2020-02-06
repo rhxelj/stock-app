@@ -15,44 +15,12 @@ import {
 } from "@material-ui/core";
 // import ClearIcon from "@material-ui/icons/Clear";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { makeStyles } from "@material-ui/core/styles";
+import useStyles from "./StkMovEntradaStyle";
 import request from "superagent";
 
 import IpServidor from "../../VariablesDeEntorno";
 import StkGenImpQR from "../../Impresion/StkGenImpQR";
 import ubicacion from "./UbicacionGeografica";
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
-    // background: "lightblue",
-    border: 0,
-    borderRadius: 3,
-    // boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-    color: "white",
-    height: 48,
-    padding: "0 30px"
-  },
-  //*  cuerpo: { padding: theme.spacing(5) },
-  cuerpo: { padding: "10px" },
-  cajas: {
-    marginLeft: "4px",
-    marginRight: "4px"
-    // width: auto
-  },
-  textField_60: {
-    width: 60
-  },
-  textField_80: {
-    width: 80
-  },
-  textField_150: {
-    width: 150
-  },
-  textField_370: {
-    width: 370
-  }
-}));
 
 var initial_state = {
   idStkGrupo: "",
@@ -128,17 +96,17 @@ var StkMovEntrada = props => {
       });
   };
 
-  // //lee ubicacion física según la ubicación geografica
-  // const stkubfisicaleerUbG = id => {
-  //   const url = IpServidor + "/stkubfisicaleerUbG/?id=" + id;
-  //   request
-  //     .get(url)
-  //     .set("Content-Type", "application/json")
-  //     .then(res => {
-  //       const ubicacionf = JSON.parse(res.text);
-  //       setState({ ...state, ubicacionf: ubicacionf });
-  //     });
-  // };
+  //lee ubicacion física según la ubicación geografica
+  const stkubfisicaleerUbG = id => {
+    const url = IpServidor + "/stkubfisicaleerUbG/?id=" + id;
+    request
+      .get(url)
+      .set("Content-Type", "application/json")
+      .then(res => {
+        const ubicacionf = JSON.parse(res.text);
+        setState({ ...state, ubicacionf: ubicacionf });
+      });
+  };
 
   const stkrubroleecodgryrb = () => {
     const url =
@@ -296,9 +264,16 @@ var StkMovEntrada = props => {
 
   useEffect(() => {
     if (state.idStkRubro != "") {
-      stkitemsleecodgrrbit(); //leo item especifico apartir del grupo y rubro seleccionado
+      stkitemsleecodgrrbit();
+      stkubfisicaleerUbG(state.StkEnvaseUbG); //leo item especifico apartir del grupo y rubro seleccionado
     }
-  }, [state.idStkItems]);
+  }, [state.idStkItems, state.StkEnvaseUbG]);
+
+  // useEffect(() => {
+  //   if (state.idStkRubro != "") {
+  //     stkubfisicaleerUbG(state.StkEnvaseUbG); //leo item especifico apartir del grupo y rubro seleccionado
+  //   }
+  // }, [state.StkEnvaseUbG]);
 
   // // function componentWillMount() {
   // //   stkgrupoleer();
@@ -530,9 +505,9 @@ var StkMovEntrada = props => {
                   disabled
                   className={classes.textField}
                 />
-                {/* </Grid> */}
+                {/* </Grid>
 
-                {/* <Grid item xs={3} sm={3} lg={3}> */}
+                <Grid item xs={3} sm={3} lg={3}> */}
                 <TextField
                   id="Cantidad"
                   label="Cantidad "
@@ -649,96 +624,94 @@ var StkMovEntrada = props => {
                   </option>
                 ))}
               </TextField>
-
-              {/* </Grid> */}
             </Grid>
-            {/* Segunda linea FIN */}
-            {/* Cantidad/ StkRubroPresDes / StkRubroPres / StkRubroUM */}
-            <Grid container spacing={2} justify="flex-start">
-              <Grid item xs={3}>
-                <TextField
-                  id="cantidad"
-                  label="Cantidad"
-                  type="number"
-                  fullWidth
-                  value={state.cantidad}
-                  // onChange={() => handleChange("cantidad")}
-                  onChange={handleChange}
-                  autoFocus={true}
-                  // className={classes.textField_60}
-                />
-              </Grid>
-
-              <Grid item xs={3}>
-                <TextField
-                  label=" "
-                  id="StkRubroPresDes"
-                  // type="Number"
-                  // fullWidth
-                  value={state.StkRubroPresDes}
-                  // onChange={() => handleChange("StkRubroPres")}
-                  onChange={handleChange}
-                  autoFocus={true}
-                  // InputProps={{
-                  //   startAdornment: (
-                  //     <InputAdornment position="start">de: </InputAdornment>
-                  //   )
-                  // }}
-                />
-              </Grid>
-
-              <Grid item xs={3}>
-                <TextField
-                  label=" "
-                  id="StkRubroPres"
-                  // type="Number"
-                  // fullWidth
-                  value={state.StkRubroPres}
-                  // onChange={() => handleChange("StkRubroPres")}
-                  onChange={handleChange}
-                  autoFocus={true}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">de: </InputAdornment>
-                    )
-                  }}
-                />
-              </Grid>
-
-              <Grid item xs={3}>
-                <TextField
-                  id="StkRubroUM"
-                  label=" "
-                  fullWidth
-                  value={state.StkRubroUM}
-                  // value="escribir aca"
-                  // type="number"
-                />
-              </Grid>
-
-              <Grid item xs={3}>
-                <TextField
-                  id="StkRubroAncho"
-                  label="Ancho"
-                  type="number"
-                  fullWidth
-                  value={state.StkRubroAncho}
-                  // onChange={() => handleChange("StkRubroAncho")}
-                  onChange={handleChange}
-                  autoFocus={true}
-                  // className={classes.textField_60}
-                  InputProps={{
-                    startAdornment: (
-                      // <InputAdornment position="start">X</InputAdornment>
-                      <InputAdornment position="start">x</InputAdornment>
-                    )
-                  }}
-                />
-              </Grid>
-              {/* Partida Ubicación-Geografica Ubicación-Fisica */}
-              {/* <Grid item xs> */}
+          </Grid>
+          {/* Segunda linea FIN */}
+          {/* Cantidad/ StkRubroPresDes / StkRubroPres / StkRubroUM */}
+          <Grid container spacing={2} justify="flex-start">
+            <Grid item xs={3}>
+              <TextField
+                id="cantidad"
+                label="Cantidad"
+                type="number"
+                fullWidth
+                value={state.cantidad}
+                // onChange={() => handleChange("cantidad")}
+                onChange={handleChange}
+                autoFocus={true}
+                // className={classes.textField_60}
+              />
             </Grid>
-            {/* <Grid container>
+
+            <Grid item xs={3}>
+              <TextField
+                label=" "
+                id="StkRubroPresDes"
+                // type="Number"
+                // fullWidth
+                value={state.StkRubroPresDes}
+                // onChange={() => handleChange("StkRubroPres")}
+                // onChange={handleChange}
+                autoFocus={true}
+                // InputProps={{
+                //   startAdornment: (
+                //     <InputAdornment position="start">de: </InputAdornment>
+                //   )
+                // }}
+              />
+            </Grid>
+
+            <Grid item xs={3}>
+              <TextField
+                label=" "
+                id="StkRubroPres"
+                // type="Number"
+                // fullWidth
+                value={state.StkRubroPres}
+                // onChange={() => handleChange("StkRubroPres")}
+                onChange={handleChange}
+                autoFocus={true}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">de: </InputAdornment>
+                  )
+                }}
+              />
+            </Grid>
+
+            <Grid item xs={3}>
+              <TextField
+                id="StkRubroUM"
+                label=" "
+                fullWidth
+                value={state.StkRubroUM}
+                // value="escribir aca"
+                // type="number"
+              />
+            </Grid>
+
+            <Grid item xs={3}>
+              <TextField
+                id="StkRubroAncho"
+                label="Ancho"
+                type="number"
+                fullWidth
+                value={state.StkRubroAncho}
+                // onChange={() => handleChange("StkRubroAncho")}
+                onChange={handleChange}
+                autoFocus={true}
+                // className={classes.textField_60}
+                InputProps={{
+                  startAdornment: (
+                    // <InputAdornment position="start">X</InputAdornment>
+                    <InputAdornment position="start">x</InputAdornment>
+                  )
+                }}
+              />
+            </Grid>
+            {/* Partida Ubicación-Geografica Ubicación-Fisica */}
+            <Grid item xs></Grid>
+            <Grid container>
               <TextField
                 id="StkEnvasePartida"
                 type="text"
@@ -748,9 +721,9 @@ var StkMovEntrada = props => {
                 onChange={() => handleChange("StkEnvasePartida")}
                 // className={classes.textField_150}
               ></TextField>
-              {/* </Grid> 
-          {/* </Grid> 
-          {/* <Grid item xs>
+            </Grid>
+            {/* </Grid>  */}
+            <Grid item xs>
               <TextField
                 id="StkEnvaseUbG"
                 select
@@ -758,7 +731,8 @@ var StkMovEntrada = props => {
                 fullWidth
                 // value={this.state.indiceub}
                 value={state.StkEnvaseUbG}
-                onChange={() => handleChangeUbicacion("StkEnvaseUbG")}
+                // onChange={() => handleChangeUbicacion("StkEnvaseUbG")}
+                onChange={handleChange}
                 SelectProps={{
                   native: true
                 }}
@@ -766,24 +740,25 @@ var StkMovEntrada = props => {
                 className={classes.textField_150}
                 InputLabelProps={{ shrink: true }}
               >
-                <option default></option>
+                <option></option>
 
-                {/* {this.state.ubicacion.map(option => (   */}
-            {/* {ubicacion.map(option => (
+                {/* {this.state.ubicacion.map(option => ( */}
+                {ubicacion.map(option => (
                   <option key={option.indiceub} value={option.indiceub}>
                     {option.detalleub}
                   </option>
                 ))}
-              </TextField> */}
-            {/* </Grid> */}
-            {/* <Grid item xs>
+              </TextField>
+            </Grid>
+            <Grid item xs>
               <TextField
                 id="StkEnvaseUbF"
                 select
                 label="Ubicación Física"
                 fullWidth
                 value={state.StkEnvaseUbF}
-                onChange={() => handleChange("StkEnvaseUbF")}
+                // onChange={() => handleChange("StkEnvaseUbF")}
+                onChange={handleChange}
                 SelectProps={{
                   native: true
                 }}
@@ -800,18 +775,19 @@ var StkMovEntrada = props => {
                   </option>
                 ))}
               </TextField>
-            </Grid> */}
-            {/* <Grid item xs={2} sm={12} lg={12}>
+            </Grid>
+            <Grid item xs={2} sm={12} lg={12}>
               <TextField
                 id="StkEnvaseObserv"
                 type="text"
                 label="Observación"
                 fullWidth
                 value={state.StkEnvaseObserv}
-                onChange={() => handleChange("StkEnvaseObserv")}
+                // onChange={() => handleChange("StkEnvaseObserv")}
+                onChange={handleChange}
                 className={classes.textField}
               />
-            </Grid> */}
+            </Grid>
           </Grid>
         </DialogContent>
         <DialogActions>
@@ -834,7 +810,7 @@ var StkMovEntrada = props => {
             color="secondary"
             onClick={limpioPantalla}
           >
-            Cancelar
+            Cerrar
           </Button>
         </DialogActions>
       </Dialog>
