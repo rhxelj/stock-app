@@ -176,17 +176,26 @@ var StkMovEntrada = props => {
         const stkitemse = JSON.parse(res.text);
         console.log("TCL: stkitemsleecodgrrbit -> stkitemse", stkitemse);
         // setState({ ...state, stkitemse: stkitemse });
-        setState({
+        setState(state => ({
           ...state,
           StkItemsCantidad: stkitemse[0].StkItemsCantidad,
           StkItemsCantDisp: stkitemse[0].StkItemsCantDisp,
-          StkItemsFAct: stkitemse[0].StkItemsFAct,
+          // StkItemsFAct: stkitemse[0].StkItemsFAct,
+          StkItemsFAct: stkitemse[0].StkItemsFAct.substr(0, 10),
           StkItemsMin: stkitemse[0].StkItemsMin,
           StkItemsMax: stkitemse[0].StkItemsMax
-        });
-        var recorte = state.StkItemsFAct.substr(0, 10);
-        setState({ ...state, StkItemsFAct: recorte });
+        }));
+
+        // var recorte = state.StkItemsFAct.substr(0, 10);
+        // setState({ ...state, StkItemsFAct: recorte });
       });
+    console.log("TCL: stkitemsleecodgrrbit -> StkItemsMin", state.StkItemsMin);
+    console.log(
+      "TCL: stkitemsleecodgrrbit tipo -> StkItemsMin",
+      typeof state.StkItemsMin
+    );
+    var tipo = typeof state.StkItemsMin;
+    console.log(tipo);
   };
 
   const limpioPantalla = () => {
@@ -194,9 +203,9 @@ var StkMovEntrada = props => {
       // initial_state //TODO revisar esto no me pone en cero todo averiguar como poner en cero
       // {
       ...state,
-      // stkrubro: [],
+      stkrubro: [],
       // stkgrupo: [],
-      // stkitems: [],
+      stkitemse: [],
       idStkGrupo: "",
       idStkRubro: "",
       idStkItems: "",
@@ -205,12 +214,12 @@ var StkMovEntrada = props => {
       //   StkItemsCantidad: 0.0,
       //   StkItemsCantDisp: 0.0,
       //   StkItemsFAct: "",
-      StkItemsMin: null,
-      StkItemsMax: null
+      // StkItemsMin: null,
+      // StkItemsMax: null,
       //   StkRubroAncho: 0.0,
-      //   StkRubroPresDes: "",
-      //   StkRubroPres: 0.0,
-      //   StkRubroUM: 0.0,
+      StkRubroPresDes: "",
+      StkRubroPres: "",
+      StkRubroUM: "",
       //   cantidad: 1.0,
       //   largo: 0.0,
       //   ancho: 0.0,
@@ -221,9 +230,9 @@ var StkMovEntrada = props => {
       //   marcagenqr: false,
       //   imp_conf: false,
       //   marcaagregado: false,
-      //   StkEnvaseUb: "",
-      //   StkEnvaseObserv: "",
-      //   StkEnvasePartida: "",
+      StkEnvaseUb: "",
+      StkEnvaseObserv: "",
+      StkEnvasePartida: ""
       //   indiceub: [],
       //   StkItemsGrupo: [],
       //   StkItemsRubro: "",
@@ -261,9 +270,14 @@ var StkMovEntrada = props => {
   useEffect(() => {
     if (state.idStkRubro != "") {
       stkitemsleecodgrrbit();
+    }
+  }, [state.idStkItems]);
+
+  useEffect(() => {
+    if (state.idStkItems != "") {
       stkubfisicaleerUbG(state.StkEnvaseUbG); //leo item especifico apartir del grupo y rubro seleccionado
     }
-  }, [state.idStkItems, state.StkEnvaseUbG]);
+  }, [state.StkEnvaseUbG]);
 
   const handleChange = event => {
     const id = event.target.id;
@@ -429,7 +443,6 @@ var StkMovEntrada = props => {
               alignItems="center"
               justify="space-between"
             >
-              {/* <Grid item xs={12} sm={12} lg={12}> */}
               <Grid container spacing={2} justify="space-around">
                 <TextField
                   InputLabelProps={{ shrink: true }}
@@ -455,9 +468,6 @@ var StkMovEntrada = props => {
                   disabled
                   className={classes.textField}
                 />
-                {/* </Grid>
-
-                <Grid item xs={3} sm={3} lg={3}> */}
                 <TextField
                   id="Cantidad"
                   label="Cantidad "
@@ -471,8 +481,7 @@ var StkMovEntrada = props => {
                   disabled
                 />
               </Grid>
-              {/* </Grid> */}
-              {/* <Grid container justify="space-between"> */}
+
               <Grid item xs={6} sm={6} lg={6}>
                 <TextField
                   id="MinStock"
@@ -482,11 +491,11 @@ var StkMovEntrada = props => {
                   disabled
                   className={classes.textField}
                 />
-                {/* </Grid> */}
-                {/* <Grid item xs={2} sm={2} lg={2}> */}
+
                 <TextField
                   id="MaxStock"
                   label="Máximo Stock"
+                  type="number"
                   InputLabelProps={{ shrink: true }}
                   value={state.StkItemsMax}
                   disabled
@@ -504,9 +513,7 @@ var StkMovEntrada = props => {
               {/* <Grid item xs> */}
               <TextField
                 // className={classes.cajas}
-                // id="Grupo"
                 id="idStkGrupo"
-                // name="Prueba de nombre"
                 select
                 label="Grupo"
                 fullWidth
@@ -556,7 +563,6 @@ var StkMovEntrada = props => {
                 label="Items"
                 fullWidth
                 value={state.idStkItems} //todo idem grupo
-                // onChange={() => handleChangeItems("StkItems")}
                 onChange={handleChange}
                 SelectProps={{
                   native: true
@@ -583,10 +589,8 @@ var StkMovEntrada = props => {
                 type="number"
                 fullWidth
                 value={state.cantidad}
-                // onChange={() => handleChange("cantidad")}
                 onChange={handleChange}
                 autoFocus={true}
-                // className={classes.textField_60}
               />
             </Grid>
 
@@ -600,11 +604,6 @@ var StkMovEntrada = props => {
                 // onChange={() => handleChange("StkRubroPres")}
                 // onChange={handleChange}
                 autoFocus={true}
-                // InputProps={{
-                //   startAdornment: (
-                //     <InputAdornment position="start">de: </InputAdornment>
-                //   )
-                // }}
               />
             </Grid>
 
@@ -615,7 +614,6 @@ var StkMovEntrada = props => {
                 // type="Number"
                 // fullWidth
                 value={state.StkRubroPres}
-                // onChange={() => handleChange("StkRubroPres")}
                 onChange={handleChange}
                 autoFocus={true}
                 InputProps={{
@@ -644,13 +642,11 @@ var StkMovEntrada = props => {
                 type="number"
                 fullWidth
                 value={state.StkRubroAncho}
-                // onChange={() => handleChange("StkRubroAncho")}
                 onChange={handleChange}
                 autoFocus={true}
                 // className={classes.textField_60}
                 InputProps={{
                   startAdornment: (
-                    // <InputAdornment position="start">X</InputAdornment>
                     <InputAdornment position="start">x</InputAdornment>
                   )
                 }}
@@ -665,7 +661,8 @@ var StkMovEntrada = props => {
                 label="Partida"
                 fullWidth
                 value={state.StkEnvasePartida}
-                onChange={() => handleChange("StkEnvasePartida")}
+                // onChange={() => handleChange("StkEnvasePartida")}
+                onChange={handleChange}
                 // className={classes.textField_150}
               ></TextField>
             </Grid>
