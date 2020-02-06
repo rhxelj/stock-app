@@ -186,55 +186,51 @@ var StkMovEntrada = props => {
         });
         var recorte = state.StkItemsFAct.substr(0, 10);
         setState({ ...state, StkItemsFAct: recorte });
-        console.log("State.StkItemsMax =>", state.StkItemsMax);
-        console.log("stkitemse[0].StkItemsMax =>", stkitemse[0].StkItemsMax);
-        console.log("state =>", state);
       });
   };
 
   const limpioPantalla = () => {
-    setState(
+    setState({
       // initial_state //TODO revisar esto no me pone en cero todo averiguar como poner en cero
-      {
-        ...state,
-        // stkrubro: [],
-        //   // stkgrupo: [],
-        // stkitems: [],
-        idStkGrupo: "",
-        idStkRubro: "",
-        idStkItems: ""
-        //   stkItems: [],stkgrupo
-        //   stkrubroele: [],
-        //   StkItemsCantidad: 0.0,
-        //   StkItemsCantDisp: 0.0,
-        //   StkItemsFAct: "",
-        //   StkItemsMin: 0.0,
-        //   StkItemsMax: 0.0,
-        //   StkRubroAncho: 0.0,
-        //   StkRubroPresDes: "",
-        //   StkRubroPres: 0.0,
-        //   StkRubroUM: 0.0,
-        //   cantidad: 1.0,
-        //   largo: 0.0,
-        //   ancho: 0.0,
-        //   faltante: 0.0,
-        //   total: 0.0,
-        //   datostraid: [],
-        //   open: true,
-        //   marcagenqr: false,
-        //   imp_conf: false,
-        //   marcaagregado: false,
-        //   StkEnvaseUb: "",
-        //   StkEnvaseObserv: "",
-        //   StkEnvasePartida: "",
-        //   indiceub: [],
-        //   StkItemsGrupo: [],
-        //   StkItemsRubro: "",
-        //   StkItems: [],
-        //   StkEnvaseUbF: [],
-        //   StkEnvaseUbG: []
-      }
-    );
+      // {
+      ...state,
+      // stkrubro: [],
+      // stkgrupo: [],
+      // stkitems: [],
+      idStkGrupo: "",
+      idStkRubro: "",
+      idStkItems: "",
+      //   stkItems: [],stkgrupo
+      //   stkrubroele: [],
+      //   StkItemsCantidad: 0.0,
+      //   StkItemsCantDisp: 0.0,
+      //   StkItemsFAct: "",
+      StkItemsMin: null,
+      StkItemsMax: null
+      //   StkRubroAncho: 0.0,
+      //   StkRubroPresDes: "",
+      //   StkRubroPres: 0.0,
+      //   StkRubroUM: 0.0,
+      //   cantidad: 1.0,
+      //   largo: 0.0,
+      //   ancho: 0.0,
+      //   faltante: 0.0,
+      //   total: 0.0,
+      //   datostraid: [],
+      //   open: true,
+      //   marcagenqr: false,
+      //   imp_conf: false,
+      //   marcaagregado: false,
+      //   StkEnvaseUb: "",
+      //   StkEnvaseObserv: "",
+      //   StkEnvasePartida: "",
+      //   indiceub: [],
+      //   StkItemsGrupo: [],
+      //   StkItemsRubro: "",
+      //   StkItems: [],
+      //   StkEnvaseUbF: [],
+      //   StkEnvaseUbG: []
+    });
     // stkgrupoleer();
   };
 
@@ -269,35 +265,6 @@ var StkMovEntrada = props => {
     }
   }, [state.idStkItems, state.StkEnvaseUbG]);
 
-  // useEffect(() => {
-  //   if (state.idStkRubro != "") {
-  //     stkubfisicaleerUbG(state.StkEnvaseUbG); //leo item especifico apartir del grupo y rubro seleccionado
-  //   }
-  // }, [state.StkEnvaseUbG]);
-
-  // // function componentWillMount() {
-  // //   stkgrupoleer();
-  // // }
-
-  // // function componentWillUnmount() {}
-
-  // // function componentDidMount() {}
-
-  // // Handles VARIOS REVISAR si se pueden "REDUCIR" - INICIO
-  // //***********************************************************//
-
-  // // const handleChange = prop => event => {
-  // //   setState({ ...state, [prop]: event.target.value });
-  // // };
-
-  // const handleChangeGrupo = prop => event => {
-  //   console.log("Evente en change grupo ", event.target.id);
-  //   setState({ ...state, [prop]: event.target.value });
-  //   // setState({ ...state, idStkGrupo: parseInt(event.target.value) });
-  //   // stkrubroleecodgrupo(idStkGrupo);
-  //   // stkrubroleecodgrupo(event.target.value);
-  // };
-
   const handleChange = event => {
     const id = event.target.id;
     console.log("Nombre de evento lanzado usando id:", id);
@@ -305,23 +272,6 @@ var StkMovEntrada = props => {
     setState({ ...state, [id]: event.target.value }); //Todo revisar !!!!!!!!
     // setState({ ...state, id: event.target.value });
   };
-
-  // const handleChangeRubro = prop => event => {
-  //   setState({ ...state, [prop]: event.target.value });
-  //   stkrubroleecodrbygr();
-  //   setState({ ...state, [prop]: event.target.value });
-  //   stkitemsleecodgryrb(state.StkItemsRubro);
-  // };
-
-  // const handleChangeItems = prop => event => {
-  //   setState({ ...state, [prop]: event.target.value });
-  //   stkitemsleecodgrrbit();
-  // };
-
-  // const handleChangeUbicacion = prop => event => {
-  //   setState({ ...state, [prop]: event.target.value });
-  //   stkubfisicaleerUbG(state.StkEnvaseUbG);
-  // };
 
   // handleClickOpen = () => {
   //   this.setState({ open: true });
@@ -560,10 +510,7 @@ var StkMovEntrada = props => {
                 select
                 label="Grupo"
                 fullWidth
-                // value={state.StkItemsGrupo}
                 value={state.idStkGrupo} //todo mirar que valor poner puse este de forma arbitraria para ver si borra
-                // value={state.StkGrupoDesc}
-                // onChange={handleChangeGrupo("idStkGrupo")}
                 onChange={handleChange}
                 SelectProps={{ native: true }}
                 className={classes.textField_370}
