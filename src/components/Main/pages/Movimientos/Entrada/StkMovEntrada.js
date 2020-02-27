@@ -86,14 +86,6 @@ var StkMovEntrada = props => {
       });
   };
 
-  // async function stkgrupoleer1() {
-  //   console.log("llamando a stkgrupoleer ......");
-
-  //   const result = await stkgrupoleer();
-  //   console.log("deapues de llamar a stkgrupoleer --->", result);
-  // }
-  // stkgrupoleer1();
-
   //lee rubro por código de grupo
   const stkrubroleecodgrupo = id => {
     const url = IpServidor + "/stkrubroleecodgrupo/" + id;
