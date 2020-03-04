@@ -22,7 +22,13 @@ import request from "superagent";
 import IpServidor from "../../VariablesDeEntorno";
 import StkGenImpQR from "../../Impresion/StkGenImpQR";
 import ubicacion from "./UbicacionGeografica";
-import { stkgrupoleer } from "./StkMovEntradaLeeGrupo";
+// import { stkgrupoleer } from "./StkMovEntradaLeeGrupo";
+
+import { stkgrupolee } from "../../Stock/Grupos/StkGrupoLee";
+import { stkrubroleecodgrupo } from "../../Stock/Rubros/StkRubroLeeCodGrupo";
+import { stkitemsleecodgryrb } from "../../Stock/Items/StkItemsLeeCodGryRb";
+import { stkitemsleecodgrrbit } from "../../Stock/Items/StkItemsLeeCodGrRbIt";
+import StkMovEntradaDatItems from "./StkMovEntradaDatItems";
 
 var initial_state = {
   idStkGrupo: "",
@@ -70,36 +76,56 @@ var StkMovEntrada = props => {
   var [state, setState] = useState(initial_state);
   var [dialog, setDialog] = useState(true);
 
-  // Lee Grupo
-  const stkgrupoleer = _ => {
-    const url = IpServidor + "/stkgrupoleer";
-    request
-      .get(url)
-      .set("Content-Type", "application/json")
-      .then(res => {
-        console.log("TCL: res", res);
-        const stkgrupo = JSON.parse(res.text);
-        console.log("TCL: stkgrupo", stkgrupo);
+  // async function stkgrupoleer() {
+  //   const result = await stkgrupolee();
+  //   setState({ ...state, stkgrupo: result });
+  // }
 
-        setState({ ...state, stkgrupo: stkgrupo });
-        console.log("TCL: stkgrupo.state", state.stkgrupo);
-      });
-  };
+  async function stkgrupoleer() {
+    const result = await stkgrupolee();
+    setState({ ...state, stkgrupo: result });
+  }
+
+  async function stkrubroleercodgrupo(codigogrupo) {
+    const result = await stkrubroleecodgrupo(codigogrupo);
+    setState({ ...state, stkrubro: result });
+  }
+
+  async function stkitemsleercodgryrb(codigogrupo, codigorubro) {
+    const result = await stkitemsleecodgryrb(codigogrupo, codigorubro);
+    setState({ ...state, stkitems: result });
+  }
+
+  // Lee Grupo
+  // const stkgrupoleer = _ => {
+  //   const url = IpServidor + "/stkgrupoleer";
+  //   request
+  //     .get(url)
+  //     .set("Content-Type", "application/json")
+  //     .then(res => {
+  //       console.log("TCL: res", res);
+  //       const stkgrupo = JSON.parse(res.text);
+  //       console.log("TCL: stkgrupo", stkgrupo);
+
+  //       setState({ ...state, stkgrupo: stkgrupo });
+  //       console.log("TCL: stkgrupo.state", state.stkgrupo);
+  //     });
+  // };
 
   //lee rubro por código de grupo
-  const stkrubroleecodgrupo = id => {
-    const url = IpServidor + "/stkrubroleecodgrupo/" + id;
-    request
-      .get(url)
-      .set("Content-Type", "application/json")
-      .then(res => {
-        const stkrubro = JSON.parse(res.text);
-        // setState({ ...state, stkrubro: stkrubro });
-        setState({ ...state, stkrubro: stkrubro });
-      });
-  };
+  // const stkrubroleecodgrupo = id => {
+  //   const url = IpServidor + "/stkrubroleecodgrupo/" + id;
+  //   request
+  //     .get(url)
+  //     .set("Content-Type", "application/json")
+  //     .then(res => {
+  //       const stkrubro = JSON.parse(res.text);
+  //       // setState({ ...state, stkrubro: stkrubro });
+  //       setState({ ...state, stkrubro: stkrubro });
+  //     });
+  // };
 
-  //lee ubicacion física según la ubicación geografica
+  // lee ubicacion física según la ubicación geografica
   const stkubfisicaleerUbG = id => {
     const url = IpServidor + "/stkubfisicaleerUbG/?id=" + id;
     request
@@ -111,95 +137,99 @@ var StkMovEntrada = props => {
       });
   };
 
-  const stkrubroleecodgryrb = () => {
-    const url =
-      IpServidor +
-      "/stkrubroleecodgryrb/?idStkRubro=" +
-      // state.StkItemsRubro +
-      state.idStkRubro +
-      "&idStkGrupo=" +
-      // state.StkItemsGrupo;
-      state.idStkGrupo;
-    request
-      .get(url)
-      .set("Content-Type", "application/json")
-      .then(res => {
-        const stkrubroele = JSON.parse(res.text);
-        console.log("TCL: stkrubroleecodrbygr -> stkrubroele", stkrubroele);
-        setState({ ...state, stkrubroele: stkrubroele });
-        setState({
-          ...state,
-          StkRubroAncho: stkrubroele[0].StkRubroAncho, // ! revisar esto
-          StkRubroPresDes: stkrubroele[0].StkRubroPresDes,
-          StkRubroPres: stkrubroele[0].StkRubroPres,
-          StkRubroUM: stkrubroele[0].StkRubroUM
-        });
-      });
-    console.log(
-      "contenido de StkRubroUM dentro de stkrubroleecodrbygr: ",
-      state.StkRubroUM
-    );
-    console.log("contenido de state dentro de stkrubroleecodrbygr: ", state);
-  };
+  console.log("typeof... : ", typeof stkubfisicaleerUbG);
+  console.log("typeof... : ", typeof state.idStkGrupo);
+  console.log("typeof... : ", typeof handleChange);
 
-  const stkitemsleecodgryrb = _ => {
-    // var id2 = state.StkItemsGrupo;
-    const url =
-      IpServidor +
-      "/stkitemsleecodgryrb/?idStkGrupo=" +
-      state.idStkGrupo +
-      "&idStkRubro=" +
-      state.idStkRubro;
-    request
-      .get(url)
-      .set("Content-Type", "application/json")
-      .then(res => {
-        const stkitems = JSON.parse(res.text);
-        setState({ ...state, stkitems: stkitems });
-      });
-  };
+  // const stkrubroleecodgryrb = () => {
+  //   const url =
+  //     IpServidor +
+  //     "/stkrubroleecodgryrb/?idStkRubro=" +
+  //     // state.StkItemsRubro +
+  //     state.idStkRubro +
+  //     "&idStkGrupo=" +
+  //     // state.StkItemsGrupo;
+  //     state.idStkGrupo;
+  //   request
+  //     .get(url)
+  //     .set("Content-Type", "application/json")
+  //     .then(res => {
+  //       const stkrubroele = JSON.parse(res.text);
+  //       console.log("TCL: stkrubroleecodrbygr -> stkrubroele", stkrubroele);
+  //       setState({ ...state, stkrubroele: stkrubroele });
+  //       setState({
+  //         ...state,
+  //         StkRubroAncho: stkrubroele[0].StkRubroAncho, // ! revisar esto
+  //         StkRubroPresDes: stkrubroele[0].StkRubroPresDes,
+  //         StkRubroPres: stkrubroele[0].StkRubroPres,
+  //         StkRubroUM: stkrubroele[0].StkRubroUM
+  //       });
+  //     });
+  //   console.log(
+  //     "contenido de StkRubroUM dentro de stkrubroleecodrbygr: ",
+  //     state.StkRubroUM
+  //   );
+  //   console.log("contenido de state dentro de stkrubroleecodrbygr: ", state);
+  // };
 
-  const stkitemsleecodgrrbit = () => {
-    var idStkItems = state.idStkItems;
-    var idStkGrupo = state.idStkGrupo;
-    var idStkRubro = state.idStkRubro;
+  // const stkitemsleecodgryrb = _ => {
+  //   // var id2 = state.StkItemsGrupo;
+  //   const url =
+  //     IpServidor +
+  //     "/stkitemsleecodgryrb/?idStkGrupo=" +
+  //     state.idStkGrupo +
+  //     "&idStkRubro=" +
+  //     state.idStkRubro;
+  //   request
+  //     .get(url)
+  //     .set("Content-Type", "application/json")
+  //     .then(res => {
+  //       const stkitems = JSON.parse(res.text);
+  //       setState({ ...state, stkitems: stkitems });
+  //     });
+  // };
 
-    const url =
-      IpServidor +
-      "/stkitemsleecodgrrbit/?idStkItems=" +
-      idStkItems +
-      "&idStkGrupo=" +
-      idStkGrupo +
-      "&idStkRubro=" +
-      idStkRubro;
-    request
-      .get(url)
-      .set("Content-Type", "application/json")
-      .then(res => {
-        const stkitemse = JSON.parse(res.text);
-        console.log("TCL: stkitemsleecodgrrbit -> stkitemse", stkitemse);
-        // setState({ ...state, stkitemse: stkitemse });
-        setState(state => ({
-          ...state,
-          StkItemsCantidad: stkitemse[0].StkItemsCantidad,
-          StkItemsCantDisp: stkitemse[0].StkItemsCantDisp,
-          // StkItemsFAct: stkitemse[0].StkItemsFAct,
-          StkItemsFAct: stkitemse[0].StkItemsFAct.substr(0, 10),
-          StkItemsMin: stkitemse[0].StkItemsMin,
-          StkItemsMax: stkitemse[0].StkItemsMax
-        }));
+  // const stkitemsleecodgrrbit = () => {
+  //   var idStkItems = state.idStkItems;
+  //   var idStkGrupo = state.idStkGrupo;
+  //   var idStkRubro = state.idStkRubro;
 
-        // var recorte = state.StkItemsFAct.substr(0, 10);
-        // setState({ ...state, StkItemsFAct: recorte });
-      });
-    console.log("TCL: stkitemsleecodgrrbit -> StkItemsMin", state.StkItemsMin);
-    console.log(
-      "TCL: stkitemsleecodgrrbit tipo -> StkItemsMin",
-      typeof state.StkItemsMin
-    );
-    var tipo = typeof state.StkItemsMin;
-    console.log(tipo);
-  };
+  //   const url =
+  //     IpServidor +
+  //     "/stkitemsleecodgrrbit/?idStkItems=" +
+  //     idStkItems +
+  //     "&idStkGrupo=" +
+  //     idStkGrupo +
+  //     "&idStkRubro=" +
+  //     idStkRubro;
+  //   request
+  //     .get(url)
+  //     .set("Content-Type", "application/json")
+  //     .then(res => {
+  //       const stkitemse = JSON.parse(res.text);
+  //       console.log("TCL: stkitemsleecodgrrbit -> stkitemse", stkitemse);
+  //       // setState({ ...state, stkitemse: stkitemse });
+  //       setState(state => ({
+  //         ...state,
+  //         StkItemsCantidad: stkitemse[0].StkItemsCantidad,
+  //         StkItemsCantDisp: stkitemse[0].StkItemsCantDisp,
+  //         // StkItemsFAct: stkitemse[0].StkItemsFAct,
+  //         StkItemsFAct: stkitemse[0].StkItemsFAct.substr(0, 10),
+  //         StkItemsMin: stkitemse[0].StkItemsMin,
+  //         StkItemsMax: stkitemse[0].StkItemsMax
+  //       }));
+
+  //       // var recorte = state.StkItemsFAct.substr(0, 10);
+  //       // setState({ ...state, StkItemsFAct: recorte });
+  //     });
+  //   console.log("TCL: stkitemsleecodgrrbit -> StkItemsMin", state.StkItemsMin);
+  //   console.log(
+  //     "TCL: stkitemsleecodgrrbit tipo -> StkItemsMin",
+  //     typeof state.StkItemsMin
+  //   );
+  //   var tipo = typeof state.StkItemsMin;
+  //   console.log(tipo);
+  // };
 
   const limpioPantalla = () => {
     setState({
@@ -279,37 +309,48 @@ var StkMovEntrada = props => {
 
   useEffect(() => {
     stkgrupoleer();
-    console.log("primer use Effect leo grupo ");
-    console.log("contenido de State", state);
-    console.log("stkgrupo -> ", state.stkgrupo);
-    console.log("stkgrupo -> ", state.stkrubro);
-    console.log("stkgrupo -> ", state.stkitems);
   }, []);
-
   useEffect(() => {
-    if (state.idStkGrupo != "") {
-      stkrubroleecodgrupo(state.idStkGrupo); //leo rubros apartir del grupo seleccionado
-    }
-    console.log("use Effect leo Rubros  ");
-    console.log("contenido de State", state);
-    console.log("stkgrupo -> ", state.stkgrupo);
-    console.log("stkrubro -> ", state.stkrubro);
-    console.log("stkgitems -> ", state.stkitems);
+    stkrubroleercodgrupo(state.idStkGrupo); //leo rubros apartir del grupo seleccionado
   }, [state.idStkGrupo]);
 
   useEffect(() => {
-    if (state.idStkGrupo != "" && state.idStkRubro != "") {
-      console.log("estoy en el useEffect que lanza stkrubroleecodrbygr()");
-      stkrubroleecodgryrb();
-    }
-  }, [state.idStkGrupo, state.idStkRubro]);
-
-  useEffect(() => {
-    if (state.idStkRubro != "") {
-      console.log("corro stkitemsleecodgryrb() ");
-      stkitemsleecodgryrb(); //leo items apartir del grupo y rubro seleccionados
-    }
+    stkitemsleercodgryrb(state.idStkGrupo, state.idStkRubro); //leo rubros apartir del grupo seleccionado
   }, [state.idStkRubro]);
+
+  // useEffect(() => {
+  //   stkgrupoleer();
+  //   console.log("primer use Effect leo grupo ");
+  //   console.log("contenido de State", state);
+  //   console.log("stkgrupo -> ", state.stkgrupo);
+  //   console.log("stkgrupo -> ", state.stkrubro);
+  //   console.log("stkgrupo -> ", state.stkitems);
+  // }, []);
+
+  // useEffect(() => {
+  //   if (state.idStkGrupo != "") {
+  //     stkrubroleecodgrupo(state.idStkGrupo); //leo rubros apartir del grupo seleccionado
+  //   }
+  //   console.log("use Effect leo Rubros  ");
+  //   console.log("contenido de State", state);
+  //   console.log("stkgrupo -> ", state.stkgrupo);
+  //   console.log("stkrubro -> ", state.stkrubro);
+  //   console.log("stkgitems -> ", state.stkitems);
+  // }, [state.idStkGrupo]);
+
+  // useEffect(() => {
+  //   if (state.idStkGrupo != "" && state.idStkRubro != "") {
+  //     console.log("estoy en el useEffect que lanza stkrubroleecodrbygr()");
+  //     stkrubroleecodgryrb();
+  //   }
+  // }, [state.idStkGrupo, state.idStkRubro]);
+
+  // useEffect(() => {
+  //   if (state.idStkRubro != "") {
+  //     console.log("corro stkitemsleecodgryrb() ");
+  //     stkitemsleecodgryrb(); //leo items apartir del grupo y rubro seleccionados
+  //   }
+  // }, [state.idStkRubro]);
 
   useEffect(() => {
     if (state.idStkRubro != "") {
@@ -685,7 +726,9 @@ var StkMovEntrada = props => {
 
           {/* Fila Cantidad/ StkRubroPresDes / StkRubroPres / StkRubroUM */}
           {/* <Grid container item spacing={1}></Grid> */}
-          <Grid container spacing={8} justify="space-around">
+          <Grid container spacing={8} justify="space-between">
+            {/* <Grid container spacing={8} justify="space-around"> */}
+            {/* <Grid item xs={2}></Grid> */}
             <Grid item xs={2}>
               <TextField
                 size="small"
@@ -769,7 +812,7 @@ var StkMovEntrada = props => {
           </Grid>
           {/* Tercer Linea */}
           <Grid container item spacing={1}></Grid>
-          <Grid container>
+          <Grid container justify="space-between">
             {/* Partida Ubicación-Geografica Ubicación-Fisica */}
             <Grid
               item
@@ -780,7 +823,7 @@ var StkMovEntrada = props => {
               // alignItems="flex-center"
             >
               {/* <Grid item xs></Grid> */}
-              <Grid item xs={4}></Grid>
+              {/* <Grid item xs={2}></Grid> */}
               <Grid item xs={4}>
                 <TextField
                   size="small"
@@ -795,8 +838,8 @@ var StkMovEntrada = props => {
                   // className={classes.textField_150}
                 ></TextField>
               </Grid>
-              <Grid item xs={4}></Grid>
-              <Grid item xs={4}></Grid>
+              {/* <Grid item xs={2}></Grid>
+              <Grid item xs={4}></Grid> */}
               <Grid item xs={4}>
                 <TextField
                   size="small"
@@ -826,8 +869,8 @@ var StkMovEntrada = props => {
                   ))}
                 </TextField>
               </Grid>
-              <Grid item xs={4}></Grid>
-              <Grid item xs={4}></Grid>
+              {/* <Grid item xs={4}></Grid>
+              <Grid item xs={4}></Grid> */}
               <Grid item xs={4}>
                 <TextField
                   // size="small"
@@ -859,43 +902,43 @@ var StkMovEntrada = props => {
               </Grid>
             </Grid>
             {/* </Grid> */}
-            <Grid item container xs={6} spacing={2} alignItems="flex-start">
-              <Grid item xs={12}>
-                <TextField
-                  multiline
-                  rows="4"
-                  size="small"
-                  variant="outlined"
-                  id="StkEnvaseObserv"
-                  type="text"
-                  label="Observación"
-                  fullWidth
-                  value={state.StkEnvaseObserv}
-                  // onChange={() => handleChange("StkEnvaseObserv")}
-                  onChange={handleChange}
-                  className={classes.textField}
-                />
-              </Grid>
-              <Grid container justify="flex-end">
-                <IconButton onClick={limpioPantalla}>
-                  <DeleteIcon />
-                </IconButton>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  // onClick={agregastock}
-                >
-                  Confirmar
-                </Button>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => setDialog(false)}
-                >
-                  Cerrar
-                </Button>
-              </Grid>
+            {/* <Grid item container xs={6} spacing={2} alignItems="flex-start"> */}
+            <Grid item xs>
+              <TextField
+                // multiline
+                // rows="3"
+                size="small"
+                variant="outlined"
+                id="StkEnvaseObserv"
+                type="text"
+                label="Observación"
+                fullWidth
+                value={state.StkEnvaseObserv}
+                // onChange={() => handleChange("StkEnvaseObserv")}
+                onChange={handleChange}
+                className={classes.textField}
+              />
             </Grid>
+            <Grid container justify="flex-end">
+              <IconButton onClick={limpioPantalla}>
+                <DeleteIcon />
+              </IconButton>
+              <Button
+                variant="contained"
+                color="primary"
+                // onClick={agregastock}
+              >
+                Confirmar
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => setDialog(false)}
+              >
+                Cerrar
+              </Button>
+            </Grid>
+            {/* </Grid> */}
           </Grid>
 
           {/* </DialogContent> */}
