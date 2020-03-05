@@ -32,19 +32,13 @@ var StkMovEntrada = props => {
     <div>
       <Container>
         <Grid container spacing={6}>
-          {/* Fecha */}
-          <FilaUno />
-
-          {/* Grupo, Rubro, Items, Cant. Disp., Cant, Min. Stock, Max. Stock */}
-          {/* <FilaDos filados={filados} /> */}
+          <FilaUno /> {/* Fecha */}
+          {/* Grupo, Rubro, Items, Cant. Disp., Cant, Min. */}
           <FilaDos />
-
           {/* Fila Cantidd, Pres. Desc., Pres., UM,Ancho */}
           <FilaTres />
-
           {/* Fila Partida, Ub. Geo., Ub. Fisc., Observaciones */}
           <FilaCuatro />
-
           {/* Fila Confirma, Cancela, Borra */}
           <FilaCinco />
         </Grid>

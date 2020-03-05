@@ -25,12 +25,14 @@ import { stkrubroleecodgrupo } from "../../../../Stock/Rubros/StkRubroLeeCodGrup
 import { stkitemsleecodgryrb } from "../../../../Stock/Items/StkItemsLeeCodGryRb";
 import { stkitemsleecodgrrbit } from "../../../../Stock/Items/StkItemsLeeCodGrRbIt";
 
-import { initial_state } from "./Initial_State
+import { initial_state } from "./Initial_State";
 // import StkMovEntradaDatItems from "./StkMovEntradaDatItems";
 
-export default function Fila2(props) {
+export default function F2C1(props) {
   var [state, setState] = useState(initial_state);
   var [dialog, setDialog] = useState(true);
+
+  const { setGRI } = props.GRI;
 
   const handleChange = event => {
     const id = event.target.id;
@@ -63,6 +65,16 @@ export default function Fila2(props) {
   useEffect(() => {
     stkitemsleercodgryrb(state.idStkGrupo, state.idStkRubro); //leo rubros apartir del grupo seleccionado
   }, [state.idStkRubro]);
+
+  useEffect(() => {
+    if (!!state.idStkItems) {
+      props.GRI({
+        idStkGrupo: state.idStkGrupo,
+        idStkRubro: state.idStkRubro,
+        idStkItems: state.idStkItems
+      });
+    }
+  }, [state.idStkItems]);
 
   const classes = useStyles();
 

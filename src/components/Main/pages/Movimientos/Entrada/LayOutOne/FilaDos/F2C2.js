@@ -25,52 +25,51 @@ import { stkrubroleecodgrupo } from "../../../../Stock/Rubros/StkRubroLeeCodGrup
 import { stkitemsleecodgryrb } from "../../../../Stock/Items/StkItemsLeeCodGryRb";
 import { stkitemsleecodgrrbit } from "../../../../Stock/Items/StkItemsLeeCodGrRbIt";
 // import StkMovEntradaDatItems from "./StkMovEntradaDatItems";
-import { initial_state } from "./Initial_State";
+// import { initial_state } from "./Initial_State";
 //
 
-export default function Fila2(props) {
+var initial_state = {
+  stkitemsele: [],
+  StkItemsFAct: "",
+  StkItemsMin: null,
+  StkItemsMax: null,
+  StkItemsCantDisp: 0,
+  StkItemsCantidad: 0
+};
+
+export default function F2C2(props) {
   var [state, setState] = useState(initial_state);
-  var [dialog, setDialog] = useState(true);
 
   const handleChange = event => {
     const id = event.target.id;
-    console.log("Nombre de evento lanzado usando id:", id);
-    console.log("Nombre de evento lanzado usando [id]:", [id]);
-    setState({ ...state, [id]: event.target.value }); //Todo revisar !!!!!!!!
-    // setState({ ...state, id: event.target.value });
+    setState({ ...state, [id]: event.target.value });
   };
 
-  async function stkgrupoleer() {
-    const result = await stkgrupolee();
-    setState({ ...state, stkgrupo: result });
-  }
-
-  async function stkrubroleercodgrupo(codigogrupo) {
-    const result = await stkrubroleecodgrupo(codigogrupo);
-    setState({ ...state, stkrubro: result });
-  }
-
-  async function stkitemsleercodgryrb(codigogrupo, codigorubro) {
-    const result = await stkitemsleecodgryrb(codigogrupo, codigorubro);
-    setState({ ...state, stkitems: result });
+  async function stkitemsleercodgrrbit(GrupoEleg, RubroEleg, ItemEleg) {
+    const result = await stkitemsleecodgrrbit(GrupoEleg, RubroEleg, ItemEleg);
+    setState(state => ({
+      ...state,
+      StkItemsCantidad: result[0].StkItemsCantidad,
+      StkItemsCantDisp: result[0].StkItemsCantDisp,
+      StkItemsFAct: result[0].StkItemsFAct,
+      StkItemsMin: result[0].StkItemsMin,
+      StkItemsMax: result[0].StkItemsMax
+    }));
   }
 
   useEffect(() => {
-    stkgrupoleer();
-  }, []);
-  useEffect(() => {
-    stkrubroleercodgrupo(state.idStkGrupo); //leo rubros apartir del grupo seleccionado
-  }, [state.idStkGrupo]);
-
-  useEffect(() => {
-    stkitemsleercodgryrb(state.idStkGrupo, state.idStkRubro); //leo rubros apartir del grupo seleccionado
-  }, [state.idStkRubro]);
+    stkitemsleercodgrrbit(
+      props.data.idStkGrupo,
+      props.data.idStkRubro,
+      props.data.idStkItems
+    );
+  }, [props.data]);
 
   const classes = useStyles();
 
   return (
     <>
-      <Grid container item spacing={6} xs={6}>
+      <Grid container alignItems="center" item spacing={6} xs={6}>
         {/* Cantidad Disponible */}
         <Grid item xs={6}>
           <TextField
@@ -90,13 +89,42 @@ export default function Fila2(props) {
           />
         </Grid>
         <Grid item xs={6}>
-          <Paper className={classes.paper}>Cantidad</Paper>
+          <TextField
+            size="small"
+            variant="outlined"
+            id="Cantidad"
+            label="Cantidad Real"
+            InputLabelProps={{ shrink: true }}
+            value={state.StkItemsCantidad}
+            disabled
+            // className={classes.textField}
+          />
         </Grid>
         <Grid item xs={6}>
-          <Paper className={classes.paper}>Minimo Stock</Paper>
+          {/* <Paper className={classes.paper}>Minimo Stock</Paper> */}
+          <TextField
+            size="small"
+            variant="outlined"
+            id="MinStock"
+            label="Mínimo Stock"
+            InputLabelProps={{ shrink: true }}
+            value={state.StkItemsMin}
+            disabled
+            // className={classes.textField}
+          />
         </Grid>
         <Grid item xs={6}>
-          <Paper className={classes.paper}>Maximo Stock</Paper>
+          {/* <Paper className={classes.paper}>Maximo Stock</Paper> */}
+          <TextField
+            size="small"
+            variant="outlined"
+            id="MaxStock"
+            label="Máximo Stock"
+            type="number"
+            InputLabelProps={{ shrink: true }}
+            value={state.StkItemsMax}
+            disabled
+          />
         </Grid>
       </Grid>
     </>
