@@ -1,7 +1,8 @@
 import request from "superagent";
-import { Grid, TextField, Dialog } from "@material-ui/core";
+import { Grid, TextField, Dialog, Container } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import { stkitemsleecodgrrbit } from "../../Stock/Items/StkItemsLeeCodGrRbIt";
+import useStyles from "./StkMovEntradaStyle";
 var initial_state = {
   stkitemsele: [],
   StkItemsFAct: "",
@@ -13,9 +14,6 @@ var initial_state = {
 
 function StkMovEntradaDatItems(props) {
   var [state, setState] = useState(initial_state);
-  // var [GrupoEleg1, setGrupoEleg] = useState(props.GrupoEleg);
-  // var [RubroEleg1, setRubroEleg] = useState(props.RubroEleg);
-  // var [ItemEleg1, setItemEleg] = useState(props.ItemEleg);
 
   var datoseleg = Object.values(props);
   const [GrupoEleg1, RubroEleg1, ItemEleg1] = datoseleg;
@@ -40,13 +38,88 @@ function StkMovEntradaDatItems(props) {
     stkitemsleercodgrrbit(GrupoEleg1, RubroEleg1, ItemEleg1);
   }, [ItemEleg1]);
 
+  const classes = useStyles();
   return (
-    <div>
-      <Grid container>
+    <div className={classes.root1}>
+      <Grid item container spacing={1} direction="row">
         {!!ItemEleg1 && (
-          <Grid item xs={12} sm={8} lg={12}>
-            <TextField label="HOLA" />
-            <label>{state.StkItemsCantDisp}</label>
+          <Grid item container spacing={3}>
+            <Grid
+              item
+              container
+              xs={8}
+              spacing={10}
+              alignItems="center"
+              direction="row"
+            >
+              <Grid item xs={8}>
+                <TextField
+                  size="small"
+                  variant="outlined"
+                  InputLabelProps={{ shrink: true }}
+                  type="date"
+                  id="FechaAct"
+                  label="Fecha Actualización"
+                  value={state.StkItemsFAct.substr(0, 10)}
+                  disabled
+                  className={classes.textField}
+                />
+              </Grid>
+
+              <Grid item xs={8}>
+                <TextField
+                  size="small"
+                  variant="outlined"
+                  id="Cantidad"
+                  label="Cantidad Real"
+                  InputLabelProps={{ shrink: true }}
+                  value={state.StkItemsCantidad}
+                  disabled
+                  // className={classes.textField}
+                />
+              </Grid>
+
+              <Grid item xs={8}>
+                <TextField
+                  size="small"
+                  variant="outlined"
+                  id="CantDisp"
+                  label="Cantidad Disponible"
+                  value={state.StkItemsCantDisp}
+                  style={
+                    state.StkItemsCantDisp < state.StkItemsMin
+                      ? { background: "#f92c19" }
+                      : { background: "#00e676" }
+                  }
+                  disabled
+                />
+              </Grid>
+
+              <Grid item xs={8}>
+                <TextField
+                  size="small"
+                  variant="outlined"
+                  id="MinStock"
+                  label="Mínimo Stock"
+                  InputLabelProps={{ shrink: true }}
+                  value={state.StkItemsMin}
+                  disabled
+                  // className={classes.textField}
+                />
+              </Grid>
+              <Grid item xs={8}>
+                <TextField
+                  size="small"
+                  variant="outlined"
+                  id="MaxStock"
+                  label="Máximo Stock"
+                  type="number"
+                  InputLabelProps={{ shrink: true }}
+                  value={state.StkItemsMax}
+                  disabled
+                ></TextField>
+              </Grid>
+            </Grid>
           </Grid>
         )}
       </Grid>
