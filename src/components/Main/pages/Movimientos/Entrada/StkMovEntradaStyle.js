@@ -29,6 +29,12 @@ const useStyles = makeStyles(theme => ({
   },
   textField_370: {
     width: 370
+  },
+  derecha: {
+    background: "red"
+  },
+  izquierda: {
+    background: "blue"
   }
 }));
 
