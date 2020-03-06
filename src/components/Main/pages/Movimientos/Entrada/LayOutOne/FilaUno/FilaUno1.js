@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -20,8 +20,11 @@ import {
 import useStyles from "../styles";
 
 export default function Fila() {
+  let fecha = new Date();
+  var [fechahoy, setfechahoy] = useState(
+    fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear()
+  );
   const classes = useStyles();
-
   return (
     <>
       <Grid container item justify="center">
@@ -30,11 +33,11 @@ export default function Fila() {
           size="small"
           variant="outlined"
           InputLabelProps={{ shrink: true }}
-          type="date"
+          type="text"
           id="FechaAct"
           label="Fecha"
           // value={state.StkItemsFAct}
-          value="10/10/2020"
+          value={fechahoy}
           disabled
           // className={classes.textField}
         />
