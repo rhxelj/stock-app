@@ -28,16 +28,19 @@ import { stkitemsleecodgrrbit } from "../../../../Stock/Items/StkItemsLeeCodGrRb
 import { initial_state } from "./Initial_State";
 // import StkMovEntradaDatItems from "./StkMovEntradaDatItems";
 
+// Context
+import { useContext } from "react";
+import { StkMovEntradaContex } from "../../StkMovEntrada";
+
 export default function F2C1(props) {
   var [state, setState] = useState(initial_state);
-  var [dialog, setDialog] = useState(true);
 
-  const { setGRI } = props.GRI;
+  // Esto es para poder consumir los datos del CONTEXAPI
+  const value = useContext(StkMovEntradaContex);
 
   const handleChange = event => {
     const id = event.target.id;
-    setState({ ...state, [id]: event.target.value }); //Todo revisar !!!!!!!!
-    // setState({ ...state, id: event.target.value });
+    setState({ ...state, [id]: event.target.value });
   };
 
   async function stkgrupoleer() {
@@ -68,7 +71,7 @@ export default function F2C1(props) {
 
   useEffect(() => {
     if (!!state.idStkItems) {
-      props.GRI({
+      value.setGRI({
         idStkGrupo: state.idStkGrupo,
         idStkRubro: state.idStkRubro,
         idStkItems: state.idStkItems
