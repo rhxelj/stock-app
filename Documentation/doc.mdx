@@ -1,0 +1,60 @@
+---
+name: Docz Info
+route: 
+---
+
+# Esto es Docz
+
+Sirve para documentar los proyectos y para probar los componentes
+usa una sintaxis que se llama MDX lo que me permite escribir en formato md(Markdown) y en estilo JSX 
+
+Por ejemplo usando el componente nativo de Docz ```<Playground />``` puedo probar 
+
+import { Playground } from "docz";
+
+import {
+  Box,
+  Button,
+  Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  IconButton,
+  InputAdornment,
+  Paper,
+  TextField,
+  Typography
+} from "@material-ui/core";
+
+# Button
+
+## Basic usage
+
+<Playground>
+  <Button>Default</Button>
+  <Button color="primary">Primary</Button>
+  <Button color="secondary">Secondary</Button>
+  <Button disabled>Disabled</Button>
+  <Button href="#text-buttons" color="primary">
+    Link
+  </Button>
+</Playground>
+
+
+# Otro ejemplo Counter
+
+<Playground>
+  {() => {
+    const [counter, setCounter] = React.useState(0)
+    return (
+      <>
+        <button onClick={() => setCounter(counter => counter+1)}>
+          Increase
+        </button>
+        <p>{counter}</p>
+      </>
+    )
+  }}
+</Playground>

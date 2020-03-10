@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import request from "superagent";
 
-import IpServidor from "../../VariablesDeEntorno";
+import IpServidor from "../VariablesDeEntorno";
 import StkMonedasAgregar from "./StkMonedasAgregar";
 import StkMonedasBorrar from "./StkMonedasBorrar";
 import StkMonedasModificar from "./StkMonedasModificar";
 // import StkFab from '../../../lib/StkFab'
 
-import StkFab from "../../../../lib/StkFab";
+import StkFab from "../../../lib/StkFab";
 
 // import Button from '@material-ui/core/Button';
 import Grid from "@material-ui/core/Grid";
@@ -19,9 +19,9 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import { withStyles } from "@material-ui/core/styles";
 // import "../../../../Styles/TableHeader.css";
-import "../../../../../Styles/TableHeader.css";
+import "../../../../Styles/TableHeader.css";
 
-import SelecCampos from "../../Impresion/SelecCampos";
+import SelecCampos from "../Impresion/SelecCampos";
 
 // Estilo para el boton de borrar
 const style = {

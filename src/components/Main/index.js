@@ -11,12 +11,12 @@ import { Route } from "react-router-dom";
 // import UpdateComponent from './pages/UpdateComponent'
 //import DeleteComponent from './pages/DeleteComponent'
 
-import StkMonedas from "./pages/Stock/Monedas/StkMonedas";
+import StkMonedas from "./pages/Monedas/StkMonedas";
 import Proveedores from "./pages/Stock/Proveedores/Proveedores";
-import StkUnMed from "./pages/UnidadMedidas/StkUnMed";
+import StkUnMed from "./pages/Stock/UnidadMedidas/StkUnMed";
 import StkRubro from "./pages/Stock/Rubros/StkRubro";
 import StkGrupo from "./pages/Stock/Grupos/StkGrupo";
-import StkUbFisica from "./pages/UbicacionFisica/StkUbFisica";
+import StkUbFisica from "./pages/Stock/UbicacionFisica/StkUbFisica";
 import ListaPrecios from "./pages/ListaPrecios/ListaPrecios";
 import ModPrecios from "./pages/ListaPrecios/ModPrecios";
 import StkMovEntrada from "./pages/Movimientos/Entrada/StkMovEntrada";
