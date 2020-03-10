@@ -1,6 +1,6 @@
 import request from "superagent";
 
-import IpServidor from "../VariablesDeEntorno";
+import IpServidor from "../../VariablesDeEntorno";
 
 // Lee Ubicación Física por Ubicación Geográfica
 
