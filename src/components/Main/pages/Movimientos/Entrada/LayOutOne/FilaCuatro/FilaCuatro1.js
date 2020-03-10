@@ -71,6 +71,7 @@ export default function FilaCuatro() {
         </Grid>
         <Grid item xs>
           <TextField
+            size="small"
             variant="outlined"
             id="StkEnvaseUbF"
             select
