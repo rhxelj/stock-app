@@ -96,7 +96,7 @@ export default function F2C1(props) {
             onChange={handleChange}
             SelectProps={{ native: true }}
             variant="outlined"
-            ilaDos
+            // ilaDos
           >
             <option></option>
             {/* {console.log("state.stkgrupo dentro de option :", state.stkgrupo)} */}

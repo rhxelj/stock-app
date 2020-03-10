@@ -19,7 +19,7 @@ import useStyles from "./StkMovEntradaStyle";
 import FilaUno from "./LayOutOne/FilaUno/";
 import FilaDos from "./LayOutOne/FilaDos/";
 import FilaTres from "./LayOutOne/FilaTres";
-import FilaCuatro from "./LayOutOne/FilaCuatro";
+import FilaCuatro from "./LayOutOne/FilaCuatro/";
 import FilaCinco from "./LayOutOne/FilaCinco";
 
 export const StkMovEntradaContex = React.createContext();
