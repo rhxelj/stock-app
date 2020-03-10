@@ -13,7 +13,7 @@ export default function Fila2() {
 
   return (
     <>
-      <Grid container spacing={3}>
+      <Grid container justify="space-around" spacing={3}>
         <F2C1 />
         <F2C2 />
       </Grid>
