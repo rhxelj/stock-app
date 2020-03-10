@@ -50,7 +50,7 @@ export default function Fila() {
 
   return (
     <>
-      <Grid container item spacing={2}>
+      <Grid container item justify="space-between" spacing={2}>
         <Grid item xs>
           <TextField
             size="small"

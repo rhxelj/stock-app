@@ -61,7 +61,14 @@ export default function F2C2(props) {
 
   return (
     <>
-      <Grid container alignItems="center" item spacing={6} xs={6}>
+      <Grid
+        container
+        alignItems="center"
+        justify="flex-end"
+        item
+        spacing={8}
+        xs={6}
+      >
         {/* Cantidad Disponible */}
         <Grid item xs={6}>
           <TextField
