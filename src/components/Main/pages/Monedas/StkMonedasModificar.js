@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import request from "superagent";
 
-import IpServidor from "../../VariablesDeEntorno";
+import IpServidor from "../VariablesDeEntorno";
 
 // Material UI START
 import Button from "@material-ui/core/Button";
@@ -14,7 +14,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 // Material UI   END
 
 import Grid from "@material-ui/core/Grid";
-import CodigoError from "../../../../lib/CodigoError";
+import CodigoError from "../../../lib/CodigoError";
 
 class StkModificarMonedas extends Component {
   constructor(props) {

@@ -4,8 +4,15 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import useStyles from "./styles";
 
+//Necesario para CONTEXTAPI
+import { useContext } from "react";
+import { StkMovEntradaContex } from "../StkMovEntrada";
+
 export default function Fila() {
   const classes = useStyles();
+
+  // Esto es para poder consumir los datos del CONTEXAPI
+  const value = useContext(StkMovEntradaContex);
 
   return (
     <>

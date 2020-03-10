@@ -22,9 +22,16 @@ import FilaTres from "./LayOutOne/FilaTres";
 import FilaCuatro from "./LayOutOne/FilaCuatro/";
 import FilaCinco from "./LayOutOne/FilaCinco";
 
+export const StkMovEntradaContex = React.createContext();
+
+const initial_state = {
+  idStkGrupo: "",
+  idStkRubro: "",
+  idStkItems: ""
+};
+
 var StkMovEntrada = props => {
-  // var [state, setState] = useState(initial_state);
-  // var [dialog, setDialog] = useState(true);
+  var [GRI, setGRI] = useState(initial_state); //la uso como variable para pasarla a la columna2
 
   const classes = useStyles();
 
@@ -32,15 +39,22 @@ var StkMovEntrada = props => {
     <div>
       <Container>
         <Grid container spacing={6}>
-          <FilaUno /> {/* Fecha */}
-          {/* Grupo, Rubro, Items, Cant. Disp., Cant, Min. */}
-          <FilaDos />
-          {/* Fila Cantidd, Pres. Desc., Pres., UM,Ancho */}
-          <FilaTres />
-          {/* Fila Partida, Ub. Geo., Ub. Fisc., Observaciones */}
-          <FilaCuatro />
-          {/* Fila Confirma, Cancela, Borra */}
-          <FilaCinco />
+          <StkMovEntradaContex.Provider
+            value={{
+              data: GRI,
+              setGRI: setGRI
+            }}
+          >
+            <FilaUno /> {/* Fecha */}
+            {/* Grupo, Rubro, Items, Cant. Disp., Cant, Min. */}
+            <FilaDos />
+            {/* Fila Cantidd, Pres. Desc., Pres., UM,Ancho */}
+            <FilaTres />
+            {/* Fila Partida, Ub. Geo., Ub. Fisc., Observaciones */}
+            <FilaCuatro />
+            {/* Fila Confirma, Cancela, Borra */}
+            <FilaCinco />
+          </StkMovEntradaContex.Provider>
         </Grid>
       </Container>
     </div>

@@ -13,6 +13,10 @@ import { stkitemsleecodgrrbit } from "../../../../Stock/Items/StkItemsLeeCodGrRb
 // import { initial_state } from "./Initial_State";
 //
 
+// Context
+import { useContext } from "react";
+import { StkMovEntradaContex } from "../../StkMovEntrada";
+
 var initial_state = {
   stkitemsele: [],
   StkItemsFAct: "",
@@ -24,6 +28,9 @@ var initial_state = {
 
 export default function F2C2(props) {
   var [state, setState] = useState(initial_state);
+
+  // Context
+  const value = useContext(StkMovEntradaContex);
 
   const handleChange = event => {
     const id = event.target.id;
@@ -44,11 +51,11 @@ export default function F2C2(props) {
 
   useEffect(() => {
     stkitemsleercodgrrbit(
-      props.data.idStkGrupo,
-      props.data.idStkRubro,
-      props.data.idStkItems
+      value.data.idStkGrupo,
+      value.data.idStkRubro,
+      value.data.idStkItems
     );
-  }, [props.data]);
+  }, [value.data.idStkItems]);
 
   const classes = useStyles();
 

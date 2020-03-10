@@ -30,3 +30,6 @@ bui*
 backend/routes/conexion.js
 
 backend/routes/conexion_.js
+
+# Docz
+/.docz

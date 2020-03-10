@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ubicacion from "../../UbicacionGeografica";
-import { stkubfisicaleerUbG } from "../../../../UbicacionFisica/StkUbFisicaUG";
+import { stkubfisicaleerUbG } from "../../../../Stock/UbicacionFisica/StkUbFisicaUG";
 import { Grid, TextField } from "@material-ui/core";
 import useStyles from "../styles";
 
