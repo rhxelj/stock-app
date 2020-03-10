@@ -13,11 +13,12 @@ conexion.connect(function(err) {
 
 var router = express();
 
-router.get("/?:StkUbFisicaGeo", function(req, res, next) {
-  indice = req.params.StkUbFisicaGeo;
-
+router.get("/", async function(req, res, next) {
+  StkUbFisicaGeo1 = req.query.id;
   conexion.query(
-    'Select * from StkUbFisica  where StkUbFisicaGeo = "' + indice + '"',
+    'Select * from StkUbFisica  where StkUbFisicaGeo = "' +
+      StkUbFisicaGeo1 +
+      '"',
     function(err, result) {
       if (err) {
         console.log(err);
@@ -28,5 +29,4 @@ router.get("/?:StkUbFisicaGeo", function(req, res, next) {
   );
 });
 
-conexion.end;
 module.exports = router;
