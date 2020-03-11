@@ -13,29 +13,6 @@ import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 import ListSubheader from "@material-ui/core/ListSubheader";
-// import MenuItem from '@material-ui/core/MenuItem'
-// import Button from '@material-ui/core/Button';
-// import StkFab from './lib/StkFab'
-// import SearchIcon from '@material-ui/icons/Search';
-// import InputBase from '@material-ui/core/InputBase';
-// import { fade, makeStyles } from '@material-ui/core/styles';
-
-// const useStyles = makeStyles(theme => ({
-// inputRoot: {
-//   color: 'inherit',
-// },
-// inputInput: {
-//   padding: theme.spacing(1, 1, 1, 7),
-//   transition: theme.transitions.create('width'),
-//   width: '100%',
-//   [theme.breakpoints.up('sm')]: {
-//     width: 120,
-//     '&:focus': {
-//       width: 200,
-//     },
-//   },
-// },
-// }))
 
 // TODO 👀📐 1: we don't have to use class components anymore, we can use function components with React's new Hooks api
 // I've refactored it in HeaderHooks.jsx
@@ -185,6 +162,7 @@ class Header extends React.Component {
             <Typography variant="h6" color="inherit">
               OlsaSG
             </Typography>
+
             {/* TODO 👀📐 5: when a file gets near or > 200 lines, we can refactor it to make it more readable */}
             {/* check out the extension "VSCode React Refactor" https://marketplace.visualstudio.com/items?itemName=planbcoding.vscode-react-refactor*/}
             {/* I would extract the entire Drawer here into a component called LeftDrawer */}
