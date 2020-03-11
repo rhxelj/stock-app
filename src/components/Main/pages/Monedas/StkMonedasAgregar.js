@@ -1,90 +1,86 @@
-import React, { Component} from 'react'
-import request from 'superagent'
+import React, { Component } from "react";
+import request from "superagent";
 
 // import IpServidor from '../VariablesDeEntorno'
-import IpServidor from '../../pages/VariablesDeEntorno'
+import IpServidor from "../VariablesDeEntorno";
 
 // Material UI START
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 // import { number } from 'prop-types';
 // Material UI   END
 
-import CodigoError from '../../../lib/CodigoError'
+import CodigoError from "../../../lib/CodigoError";
 
 class AgregarMonedas extends Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            url: IpServidor +'/stkmonedasagregar',
-            idStkMonedas:'',
-            StkMonedasDescripcion:'',
-            StkMonedasCotizacion:0.00,
-            open: true, // Material UI
-        }
-        this.updateField = this.updateField.bind(this);
-        this.submitMoneda = this.submitMoneda.bind(this);
-    }    
+  constructor(props) {
+    super(props);
+    this.state = {
+      url: IpServidor + "/stkmonedasagregar",
+      idStkMonedas: "",
+      StkMonedasDescripcion: "",
+      StkMonedasCotizacion: 0.0,
+      open: true // Material UI
+    };
+    this.updateField = this.updateField.bind(this);
+    this.submitMoneda = this.submitMoneda.bind(this);
+  }
 
-    // Material UI START
-    handleClickOpen = () => {
-        this.setState({ open: true });
-      };
-    
-      handleClose = () => {
-        this.setState({ open: false });
-      };
-    // Material UI END
+  // Material UI START
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
 
-    // Agregar Moneda
-    addMoneda = _=> { 
-        // const url = IpServidor +'/agregarmonedas' 
-        request
-        .post(this.state.url)
-        .set('Content-Type', 'application/json')
-        .send({ idStkMonedas: this.state.idStkMonedas})
-        .send({ StkMonedasDescripcion: this.state.StkMonedasDescripcion})    
-        .send({ StkMonedasCotizacion: this.state.StkMonedasCotizacion})
-        .set('X-API-Key', 'foobar')
-        .then(function(res) {
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+  // Material UI END
+
+  // Agregar Moneda
+  addMoneda = _ => {
+    // const url = IpServidor +'/agregarmonedas'
+    request
+      .post(this.state.url)
+      .set("Content-Type", "application/json")
+      .send({ idStkMonedas: this.state.idStkMonedas })
+      .send({ StkMonedasDescripcion: this.state.StkMonedasDescripcion })
+      .send({ StkMonedasCotizacion: this.state.StkMonedasCotizacion })
+      .set("X-API-Key", "foobar")
+      .then(function(res) {
         // res.body, res.headers, res.status
-            //     console.log('res.status  ' + res.status);
-            //     console.log('esta aca');
-            //     alert('Agrego correctamente');
-        })
-        .catch((err) => CodigoError(err))
-    }   
-   
-    updateField(field){
-      this.setState({
-            [field.target.id]: field.target.value,
-        })
-        console.log('ESTADO :'+field.target.id + ' Valor :'+field.target.value)
-    }
+        //     console.log('res.status  ' + res.status);
+        //     console.log('esta aca');
+        //     alert('Agrego correctamente');
+      })
+      .catch(err => CodigoError(err));
+  };
 
-    submitMoneda(e){
-      e.preventDefault()
-      this.addMoneda()
-      this.props.read()
-      this.props.toggleAgregar()
-    }
+  updateField(field) {
+    this.setState({
+      [field.target.id]: field.target.value
+    });
+    console.log("ESTADO :" + field.target.id + " Valor :" + field.target.value);
+  }
 
-          
-    componentDidMount(){
-    }
+  submitMoneda(e) {
+    e.preventDefault();
+    this.addMoneda();
+    this.props.read();
+    this.props.toggleAgregar();
+  }
 
+  componentDidMount() {}
 
-    render(){
-      
-        return( 
-       <div>
-            <Dialog
-        //   open={this.state.open}
+  render() {
+    return (
+      <div>
+        <Dialog
+          //   open={this.state.open}
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
@@ -101,12 +97,15 @@ class AgregarMonedas extends Component {
               label="Código - (Máx. 4 Dígitos)"
               type="text"
               fullWidth
-              inputProps={{maxlength: 4,}}
+              inputProps={{ maxlength: 4 }}
               placeholder="Código"
-              // value={this.state.idStkMonedas} 
+              // value={this.state.idStkMonedas}
               onChange={this.updateField}
-              onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('StkMonedasDescripcion').focus();}}
-              value={this.state.idStkMonedas}  
+              onKeyPress={event => {
+                if (event.key === "Enter")
+                  document.getElementById("StkMonedasDescripcion").focus();
+              }}
+              value={this.state.idStkMonedas}
             />
             <TextField
               margin="dense"
@@ -115,10 +114,13 @@ class AgregarMonedas extends Component {
               type="text"
               fullWidth
               placeholder="Descripción"
-              // value={this.state.StkMonedasDescripcion} 
+              // value={this.state.StkMonedasDescripcion}
               onChange={this.updateField}
-              onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('StkMonedasCotizacion').focus();}}
-              value={this.state.StkMonedasDescripcion}  
+              onKeyPress={event => {
+                if (event.key === "Enter")
+                  document.getElementById("StkMonedasCotizacion").focus();
+              }}
+              value={this.state.StkMonedasDescripcion}
             />
             <TextField
               margin="dense"
@@ -127,27 +129,31 @@ class AgregarMonedas extends Component {
               type="number"
               fullWidth
               placeholder="Cotización"
-              // value={this.state.StkMonedasCotizacion} 
+              // value={this.state.StkMonedasCotizacion}
               onChange={this.updateField}
-              onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('button--submit').focus();}}
-              value={this.state.StkMonedasCotizacion}  
+              onKeyPress={event => {
+                if (event.key === "Enter")
+                  document.getElementById("button--submit").focus();
+              }}
+              value={this.state.StkMonedasCotizacion}
             />
-            
           </DialogContent>
           <DialogActions>
-            <Button id="button--submit" onClick={this.submitMoneda} color="primary">
+            <Button
+              id="button--submit"
+              onClick={this.submitMoneda}
+              color="primary"
+            >
               Agregar
             </Button>
             <Button onClick={this.props.toggleAgregar} color="secondary">
               Cancelar
             </Button>
-
           </DialogActions>
         </Dialog>
       </div>
-        
-        )
-    }
+    );
+  }
 }
 
-export default AgregarMonedas
+export default AgregarMonedas;

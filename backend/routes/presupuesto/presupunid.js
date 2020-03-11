@@ -40,9 +40,10 @@ datosrec.map(datos => {
                       'StkMonedasCotizacion',
                       'from BaseStock.StkRubro JOIN  BaseStock.StkMonedas, ', 
                       'reparacion.parametrosrep ',
-                      'where StkRubro.StkRubroAbr = "', StkRubroAbrP,'" ', 
+                      'where StkRubro.StkRubroAbr = "' + StkRubroAbrP + '" ', 
                       'and StkRubro.StkRubroTM = idStkMonedas',
            ].join(' ')  
+           console.log('presupunid')
         conexion.query(
                  q,              
                       function(err, result) {
