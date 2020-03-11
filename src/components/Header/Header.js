@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -13,65 +13,65 @@ import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 import ListSubheader from "@material-ui/core/ListSubheader";
+import { movimientos, tablas } from "./menues";
 
-// TODO 👀📐 1: we don't have to use class components anymore, we can use function components with React's new Hooks api
-// I've refactored it in HeaderHooks.jsx
-class Header extends React.Component {
-  constructor(props) {
-    super(props);
+const initial_state = {
+  open: false,
+  menutablas: null,
+  menutablas1: null,
+  menumov: null,
+  top: false,
+  left: false,
+  bottom: false,
+  right: false,
+  setSelectedIndex: 0,
+  showComponent: false
+};
+function Header() {
+  const [state, setState] = useState(initial_state);
 
-    this.state = {
-      open: false,
-      menutablas: null,
-      menutablas1: null,
-      menumov: null,
-      top: false,
-      left: false,
-      bottom: false,
-      right: false,
-      setSelectedIndex: 0,
-      showComponent: false
-    };
-  }
+  const { abrir_movimientos, abrir_tablas } = state;
 
-  toggleDrawer = (side, open) => event => {
-    // TODO 👀📐 2: for complex conditional statements, give them a readable constant name so we don't have to figure out what the code is doing
-    const isTabOrShiftKeyPress =
+  const toggleDrawer = (side, open) => event => {
+    if (
       event &&
       event.type === "keydown" &&
-      /* TODO 👀📐 3: shortcut for === || === is [].includes */ [
-        "Tab",
-        "Shift"
-      ].includes(event.key);
-    if (isTabOrShiftKeyPress) {
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
       return;
     }
 
-    this.setState({ [side]: open });
+    setState({
+      ...state,
+      [side]: open,
+      abrir_movimientos: false, //activo esto si quiero cerrar los menues cuando hago una selecccion
+      abrir_tablas: false //activo esto si quiero cerrar los menues cuando hago una selecccion
+    });
   };
 
-  getToggleState = stateToToggle => {
-    this.setState(prevState => ({
+  const getToggleState = stateToToggle => {
+    setState(prevState => ({
+      ...state,
       [stateToToggle]: !prevState[stateToToggle]
     }));
   };
 
-  handleClose = prop => event => {
-    this.setState({ [prop]: null });
+  const handleClose = prop => event => {
+    setState({ ...state, [prop]: null });
   };
 
-  newMethod(abrir_movimientos, movimientos, abrir_tablas) {
+  function newMethod(abrir_movimientos, abrir_tablas) {
     return (
       <SwipeableDrawer
-        open={this.state.left}
-        onClose={this.toggleDrawer("left", false)}
-        onOpen={this.toggleDrawer("left", true)}
+        open={state.left}
+        onClose={toggleDrawer("left", false)}
+        onOpen={toggleDrawer("left", true)}
       >
         <div
           id="division"
           role="presentation"
-          // onClick={this.toggleDrawer("right", false)}
-          onKeyDown={this.toggleDrawer("left", false)}
+          // onClick={toggleDrawer("left", false)}
+          onKeyDown={toggleDrawer("left", false)}
         >
           <List
             color="blue"
@@ -85,7 +85,7 @@ class Header extends React.Component {
           >
             <ListItem
               button
-              onClick={() => this.getToggleState("abrir_movimientos")}
+              onClick={() => getToggleState("abrir_movimientos")}
             >
               <ListItemText primary="Movimientos" />
               {abrir_movimientos ? <ExpandLess /> : <ExpandMore />}
@@ -94,34 +94,34 @@ class Header extends React.Component {
             <Collapse in={abrir_movimientos} timeout="20">
               <List component="div" disablePadding>
                 {movimientos.map(({ link, primary }) => (
-                  <ListItem key={primary} button component={Link} to={link}>
+                  <ListItem
+                    onClick={toggleDrawer("left", false)}
+                    key={primary}
+                    button
+                    component={Link}
+                    to={link}
+                  >
                     <ListItemText primary={primary} />
                   </ListItem>
                 ))}
               </List>
             </Collapse>
 
-            <ListItem
-              button
-              // onMouseEnter={() => this.getToggleState("abrir_tablas")}
-              onClick={() => this.getToggleState("abrir_tablas")}
-            >
+            <ListItem button onClick={() => getToggleState("abrir_tablas")}>
               <ListItemText primary="Tablas" />
               {abrir_tablas ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
 
             <Collapse in={abrir_tablas} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                {[
-                  { primary: "Proveedores", link: "/Proveedores" },
-                  { primary: "Monedas", link: "/StkMonedas" },
-                  { primary: "Grupos", link: "/StkGrupo" },
-                  { primary: "Rubros", link: "/StkRubro" },
-                  { primary: "ItemsS", link: "/StkItems" },
-                  { primary: "Unidad de Medidas", link: "/StkUnMed" },
-                  { primary: "Ubicación Física", link: "StkUbFisica" }
-                ].map(({ link, primary }) => (
-                  <ListItem key={primary} button component={Link} to={link}>
+                {tablas.map(({ link, primary }) => (
+                  <ListItem
+                    onClick={toggleDrawer("left", false)}
+                    key={primary}
+                    button
+                    component={Link}
+                    to={link}
+                  >
                     <ListItemText primary={primary} />
                   </ListItem>
                 ))}
@@ -133,45 +133,27 @@ class Header extends React.Component {
     );
   }
 
-  render() {
-    const { abrir_movimientos, abrir_tablas } = this.state;
-    const movimientos = [
-      { link: "/ModPrecios", primary: "Modifica Precios" },
-      { link: "/PresupPant", primary: "Presupuesto" },
-      { link: "/ImprimeQR", primary: "ImprimeQR" },
-      { link: "/ListaPrecios", primary: "Lista de Precios" },
-      {
-        link: "/StkMovEntrada",
-        primary: "Entrada Mercadería"
-      },
-      { link: "/StkMovSalida", primary: "Salida de Disponible" },
-      { link: "/StkSalidaFinal", primary: "Salida Final" }
-    ];
-    return (
-      <div>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              // onClick={this.toggleDrawer("left", true)}
-            >
-              <MenuIcon onClick={this.toggleDrawer("left", true)}></MenuIcon>
-            </IconButton>
-            <Typography variant="h6" color="inherit">
-              OlsaSG
-            </Typography>
-
-            {/* TODO 👀📐 5: when a file gets near or > 200 lines, we can refactor it to make it more readable */}
-            {/* check out the extension "VSCode React Refactor" https://marketplace.visualstudio.com/items?itemName=planbcoding.vscode-react-refactor*/}
-            {/* I would extract the entire Drawer here into a component called LeftDrawer */}
-            {this.newMethod(abrir_movimientos, movimientos, abrir_tablas)}
-          </Toolbar>
-        </AppBar>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            // onClick={this.toggleDrawer("left", true)}
+          >
+            <MenuIcon onClick={toggleDrawer("left", true)}></MenuIcon>
+          </IconButton>
+          <Typography variant="h6" color="inherit">
+            OlsaSG
+          </Typography>
+          {newMethod(abrir_movimientos, abrir_tablas)}
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
+  // }
 }
 
 export default Header;
