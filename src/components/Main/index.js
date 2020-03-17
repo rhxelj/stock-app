@@ -1,15 +1,5 @@
-// import "./pages/bootstrap"
 import React from "react";
 import { Route } from "react-router-dom";
-
-// import Posts from './pages/Posts';
-// import Post from './pages/Post';
-// import About from './pages/About';
-// import NewPost from './pages/NewPost';
-// import AgregarMonedas from './pages/AgregarMonedas'
-// import ReadComponent from './pages/ReadComponent'
-// import UpdateComponent from './pages/UpdateComponent'
-//import DeleteComponent from './pages/DeleteComponent'
 
 import StkMonedas from "./pages/Monedas/StkMonedas";
 import Proveedores from "./pages/Stock/Proveedores/Proveedores";
@@ -19,9 +9,9 @@ import StkGrupo from "./pages/Stock/Grupos/StkGrupo";
 import StkUbFisica from "./pages/Stock/UbicacionFisica/StkUbFisica";
 import ListaPrecios from "./pages/ListaPrecios/ListaPrecios";
 import ModPrecios from "./pages/ListaPrecios/ModPrecios";
-import StkMovEntrada from "./pages/Movimientos/Entrada/StkMovEntrada";
-import StkMovSalida from "./pages/Movimientos/Salida/StkMovSalida";
-import StkSalidaFinal from "./pages/Movimientos/Salida/StkSalidaFinal";
+import StkMovEntrada from "./pages/Stock/Movimientos/Entrada/StkMovEntrada";
+import StkMovSalida from "./pages/Stock/Movimientos/Salida/StkMovSalida";
+import StkSalidaFinal from "./pages/Stock/Movimientos/Salida/StkSalidaFinal";
 // import StkMovimiento from './pages/z_SinClasificarMirar/StkMovimiento'
 import StkItems from "./pages/Stock/Items/StkItems";
 
