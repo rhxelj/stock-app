@@ -16,11 +16,11 @@ import {
 } from "@material-ui/core";
 
 import useStyles from "./StkMovEntradaStyle";
-import FilaUno from "./LayOutOne/FilaUno";
-import FilaDos from "./LayOutOne/FilaDos";
-import FilaTres from "./LayOutOne/FilaTres";
-import FilaCuatro from "./LayOutOne/FilaCuatro";
-import FilaCinco from "./LayOutOne/FilaCinco";
+import FilaUno from "./LayoutMovEntrada/FilaUno";
+import FilaDos from "./LayoutMovEntrada/FilaDos";
+import FilaTres from "./LayoutMovEntrada/FilaTres";
+import FilaCuatro from "./LayoutMovEntrada/FilaCuatro";
+import FilaCinco from "./LayoutMovEntrada/FilaCinco";
 
 export const StkMovEntradaContex = React.createContext();
 
