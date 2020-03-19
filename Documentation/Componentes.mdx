@@ -1,0 +1,79 @@
+---
+name: Combo Borrar / Confirmar / Cancelar
+route: Documentation/Componentes.mdx
+menu: Componentes
+---
+
+import { Playground } from "docz";
+
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  IconButton,
+  InputAdornment,
+  Paper,
+  TextField,
+  Typography
+} from "@material-ui/core";
+
+import { makeStyles } from '@material-ui/core/styles';
+
+
+# Button 
+
+<Playground>
+    <div>
+        <Grid container  justify="center" spacing={3}>
+            <Grid item xs={12}>
+                <Paper style={{textAlign:"center"}}>
+                <br />
+                    <Button style={{margin: ".5rem"}} variant="contained" >Borrar</Button>
+                    <Button style={{margin: ".5rem"}} variant="contained" color="primary">Confirmar</Button>
+                    <Button style={{margin: ".5rem"}} variant="contained"  color="secondary">Cancelar</Button>
+                <br /><br />
+                </Paper>
+            </Grid>
+        </Grid>
+    </div>
+</Playground>
+
+# Button Group
+
+<Playground>
+
+
+    <div>
+        <Grid container  justify="center" spacing={3}>
+            <Grid item xs={12}>
+                <Paper style={{textAlign:"center"}}>
+                    <br />
+                        <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
+                            <Button>Borrar</Button>
+                            <Button color="primary">Confirmar</Button>
+                            <Button  color="secondary">Cancelar</Button>
+                        </ButtonGroup>
+                    <br/><br/>
+                        <ButtonGroup color="primary" aria-label="outlined primary button group">
+                            <Button>Borrar</Button>
+                            <Button color="primary">Confirmar</Button>
+                            <Button color="secondary">Cancelar</Button>
+                        </ButtonGroup>
+                    <br/><br/>
+                        <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
+                            <Button  color="default">Borrar</Button>
+                            <Button color="primary">Confirmar</Button>
+                            <Button color="secondary">Cancelar</Button>
+                        </ButtonGroup>
+                    <br /><br />
+                </Paper>
+            </Grid>
+        </Grid>
+    </div>
+</Playground>
