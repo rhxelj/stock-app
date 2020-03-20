@@ -18,16 +18,17 @@ export default function Fila() {
   const confirmar = async state => {
     agregaStock(state);
   };
-  const cancelar = async state => {
-    setState(initial_state);
-  };
+  // const cancelar = async state => {
+  //   setState(initial_state);
+  // };
 
   const actions = {
-    // confirmar: () => agregaStock(state).then(alert("Cambio efectuado")),
-    confirmar: () => confirmar(state).then(setState(initial_state)),
-
-    // cancelar: () => cancelar(state).then(state.reload)
+    confirmar: () => confirmar(state).then(console.log("Cambio efectuado")),
     cancelar: () => setState(initial_state) //cancelar(state)
+
+    // confirmar: () => agregaStock(state).then(alert("Cambio efectuado")),
+    // confirmar: () => confirmar(state).then(setState(initial_state)),
+    // cancelar: () => cancelar(state).then(state.reload)
   };
 
   return (
