@@ -8,25 +8,26 @@ import { stkrubroleecodgryrb } from "../../../Rubros/StkRubroLeeCodGryRb";
 
 //Necesario para CONTEXTAPI
 import { useContext } from "react";
-import { StkMovEntradaContex } from "../StkMovEntrada";
+import { StkMovEntradaContext } from "../StkMovEntrada";
 
-var initial_state = {
-  stkitemsele: [],
-  StkItemsFAct: "",
-  StkItemsMin: null,
-  StkItemsMax: null,
-  StkItemsCantDisp: 0,
-  StkRubroAncho: 0,
-  cantidad: 1
-};
+// var initial_state = {
+//   stkitemsele: [],
+//   StkItemsFAct: "",
+//   StkItemsMin: null,
+//   StkItemsMax: null,
+//   StkItemsCantDisp: 0,
+//   StkRubroAncho: 0,
+//   cantidad: 1
+// };
 
 export default function Fila() {
   const classes = useStyles();
 
-  var [state, setState] = useState(initial_state);
+  // var [state, setState] = useState(initial_state);
 
   // Esto es para poder consumir los datos del CONTEXAPI
-  const value = useContext(StkMovEntradaContex);
+  // const value = useContext(StkMovEntradaContext);
+  const { state, setState } = useContext(StkMovEntradaContext);
 
   async function stkrubroleercodgryrb(GrupoEleg, RubroEleg) {
     const result = await stkrubroleecodgryrb(GrupoEleg, RubroEleg);
@@ -40,8 +41,9 @@ export default function Fila() {
   }
 
   useEffect(() => {
-    stkrubroleercodgryrb(value.data.idStkGrupo, value.data.idStkRubro);
-  }, [value.data.idStkRubro]);
+    // stkrubroleercodgryrb(value.GRI.idStkGrupo, value.GRI.idStkRubro);
+    stkrubroleercodgryrb(state.idStkGrupo, state.idStkRubro);
+  }, [state.idStkRubro]);
 
   const handleChange = event => {
     const id = event.target.id;
