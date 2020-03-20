@@ -22,27 +22,65 @@ import FilaTres from "./LayoutMovEntrada/FilaTres";
 import FilaCuatro from "./LayoutMovEntrada/FilaCuatro";
 import FilaCinco from "./LayoutMovEntrada/FilaCinco";
 
-export const StkMovEntradaContex = React.createContext();
+import { stkgrupolee } from "../../Grupos/StkGrupoLee";
 
-const initial_state = {
+import { initial_state } from "./Initial_State";
+
+export const StkMovEntradaContext = React.createContext();
+
+const GRI_initial_state = {
   idStkGrupo: "",
   idStkRubro: "",
   idStkItems: ""
 };
 
+const data_initial_state = {
+  cantidad: "",
+  StkRubroPres: "",
+  StkItemsCantDisp: "",
+  StkItemsCantidad: "",
+  StkEnvasePartida: "",
+  StkEnvaseUbG: "",
+  StkEnvaseUbF: "",
+  StkEnvaseObserv: ""
+};
+
 var StkMovEntrada = props => {
-  var [GRI, setGRI] = useState(initial_state); //la uso como variable para pasarla a la columna2
+  // var [GRI, setGRI] = useState(GRI_initial_state); //la uso como variable para pasarla a la columna2
+  const [GRI, setGRI] = useState(GRI_initial_state); //la uso como variable para pasarla a la columna2
+  const [data, setData] = useState(data_initial_state);
+
+  const [state, setState] = useState(initial_state);
 
   const classes = useStyles();
+
+  async function stkgrupoleer() {
+    const result = await stkgrupolee();
+    setState({ ...state, stkgrupo: result });
+  }
+  useEffect(() => {
+    console.log("en stkmoventrada en state.stkgrupo  ");
+    console.log(state.stkgrupo);
+
+    if (state.stkgrupo.length === 0) {
+      stkgrupoleer();
+    }
+  }, [state.stkgrupo]);
 
   return (
     <div>
       <Container>
         <Grid container spacing={6}>
-          <StkMovEntradaContex.Provider
+          <StkMovEntradaContext.Provider
             value={{
-              data: GRI,
-              setGRI: setGRI
+              // data: GRI,
+              GRI: GRI,
+              setGRI: setGRI,
+              data: data,
+              setData: setData,
+              state: state,
+              setState: setState,
+              stkgrupoleer: stkgrupoleer
             }}
           >
             <FilaUno /> {/* Fecha */}
@@ -54,7 +92,7 @@ var StkMovEntrada = props => {
             <FilaCuatro />
             {/* Fila Confirma, Cancela, Borra */}
             <FilaCinco />
-          </StkMovEntradaContex.Provider>
+          </StkMovEntradaContext.Provider>
         </Grid>
       </Container>
     </div>

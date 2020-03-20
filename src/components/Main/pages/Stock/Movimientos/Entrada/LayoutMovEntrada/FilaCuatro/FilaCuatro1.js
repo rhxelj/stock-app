@@ -4,15 +4,21 @@ import { stkubfisicaleerUbG } from "../../../../UbicacionFisica/StkUbFisicaUG";
 import { Grid, TextField } from "@material-ui/core";
 import useStyles from "../styles";
 
-var initial_state = {
-  StkEnvasePartida: "",
-  StkEnvaseUbG: "",
-  StkEnvaseUbF: "",
-  StkEnvaseObserv: "",
-  stkenvaseubfisica: []
-};
+//Necesario para CONTEXTAPI
+import { useContext } from "react";
+import { StkMovEntradaContext } from "../../StkMovEntrada";
+
+// var initial_state = {
+//   StkEnvasePartida: "",
+//   StkEnvaseUbG: "",
+//   StkEnvaseUbF: "",
+//   StkEnvaseObserv: "",
+//   stkenvaseubfisica: []
+// };
 export default function FilaCuatro() {
-  var [state, setState] = useState(initial_state);
+  // var [state, setState] = useState(initial_state);
+  const { state, setState } = useContext(StkMovEntradaContext);
+
   const handleChange = event => {
     const id = event.target.id;
     setState({ ...state, [id]: event.target.value });

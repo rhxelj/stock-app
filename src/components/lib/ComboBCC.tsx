@@ -5,13 +5,6 @@ export default function ComboBCC(props: any) {
   return (
     <>
       <Button
-        onClick={props.actions.borrar}
-        style={{ margin: ".5rem" }}
-        variant="contained"
-      >
-        Borrar
-      </Button>
-      <Button
         onClick={props.actions.confirmar}
         style={{ margin: ".5rem" }}
         variant="contained"

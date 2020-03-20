@@ -15,22 +15,22 @@ import { stkitemsleecodgrrbit } from "../../../../Items/StkItemsLeeCodGrRbIt";
 
 // Context
 import { useContext } from "react";
-import { StkMovEntradaContex } from "../../StkMovEntrada";
+import { StkMovEntradaContext } from "../../StkMovEntrada";
 
-var initial_state = {
-  stkitemsele: [],
-  StkItemsFAct: "",
-  StkItemsMin: null,
-  StkItemsMax: null,
-  StkItemsCantDisp: 0,
-  StkItemsCantidad: 0
-};
+// var initial_state = {
+//   stkitemsele: [],
+//   StkItemsFAct: "",
+//   StkItemsMin: null,
+//   StkItemsMax: null,
+//   StkItemsCantDisp: 0,
+//   StkItemsCantidad: 0
+// };
 
 export default function F2C2(props) {
-  var [state, setState] = useState(initial_state);
-
+  // var [state, setState] = useState(initial_state);
+  const { state, setState } = useContext(StkMovEntradaContext);
   // Context
-  const value = useContext(StkMovEntradaContex);
+  const value = useContext(StkMovEntradaContext);
 
   const handleChange = event => {
     const id = event.target.id;
@@ -51,11 +51,15 @@ export default function F2C2(props) {
 
   useEffect(() => {
     stkitemsleercodgrrbit(
-      value.data.idStkGrupo,
-      value.data.idStkRubro,
-      value.data.idStkItems
+      // value.GRI.idStkGrupo,
+      state.idStkGrupo,
+      // value.GRI.idStkRubro,
+      state.idStkRubro,
+      // value.GRI.idStkItems
+      state.idStkItems
     );
-  }, [value.data.idStkItems]);
+    // }, [value.GRI.idStkItems]);
+  }, [state.idStkItems]);
 
   const classes = useStyles();
 
