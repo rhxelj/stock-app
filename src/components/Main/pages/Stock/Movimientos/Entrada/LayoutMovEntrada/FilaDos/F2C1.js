@@ -9,28 +9,26 @@ import { stkgrupolee } from "../../../../Grupos/StkGrupoLee";
 import { stkrubroleecodgrupo } from "../../../../Rubros/StkRubroLeeCodGrupo";
 import { stkitemsleecodgryrb } from "../../../../Items/StkItemsLeeCodGryRb";
 
-import { initial_state } from "./Initial_State";
-
 // Context
 import { useContext } from "react";
-import { StkMovEntradaContex } from "../../StkMovEntrada";
+import { StkMovEntradaContext } from "../../StkMovEntrada";
 
 export default function F2C1(props) {
-  var [state, setState] = useState(initial_state);
+  // var [state, setState] = useState(initial_state);
 
-  // Esto es para poder consumir los datos del CONTEXAPI
-  const value = useContext(StkMovEntradaContex);
-
+  // Esto es para poder consumir los datos del CONTEXTAPI
+  const value = useContext(StkMovEntradaContext);
+  const { state, setState } = useContext(StkMovEntradaContext);
+  const { stkgrupoleer } = useContext(StkMovEntradaContext);
   const handleChange = event => {
     const id = event.target.id;
     setState({ ...state, [id]: event.target.value }); //Todo revisar !!!!!!!!
-    // setState({ ...state, id: event.target.value });
   };
 
-  async function stkgrupoleer() {
-    const result = await stkgrupolee();
-    setState({ ...state, stkgrupo: result });
-  }
+  // async function stkgrupoleer() {
+  //   const result = await stkgrupolee();
+  //   setState({ ...state, stkgrupo: result });
+  // }
 
   async function stkrubroleercodgrupo(codigogrupo) {
     const result = await stkrubroleecodgrupo(codigogrupo);
@@ -42,11 +40,13 @@ export default function F2C1(props) {
     setState({ ...state, stkitems: result });
   }
 
+  // useEffect(() => {
+  //   stkgrupoleer();
+  // }, []);
   useEffect(() => {
-    stkgrupoleer();
-  }, []);
-  useEffect(() => {
-    stkrubroleercodgrupo(state.idStkGrupo); //leo rubros apartir del grupo seleccionado
+    if (state.idStkGrupo != 0) {
+      stkrubroleercodgrupo(state.idStkGrupo);
+    } //leo rubros apartir del grupo seleccionado
   }, [state.idStkGrupo]);
 
   useEffect(() => {
