@@ -15,6 +15,7 @@ import { StkMovEntradaContext } from "../../StkMovEntrada";
 //   StkEnvaseObserv: "",
 //   stkenvaseubfisica: []
 // };
+
 export default function FilaCuatro() {
   // var [state, setState] = useState(initial_state);
   const { state, setState } = useContext(StkMovEntradaContext);
