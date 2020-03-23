@@ -6,6 +6,7 @@ import IpServidor from "../../VariablesDeEntorno";
 
 export const stkubfisicaleerUbG = StkUbFisicaGeo => {
   return new Promise(resolve => {
+    if (StkUbFisicaGeo !== '') {
     const url = IpServidor + "/stkubfisicaleerUbG/" + StkUbFisicaGeo;
     request
       .get(url)
@@ -14,5 +15,7 @@ export const stkubfisicaleerUbG = StkUbFisicaGeo => {
         const ubicacionf = JSON.parse(res.text);
         resolve(ubicacionf);
       });
+    }
   });
+
 };

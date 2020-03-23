@@ -6,7 +6,7 @@ import IpServidor from "../../VariablesDeEntorno";
 
 export const stkrubroleecodgrupo = idStkGrupo => {
   return new Promise(resolve => {
-    if (idStkGrupo !== 0) {
+    if (idStkGrupo !== '') {
       const url = IpServidor + "/stkrubroleecodgrupo/" + idStkGrupo;
       request
         .get(url)
