@@ -4,7 +4,7 @@ import IpServidor from "../../VariablesDeEntorno";
 
 export const stkitemsleecodgrrbit = (idStkGrupo, idStkRubro, idStkItems) => {
   return new Promise(resolve => {
-    if (idStkGrupo != 0 && idStkRubro != 0 && idStkItems != 0) {
+    if (idStkGrupo != '' && idStkRubro != '' && idStkItems != '') {
       const url =
         IpServidor +
         "/stkitemsleecodgrrbit/?idStkGrupo=" +
