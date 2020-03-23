@@ -8,16 +8,7 @@ import useStyles from "../styles";
 import { useContext } from "react";
 import { StkMovEntradaContext } from "../../StkMovEntrada";
 
-// var initial_state = {
-//   StkEnvasePartida: "",
-//   StkEnvaseUbG: "",
-//   StkEnvaseUbF: "",
-//   StkEnvaseObserv: "",
-//   stkenvaseubfisica: []
-// };
-
 export default function FilaCuatro() {
-  // var [state, setState] = useState(initial_state);
   const { state, setState } = useContext(StkMovEntradaContext);
 
   const handleChange = event => {
