@@ -5,6 +5,7 @@ import useStyles from "../styles";
 import { TextField } from "@material-ui/core";
 
 import { stkgrupolee } from "../../../../../Stock/Grupos/StkGrupoLee";
+// import { stkgrupolee } from "../../../../Grupos/StkGrupoLee";
 import { stkrubroleecodgrupo } from "../../../../Rubros/StkRubroLeeCodGrupo";
 import { stkitemsleecodgryrb } from "../../../../Items/StkItemsLeeCodGryRb";
 
@@ -13,8 +14,12 @@ import { useContext } from "react";
 import { StkMovEntradaContext } from "../../StkMovEntrada";
 
 export default function F2C1(props) {
+  // var [state, setState] = useState(initial_state);
+
   // Esto es para poder consumir los datos del CONTEXTAPI
   const { state, setState } = useContext(StkMovEntradaContext);
+  // const value = useContext(StkMovEntradaContext);
+  // const { stkgrupoleer } = useContext(StkMovEntradaContext);
 
   const handleChange = event => {
     const id = event.target.id;
@@ -47,6 +52,17 @@ export default function F2C1(props) {
   useEffect(() => {
     stkitemsleercodgryrb(state.idStkGrupo, state.idStkRubro); //leo rubros apartir del grupo seleccionado
   }, [state.idStkRubro]);
+
+  // useEffect(() => {
+  //   if (!!state.idStkItems) {
+  //     value.setGRI({
+  //       // setState({
+  //       idStkGrupo: state.idStkGrupo,
+  //       idStkRubro: state.idStkRubro,
+  //       idStkItems: state.idStkItems
+  //     });
+  //   }
+  // }, [state.idStkItems]);
 
   const classes = useStyles();
 

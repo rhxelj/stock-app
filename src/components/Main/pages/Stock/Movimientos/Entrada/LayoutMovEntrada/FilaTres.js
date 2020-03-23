@@ -10,9 +10,23 @@ import { stkrubroleecodgryrb } from "../../../Rubros/StkRubroLeeCodGryRb";
 import { useContext } from "react";
 import { StkMovEntradaContext } from "../StkMovEntrada";
 
+// var initial_state = {
+//   stkitemsele: [],
+//   StkItemsFAct: "",
+//   StkItemsMin: null,
+//   StkItemsMax: null,
+//   StkItemsCantDisp: 0,
+//   StkRubroAncho: 0,
+//   cantidad: 1
+// };
+
 export default function Fila() {
   const classes = useStyles();
+
+  // var [state, setState] = useState(initial_state);
+
   // Esto es para poder consumir los datos del CONTEXAPI
+  // const value = useContext(StkMovEntradaContext);
   const { state, setState } = useContext(StkMovEntradaContext);
 
   async function stkrubroleercodgryrb(GrupoEleg, RubroEleg) {

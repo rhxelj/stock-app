@@ -1,22 +1,36 @@
 import React, { useState, useEffect } from "react";
+// import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import useStyles from "../styles";
 
 import { TextField } from "@material-ui/core";
-import { stkitemsleecodgrrbit } from "../../../../Items/StkItemsLeeCodGrRbIt";
 
-// import { makeStyles } from "@material-ui/core/styles";
-// import { stkgrupolee } from "../../../../Grupos/StkGrupoLee";
-// import { stkrubroleecodgrupo } from "../../../../Rubros/StkRubroLeeCodGrupo";
-// import { stkitemsleecodgryrb } from "../../../../Items/StkItemsLeeCodGryRb";
+import { stkgrupolee } from "../../../../Grupos/StkGrupoLee";
+import { stkrubroleecodgrupo } from "../../../../Rubros/StkRubroLeeCodGrupo";
+import { stkitemsleecodgryrb } from "../../../../Items/StkItemsLeeCodGryRb";
+import { stkitemsleecodgrrbit } from "../../../../Items/StkItemsLeeCodGrRbIt";
+// import StkMovEntradaDatItems from "./StkMovEntradaDatItems";
+// import { initial_state } from "./Initial_State";
+//
 
 // Context
 import { useContext } from "react";
 import { StkMovEntradaContext } from "../../StkMovEntrada";
 
+// var initial_state = {
+//   stkitemsele: [],
+//   StkItemsFAct: "",
+//   StkItemsMin: null,
+//   StkItemsMax: null,
+//   StkItemsCantDisp: 0,
+//   StkItemsCantidad: 0
+// };
+
 export default function F2C2(props) {
-  // Context
+  // var [state, setState] = useState(initial_state);
   const { state, setState } = useContext(StkMovEntradaContext);
+  // Context
+  const value = useContext(StkMovEntradaContext);
 
   const handleChange = event => {
     const id = event.target.id;
@@ -36,7 +50,15 @@ export default function F2C2(props) {
   }
 
   useEffect(() => {
-    stkitemsleercodgrrbit(state.idStkGrupo, state.idStkRubro, state.idStkItems);
+    stkitemsleercodgrrbit(
+      // value.GRI.idStkGrupo,
+      state.idStkGrupo,
+      // value.GRI.idStkRubro,
+      state.idStkRubro,
+      // value.GRI.idStkItems
+      state.idStkItems
+    );
+    // }, [value.GRI.idStkItems]);
   }, [state.idStkItems]);
 
   const classes = useStyles();
