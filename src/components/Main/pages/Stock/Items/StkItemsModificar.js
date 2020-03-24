@@ -70,11 +70,11 @@ class StkItemsModificar extends Component {
   add = _ => {
     const url =
       IpServidor +
-      "/stkitemsmodificar/?id1=" +
+      "/stkitemsmodificar/?idStkItems=" +
       this.state.idStkItems +
-      "&id2=" +
+      "&StkItemsGrupo=" +
       this.state.StkItemsGrupo +
-      "&id3=" +
+      "&StkItemsRubro=" +
       this.state.StkItemsRubro;
     request
       .post(url)

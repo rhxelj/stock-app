@@ -5,11 +5,11 @@ import IpServidor from "../../../VariablesDeEntorno";
 export function agregaStock(state) {
   const url =
     IpServidor +
-    "/stkitemsmodstock/?id1=" +
+    "/stkitemsmodstock/?idStkItems=" +
     state.idStkItems +
-    "&id2=" +
+    "&idStkGrupo=" +
     state.idStkGrupo +
-    "&id3=" +
+    "&idStkRubro=" +
     state.idStkRubro;
 
   request
@@ -29,11 +29,11 @@ export function agregaStock(state) {
 
   const url1 =
     IpServidor +
-    "/stkenvaseagregar/?id1=" +
+    "/stkenvaseagregar/?idStkItems=" +
     state.idStkItems +
-    "&id2=" +
+    "&idStkGrupo=" +
     state.idStkGrupo +
-    "&id3=" +
+    "&idStkRubro=" +
     state.idStkRubro;
 
   request

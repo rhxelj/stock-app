@@ -20,8 +20,8 @@ conexion.connect(function(err) {
 //select hecho en mysql para buscar el item más grande y agregar 1
 
 router.post("/", async function(req, res) {
-  var StkItemsGrupo = req.query.id2;
-  var StkItemsRubro = req.query.id3;
+  var StkItemsGrupo = req.query.StkItemsGrupo;
+  var StkItemsRubro = req.query.StkItemsRubro;
 
   //'Select max(idStkItems) as UltItem from StkItems where StkItemsGrupo  = ' + StkItemsGrupo  + ' and  StkItemsRubro  = ' + StkItemsRubro,
   var q = [
@@ -59,6 +59,8 @@ router.post("/", async function(req, res) {
       StkItemsMin: req.body.StkItemsMin,
       StkItemsMax: req.body.StkItemsMax
     };
+    console.log ('registro en intesr ')
+    console.log(registro)
     conexion.query("INSERT INTO StkItems SET ?", registro, function(
       err,
       result

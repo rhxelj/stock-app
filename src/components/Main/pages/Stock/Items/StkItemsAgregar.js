@@ -61,7 +61,7 @@ class StkItemsAgregar extends Component {
   // Create
 
   add = _ => {
-    const url = IpServidor + '/stkitemsagregar/?id2=' + this.state.StkItemsGrupo + '&id3=' + this.state.StkItemsRubro
+    const url = IpServidor + '/stkitemsagregar/?StkItemsGrupo=' + this.state.StkItemsGrupo + '&StkItemsRubro=' + this.state.StkItemsRubro
 
     request
       .post(url)
