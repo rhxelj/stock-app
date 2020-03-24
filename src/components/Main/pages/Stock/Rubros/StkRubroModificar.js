@@ -116,9 +116,9 @@ class StkRubroModificar extends Component {
   ModificaRubro = _ => {
     const url =
       IpServidor +
-      "/stkrubromodificar/?id=" +
+      "/stkrubromodificar/?idStkRubro=" +
       this.state.idStkRubro +
-      "&id2=" +
+      "&StkRubroCodGrp=" +
       this.state.StkRubroCodGrp;
     request
       .post(url)

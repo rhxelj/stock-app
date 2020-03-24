@@ -19,10 +19,10 @@ var router = express();
 
 router.post("/", async function(req, res, next) {
   //?:id/?:id2
-  var idStkItems = req.query.id1;
-  var StkItemsGrupo = req.query.id2;
-  var StkItemsRubro = req.query.id3;
-  var envase = req.query.id4;
+  var idStkItems = req.query.idStkItems;
+  var StkItemsGrupo = req.query.StkItemsGrupo;
+  var StkItemsRubro = req.query.StkItemsRubro;
+  var envase = req.query.envase;
   var q;
   var cantidad = req.body.cantidad2;
   var cantidad1 = req.body.cantidad3;

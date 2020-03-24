@@ -14,9 +14,9 @@ conexion.connect(function(err) {
 });
 
 router.delete("/", async function(req, res, next) {
-  var idStkItems = req.query.id1;
-  var StkItemsGrupo = req.query.id2;
-  var StkItemsRubro = req.query.id3;
+  var idStkItems = req.query.idStkItems;
+  var StkItemsGrupo = req.query.StkItemsGrupo;
+  var StkItemsRubro = req.query.StkItemsRubro;
   //DELETE FROM `BasesGenerales`.`StkItems` WHERE `idStkItems`='2' and`StkItemsGrupo`='1' and`StkItemsRubro`='1';
   /*
 'delete from StkItems where idStkItems = ',

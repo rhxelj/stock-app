@@ -76,7 +76,8 @@ function Header() {
   const handleClose = prop => event => {
     setState({ ...state, [prop]: null });
   };
-  const diafecha = format(new Date(), "dd-MM-YYYY");
+  const diafecha = format(new Date(), "DD-MM-YYYY");
+  
   function newMethod(abrir_movimientos, abrir_tablas) {
    
     return (

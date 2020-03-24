@@ -20,9 +20,9 @@ var router = express();
 router.post("/", async function(req, res, next) {
   //?:id/?:id2
   var CantDisp = 0.0;
-  var idStkItems = req.query.id1;
-  var StkItemsGrupo = req.query.id2;
-  var StkItemsRubro = req.query.id3;
+  var idStkItems = req.query.idStkItems;
+  var StkItemsGrupo = req.query.idStkGrupo;
+  var StkItemsRubro = req.query.idStkRubro;
   var StkRubroPres = req.body.StkRubroPres;
   var cantidad = req.body.cantidad;
 

@@ -47,7 +47,7 @@ class StkSalidaFinal extends React.Component {
     var rubro = codigo.split(":")[2];
 
     const url =
-      IpServidor + "/stkrubroleecodgryrb/?id1=" + rubro + "&id2=" + grupo;
+      IpServidor + "/stkrubroleecodgryrb/?idStkRubro=" + rubro + "&idStkGrupo=" + grupo;
     request
       .get(url)
       .set("Content-Type", "application/json")
@@ -75,11 +75,11 @@ class StkSalidaFinal extends React.Component {
 
     const url =
       IpServidor +
-      "/stkmovsalfinal/?id1=" +
+      "/stkmovsalfinal/?idStkItems=" +
       item +
-      "&id2=" +
+      "&StkItemsGrupo=" +
       grupo +
-      "&id3=" +
+      "&StkItemsRubro=" +
       rubro; //'http://localhost:3000/data'
     request
       .post(url)
@@ -96,13 +96,13 @@ class StkSalidaFinal extends React.Component {
 
     const url1 =
       IpServidor +
-      "/stkmovenvase/?id1=" +
+      "/stkmovenvase/?idStkItems=" +
       item +
-      "&id2=" +
+      "&StkItemsGrupo=" +
       grupo +
-      "&id3=" +
+      "&StkItemsRubro=" +
       rubro +
-      "&id4=" +
+      "&envase=" +
       nroenvase; //'http://localhost:3000/data'
     request
       .post(url1)
