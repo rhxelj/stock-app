@@ -113,9 +113,9 @@ class StkMovSalida extends React.Component {
     // this.marcagrupo()
   };
 
-  stkitemsleecodgryrb = id3 => {
-    var id2 = this.state.StkItemsGrupo;
-    const url = IpServidor + "/stkitemsleecodgryrb/?id2=" + id2 + "&id3=" + id3;
+  stkitemsleecodgryrb = idStkRubro => {
+    var idStkGrupo = this.state.StkItemsGrupo;
+    const url = IpServidor + "/stkitemsleecodgryrb/?idStkGrupo=" + idStkGrupo + "&idStkRubro=" + idStkRubro;
     request
       .get(url)
       .set("Content-Type", "application/json")
@@ -128,17 +128,17 @@ class StkMovSalida extends React.Component {
   };
 
   stkitemsleecodgrrbit = () => {
-    var id1 = this.state.StkItems;
-    var id2 = this.state.StkItemsGrupo;
-    var id3 = this.state.StkItemsRubro;
+    var idStkItems = this.state.StkItems;
+    var idStkGrupo = this.state.StkItemsGrupo;
+    var idStkRubro = this.state.StkItemsRubro;
     const url =
       IpServidor +
-      "/stkitemsleecodgrrbit/?id1=" +
-      id1 +
-      "&id2=" +
-      id2 +
-      "&id3=" +
-      id3;
+      "/stkitemsleecodgrrbit/?idStkItems=" +
+      idStkItems +
+      "&idStkGrupo=" +
+      idStkGrupo +
+      "&idStkRubro=" +
+      idStkRubro;
     request
       .get(url)
       .set("Content-Type", "application/json")
@@ -220,11 +220,11 @@ class StkMovSalida extends React.Component {
   descargastock = _ => {
     const url =
       IpServidor +
-      "/stkitemsmoddisp/?id1=" +
+      "/stkitemsmoddisp/?StkItems=" +
       this.state.StkItems +
-      "&id2=" +
+      "&StkItemsGrupo=" +
       this.state.StkItemsGrupo +
-      "&id3=" +
+      "&StkItemsRubro=" +
       this.state.StkItemsRubro; //'http://localhost:3000/data'
     request
       .post(url)

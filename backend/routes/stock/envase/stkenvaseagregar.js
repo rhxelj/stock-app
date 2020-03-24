@@ -20,9 +20,9 @@ var router = express();
 router.post("/", async function(req, res, next) {
   var q, q1;
   var idStkEnvase = 0;
-  var StkEnvaseItem = req.query.id1;
-  var StkEnvaseGrupo = req.query.id2;
-  var StkEnvaseRubro = req.query.id3;
+  var StkEnvaseItem = req.query.idStkItems;
+  var StkEnvaseGrupo = req.query.idStkGrupo;
+  var StkEnvaseRubro = req.query.idStkRubro;
 
   //'Select max(idStkEnvase) as UltEnvase from StkEnvase where StkEnvaseGrupo = ' + StkEnvaseGrupo + ' and StkEnvaseRubro = ' + StkEnvaseRubro + ' and StkEnvaseItem = ' + StkEnvaseItem,
   q = [

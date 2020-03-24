@@ -59,7 +59,7 @@ class StkItemsRed extends Component {
   }
 }
   leeitemsred = _ => {
-    const url = IpServidor + "/stkitemsleecodgryrb/?id2="+this.props.CodGrupo+'&id3='+this.props.CodRubro;
+    const url = IpServidor + "/stkitemsleecodgryrb/?idStkGrupo="+this.props.CodGrupo+'&idStkRubro='+this.props.CodRubro;
     request
     .get(url)
     .set('Content-Type', 'application/json')
