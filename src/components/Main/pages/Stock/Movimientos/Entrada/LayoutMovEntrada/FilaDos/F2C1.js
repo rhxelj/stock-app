@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, useReducer } from "react";
 import Grid from "@material-ui/core/Grid";
 import useStyles from "../styles";
 
@@ -11,14 +11,18 @@ import { stkitemsleecodgryrb } from "../../../../Items/StkItemsLeeCodGryRb";
 // Context
 import { useContext } from "react";
 import { StkMovEntradaContext } from "../../StkMovEntrada";
+import {initial_state} from "../../Initial_State";
 
 export default function F2C1(props) {
   // Esto es para poder consumir los datos del CONTEXTAPI
   const { state, setState } = useContext(StkMovEntradaContext);
 
   const handleChange = event => {
+    
     const id = event.target.id;
-    setState({ ...state, [id]: event.target.value }); //Todo revisar !!!!!!!!
+    setState({ ...state, [id]: event.target.value });
+    //  dispatch({type: event.target.id})
+ 
   };
 
   async function stkgrupoleer() {
@@ -34,17 +38,39 @@ export default function F2C1(props) {
   async function stkitemsleercodgryrb(codigogrupo, codigorubro) {
     const result = await stkitemsleecodgryrb(codigogrupo, codigorubro);
     setState({ ...state, stkitems: result });
+    
   }
+// function reducer(stater, action){
+//   switch (action.type) {
+//     case 'idStkGrupo':
+//       stkrubroleercodgrupo(state.idStkGrupo)
+//       return console.log ('idStkGrupo');
+//     case 'idStkRubro':
+//       stkitemsleercodgryrb(state.idStkGrupo, state.idStkRubro);
+//       return console.log ('idStkRubro');
+      
+//     default:
+//       return console.log ('estaria dando error');
+//   }
+// }
+
+
 
   useEffect(() => {
-    stkgrupoleer();
-  }, []);
-
-  useEffect(() => {
-    stkrubroleercodgrupo(state.idStkGrupo); //leo rubros apartir del grupo seleccionado
+    if (state.idStkGrupo === '') 
+    {
+      stkgrupoleer(); 
+    }
+    stkrubroleercodgrupo(state.idStkGrupo);
   }, [state.idStkGrupo]);
 
+  // useEffect(() => {
+    
+  //   stkrubroleercodgrupo(state.idStkGrupo); //leo rubros apartir del grupo seleccionado
+  // }, [state.idStkGrupo]);
+
   useEffect(() => {
+   // setState({...state, idStkItems : ''})
     stkitemsleercodgryrb(state.idStkGrupo, state.idStkRubro); //leo rubros apartir del grupo seleccionado
   }, [state.idStkRubro]);
 
@@ -97,11 +123,14 @@ export default function F2C1(props) {
       )
     }
   ];
+  
   return (
+ 
     <>
       <Grid container item direction="column" spacing={3} xs={6}>
         {textdata.map(data => (
           <Grid item xs>
+          
             <TextField
               id={data.id}
               size="small"
@@ -112,9 +141,11 @@ export default function F2C1(props) {
               onChange={handleChange}
               SelectProps={{ native: true }}
               variant="outlined"
+             
             >
               {data.mapeo}
             </TextField>
+          
           </Grid>
         ))}
       </Grid>
