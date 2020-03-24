@@ -56,7 +56,7 @@ export default function FilaCuatro() {
             }}
             autoFocus={true}
             className={classes.textField_150}
-            InputLabelProps={{ shrink: true }}
+            // InputLabelProps={{ shrink: true }}
           >
             <option></option>
 

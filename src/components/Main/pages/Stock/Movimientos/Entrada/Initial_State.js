@@ -37,24 +37,27 @@ export const initial_state = {
   //F2C2
   stkitemsele: [],
   StkItemsFAct: "",
-  StkItemsMin: null,
-  StkItemsMax: null,
+  StkItemsMin: "",
+  StkItemsMax: "",
   StkItemsCantDisp: 0,
   StkItemsCantidad: 0,
 
   //FilaTres
   stkitemsele: [],
   StkItemsFAct: "",
-  StkItemsMin: null,
-  StkItemsMax: null,
-  StkItemsCantDisp: 0,
+  StkRubroPres: "",
+  StkRubroPresDes: "",
+  StkRubroUM: "",
   StkRubroAncho: 0,
   cantidad: 1,
+  // StkItemsMin: "",
+  // StkItemsMax: "",
+  // StkItemsCantDisp: 0,
 
   //FilaCuatro1
   StkEnvasePartida: "",
-  StkEnvaseUbG: "",
-  StkEnvaseUbF: "",
+  // StkEnvaseUbG: "",
+  // StkEnvaseUbF: "",
   StkEnvaseObserv: "",
   stkenvaseubfisica: []
 
@@ -63,7 +66,6 @@ export const initial_state = {
   // StkItemsMax: null,
   // StkRubroAncho: null,
   // StkRubroPresDes: null,
-  // StkRubroUM: null,
   // largo: 0.0,
   // ancho: 0.0,
   // faltante: 0.0,
