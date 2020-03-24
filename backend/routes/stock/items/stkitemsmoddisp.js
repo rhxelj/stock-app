@@ -20,9 +20,9 @@ var router = express();
 router.post("/", async function(req, res, next) {
   //?:id/?:id2
   var CantDisp = 0.0;
-  var idStkItems = req.query.id1;
-  var StkItemsGrupo = req.query.id2;
-  var StkItemsRubro = req.query.id3;
+  var idStkItems = req.query.StkItems;
+  var StkItemsGrupo = req.query.StkItemsGrupo;
+  var StkItemsRubro = req.query.StkItemsRubro;
   var StkItemsCantDisp = req.body.StkItemsCantDisp;
   var total = req.body.total;
   CantDisp = Number(StkItemsCantDisp) - total;

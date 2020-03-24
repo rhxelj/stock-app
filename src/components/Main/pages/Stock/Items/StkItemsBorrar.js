@@ -37,11 +37,11 @@ class StkItemsBorrar extends Component {
   borrarItem = () => {
     const url =
       IpServidor +
-      "/stkitemsborrar/?id1=" +
+      "/stkitemsborrar/?idStkItems=" +
       this.state.idStkItems +
-      "&id2=" +
+      "&StkItemsGrupo=" +
       this.state.StkItemsGrupo +
-      "&id3=" +
+      "&StkItemsRubro=" +
       this.state.StkItemsRubro;
     request
       .delete(url)

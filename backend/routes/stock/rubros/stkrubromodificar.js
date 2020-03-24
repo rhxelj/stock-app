@@ -14,9 +14,8 @@ conexion.connect(function(err) {
 var router = express();
 
 router.post("/", async function(req, res, next) {
-  console.log("khkhkh");
-  var idStkRubro = req.query.id;
-  var StkRubroCodGrp = req.query.id2;
+  var idStkRubro = req.query.idStkRubro;
+  var StkRubroCodGrp = req.query.StkRubroCodGrp;
   var StkRubroDesc = req.body.StkRubroDesc.toUpperCase();
   var StkRubroAbr = req.body.StkRubroAbr.toUpperCase();
   var StkRubroProv = req.body.StkRubroProv;
