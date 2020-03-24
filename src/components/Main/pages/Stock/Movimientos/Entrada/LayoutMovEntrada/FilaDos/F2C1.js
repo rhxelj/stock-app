@@ -1,34 +1,38 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, useReducer } from "react";
 import Grid from "@material-ui/core/Grid";
 import useStyles from "../styles";
 
 import { TextField } from "@material-ui/core";
 
-// import { stkgrupolee } from "../../../../Stock/Grupos/StkGrupoLee";
-import { stkgrupolee } from "../../../../Grupos/StkGrupoLee";
+import { stkgrupolee } from "../../../../../Stock/Grupos/StkGrupoLee";
+// import { stkgrupolee } from "../../../../Grupos/StkGrupoLee";
 import { stkrubroleecodgrupo } from "../../../../Rubros/StkRubroLeeCodGrupo";
 import { stkitemsleecodgryrb } from "../../../../Items/StkItemsLeeCodGryRb";
 
 // Context
 import { useContext } from "react";
 import { StkMovEntradaContext } from "../../StkMovEntrada";
+import {initial_state} from "../../Initial_State";
 
 export default function F2C1(props) {
-  // var [state, setState] = useState(initial_state);
 
   // Esto es para poder consumir los datos del CONTEXTAPI
-  const value = useContext(StkMovEntradaContext);
   const { state, setState } = useContext(StkMovEntradaContext);
-  const { stkgrupoleer } = useContext(StkMovEntradaContext);
+  // const [stater, dispatch] = useReducer(reducer, initial_state);
+  // const value = useContext(StkMovEntradaContext);
+  // const { stkgrupoleer } = useContext(StkMovEntradaContext);
   const handleChange = event => {
+    
     const id = event.target.id;
-    setState({ ...state, [id]: event.target.value }); //Todo revisar !!!!!!!!
+    setState({ ...state, [id]: event.target.value });
+    //  dispatch({type: event.target.id})
+ 
   };
 
-  // async function stkgrupoleer() {
-  //   const result = await stkgrupolee();
-  //   setState({ ...state, stkgrupo: result });
-  // }
+  async function stkgrupoleer() {
+    const result = await stkgrupolee();
+    setState({ ...state, stkgrupo: result });
+  }
 
   async function stkrubroleercodgrupo(codigogrupo) {
     const result = await stkrubroleecodgrupo(codigogrupo);
@@ -38,30 +42,52 @@ export default function F2C1(props) {
   async function stkitemsleercodgryrb(codigogrupo, codigorubro) {
     const result = await stkitemsleecodgryrb(codigogrupo, codigorubro);
     setState({ ...state, stkitems: result });
+    
   }
+// function reducer(stater, action){
+//   switch (action.type) {
+//     case 'idStkGrupo':
+//       stkrubroleercodgrupo(state.idStkGrupo)
+//       return console.log ('idStkGrupo');
+//     case 'idStkRubro':
+//       stkitemsleercodgryrb(state.idStkGrupo, state.idStkRubro);
+//       return console.log ('idStkRubro');
+      
+//     default:
+//       return console.log ('estaria dando error');
+//   }
+// }
 
-  // useEffect(() => {
-  //   stkgrupoleer();
-  // }, []);
+
+
   useEffect(() => {
-    if (state.idStkGrupo != 0) {
-      stkrubroleercodgrupo(state.idStkGrupo);
-    } //leo rubros apartir del grupo seleccionado
+    if (state.idStkGrupo === '') 
+    {
+      stkgrupoleer(); 
+    }
+    stkrubroleercodgrupo(state.idStkGrupo);
   }, [state.idStkGrupo]);
 
+  // useEffect(() => {
+    
+  //   stkrubroleercodgrupo(state.idStkGrupo); //leo rubros apartir del grupo seleccionado
+  // }, [state.idStkGrupo]);
+
   useEffect(() => {
+   // setState({...state, idStkItems : ''})
     stkitemsleercodgryrb(state.idStkGrupo, state.idStkRubro); //leo rubros apartir del grupo seleccionado
   }, [state.idStkRubro]);
 
-  useEffect(() => {
-    if (!!state.idStkItems) {
-      value.setGRI({
-        idStkGrupo: state.idStkGrupo,
-        idStkRubro: state.idStkRubro,
-        idStkItems: state.idStkItems
-      });
-    }
-  }, [state.idStkItems]);
+  // useEffect(() => {
+  //   if (!!state.idStkItems) {
+  //     value.setGRI({
+  //       // setState({
+  //       idStkGrupo: state.idStkGrupo,
+  //       idStkRubro: state.idStkRubro,
+  //       idStkItems: state.idStkItems
+  //     });
+  //   }
+  // }, [state.idStkItems]);
 
   const classes = useStyles();
 
@@ -112,11 +138,14 @@ export default function F2C1(props) {
       )
     }
   ];
+  
   return (
+ 
     <>
       <Grid container item direction="column" spacing={3} xs={6}>
         {textdata.map(data => (
           <Grid item xs>
+          
             <TextField
               id={data.id}
               size="small"
@@ -127,9 +156,11 @@ export default function F2C1(props) {
               onChange={handleChange}
               SelectProps={{ native: true }}
               variant="outlined"
+             
             >
               {data.mapeo}
             </TextField>
+          
           </Grid>
         ))}
       </Grid>
