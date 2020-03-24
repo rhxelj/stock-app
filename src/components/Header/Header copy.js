@@ -4,8 +4,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -16,20 +14,6 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import Collapse from "@material-ui/core/Collapse";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import { movimientos, tablas } from "./menues";
-import { format } from "fecha";
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
-
 
 const initial_state = {
   open: false,
@@ -45,7 +29,6 @@ const initial_state = {
 };
 function Header() {
   const [state, setState] = useState(initial_state);
-  const classes = useStyles();
 
   const { abrir_movimientos, abrir_tablas } = state;
 
@@ -76,9 +59,8 @@ function Header() {
   const handleClose = prop => event => {
     setState({ ...state, [prop]: null });
   };
-  const diafecha = format(new Date(), "dd-MM-YYYY");
+
   function newMethod(abrir_movimientos, abrir_tablas) {
-   
     return (
       <SwipeableDrawer
         open={state.left}
@@ -154,27 +136,6 @@ function Header() {
   return (
     <div>
       <AppBar position="static">
-  <Toolbar>
-  <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            // onClick={this.toggleDrawer("left", true)}
-          >
-            <MenuIcon onClick={toggleDrawer("left", true)}></MenuIcon>
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            OlsaSG
-          </Typography>
-          {newMethod(abrir_movimientos, abrir_tablas)}
-          <Typography variant="h6" >
-          {diafecha}
-          </Typography>
-          {/* <Button color="inherit">{diafecha}</Button> */}
-  </Toolbar>
-</AppBar>
-
-      {/* <AppBar position="static">
         <Toolbar>
           <IconButton
             edge="start"
@@ -189,7 +150,7 @@ function Header() {
           </Typography>
           {newMethod(abrir_movimientos, abrir_tablas)}
         </Toolbar>
-      </AppBar> */}
+      </AppBar>
     </div>
   );
   // }
