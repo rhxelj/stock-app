@@ -6,7 +6,7 @@ import IpServidor from "../../VariablesDeEntorno";
 
 export const stkitemsleecodgryrb = (idStkGrupo, idStkRubro) => {
   return new Promise(resolve => {
-    if (idStkGrupo !== 0 && idStkRubro !== 0) {
+    if (idStkGrupo !== '' && idStkRubro !== '') {
       const url =
         IpServidor +
         "/stkitemsleecodgryrb/?idStkGrupo=" +
