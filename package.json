@@ -12,6 +12,7 @@
     "@types/react-dom": "^16.9.3",
     "@types/react-router-dom": "^5.1.1",
     "@types/superagent": "^4.1.4",
+    "docz": "^2.2.0",
     "fecha": "^4.2.0",
     "lodash": "^4.17.11",
     "print-js": "^1.0.61",
@@ -30,7 +31,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "docz:dev": "docz dev",
+    "docz:build": "docz build",
+    "docz:serve": "docz build && docz serve"
   },
   "eslintConfig": {
     "extends": "react-app"
