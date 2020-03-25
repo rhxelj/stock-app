@@ -16,7 +16,6 @@ import {
 } from "@material-ui/core";
 
 import useStyles from "./StkMovEntradaStyle";
-import FilaUno from "./LayoutMovEntrada/FilaUno";
 import FilaDos from "./LayoutMovEntrada/FilaDos";
 import FilaTres from "./LayoutMovEntrada/FilaTres";
 import FilaCuatro from "./LayoutMovEntrada/FilaCuatro";
@@ -39,7 +38,6 @@ var StkMovEntrada = props => {
               setState: setState
             }}
           >
-            <FilaUno /> {/* Fecha */}
             {/* Grupo, Rubro, Items, Cant. Disp., Cant, Min. */}
             <FilaDos />
             {/* Fila Cantidd, Pres. Desc., Pres., UM,Ancho */}

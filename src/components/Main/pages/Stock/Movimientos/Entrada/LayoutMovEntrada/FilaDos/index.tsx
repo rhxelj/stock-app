@@ -13,6 +13,7 @@ export default function Fila2() {
 
   return (
     <>
+      <Grid item></Grid> {/*  Para dejar espacio  */}
       <Grid container justify="space-around" spacing={3}>
         <F2C1 />
         <F2C2 />
