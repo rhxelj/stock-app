@@ -13,7 +13,6 @@ var proveedoresleercod = require("./routes/proveedores/proveedoresleercod");
 var proveedoresagregar = require("./routes/proveedores/proveedoresagregar");
 var proveedoresborrar = require("./routes/proveedores/proveedoresborrar");
 var proveedoresmodificar = require("./routes/proveedores/proveedoresmodificar");
-// var proveedoresimprime = require("./routes/proveedores/proveedoresimprime");
 var stkbgsubrubroleer = require("./routes/proveedores/stkbgsubrubroleer");
 
 var stkmonedasleer = require("./routes/monedas/stkmonedasleer");
@@ -123,7 +122,9 @@ app.use("/proveedoresleercod", proveedoresleercod);
 app.use("/proveedoresagregar", proveedoresagregar);
 app.use("/proveedoresmodificar", proveedoresmodificar);
 app.use("/proveedoresborrar", proveedoresborrar);
-// app.use("/proveedoresimprime", proveedoresimprime);
+
+
+
 
 app.use("/stkbgsubrubroleer", stkbgsubrubroleer);
 
