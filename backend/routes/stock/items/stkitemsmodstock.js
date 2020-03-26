@@ -18,8 +18,7 @@ idStkItems
 var router = express();
 
 router.post("/", async function(req, res, next) {
-  //?:id/?:id2
-  var CantDisp = 0.0;
+ 
   var idStkItems = req.query.idStkItems;
   var StkItemsGrupo = req.query.idStkGrupo;
   var StkItemsRubro = req.query.idStkRubro;
@@ -27,35 +26,16 @@ router.post("/", async function(req, res, next) {
   var cantidad = req.body.cantidad;
 
   var total = Number(cantidad) * Number(StkRubroPres);
-  CantDisp = Number(req.body.StkItemsCantDisp) + total;
-  Cantidads = Number(req.body.StkItemsCantidad) + total;
 
   var d = new Date();
   finalDate = d.toISOString().split("T")[0];
   var StkItemsFAct = finalDate;
-  console.log("StkItemsFAct  " + StkItemsFAct);
-  // Desde Postman http://localhost:4000/stkitemsmodificar?id1=1&id2=1&id3=1
 
-  // var q = [
-  //   "UPDATE StkItems SET StkItemsCantDisp = ",
-  //   CantDisp,
-  //   ", StkItemsCantidad = ",
-  //   Cantidads,
-  //   ', StkItemsFAct = "',
-  //   StkItemsFAct,
-  //   '" WHERE idStkItems = ',
-  //   idStkItems,
-  //   " and  StkItemsGrupo = ",
-  //   StkItemsGrupo,
-  //   " and  StkItemsRubro = ",
-  //   StkItemsRubro
-  // ].join(" ");
-  // conexion.query(q, function(err, result) {
   conexion.query(
-    "UPDATE StkItems SET StkItemsCantDisp = " +
-      CantDisp +
-      ", StkItemsCantidad = " +
-      Cantidads +
+    "UPDATE StkItems SET StkItemsCantDisp = StkItemsCantDisp +  " +
+      total +
+      ", StkItemsCantidad =  StkItemsCantidad + " +
+      total +
       ', StkItemsFAct = "' +
       StkItemsFAct +
       '" WHERE idStkItems = ' +
