@@ -36,6 +36,8 @@ var stkgrupoleercod = require("./routes/stock/grupos/stkgrupoleercod");
 var stkgrupoagregar = require("./routes/stock/grupos/stkgrupoagregar");
 var stkgrupomodificar = require("./routes/stock/grupos/stkgrupomodificar");
 var stkgrupoborrar = require("./routes/stock/grupos/stkgrupoborrar");
+var stkgrupoleerred = require("./routes/stock/grupos/stkgrupoleerred");
+
 
 var stkubfisicaleer = require("./routes/stock/ubfisica/stkubfisicaleer");
 // var stkubfisicaleercod = require('./routes/ubfisica/stkubfisicaleercod');
@@ -53,6 +55,9 @@ var stkrubroborrar = require("./routes/stock/rubros/stkrubroborrar");
 var stkrubroleecodgrupo = require("./routes/stock/rubros/stkrubroleecodgrupo");
 var stkrubroleecodgryrb = require("./routes/stock/rubros/stkrubroleecodgryrb");
 var stkrubroleeultnro = require("./routes/stock/rubros/stkrubroleeultnro");
+var stkrubroleecodgrupored = require("./routes/stock/rubros/stkrubroleecodgrupored");
+
+
 
 var stkitemsleer = require("./routes/stock/items/stkitemsleer");
 var stkitemsagregar = require("./routes/stock/items/stkitemsagregar");
@@ -63,7 +68,6 @@ var stkitemsleecodgryrb = require("./routes/stock/items/stkitemsleecodgryrb");
 var stkitemsleecodgrrbit = require("./routes/stock/items/stkitemsleecodgrrbit");
 var stkitemsleedetalles = require("./routes/stock/items/stkitemsleedetalles");
 
-var stkitemsmodificacant = require("./routes/stock/items/stkitemsmodificacant");
 var stkitemsmoddisp = require("./routes/stock/items/stkitemsmoddisp");
 var stkitemsmodstock = require("./routes/stock/items/stkitemsmodstock");
 
@@ -80,6 +84,9 @@ var stkenvasecambiaimp = require("./routes/stock/envase/stkenvasecambiaimp");
 
 var listaprecios = require("./routes/listaprecios/listaprecios");
 var modprecios = require("./routes/listaprecios/modprecios");
+
+//CONSULTAS
+//var consultastock = require("./routes/consultas/consultastock");
 
 // PRESUPUESTO
 var presupunid = require("./routes/presupuesto/presupunid");
@@ -153,6 +160,7 @@ app.use("/stkgrupoleercod", stkgrupoleercod);
 app.use("/stkgrupoagregar", stkgrupoagregar);
 app.use("/stkgrupomodificar", stkgrupomodificar);
 app.use("/stkgrupoborrar", stkgrupoborrar);
+app.use("/stkgrupoleerred", stkgrupoleerred);
 
 app.use("/stkubfisicaleer", stkubfisicaleer);
 // app.use('/stkubfisicaleercod', stkubfisicaleercod);
@@ -170,6 +178,7 @@ app.use("/stkrubroborrar", stkrubroborrar);
 app.use("/stkrubroleecodgrupo", stkrubroleecodgrupo);
 app.use("/stkrubroleecodgryrb", stkrubroleecodgryrb);
 app.use("/stkrubroleeultnro", stkrubroleeultnro);
+app.use("/stkrubroleecodgrupored", stkrubroleecodgrupored);
 
 app.use("/stkitemsleer", stkitemsleer);
 app.use("/stkitemsagregar", stkitemsagregar);
@@ -180,7 +189,6 @@ app.use("/stkitemsleecodgryrb", stkitemsleecodgryrb);
 app.use("/stkitemsleecodgrrbit", stkitemsleecodgrrbit);
 app.use("/stkitemsleedetalles", stkitemsleedetalles);
 
-app.use("/stkitemsmodificacant", stkitemsmodificacant);
 app.use("/stkitemsmoddisp", stkitemsmoddisp);
 app.use("/stkverificadisp", stkverificadisp);
 

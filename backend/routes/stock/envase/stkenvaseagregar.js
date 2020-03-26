@@ -35,7 +35,6 @@ router.post("/", async function(req, res, next) {
     " and StkEnvaseItem = ",
     StkEnvaseItem
   ].join(" ");
-
   conexion.query(q, function(err, result) {
     if (err) {
       if (err.errno === 1054) {
@@ -48,7 +47,6 @@ router.post("/", async function(req, res, next) {
       res.json(result);
       nroenvase = result[0].UltEnvase + 1;
     }
-    console.log("nroenvase  " + nroenvase);
     // tengo que hacer esto req.body.cantidad veces que es la cantidad de envases que ingresaron con req.body.StkRubroPres de contenido
     var cantenvases = req.body.cantidad;
     var d = new Date();
@@ -68,10 +66,10 @@ router.post("/", async function(req, res, next) {
         StkEnvaseImprimio: "N"
       };
 
-      // 'INSERT INTO StkEnvase SET ?', registro,
-      q1 = ["INSERT INTO StkEnvase SET ?", registro].join(" ");
-
-      conexion.query(q, function(err, result) {
+        conexion.query("INSERT INTO StkEnvase SET ?", registro, function(
+          err,
+          result
+        ) {
         if (err) {
           console.log("ERROR ");
           console.log(err.errno);
