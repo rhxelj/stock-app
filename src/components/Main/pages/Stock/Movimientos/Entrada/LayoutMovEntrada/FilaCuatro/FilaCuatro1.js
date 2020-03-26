@@ -43,6 +43,9 @@ export default function FilaCuatro() {
         </Grid>
         <Grid item xs>
           <TextField
+            // required
+            error={!state.StkEnvaseUbG}
+            helperText={!state.StkEnvaseUbG && "Este Dato es obligatorio"}
             size="small"
             variant="outlined"
             id="StkEnvaseUbG"
@@ -93,6 +96,7 @@ export default function FilaCuatro() {
         </Grid>
         <Grid item xs>
           <TextField
+            inputProps={{ maxlength: 50 }}
             size="small"
             variant="outlined"
             id="StkEnvaseObserv"
