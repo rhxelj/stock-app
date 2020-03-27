@@ -15,7 +15,7 @@ conexion.connect(function(err) {
 idStkItems
 */
 
-var router = express();
+//var router = express();
 
 router.post("/", async function(req, res, next) {
   var q, q1;
@@ -44,9 +44,11 @@ router.post("/", async function(req, res, next) {
         console.log(err);
       }
     } else {
-      res.json(result);
+     // res.json(result);
       nroenvase = result[0].UltEnvase + 1;
     }
+    
+    
     // tengo que hacer esto req.body.cantidad veces que es la cantidad de envases que ingresaron con req.body.StkRubroPres de contenido
     var cantenvases = req.body.cantidad;
     var d = new Date();
@@ -66,16 +68,29 @@ router.post("/", async function(req, res, next) {
         StkEnvaseImprimio: "N"
       };
 
-        conexion.query("INSERT INTO StkEnvase SET ?", registro, function(
-          err,
-          result
-        ) {
-        if (err) {
-          console.log("ERROR ");
-          console.log(err.errno);
-        } else {
-          res.json(result.rows);
-        }
+        conexion.query("INSERT INTO StkEnvase SET ?", registro, 
+        function(err, result)  {
+          if (err) {
+            console.log('err en back ', err)
+            if (err.errno == 1265) 
+               {
+                // console.log(err.sqlMessage + ' error en envase')
+              //   return res.status(413).send({message : "Faltan datos en agregar envase"});
+              return res.status(413).send({message : "Faltan datos para leer información en tabl"});
+             //    return res.status(413)
+
+                 //.json({message : "Faltan datos en agregar envase"});
+                }
+            else 
+              {
+                  console.log (err.errno);
+              }
+          }
+          else {
+            res.json(result);
+          }
+        
+      
       });
       nroenvase++;
     }
