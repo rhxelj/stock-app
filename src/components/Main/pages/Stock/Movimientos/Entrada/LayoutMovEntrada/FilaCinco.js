@@ -11,17 +11,27 @@ import { useContext } from "react";
 import { StkMovEntradaContext } from "../StkMovEntrada";
 import { initial_state } from "../Initial_State";
 
+import { stkitemsmodstock } from '../../../Items/StkItemsModStock';
+import {stkenvaseagregar } from '../../../Envase/StkEnvaseAgregar';
+import {stkitemsleedisp } from '../../../Items/StkItemsLeeDisp';
+
+
 export default function Fila() {
   const classes = useStyles();
   const { state, setState } = useContext(StkMovEntradaContext);
 
   const confirmar = async state => {
-    agregaStock(state);
-  };
-  // const cancelar = async state => {
-  //   setState(initial_state);
-  // };
 
+    stkitemsmodstock(state)
+   .then(stkenvaseagregar(state))
+  //  .then(stkitemsleedisp(state))
+  //  .then((resolve) => console.log('resolve  ' , resolve))
+
+   const cantidaddisponible = await stkitemsleedisp(state);
+   
+
+  };
+ 
   const actions = {
     confirmar: () => confirmar(state).then(console.log("Cambio efectuado")),
     cancelar: () => setState(initial_state) //cancelar(state)
