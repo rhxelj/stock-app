@@ -18,13 +18,19 @@ idStkItems
 var router = express();
 
 router.post("/", async function(req, res, next) {
- 
+
   var idStkItems = req.query.idStkItems;
   var StkItemsGrupo = req.query.idStkGrupo;
   var StkItemsRubro = req.query.idStkRubro;
   var StkRubroPres = req.body.StkRubroPres;
+  var StkEnvaseUbG = req.body.StkEnvaseUbG;
   var cantidad = req.body.cantidad;
-
+ 
+  if (StkEnvaseUbG == '')
+ {
+  res.status(413).send({message : "Faltan datos para ingresar información"});
+ }
+ else {
   var total = Number(cantidad) * Number(StkRubroPres);
 
   var d = new Date();
@@ -44,14 +50,15 @@ router.post("/", async function(req, res, next) {
       StkItemsGrupo +
       " and  StkItemsRubro = " +
       StkItemsRubro,
+
     function(err, result) {
       if (err) {
+        console.log('err en back ', err)
         if (err.errno == 1054) {
           return res
             .status(414)
-            .send({ message: "Faltan datos para ingresar la mercadería" });
+            .send({ message: "Faltan datos en sktitemsmodsctock" });
         } else {
-          console.log("error en stkitemsmodstock");
           console.log(err.errno);
         }
       } else {
@@ -59,6 +66,7 @@ router.post("/", async function(req, res, next) {
       }
     }
   );
+ }
 });
 
 module.exports = router;
