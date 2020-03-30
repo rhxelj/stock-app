@@ -66,18 +66,15 @@ export default function F2C1(props) {
   useEffect(() => {
     // setState({...state, idStkItems : ''})
     stkitemsleercodgryrb(state.idStkGrupo, state.idStkRubro); //leo rubros apartir del grupo seleccionado
- 
   }, [state.idStkRubro]);
 
-
   useEffect(() => {
-    if (state.stkitems.length === 1){
-      setState({...state, idStkItems : '1'})
+    if (state.stkitems.length === 1) {
+      setState({ ...state, idStkItems: "1" });
+    } else {
+      setState({ ...state, idStkItems: "" });
     }
-    else {
-      setState({...state, idStkItems : ''})
-    }
-   }, [state.stkitems]);
+  }, [state.stkitems]);
   const classes = useStyles();
 
   const textdata = [
@@ -117,7 +114,7 @@ export default function F2C1(props) {
       value: state.idStkItems,
       mapeo: (
         <>
-          <option></option> 
+          <option></option>
           {state.stkitems.map(option => (
             <option key={option.idStkItems} value={option.idStkItems}>
               {option.StkItemsDesc}
@@ -143,6 +140,7 @@ export default function F2C1(props) {
               onChange={handleChange}
               SelectProps={{ native: true }}
               variant="outlined"
+              autoFocus={data.id == "idStkGrupo" && true}
             >
               {data.mapeo}
             </TextField>

@@ -47,7 +47,7 @@ export default function Fila() {
             type="number"
             InputLabelProps={{ shrink: true }}
             value={state.cantidad}
-            autoFocus={true}
+            // autoFocus={true}
             onChange={handleChange}
           />
         </Grid>
@@ -59,7 +59,7 @@ export default function Fila() {
             type="text"
             InputLabelProps={{ shrink: true }}
             value={state.StkRubroPresDes}
-            autoFocus={true}
+            // autoFocus={true}
             InputProps={{
               endAdornment: <InputAdornment position="end">de :</InputAdornment>
             }}
@@ -102,7 +102,7 @@ export default function Fila() {
             InputLabelProps={{ shrink: true }}
             value={state.StkRubroAncho}
             onChange={handleChange}
-            autoFocus={true}
+            // autoFocus={true}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">de ancho</InputAdornment>

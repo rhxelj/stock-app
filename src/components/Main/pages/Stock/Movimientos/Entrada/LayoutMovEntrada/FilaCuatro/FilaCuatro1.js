@@ -43,7 +43,8 @@ export default function FilaCuatro() {
         </Grid>
         <Grid item xs>
           <TextField
-            // required
+            // inputProps={{ required: "required" }}
+            required
             error={!state.StkEnvaseUbG}
             helperText={!state.StkEnvaseUbG && "Este Dato es obligatorio"}
             size="small"
@@ -57,7 +58,7 @@ export default function FilaCuatro() {
             SelectProps={{
               native: true
             }}
-            autoFocus={true}
+            // autoFocus={true}
             className={classes.textField_150}
             // InputLabelProps={{ shrink: true }}
           >
@@ -83,7 +84,7 @@ export default function FilaCuatro() {
             SelectProps={{
               native: true
             }}
-            autoFocus={true}
+            // autoFocus={true}
             className={classes.textField_150}
           >
             <option></option>

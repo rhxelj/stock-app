@@ -19,7 +19,8 @@ import useStyles from "./StkMovEntradaStyle";
 import FilaDos from "./LayoutMovEntrada/FilaDos";
 import FilaTres from "./LayoutMovEntrada/FilaTres";
 import FilaCuatro from "./LayoutMovEntrada/FilaCuatro";
-import FilaCinco from "./LayoutMovEntrada/FilaCinco/";
+// import FilaCinco from "./LayoutMovEntrada/FilaCinco";
+import FilaCinco from "./LayoutMovEntrada/FilaCinco/index";
 import { initial_state } from "./Initial_State";
 
 export const StkMovEntradaContext = React.createContext();
