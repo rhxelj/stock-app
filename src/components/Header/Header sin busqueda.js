@@ -4,8 +4,8 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import { fade, makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -17,9 +17,7 @@ import Collapse from "@material-ui/core/Collapse";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import { movimientos, tablas } from "./menues";
 import { format } from "fecha";
-import InputBase from '@material-ui/core/InputBase';
-import SearchIcon from "@material-ui/icons/Search";
-import { TextField, InputAdornment } from "@material-ui/core";
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
@@ -28,46 +26,8 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2)
   },
   title: {
-    flexGrow: 1,
-  },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
-      width: 'auto',
-    },
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  inputRoot: {
-    color: 'inherit',
- 
-  },
-  inputInput: {
-    padding: theme.spacing(1, 8, 1, 1),
-    
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
+    flexGrow: 1
+  }
 }));
 
 const initial_state = {
@@ -85,7 +45,7 @@ const initial_state = {
 function Header() {
   const [state, setState] = useState(initial_state);
   const classes = useStyles();
-  const [buscar, setbuscar ]  = useState('');
+
   const { abrir_movimientos, abrir_tablas } = state;
 
   const toggleDrawer = (side, open) => event => {
@@ -110,10 +70,6 @@ function Header() {
       ...state,
       [stateToToggle]: !prevState[stateToToggle]
     }));
-  };
-  const handleChange = event => {
-   
-   setbuscar ({buscar : event.target.value });
   };
 
   const handleClose = prop => event => {
@@ -206,36 +162,15 @@ function Header() {
           >
             <MenuIcon onClick={toggleDrawer("left", true)}></MenuIcon>
           </IconButton>
-         {/* </Toolbar>   */}
-       <Typography variant="h6" className={classes.title} noWrap>
+          <Typography variant="h6" className={classes.title}>
             OlsaSG
           </Typography>
           {newMethod(abrir_movimientos, abrir_tablas)}
-          {/* <div className={classes.search}> */}
-          {/* <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div> */}
-        <InputBase
-          classes={{
-            root: classes.inputRoot,
-            input: classes.inputInput,
-          }}
-             inputProps={{ 'aria-label': 'search' }}
-            //  className="text__input"
-              type="text"
-              placeholder="Ingresa el texto a buscar"
-              onChange={handleChange}
-            />
-          <Typography variant="h6" >
-          {diafecha}
-          </Typography>
-          {/* </div> */}
-          
+          <Typography variant="h6">{diafecha}</Typography>
           {/* <Button color="inherit">{diafecha}</Button> */}
-  </Toolbar>
- 
-</AppBar>
-       
+        </Toolbar>
+      </AppBar>
+
       {/* <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -252,9 +187,7 @@ function Header() {
           {newMethod(abrir_movimientos, abrir_tablas)}
         </Toolbar>
       </AppBar> */}
-      {console.log('buscar  ', buscar)}
     </div>
-   
   );
   // }
 }
