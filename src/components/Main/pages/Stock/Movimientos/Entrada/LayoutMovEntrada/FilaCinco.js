@@ -16,7 +16,13 @@ export default function Fila() {
   const { state, setState } = useContext(StkMovEntradaContext);
 
   const confirmar = async state => {
+<<<<<<< HEAD
     agregaStock(state);
+=======
+    stkitemsmodstock(state)
+   .then(stkenvaseagregar(state))
+   const cantidaddisponible = await stkitemsleedisp(state);
+>>>>>>> Dev
   };
   // const cancelar = async state => {
   //   setState(initial_state);

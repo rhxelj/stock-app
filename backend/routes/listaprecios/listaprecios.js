@@ -28,8 +28,9 @@ router.get('/', function(req, res, next) {
     var coefmay = param.coeficientemay
     var coefmin = param.coeficientemin
     var minunion = param.cantminpu
-    var q = ['Select idStkRubro, StkRubroCodGrp, StkGrupo.StkGrupoDesc,',
-            ' StkRubroDesc, StkRubroCosto, StkRubroTM, ',
+    // var q = ['Select idStkRubro, StkRubroCodGrp, StkGrupo.StkGrupoDesc,',
+    //         ' StkRubroDesc, StkRubroCosto, StkRubroTM, ',
+    var q = ['Select idStkRubro, StkRubroCodGrp, StkRubroDesc,  ',            
             '(StkRubroCosto * StkMonedasCotizacion * ' + coefmin + ' ) as PPub, ',
             '(StkRubroCosto * StkMonedasCotizacion * ' + coefmay + ' ) as PMay, ',
             '((StkRubroCosto * StkMonedasCotizacion * ' + coefmay + ' ) + (REPValorMOT/60*'+minunion +')) as PMayPU, ', 
@@ -39,7 +40,6 @@ router.get('/', function(req, res, next) {
             'and StkRubroProv = idProveedores ', 
             'and StkRubroTM = idStkMonedas ', 
             'order by StkRubroCodGrp',].join(' ')
-    console.log(q)
     conexion.query(q,
         function(err, result) {
             if (err) {
