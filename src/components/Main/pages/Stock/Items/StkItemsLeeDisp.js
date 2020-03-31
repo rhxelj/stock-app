@@ -2,8 +2,7 @@ import request from "superagent";
 
 import IpServidor from "../../VariablesDeEntorno";
 
-export const stkitemsleedisp = state => {
-  console.log("estoy en  stkitemsleedisp ");
+export const stkitemsleedisp= (state) => {
   return new Promise(resolve => {
     if (
       state.idStkGrupo != "" &&
