@@ -35,6 +35,7 @@ export default function Fila() {
     const cantidaddisponible = await stkitemsleedisp(state);
     setCantidaddisponible(cantidaddisponible);
     handleClickOpen();
+    setState(initial_state);
   };
 
   const actions = {
