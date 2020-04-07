@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import request from "superagent";
 // import ReactTable from 'react-table'
 // import 'react-table/react-table.css'
@@ -11,29 +11,24 @@ import DoneIcon from "@material-ui/icons/Done";
 import IpServidor from "../VariablesDeEntorno";
 import CodigoError from "../../../lib/CodigoError";
 
-class StkMonedasBorrar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      // url:'http://localhost:4000/stkmonedasborrar/',
-      monedas: [],
-      // filtrado:[],
-      filtered: "",
-      toggle: true,
-      id: ""
-    };
-    // this.search = this.search.bind(this)
-    this.toggle = this.toggle.bind(this);
-  }
+function StkMonedasBorrar(props) {
+  const [state, setState] = useState({
+    // url:'http://localhost:4000/stkmonedasborrar/',
+    monedas: [],
+    // filtrado:[],
+    filtered: "",
+    toggle: true,
+    id: ""
+  });
 
-  toggle(event) {
-    this.setState(prevState => ({
+  function toggle(event) {
+    setState(...state, prevState => ({
       toggle: !prevState.toggle
     }));
   }
 
   // //Delete
-  deleteProduct = id => {
+  const deleteProduct = id => {
     const url = IpServidor + "/stkmonedasborrar/" + id;
     request
       //   .delete(this.state.url +id)
@@ -49,46 +44,25 @@ class StkMonedasBorrar extends Component {
     this.toggle();
   };
 
-  componentDidMount() {
-    // this.read()
-  }
-
-  render() {
-    return (
-      <div>
-        {/* <h1>Borrar Monedas</h1>
-                <input onChange={this.search} type="text" value={this.state.filtered}/> 
-                */}
-        {this.state.toggle ? (
-          <div>
-            {/* <Button 
-                        className=" red accent-4" 
-                        onClick={()=>this.toggle()}
-                        >
-                        <DeleteIcon  />
-                    </Button> */}
-
-            <IconButton onClick={() => this.toggle()} aria-label="Delete">
-              <DeleteIcon />
-            </IconButton>
-          </div>
-        ) : (
-          <div className="center-align">
-            <p>Esta seguro de "BORRAR" este Registro?</p>
-            <IconButton
-              color="primary"
-              onClick={() => this.deleteProduct(this.props.idMonedas)}
-            >
-              <DoneIcon />
-            </IconButton>
-            <IconButton color="secondary" onClick={() => this.toggle()}>
-              <ClearIcon />
-            </IconButton>
-          </div>
-        )}
+  return (
+    <>
+      <IconButton onClick={() => this.toggle()} aria-label="Delete">
+        <DeleteIcon />
+      </IconButton>
+      <div className="center-align">
+        <p>Esta seguro de "BORRAR" este Registro?</p>
+        <IconButton
+          color="primary"
+          onClick={() => this.deleteProduct(this.props.idMonedas)}
+        >
+          <DoneIcon />
+        </IconButton>
+        <IconButton color="secondary" onClick={() => this.toggle()}>
+          <ClearIcon />
+        </IconButton>
       </div>
-    );
-  }
+    </>
+  );
 }
 
 export default StkMonedasBorrar;
