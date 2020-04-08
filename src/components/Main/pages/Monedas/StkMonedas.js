@@ -47,7 +47,6 @@ function Monedas() {
       new Promise((resolve, reject) => {
         setTimeout(() => {
           {
-            console.log("oldData", oldData);
             borrarMonedas(oldData.idStkMonedas);
             initialFetch();
           }
