@@ -37,7 +37,7 @@ var stkgrupoagregar = require("./routes/stock/grupos/stkgrupoagregar");
 var stkgrupomodificar = require("./routes/stock/grupos/stkgrupomodificar");
 var stkgrupoborrar = require("./routes/stock/grupos/stkgrupoborrar");
 var stkgrupoleerred = require("./routes/stock/grupos/stkgrupoleerred");
-
+var stkgrupoleerredrubros = require("./routes/stock/grupos/stkgrupoleerredrubros");
 
 var stkubfisicaleer = require("./routes/stock/ubfisica/stkubfisicaleer");
 // var stkubfisicaleercod = require('./routes/ubfisica/stkubfisicaleercod');
@@ -162,6 +162,7 @@ app.use("/stkgrupoagregar", stkgrupoagregar);
 app.use("/stkgrupomodificar", stkgrupomodificar);
 app.use("/stkgrupoborrar", stkgrupoborrar);
 app.use("/stkgrupoleerred", stkgrupoleerred);
+app.use("/stkgrupoleerredrubros", stkgrupoleerredrubros);
 
 app.use("/stkubfisicaleer", stkubfisicaleer);
 // app.use('/stkubfisicaleercod', stkubfisicaleercod);
