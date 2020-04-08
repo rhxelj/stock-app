@@ -70,6 +70,7 @@ function Monedas() {
     {
       title: "Cotización",
       field: "StkMonedasCotizacion",
+      type: "currency",
       order: true,
     },
   ];
