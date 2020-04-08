@@ -2,7 +2,8 @@ import React, { Component, useState, useEffect } from "react";
 import request from "superagent";
 import IpServidor from "../VariablesDeEntorno";
 
-import StkMonedasAgregar from "./StkMonedasAgregar";
+import { leerMonedas } from "./StkMonedasLeer";
+import { addMoneda } from "./StkMonedasAgregar";
 import StkMonedasBorrar from "./StkMonedasBorrar";
 import StkMonedasModificar from "./StkMonedasModificar";
 
@@ -16,18 +17,10 @@ import { tableIcons } from "./Constants";
 function Monedas() {
   const [state, setState] = useState(initial_state);
 
-  //Read
-  const read = (_) => {
-    const url = IpServidor + "/stkmonedasleer";
-    request
-      .get(url)
-      .set("Content-Type", "application/json")
-      .then((res) => {
-        const monedas = JSON.parse(res.text);
-        // setState({monedas: monedas})
-        setState({ ...state, monedas });
-      });
-  };
+  async function initialFetch() {
+    const monedas = await leerMonedas();
+    setState({ ...state, monedas: monedas });
+  }
 
   const classes = styles;
 
@@ -49,41 +42,14 @@ function Monedas() {
     },
   ];
 
-  const addMoneda = (_) => {
-    const url = IpServidor + "/stkmonedasagregar";
-
-    request
-      .post(url)
-      .set("Content-Type", "application/json")
-      .send({ idStkMonedas: state.moneda.idStkMonedas })
-      .send({ StkMonedasDescripcion: state.moneda.StkMonedasDescripcion })
-      .send({ StkMonedasCotizacion: state.moneda.StkMonedasCotizacion })
-      .set("X-API-Key", "foobar")
-      .then(function(res) {
-        // res.body, res.headers, res.status
-        //     console.log('res.status  ' + res.status);
-        //     console.log('esta aca');
-        //     alert('Agrego correctamente');
-      });
-    // .catch((err) => CodigoError(err));
-  };
-
   useEffect(() => {
-    read();
-    // return () => {
-    //   setState({ state: state });
-    // };
+    initialFetch();
   }, []);
 
   useEffect(() => {
     if (state.moneda.idStkMonedas != "") {
-      addMoneda();
-      read();
-      // setState(initial_state);
-      // return () => {
-      //   setState(initial_state);
-      //   // console.log("Cleaning UP!!!");
-      // };
+      addMoneda(state.moneda);
+      initialFetch();
     }
   }, [state.moneda.idStkMonedas]);
 
@@ -94,12 +60,13 @@ function Monedas() {
         title="ABM DE Monedas"
         columns={columns}
         data={state.monedas}
+        options={{ addRowPosition: "first" }}
         editable={{
           onRowAdd: (newData) =>
             new Promise((resolve, reject) => {
-              console.log("state.moneda: ", state.moneda);
               const moneda = newData;
-              setState({ ...state, moneda: moneda });
+              setState({ ...state, moneda });
+
               resolve();
             }, 1000),
 
