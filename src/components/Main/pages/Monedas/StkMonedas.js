@@ -4,7 +4,7 @@ import IpServidor from "../VariablesDeEntorno";
 
 import { leerMonedas } from "./StkMonedasLeer";
 import { addMoneda } from "./StkMonedasAgregar";
-import StkMonedasBorrar from "./StkMonedasBorrar";
+import { borrarMonedas } from "./StkMonedasBorrar";
 import StkMonedasModificar from "./StkMonedasModificar";
 
 import { withStyles } from "@material-ui/core/styles";
@@ -23,6 +23,51 @@ function Monedas() {
   }
 
   const classes = styles;
+
+  function onRowAdd() {
+    return (newData) =>
+      new Promise((resolve, reject) => {
+        const moneda = newData;
+        setState({ ...state, moneda });
+        resolve();
+      }, 1000);
+  }
+
+  function onRowUpdate() {
+    return (newData, oldData) =>
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          {
+            console.log("newData", newData);
+            console.log("oldData", oldData);
+            // alert("modifico la fila");
+            // const data = state.data;
+            // const index = data.indexOf(oldData);
+            // data[index] = newData;
+            // setState({ data }, () => resolve());
+          }
+          resolve();
+        }, 1000);
+      });
+  }
+
+  function onRowDelete() {
+    return (oldData) =>
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          {
+            console.log("oldData", oldData);
+            borrarMonedas(oldData.idStkMonedas);
+            initialFetch(); // alert("Borro la fila");
+            // let data = state.data;
+            // const index = data.indexOf(oldData);
+            // data.splice(index, 1);
+            // setState({ data }, () => resolve());
+          }
+          resolve();
+        }, 1000);
+      });
+  }
 
   var columns = [
     {
@@ -62,43 +107,9 @@ function Monedas() {
         data={state.monedas}
         options={{ addRowPosition: "first" }}
         editable={{
-          onRowAdd: (newData) =>
-            new Promise((resolve, reject) => {
-              const moneda = newData;
-              setState({ ...state, moneda });
-
-              resolve();
-            }, 1000),
-
-          onRowUpdate: (newData, oldData) =>
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                {
-                  console.log("newData", newData);
-                  console.log("oldData", oldData);
-                  // alert("modifico la fila");
-                  // const data = state.data;
-                  // const index = data.indexOf(oldData);
-                  // data[index] = newData;
-                  // setState({ data }, () => resolve());
-                }
-                resolve();
-              }, 1000);
-            }),
-          onRowDelete: (oldData) =>
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                {
-                  console.log("oldData", oldData);
-                  // alert("Borro la fila");
-                  // let data = state.data;
-                  // const index = data.indexOf(oldData);
-                  // data.splice(index, 1);
-                  // setState({ data }, () => resolve());
-                }
-                resolve();
-              }, 1000);
-            }),
+          onRowAdd: onRowAdd(),
+          onRowUpdate: onRowUpdate(),
+          onRowDelete: onRowDelete(),
         }}
       />
     </div>
