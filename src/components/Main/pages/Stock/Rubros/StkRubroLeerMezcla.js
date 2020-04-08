@@ -4,19 +4,15 @@ import IpServidor from "../../VariablesDeEntorno";
 
 // Lee Rubro por codigo de gupo
 
-
-export const stkrubroleecodgrupored = idStkGrupo => {
+export const stkrubroleermezcla = () => {
   return new Promise(resolve => {
-    if (idStkGrupo !== 0) {
-      const url = IpServidor + "/stkrubroleecodgrupored/" + idStkGrupo;
+      const url = IpServidor + "/stkrubroleermezcla";
       request
         .get(url)
         .set("Content-Type", "application/json")
         .then(res => {
-          const stkrubro = JSON.parse(res.text);
-          resolve(stkrubro);
+          const rubro1 = JSON.parse(res.text);
+          resolve(rubro1);
         });
-    }
   });
 };
-

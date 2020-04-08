@@ -5,25 +5,19 @@ var conexion = require("../../conexion");
 
 conexion.connect(function(err) {
   if (!err) {
-    console.log("base de datos conectada en en en en stkrubroleecodgryrb");
+    console.log("base de datos conectada en stkgrupoleer");
   } else {
-    console.log("no se conecto en en stkrubroleecodgryrb");
+    console.log("no se conecto en stkgrupoleer");
   }
 });
 
 var router = express();
 
-router.get("/", async function(req, res, next) {
-  idStkRubro = req.query.idStkRubro;
-  StkRubroCodGrp = req.query.idStkGrupo;
-
+router.get("/", function(req, res, next) {
+  //'Select * from StkGrupo '
   var q = [
-    "Select * from StkRubro where idStkRubro = ",
-    idStkRubro,
-    " and  StkRubroCodGrp  = ",
-    StkRubroCodGrp
+    "Select idStkGrupo as StkRubroCodGrp, StkGrupoDesc from StkGrupo order by idStkGrupo"
   ].join(" ");
-
   conexion.query(q, function(err, result) {
     if (err) {
       console.log(err);
@@ -32,6 +26,5 @@ router.get("/", async function(req, res, next) {
     }
   });
 });
-
 conexion.end;
 module.exports = router;
