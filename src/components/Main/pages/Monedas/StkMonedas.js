@@ -1,11 +1,9 @@
 import React, { Component, useState, useEffect } from "react";
-import request from "superagent";
-import IpServidor from "../VariablesDeEntorno";
 
 import { leerMonedas } from "./StkMonedasLeer";
-import { addMoneda } from "./StkMonedasAgregar";
+import { agregarMonedas } from "./StkMonedasAgregar";
 import { borrarMonedas } from "./StkMonedasBorrar";
-import StkMonedasModificar from "./StkMonedasModificar";
+import { modificarMonedas } from "./StkMonedasModificar";
 
 import { withStyles } from "@material-ui/core/styles";
 import "../../../../Styles/TableHeader.css";
@@ -22,13 +20,11 @@ function Monedas() {
     setState({ ...state, monedas: monedas });
   }
 
-  const classes = styles;
-
   function onRowAdd() {
     return (newData) =>
       new Promise((resolve, reject) => {
-        const moneda = newData;
-        setState({ ...state, moneda });
+        agregarMonedas(newData);
+        initialFetch();
         resolve();
       }, 1000);
   }
@@ -38,13 +34,8 @@ function Monedas() {
       new Promise((resolve, reject) => {
         setTimeout(() => {
           {
-            console.log("newData", newData);
-            console.log("oldData", oldData);
-            // alert("modifico la fila");
-            // const data = state.data;
-            // const index = data.indexOf(oldData);
-            // data[index] = newData;
-            // setState({ data }, () => resolve());
+            modificarMonedas(newData);
+            initialFetch();
           }
           resolve();
         }, 1000);
@@ -58,11 +49,7 @@ function Monedas() {
           {
             console.log("oldData", oldData);
             borrarMonedas(oldData.idStkMonedas);
-            initialFetch(); // alert("Borro la fila");
-            // let data = state.data;
-            // const index = data.indexOf(oldData);
-            // data.splice(index, 1);
-            // setState({ data }, () => resolve());
+            initialFetch();
           }
           resolve();
         }, 1000);
@@ -90,13 +77,6 @@ function Monedas() {
   useEffect(() => {
     initialFetch();
   }, []);
-
-  useEffect(() => {
-    if (state.moneda.idStkMonedas != "") {
-      addMoneda(state.moneda);
-      initialFetch();
-    }
-  }, [state.moneda.idStkMonedas]);
 
   return (
     <div>

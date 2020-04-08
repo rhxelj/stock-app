@@ -11,8 +11,6 @@ export const leerMonedas = () => {
       .set("Content-Type", "application/json")
       .then((res) => {
         const monedas = JSON.parse(res.text);
-        console.log("dentro de leerMonedas :");
-        console.log(monedas);
         resolve(monedas);
       });
   });

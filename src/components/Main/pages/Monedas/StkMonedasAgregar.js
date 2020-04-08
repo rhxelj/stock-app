@@ -2,9 +2,9 @@ import CodigoError from "../../../lib/CodigoError";
 import IpServidor from "../VariablesDeEntorno";
 import request from "superagent";
 
-export function addMoneda(props) {
+export function agregarMonedas(props) {
   const { idStkMonedas, StkMonedasDescripcion, StkMonedasCotizacion } = props;
-  // console.log("props en addMoneda : ", idStkMonedas);
+  // console.log("props en agregarMonedas : ", idStkMonedas);
   const url = IpServidor + "/stkmonedasagregar";
   request
     .post(url)
@@ -18,12 +18,6 @@ export function addMoneda(props) {
       //     console.log('res.status  ' + res.status);
       //     console.log('esta aca');
       //     alert('Agrego correctamente');
-    });
-  // .catch((err) => CodigoError(err));
-  // };
-
-  // return (
-
-  // );
-  // }
+    })
+    .catch((err) => CodigoError(err));
 }
