@@ -3,6 +3,7 @@ import { stkGrupoLeerRedRubro } from "../Grupos/StkGrupoLeerRedRubro";
 import StkRubroB from "./StkRubroB";
 import { toUnicode } from "punycode";
 import { tableIcons } from "../../../../lib/material-table/tableIcons";
+import { localization } from "../../../../lib/material-table/localization";
 
 import MaterialTable, { Column } from "material-table";
 import IpServidor from "../../VariablesDeEntorno";
@@ -147,39 +148,7 @@ export default function StkRubro() {
         columns={rubro.columns}
         // columns={columns}
         data={rubro.data}
-        localization={
-          {
-            // body: {
-            //   editRow: {
-            //     saveTooltip: "Salvar",
-            //     cancelTooltip: "Cancelar",
-            //     deleteText: "Seguro quieres borrar este registro?",
-            //   },
-            //   addTooltip: "Adicionar",
-            //   deleteTooltip: "Borrar",
-            //   editTooltip: "Editar"
-            // },
-            // toolbar : {
-            //   searchPlaceholder : "Buscar"
-            // },
-            // grouping : {
-            //   groupedBy : 'Agrupado por : ',
-            //   placeholder : 'Arrastre los encabezados aquí para agrupar por'
-            // },
-            // pagination: {
-            //   firstTooltip: '1° Pág.',
-            //   firstAriaLabel: 'Primera',
-            //   previousTooltip: 'Anterior',
-            //   previousAriaLabel: 'Anterior',
-            //   nextTooltip: 'Próxima',
-            //   nextAriaLabel: 'Próxima',
-            //   labelRowsPerPage: 'filas/pág',
-            //   lastTooltip: 'Ult.Pág.',
-            //   lastAriaLabel: 'Filas',
-            //   labelRowsSelect: 'Filas',
-            // }
-          }
-        }
+        localization={localization}
         //   Add : 'ii'
         // }}
         options={{
