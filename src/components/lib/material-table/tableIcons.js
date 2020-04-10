@@ -17,10 +17,6 @@ import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 
-import TableCell from "@material-ui/core/TableCell";
-import { withStyles } from "@material-ui/core/styles";
-
-// Para usar en material-table
 export const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
   Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -44,56 +40,3 @@ export const tableIcons = {
   ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
-
-// Estilo para el boton de borrar
-export const style = {
-  padding: "0px",
-  width: "47px",
-};
-
-export const CustomTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
-
-export const styles = {
-  root: {
-    width: "100%",
-    //   marginTop: theme.spacing.unit * 3,
-    overflowX: "auto",
-  },
-  table: {
-    minWidth: 700,
-  },
-  row: {
-    // backgroundColor: 'red',
-    "&:nth-of-type(odd)": {
-      // backgroundColor: theme.palette.background.default,
-      // backgroundColor: 'red',
-    },
-  },
-  fab: {
-    // position: 'fixed',
-    // bottom: theme.spacing.unit * 2,
-    // right: theme.spacing.unit * 2,
-    // bottom: '100px',
-    // right: '100px',
-    background: "red",
-  },
-  icon: {
-    // margin: theme.spacing.unit,
-    fontSize: 32,
-  },
-};
-
-export const initial_state = [];
-// moneda: {
-//   idStkMonedas: "",
-//   StkMonedasDescripcion: "",
-//   StkMonedasCotizacion: 0,
-// },
