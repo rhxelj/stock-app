@@ -12,13 +12,14 @@ import MaterialTable from "material-table";
 import { style, styles, CustomTableCell, initial_state } from "./Constants";
 import { tableIcons } from "./Constants";
 import { columns } from "./StkTableColumnsMonedas";
+
 function Monedas() {
   const [data, setData] = useState(initial_state);
   // const [monedas, setData] = useState();
 
   async function initialFetch() {
     const monedas = await leerMonedas();
-    setData({ ...data, monedas });
+    setData(monedas);
   }
 
   function onRowAdd() {
@@ -58,6 +59,7 @@ function Monedas() {
 
   useEffect(() => {
     initialFetch();
+    console.log("dentro de useEffect");
   }, []);
 
   return (
@@ -66,7 +68,7 @@ function Monedas() {
         icons={tableIcons}
         title="ABM DE Monedas"
         columns={columns}
-        data={data.monedas}
+        data={data}
         options={{ addRowPosition: "first" }}
         editable={{
           onRowAdd: onRowAdd(),

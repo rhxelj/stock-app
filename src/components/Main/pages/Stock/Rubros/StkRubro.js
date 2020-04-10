@@ -16,8 +16,10 @@ import { stkgrupoleerredrubro } from "../Grupos/StkGrupoLeerRedRubro";
 import { ClickAwayListener } from "@material-ui/core";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 
+// import { columns } from "./StkTableColumnsRubros";
+
 export default function StkRubro() {
-  const [lookconst, setLookconst] = useState();
+  // const [lookconst, setLookconst] = useState();
 
   const [nameError, setNameError] = useState({
     error: false,
@@ -27,7 +29,8 @@ export default function StkRubro() {
 
   const [rubro, setRubro] = useState({ columns: [], data: [] });
 
-  // ***********************************************
+  const [columns, setColumns] = useState([]);
+  const [data, setData] = useState([]);
 
   async function stkgrupoleerredrubros() {
     const result = await stkGrupoLeerRedRubro();
@@ -35,122 +38,86 @@ export default function StkRubro() {
       acc[cur.StkRubroCodGrp] = cur.StkGrupoDesc;
       return acc;
     }, {});
-    setLookconst(obj);
+    columnsFill(obj);
   }
 
   async function stkrubroleemezcla() {
     const result = await stkrubroleermezcla();
-    setRubro({ ...rubro, data: result });
+    setData(() => result);
   }
 
   async function initialFetch() {
-    await stkgrupoleerredrubros();
-    console.log("ya setie loockconst");
+    stkgrupoleerredrubros();
+    stkrubroleemezcla();
   }
 
-  // ***********************************************
+  function columnsFill(lookup) {
+    setColumns([
+      {
+        title: "Rubro(ID)",
+        field: "idStkRubro",
+      },
+      {
+        title: "Descripción",
+        field: "StkRubroDesc",
+      },
+      {
+        title: "Grupo",
+        field: "StkRubroCodGrp",
+        lookup: lookup,
+        native: true,
+      },
+      {
+        title: "Abreviatura",
+        field: "StkRubroAbr",
+      },
+      {
+        title: "Proveedor",
+        field: "ProveedoresDesc",
+      },
+      {
+        title: "Ancho",
+        field: "StkRubroAncho",
+        emptyValue: "false",
+        // required : true,
+        //    type : 'currency'
+      },
+      {
+        title: "Presentación",
+        field: "StkRubroPresDes",
+      },
+      {
+        title: "Presentacion",
+        field: "StkRubroPres",
+      },
+      {
+        title: "Unidad De Medida",
+        field: "StkRubroUM",
+      },
+      {
+        title: "Costo",
+        field: "StkRubroCosto",
+      },
+      {
+        title: "Moneda",
+        field: "StkRubroTM",
+      },
+    ]);
+  }
 
   useEffect(() => {
     initialFetch();
     // stkrubroleemezcla();
-    console.log("1");
-    console.log("estoy en initial fetch ");
-    console.log("Rubro ", rubro);
-    console.log("1");
   }, []);
-
-  useEffect(() => {
-    stkrubroleemezcla();
-    console.log("2");
-    console.log("Rubro en useeffect cuando cambia rubro : ", rubro);
-    console.log("2");
-  }, [rubro.columns]);
-
-  useEffect(() => {
-    setRubro({
-      // ...rubro,
-      columns: [
-        {
-          title: "Rubro(ID)",
-          field: "idStkRubro",
-        },
-        {
-          title: "Descripción",
-          field: "StkRubroDesc",
-        },
-        {
-          title: "Grupo",
-          field: "StkRubroCodGrp",
-          lookup: lookconst,
-          native: true,
-        },
-        {
-          title: "Abreviatura",
-          field: "StkRubroAbr",
-        },
-        {
-          title: "Proveedor",
-          field: "ProveedoresDesc",
-        },
-        {
-          title: "Ancho",
-          field: "StkRubroAncho",
-          emptyValue: "false",
-          // required : true,
-          //    type : 'currency'
-        },
-        {
-          title: "Presentación",
-          field: "StkRubroPresDes",
-        },
-        {
-          title: "Presentacion",
-          field: "StkRubroPres",
-        },
-        {
-          title: "Unidad De Medida",
-          field: "StkRubroUM",
-        },
-        {
-          title: "Costo",
-          field: "StkRubroCosto",
-        },
-        {
-          title: "Moneda",
-          field: "StkRubroTM",
-        },
-      ],
-
-      data: [],
-    });
-    console.log("3");
-    console.log("estoy en initial useeffect lookconst ");
-    console.log("Rubro ", rubro);
-    console.log("3");
-  }, [lookconst]);
-
-  ////////
-
-  // useEffect(() => {
-  //   stkrubroleemezcla();
-  // }, []);
-
-  // useEffect(() => {}, [rubro.data]);
-
-  //////////////
 
   return (
     <div>
-      {/* {lookconst && <StkRubroB lookconst={lookconst}></StkRubroB>} */}
       <MaterialTable
         icons={tableIcons}
         title="Tabla Rubros"
-        columns={rubro.columns}
-        // columns={columns}
-        data={rubro.data}
+        columns={columns}
+        data={data}
         localization={localization}
-        //   Add : 'ii'
-        // }}
         options={{
           grouping: true,
           addRowPosition: "first",
