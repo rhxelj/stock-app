@@ -12,7 +12,6 @@ export const stkrubroleeproveedor = _ => {
       .set("Content-Type", "application/json")
       .then(res => {
         const stkrubroprov = JSON.parse(res.text);
-        console.log("objstkrubroprov en stkrubrolee.... ", stkrubroprov);
         resolve(stkrubroprov);
       });
   });

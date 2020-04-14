@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { stkGrupoLeerRedRubro } from "../Grupos/StkGrupoLeerRedRubro";
-import StkRubroB from "./StkRubroB";
-import { toUnicode } from "punycode";
+import { stkrubroleeproveedor } from "./StkRubroLeeProveedor";
 import { tableIcons } from "../../../../lib/material-table/tableIcons";
 import { localization } from "../../../../lib/material-table/localization";
+import { stkrubroleermezcla } from "./StkRubroLeerMezcla";
 
 import MaterialTable, { Column } from "material-table";
-import IpServidor from "../../VariablesDeEntorno";
-import request from "superagent";
-import Button from "@material-ui/core/Button";
-import StkRubroAgregar from "./StkRubroAgregar";
-import { lookup } from "dns";
-import { stkrubroleermezcla } from "./StkRubroLeerMezcla";
-import { stkgrupoleerredrubro } from "../Grupos/StkGrupoLeerRedRubro";
-import { ClickAwayListener } from "@material-ui/core";
-import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
-import { stkrubroleeproveedor } from "./StkRubroLeeProveedor";
-// import { columns } from "./StkTableColumnsRubros";
+
+// import StkRubroB from "./StkRubroB";
+// import { toUnicode } from "punycode";
+// import IpServidor from "../../VariablesDeEntorno";
+// import request from "superagent";
+// import Button from "@material-ui/core/Button";
+// import StkRubroAgregar from "./StkRubroAgregar";
+// import { lookup } from "dns";
+// import { ClickAwayListener } from "@material-ui/core";
+// import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
+// import { stkGrupoLeerRedRubro } from "./StkTableColumnsRubros";
 
 export default function StkRubro() {
   // const [lookconst, setLookconst] = useState();
@@ -32,6 +32,7 @@ export default function StkRubro() {
   const [columns, setColumns] = useState([]);
   const [data, setData] = useState([]);
 
+  // Lleno columna - inicio
   async function stkgrupoleerredrubros() {
     const stkgrupo = await stkGrupoLeerRedRubro();
     var objstkgrupo = await stkgrupo.reduce(function(acc, cur, i) {
@@ -44,9 +45,9 @@ export default function StkRubro() {
       acc[cur.StkRubroProv] = cur.ProveedoresDesc;
       return acc;
     }, {});
-    console.log("objstkrubroprov ", objstkrubroprov);
     columnsFill(objstkgrupo, objstkrubroprov);
   }
+  // Lleno columna - fin
 
   async function stkrubroleemezcla() {
     const result = await stkrubroleermezcla();
@@ -114,6 +115,20 @@ export default function StkRubro() {
     ]);
   }
 
+  function onRowadd(newData) {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve();
+        setRubro(prevRubro => {
+          const data = [...prevRubro.data];
+          console.log(newData);
+          data.push(newData);
+          return { ...prevRubro, data };
+        });
+      }, 600);
+    });
+  }
+
   useEffect(() => {
     initialFetch();
     // stkrubroleemezcla();
@@ -132,18 +147,7 @@ export default function StkRubro() {
           addRowPosition: "first"
         }}
         editable={{
-          onRowAdd: newData =>
-            new Promise(resolve => {
-              setTimeout(() => {
-                resolve();
-                setRubro(prevRubro => {
-                  const data = [...prevRubro.data];
-                  console.log(newData);
-                  data.push(newData);
-                  return { ...prevRubro, data };
-                });
-              }, 600);
-            }),
+          onRowAdd: newData => onRowadd(newData),
 
           onRowUpdate: (newData, oldData) =>
             new Promise((resolve, reject) => {
