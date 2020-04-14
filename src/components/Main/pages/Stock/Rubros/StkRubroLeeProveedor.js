@@ -4,19 +4,16 @@ import IpServidor from "../../VariablesDeEntorno";
 
 // Lee Rubro por codigo de gupo
 
-
-export const stkrubroleeproveedor = StkRubroProv => {
+export const stkrubroleeproveedor = _ => {
   return new Promise(resolve => {
-    if (StkRubroProv !== 0) {
-      const url = IpServidor + "/stkrubroleeproveedor/" + StkRubroProv;
-      request
-        .get(url)
-        .set("Content-Type", "application/json")
-        .then(res => {
-          const stkrubro = JSON.parse(res.text);
-          resolve(stkrubro);
-        });
-    }
+    const url = IpServidor + "/stkrubroleeproveedor";
+    request
+      .get(url)
+      .set("Content-Type", "application/json")
+      .then(res => {
+        const stkrubroprov = JSON.parse(res.text);
+        console.log("objstkrubroprov en stkrubrolee.... ", stkrubroprov);
+        resolve(stkrubroprov);
+      });
   });
 };
-

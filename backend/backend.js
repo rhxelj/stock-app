@@ -56,8 +56,7 @@ var stkrubroleecodgrupo = require("./routes/stock/rubros/stkrubroleecodgrupo");
 var stkrubroleecodgryrb = require("./routes/stock/rubros/stkrubroleecodgryrb");
 var stkrubroleeultnro = require("./routes/stock/rubros/stkrubroleeultnro");
 var stkrubroleecodgrupored = require("./routes/stock/rubros/stkrubroleecodgrupored");
-
-
+var stkrubroleeproveedor = require("./routes/stock/rubros/stkrubroleeproveedor");
 
 var stkitemsleer = require("./routes/stock/items/stkitemsleer");
 var stkitemsagregar = require("./routes/stock/items/stkitemsagregar");
@@ -70,7 +69,7 @@ var stkitemsleedetalles = require("./routes/stock/items/stkitemsleedetalles");
 var stkitemsleedisp = require("./routes/stock/items/stkitemsleedisp");
 var stkitemsmoddisp = require("./routes/stock/items/stkitemsmoddisp");
 var stkitemsmodstock = require("./routes/stock/items/stkitemsmodstock");
-
+// var stkitemslistaprecios = require("./routes/stock/items/stkitemslistaprecios");
 
 var stkitemsventa = require("./routes/stock/items/stkitemsventa"); //una prueba
 
@@ -131,9 +130,6 @@ app.use("/proveedoresagregar", proveedoresagregar);
 app.use("/proveedoresmodificar", proveedoresmodificar);
 app.use("/proveedoresborrar", proveedoresborrar);
 
-
-
-
 app.use("/stkbgsubrubroleer", stkbgsubrubroleer);
 
 app.use("/stkmonedasleer", stkmonedasleer);
@@ -181,6 +177,7 @@ app.use("/stkrubroleecodgrupo", stkrubroleecodgrupo);
 app.use("/stkrubroleecodgryrb", stkrubroleecodgryrb);
 app.use("/stkrubroleeultnro", stkrubroleeultnro);
 app.use("/stkrubroleecodgrupored", stkrubroleecodgrupored);
+app.use("/stkrubroleeproveedor", stkrubroleeproveedor);
 
 app.use("/stkitemsleer", stkitemsleer);
 app.use("/stkitemsagregar", stkitemsagregar);
@@ -195,6 +192,8 @@ app.use("/stkitemsmoddisp", stkitemsmoddisp);
 app.use("/stkverificadisp", stkverificadisp);
 
 app.use("/stkitemsmodstock", stkitemsmodstock);
+// app.use("/stkitemslistaprecios", stkitemslistaprecios);
+
 app.use("/stkmovsalfinal", stkmovsalfinal);
 app.use("/stkmovenvase", stkmovenvase);
 
