@@ -4,6 +4,7 @@ import { stkrubroleeproveedor } from "./StkRubroLeeProveedor";
 import { tableIcons } from "../../../../lib/material-table/tableIcons";
 import { localization } from "../../../../lib/material-table/localization";
 import { stkrubroleermezcla } from "./StkRubroLeerMezcla";
+import { agregarRubros } from "./StkRubroAgregar";
 
 import MaterialTable, { Column } from "material-table";
 
@@ -61,10 +62,10 @@ export default function StkRubro() {
 
   function columnsFill(objstkgrupo, objstkrubroprov) {
     setColumns([
-      {
-        title: "Rubro(ID)",
-        field: "idStkRubro"
-      },
+      // {
+      //   title: "Rubro(ID)",
+      //   field: "idStkRubro"
+      // },
       {
         title: "Descripción",
         field: "StkRubroDesc"
@@ -81,7 +82,9 @@ export default function StkRubro() {
       },
       {
         title: "Proveedor",
-        field: "ProveedoresDesc",
+        // field: "ProveedoresDesc",
+        field: "StkRubroProv",
+
         lookup: objstkrubroprov,
         native: true
       },
@@ -93,7 +96,7 @@ export default function StkRubro() {
         //    type : 'currency'
       },
       {
-        title: "Presentación",
+        title: "Pres. Descripción",
         field: "StkRubroPresDes"
       },
       {
@@ -118,13 +121,12 @@ export default function StkRubro() {
   function onRowadd(newData) {
     return new Promise(resolve => {
       setTimeout(() => {
-        resolve();
-        setRubro(prevRubro => {
-          const data = [...prevRubro.data];
+        {
+          agregarRubros(newData);
           console.log(newData);
-          data.push(newData);
-          return { ...prevRubro, data };
-        });
+          stkrubroleemezcla();
+        }
+        resolve();
       }, 600);
     });
   }
@@ -144,7 +146,8 @@ export default function StkRubro() {
         localization={localization}
         options={{
           grouping: true,
-          addRowPosition: "first"
+          addRowPosition: "first",
+          actionsColumnIndex: -1
         }}
         editable={{
           onRowAdd: newData => onRowadd(newData),
