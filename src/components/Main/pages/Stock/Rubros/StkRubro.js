@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { stkGrupoLeerRedRubro } from "../Grupos/StkGrupoLeerRedRubro";
+
 import { stkrubroleeproveedor } from "./StkRubroLeeProveedor";
+import { stkUnMedLeerRed } from "./StkUnMedLeerRed";
+import { stkMonedasleerRed } from "./StkMonedasLeerRed";
+import { buscaCodigo } from "./BuscaCodigo";
+
 import { tableIcons } from "../../../../lib/material-table/tableIcons";
 import { localization } from "../../../../lib/material-table/localization";
 import { stkrubroleermezcla } from "./StkRubroLeerMezcla";
@@ -25,7 +30,7 @@ export default function StkRubro() {
   const [nameError, setNameError] = useState({
     error: false,
     label: "",
-    helperText: ""
+    helperText: "",
   });
 
   const [rubro, setRubro] = useState({ columns: [], data: [] });
@@ -46,10 +51,22 @@ export default function StkRubro() {
       acc[cur.StkRubroProv] = cur.ProveedoresDesc;
       return acc;
     }, {});
-    columnsFill(objstkgrupo, objstkrubroprov);
-  }
-  // Lleno columna - fin
 
+    const stkUnMed = await stkUnMedLeerRed();
+    var objstkUnMed = await stkUnMed.reduce(function(acc, cur, i) {
+      acc[cur.idStkUnMed] = cur.StkUnMedDesc;
+      return acc;
+    }, {});
+
+    const stkMonedas = await stkMonedasleerRed();
+    var objstkMonedas = await stkMonedas.reduce(function(acc, cur, i) {
+      acc[cur.idStkMonedas] = cur.StkMonedasDescripcion;
+      return acc;
+    }, {});
+
+    columnsFill(objstkgrupo, objstkrubroprov, objstkUnMed, objstkMonedas);
+  }
+  // Lleno columna - fin{idStkMonedas: "qaz", StkMonedasDescripcion: "DES1700"}
   async function stkrubroleemezcla() {
     const result = await stkrubroleermezcla();
     setData(() => result);
@@ -60,7 +77,12 @@ export default function StkRubro() {
     stkrubroleemezcla();
   }
 
-  function columnsFill(objstkgrupo, objstkrubroprov) {
+  function columnsFill(
+    objstkgrupo,
+    objstkrubroprov,
+    objstkUnMed,
+    objstkMonedas
+  ) {
     setColumns([
       // {
       //   title: "Rubro(ID)",
@@ -68,17 +90,20 @@ export default function StkRubro() {
       // },
       {
         title: "Descripción",
-        field: "StkRubroDesc"
+        field: "StkRubroDesc",
       },
       {
         title: "Grupo",
         field: "StkRubroCodGrp",
         lookup: objstkgrupo,
-        native: true
+        native: true,
       },
       {
         title: "Abreviatura",
-        field: "StkRubroAbr"
+        field: "StkRubroAbr",
+        // editComponent: (props) => (
+        //   <input styletype="text" maxlength="2"  />
+        // ),
       },
       {
         title: "Proveedor",
@@ -86,45 +111,51 @@ export default function StkRubro() {
         field: "StkRubroProv",
 
         lookup: objstkrubroprov,
-        native: true
+        native: true,
       },
       {
         title: "Ancho",
         field: "StkRubroAncho",
-        emptyValue: "false"
+        emptyValue: "false",
         // required : true,
         //    type : 'currency'
       },
       {
         title: "Pres. Descripción",
-        field: "StkRubroPresDes"
+        field: "StkRubroPresDes",
       },
       {
         title: "Presentacion",
-        field: "StkRubroPres"
+        field: "StkRubroPres",
       },
       {
         title: "Unidad De Medida",
-        field: "StkRubroUM"
+        field: "StkRubroUM",
+        lookup: objstkUnMed,
       },
       {
         title: "Costo",
-        field: "StkRubroCosto"
+        field: "StkRubroCosto",
       },
       {
         title: "Moneda",
-        field: "StkRubroTM"
-      }
+        field: "StkRubroTM",
+        lookup: objstkMonedas,
+      },
     ]);
   }
 
   function onRowadd(newData) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       setTimeout(() => {
         {
-          agregarRubros(newData);
-          console.log(newData);
-          stkrubroleemezcla();
+          // buscaCodigo().then((codigo) => console.log("codigo => ", codigo));
+          agregarRubros(newData).then(
+            (res) => console.log(res)
+            // stkrubroleemezcla()
+          );
+          // console.log(newData);
+          console.log("Volvi de agregar ....");
         }
         resolve();
       }, 600);
@@ -147,10 +178,10 @@ export default function StkRubro() {
         options={{
           grouping: true,
           addRowPosition: "first",
-          actionsColumnIndex: -1
+          actionsColumnIndex: -1,
         }}
         editable={{
-          onRowAdd: newData => onRowadd(newData),
+          onRowAdd: (newData) => onRowadd(newData),
 
           onRowUpdate: (newData, oldData) =>
             new Promise((resolve, reject) => {
@@ -159,14 +190,14 @@ export default function StkRubro() {
                   setNameError({
                     error: true,
                     label: "required",
-                    helperText: "Required helper text"
+                    helperText: "Required helper text",
                   });
                   reject();
                   return;
                 }
                 resolve();
                 if (oldData) {
-                  setRubro(prevRubro => {
+                  setRubro((prevRubro) => {
                     const data = [...prevRubro.data];
                     data[data.indexOf(oldData)] = newData;
                     console.log(newData);
@@ -175,17 +206,17 @@ export default function StkRubro() {
                 }
               }, 600);
             }),
-          onRowDelete: oldData =>
-            new Promise(resolve => {
+          onRowDelete: (oldData) =>
+            new Promise((resolve) => {
               setTimeout(() => {
                 resolve();
-                setRubro(prevRubro => {
+                setRubro((prevRubro) => {
                   const data = [...prevRubro.data];
                   data.splice(data.indexOf(oldData), 1);
                   return { ...prevRubro, data };
                 });
               }, 600);
-            })
+            }),
         }}
       />
     </div>

@@ -20,6 +20,7 @@ var stkmonedasleercod = require("./routes/monedas/stkmonedasleercod");
 var stkmonedasagregar = require("./routes/monedas/stkmonedasagregar");
 var stkmonedasmodificar = require("./routes/monedas/stkmonedasmodificar");
 var stkmonedasborrar = require("./routes/monedas/stkmonedasborrar");
+var stkmonedasleerred = require("./routes/monedas/stkmonedasleerred");
 
 // var stkbgsubrubroleer = require('./routes/stkbgsubrubroleer');
 
@@ -30,6 +31,7 @@ var stkunmedleercod = require("./routes/stock/unidadmedidas/stkunmedleercod");
 var stkunmedagregar = require("./routes/stock/unidadmedidas/stkunmedagregar");
 var stkunmedmodificar = require("./routes/stock/unidadmedidas/stkunmedmodificar");
 var stkunmedborrar = require("./routes/stock/unidadmedidas/stkunmedborrar");
+var stkunmedleerred = require("./routes/stock/unidadmedidas/stkunmedleerred");
 
 var stkgrupoleer = require("./routes/stock/grupos/stkgrupoleer");
 var stkgrupoleercod = require("./routes/stock/grupos/stkgrupoleercod");
@@ -137,7 +139,7 @@ app.use("/stkmonedasleercod", stkmonedasleercod);
 app.use("/stkmonedasagregar", stkmonedasagregar);
 app.use("/stkmonedasmodificar", stkmonedasmodificar);
 app.use("/stkmonedasborrar", stkmonedasborrar);
-
+app.use("/stkmonedasleerred", stkmonedasleerred);
 // app.use('/stkbgsubrubroleer', stkbgsubrubroleer);
 
 app.use("/stktipoproveedleer", stktipoproveedleer);
@@ -151,6 +153,7 @@ app.use("/stkunmedleercod", stkunmedleercod);
 app.use("/stkunmedagregar", stkunmedagregar);
 app.use("/stkunmedmodificar", stkunmedmodificar);
 app.use("/stkunmedborrar", stkunmedborrar);
+app.use("/stkunmedleerred", stkunmedleerred);
 
 app.use("/stkgrupoleer", stkgrupoleer);
 app.use("/stkgrupoleercod", stkgrupoleercod);
