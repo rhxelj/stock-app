@@ -101,9 +101,7 @@ export default function StkRubro() {
       {
         title: "Abreviatura",
         field: "StkRubroAbr",
-        // editComponent: (props) => (
-        //   <input styletype="text" maxlength="2"  />
-        // ),
+        // editComponent: (props) => <input maxlength="4" />,
       },
       {
         title: "Proveedor",
@@ -117,6 +115,10 @@ export default function StkRubro() {
         title: "Ancho",
         field: "StkRubroAncho",
         emptyValue: "false",
+        type: "numeric",
+        // editComponent: (props) => (
+        //   <input type="number" value={props.StkRubroAncho} />
+        // ),
         // required : true,
         //    type : 'currency'
       },
@@ -127,6 +129,10 @@ export default function StkRubro() {
       {
         title: "Presentacion",
         field: "StkRubroPres",
+        type: "numeric",
+        // editComponent: (props) => (
+        //   <input type="number" value={props.StkRubroPres} />
+        // ),
       },
       {
         title: "Unidad De Medida",
@@ -136,6 +142,10 @@ export default function StkRubro() {
       {
         title: "Costo",
         field: "StkRubroCosto",
+        type: "currency",
+        // editComponent: (props) => (
+        //   <input type="number" value={props.StkRubroCosto} />
+        // ),
       },
       {
         title: "Moneda",
@@ -149,13 +159,7 @@ export default function StkRubro() {
     return new Promise((resolve) => {
       setTimeout(() => {
         {
-          // buscaCodigo().then((codigo) => console.log("codigo => ", codigo));
-          agregarRubros(newData).then(
-            (res) => console.log(res)
-            // stkrubroleemezcla()
-          );
-          // console.log(newData);
-          console.log("Volvi de agregar ....");
+          agregarRubros(newData).then(() => stkrubroleemezcla());
         }
         resolve();
       }, 600);
