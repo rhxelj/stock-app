@@ -1,14 +1,3 @@
-// import React, { Component } from "react";
-// import {
-//   Button,
-//   Dialog,
-//   DialogActions,
-//   DialogContent,
-//   DialogTitle,
-//   Grid,
-//   TextField,
-// } from "@material-ui/core";
-
 import CodigoError from "../../../../lib/CodigoError";
 import IpServidor from "../../VariablesDeEntorno";
 import request from "superagent";
