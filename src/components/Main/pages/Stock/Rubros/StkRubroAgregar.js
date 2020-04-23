@@ -6,7 +6,6 @@ export function agregarRubros(props) {
   return new Promise(function(resolve, reject) {
     const {
       idStkRubro,
-      var2,
       StkRubroCodGrp,
       StkRubroDesc,
       StkRubroAbr,

@@ -12,6 +12,7 @@ import { stkrubroleermezcla } from "./StkRubroLeerMezcla";
 import { agregarRubros } from "./StkRubroAgregar";
 
 import MaterialTable, { Column } from "material-table";
+import { modificarRubros } from "./StkRubroModificar";
 
 // import StkRubroB from "./StkRubroB";
 // import { toUnicode } from "punycode";
@@ -34,7 +35,7 @@ export default function StkRubro() {
   });
 
   const [rubro, setRubro] = useState({ columns: [], data: [] });
-
+  const [strubromodificar, setStkrubromodificar] = useState(false);
   const [columns, setColumns] = useState([]);
   const [data, setData] = useState([]);
 
@@ -101,7 +102,13 @@ export default function StkRubro() {
       {
         title: "Abreviatura",
         field: "StkRubroAbr",
-        // editComponent: (props) => <input maxlength="4" />,
+        editComponent: (props) => (
+          <input
+            maxlength="4"
+            value={props.value}
+            onChange={(e) => props.onChange(e.target.value)}
+          />
+        ),
       },
       {
         title: "Proveedor",
@@ -116,9 +123,14 @@ export default function StkRubro() {
         field: "StkRubroAncho",
         emptyValue: "false",
         type: "numeric",
-        // editComponent: (props) => (
-        //   <input type="number" value={props.StkRubroAncho} />
-        // ),
+        editComponent: (props) => (
+          <input
+            // type="number"
+            // value={props.StkRubroAncho}
+            value={props.value}
+            onChange={(e) => props.onChange(e.target.value)}
+          />
+        ),
         // required : true,
         //    type : 'currency'
       },
@@ -143,9 +155,13 @@ export default function StkRubro() {
         title: "Costo",
         field: "StkRubroCosto",
         type: "currency",
-        // editComponent: (props) => (
-        //   <input type="number" value={props.StkRubroCosto} />
-        // ),
+        editComponent: (props) => (
+          <input
+            type="number"
+            value={props.value}
+            onChange={(e) => props.onChange(e.target.value)}
+          />
+        ),
       },
       {
         title: "Moneda",
@@ -154,6 +170,11 @@ export default function StkRubro() {
       },
     ]);
   }
+
+  useEffect(() => {
+    initialFetch();
+    // stkrubroleemezcla();
+  }, []);
 
   function onRowadd(newData) {
     return new Promise((resolve) => {
@@ -165,11 +186,15 @@ export default function StkRubro() {
       }, 600);
     });
   }
-
-  useEffect(() => {
-    initialFetch();
-    // stkrubroleemezcla();
-  }, []);
+  // {
+  function onRowUpdate(newData, oldData) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        modificarRubros(newData).then(() => stkrubroleemezcla());
+        resolve();
+      }, 600);
+    });
+  }
 
   return (
     <div>
@@ -183,33 +208,17 @@ export default function StkRubro() {
           grouping: true,
           addRowPosition: "first",
           actionsColumnIndex: -1,
+          // tableLayout: "fixed",
         }}
+        // components={{
+        //   EditRow: (props) => console.log("Props : ", props),
+        //   // <StkRubroModificar open={true} />,
+        // }}
         editable={{
           onRowAdd: (newData) => onRowadd(newData),
 
-          onRowUpdate: (newData, oldData) =>
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                if (newData.StkRubroDesc === "") {
-                  setNameError({
-                    error: true,
-                    label: "required",
-                    helperText: "Required helper text",
-                  });
-                  reject();
-                  return;
-                }
-                resolve();
-                if (oldData) {
-                  setRubro((prevRubro) => {
-                    const data = [...prevRubro.data];
-                    data[data.indexOf(oldData)] = newData;
-                    console.log(newData);
-                    return { ...prevRubro, data };
-                  });
-                }
-              }, 600);
-            }),
+          onRowUpdate: (newData, oldData) => onRowUpdate(newData, oldData),
+
           onRowDelete: (oldData) =>
             new Promise((resolve) => {
               setTimeout(() => {
@@ -223,6 +232,7 @@ export default function StkRubro() {
             }),
         }}
       />
+      {/* {strubromodificar&&<StkRubroModificar/>} */}
     </div>
   );
 }
