@@ -9,21 +9,12 @@ import { buscaCodigo } from "./BuscaCodigo";
 import { tableIcons } from "../../../../lib/material-table/tableIcons";
 import { localization } from "../../../../lib/material-table/localization";
 import { stkrubroleermezcla } from "./StkRubroLeerMezcla";
-import { agregarRubros } from "./StkRubroAgregar";
 
-import MaterialTable, { Column } from "material-table";
+import { agregarRubros } from "./StkRubroAgregar";
+import { borrarRubros } from "./StkRubroBorrar";
 import { modificarRubros } from "./StkRubroModificar";
 
-// import StkRubroB from "./StkRubroB";
-// import { toUnicode } from "punycode";
-// import IpServidor from "../../VariablesDeEntorno";
-// import request from "superagent";
-// import Button from "@material-ui/core/Button";
-// import StkRubroAgregar from "./StkRubroAgregar";
-// import { lookup } from "dns";
-// import { ClickAwayListener } from "@material-ui/core";
-// import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
-// import { stkGrupoLeerRedRubro } from "./StkTableColumnsRubros";
+import MaterialTable, { Column } from "material-table";
 
 export default function StkRubro() {
   // const [lookconst, setLookconst] = useState();
@@ -186,13 +177,22 @@ export default function StkRubro() {
       }, 600);
     });
   }
-  // {
+
   function onRowUpdate(newData, oldData) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         modificarRubros(newData).then(() => stkrubroleemezcla());
         resolve();
       }, 600);
+    });
+  }
+
+  function onRowDelete(oldData) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        borrarRubros(oldData).then(() => stkrubroleemezcla());
+      }, 600);
+      resolve();
     });
   }
 
@@ -219,20 +219,9 @@ export default function StkRubro() {
 
           onRowUpdate: (newData, oldData) => onRowUpdate(newData, oldData),
 
-          onRowDelete: (oldData) =>
-            new Promise((resolve) => {
-              setTimeout(() => {
-                resolve();
-                setRubro((prevRubro) => {
-                  const data = [...prevRubro.data];
-                  data.splice(data.indexOf(oldData), 1);
-                  return { ...prevRubro, data };
-                });
-              }, 600);
-            }),
+          onRowDelete: (oldData) => onRowDelete(oldData),
         }}
       />
-      {/* {strubromodificar&&<StkRubroModificar/>} */}
     </div>
   );
 }
