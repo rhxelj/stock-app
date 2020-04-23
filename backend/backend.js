@@ -20,6 +20,7 @@ var stkmonedasleercod = require("./routes/monedas/stkmonedasleercod");
 var stkmonedasagregar = require("./routes/monedas/stkmonedasagregar");
 var stkmonedasmodificar = require("./routes/monedas/stkmonedasmodificar");
 var stkmonedasborrar = require("./routes/monedas/stkmonedasborrar");
+var stkmonedasleerred = require("./routes/monedas/stkmonedasleerred");
 
 // var stkbgsubrubroleer = require('./routes/stkbgsubrubroleer');
 
@@ -30,6 +31,7 @@ var stkunmedleercod = require("./routes/stock/unidadmedidas/stkunmedleercod");
 var stkunmedagregar = require("./routes/stock/unidadmedidas/stkunmedagregar");
 var stkunmedmodificar = require("./routes/stock/unidadmedidas/stkunmedmodificar");
 var stkunmedborrar = require("./routes/stock/unidadmedidas/stkunmedborrar");
+var stkunmedleerred = require("./routes/stock/unidadmedidas/stkunmedleerred");
 
 var stkgrupoleer = require("./routes/stock/grupos/stkgrupoleer");
 var stkgrupoleercod = require("./routes/stock/grupos/stkgrupoleercod");
@@ -56,8 +58,7 @@ var stkrubroleecodgrupo = require("./routes/stock/rubros/stkrubroleecodgrupo");
 var stkrubroleecodgryrb = require("./routes/stock/rubros/stkrubroleecodgryrb");
 var stkrubroleeultnro = require("./routes/stock/rubros/stkrubroleeultnro");
 var stkrubroleecodgrupored = require("./routes/stock/rubros/stkrubroleecodgrupored");
-
-
+var stkrubroleeproveedor = require("./routes/stock/rubros/stkrubroleeproveedor");
 
 var stkitemsleer = require("./routes/stock/items/stkitemsleer");
 var stkitemsagregar = require("./routes/stock/items/stkitemsagregar");
@@ -70,7 +71,7 @@ var stkitemsleedetalles = require("./routes/stock/items/stkitemsleedetalles");
 var stkitemsleedisp = require("./routes/stock/items/stkitemsleedisp");
 var stkitemsmoddisp = require("./routes/stock/items/stkitemsmoddisp");
 var stkitemsmodstock = require("./routes/stock/items/stkitemsmodstock");
-
+// var stkitemslistaprecios = require("./routes/stock/items/stkitemslistaprecios");
 
 var stkitemsventa = require("./routes/stock/items/stkitemsventa"); //una prueba
 
@@ -131,9 +132,6 @@ app.use("/proveedoresagregar", proveedoresagregar);
 app.use("/proveedoresmodificar", proveedoresmodificar);
 app.use("/proveedoresborrar", proveedoresborrar);
 
-
-
-
 app.use("/stkbgsubrubroleer", stkbgsubrubroleer);
 
 app.use("/stkmonedasleer", stkmonedasleer);
@@ -141,7 +139,7 @@ app.use("/stkmonedasleercod", stkmonedasleercod);
 app.use("/stkmonedasagregar", stkmonedasagregar);
 app.use("/stkmonedasmodificar", stkmonedasmodificar);
 app.use("/stkmonedasborrar", stkmonedasborrar);
-
+app.use("/stkmonedasleerred", stkmonedasleerred);
 // app.use('/stkbgsubrubroleer', stkbgsubrubroleer);
 
 app.use("/stktipoproveedleer", stktipoproveedleer);
@@ -155,6 +153,7 @@ app.use("/stkunmedleercod", stkunmedleercod);
 app.use("/stkunmedagregar", stkunmedagregar);
 app.use("/stkunmedmodificar", stkunmedmodificar);
 app.use("/stkunmedborrar", stkunmedborrar);
+app.use("/stkunmedleerred", stkunmedleerred);
 
 app.use("/stkgrupoleer", stkgrupoleer);
 app.use("/stkgrupoleercod", stkgrupoleercod);
@@ -181,6 +180,7 @@ app.use("/stkrubroleecodgrupo", stkrubroleecodgrupo);
 app.use("/stkrubroleecodgryrb", stkrubroleecodgryrb);
 app.use("/stkrubroleeultnro", stkrubroleeultnro);
 app.use("/stkrubroleecodgrupored", stkrubroleecodgrupored);
+app.use("/stkrubroleeproveedor", stkrubroleeproveedor);
 
 app.use("/stkitemsleer", stkitemsleer);
 app.use("/stkitemsagregar", stkitemsagregar);
@@ -195,6 +195,8 @@ app.use("/stkitemsmoddisp", stkitemsmoddisp);
 app.use("/stkverificadisp", stkverificadisp);
 
 app.use("/stkitemsmodstock", stkitemsmodstock);
+// app.use("/stkitemslistaprecios", stkitemslistaprecios);
+
 app.use("/stkmovsalfinal", stkmovsalfinal);
 app.use("/stkmovenvase", stkmovenvase);
 

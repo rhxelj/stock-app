@@ -16,11 +16,12 @@ conexion.connect(function(err) {
   }
 });
 
-router.all("/", function(req, res) {
+// router.all("/", function(req, res) {
+router.post("/", function(req, res) {
   // codgrupo = req.query.id;
   // ultnrorubro.codigorubronuevo(codgrupo)
   codrubro = req.body.StkRubroCodGrp;
-
+  console.log("entre en registro en rubro agregar");
   var registro = {
     idStkRubro: req.body.idStkRubro,
     StkRubroCodGrp: req.body.StkRubroCodGrp,
@@ -32,8 +33,9 @@ router.all("/", function(req, res) {
     StkRubroPres: req.body.StkRubroPres,
     StkRubroUM: req.body.StkRubroUM,
     StkRubroCosto: req.body.StkRubroCosto,
-    StkRubroTM: req.body.StkRubroTM
+    StkRubroTM: req.body.StkRubroTM,
   };
+  console.log("registro en rubro agregar", registro);
 
   conexion.query("INSERT INTO StkRubro SET ?", registro, function(err, result) {
     if (err) {

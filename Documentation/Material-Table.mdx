@@ -1,0 +1,21 @@
+---
+name: Material-Table
+menu: FrontEnd
+---
+
+cuando quiero aplicar fucniones especificas de HTML a una columna en particular hago lo siguiente.
+
+editComponent: (props) => <input styletype="text" maxlength="2" />
+
+uso ediComponent
+
+De esta forma puedo hacer que me tome el valor del campo si no me sale vacio.
+
+```
+editComponent: (props) => (
+          <input
+            type="number"
+            value={props.value}
+            onChange={(e) => props.onChange(e.target.value)}
+          />
+```
