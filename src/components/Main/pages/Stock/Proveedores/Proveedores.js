@@ -24,36 +24,38 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 
+import MaterialTable from "material-table";
+import { tableIcons } from "../../../../lib/material-table/tableIcons";
 // Estilo para el botón de borrar
 const style = {
   padding: "0px",
-  width: "47px"
+  width: "47px",
 };
 
-const CustomTableCell = withStyles(theme => ({
+const CustomTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white
+    color: theme.palette.common.white,
   },
   body: {
-    fontSize: 14
-  }
+    fontSize: 14,
+  },
 }))(TableCell);
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     width: "100%",
     marginTop: theme.spacing.unit * 3,
-    overflowX: "auto"
+    overflowX: "auto",
   },
   table: {
-    minWidth: 700
+    minWidth: 700,
   },
   row: {
     "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.background.default
-    }
-  }
+      backgroundColor: theme.palette.background.default,
+    },
+  },
 });
 
 // para usar las tablas de MUI end
@@ -68,7 +70,7 @@ class Proveedores extends Component {
         agregar: false,
         busqueda: false,
         modificar: false,
-        seleccampos: false
+        seleccampos: false,
       },
       toggle_agregar: false,
       toggle_busqueda: false,
@@ -92,8 +94,8 @@ class Proveedores extends Component {
         ProveedoresContacto: "",
         ProveedoresMail: "",
         ProveedoresWeb: "",
-        ProveedoresCodMon: ""
-      }
+        ProveedoresCodMon: "",
+      },
     };
     // this.toggle = this.toggle.bind(this);
   }
@@ -115,20 +117,22 @@ class Proveedores extends Component {
           ? 1
           : -1
       ),
-      direction: { [key]: this.state.direction[key] === "asc" ? "desc" : "asc" }
+      direction: {
+        [key]: this.state.direction[key] === "asc" ? "desc" : "asc",
+      },
     });
   }
 
   // Funcion ordernar - End
 
   //Read
-  read = _ => {
+  read = (_) => {
     // const url = IpServidor + '/proveedoresleer'; //'http://192.168.2.102:4000/indexprov'
     const url = IpServidor + "/proveedoresleer";
     request
       .get(url)
       .set("Content-Type", "application/json")
-      .then(res => {
+      .then((res) => {
         const proveedores = JSON.parse(res.text);
         this.setState({ proveedores: proveedores });
       });
@@ -136,7 +140,7 @@ class Proveedores extends Component {
 
   // Funcion De Busqueda - Begin
 
-  search = event => {
+  search = (event) => {
     // Funcion de busqueda
     // var name  = event.target.name
     var value =
@@ -154,36 +158,36 @@ class Proveedores extends Component {
 
   //******************************************* Habilita el contenido a mostrar en Pantalla - Begin *******************************************
 
-  toggle = arg => {
+  toggle = (arg) => {
     console.log("el argumento es :", arg);
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       // toggle:{...this.state.toggle,[arg]: !prevState.toggle[arg]}
-      toggle: { [arg]: !prevState.toggle[arg] }
+      toggle: { [arg]: !prevState.toggle[arg] },
     })); // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <AgregarMonedas> ***
     console.log("el contenido de this.state.toggle  es :", this.state.toggle);
   };
 
   toggleAgregar = () => {
-    this.setState(prevState => ({
-      toggle_agregar: !prevState.toggle_agregar
+    this.setState((prevState) => ({
+      toggle_agregar: !prevState.toggle_agregar,
     })); // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <AgregarProveedores> ***
   };
 
   toggleModificar = () => {
-    this.setState(prevState => ({
-      toggle_modificar: !prevState.toggle_modificar
+    this.setState((prevState) => ({
+      toggle_modificar: !prevState.toggle_modificar,
     })); // estado inicial "FALSE" no muestra nada  en "TRUE" llama al componente  *** <ModificarProveedores> ***
   };
 
   toggleBusqueda = () => {
-    this.setState(prevState => ({
-      toggle_busqueda: !prevState.toggle_busqueda
+    this.setState((prevState) => ({
+      toggle_busqueda: !prevState.toggle_busqueda,
     }));
   };
 
   toggleImprimir = () => {
-    this.setState(prevState => ({
-      toggle_imprimir: !prevState.toggle_imprimir
+    this.setState((prevState) => ({
+      toggle_imprimir: !prevState.toggle_imprimir,
     }));
   };
 
@@ -213,7 +217,7 @@ class Proveedores extends Component {
   }
 
   filterProveedores() {
-    return this.state.proveedores.filter(proveedor => {
+    return this.state.proveedores.filter((proveedor) => {
       //este proveedores no es el proveedores de this.state.proveedores es una copia local
       return (
         // this.searchSubString(proveedor.ProveedoresDesc, this.state.filtered)
@@ -246,7 +250,7 @@ class Proveedores extends Component {
             idProveedores={rowData.idProveedores}
             read={() => this.read()}
           ></ProveedoresBorrar>
-        )
+        ),
       })
     );
     //************************************** Agrego el campo del Boton BORRAR - End ***********************************
@@ -267,6 +271,7 @@ class Proveedores extends Component {
           </Grid>
           <Grid item xs={4} sm={4} lg={4}></Grid>
         </Grid>
+        <MaterialTable icons={tableIcons} />
         {/* Agregar Proveedor */}
         {this.state.toggle_agregar && (
           // ?
@@ -317,7 +322,7 @@ class Proveedores extends Component {
               </TableHead>
 
               <TableBody>
-                {proveedores.map(proveedor => {
+                {proveedores.map((proveedor) => {
                   return (
                     <TableRow
                       onDoubleClick={() => {
@@ -338,8 +343,8 @@ class Proveedores extends Component {
                             ProveedoresContacto: proveedor.ProveedoresContacto,
                             ProveedoresMail: proveedor.ProveedoresMail,
                             ProveedoresWeb: proveedor.ProveedoresWeb,
-                            ProveedoresCodMon: proveedor.ProveedoresCodMon
-                          }
+                            ProveedoresCodMon: proveedor.ProveedoresCodMon,
+                          },
                         });
                         this.toggleModificar();
                       }}

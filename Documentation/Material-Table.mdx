@@ -3,9 +3,11 @@ name: Material-Table
 menu: FrontEnd
 ---
 
-cuando quiero aplicar fucniones especificas de HTML a una columna en particular hago lo siguiente.
+# MaterialTable
 
-editComponent: (props) => <input styletype="text" maxlength="2" />
+- cuando quiero aplicar fucniones especificas de HTML a una columna en particular hago lo siguiente.
+
+`editComponent: (props) => <input styletype="text" maxlength="2" />`
 
 uso ediComponent
 
@@ -18,4 +20,62 @@ editComponent: (props) => (
             value={props.value}
             onChange={(e) => props.onChange(e.target.value)}
           />
+```
+
+## Como hago la migración a material-table
+
+Una tabla de MaterialTable se ve de la siguiente manera
+
+```javascript
+<MaterialTable
+  icons={tableIcons}
+  title="Tabla Rubros"
+  columns={columns}
+  data={data}
+  localization={localization}
+  options={{
+    grouping: true,
+    addRowPosition: "first",
+    actionsColumnIndex: -1,
+    // tableLayout: "fixed",
+  }}
+  // components={{
+  //   EditRow: (props) => console.log("Props : ", props),
+  //   // <StkRubroModificar open={true} />,
+  // }}
+  editable={{
+    onRowAdd: (newData) => onRowadd(newData),
+
+    onRowUpdate: (newData, oldData) => onRowUpdate(newData, oldData),
+
+    onRowDelete: (oldData) => onRowDelete(oldData),
+  }}
+/>
+```
+
+## Entonces para poder usar MaterialTable tengo que seguir los siguientes pasos
+
+- Importo MaterialTable, localization(es para traducir todos los nombres de los componentes de MaterialTable) y los iconos
+
+```javascript
+import MaterialTable, { Column } from "material-table";
+import { tableIcons } from "../../../../lib/material-table/tableIcons";
+import { localization } from "../../../../lib/material-table/localization";
+```
+
+- Agrego tableicons y localization
+
+```javascript
+<MaterialTable icons={tableIcons} localization={localization} />
+```
+
+- tengo que agregar las columnas y los datos
+
+```javascript
+<MaterialTable
+  icons={tableIcons}
+  localization={localization}
+  columns={columns}
+  data={data}
+/>
 ```
