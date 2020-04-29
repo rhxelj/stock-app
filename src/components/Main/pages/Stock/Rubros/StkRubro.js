@@ -62,12 +62,11 @@ export default function StkRubro() {
   async function stkrubroleemezcla() {
     const result = await stkrubroleermezcla();
     setData(() => result);
-    console.log("data => ", data);
   }
 
   async function initialFetch() {
-    stkgrupoleerredrubros();
-    stkrubroleemezcla();
+    stkgrupoleerredrubros(); //lleno columns con los datos obtenidos
+    stkrubroleemezcla(); //Lleno data
   }
 
   function columnsFill(
