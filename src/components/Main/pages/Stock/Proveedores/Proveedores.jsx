@@ -23,12 +23,11 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-// import { leercolumns } from "./columns"
+import { llenarColumns } from "./columns"
 import { leerProveedores } from "./ProveedoresLeer";
 import { onRowAdd } from "./onRowAdd"
 import MaterialTable from "material-table";
 import { tableIcons } from "../../../../lib/material-table/tableIcons";
-import LeerProveedor from "../../z_SinClasificarMirar/LeerProveedor";
 
 export default function Proveedores() {
   // const [rubro, setRubro] = useState({ columns: [], data: [] });
@@ -36,103 +35,11 @@ export default function Proveedores() {
   const [columns, setColumns] = useState([]);
   const [data, setData] = useState([]);
 
-  // Lleno columna - inicio
-  async function llenarColumns() {
-    // const stkgrupo = await stkGrupoLeerRedRubro();
-    // var objstkgrupo = await stkgrupo.reduce(function (acc, cur, i) {
-    //   acc[cur.StkRubroCodGrp] = cur.StkGrupoDesc;
-    //   return acc;
-    // }, {});
-
-    // const stkrubro = await stkrubroleeproveedor();
-    // var objstkrubroprov = await stkrubro.reduce(function (acc, cur, i) {
-    //   acc[cur.StkRubroProv] = cur.ProveedoresDesc;
-    //   return acc;
-    // }, {});
-
-    // const stkUnMed = await stkUnMedLeerRed();
-    // var objstkUnMed = await stkUnMed.reduce(function (acc, cur, i) {
-    //   acc[cur.idStkUnMed] = cur.StkUnMedDesc;
-    //   return acc;
-    // }, {});
-
-    // const stkMonedas = await stkMonedasleerRed();
-    // var objstkMonedas = await stkMonedas.reduce(function (acc, cur, i) {
-    //   acc[cur.idStkMonedas] = cur.StkMonedasDescripcion;
-    //   return acc;
-    // }, {});
-
-    return columnsFill(
-      // objstkgrupo, objstkrubroprov, objstkUnMed, objstkMonedas
-    );
-  }
-  // Lleno columna - fin{idStkMonedas: "qaz", StkMonedasDescripcion: "DES1700"}
-  // async function stkrubroleemezcla() {
-  //   const result = await stkrubroleermezcla();
-  //   setData(() => result);
-  //   console.log("data => ", data);
-  // }
 
   async function initialFetch() {
     const col = await llenarColumns();
-    console.log("el contenido de col es  : ", col)
     setColumns(() => col)
     dataFetch();
-  }
-
-  function columnsFill(
-    // objstkgrupo,
-    // objstkrubroprov,
-    // objstkUnMed,
-    // objstkMonedas
-  ) {
-    return new Promise(function (resolve, reject) {
-      // setColumns(
-
-      resolve(
-        [
-          // { title: "idProveedores", field: "idProveedores" },
-          { title: "Descripción", field: "proveedor.ProveedoresDesc" },
-          { title: "Tipo", field: "ProveedoresTipo" }, //Proveedores Tipo idStkTipoProveed
-          { title: "Calle", field: "ProveedoresCalle" },
-          { title: "CUIT", field: "ProveedoresCUIT" },
-          { title: "Calle Nro.", field: "ProveedoresNroCalle" },
-          { title: "Piso", field: "ProveedoresPiso" },
-          { title: "Dto", field: "ProveedoresDto" },
-          { title: "CodPos", field: "ProveedoresCodPos" },
-          { title: "Loc", field: "ProveedoresLoc" },
-          { title: "Pcia", field: "ProveedoresPcia" },
-          { title: "Tel", field: "ProveedoresTel" },
-          { title: "Contacto", field: "ProveedoresContacto" },
-          { title: "Mail", field: "ProveedoresMail" },
-          { title: "Web", field: "ProveedoresWeb" },
-          { title: "CodMon", field: "ProveedoresCodMon" },
-          // {
-          //   title: "CodMon",
-          //   field: "ProveedoresCodMon",
-          //   lookup: objstkMonedas,
-          // },
-        ]
-      );
-    })
-  }
-
-  //Read
-  function read() {
-    return new Promise((resolve) => {
-      // const url = IpServidor + '/proveedoresleer'; //'http://192.168.2.102:4000/indexprov'
-      const url = IpServidor + "/proveedoresleer";
-      request
-        .get(url)
-        .set("Content-Type", "application/json")
-        .then((res) => {
-          const proveedores = JSON.parse(res.text);
-          // console.log("proveedores => ", proveedores);
-          setData(proveedores);
-          console.log("data => ", data);
-        });
-      resolve();
-    });
   }
 
   // async function columnsFetch() {
