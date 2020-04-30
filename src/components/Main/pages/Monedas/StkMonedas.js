@@ -69,7 +69,13 @@ function Monedas() {
         title="ABM DE Monedas"
         columns={columns}
         data={data}
-        options={{ addRowPosition: "first" }}
+        // options={{ addRowPosition: "first" }}
+        options={{
+          grouping: true,
+          addRowPosition: "first",
+          actionsColumnIndex: -1,
+          // tableLayout: "fixed",
+        }}
         editable={{
           onRowAdd: onRowAdd(),
           onRowUpdate: onRowUpdate(),

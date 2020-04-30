@@ -65,8 +65,8 @@ export default function StkRubro() {
   }
 
   async function initialFetch() {
-    stkgrupoleerredrubros();
-    stkrubroleemezcla();
+    stkgrupoleerredrubros(); //lleno columns con los datos obtenidos
+    stkrubroleemezcla(); //Lleno data
   }
 
   function columnsFill(
