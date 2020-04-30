@@ -36,31 +36,24 @@ export default function Proveedores() {
   const [data, setData] = useState([]);
 
 
-  async function initialFetch() {
+  async function columnsFetch() {
     const col = await llenarColumns();
     setColumns(() => col)
-    dataFetch();
   }
 
-  // async function columnsFetch() {
-  //   const columns = await leercolumns();
-  //   console.log("Corri columns FETCH")
-  //   // setColumns(columns);
-  // }
   async function dataFetch() {
     const data = await leerProveedores();
     setData(data);
   }
 
+  async function initialFetch() {
+    columnsFetch()
+    dataFetch();
+  }
+
   useEffect(() => {
-    // llenarColumns();
     initialFetch()
   }, []);
-
-  // useEffect(() => {
-  //   dataFetch();
-  // }, []);
-
 
   return (
     <div>
