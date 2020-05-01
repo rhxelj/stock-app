@@ -2,18 +2,6 @@ import { stkMonedasleerRed } from "../../Stock/Rubros/StkMonedasLeerRed";
 import { leeTipoProv } from "./LeeTipoProv";
 
 export async function llenarColumns() {
-  // const stkgrupo = await stkGrupoLeerRedRubro();
-  // var objstkgrupo = await stkgrupo.reduce(function (acc, cur, i) {
-  //   acc[cur.StkRubroCodGrp] = cur.StkGrupoDesc;
-  //   return acc;
-  // }, {});
-
-  // const stkrubro = await stkrubroleeproveedor();
-  // var objstkrubroprov = await stkrubro.reduce(function (acc, cur, i) {
-  //   acc[cur.StkRubroProv] = cur.ProveedoresDesc;
-  //   return acc;
-  // }, {});
-
   const tipoprov = await leeTipoProv();
   console.log("Tipo Prov => ", tipoprov);
   var objstktipoprov = await tipoprov.reduce(function(acc, cur, i) {
@@ -28,21 +16,14 @@ export async function llenarColumns() {
   }, {});
 
   return columnsFill(objstktipoprov, objstkMonedas);
-  // objstkgrupo, objstkrubroprov, objstkUnMed, objstkMonedas
 }
 
 function columnsFill(objstktipoprov, objstkMonedas) {
-  // objstkgrupo,
-  // objstkrubroprov,
-  // objstkUnMed,
-
   return new Promise(function(resolve, reject) {
-    // setColumns(
-
     resolve([
       // { title: "idProveedores", field: "idProveedores" },
-      { title: "Descripción", field: "ProveedoresDesc" },
       // { title: "Tipo", field: "ProveedoresTipo" }, //Proveedores Tipo idStkTipoProveed
+      { title: "Descripción", field: "ProveedoresDesc" },
       { title: "Tipo", field: "ProveedoresTipo", lookup: objstktipoprov },
       { title: "Calle", field: "ProveedoresCalle" },
       { title: "CUIT", field: "ProveedoresCUIT" },

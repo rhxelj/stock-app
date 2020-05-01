@@ -1,37 +1,34 @@
 import React, { useEffect, useState } from "react";
-import request from "superagent";
-// import ReactTable from 'react-table'
-// import 'react-table/react-table.css'
-
-import Grid from "@material-ui/core/Grid";
-import { ProveedoresColName } from "./ProveedoresColName";
-
-// import AgregarProveedor from './ProveedoresAgregar'
-import IpServidor from "../../VariablesDeEntorno";
-import ProveedoresAgregar from "./ProveedoresAgregar";
-import ProveedoresBorrar from "./ProveedoresBorrar";
-import ProveedoresModificar from "./ProveedoresModificar";
-import StkFab from "../../../../lib/StkFab";
-import SelecCampos from "../../Impresion/SelecCampos";
-
-// para usar las tablas de MUI start
-import { withStyles } from "@material-ui/core/styles";
 import "../../../../../Styles/TableHeader.css";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
+import MaterialTable from "material-table";
+import { tableIcons } from "../../../../lib/material-table/tableIcons";
 import { llenarColumns } from "./columns"
 import { leerProveedores } from "./ProveedoresLeer";
 import { onRowAdd } from "./onRowAdd"
-import MaterialTable from "material-table";
-import { tableIcons } from "../../../../lib/material-table/tableIcons";
+
+// import request from "superagent";
+// import ReactTable from 'react-table'
+// import 'react-table/react-table.css'
+// import Grid from "@material-ui/core/Grid";
+// import { ProveedoresColName } from "./ProveedoresColName";
+// import AgregarProveedor from './ProveedoresAgregar'
+// import IpServidor from "../../VariablesDeEntorno";
+// import ProveedoresAgregar from "./ProveedoresAgregar";
+// import ProveedoresBorrar from "./ProveedoresBorrar";
+// import ProveedoresModificar from "./ProveedoresModificar";
+// import StkFab from "../../../../lib/StkFab";
+// import SelecCampos from "../../Impresion/SelecCampos";
+// para usar las tablas de MUI start
+// import { withStyles } from "@material-ui/core/styles";
+// import Table from "@material-ui/core/Table";
+// import TableBody from "@material-ui/core/TableBody";
+// import TableCell from "@material-ui/core/TableCell";
+// import TableHead from "@material-ui/core/TableHead";
+// import TableRow from "@material-ui/core/TableRow";
+// import Paper from "@material-ui/core/Paper";
 
 export default function Proveedores() {
-  // const [rubro, setRubro] = useState({ columns: [], data: [] });
-  // const [strubromodificar, setStkrubromodificar] = useState(false);
+
   const [columns, setColumns] = useState([]);
   const [data, setData] = useState([]);
 
@@ -65,7 +62,7 @@ export default function Proveedores() {
 
         editable={{
           onRowAdd: newData =>
-            onRowAdd(newData),
+            onRowAdd(newData).then(() => dataFetch()),
           onRowUpdate: (newData, oldData) =>
             new Promise((resolve, reject) => {
               setTimeout(() => {

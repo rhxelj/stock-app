@@ -1,10 +1,10 @@
-function onRowAdd(newData) {
+import { stkProveedoresAgregar } from "./ProveedoresAgregar";
+
+export function onRowAdd(newData) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       {
-        const data = this.state.data;
-        data.push(newData);
-        this.setState({ data }, () => resolve());
+        stkProveedoresAgregar(newData);
       }
       resolve();
     }, 1000);
