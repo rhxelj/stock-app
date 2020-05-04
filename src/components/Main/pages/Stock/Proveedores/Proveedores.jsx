@@ -45,7 +45,7 @@ export default function Proveedores() {
           grouping: true,
           addRowPosition: "first",
           actionsColumnIndex: -1,
-          // tableLayout: "fixed",
+          // tableLayout: "fixed", //con esta opcion entran todas las columnas en la pantalla pero superpone informacion
         }}
 
         editable={{
