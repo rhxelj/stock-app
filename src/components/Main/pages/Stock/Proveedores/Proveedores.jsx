@@ -6,6 +6,8 @@ import { llenarColumns } from "./columns"
 import { leerProveedores } from "./ProveedoresLeer";
 import { onRowAdd } from "./onRowAdd"
 import { onRowUpdate } from "./onRowUpdate"
+import { onRowDelete } from "./onRowDelete"
+
 export default function Proveedores() {
 
   const [columns, setColumns] = useState([]);
@@ -51,24 +53,15 @@ export default function Proveedores() {
             onRowAdd(newData).then(() => dataFetch()),
           onRowUpdate: (newData, oldData) =>
             onRowUpdate(newData, oldData).then(() => dataFetch()),
-
           onRowDelete: oldData =>
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                {
-                  let data = this.state.data;
-                  const index = data.indexOf(oldData);
-                  data.splice(index, 1);
-                  this.setState({ data }, () => resolve());
-                }
-                resolve()
-              }, 1000)
-            }),
+            onRowDelete(oldData).then(() => dataFetch()),
         }}
       />
     </div>
   );
 }
+
+
 
 
 
