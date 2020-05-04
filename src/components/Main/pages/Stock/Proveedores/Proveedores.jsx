@@ -5,7 +5,7 @@ import { tableIcons } from "../../../../lib/material-table/tableIcons";
 import { llenarColumns } from "./columns"
 import { leerProveedores } from "./ProveedoresLeer";
 import { onRowAdd } from "./onRowAdd"
-
+import { onRowUpdate } from "./onRowUpdate"
 export default function Proveedores() {
 
   const [columns, setColumns] = useState([]);
@@ -50,17 +50,8 @@ export default function Proveedores() {
           onRowAdd: newData =>
             onRowAdd(newData).then(() => dataFetch()),
           onRowUpdate: (newData, oldData) =>
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                {
-                  const data = this.state.data;
-                  const index = data.indexOf(oldData);
-                  data[index] = newData;
-                  this.setState({ data }, () => resolve());
-                }
-                resolve()
-              }, 1000)
-            }),
+            onRowUpdate(newData, oldData).then(() => dataFetch()),
+
           onRowDelete: oldData =>
             new Promise((resolve, reject) => {
               setTimeout(() => {
@@ -78,5 +69,6 @@ export default function Proveedores() {
     </div>
   );
 }
+
 
 
