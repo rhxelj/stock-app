@@ -131,3 +131,23 @@ Para lograr esto debo usar la opción **editable** de MaterialTable como vemos a
   }}
 />
 ```
+
+Si quiero mover la ubicación de los iconos de editar y borrar como asi también la posición de agregar. uso la propeidad options dentro de **MaterialTable**
+
+```javascript
+<MaterialTable
+  //...
+  //...
+  //...
+
+  options={{
+    grouping: true,
+    addRowPosition: "first",
+    actionsColumnIndex: -1,
+  }}
+  //...
+  //...
+  //...
+  //...
+/>
+```
