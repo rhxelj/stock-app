@@ -5,19 +5,12 @@ export function unidadMedidasColumns() {
         title: "Código",
         field: "idStkUnMed",
         // tipo:"texto",
-        order: true,
+        editable: "onAdd",
       },
       {
         title: "Descripción",
         field: "StkUnMedDesc",
         // tipo:"texto",
-        order: true,
-      },
-      {
-        title: "",
-        field: "borrar",
-        // tipo:"",
-        order: false,
       },
     ]);
   });

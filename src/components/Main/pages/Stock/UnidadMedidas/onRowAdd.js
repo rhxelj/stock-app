@@ -1,10 +1,11 @@
-// import { stkGrupoAgregar } from "./stkGrupoAgregar";
+import { stkUnMedAgregar } from "./stkUnMedAgregar";
 
 export function onRowAdd(newData) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       {
-        stkGrupoAgregar(newData);
+        // console.log(newData);
+        stkUnMedAgregar(newData);
       }
       resolve();
     }, 1000);

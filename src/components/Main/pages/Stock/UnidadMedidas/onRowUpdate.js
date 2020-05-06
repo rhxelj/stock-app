@@ -1,10 +1,10 @@
-// import { stkGrupoModificar } from "./stkGrupoModificar";
+import { stkUnMedModificar } from "./stkUnMedModificar";
 
 export function onRowUpdate(newData, oldData) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       {
-        stkGrupoModificar(newData);
+        stkUnMedModificar(newData);
       }
       resolve();
     }, 1000);
