@@ -21,22 +21,33 @@ router.post("/", async function(req, res, next) {
   contRubro = req.body.StkGrupoContRubro;
 
   //  'UPDATE StkGrupo SET StkGrupoDesc = "' + descr + '", StkGrupoAbr = "' + abrev + '", StkGrupoContRubro = '+ contRubro + ' WHERE idStkGrupo = "' + indice + '"',
+  console.log("Estoy en BAckend de grupo");
   var q = [
-    "UPDATE StkGrupo SET",
-    'StkGrupoDesc = "',
-    descr,
-    '",',
-    'StkGrupoAbr = "',
-    abrev,
-    '",',
-    "StkGrupoContRubro = ",
-    contRubro,
-    ' WHERE idStkGrupo = "',
-    indice,
-    '"'
-  ].join(" ");
+    // "UPDATE StkGrupo SET",
+    // 'StkGrupoDesc = "',
+    // descr,
+    // '",',
+    // 'StkGrupoAbr = "',
+    // abrev,
+    // '",',
+    // "StkGrupoContRubro = ",
+    // contRubro,
+    // ' WHERE idStkGrupo = "',
+    // indice,
+    // '"'
+    'UPDATE StkGrupo SET StkGrupoDesc = "' +
+      descr +
+      '", StkGrupoAbr = "' +
+      abrev +
+      '", StkGrupoContRubro = ' +
+      contRubro +
+      ' WHERE idStkGrupo = "' +
+      indice +
+      '"',
+  ];
+  // .join(" ");
   console.log(q);
-  conexion.query(q, function(err, result) {
+  conexion.query(q[0], function(err, result) {
     if (err) {
       if (err.errno == 1062) {
         return res

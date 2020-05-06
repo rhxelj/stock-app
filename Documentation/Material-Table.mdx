@@ -5,23 +5,6 @@ menu: FrontEnd
 
 # MaterialTable
 
-- cuando quiero aplicar fucniones especificas de HTML a una columna en particular hago lo siguiente.
-
-`editComponent: (props) => <input styletype="text" maxlength="2" />`
-
-uso ediComponent
-
-De esta forma puedo hacer que me tome el valor del campo si no me sale vacio.
-
-```
-editComponent: (props) => (
-          <input
-            type="number"
-            value={props.value}
-            onChange={(e) => props.onChange(e.target.value)}
-          />
-```
-
 ## Como hago la migración a material-table
 
 Una tabla de MaterialTable se ve de la siguiente manera
@@ -150,4 +133,21 @@ Si quiero mover la ubicación de los iconos de editar y borrar como asi también
   //...
   //...
 />
+```
+
+- cuando quiero aplicar fucniones especificas de HTML a una columna en particular hago lo siguiente.
+
+`editComponent: (props) => <input styletype="text" maxlength="2" />`
+
+uso ediComponent
+
+De esta forma puedo hacer que me tome el valor del campo si no me sale vacio.
+
+```
+editComponent: (props) => (
+          <input
+            type="number"
+            value={props.value}
+            onChange={(e) => props.onChange(e.target.value)}
+          />
 ```

@@ -99,8 +99,8 @@ function Header() {
     setState({
       ...state,
       [side]: open,
-      abrir_movimientos: false, //activo esto si quiero cerrar los menues cuando hago una selecccion
-      abrir_tablas: false, //activo esto si quiero cerrar los menues cuando hago una selecccion
+      abrir_movimientos: false, //activo esto si quiero cerrar los menúes cuando hago una selección.
+      abrir_tablas: false, //activo esto si quiero cerrar los menúes cuando hago una selección.
     });
   };
 
@@ -208,6 +208,10 @@ function Header() {
           <Typography variant="h6" className={classes.title} noWrap>
             OlsaSG
           </Typography>
+          <Typography variant="h6" className={classes.title} noWrap>
+            Titulo Del componente
+          </Typography>
+
           {newMethod(abrir_movimientos, abrir_tablas)}
 
           <Typography variant="h6">{diafecha}</Typography>
