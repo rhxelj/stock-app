@@ -8,7 +8,10 @@ import { onRowAdd } from "./onRowAdd"
 import { onRowUpdate } from "./onRowUpdate"
 import { onRowDelete } from "./onRowDelete"
 
+import { HeaderTitle } from "../../../../lib/HeaderTitle"
+
 export default function Proveedores() {
+  HeaderTitle("Proveedores")
 
   const [columns, setColumns] = useState([]);
   const [data, setData] = useState([]);
@@ -25,6 +28,7 @@ export default function Proveedores() {
   }
 
   async function initialFetch() {
+
     columnsFetch()
     dataFetch();
   }

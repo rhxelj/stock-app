@@ -20,6 +20,10 @@ import { format } from "fecha";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import { TextField, InputAdornment } from "@material-ui/core";
+
+import { useContext } from "react";
+import { globalContext } from "../App";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -82,6 +86,13 @@ const initial_state = {
   showComponent: false,
 };
 function Header() {
+  // const { valor, setValor } = useContext(globalContext);
+  const { valor, setValor } = useContext(globalContext);
+
+  // const valor = "Variable interna";
+  // console.log("Contenido de value en HEADER ", valor);
+  // setValor("prueba");
+
   const [state, setState] = useState(initial_state);
   const classes = useStyles();
   const [buscar, setbuscar] = useState("");
@@ -209,7 +220,7 @@ function Header() {
             OlsaSG
           </Typography>
           <Typography variant="h6" className={classes.title} noWrap>
-            Titulo Del componente
+            {valor}
           </Typography>
 
           {newMethod(abrir_movimientos, abrir_tablas)}

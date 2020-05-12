@@ -11,7 +11,10 @@ import { onRowAdd } from "./onRowAdd"
 import { onRowUpdate } from "./onRowUpdate"
 import { onRowDelete } from "./onRowDelete"
 
+import { HeaderTitle } from "../../../../lib/HeaderTitle"
+
 export default function StkGrupo() {
+  HeaderTitle("GRUPOS")
   const [columns, setColumns] = useState([]);
   const [data, setData] = useState([]);
 

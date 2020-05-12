@@ -12,7 +12,7 @@ import {
   InputAdornment,
   Paper,
   TextField,
-  Typography
+  Typography,
 } from "@material-ui/core";
 
 import useStyles from "./StkMovEntradaStyle";
@@ -23,9 +23,15 @@ import FilaCuatro from "./LayoutMovEntrada/FilaCuatro";
 import FilaCinco from "./LayoutMovEntrada/FilaCinco/index";
 import { initial_state } from "./Initial_State";
 
+import { useContext } from "react";
+import { globalContext } from "../../../../../App";
+
 export const StkMovEntradaContext = React.createContext();
 
-var StkMovEntrada = props => {
+var StkMovEntrada = (props) => {
+  const { setValor } = useContext(globalContext);
+  setValor("Movimiento de Entrada");
+
   const [state, setState] = useState(initial_state);
   const classes = useStyles();
 
@@ -36,7 +42,7 @@ var StkMovEntrada = props => {
           <StkMovEntradaContext.Provider
             value={{
               state: state,
-              setState: setState
+              setState: setState,
             }}
           >
             {/* Grupo, Rubro, Items, Cant. Disp., Cant, Min. */}
