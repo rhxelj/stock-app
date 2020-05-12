@@ -1,0 +1,100 @@
+# Titulo en Header
+
+La idea es que en el header (donde esta la barra de menu) aparezca el nombre del componente donde estamos. Para eso usamos React Context API. y esta consta de dos partes un provider y un consumer. la parte de consumer lo hacemos usando hooks(es mas facil).
+
+entonces los pasos serian estos.
+
+## Provider
+
+El Provider lo hacemos en el componente mas externo para nosotros que es App
+
+### El provider tiene que tener
+
+    - un contexto
+    - un objeto (usable en los consumer)
+
+```javascript
+import React.......
+
+//aca ban todos los imports
+.
+.
+export const nameContex = React.createContext() //esto me genera un objeto con un Provider y un Consumer
+.
+.
+// dentro del cuerpo de mi componente
+
+const App =() ={
+    const [valor,setValor] = useState(); //valor es lo que hago presente en todos mis componentes
+    .
+    .
+    .
+    .
+    return(
+        <>
+             <div>
+          {/* <globalContext.Provider value={{ valor, setValor }}> */}
+          <nameContex.Provider value={{ valor, setValor }}>
+            <Header />
+            <br></br>
+            <Main />
+          </nameContex.Provider>
+          {/* <Footter/>   */}
+        </div>
+      </Router>
+        </>
+    )
+
+}
+.
+.
+
+```
+
+## Consumer
+
+### Para usar la variables de mi componente Provider necesito
+
+    - importar mi contexto
+    - asociarlo a una variable local (para poder consumirlo)
+
+```javascript
+import ....
+.
+.
+.
+
+import { useContext } from "react";
+import { nameContext } from "...path to nameContext";
+
+function SubComponet(){
+    const {valor,setValor} = useContext(nameContext)
+
+    //luego uso "valor" o "setValor" según lo necesite
+
+}
+```
+
+Para lograr lo de arriba lo implementamos con una función que importamos en cada componente y le pasamos como parámetro el Titulo con el que queremos que aparezca en el menu.
+Entonces
+
+```javascript
+import ...
+.
+.
+.
+import { HeaderTitle } from "../../../lib/HeaderTitle"; //path to function HeaderTitle
+
+
+function ComponenteName(){
+    HeaderTitle("Titulo en El Header");
+    .
+    .
+    .
+    .
+    .
+    .
+
+}
+
+```

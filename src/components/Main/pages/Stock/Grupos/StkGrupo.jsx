@@ -1,57 +1,54 @@
 import React, { useEffect, useState } from "react";
-import "../../../../../Styles/TableHeader.css";
-import MaterialTable from "material-table";
+
+import MaterialTable, { Column } from "material-table";
 import { tableIcons } from "../../../../lib/material-table/tableIcons";
-import { llenarColumns } from "./columns"
-import { leerProveedores } from "./ProveedoresLeer";
+import { localization } from "../../../../lib/material-table/localization";
+
+import { grupoColumns } from "./grupoColumns";
+import { grupoData } from "./grupoData";
+
 import { onRowAdd } from "./onRowAdd"
 import { onRowUpdate } from "./onRowUpdate"
 import { onRowDelete } from "./onRowDelete"
 
 import { HeaderTitle } from "../../../../lib/HeaderTitle"
 
-export default function Proveedores() {
-  HeaderTitle("Proveedores")
-
+export default function StkGrupo() {
+  HeaderTitle("GRUPOS")
   const [columns, setColumns] = useState([]);
   const [data, setData] = useState([]);
 
-
   async function columnsFetch() {
-    const col = await llenarColumns();
-    setColumns(() => col)
+    const col = await grupoColumns();
+    setColumns(() => col);
   }
 
   async function dataFetch() {
-    const data = await leerProveedores();
+    const data = await grupoData();
     setData(data);
   }
 
   async function initialFetch() {
-
-    columnsFetch()
+    columnsFetch();
     dataFetch();
   }
 
   useEffect(() => {
-    initialFetch()
+    initialFetch();
   }, []);
 
   return (
     <div>
       <MaterialTable
-        title="PROVEEDORES"
         icons={tableIcons}
+        localization={localization}
         columns={columns}
         data={data}
-
         options={{
           grouping: true,
           addRowPosition: "first",
           actionsColumnIndex: -1,
-          // tableLayout: "fixed", //con esta opcion entran todas las columnas en la pantalla pero superpone informacion
         }}
-
         editable={{
           onRowAdd: newData =>
             onRowAdd(newData).then(() => dataFetch()),
@@ -64,8 +61,3 @@ export default function Proveedores() {
     </div>
   );
 }
-
-
-
-
-

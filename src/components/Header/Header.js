@@ -4,8 +4,8 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import { fade, makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { fade, makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -17,55 +17,58 @@ import Collapse from "@material-ui/core/Collapse";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import { movimientos, tablas } from "./menues";
 import { format } from "fecha";
-import InputBase from '@material-ui/core/InputBase';
+import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import { TextField, InputAdornment } from "@material-ui/core";
-const useStyles = makeStyles(theme => ({
+
+import { useContext } from "react";
+import { globalContext } from "../App";
+
+const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
   },
   search: {
-    position: 'relative',
+    position: "relative",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
+    "&:hover": {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
     marginRight: theme.spacing(2),
     marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(3),
-      width: 'auto',
+      width: "auto",
     },
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   inputRoot: {
-    color: 'inherit',
- 
+    color: "inherit",
   },
   inputInput: {
     padding: theme.spacing(1, 8, 1, 1),
-    
+
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
     },
   },
 }));
@@ -80,15 +83,22 @@ const initial_state = {
   bottom: false,
   right: false,
   setSelectedIndex: 0,
-  showComponent: false
+  showComponent: false,
 };
 function Header() {
+  // const { valor, setValor } = useContext(globalContext);
+  const { valor, setValor } = useContext(globalContext);
+
+  // const valor = "Variable interna";
+  // console.log("Contenido de value en HEADER ", valor);
+  // setValor("prueba");
+
   const [state, setState] = useState(initial_state);
   const classes = useStyles();
-  const [buscar, setbuscar ]  = useState('');
+  const [buscar, setbuscar] = useState("");
   const { abrir_movimientos, abrir_tablas } = state;
 
-  const toggleDrawer = (side, open) => event => {
+  const toggleDrawer = (side, open) => (event) => {
     if (
       event &&
       event.type === "keydown" &&
@@ -100,27 +110,26 @@ function Header() {
     setState({
       ...state,
       [side]: open,
-      abrir_movimientos: false, //activo esto si quiero cerrar los menues cuando hago una selecccion
-      abrir_tablas: false //activo esto si quiero cerrar los menues cuando hago una selecccion
+      abrir_movimientos: false, //activo esto si quiero cerrar los menúes cuando hago una selección.
+      abrir_tablas: false, //activo esto si quiero cerrar los menúes cuando hago una selección.
     });
   };
 
-  const getToggleState = stateToToggle => {
-    setState(prevState => ({
+  const getToggleState = (stateToToggle) => {
+    setState((prevState) => ({
       ...state,
-      [stateToToggle]: !prevState[stateToToggle]
+      [stateToToggle]: !prevState[stateToToggle],
     }));
   };
-  const handleChange = event => {
-   
-   setbuscar ({buscar : event.target.value });
+  const handleChange = (event) => {
+    setbuscar({ buscar: event.target.value });
   };
 
-  const handleClose = prop => event => {
+  const handleClose = (prop) => (event) => {
     setState({ ...state, [prop]: null });
   };
   const diafecha = format(new Date(), "DD-MM-YYYY");
-  
+
   function newMethod(abrir_movimientos, abrir_tablas) {
     return (
       <SwipeableDrawer
@@ -206,55 +215,20 @@ function Header() {
           >
             <MenuIcon onClick={toggleDrawer("left", true)}></MenuIcon>
           </IconButton>
-         {/* </Toolbar>   */}
-       <Typography variant="h6" className={classes.title} noWrap>
+          {/* </Toolbar>   */}
+          <Typography variant="h6" className={classes.title} noWrap>
             OlsaSG
           </Typography>
-          {newMethod(abrir_movimientos, abrir_tablas)}
-          {/* <div className={classes.search}> */}
-          {/* <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div> */}
-        <InputBase
-          classes={{
-            root: classes.inputRoot,
-            input: classes.inputInput,
-          }}
-             inputProps={{ 'aria-label': 'search' }}
-            //  className="text__input"
-              type="text"
-              placeholder="Ingresa el texto a buscar"
-              onChange={handleChange}
-            />
-          <Typography variant="h6" >
-          {diafecha}
+          <Typography variant="h6" className={classes.title} noWrap>
+            {valor}
           </Typography>
-          {/* </div> */}
-          
-          {/* <Button color="inherit">{diafecha}</Button> */}
-  </Toolbar>
- 
-</AppBar>
-       
-      {/* <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            // onClick={this.toggleDrawer("left", true)}
-          >
-            <MenuIcon onClick={toggleDrawer("left", true)}></MenuIcon>
-          </IconButton>
-          <Typography variant="h6" color="inherit">
-            OlsaSddG
-          </Typography>
+
           {newMethod(abrir_movimientos, abrir_tablas)}
+
+          <Typography variant="h6">{diafecha}</Typography>
         </Toolbar>
-      </AppBar> */}
-      {console.log('buscar  ', buscar)}
+      </AppBar>
     </div>
-   
   );
   // }
 }

@@ -1,17 +1,16 @@
-import React, { Component } from "react";
 import request from "superagent";
-// import ReactTable from 'react-table'
-import "react-table/react-table.css";
-
 import IpServidor from "../../VariablesDeEntorno";
 import CodigoError from "../../../../lib/CodigoError";
 
-export function ProveedoresBorrar(props) {
-  const { idProveedores } = props;
-  const url = IpServidor + "/proveedoresborrar/?id=" + idProveedores;
+export function stkUnMedModificar(props) {
+  const { StkUnMedDesc, idStkUnMed } = props;
+  const url = IpServidor + "/stkunmedmodificar/" + idStkUnMed;
+
   request
-    .delete(url)
+    .post(url)
     .set("Content-Type", "application/json")
+    .send({ idStkUnMed: idStkUnMed })
+    .send({ StkUnMedDesc: StkUnMedDesc })
     .then(function(res) {
       // res.body, res.headers, res.status
     })

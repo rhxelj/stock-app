@@ -13,7 +13,10 @@ import { style, styles, CustomTableCell, initial_state } from "./Constants";
 import { tableIcons } from "./Constants";
 import { columns } from "./StkTableColumnsMonedas";
 
+import { HeaderTitle } from "../../../lib/HeaderTitle";
+
 function Monedas() {
+  HeaderTitle("Monedas");
   const [data, setData] = useState(initial_state);
   // const [monedas, setData] = useState();
 
