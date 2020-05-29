@@ -14,6 +14,7 @@ import { tableIcons } from "./Constants";
 import { columns } from "./StkTableColumnsMonedas";
 
 import { HeaderTitle } from "../../../lib/HeaderTitle";
+import { localization } from "../../../lib/material-table/localization";
 
 function Monedas() {
   HeaderTitle("Monedas");
@@ -69,6 +70,7 @@ function Monedas() {
     <div>
       <MaterialTable
         icons={tableIcons}
+        localization={localization}
         title="ABM DE Monedas"
         columns={columns}
         data={data}

@@ -13,45 +13,79 @@ import { stkitemsmodstock } from "../../../../Items/StkItemsModStock"; //"../../
 import { stkenvaseagregar } from "../../../../Envase/StkEnvaseAgregar";
 import { stkitemsleedisp } from "../../../../Items/StkItemsLeeDisp";
 
+import ImprimirEtiquetas from "../../../../../Impresion/ImprimirEtiquetas";
+// import imprimirQr from "../../../../../Impresion/ImprimirEtiquetas/imprimirQR"
+import { imprimirQr } from "../../../../../Impresion/ImprimirEtiquetas/imprimirQR";
+
 export default function Fila() {
   const { state, setState } = useContext(StkMovEntradaContext);
 
   //Control del Dialogo INICIO
-  const [open, setOpen] = React.useState(false);
+  // const [open, setOpen] = React.useState(false);
   const [cantidaddisponible, setCantidaddisponible] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
+
   //Control del Dialogo  FIN
+
+  // const imprimir_etiquetas = () => {
+  //   handleClose();
+  //   // llamo al componente a imprimir y le paso el dato de ubicacion fisica
+  //   console.log(
+  //     "Fila Cinco contenido de state.StkEnvaseUbG -> ",
+  //     state.StkEnvaseUbG
+  //   );
+  //   imprimirQr(state.StkEnvaseUbG);
+
+  //   setState(initial_state);
+  //   // setState(() => {
+  //   //   return initial_state;
+  //   // });
+
+  //   setState({ ...state, imp_etiquetas: true });
+  // };
 
   const confirmar = async (state: object) => {
     await stkitemsmodstock(state);
     await stkenvaseagregar(state);
     const cantidaddisponible = await stkitemsleedisp(state);
     setCantidaddisponible(cantidaddisponible);
-    handleClickOpen();
-    setState(initial_state);
+    // handleClickOpen();
+    setState({ ...state, confOpen: true });
+    // imprimir_etiquetas();
+    // setState(initial_state);
   };
 
   const actions = {
-    confirmar: () => confirmar(state),
-    cancelar: () => setState(initial_state) //cancelar(state)
+    confirmAction: () => confirmar(state), //Accion a ejecutar en caso de Aceptar
+    cancelAction: () => setState(initial_state), //Accion a ejecutar en caso de cancelar
+    confirmText: "CONFIRMAR", //Texto en caso de afirmativo
+    cancelText: "CANCELAR", //Texto en caso de No afirmativo
   };
 
   return (
     <>
       <Grid container item spacing={2} justify="flex-end">
         <ComboBCC actions={actions} />
+
         <Confirmacion
-          open={open}
+          open={state.confOpen}
           title="Movimiento de Entrada"
           contentText={`Cambio efectuado cantidad disponible ${cantidaddisponible}`}
-          handleClose={handleClose}
+          // handleClose={handleClose}
+          // imprimir={imprimir_etiquetas}
+        />
+
+        <ImprimirEtiquetas
+          open={state.imp_etiquetas} //inicialmente este componente no se muestra
+          // title="Impresion De Etiquetas"
+          // contentText="Imprimio correctamente ?"
         />
       </Grid>
     </>

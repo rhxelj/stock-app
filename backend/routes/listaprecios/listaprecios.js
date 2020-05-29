@@ -30,7 +30,7 @@ router.get('/', function(req, res, next) {
     var minunion = param.cantminpu
     // var q = ['Select idStkRubro, StkRubroCodGrp, StkGrupo.StkGrupoDesc,',
     //         ' StkRubroDesc, StkRubroCosto, StkRubroTM, ',
-    var q = ['Select idStkRubro, StkRubroCodGrp, StkRubroDesc,  ',            
+    var q = ['Select idStkRubro, StkRubroCodGrp, StkRubroDesc, StkGrupo.StkGrupoDesc as GrupoDesc, ',            
             '(StkRubroCosto * StkMonedasCotizacion * ' + coefmin + ' ) as PPub, ',
             '(StkRubroCosto * StkMonedasCotizacion * ' + coefmay + ' ) as PMay, ',
             '((StkRubroCosto * StkMonedasCotizacion * ' + coefmay + ' ) + (REPValorMOT/60*'+minunion +')) as PMayPU, ', 
@@ -39,6 +39,7 @@ router.get('/', function(req, res, next) {
             'reparacion.parametrosrep where StkRubroCodGrp = idStkGrupo', 
             'and StkRubroProv = idProveedores ', 
             'and StkRubroTM = idStkMonedas ', 
+            'and StkRubroCodGrp = idStkGrupo ',
             'order by StkRubroCodGrp',].join(' ')
     conexion.query(q,
         function(err, result) {

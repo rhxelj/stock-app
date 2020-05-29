@@ -9,6 +9,7 @@ import { onRowUpdate } from "./onRowUpdate"
 import { onRowDelete } from "./onRowDelete"
 
 import { HeaderTitle } from "../../../../lib/HeaderTitle"
+import { localization } from "../../../../lib/material-table/localization";
 
 export default function Proveedores() {
   HeaderTitle("Proveedores")
@@ -41,6 +42,7 @@ export default function Proveedores() {
     <div>
       <MaterialTable
         title="PROVEEDORES"
+        localization={localization}
         icons={tableIcons}
         columns={columns}
         data={data}

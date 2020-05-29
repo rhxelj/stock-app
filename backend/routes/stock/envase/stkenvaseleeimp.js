@@ -21,7 +21,10 @@ idStkItems
 var router = express();
 
 router.get("/", function(req, res, next) {
-  StkEnvaseUbG = req.query.stkenvaseubg;
+  // StkEnvaseUbG = req.query.stkenvaseubg;
+  console.log("Entro en backend !!!!!");
+  StkEnvaseUbG = req.query.id;
+  console.log("contenido de StkEnvaseUbG ", StkEnvaseUbG);
   var datos, info;
   var q = [
     "SELECT idStkEnvase,",
@@ -48,7 +51,7 @@ router.get("/", function(req, res, next) {
     "and (StkItems.StkItemsRubro = StkRubro.idStkRubro)",
     "and (StkItems.StkItemsGrupo = StkGrupo.idStkGrupo)",
     'and StkEnvaseImprimio = "N"',
-    "and StkEnvaseUbG = " + StkEnvaseUbG
+    "and StkEnvaseUbG = '" + StkEnvaseUbG + "'",
   ].join(" ");
   conexion.query(q, function(err, result, fields) {
     if (err) {
@@ -118,14 +121,14 @@ router.get("/", function(req, res, next) {
         // "^FH_ " +
         "^XZ";
       if (a == 0) {
-        fs.writeFile("./codigoqr", datos, error => {
+        fs.writeFile("./codigoqr", datos, (error) => {
           if (error) console.log(error);
           else {
             console.log("El archivo fue creado");
           }
         });
       } else {
-        fs.appendFile("./codigoqr", datos, error => {
+        fs.appendFile("./codigoqr", datos, (error) => {
           if (error) console.log(error);
           else {
             console.log("El archivo fue creado");

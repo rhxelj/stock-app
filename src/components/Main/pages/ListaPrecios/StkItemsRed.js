@@ -5,7 +5,7 @@ import IpServidor from "../VariablesDeEntorno";
 
 export const stkitemsred = (CodGrupo, CodRubro) => {
   return new Promise(resolve => {
-    const url = IpServidor + "/stkitemsleecodgryrb/?idStkGrupo="+CodGrupo+'&idStkRubro='+CodRubro;
+    const url = IpServidor + "/stkitemslistaprecios/?idStkGrupo="+CodGrupo+'&idStkRubro='+CodRubro;
     request
     .get(url)
     .set('Content-Type', 'application/json')

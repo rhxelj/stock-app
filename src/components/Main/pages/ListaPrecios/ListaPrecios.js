@@ -1,62 +1,85 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import MaterialTable, { MTableToolbar } from "material-table";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TablePagination from "@material-ui/core/TablePagination";
-import TableRow from "@material-ui/core/TableRow";
-import { initial_state } from "./Initial_State";
 import { leelistaprecios } from "./LeeListaPrecios";
-import { stkitemsred } from "./StkItemsRed";
+import { localization } from "../../../lib/material-table/localization";
 
+import { tableIcons } from "../../../lib/material-table/tableIcons";
 import TablaMuestraStock from "./TablaMuestraStock";
+import Button from "@material-ui/core/Button";
+import WavesIcon from "@material-ui/icons/Waves";
 
-import Slide from "@material-ui/core/Slide";
+import { HeaderTitle } from "../../../lib/HeaderTitle";
 
 const useStyles = makeStyles({
   root: {
-    width: "100%"
+    width: "100%",
   },
   container: {
-    maxHeight: 440
-  }
+    maxHeight: 440,
+  },
 });
 
 export default function ListaPrecios() {
   const classes = useStyles();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [state, setState] = useState(initial_state);
 
+  const [paramitems, setParamItems] = useState({
+    idGrupo: 0,
+    idRubro: 0,
+  });
+  // const [state, setState] = useState(initial_state);
+  HeaderTitle("LISTA DE PRECIOS");
   const [open, setOpen] = React.useState(false);
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
+  const [lista, setLista] = useState({
+    columns: [
+      {
+        title: "Grupo",
+        field: "GrupoDesc",
+      },
+      {
+        title: "Descripción",
+        field: "StkRubroDesc",
+      },
+      {
+        title: "Público",
+        field: "PPub",
+        type: "currency",
+      },
+      {
+        title: "Mayorista",
+        field: "PMay",
+        type: "currency",
+      },
+      {
+        title: "P-U Mayorista",
+        field: "PMayPU",
+        type: "currency",
+      },
+      {
+        title: "P-U-R Mayorista",
+        field: "PMayPUR",
+        type: "currency",
+      },
+    ],
 
-  const handleChangeRowsPerPage = event => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
+    data: [],
+  });
 
   async function leerlistaprecios() {
     const result = await leelistaprecios();
-    setState({ ...state, listaprecios: result });
+    setLista({ ...lista, data: result });
   }
 
   useEffect(() => {
     leerlistaprecios();
   }, []);
 
-  async function stkitemsreduc(event, StkRubroCodGrp, idStkRubro) {
-    const result = await stkitemsred(StkRubroCodGrp, idStkRubro);
-    setState({ ...state, datositems: result });
+  const openApp = (event, StkRubroCodGrp, idStkRubro) => {
+    setParamItems({ paramitems, idGrupo: StkRubroCodGrp, idRubro: idStkRubro });
     handleClickOpen();
-  }
-
+  };
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -67,64 +90,40 @@ export default function ListaPrecios() {
 
   return (
     <Paper className={classes.root}>
-      <TableContainer className={classes.container}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {state.columns.map(column => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {state.listaprecios
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map(row => {
-                return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    tabIndex={-1}
-                    key={row.code}
-                    onDoubleClick={event =>
-                      stkitemsreduc(event, row.StkRubroCodGrp, row.idStkRubro)
-                    }
-                  >
-                    {state.columns.map(column => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={state.listaprecios.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
+      <MaterialTable
+        icons={tableIcons}
+        title="Lista de Precios"
+        columns={lista.columns}
+        data={lista.data}
+        localization={localization}
+        actions={[
+          {
+            icon: () => <WavesIcon />,
+            onClick: (event, rowData) =>
+              openApp(event, rowData.StkRubroCodGrp, rowData.idStkRubro),
+          },
+        ]}
+        options={{
+          grouping: true,
+        }}
+        components={{
+          Toolbar: (props) => (
+            <div>
+              <MTableToolbar {...props} />
+              <div style={{ padding: "0px 10px" }}>
+                <Button color="primary" style={{ marginRight: 5 }}>
+                  Presupuesto
+                </Button>
+              </div>
+            </div>
+          ),
+        }}
       />
       <TablaMuestraStock
         open={open}
         handleClose={handleClose}
-        datositems={state.datositems}
+        Grupo={paramitems.idGrupo}
+        Rubro={paramitems.idRubro}
       />
     </Paper>
   );
