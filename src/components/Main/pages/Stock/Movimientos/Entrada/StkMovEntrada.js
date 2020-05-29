@@ -53,7 +53,6 @@ var StkMovEntrada = (props) => {
             <FilaCuatro />
             {/* Fila Confirma, Cancela, Borra */}
             <FilaCinco />
-            {/* <StkGenImpQR ubicaG="RUTA" /> */}
           </StkMovEntradaContext.Provider>
         </Grid>
       </Container>

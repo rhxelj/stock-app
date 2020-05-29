@@ -2,23 +2,30 @@ import React from "react";
 import { Button, Paper } from "@material-ui/core";
 
 export default function ComboBCC(props: any) {
+  const {
+    confirmText,
+    cancelText,
+    confirmAction,
+    cancelAction,
+  } = props.actions;
+  console.log("PROPS EN ComboBCC ", confirmText);
   return (
     <>
       <Button
-        onClick={props.actions.confirmar}
+        onClick={confirmAction}
         style={{ margin: ".5rem" }}
         variant="contained"
         color="primary"
       >
-        Confirmar
+        {confirmText}
       </Button>
       <Button
-        onClick={props.actions.cancelar}
+        onClick={cancelAction}
         style={{ margin: ".5rem" }}
         variant="contained"
         color="secondary"
       >
-        Cancelar
+        {cancelText}
       </Button>
     </>
   );
