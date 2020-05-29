@@ -16,6 +16,7 @@ import { modificarRubros } from "./StkRubroModificar";
 
 import MaterialTable, { Column } from "material-table";
 import { HeaderTitle } from "../../../../lib/HeaderTitle";
+
 export default function StkRubro() {
   // const [lookconst, setLookconst] = useState();
   HeaderTitle("RUBROS");

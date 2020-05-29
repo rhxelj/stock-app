@@ -28,7 +28,7 @@ export const initial_state = {
   StkEnvaseUbF: "",
   StkEnvaseObserv: "",
 
-  disponibilidad:0,
+  disponibilidad: 0,
   //Funcions agregaStock END ***//
 
   stkgrupo: [],
@@ -60,8 +60,13 @@ export const initial_state = {
   // StkEnvaseUbG: "",
   // StkEnvaseUbF: "",
   StkEnvaseObserv: "",
-  stkenvaseubfisica: []
+  stkenvaseubfisica: [],
 
+  imp_etiquetas: false,
+
+  confOpen: false, // Estado del componnente confirmacion
+  noImp: false,
+  impOk: false,
   // StkItemsFAct: "",
   // StkItemsMin: null,
   // StkItemsMax: null,

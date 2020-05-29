@@ -23,14 +23,14 @@ import FilaCuatro from "./LayoutMovEntrada/FilaCuatro";
 import FilaCinco from "./LayoutMovEntrada/FilaCinco/index";
 import { initial_state } from "./Initial_State";
 
-import { useContext } from "react";
-import { globalContext } from "../../../../../App";
+import StkGenImpQR from "../../../Impresion/StkGenImpQR";
+
+import { HeaderTitle } from "../../../../../lib/HeaderTitle";
 
 export const StkMovEntradaContext = React.createContext();
 
 var StkMovEntrada = (props) => {
-  const { setValor } = useContext(globalContext);
-  setValor("Movimiento de Entrada");
+  HeaderTitle("Movimiento de Entrada");
 
   const [state, setState] = useState(initial_state);
   const classes = useStyles();

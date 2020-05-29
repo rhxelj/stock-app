@@ -1,11 +1,7 @@
 import React, {useState, useEffect} from 'react';
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-
+import { tableIcons } from '../../../lib/material-table/tableIcons'
+import { localization } from '../../../lib/material-table/localization'
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -13,6 +9,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import MaterialTable, { Column } from 'material-table';
+import { stkitemsred } from './StkItemsRed';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -22,7 +20,42 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function TablaMuestraStock(props) {
 
-const {open, handleClose, datositems} = props
+const {open, handleClose, Grupo, Rubro} = props
+
+
+const [stock, setStock] = useState({
+  columns : [
+    {
+      title: "Detalle",
+      field: "StkItemsDesc",
+    },
+    {
+      title: "Cant.Disponible",
+      field: "StkItemsCantDisp",
+      type : 'numeric',
+    },
+    {
+      title: "Cantidad",
+      field: "StkItemsCantidad",
+      type : 'numeric',
+    }
+  
+  ],
+
+datastock: [],
+})
+
+
+async function stkitemsreduc(Grupo, Rubro) {
+  const result = await stkitemsred(Grupo, Rubro);
+  setStock({ ...stock, datastock: result });
+}
+
+
+useEffect(() => {
+  stkitemsreduc(Grupo, Rubro);
+}, [Grupo, Rubro]);
+
 
 
 return (
@@ -34,27 +67,19 @@ onClose={handleClose}
 aria-labelledby="alert-dialog-slide-title"
 aria-describedby="alert-dialog-slide-description"
 >
-<DialogTitle id="alert-dialog-slide-title">{"Datos de Items"}</DialogTitle>
+<DialogTitle id="alert-dialog-slide-title">{"Stock de Items"}</DialogTitle>
 <DialogContent>
   <DialogContentText id="alert-dialog-slide-description">
-  <Table >
-             <TableHead>
-               <TableCell>Detalle</TableCell>
-               <TableCell>Cant.Disponible</TableCell>
-               <TableCell>Cant.Stock</TableCell>
-             </TableHead>
-             <TableBody>
-             {datositems.map((stkitem) => {
-               return(
-                 <TableRow key={stkitem.StkItemsDesc}>
-                  <TableCell >{stkitem.StkItemsDesc}</TableCell>
-                  <TableCell numeric>{stkitem.StkItemsCantDisp}</TableCell>
-                  <TableCell numeric>{stkitem.StkItemsCantidad}</TableCell>
-                  </TableRow>
-             )
-               })}
-             </TableBody>
-           </Table>
+  <MaterialTable
+     icons={tableIcons}
+     localization={localization}
+      title="Stock"
+      columns={stock.columns}
+      data={stock.datastock}
+      >
+
+      </MaterialTable>
+
   </DialogContentText>
 </DialogContent>
 <DialogActions>

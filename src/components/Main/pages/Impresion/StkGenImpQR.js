@@ -19,30 +19,30 @@ import Typography from "@material-ui/core/Typography";
 // import FormControlLabel from '@material-ui/core/FormControlLabel';
 // import Checkbox from '@material-ui/core/Checkbox';
 
-const CustomTableCell = withStyles(theme => ({
+const CustomTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white
+    color: theme.palette.common.white,
   },
   body: {
-    fontSize: 14
-  }
+    fontSize: 14,
+  },
 }))(TableCell);
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     width: "100%",
     marginTop: theme.spacing.unit * 3,
-    overflowX: "auto"
+    overflowX: "auto",
   },
   table: {
-    minWidth: 700
+    minWidth: 700,
   },
   row: {
     "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.background.default
-    }
-  }
+      backgroundColor: theme.palette.background.default,
+    },
+  },
 });
 
 class StkGenImpQR extends Component {
@@ -54,41 +54,45 @@ class StkGenImpQR extends Component {
       grupostk: 0,
       rubrostk: 0,
       itemsstk: 0,
-      open: true
+      open: true,
     };
   }
-  stkenvaseleeimp = _ => {
+
+  stkenvaseleeimp = (_) => {
     const url = IpServidor + "/stkenvaseleeimp/?id=" + this.props.ubicaG;
     console.log(url);
     request
       .get(url)
       .set("Content-Type", "application/json")
-      .then(res => {
+      .then((res) => {
         const envaseimp = JSON.parse(res.text);
         // this.setState({envaseimp: envaseimp})
+        console.log("envaseimp dendtro de stkenvaseleeimp : ");
+        console.log(envaseimp);
         this.setState(() => {
           return { envaseimp: envaseimp };
         });
       });
   };
-  stkenvasecambiaimp = _ => {
+  stkenvasecambiaimp = (_) => {
     const url = IpServidor + "/stkenvasecambiaimp/?id=" + this.props.ubicaG;
     console.log(url);
     request
       .post(url)
       .set("Content-Type", "application/json")
-      .then(res => {
+      .then((res) => {
         // const envasecambiaimp = JSON.parse(res.text)
       });
   };
 
-  handleChange = name => event => {
+  handleChange = (name) => (event) => {
     this.setState({ [name]: event.target.checked });
     console.log(name + " :");
     console.log(this.state[name]);
   };
 
   componentDidMount() {
+    console.log("Props = ", this.props.ubicaG);
     this.stkenvaseleeimp();
   }
 
@@ -221,7 +225,7 @@ class StkGenImpQR extends Component {
           style={{
             position: "fixed",
             bottom: "10px",
-            right: "25px"
+            right: "25px",
           }}
         >
           <Button
@@ -232,7 +236,7 @@ class StkGenImpQR extends Component {
                 maxWidth: 800,
                 scanStyles: false,
                 printable: "mostrar",
-                type: "html"
+                type: "html",
               })
             }
           >

@@ -19,3 +19,6 @@ V2.1 17-10-2019
 
 V2.1.1 23-10-2019
     Corregir el problema que daba error 500 cuando queria agregar un Rubro nuevo.
+
+V3 15-05-2020
+    Cambio de las tablas a MaterialTable, presentación de titulo en el navbar y corrección de errores varios.
