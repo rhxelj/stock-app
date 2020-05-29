@@ -115,6 +115,7 @@ export default function StkRubro() {
         field: "StkRubroAncho",
         emptyValue: "false",
         type: "numeric",
+        initialEditValue: "0",
         editComponent: (props) => (
           <input
             // type="number"
