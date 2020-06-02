@@ -88,7 +88,7 @@ export default function StkRubroB(props) {
         title: "Ancho",
         field: "StkRubroAncho",
         emptyValue: "false",
-        initialEditValue: "0",
+        // initialEditValue: "0",
         // required : true,
         //    type : 'currency'
       },
