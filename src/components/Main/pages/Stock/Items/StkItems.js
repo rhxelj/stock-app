@@ -327,151 +327,54 @@ function StkItems() {
 
   return (
     <div>
-      <Grid container>
-        <Grid item xs={4} sm={4} lg={4}></Grid>
-        <Grid item xs={4} sm={4} lg={4}>
-          <h1>ABM DE ITEMS</h1>
-        </Grid>
-        <Grid item xs={4} sm={4} lg={4}></Grid>
-      </Grid>
-      {/* {!state.toggle.agregar && ( */}
-      {/* // ? */}
-      {/* // Muestar la tabla de Items */}
-      <Paper>
-        <MaterialTable
-          icons={tableIcons}
-          localization={localization}
-          columns={columns}
-          data={state.items}
-        />
-
-        <Table>
-          <TableHead>
-            {/* <TableRow>
-                            <CustomTableCell onClick={() => this.sortBy("idStkMonedas")} >Código</CustomTableCell>
-                            <CustomTableCell onClick={() => this.sortBy("StkMonedasDescripcion")} >Descripción</CustomTableCell>
-                            <CustomTableCell onClick={() => this.sortByNumero("StkMonedasCotizacion")} numeric>Cotización</CustomTableCell>
-                            <CustomTableCell ></CustomTableCell>
-                        </TableRow> */}
-            <TableRow>
-              <CustomTableCell className="headerFijo"></CustomTableCell>
-              {columns.map((row, index) => {
-                // return (<CustomTableCell key={index} onClick={() => this.sortBy(row.accessor,row.tipo)} >{row.Header}</CustomTableCell>)
-                return (
-                  <CustomTableCell
-                    className="headerFijo"
-                    key={index}
-                    onClick={() => {
-                      return row.order && this.sortBy(row.accessor);
-                    }}
-                  >
-                    {row.Header}
-                  </CustomTableCell>
-                );
-                // return (<CustomTableCell key={index} onClick={()=>{return row.order ? console.log('ordena '+row.accessor) :  console.log('No Ordena '+row.accessor)}} >{row.Header}</CustomTableCell>)
-              })}
-            </TableRow>
-          </TableHead>
-
-          <TableBody>
-            {state.items.map((row) => {
-              return (
-                <TableRow
-                  key={row.StkItemsDesc}
-                  // Cargo las variables que voy a enviar a StkIemsModificar.js
-                  // onDoubleClick={() => {
-                  //   this.setState({ idStkItems: row.idStkItems });
-                  //   this.setState({ StkItemsGrupo: row.StkItemsGrupo });
-                  //   this.setState({ StkGrupoDesc: row.StkGrupoDesc });
-                  //   this.setState({ StkItemsRubro: row.StkItemsRubro });
-                  //   this.setState({ StkRubroDesc: row.StkRubroDesc });
-                  //   this.setState({ StkItemsDesc: row.StkItemsDesc });
-                  //   this.setState({
-                  //     StkItemsCantidad: row.StkItemsCantidad,
-                  //   });
-                  //   this.setState({
-                  //     StkItemsCantDisp: row.StkItemsCantDisp,
-                  //   });
-                  //   this.setState({ StkItemsMin: row.StkItemsMin });
-                  //   this.setState({ StkItemsMax: row.StkItemsMax });
-
-                  //   this.toggle("modificar");
-                  // }}
-                >
-                  {/* {console.log("row ")} */}
-                  {/* {console.log(row)} */}
-                  <CustomTableCell style={style}>{row.borrar}</CustomTableCell>
-                  <CustomTableCell>{row.idStkItems}</CustomTableCell>
-                  <CustomTableCell>{row.StkGrupoDesc}</CustomTableCell>
-                  <CustomTableCell>{row.StkRubroDesc}</CustomTableCell>
-                  <CustomTableCell>{row.StkItemsDesc}</CustomTableCell>
-                  <CustomTableCell>{row.StkItemsCantidad}</CustomTableCell>
-                  <CustomTableCell>{row.StkItemsCantDisp}</CustomTableCell>
-                  <CustomTableCell>{row.StkItemsFAct}</CustomTableCell>
-                  <CustomTableCell>{row.StkItemsMin}</CustomTableCell>
-                  <CustomTableCell>{row.StkItemsMax}</CustomTableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </Paper>
-      ) // : // <div></div>}
-      {/* {this.state.toggle.modificar ? (
-          //Llama al componente ModificarItems
-          <div>
-            <div className="row">
-              <div className="col s12 ">
-                <div className="">
-                  <div className="card-content  black-text">
-                    <StkItemsModificar
-                      clickmodificar={() => this.toggle("modificar")}
-                      // read={()=>this.read()}
-
-                      idStkItems={this.state.idStkItems}
-                      StkItemsGrupo={this.state.StkItemsGrupo}
-                      StkGrupoDesc={this.state.StkGrupoDesc}
-                      StkItemsRubro={this.state.StkItemsRubro}
-                      StkRubroDesc={this.state.StkRubroDesc}
-                      StkItemsDesc={this.state.StkItemsDesc}
-                      StkItemsCantidad={this.state.StkItemsCantidad}
-                      StkItemsCantDisp={this.state.StkItemsCantDisp}
-                      StkItemsMin={this.state.StkItemsMin}
-                      StkItemsMax={this.state.StkItemsMax}
-                      // StkItemsObserv={this.state.StkItemsObserv}
-
-                      // click={()=>this.toggle()}
-                      leeStkItemsDetalles={() => this.leeStkItemsDetalles()}
-                      // read={()=>this.leeStkItems()}
-                    ></StkItemsModificar>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div></div>
-        )} */}
-      {/* {this.state.toggle.seleccampos && (
-          <SelecCampos
-            datos={items}
-            toggleImprimir={() => this.toggle("seleccampos")}
-            headerTabla={columns}
-          />
-        )} */}
-      {/* // FAB BEGIN  */}
-      {/* Muesra los botones Flotantes en la parte inferior de la pantalla Agregar y Busqueda*/}
-      {/* <StkFab
-          borraFiltered={this.borraFiltered}
-          toggleAgregar={() => this.toggle("agregar")}
-          toggleImprimir={() => this.toggle("seleccampos")}
-          toggleBusqueda={() => this.toggle("busqueda")}
-          toggle_busqueda={this.state.toggle.busqueda}
-          search={this.search}
-          filtered={this.state.filtered}
-          agrega={true}
-        /> */}
-      {/* // FAB END */}
+      <MaterialTable
+        icons={tableIcons}
+        localization={localization}
+        columns={columns}
+        data={state.items}
+        options={{
+          grouping: true,
+          addRowPosition: "first",
+          actionsColumnIndex: -1,
+        }}
+        editable={{
+          onRowAdd: (newData) =>
+            new Promise((resolve, reject) => {
+              setTimeout(() => {
+                {
+                  const data = this.state.data;
+                  data.push(newData);
+                  this.setState({ data }, () => resolve());
+                }
+                resolve();
+              }, 1000);
+            }),
+          onRowUpdate: (newData, oldData) =>
+            new Promise((resolve, reject) => {
+              setTimeout(() => {
+                {
+                  const data = this.state.data;
+                  const index = data.indexOf(oldData);
+                  data[index] = newData;
+                  this.setState({ data }, () => resolve());
+                }
+                resolve();
+              }, 1000);
+            }),
+          onRowDelete: (oldData) =>
+            new Promise((resolve, reject) => {
+              setTimeout(() => {
+                {
+                  let data = this.state.data;
+                  const index = data.indexOf(oldData);
+                  data.splice(index, 1);
+                  this.setState({ data }, () => resolve());
+                }
+                resolve();
+              }, 1000);
+            }),
+        }}
+      />
     </div>
   );
 }
