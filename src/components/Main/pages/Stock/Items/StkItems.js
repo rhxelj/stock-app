@@ -265,69 +265,64 @@ function StkItems() {
   // Encabezado de la Tabla
   var columns = [
     {
-      Header: "Items(ID)",
-      accessor: "idStkItems",
+      title: "Items(ID)",
+      field: "idStkItems",
       tipo: "numero",
       order: true,
     },
     {
-      Header: "Grupo",
-      accessor: "StkItemsGrupo",
+      title: "Grupo",
+      field: "StkGrupoDesc",
       tipo: "numero",
       order: true,
     },
     {
-      Header: "Rubro",
-      accessor: "StkItemsRubro",
+      title: "Rubro",
+      field: "StkRubroDesc",
       tipo: "texto",
       order: true,
     },
     {
-      Header: "Descripción",
-      accessor: "StkItemsDesc",
+      title: "Descripción",
+      field: "StkItemsDesc",
       tipo: "texto",
       order: true,
     },
     {
-      Header: "Cantidad",
-      accessor: "StkItemsCantidad",
+      title: "Cantidad",
+      field: "StkItemsCantidad",
       tipo: "numero",
       order: true,
     },
     {
-      Header: "Cantidad Disponible",
-      accessor: "StkItemsCantDisp",
+      title: "Cantidad Disponible",
+      field: "StkItemsCantDisp",
       tipo: "numero",
       order: true,
     },
     {
-      Header: "Fecha de Actualización",
-      accessor: "StktemsFAct",
+      title: "Fecha de Actualización",
+      field: "StkItemsFAct",
       tipo: "texto",
       order: true,
     },
     {
-      Header: "Stock Mínimo",
-      accessor: "StkItemsMin",
+      title: "Stock Mínimo",
+      field: "StkItemsMin",
       tipo: "numero",
       order: true,
     },
     {
-      Header: "Stock Máximo",
-      accessor: "StkItemsMax",
+      title: "Stock Máximo",
+      field: "StkItemsMax",
       tipo: "numero",
       order: true,
     },
     // {
-    //     Header: "Observaciones",
-    //     accessor: "StkItemsObserv",
+    //     title: "Observaciones",
+    //     field: "StkItemsObserv",
     //     tipo:"numero"
     // },
-    {
-      Header: "",
-      accessor: "borrar",
-      tipo: "",
-    },
   ];
 
   return (
@@ -346,8 +341,8 @@ function StkItems() {
         <MaterialTable
           icons={tableIcons}
           localization={localization}
-          // columns={columns}
-          // data={data}
+          columns={columns}
+          data={state.items}
         />
 
         <Table>
