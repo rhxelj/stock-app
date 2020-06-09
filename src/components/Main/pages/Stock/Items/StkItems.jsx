@@ -1,16 +1,8 @@
-// import React, { Component } from "react";
 import React, { useState, useEffect } from "react";
 import request from "superagent";
 
 import { withStyles } from "@material-ui/core/styles";
 import "../../../../../Styles/TableHeader.css";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import StkFab from "../../../../lib/StkFab";
 
 import StkItemsAgregar from "./StkItemsAgregar";
 import StkItemsBorrar from "./StkItemsBorrar";
@@ -22,7 +14,17 @@ import IpServidor from "../../VariablesDeEntorno";
 import MaterialTable, { Column } from "material-table";
 import { tableIcons } from "../../../../lib/material-table/tableIcons";
 import { localization } from "../../../../lib/material-table/localization";
-import { columns } from "./itemsColumns";
+import { initialState } from "./itemsInitialState"
+import { itemsColumns } from "./itemsColumns";
+
+// import React, { Component } from "react";
+// import TableCell from "@material-ui/core/TableCell";
+// import TableHead from "@material-ui/core/TableHead";
+// import TableRow from "@material-ui/core/TableRow";
+// import Table from "@material-ui/core/Table";
+// import TableBody from "@material-ui/core/TableBody";
+// import Paper from "@material-ui/core/Paper";
+// import StkFab from "../../../../lib/StkFab";
 // import 'react-table/react-table.css'
 // import ReactTable from 'react-table'
 // import Button from '@material-ui/core/Button';
@@ -30,21 +32,21 @@ import { columns } from "./itemsColumns";
 
 // Estilo para el botón de borrar
 
-const style = {
-  padding: "0px",
-  width: "100px",
-};
+// const style = {
+//   padding: "0px",
+//   width: "100px",
+// };
 
 // Estilos Inicio
-const CustomTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
+// const CustomTableCell = withStyles((theme) => ({
+//   head: {
+//     backgroundColor: theme.palette.common.black,
+//     color: theme.palette.common.white,
+//   },
+//   body: {
+//     fontSize: 14,
+//   },
+// }))(TableCell);
 
 //   const styles = theme => ({
 //     root: {
@@ -63,86 +65,22 @@ const CustomTableCell = withStyles((theme) => ({
 //   });
 // Estilos Fin
 
-// class StkItems extends Component {
-const initialState = {
-  idStkItems: 0,
-  StkItemsGrupo: 0,
-  StkItemsRubro: 0,
-  StkItemsDesc: "",
-  StkItemsCantidad: 0,
-  StktemsFAct: "",
-  StkItemsMin: 0,
-  StkItemsMax: 0,
-  items: [],
-  itemsdetalles: [],
-  stkgrupoitem: [],
-};
-
 function StkItems() {
-  // constructor(props) {
-  // super(props);
+
   const [state, setState] = useState(initialState);
 
-  //******************************************* Habilita el contenido a mostrar en Pantalla - Begin *******************************************
+  const [columns, setColumns] = useState([]);
+  const [data, setData] = useState([]);
 
-  // toggle = (arg) => {
-  //   this.setState((prevState) => ({
-  //     toggle: { [arg]: !prevState.toggle[arg] },
-  //   })); // estado inicial "FALSE" muestra la tabla de "..." en "TRUE" llama al componente <ComponenteParticular>
-  // };
+  async function columnsFetch() {
+    const col = await itemsColumns();
+    setColumns(() => col);
+  }
 
-  //******************************************* Habilita el contenido a mostrar en Pantalla - End *******************************************
-
-  //*********************************************** Cosas a agregar para la funcion de Busqueda Begin ***************************************************
-
-  // Funcion De Busqueda - Begin
-
-  // search = (event) => {
-  //   // Funcion de busqueda
-  //   // var name  = event.target.name
-  //   var value =
-  //     event.target.type === "checkbox"
-  //       ? event.target.checked
-  //       : event.target.value;
-  //   this.setState({ filtered: value });
-  // };
-
-  // Funcion De Busqueda - End.
-
-  // Opcion para borrar contenido del cuadro de busqueda - BEGIN
-
-  // borraFiltered = () => {
-  //   this.setState({ filtered: "" });
-  // };
-
-  // Opcion para borrar contenido del cuadro de busqueda - END
-
-  //********************************************* Cosas a agregar para la funcion de Busqueda End ****************************************************************
-
-  //********************************************* Cosas a agregar para la funcion de Ordenar (SortBy) Begin ******************************************************
-
-  // Funcion ordernar - Begin
-
-  // sortBy(key) {
-  //   this.setState({
-  //     items: this.state.items.sort((a, b) =>
-  //       this.state.direction[key] === "asc"
-  //         ? a[key] < b[key]
-  //           ? 1
-  //           : -1
-  //         : a[key] > b[key]
-  //         ? 1
-  //         : -1
-  //     ),
-  //     direction: {
-  //       [key]: this.state.direction[key] === "asc" ? "desc" : "asc",
-  //     },
-  //   });
+  // async function dataFetch() {
+  //   const data = await grupoData();
+  //   setData(data);
   // }
-
-  // Funcion ordernar - End
-
-  //*********************************************** Cosas a agregar para la funcion de Ordenar (SortBy) End *******************************************************
 
   //Read
   // leeStkItems = (_) => {
@@ -202,6 +140,17 @@ function StkItems() {
   //   // this.leeStkItems()
   //   this.leeStkItemsDetalles();
   // }
+
+
+  async function initialFetch() {
+    columnsFetch();
+    // dataFetch();
+  }
+
+  useEffect(() => {
+    initialFetch();
+  }, []);
+
 
   useEffect(() => {
     leeStkItemsDetalles();
