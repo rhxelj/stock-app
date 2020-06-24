@@ -16,6 +16,19 @@ import { tableIcons } from "../../../../lib/material-table/tableIcons";
 import { localization } from "../../../../lib/material-table/localization";
 import { initialState } from "./itemsInitialState"
 import { itemsColumns } from "./itemsColumns";
+import { HeaderTitle } from "../../../../lib/HeaderTitle"
+
+import { leeStkItemsDetalles } from "./leeStkitemsDetalles"
+
+// export const itemsContex = React.createContext()
+
+
+// TODO Importar los tres componentes de abajo
+// import { onRowAdd } from "./onRowAdd"
+// import { onRowUpdate } from "./onRowUpdate"
+// import { onRowDelete } from "./onRowDelete"
+// TODO
+
 
 // import React, { Component } from "react";
 // import TableCell from "@material-ui/core/TableCell";
@@ -65,9 +78,9 @@ import { itemsColumns } from "./itemsColumns";
 //   });
 // Estilos Fin
 
-function StkItems() {
-
-  const [state, setState] = useState(initialState);
+export default function StkItems() {
+  HeaderTitle("Items")
+  // const [state, setState] = useState(initialState);
 
   const [columns, setColumns] = useState([]);
   const [data, setData] = useState([]);
@@ -77,10 +90,10 @@ function StkItems() {
     setColumns(() => col);
   }
 
-  // async function dataFetch() {
-  //   const data = await grupoData();
-  //   setData(data);
-  // }
+  async function dataFetch() {
+    const data = await leeStkItemsDetalles();
+    setData(data);
+  }
 
   //Read
   // leeStkItems = (_) => {
@@ -95,16 +108,18 @@ function StkItems() {
   // };
 
   //Read
-  const leeStkItemsDetalles = (_) => {
-    const url = IpServidor + "/stkitemsleedetalles";
-    request
-      .get(url)
-      .set("Content-Type", "application/json")
-      .then((res) => {
-        const items = JSON.parse(res.text);
-        setState({ items: items });
-      });
-  };
+  // const leeStkItemsDetalles = (_) => {
+  //   const url = IpServidor + "/stkitemsleedetalles";
+  //   request
+  //     .get(url)
+  //     .set("Content-Type", "application/json")
+  //     .then((res) => {
+  //       const items = JSON.parse(res.text);
+  //       console.log("items => ")
+  //       console.log(items)
+  //       setState({ items: items });
+  //     });
+  // };
   // stkgrupoleercod = (id) => {
   //   const url = IpServidor + "/stkgrupoleercod/?id=" + id;
   //   request
@@ -122,19 +137,8 @@ function StkItems() {
   // };
   // // }
 
-  // toggle(event) {
-  //   // toogle = (event)=>{
-  //   this.setState((prevState) => ({
-  //     toggle: !prevState.toggle,
-  //   }));
-  // }
 
-  // togglemodificar(event) {
-  //   this.toggle();
-  //   this.setState((prevState) => ({
-  //     togglemodificar: !prevState.togglemodificar,
-  //   }));
-  // }
+
 
   // componentDidMount() {
   //   // this.leeStkItems()
@@ -143,18 +147,28 @@ function StkItems() {
 
 
   async function initialFetch() {
-    columnsFetch();
-    // dataFetch();
+    columnsFetch()
+    dataFetch()
   }
 
   useEffect(() => {
     initialFetch();
   }, []);
 
+  // Esto de aca abajo lo dejo para mirarlo pero no funciona porque state.items.StkItemsGrupo en ralidad no cambia nunca.
+  // useEffect(() => {
+  //   console.log("Cambio StkItemsGrupo")
+  // }, [state.items.StkItemsGrupo]);
 
-  useEffect(() => {
-    leeStkItemsDetalles();
-  });
+  // TODO Tengo que chequear si cambia la columna de grupo. 
+  // TODO Si StkGrupoDesc cambia entonces llammo al backend para traer el rubro 
+  // TODO correspondiente a ese grupo. 
+  // TODO 
+
+  // useEffect(() => {
+  //llamo al backend con el nuevo stkgrupo como dato
+  // }, [StkGrupoDesc]);
+
 
   return (
     <div>
@@ -162,12 +176,13 @@ function StkItems() {
         icons={tableIcons}
         localization={localization}
         columns={columns}
-        data={state.items}
+        data={data}
         options={{
           grouping: true,
           addRowPosition: "first",
           actionsColumnIndex: -1,
         }}
+        onRowClick={() => alert("Hizo Click")}
         editable={{
           onRowAdd: (newData) =>
             new Promise((resolve, reject) => {
@@ -211,4 +226,4 @@ function StkItems() {
 }
 // }
 
-export default StkItems;
+// export default StkItems;

@@ -1,30 +1,69 @@
-export function itemsColumns() {
+import React, { useState, useEffect } from "react";
+import request from "superagent";
+import { leeStkGrupo } from "./leeStkGrupo";
+
+import { stkrubroleecodgrupored } from "../Rubros/StkRubroLeeCodGrupoRed";
+
+export async function itemsColumns() {
+  const stkGrupos = await leeStkGrupo(); //llamo a leer grupo
+  var objstkgrupo = await stkGrupos.reduce(function(acc, cur, i) {
+    acc[cur.idStkGrupo] = cur.StkGrupoDesc;
+    console.log("acc => ", acc);
+    console.log("cur => ", cur);
+    return acc;
+  }, {});
+  console.log("objstkgrupo => ");
+  console.log(objstkgrupo);
+  console.log("StkItemsGrupo =>");
+  // console.log(StkItemsGrupo);
+  return columnsFill(objstkgrupo);
+}
+
+// useEffect(() => {
+//   console.log("estoy en useeffect de itemscolumns ");
+//   console.log("props ");
+//   console.log(rowData);
+// }, [rowData]);
+
+function columnsFill(objstkgrupo) {
   return new Promise(function(resolve, reject) {
-    // async function columns() {
-
-    // const stkMonedas = await stkMonedasleerRed();
-    //   var objstkMonedas = await stkMonedas.reduce(function(acc, cur, i) {
-    //     acc[cur.idStkMonedas] = cur.StkMonedasDescripcion;
-    //     return acc;
-    //   }, {});
-
-    // export const columns = [
-    const columns = [
+    resolve([
       {
         title: "Items(ID)",
         field: "idStkItems",
         tipo: "numero",
         order: true,
       },
+      // {
+      //   title: "Grupo",
+      //   field: "StkRubroCodGrp",
+      //   lookup: objstkgrupo,
+      //   native: true,
+      // },
+
       {
         title: "Grupo",
-        field: "StkGrupoDesc",
-        tipo: "numero",
-        order: true,
+        // field: "StkGrupoDesc",
+        field: "StkItemsGrupo",
+        lookup: objstkgrupo, //TODO: Agregado ahora cambiar nombre
+        // onRowDataChange: (props) => console.log(props),
+        // tipo: "numero",
+        // order: true,
+        // editComponent: (props) => (
+        //   <select  id="pet-select">
+        //     <option value="">--Please choose an option--</option>
+        //     <option value="dog">Dog</option>
+        //     <option value="cat">Cat</option>
+        //     <option value="hamster">Hamster</option>
+        //     <option value="parrot">Parrot</option>
+        //     <option value="spider">Spider</option>
+        //     <option value="goldfish">Goldfish</option>
+        //   </select>
+        // ),
       },
       {
         title: "Rubro",
-        field: "StkRubroDesc",
+        field: "StkItemsRubro",
         tipo: "texto",
         order: true,
       },
@@ -69,7 +108,9 @@ export function itemsColumns() {
       //     field: "StkItemsObserv",
       //     tipo:"numero"
       // },
-    ];
-    resolve(columns);
+    ]);
   });
+  // resolve(columns);
 }
+// )
+// }

@@ -3,7 +3,6 @@ import { leeTipoProv } from "./LeeTipoProv";
 
 export async function llenarColumns() {
   const tipoprov = await leeTipoProv();
-  console.log("Tipo Prov => ", tipoprov);
   var objstktipoprov = await tipoprov.reduce(function(acc, cur, i) {
     acc[cur.idSubRubro] = cur.SubRubroDetalle;
     return acc;
@@ -14,7 +13,8 @@ export async function llenarColumns() {
     acc[cur.idStkMonedas] = cur.StkMonedasDescripcion;
     return acc;
   }, {});
-
+  console.log("objstktipoprov => ");
+  console.log(objstktipoprov);
   return columnsFill(objstktipoprov, objstkMonedas);
 }
 
