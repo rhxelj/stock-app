@@ -1,0 +1,45 @@
+---
+name: Combo Borrar / Confirmar / Cancelar
+route: Documentation/Build.mdx
+menu: General
+---
+
+# Como Preparar El Projecto Para Produccion
+
+A continuación defino los pasos a seguir para compilar el proyecto para ser usado en producción.
+Lo primero que hay que hacer es parar tanto el backend como el frontend. después hay que cambiar el numero de IP que figura en VariablesDeEntorno(src/components/Main/pages/VariablesDeEntorno.js) y hacerlo coincidir con el Nro. de Ip del Servidor 192.168.2.11.
+Después corro npm run build esto me hace un directorio que se llama build y ese es el directorio que copio en el servidor para ser servido.
+
+Ahora el paso a paso
+
+- [ ] Me paro en el directorio raíz (...../..../OlsaSG)
+- [ ] Parar Backend
+- [ ] Parar Frontend
+- [ ] Cambiar el nro. IP de src/components/Main/pages/VariablesDeEntorno.js a **192.168.2.11:4000**
+- [ ] corro npm run build
+
+Esto es lo que me muestra despues de compilar el proyecto
+
+The project was built assuming it is hosted at the server root.
+You can control this with the homepage field in your package.json.
+For example, add this to build it for GitHub Pages:
+
+"homepage" : "http://myname.github.io/myapp",
+
+The build folder is ready to be deployed.
+You may serve it with a static server:
+
+yarn global add serve
+serve -s build
+
+Find out more about deployment here:
+
+https://bit.ly/CRA-deploy
+
+╭────────────────────────────────────────────────────────────────╮
+│ │
+│ New minor version of npm available! 6.13.4 → 6.14.5 │
+│ Changelog: https://github.com/npm/cli/releases/tag/v6.14.5 │
+│ Run npm install -g npm to update! │
+│ │
+╰────────────────────────────────────────────────────────────────╯

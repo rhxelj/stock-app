@@ -20,7 +20,7 @@ import StkGrupo from "../Grupos/StkGrupo";
 
 export default function StkRubro() {
   // const [lookconst, setLookconst] = useState();
-  HeaderTitle("RUBROS");
+  HeaderTitle("RUBROS"); //titulo a mostrar en el navbar
   const [nameError, setNameError] = useState({
     error: false,
     label: "",
