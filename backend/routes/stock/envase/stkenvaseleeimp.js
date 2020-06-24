@@ -6,7 +6,7 @@ var http = require("http");
 const fs = require("fs");
 const exec = require("child_process").exec;
 
-conexion.connect(function(err) {
+conexion.connect(function (err) {
   if (!err) {
     console.log("base de datos conectada en stkenvaseleeimp");
   } else {
@@ -20,9 +20,8 @@ idStkItems
 
 var router = express();
 
-router.get("/", function(req, res, next) {
+router.get("/", function (req, res, next) {
   // StkEnvaseUbG = req.query.stkenvaseubg;
-  console.log("Entro en backend !!!!!");
   StkEnvaseUbG = req.query.id;
   console.log("contenido de StkEnvaseUbG ", StkEnvaseUbG);
   var datos, info;
@@ -53,7 +52,8 @@ router.get("/", function(req, res, next) {
     'and StkEnvaseImprimio = "N"',
     "and StkEnvaseUbG = '" + StkEnvaseUbG + "'",
   ].join(" ");
-  conexion.query(q, function(err, result, fields) {
+  console.log(q)
+  conexion.query(q, function (err, result, fields) {
     if (err) {
       console.log(err);
     } else {
@@ -62,8 +62,10 @@ router.get("/", function(req, res, next) {
     a = 0;
 
     while (a < result.length) {
+      console.log(' result[a].StkEnvaseUbG + ', result[a].StkEnvaseUbG)
       info = "";
       info =
+        //
         result[a].idStkEnvase +
         "_0D_0A" + //para que en el código QR tome un <enter>
         result[a].StkRubroDesc +
@@ -78,20 +80,24 @@ router.get("/", function(req, res, next) {
         "_0D_0A" +
         result[a].stkenvasefecha +
         "_0D_0A" +
-        result[a].StkEnvaseCant;
+        result[a].StkEnvaseCant +
+        "_0D_0A" +
+        result[a].StkRubroUM;
       datos = "";
+      console.log(info)
       datos =
         "^XA" +
-        "^FO100,10" +
-        "^BQ,2,4,H,5" + // 2 uso recomendado, tamaño, calidad High, valor de máscara
+        "^FO20,10" +
+        "^BQ,2,4,H,7" + // 2 uso recomendado, tamaño, calidad High, valor de máscara
         "^FH" +
+        //  "^JM" + "^LH" + "^LL" + "^LR" + "^LS" + "^PM" + "^PR" + "^PF" +
         "^FDQA, " +
         info +
         " ^FS" +
         "^CFf" +
         "^CF0,50" + // tipo de letra, tamaño de letra
-        "^FO400,25" + //ubicación en el ancho y en el alto
-        "^FB150,5,2,C^FD" +
+        "^FO300,25" + //ubicación en el ancho y en el alto
+        "^FB200,5,2,C^FD" +
         result[a].StkRubroAbr +
         "^FS" +
         "^CF0,50" + // tipo de letra, tamaño de letra
@@ -116,9 +122,9 @@ router.get("/", function(req, res, next) {
         "^FB150,5,2,C^FD" +
         result[a].StkRubroUM +
         "^FS" +
-        // command that IS\&preceded by an FB \&command.^FS" +
-        // "^FO450,55" +
-        // "^FH_ " +
+        //   command that IS\&preceded by an FB \&command.^FS" +
+        "^FO450,55" +
+        "^FH_ " +
         "^XZ";
       if (a == 0) {
         fs.writeFile("./codigoqr", datos, (error) => {
@@ -140,17 +146,17 @@ router.get("/", function(req, res, next) {
       console.log("a  ", a);
       a++;
 
-      if (a >= result.length) {
-        exec("lpr ./codigoqr", (err, stdout, stderr) => {
-          if (err) {
-            console.error(`exec error: ${err}`);
-            return;
-          }
-        });
-      }
+      // if (a >= result.length) {
+      //   exec("lpr ./codigoqr", (err, stdout, stderr) => {
+      //     if (err) {
+      //       console.error(`exec error: ${err}`);
+      //       return;
+      //     }
+      //   });
+      // }
     }
   });
 });
 conexion.end;
-
+//lpr -P ZTC-GK420t codigoqr
 module.exports = router;

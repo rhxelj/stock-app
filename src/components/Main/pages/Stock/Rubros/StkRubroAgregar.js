@@ -4,6 +4,7 @@ import request from "superagent";
 
 export function agregarRubros(props) {
   return new Promise(function(resolve, reject) {
+   
     const {
       idStkRubro,
       StkRubroCodGrp,
@@ -30,7 +31,7 @@ export function agregarRubros(props) {
           agregarRubro(rubroNuevo);
         });
     }
-
+    console.log('StkRubroAncho  ', StkRubroAncho)
     function agregarRubro(rubroNuevo) {
       const url = IpServidor + "/stkrubroagregar/";
       request

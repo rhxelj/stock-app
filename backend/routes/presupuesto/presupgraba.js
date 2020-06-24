@@ -1,8 +1,12 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-var path = require('path');
+var path = require("path");
+var moment = require("moment");
 var conexion = require('../conexion');
-var param = require('../parametros')
+
+var nrovta = 1;
+
+moment.locale("es");
 
 conexion.connect(function (err) {
   if (!err) {
@@ -12,84 +16,62 @@ conexion.connect(function (err) {
   }
 });
 
-function mostrarPropiedades(objeto, nombreObjeto) {
+router.post("/", async function (req, res) {
+  console.log('esta en grabar')
+  var d = new Date();
+  var q1;
+  // finalDate = d.toISOString().split("T")[0];
+  // //'Select max(idStkMovVta) as UltMovVta from StkMovVta where StkMovVtaFecha = "' + finalDate + '"' ,
+  // var q = [
+  //   'Select max(idStkMovVta) as UltMovVta from StkMovVta where StkMovVtaFecha = "' +
+  //     finalDate +
+  //     '"'
+  // ].join(" ");
+  // conexion.query(q, function(err, result) {
+  //   if (err) {
+  //     if (err.errno === 1054) {
+  //       nrovta = 1;
+  //     } else {
+  //       console.log("error al buscar el último  " + err.errno);
+  //       console.log(err);
+  //     }
+  //   } else {
+  //     res.json(result);
+  //     nrovta = result[0].UltMovVta + 1;
+  //   }
+
+  //   var registro = {
+  //     idStkMovVta: nrovta,
+  //     StkMovVtaFecha: finalDate,
+  //     StkMovVtaGrupo: req.body.StkMovVtaGrupo,
+  //     StkMovVtaRubro: req.body.StkMovVtaRubro,
+  //     StkMovVtaItem: req.body.StkMovVtaItem,
+  //     StkMovVtaCantidad: Number(req.body.StkMovVtaCantidad)
+  //   };
+  var registro = { PresupDatosDetalle: req.body.PresupDatosDetalle };
+
   var resultado = ``;
-  for (var i in objeto) {
+  for (var i in req.body.PresupDatosDetalle) {
     //objeto.hasOwnProperty se usa para filtrar las propiedades del objeto
-    if (objeto.hasOwnProperty(i)) {
-        resultado += `${nombreObjeto}.${i} = ${objeto[i]}\n`;
+    if (req.body.PresupDatosDetalle.hasOwnProperty(i)) {
+      resultado += `${req.body.PresupDatosDetalle}.${i} = ${req.body.PresupDatosDetalle[i]}\n`;
     }
   }
-  return resultado;
-}
-
-var datosenvio = []
-var router = express();
-router.post('/',  (req, res, next) => {
-  var q, i = 0
-  var coeficiente = 0, cantidad = 0, StkRubroAbrP = '', largo = 0
-  datosrec = (req.body.renglon)
- // datosrec = JSON.parse(req.body.renglon)
-  totalreg = datosrec.length
-// var resultado = ``;
-//   for (var i in datosrec) {
-//     //objeto.hasOwnProperty se usa para filtrar las propiedades del objeto
-//     if (datosrec.hasOwnProperty(i)) {
-//         resultado += `${'datosrec'}.${i} = ${datosrec[i]}\n`;
-//     }
-//   }
-//   console.log('resultado')
-//   console.log(resultado)
-
-datosrec.map(datos => {  
-  console.log(Object.getOwnPropertyNames(datos[0]))
- console.log(Object.values(datos[0]))
-
-      // cantidad = datos.cantidad;
-      // StkRubroAbrP = datos.StkRubroAbr;
-      // largo = datos.largo
-      // coeficiente = param.coeficientemay
-      // minutosunion = param.cantminpu
-   
-        // q = ['Select',
-        //               'StkRubroDesc, ',
-        //               '(((StkRubroCosto * StkMonedasCotizacion * ' + coeficiente + ')',
-        //               '+ (REPValorMOT / 60 * ' + minutosunion + ')) ',
-        //               ' * ' + cantidad,
-        //               ' * ' + largo + ' ) as ImpPañoUnido, ', 
-        //               '(((StkRubroCosto * StkMonedasCotizacion * ' + coeficiente + ')',
-        //               '+ (REPValorMOT / 60 * 2 *' + minutosunion + ')) ',
-        //               ' * ' + cantidad,
-        //               ' * ' + largo + ' ) as ImpPañoUnidoRec, ',
-        //               'StkRubroCosto,',
-        //               'StkMonedasCotizacion,',
-        //               'REPValorMOT',
-        //               'from BaseStock.StkRubro JOIN  BaseStock.StkMonedas, ', 
-        //               'reparacion.parametrosrep ',
-        //               'where StkRubro.StkRubroAbr = "' + StkRubroAbrP +'" ', 
-        //               'and StkRubro.StkRubroTM = idStkMonedas',
-        //    ].join(' ')  
-        //    console.log(q)
-        // conexion.query(
-        //          q,              
-        //               function(err, result) {
-        //               if (err) {
-        //                   console.log('error en mysql')
-        //                   console.log(err)
-        //                   } 
-        //                   else {
-        //                    datosenvio.push(result)
-        //                    i++ 
-        //                     if (i === totalreg)
-        //                     {
-        //                       res.json(datosenvio)
-        //                       datosenvio = []
-        //                     }
-        //                   }
-        //           })
-  })
+  console.log('resultado  ', resultado)
+  var q = ["INSERT INTO BasePresup.PresupDatos SET  ?", registro].join(" ");
+  console.log('q  ', q)
+  // conexion.query(q, function (
+  //   err,
+  //   result
+  // ) {
+  //   if (err) {
+  //     console.log("ERROR en Insert en presupgraba");
+  //     console.log(err.errno);
+  //   } else {
+  //     res.json(result.rows);
+  //   }
+  // });
 });
 
-
-conexion.end
+conexion.end;
 module.exports = router;

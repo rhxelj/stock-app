@@ -8,7 +8,7 @@ import {
 import Grid from "@material-ui/core/Grid";
 import React, { useState, useEffect } from "react";
 import { stkrubroleecodgryrb } from "../../Stock/Rubros/StkRubroLeeCodGryRb";
-import useStyles from "./StkMovEntradaStyle";
+import useStyles from "../StkMovEntradaStyle";
 import Paper from "@material-ui/core/Paper";
 var initial_state = {
   stkitemsele: [],

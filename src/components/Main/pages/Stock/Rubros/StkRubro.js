@@ -16,6 +16,7 @@ import { modificarRubros } from "./StkRubroModificar";
 
 import MaterialTable, { Column } from "material-table";
 import { HeaderTitle } from "../../../../lib/HeaderTitle";
+import StkGrupo from "../Grupos/StkGrupo";
 
 export default function StkRubro() {
   // const [lookconst, setLookconst] = useState();
@@ -34,25 +35,25 @@ export default function StkRubro() {
   // Lleno columna - inicio
   async function stkgrupoleerredrubros() {
     const stkgrupo = await stkGrupoLeerRedRubro();
-    var objstkgrupo = await stkgrupo.reduce(function(acc, cur, i) {
+    var objstkgrupo = await stkgrupo.reduce(function (acc, cur, i) {
       acc[cur.StkRubroCodGrp] = cur.StkGrupoDesc;
       return acc;
     }, {});
 
     const stkrubro = await stkrubroleeproveedor();
-    var objstkrubroprov = await stkrubro.reduce(function(acc, cur, i) {
+    var objstkrubroprov = await stkrubro.reduce(function (acc, cur, i) {
       acc[cur.StkRubroProv] = cur.ProveedoresDesc;
       return acc;
     }, {});
 
     const stkUnMed = await stkUnMedLeerRed();
-    var objstkUnMed = await stkUnMed.reduce(function(acc, cur, i) {
+    var objstkUnMed = await stkUnMed.reduce(function (acc, cur, i) {
       acc[cur.idStkUnMed] = cur.StkUnMedDesc;
       return acc;
     }, {});
 
     const stkMonedas = await stkMonedasleerRed();
-    var objstkMonedas = await stkMonedas.reduce(function(acc, cur, i) {
+    var objstkMonedas = await stkMonedas.reduce(function (acc, cur, i) {
       acc[cur.idStkMonedas] = cur.StkMonedasDescripcion;
       return acc;
     }, {});
@@ -69,7 +70,6 @@ export default function StkRubro() {
     stkgrupoleerredrubros(); //lleno columns con los datos obtenidos
     stkrubroleemezcla(); //Lleno data
   }
-
   function columnsFill(
     objstkgrupo,
     objstkrubroprov,
@@ -77,15 +77,13 @@ export default function StkRubro() {
     objstkMonedas
   ) {
     setColumns([
-      // {
-      //   title: "Rubro(ID)",
-      //   field: "idStkRubro"
-      // },
       {
         title: "Descripción",
         field: "StkRubroDesc",
       },
       {
+
+        id: 1,
         title: "Grupo",
         field: "StkRubroCodGrp",
         lookup: objstkgrupo,
@@ -95,10 +93,11 @@ export default function StkRubro() {
         title: "Abreviatura",
         field: "StkRubroAbr",
         editComponent: (props) => (
-          <input
+          < input
             maxlength="4"
             value={props.value}
-            onChange={(e) => props.onChange(e.target.value)}
+            onChange={(e) => props.onChange(e.target.value)
+            }
           />
         ),
       },
@@ -106,24 +105,25 @@ export default function StkRubro() {
         title: "Proveedor",
         // field: "ProveedoresDesc",
         field: "StkRubroProv",
-
+        defaultValue: 0,
         lookup: objstkrubroprov,
         native: true,
       },
       {
         title: "Ancho",
         field: "StkRubroAncho",
-        emptyValue: "false",
+        // emptyValue: "false",
+
         type: "numeric",
         initialEditValue: "0",
-        editComponent: (props) => (
-          <input
-            // type="number"
-            // value={props.StkRubroAncho}
-            value={props.value}
-            onChange={(e) => props.onChange(e.target.value)}
-          />
-        ),
+        // editComponent: (props) => (
+        //   // <input
+        //   //   // type="number"
+        //   //   // value={props.StkRubroAncho}
+        //   //   value={props.value}
+        //   //   onChange={(e) => props.onChange(e.target.value)}
+        //   // />
+        // ),
         // required : true,
         //    type : 'currency'
       },
@@ -142,6 +142,7 @@ export default function StkRubro() {
       {
         title: "Unidad De Medida",
         field: "StkRubroUM",
+        show: false,
         lookup: objstkUnMed,
       },
       {
@@ -162,6 +163,7 @@ export default function StkRubro() {
         lookup: objstkMonedas,
       },
     ]);
+
   }
 
   useEffect(() => {
@@ -173,6 +175,7 @@ export default function StkRubro() {
     return new Promise((resolve) => {
       setTimeout(() => {
         {
+          console.log('new DAta  ', newData.StkRubroCodGrp)
           agregarRubros(newData).then(() => stkrubroleemezcla());
         }
         resolve();
@@ -200,6 +203,7 @@ export default function StkRubro() {
 
   return (
     <div>
+      {console.log('esta aca  ', columns)}
       <MaterialTable
         icons={tableIcons}
         title="Tabla Rubros"
@@ -212,6 +216,7 @@ export default function StkRubro() {
           actionsColumnIndex: -1,
           // tableLayout: "fixed",
         }}
+
         // components={{
         //   EditRow: (props) => console.log("Props : ", props),
         //   // <StkRubroModificar open={true} />,
