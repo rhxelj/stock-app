@@ -3,6 +3,13 @@ import request from "superagent";
 // import ReactTable from 'react-table'
 import "react-table/react-table.css";
 
+// Para MaterialTable
+import MaterialTable, { Column } from "material-table";
+import { tableIcons } from "../../../../lib/material-table/tableIcons";
+import { localization } from "../../../../lib/material-table/localization";
+
+//*****
+
 import StkUbFisicaAgregar from "./StkUbFisicaAgregar";
 import StkUbFisicaBorrar from "./StkUbFisicaBorrar";
 
@@ -22,34 +29,34 @@ import "../../../../../Styles/TableHeader.css";
 // Estilo para el botón de borrar
 const style = {
   padding: "0px",
-  width: "100px"
+  width: "100px",
 };
 
-const CustomTableCell = withStyles(theme => ({
+const CustomTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white
+    color: theme.palette.common.white,
   },
   body: {
-    fontSize: 14
-  }
+    fontSize: 14,
+  },
 }))(TableCell);
 
 const styles = {
   root: {
     width: "100%",
     //   marginTop: theme.spacing.unit * 3,
-    overflowX: "auto"
+    overflowX: "auto",
   },
   table: {
-    minWidth: 700
+    minWidth: 700,
   },
   row: {
     // backgroundColor: 'red',
     "&:nth-of-type(odd)": {
       // backgroundColor: theme.palette.background.default,
       // backgroundColor: 'red',
-    }
+    },
   },
   fab: {
     // position: 'fixed',
@@ -57,12 +64,12 @@ const styles = {
     // right: theme.spacing.unit * 2,
     // bottom: '100px',
     // right: '100px',
-    background: "red"
+    background: "red",
   },
   icon: {
     // margin: theme.spacing.unit,
-    fontSize: 32
-  }
+    fontSize: 32,
+  },
 };
 
 class UnidadMedidas extends Component {
@@ -77,7 +84,7 @@ class UnidadMedidas extends Component {
       idStkUbFisica: "",
       StkUbFisicaGeo: "",
       ub_fisica: [],
-      direction: "asc"
+      direction: "asc",
     };
     // this.renderEditable = this.renderEditable.bind(this)
     // this.toggle = this.toggle.bind(this);
@@ -87,14 +94,14 @@ class UnidadMedidas extends Component {
   //******************************************* Habilita el contenido a mostrar en Pantalla - Begin *******************************************
 
   toggleAgregar = () => {
-    this.setState(prevState => ({
-      toggle_agregar: !prevState.toggle_agregar
+    this.setState((prevState) => ({
+      toggle_agregar: !prevState.toggle_agregar,
     })); // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <AgregarMonedas> ***
   };
 
   toggleBusqueda = () => {
-    this.setState(prevState => ({
-      toggle_busqueda: !prevState.toggle_busqueda
+    this.setState((prevState) => ({
+      toggle_busqueda: !prevState.toggle_busqueda,
     }));
   };
 
@@ -102,7 +109,7 @@ class UnidadMedidas extends Component {
 
   // Funcion De Busqueda - Begin
 
-  search = event => {
+  search = (event) => {
     // Funcion de busqueda
     // var name  = event.target.name
     var value =
@@ -137,7 +144,9 @@ class UnidadMedidas extends Component {
           ? 1
           : -1
       ),
-      direction: { [key]: this.state.direction[key] === "asc" ? "desc" : "asc" }
+      direction: {
+        [key]: this.state.direction[key] === "asc" ? "desc" : "asc",
+      },
     });
   }
 
@@ -146,12 +155,12 @@ class UnidadMedidas extends Component {
   // Cosas a agregar para la funcion de Ordenar (SortBy) End ******************************************************************************************************
 
   //Read
-  read = _ => {
+  read = (_) => {
     const url = IpServidor + "/stkubfisicaleer";
     request
       .get(url)
       .set("Content-Type", "application/json")
-      .then(res => {
+      .then((res) => {
         const ub_fisica = JSON.parse(res.text);
         this.setState({ ub_fisica });
       });
@@ -171,14 +180,14 @@ class UnidadMedidas extends Component {
             StkUbFisicaGeo={rowData.StkUbFisicaGeo}
             read={() => this.read()}
           ></StkUbFisicaBorrar>
-        )
+        ),
       })
     );
     //************************************** Agrego el campo del Boton BORRAR - End ***********************************
 
     // ******************************************* Filtrado de datos - Begin *******************************************
 
-    var ub_fisica = this.state.ub_fisica.filter(ubfisica => {
+    var ub_fisica = this.state.ub_fisica.filter((ubfisica) => {
       //este proveedores no es el proveedores de this.state.proveedores es una copia local
       return (
         ubfisica.idStkUbFisica
@@ -203,24 +212,26 @@ class UnidadMedidas extends Component {
         Header: "Lugar Físico",
         accessor: "idStkUbFisica",
         // tipo:"texto",
-        order: true
+        order: true,
       },
       {
         Header: "Ub. Geográfica",
         accessor: "StkUbFisicaGeo",
         // tipo:"texto",
-        order: true
+        order: true,
       },
       {
         Header: "",
         accessor: "borrar",
         // tipo:"",
-        order: false
-      }
+        order: false,
+      },
     ];
 
     return (
       <div>
+        <MaterialTable icons={tableIcons} localization={localization} />
+
         <Grid container>
           <Grid item xs={4} sm={4} lg={4}></Grid>
           <Grid item xs={4} sm={4} lg={4}>
@@ -275,7 +286,7 @@ class UnidadMedidas extends Component {
               </TableHead>
 
               <TableBody>
-                {ub_fisica.map(row => {
+                {ub_fisica.map((row) => {
                   return (
                     <TableRow
                       className={this.props.classes.row}
