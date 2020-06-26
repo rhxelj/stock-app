@@ -13,9 +13,13 @@ import { tableIcons } from "../../../../lib/material-table/tableIcons";
 import { localization } from "../../../../lib/material-table/localization";
 import { stkrubroleermezcla } from "./StkRubroLeerMezcla";
 
-import { agregarRubros } from "./StkRubroAgregar";
+import { onRowAdd } from "./onRowAdd";
+import { onRowUpdate } from "./onRowUpdate";
+// import { onRowDelete } from "./onRowDelete"
+
+// import { agregarRubros } from "./StkRubroAgregar";
 import { borrarRubros } from "./StkRubroBorrar";
-import { modificarRubros } from "./StkRubroModificar";
+// import { modificarRubros } from "./StkRubroModificar";
 
 import MaterialTable, { Column } from "material-table";
 import { HeaderTitle } from "../../../../lib/HeaderTitle";
@@ -57,25 +61,25 @@ export default function StkRubro() {
     initialFetch();
   }, []);
 
-  function onRowadd(newData) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        {
-          agregarRubros(newData).then(() => dataFetch());
-        }
-        resolve();
-      }, 600);
-    });
-  }
+  // function onRowadd(newData) {
+  //   return new Promise((resolve) => {
+  //     setTimeout(() => {
+  //       {
+  //         agregarRubros(newData).then(() => dataFetch());
+  //       }
+  //       resolve();
+  //     }, 600);
+  //   });
+  // }
 
-  function onRowUpdate(newData, oldData) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        modificarRubros(newData).then(() => dataFetch());
-        resolve();
-      }, 600);
-    });
-  }
+  // function onRowUpdate(newData, oldData) {
+  //   return new Promise((resolve, reject) => {
+  //     setTimeout(() => {
+  //       modificarRubros(newData).then(() => dataFetch());
+  //       resolve();
+  //     }, 600);
+  //   });
+  // }
 
   function onRowDelete(oldData) {
     return new Promise((resolve) => {
@@ -105,9 +109,9 @@ export default function StkRubro() {
         //   // <StkRubroModificar open={true} />,
         // }}
         editable={{
-          onRowAdd: (newData) => onRowadd(newData),
-
-          onRowUpdate: (newData, oldData) => onRowUpdate(newData, oldData),
+          onRowAdd: (newData) => onRowAdd(newData).then(() => dataFetch()),
+          onRowUpdate: (newData, oldData) =>
+            onRowUpdate(newData, oldData).then(() => dataFetch()),
 
           onRowDelete: (oldData) => onRowDelete(oldData),
         }}
