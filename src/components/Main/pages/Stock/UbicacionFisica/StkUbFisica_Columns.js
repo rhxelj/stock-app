@@ -1,3 +1,11 @@
+const ubicacion = {
+  PAR: "PARQUE",
+
+  RUT: "RUTA",
+
+  GB: "GRUNBEING",
+};
+
 export const columns = [
   {
     title: "Lugar Físico",
@@ -6,5 +14,6 @@ export const columns = [
   {
     title: "Ub. Geográfica",
     field: "StkUbFisicaGeo",
+    lookup: ubicacion,
   },
 ];

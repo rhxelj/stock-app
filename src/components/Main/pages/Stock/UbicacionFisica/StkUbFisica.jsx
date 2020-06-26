@@ -13,6 +13,9 @@ import { localization } from "../../../../lib/material-table/localization";
 import { columns } from "./StkUbFisica_Columns"
 import { StkUbFisica_Data } from "./StkUbFisica_Data"
 
+import { onRowAdd } from "./onRowAdd"
+// import { onRowUpdate } from "./onRowUpdate"
+// import { onRowDelete } from "./onRowDelete"
 
 import StkUbFisicaAgregar from "./StkUbFisicaAgregar";
 import StkUbFisicaBorrar from "./StkUbFisicaBorrar";
@@ -69,6 +72,22 @@ export default function StkUbFisica() {
         data={data}
         icons={tableIcons}
         localization={localization}
+
+        options={{
+          grouping: true,
+          addRowPosition: "first",
+          actionsColumnIndex: -1,
+          // tableLayout: "fixed", //con esta opcion entran todas las columnas en la pantalla pero superpone informacion
+        }}
+
+        editable={{
+          onRowAdd: newData =>
+            onRowAdd(newData).then(() => dataFetch()),
+          // onRowUpdate: (newData, oldData) =>
+          //   onRowUpdate(newData, oldData).then(() => dataFetch()),
+          // onRowDelete: oldData =>
+          //   onRowDelete(oldData).then(() => dataFetch()),
+        }}
       />
     </div>
   );
