@@ -173,6 +173,7 @@ export default function StkItems() {
   return (
     <div>
       <MaterialTable
+        title=""
         icons={tableIcons}
         localization={localization}
         columns={columns}
