@@ -13,8 +13,7 @@ export async function llenarColumns() {
     acc[cur.idStkMonedas] = cur.StkMonedasDescripcion;
     return acc;
   }, {});
-  console.log("objstktipoprov => ");
-  console.log(objstktipoprov);
+
   return columnsFill(objstktipoprov, objstkMonedas);
 }
 
