@@ -15,7 +15,7 @@ import { StkUbFisica_Data } from "./StkUbFisica_Data"
 
 import { onRowAdd } from "./onRowAdd"
 // import { onRowUpdate } from "./onRowUpdate"
-// import { onRowDelete } from "./onRowDelete"
+import { onRowDelete } from "./onRowDelete"
 
 import StkUbFisicaAgregar from "./StkUbFisicaAgregar";
 import StkUbFisicaBorrar from "./StkUbFisicaBorrar";
@@ -85,8 +85,8 @@ export default function StkUbFisica() {
             onRowAdd(newData).then(() => dataFetch()),
           // onRowUpdate: (newData, oldData) =>
           //   onRowUpdate(newData, oldData).then(() => dataFetch()),
-          // onRowDelete: oldData =>
-          //   onRowDelete(oldData).then(() => dataFetch()),
+          onRowDelete: oldData =>
+            onRowDelete(oldData).then(() => dataFetch()),
         }}
       />
     </div>

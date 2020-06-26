@@ -1,10 +1,10 @@
-import { ProveedoresBorrar } from "./ProveedoresBorrar";
+import { StkUbFisicaBorrar } from "./StkUbFisicaBorrar";
 
 export function onRowDelete(oldData) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       {
-        ProveedoresBorrar(oldData);
+        StkUbFisicaBorrar(oldData);
       }
       resolve();
     }, 1000);
