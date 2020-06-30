@@ -12,6 +12,8 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { confirmAlert } from "react";
 
+import { TipoConfeccion } from "./TipoConfeccion";
+
 // import { confirmAlert } from 'react-confirm-alert'
 // import Radio from '@material-ui/core/Radio';
 // import RadioGroup from '@material-ui/core/RadioGroup';
@@ -21,24 +23,24 @@ import { confirmAlert } from "react";
 // import { throws } from 'assert';
 // import { AlertWarning } from  '@material-ui/svg-icons';
 
-const TipoConfeccion = [
-  {
-    indice: 1,
-    detalle: "Con Dobladillo"
-  },
-  {
-    indice: 2,
-    detalle: "Con Fajas"
-  },
-  {
-    indice: 3,
-    detalle: "Paño Unido"
-  },
-  {
-    indice: 4,
-    detalle: "Enrollable"
-  }
-];
+// const TipoConfeccion = [
+//   {
+//     indice: 1,
+//     detalle: "Con Dobladillo"
+//   },
+//   {
+//     indice: 2,
+//     detalle: "Con Fajas"
+//   },
+//   {
+//     indice: 3,
+//     detalle: "Paño Unido"
+//   },
+//   {
+//     indice: 4,
+//     detalle: "Enrollable"
+//   }
+// ];
 class StkMovSalida extends React.Component {
   constructor() {
     super();
@@ -59,7 +61,7 @@ class StkMovSalida extends React.Component {
       total: 0.0,
       datostraid: [],
       open: true,
-      marcaver: false
+      marcaver: false,
     };
   }
   submit = () => {
@@ -69,25 +71,25 @@ class StkMovSalida extends React.Component {
       buttons: [
         {
           label: "Si",
-          onClick: () => alert("Click Yes")
+          onClick: () => alert("Click Yes"),
         },
         {
           label: "No",
-          onClick: () => alert("Click No")
-        }
-      ]
+          onClick: () => alert("Click No"),
+        },
+      ],
     });
   };
 
   // Lee Grupo inicio
-  leestkgrupo = _ => {
+  leestkgrupo = (_) => {
     const url = IpServidor + "/stkgrupoleer";
     console.log("url ");
     console.log(url);
     request
       .get(url)
       .set("Content-Type", "application/json")
-      .then(res => {
+      .then((res) => {
         const stkgrupo = JSON.parse(res.text);
         this.setState(() => {
           return { stkgrupo: stkgrupo };
@@ -98,12 +100,12 @@ class StkMovSalida extends React.Component {
   };
 
   //lee rubro por código de grupo
-  stkrubroleecodgrupo = id => {
+  stkrubroleecodgrupo = (id) => {
     const url = IpServidor + "/stkrubroleecodgrupo/" + id;
     request
       .get(url)
       .set("Content-Type", "application/json")
-      .then(res => {
+      .then((res) => {
         const stkrubro = JSON.parse(res.text);
         this.setState(() => {
           return { stkrubro: stkrubro };
@@ -113,13 +115,18 @@ class StkMovSalida extends React.Component {
     // this.marcagrupo()
   };
 
-  stkitemsleecodgryrb = idStkRubro => {
+  stkitemsleecodgryrb = (idStkRubro) => {
     var idStkGrupo = this.state.StkItemsGrupo;
-    const url = IpServidor + "/stkitemsleecodgryrb/?idStkGrupo=" + idStkGrupo + "&idStkRubro=" + idStkRubro;
+    const url =
+      IpServidor +
+      "/stkitemsleecodgryrb/?idStkGrupo=" +
+      idStkGrupo +
+      "&idStkRubro=" +
+      idStkRubro;
     request
       .get(url)
       .set("Content-Type", "application/json")
-      .then(res => {
+      .then((res) => {
         const stkitems = JSON.parse(res.text);
         this.setState(() => {
           return { stkitems: stkitems };
@@ -142,14 +149,14 @@ class StkMovSalida extends React.Component {
     request
       .get(url)
       .set("Content-Type", "application/json")
-      .then(res => {
+      .then((res) => {
         const stkitemse = JSON.parse(res.text);
         this.setState({ stkitemse: stkitemse });
         this.setState({
-          StkItemsCantidad: this.state.stkitemse[0].StkItemsCantidad
+          StkItemsCantidad: this.state.stkitemse[0].StkItemsCantidad,
         });
         this.setState({
-          StkItemsCantDisp: this.state.stkitemse[0].StkItemsCantDisp
+          StkItemsCantDisp: this.state.stkitemse[0].StkItemsCantDisp,
         });
         this.setState({ StkItemsFAct: this.state.stkitemse[0].StkItemsFAct });
         this.setState({ StkItemsMin: this.state.stkitemse[0].StkItemsMin });
@@ -163,22 +170,22 @@ class StkMovSalida extends React.Component {
     this.leestkgrupo();
   }
 
-  handleChange = prop => event => {
+  handleChange = (prop) => (event) => {
     this.setState({ [prop]: event.target.value });
   };
 
-  handleChangeGrupo = prop => event => {
+  handleChangeGrupo = (prop) => (event) => {
     this.setState({ [prop]: event.target.value }, () =>
       this.stkrubroleecodgrupo(this.state.StkItemsGrupo)
     );
   };
-  handleChangeRubro = prop => event => {
+  handleChangeRubro = (prop) => (event) => {
     this.setState({ [prop]: event.target.value }, () =>
       this.stkitemsleecodgryrb(this.state.StkItemsRubro)
     );
   };
 
-  handleChangeItems = prop => event => {
+  handleChangeItems = (prop) => (event) => {
     this.setState({ [prop]: event.target.value }, () =>
       this.stkitemsleecodgrrbit()
     );
@@ -192,7 +199,7 @@ class StkMovSalida extends React.Component {
     this.setState({ open: false });
   };
 
-  verificadisp = _ => {
+  verificadisp = (_) => {
     var cant = Number(this.state.cantidad);
     var larg = Number(this.state.largo);
     var anch = Number(this.state.ancho);
@@ -206,7 +213,7 @@ class StkMovSalida extends React.Component {
       .send({ anch: anch })
       .send({ StkItemsCantDisp: this.state.StkItemsCantDisp })
       .send({ TConfec: this.state.TConfec })
-      .then(res => {
+      .then((res) => {
         const faltantev = JSON.parse(res.text);
         this.setState({ datostraid: faltantev });
         this.setState({ marcaver: true });
@@ -217,7 +224,7 @@ class StkMovSalida extends React.Component {
   // descargastock = _ => {
   //   alert('descarga stock')
   //   }
-  descargastock = _ => {
+  descargastock = (_) => {
     const url =
       IpServidor +
       "/stkitemsmoddisp/?StkItems=" +
@@ -231,7 +238,7 @@ class StkMovSalida extends React.Component {
       .set("Content-Type", "application/json")
       .send({ total: Number(this.state.total) })
       .send({ StkItemsCantDisp: this.state.StkItemsCantDisp })
-      .then(res => {
+      .then((res) => {
         // const total1 = JSON.parse(res.text)
         //this.setState({marcaver:true})
       });
@@ -277,11 +284,11 @@ class StkMovSalida extends React.Component {
                   value={this.state.StkItemsGrupo}
                   onChange={this.handleChangeGrupo("StkItemsGrupo")}
                   SelectProps={{
-                    native: true
+                    native: true,
                   }}
                 >
                   <option></option>
-                  {this.state.stkgrupo.map(option => (
+                  {this.state.stkgrupo.map((option) => (
                     <option key={option.idStkGrupo} value={option.idStkGrupo}>
                       {option.StkGrupoDesc}
                     </option>
@@ -297,12 +304,12 @@ class StkMovSalida extends React.Component {
                   value={this.state.StkItemsRubro}
                   onChange={this.handleChangeRubro("StkItemsRubro")}
                   SelectProps={{
-                    native: true
+                    native: true,
                   }}
                   autoFocus={true}
                 >
                   <option></option>
-                  {this.state.stkrubro.map(option => (
+                  {this.state.stkrubro.map((option) => (
                     <option key={option.idStkRubro} value={option.idStkRubro}>
                       {option.StkRubroDesc}
                     </option>
@@ -318,12 +325,12 @@ class StkMovSalida extends React.Component {
                   value={this.state.StkItems}
                   onChange={this.handleChangeItems("StkItems")}
                   SelectProps={{
-                    native: true
+                    native: true,
                   }}
                   autoFocus={true}
                 >
                   <option></option>
-                  {this.state.stkitems.map(option => (
+                  {this.state.stkitems.map((option) => (
                     <option key={option.idStkItems} value={option.idStkItems}>
                       {option.StkItemsDesc}
                     </option>
@@ -385,12 +392,12 @@ class StkMovSalida extends React.Component {
                   value={this.state.indice}
                   onChange={this.handleChange("TConfec")}
                   SelectProps={{
-                    native: true
+                    native: true,
                   }}
                   autoFocus={true}
                 >
                   <option></option>
-                  {TipoConfeccion.map(option => (
+                  {TipoConfeccion.map((option) => (
                     <option key={option.indice} value={option.indice}>
                       {option.detalle}
                     </option>
@@ -483,7 +490,7 @@ class StkMovSalida extends React.Component {
                         {this.descargastock()}
                         {/* {this.handleClose()} */}
                       </div>
-                    )
+                    ),
                   ]
                 )}
                 ]
