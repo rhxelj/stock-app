@@ -43,7 +43,6 @@ export function stkProveedoresAgregar(props) {
       .send({ provmail: ProveedoresMail })
       .send({ provpagweb: ProveedoresWeb })
       .send({ provcodmon: ProveedoresCodMon })
-      .set("X-API-Key", "foobar")
       .then(function(res) {})
       .catch((err) => CodigoError(err));
   });

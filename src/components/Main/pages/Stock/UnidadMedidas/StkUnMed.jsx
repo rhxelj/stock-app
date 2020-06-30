@@ -15,8 +15,11 @@ import { onRowUpdate } from "./onRowUpdate";
 import { onRowDelete } from "./onRowDelete";
 
 import "../../../../../Styles/TableHeader.css";
+import { HeaderTitle } from "../../../../lib/HeaderTitle"
 
 export default function UnidadMedidas() {
+  HeaderTitle("Unidad De Medidas")
+
   const [columns, setColumns] = useState([]);
   const [data, setData] = useState([]);
 
@@ -42,6 +45,7 @@ export default function UnidadMedidas() {
   return (
     <div>
       <MaterialTable
+        title=""
         icons={tableIcons}
         localization={localization}
         columns={columns}
