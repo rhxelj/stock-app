@@ -6,7 +6,7 @@ var conexion = require("../../conexion");
 
 moment.locale("es");
 
-conexion.connect(function(err) {
+conexion.connect(function (err) {
   if (!err) {
     console.log("base de datos conectada en stkleeultnrorubro");
   } else {
@@ -15,7 +15,7 @@ conexion.connect(function(err) {
 });
 var router = express();
 
-router.get("/", function(req, res) {
+router.get("/", function (req, res) {
   codgrupo = req.query.id;
 
   var q = [
@@ -24,7 +24,7 @@ router.get("/", function(req, res) {
     codgrupo
   ].join(" ");
 
-  conexion.query(q, function(err, result) {
+  conexion.query(q, function (err, result) {
     if (err) {
       console.log(
         "Error  Select StkGrupoContRubro as CuentaRubro from StkGrupo"

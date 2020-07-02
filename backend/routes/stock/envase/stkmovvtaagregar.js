@@ -47,17 +47,15 @@ router.post("/", async function(req, res) {
       StkMovVtaItem: req.body.StkMovVtaItem,
       StkMovVtaCantidad: Number(req.body.StkMovVtaCantidad)
     };
-    console.log("registro  ", registro);
     // 'INSERT INTO StkMovVta SET ?', registro,
     //   q1 = ["INSERT", "INTO StkMovVta SET ?", registro].join(" ");
     //q1 = ["INSERT", "INTO StkMovVta SET ", registro].join(" ");
-    console.log("q1  ", q1);
     conexion.query("INSERT INTO StkMovVta SET ?", registro, function(
       err,
       result
     ) {
       if (err) {
-        console.log("ERROR en Insert ");
+        console.log("ERROR en Insert en stkmovvtaagregar");
         console.log(err.errno);
       } else {
         res.json(result.rows);

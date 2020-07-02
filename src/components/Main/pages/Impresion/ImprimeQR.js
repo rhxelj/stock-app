@@ -97,7 +97,8 @@ class PresupPant extends Component {
       "^FO450,55" +
       "^FH_ ^FD así ni_a4o ser_a0 2^FS" +
       "^XZ";
-    console.console.log(datoscalculo);
+  console.log(datoscalculo);
+  //el comando en el sistema es : lpr -P Zebra_GK420t nombre del archivo
   };
 
   handleClose = () => {

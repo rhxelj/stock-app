@@ -14,53 +14,50 @@ conexion.connect(function (err) {
 
 var datosenvio = []
 var router = express();
-router.get('/',  (req, res, next) => {
+router.get('/', (req, res, next) => {
   var q, i = 0
   var coeficiente = 0, cantidad = 0, StkRubroAbrP = ''
   datosrec = JSON.parse(req.query.datoscalculo)
   totalreg = datosrec.length
+  datosrec.map(datos => {
+    cantidad = datos.cantidad;
+    StkRubroAbrP = datos.StkRubroAbr;
+    if (datos.minmay == 'my') {
+      coeficiente = param.coeficientemay
+    }
+    else {
+      coeficiente = param.coeficientemin
+    }
 
-datosrec.map(datos => {  
-      cantidad = datos.cantidad;
-      StkRubroAbrP = datos.StkRubroAbr;
-      if (datos.minmay == 1) 
-        {
-          coeficiente = param.coeficientemay
+    q = ['Select',
+      'StkRubroDesc, StkRubroAbr, ',
+      '(StkRubroCosto * StkMonedasCotizacion * ', coeficiente, ' ) as ImpUnitario, ',
+      '(StkRubroCosto * StkMonedasCotizacion * ', coeficiente, ' * ', cantidad, ' ) as ImpItem, ',
+      'StkRubroCosto,',
+      'StkMonedasCotizacion',
+      'from BaseStock.StkRubro JOIN  BaseStock.StkMonedas, ',
+      'reparacion.parametrosrep ',
+      'where StkRubro.StkRubroAbr = "' + StkRubroAbrP + '" ',
+      'and StkRubro.StkRubroTM = idStkMonedas',
+    ].join(' ')
+    conexion.query(
+      q,
+      function (err, result) {
+        if (err) {
+          console.log('error en mysql')
+          console.log(err)
         }
-        else 
-        {
-          coeficiente = param.coeficientemin
+        else {
+          datosenvio.push(result)
+          i++
+          if (i === totalreg) {
+            res.json(datosenvio)
+
+            datosenvio = []
+
+          }
         }
-     
-        q = ['Select',
-                      'StkRubroDesc, ',
-                      '(StkRubroCosto * StkMonedasCotizacion * ', coeficiente, ' ) as ImpUnitario, ', 
-                      '(StkRubroCosto * StkMonedasCotizacion * ', coeficiente, ' * ', cantidad, ' ) as ImpItem, ', 
-                      'StkRubroCosto,',
-                      'StkMonedasCotizacion',
-                      'from BaseStock.StkRubro JOIN  BaseStock.StkMonedas, ', 
-                      'reparacion.parametrosrep ',
-                      'where StkRubro.StkRubroAbr = "' + StkRubroAbrP + '" ', 
-                      'and StkRubro.StkRubroTM = idStkMonedas',
-           ].join(' ')  
-           console.log('presupunid')
-        conexion.query(
-                 q,              
-                      function(err, result) {
-                      if (err) {
-                          console.log('error en mysql')
-                          console.log(err)
-                          } 
-                          else {
-                           datosenvio.push(result)
-                           i++ 
-                            if (i === totalreg)
-                            {
-                              res.json(datosenvio)
-                              datosenvio = []
-                            }
-                          }
-                  })
+      })
   })
 });
 

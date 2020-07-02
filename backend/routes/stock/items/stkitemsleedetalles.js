@@ -3,7 +3,7 @@ var router = express.Router();
 var path = require("path");
 var conexion = require("../../conexion");
 
-conexion.connect(function(err) {
+conexion.connect(function (err) {
   if (!err) {
     console.log("base de datos conectada en stkitemsleedetalles");
   } else {
@@ -13,9 +13,11 @@ conexion.connect(function(err) {
 
 var router = express();
 
-router.get("/", async function(req, res, next) {
+router.get("/", async function (req, res, next) {
+  // C
+  console.log('está en stkitemsleedetalles ')
   var q = [
-    "select idStkItems, StkItemsGrupo, StkGrupo.StkGrupoDesc,",
+    "select idStkItems, StkItemsGrupo, StkItemsRubroAbr,  StkGrupo.StkGrupoDesc,",
     "StkItemsRubro, StkRubro.StkRubroDesc, StkItemsDesc, StkItemsCantidad, StkItemsCantDisp,",
     ' date_format(StkItemsFAct, "%d-%m-%Y") as StkItemsFAct , StkItemsMin, StkItemsMax ',
     " from StkItems, StkGrupo, StkRubro where ",
@@ -26,7 +28,7 @@ router.get("/", async function(req, res, next) {
   conexion.query(
     q,
     //  conexion.query('Select idStkItems, StkGrupo.StkGrupoDesc, StkRubro.StkRubroDesc, StkItemsDesc, StkItemsCantidad, StkItemsFAct, StkItemsMin,StkItemsMax,StkItemsObserv  from StkItems, StkGrupo, StkRubro where StkItemsGrupo = StkGrupo.idStkGrupo and StkItemsRubro = StkRubro.idStkRubro',
-    function(err, result) {
+    function (err, result) {
       if (err) {
         console.log(err);
       } else {

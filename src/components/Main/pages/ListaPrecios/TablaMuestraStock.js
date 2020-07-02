@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { tableIcons } from '../../../lib/material-table/tableIcons'
 import { localization } from '../../../lib/material-table/localization'
@@ -20,75 +20,75 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function TablaMuestraStock(props) {
 
-const {open, handleClose, Grupo, Rubro} = props
+  const { open, handleClose, Grupo, Rubro } = props
 
 
-const [stock, setStock] = useState({
-  columns : [
-    {
-      title: "Detalle",
-      field: "StkItemsDesc",
-    },
-    {
-      title: "Cant.Disponible",
-      field: "StkItemsCantDisp",
-      type : 'numeric',
-    },
-    {
-      title: "Cantidad",
-      field: "StkItemsCantidad",
-      type : 'numeric',
-    }
-  
-  ],
+  const [stock, setStock] = useState({
+    columns: [
+      {
+        title: "Detalle",
+        field: "StkItemsDesc",
+      },
+      {
+        title: "Cant.Disponible",
+        field: "StkItemsCantDisp",
+        type: 'numeric',
+      },
+      {
+        title: "Cantidad",
+        field: "StkItemsCantidad",
+        type: 'numeric',
+      }
 
-datastock: [],
-})
+    ],
 
-
-async function stkitemsreduc(Grupo, Rubro) {
-  const result = await stkitemsred(Grupo, Rubro);
-  setStock({ ...stock, datastock: result });
-}
+    datastock: [],
+  })
 
 
-useEffect(() => {
-  stkitemsreduc(Grupo, Rubro);
-}, [Grupo, Rubro]);
+  async function stkitemsreduc(Grupo, Rubro) {
+    const result = await stkitemsred(Grupo, Rubro);
+    setStock({ ...stock, datastock: result });
+  }
+
+
+  useEffect(() => {
+    stkitemsreduc(Grupo, Rubro);
+  }, [Grupo, Rubro]);
 
 
 
-return (
-<Dialog
-open={open}
-TransitionComponent={Transition}
-keepMounted
-onClose={handleClose}
-aria-labelledby="alert-dialog-slide-title"
-aria-describedby="alert-dialog-slide-description"
->
-<DialogTitle id="alert-dialog-slide-title">{"Stock de Items"}</DialogTitle>
-<DialogContent>
-  <DialogContentText id="alert-dialog-slide-description">
-  <MaterialTable
-     icons={tableIcons}
-     localization={localization}
-      title="Stock"
-      columns={stock.columns}
-      data={stock.datastock}
-      >
+  return (
+    <Dialog
+      open={open}
+      TransitionComponent={Transition}
+      keepMounted
+      onClose={handleClose}
+      aria-labelledby="alert-dialog-slide-title"
+      aria-describedby="alert-dialog-slide-description"
+    >
+      <DialogTitle id="alert-dialog-slide-title">{"Stock de Items"}</DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-slide-description">
+          <MaterialTable
+            icons={tableIcons}
+            localization={localization}
+            title="Stock"
+            columns={stock.columns}
+            data={stock.datastock}
+          >
 
-      </MaterialTable>
+          </MaterialTable>
 
-  </DialogContentText>
-</DialogContent>
-<DialogActions>
-  <Button onClick={handleClose} color="secondary">
-    Cerrar
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose} color="secondary">
+          Cerrar
   </Button>
-  
-</DialogActions>
-</Dialog>
 
-)
+      </DialogActions>
+    </Dialog>
+
+  )
 }

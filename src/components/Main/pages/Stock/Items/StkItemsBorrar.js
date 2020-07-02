@@ -1,90 +1,28 @@
-import React, { Component } from "react";
 import request from "superagent";
-import IpServidor from "../../VariablesDeEntorno";
 // import ReactTable from 'react-table'
-// import 'react-table/react-table.css'
+import "react-table/react-table.css";
 
-import IconButton from "@material-ui/core/IconButton";
-import ClearIcon from "@material-ui/icons/Clear";
-import DeleteIcon from "@material-ui/icons/Delete";
-import DoneIcon from "@material-ui/icons/Done";
+
+import IpServidor from "../../VariablesDeEntorno";
 import CodigoError from "../../../../lib/CodigoError";
 
-class StkItemsBorrar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      monedas: [],
-      // filtrado:[],
-      filtered: "",
-      toggle: true,
-      id: "",
-      idStkItems: this.props.idStkItems,
-      StkItemsGrupo: this.props.StkItemsGrupo,
-      StkItemsRubro: this.props.StkItemsRubro
-    };
-    // this.search = this.search.bind(this)
-    this.toggle = this.toggle.bind(this);
-  }
+export function borrarItems(props) {
+  return new Promise(function (resolve, reject) {
+    const { idStkItems, StkItemsGrupo, StkItemsRubro } = props;
 
-  toggle(event) {
-    this.setState(prevState => ({
-      toggle: !prevState.toggle
-    }));
-  }
-
-  // //Delete
-  borrarItem = () => {
-    const url =
+    // //Delete
+    var url =
       IpServidor +
       "/stkitemsborrar/?idStkItems=" +
-      this.state.idStkItems +
+      idStkItems +
       "&StkItemsGrupo=" +
-      this.state.StkItemsGrupo +
+      StkItemsGrupo +
       "&StkItemsRubro=" +
-      this.state.StkItemsRubro;
+      StkItemsRubro;
     request
       .delete(url)
       .set("Content-Type", "application/json")
-      .then(function(res) {})
       .catch(err => CodigoError(err));
-    this.props.read();
-    this.toggle();
-  };
-
-  componentDidMount() {
-    // this.read()
-  }
-
-  render() {
-    return (
-      <div>
-        {/* <h1>Borrar Monedas</h1>
-                <input onChange={this.search} type="text" value={this.state.filtered}/> 
-                */}
-        {this.state.toggle ? (
-          <div>
-            <IconButton className=" red accent-4" onClick={() => this.toggle()}>
-              <DeleteIcon />
-            </IconButton>
-          </div>
-        ) : (
-          <div className="center-align">
-            <p>Borrar ?</p>
-            {/* <button className="green "><i className="material-icons" onClick={()=>this.borrarGrupo(this.props.idStkGrupo)}>check</i></button> */}
-            {/* <button className="green "><i className="material-icons" onClick={()=>this.borrarGrupo(this.props.StkItem)}>check</i></button>
-                        <button className="red "><i className="material-icons" onClick={()=>this.toggle()}>cancel</i></button> */}
-            <IconButton color="primary" onClick={() => this.borrarItem()}>
-              <DoneIcon />
-            </IconButton>
-            <IconButton color="secondary" onClick={() => this.toggle()}>
-              <ClearIcon />
-            </IconButton>
-          </div>
-        )}
-      </div>
-    );
-  }
+    resolve();
+  });
 }
-
-export default StkItemsBorrar;

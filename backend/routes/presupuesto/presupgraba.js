@@ -1,8 +1,12 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-var path = require('path');
+var path = require("path");
+var moment = require("moment");
 var conexion = require('../conexion');
-var param = require('../parametros')
+
+var nrovta = 1;
+
+moment.locale("es");
 
 conexion.connect(function (err) {
   if (!err) {
@@ -12,84 +16,57 @@ conexion.connect(function (err) {
   }
 });
 
-function mostrarPropiedades(objeto, nombreObjeto) {
-  var resultado = ``;
-  for (var i in objeto) {
-    //objeto.hasOwnProperty se usa para filtrar las propiedades del objeto
-    if (objeto.hasOwnProperty(i)) {
-        resultado += `${nombreObjeto}.${i} = ${objeto[i]}\n`;
-    }
+router.post("/", async function (req, res) {
+  console.log('esta en grabar')
+  console.log('DatosPresup  ', req.body.DatosPresup)
+  console.log('req.body.DatosPresup.idClientes  ', req.body.idClientes)
+  console.log('req.body.DatosPresup.nomCliente  ', req.body.nomCliente)
+  var d = new Date();
+  finalDate = d.toISOString().split("T")[0];
+  var cliente = ''
+  var i = 0;
+  if (req.body.idClientes != 0) {
+    cliente = req.body.idClientes
   }
-  return resultado;
-}
+  else {
+    cliente = req.body.nomCliente
+  }
 
-var datosenvio = []
-var router = express();
-router.post('/',  (req, res, next) => {
-  var q, i = 0
-  var coeficiente = 0, cantidad = 0, StkRubroAbrP = '', largo = 0
-  datosrec = (req.body.renglon)
- // datosrec = JSON.parse(req.body.renglon)
-  totalreg = datosrec.length
-// var resultado = ``;
-//   for (var i in datosrec) {
-//     //objeto.hasOwnProperty se usa para filtrar las propiedades del objeto
-//     if (datosrec.hasOwnProperty(i)) {
-//         resultado += `${'datosrec'}.${i} = ${datosrec[i]}\n`;
-//     }
-//   }
-//   console.log('resultado')
-//   console.log(resultado)
+  while (i < req.body.DatosPresup.datos.length) {
+    //   totalpresup = totalpresup + props.data[i].ImpItem
+    //   i++
+    console.log('DatosPresup en while ', req.body.DatosPresup.datos)
+    var registro1 = {
+      idPresupRenglon = i + 1,
+      PresupRenglonNroPresup
+    }
+      `idPresupRenglon`, `PresupRenglonNroPresup`, `PresupRenglonTipo`, `PresupRenglonCant`, `PresupRenglonLargo`, `PresupRenglonAncho`, `PresupRenglonImpUnit`, `PresupRenglonImpItem`
+    i++
+  }
 
-datosrec.map(datos => {  
-  console.log(Object.getOwnPropertyNames(datos[0]))
- console.log(Object.values(datos[0]))
 
-      // cantidad = datos.cantidad;
-      // StkRubroAbrP = datos.StkRubroAbr;
-      // largo = datos.largo
-      // coeficiente = param.coeficientemay
-      // minutosunion = param.cantminpu
-   
-        // q = ['Select',
-        //               'StkRubroDesc, ',
-        //               '(((StkRubroCosto * StkMonedasCotizacion * ' + coeficiente + ')',
-        //               '+ (REPValorMOT / 60 * ' + minutosunion + ')) ',
-        //               ' * ' + cantidad,
-        //               ' * ' + largo + ' ) as ImpPañoUnido, ', 
-        //               '(((StkRubroCosto * StkMonedasCotizacion * ' + coeficiente + ')',
-        //               '+ (REPValorMOT / 60 * 2 *' + minutosunion + ')) ',
-        //               ' * ' + cantidad,
-        //               ' * ' + largo + ' ) as ImpPañoUnidoRec, ',
-        //               'StkRubroCosto,',
-        //               'StkMonedasCotizacion,',
-        //               'REPValorMOT',
-        //               'from BaseStock.StkRubro JOIN  BaseStock.StkMonedas, ', 
-        //               'reparacion.parametrosrep ',
-        //               'where StkRubro.StkRubroAbr = "' + StkRubroAbrP +'" ', 
-        //               'and StkRubro.StkRubroTM = idStkMonedas',
-        //    ].join(' ')  
-        //    console.log(q)
-        // conexion.query(
-        //          q,              
-        //               function(err, result) {
-        //               if (err) {
-        //                   console.log('error en mysql')
-        //                   console.log(err)
-        //                   } 
-        //                   else {
-        //                    datosenvio.push(result)
-        //                    i++ 
-        //                     if (i === totalreg)
-        //                     {
-        //                       res.json(datosenvio)
-        //                       datosenvio = []
-        //                     }
-        //                   }
-        //           })
-  })
+  var registro = {
+    PresupEncabFecha: finalDate,
+    PresupEncabCliente: cliente,
+    PresupEncabTotal: req.body.DatosPresup.suma,
+    PresupEncabMayMin: req.body.DatosPresup.maymin
+  }
+
+  console.log('registro  ', registro)
+
+  conexion.query("INSERT INTO BasePresup.PresupEncab SET ?", registro, function (err, result) {
+    if (err) {
+      if (err.errno == 1062) {
+        return res.status(409).send({ message: "error clave duplicada" });
+      } else {
+        console.log("ERROR ");
+        console.log(err.errno);
+      }
+    } else {
+      res.json(result);
+    }
+  });
 });
 
-
-conexion.end
+conexion.end;
 module.exports = router;
