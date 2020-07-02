@@ -8,6 +8,7 @@ import useStyles from "./PresupStyle";
 import FilaUno from './LayoutPresupuesto/FilaUno'
 import FilaDos from './LayoutPresupuesto/FilaDos'
 import FilaTres from './LayoutPresupuesto/FilaTres'
+import FilaCuatro from './LayoutPresupuesto/FilaCuatro'
 import {
   Container,
   Dialog,
@@ -17,9 +18,9 @@ import {
 export const PresupPantContext = React.createContext();
 
 
-  var PresupPant = props => {
-    const [state, setState] = useState(initial_state);
-    const classes = useStyles();
+var PresupPant = props => {
+  const [state, setState] = useState(initial_state);
+  const classes = useStyles();
 
   return (
     <div>
@@ -33,10 +34,10 @@ export const PresupPantContext = React.createContext();
           >
             {/* Botones de elección de presupuesto */}
             <FilaUno />
-             {/* Cantidad y Rubro */}
-             <FilaDos />
+            {/* Cantidad y Rubro */}
+            <FilaDos />
             {/* Fila Cantidd, Pres. Desc., Pres., UM,Ancho */}
-           {/* <FilaTres /> */}
+            {/* <FilaTres /> */}
             {/* Fila Partida, Ub. Geo., Ub. Fisc., Observaciones */}
             {/* <FilaCuatro /> */}
             {/* Fila Confirma, Cancela, Borra */}

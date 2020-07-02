@@ -18,59 +18,54 @@ conexion.connect(function (err) {
 
 router.post("/", async function (req, res) {
   console.log('esta en grabar')
+  console.log('DatosPresup  ', req.body.DatosPresup)
+  console.log('req.body.DatosPresup.idClientes  ', req.body.idClientes)
+  console.log('req.body.DatosPresup.nomCliente  ', req.body.nomCliente)
   var d = new Date();
-  var q1;
-  // finalDate = d.toISOString().split("T")[0];
-  // //'Select max(idStkMovVta) as UltMovVta from StkMovVta where StkMovVtaFecha = "' + finalDate + '"' ,
-  // var q = [
-  //   'Select max(idStkMovVta) as UltMovVta from StkMovVta where StkMovVtaFecha = "' +
-  //     finalDate +
-  //     '"'
-  // ].join(" ");
-  // conexion.query(q, function(err, result) {
-  //   if (err) {
-  //     if (err.errno === 1054) {
-  //       nrovta = 1;
-  //     } else {
-  //       console.log("error al buscar el último  " + err.errno);
-  //       console.log(err);
-  //     }
-  //   } else {
-  //     res.json(result);
-  //     nrovta = result[0].UltMovVta + 1;
-  //   }
-
-  //   var registro = {
-  //     idStkMovVta: nrovta,
-  //     StkMovVtaFecha: finalDate,
-  //     StkMovVtaGrupo: req.body.StkMovVtaGrupo,
-  //     StkMovVtaRubro: req.body.StkMovVtaRubro,
-  //     StkMovVtaItem: req.body.StkMovVtaItem,
-  //     StkMovVtaCantidad: Number(req.body.StkMovVtaCantidad)
-  //   };
-  var registro = { PresupDatosDetalle: req.body.PresupDatosDetalle };
-
-  var resultado = ``;
-  for (var i in req.body.PresupDatosDetalle) {
-    //objeto.hasOwnProperty se usa para filtrar las propiedades del objeto
-    if (req.body.PresupDatosDetalle.hasOwnProperty(i)) {
-      resultado += `${req.body.PresupDatosDetalle}.${i} = ${req.body.PresupDatosDetalle[i]}\n`;
-    }
+  finalDate = d.toISOString().split("T")[0];
+  var cliente = ''
+  var i = 0;
+  if (req.body.idClientes != 0) {
+    cliente = req.body.idClientes
   }
-  console.log('resultado  ', resultado)
-  var q = ["INSERT INTO BasePresup.PresupDatos SET  ?", registro].join(" ");
-  console.log('q  ', q)
-  // conexion.query(q, function (
-  //   err,
-  //   result
-  // ) {
-  //   if (err) {
-  //     console.log("ERROR en Insert en presupgraba");
-  //     console.log(err.errno);
-  //   } else {
-  //     res.json(result.rows);
-  //   }
-  // });
+  else {
+    cliente = req.body.nomCliente
+  }
+
+  while (i < req.body.DatosPresup.datos.length) {
+    //   totalpresup = totalpresup + props.data[i].ImpItem
+    //   i++
+    console.log('DatosPresup en while ', req.body.DatosPresup.datos)
+    var registro1 = {
+      idPresupRenglon = i + 1,
+      PresupRenglonNroPresup
+    }
+      `idPresupRenglon`, `PresupRenglonNroPresup`, `PresupRenglonTipo`, `PresupRenglonCant`, `PresupRenglonLargo`, `PresupRenglonAncho`, `PresupRenglonImpUnit`, `PresupRenglonImpItem`
+    i++
+  }
+
+
+  var registro = {
+    PresupEncabFecha: finalDate,
+    PresupEncabCliente: cliente,
+    PresupEncabTotal: req.body.DatosPresup.suma,
+    PresupEncabMayMin: req.body.DatosPresup.maymin
+  }
+
+  console.log('registro  ', registro)
+
+  conexion.query("INSERT INTO BasePresup.PresupEncab SET ?", registro, function (err, result) {
+    if (err) {
+      if (err.errno == 1062) {
+        return res.status(409).send({ message: "error clave duplicada" });
+      } else {
+        console.log("ERROR ");
+        console.log(err.errno);
+      }
+    } else {
+      res.json(result);
+    }
+  });
 });
 
 conexion.end;

@@ -7,12 +7,15 @@ import { useContext } from "react";
 import { PresupPantContext } from "../../PresupPant";
 import { initial_state } from "../../Initial_State";
 import { clientesleerdesc } from '../../../Clientes/ClientesLeerDesc'
-
+import { PresupGrabar } from '../../PresupGrabar'
 
 export default function FilaCuatro(props) {
   // Esto es para poder consumir los datos del CONTEXTAPI
   const { state, setState } = useContext(PresupPantContext);
   const { open, handleClose } = props
+  const [marcacliente, setMarcaCliente] = React.useState(false)
+  // const [nomCliente, setNomCliente] = React.useState('')
+
 
 
   const [presup, setPresup] = useState({
@@ -34,6 +37,22 @@ export default function FilaCuatro(props) {
     clientesleerdescrip()
   }, [open]);
 
+
+  function nuevocliente() {
+    setMarcaCliente(true)
+  }
+
+
+  function grabarpresupuesto() {
+    // console.log('NomCliente  ', state.nomCliente)
+    // console.log('clientes  ', state.idClientes)
+    console.log('FilaCuatro props ', props)
+    console.log('FilaCuatro props.datos ', props.suma)
+    // console.log('FilaCuatro props.datos ', props.datos)
+    // console.log('FilaCuatro props.datos.length ', props.datos.length)
+    PresupGrabar(props, state.nomCliente, state.idClientes)
+  }
+
   const textdata = [
 
     {
@@ -46,8 +65,6 @@ export default function FilaCuatro(props) {
           {state.clientes.map(option => (
             <option key={option.idClientes} value={option.idClientes}>
               {option.ClientesDesc}
-              {console.log(option.idClientes)}
-              {console.log(option.ClientesDesc)}
             </option>
           ))}
         </>
@@ -80,19 +97,22 @@ export default function FilaCuatro(props) {
             {data.mapeo}
           </TextField>
         ))}
-        {/* <TextField
-          inputProps={{ maxlength: 45 }}
-          size="small"
-          variant="outlined"
-          id="Cliente"
-          label="Cliente"
-          defaultValue=''
-          fullWidth
-          value={state.ClientesDesc}
-          onChange={handleChange}
-          className={classes.textField}
+        <Button onClick={() => nuevocliente()} color="primary" style={{ marginRight: 20 }}>+</Button>
+        {marcacliente && (
+          <TextField
+            inputProps={{ maxlength: 45 }}
+            size="small"
+            variant="outlined"
+            id='nomCliente'
+            label='Cliente : '
+            className={classes.textField}
+            onChange={handleChange}>
+          </TextField>
+        )
 
-        /> */}
+        }
+        <Button onClick={() => grabarpresupuesto()} color="primary" style={{ marginRight: 20 }}>Graba</Button>
+
 
       </Dialog>
     </>

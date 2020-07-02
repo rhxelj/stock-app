@@ -5,7 +5,7 @@ import MaterialTable, { MTableToolbar } from 'material-table';
 import { tableIcons } from "../../../../../lib/material-table/tableIcons";
 import { localization } from "../../../../../lib/material-table/localization";
 import { TextField, Button } from "@material-ui/core";
-
+import Input from '@material-ui/core/Input';
 import FilaCuatro from '../FilaCuatro/FilaCuatro'
 
 import { presupcalculador } from '../../PresupCalculador'
@@ -15,6 +15,7 @@ import WavesIcon from '@material-ui/icons/Waves';
 // Context
 import { useContext } from "react";
 import { PresupPantContext } from "../../PresupPant";
+import SelecCampos from '../../../Impresion/SelecCampos'
 import { initial_state } from "../../Initial_State";
 import PresupuestoUnid from "../../PresupuestoUnid";
 
@@ -22,7 +23,7 @@ export default function FilaTres(props) {
   // Esto es para poder consumir los datos del CONTEXTAPI
   const { state, setState } = useContext(PresupPantContext);
 
-
+  const [suma, setSuma] = React.useState(0);
   const [open, setOpen] = React.useState(false);
   const [presup, setPresup] = useState({
     columnas: state.columns
@@ -30,23 +31,20 @@ export default function FilaTres(props) {
   })
 
 
-  function suma() {
+  function sumar() {
     var totalpresup = 0, i = 0
-    console.log('VINO A Sumar  ', props.data)
-    console.log('VINO A Sumar  ', props.data[0].ImpItem)
-    console.log(props.data.length)
     while (i < props.data.length) {
-      console.log(' i   ', i)
       totalpresup = totalpresup + props.data[i].ImpItem
       i++
     }
-    console.log('totalpresup   ', totalpresup)
+    setSuma(totalpresup)
   }
 
   function graba() {
 
     console.log('VINO A GRABAR  ', props.data)
     console.log(props.maymin)
+    console.log(suma)
     handleClickOpen()
   }
 
@@ -70,7 +68,6 @@ export default function FilaTres(props) {
             title="Presupuesto"
             columns={presup.columnas}
             data={props.data}
-            //data={presup.data}
             localization={localization}
             options={{
               search: false
@@ -84,9 +81,6 @@ export default function FilaTres(props) {
                     const index = oldData.tableData.id;
                     dataDelete.splice(index, 1);
                     setPresup([...dataDelete])
-
-                    //   setPresup([...dataDelete]);
-
                     resolve()
                   }, 1000)
                 }),
@@ -98,9 +92,10 @@ export default function FilaTres(props) {
                   <MTableToolbar {...props} />
                   <div style={{ padding: '0px 10px' }}>
 
-                    <Button onClick={() => suma()} color="primary" style={{ marginRight: 5 }}>Suma</Button>
+                    <Button onClick={() => sumar()} color="primary" style={{ marginRight: 5 }}>Suma</Button>
                     <Button onClick={() => graba()} color="primary" style={{ marginRight: 20 }}>Graba</Button>
                     <Button onClick={() => graba()} color="primary" style={{ marginRight: 20 }}>Imprime</Button>
+                    <TextField id="Suma" label='Total presupuesto : ' value={suma} type='currency'> </TextField>
 
                   </div>
                 </div>
@@ -130,7 +125,7 @@ export default function FilaTres(props) {
           />
         </Grid>
       </Grid>
-      <FilaCuatro open={open} handleClose={handleClose} />
+      <FilaCuatro open={open} datos={props.data} maymin={props.maymin} suma={suma} handleClose={handleClose} />
     </>
   );
 }

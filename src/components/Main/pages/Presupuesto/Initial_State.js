@@ -43,45 +43,7 @@ export const initial_state = {
 
 
   columns: [
-    //     {
-    //       title: 'Tipo Presup.',
-    //       field: 'PresUnidTP',
-    //     },
 
-    //     {
-    //     title: "Cantidad",
-    //     field: "PresUnidCant",
-    //     type: 'numeric',
-    //     initialEditValue : 1,
-    //     headerStyle:{
-    //      fontWeight: 200  },
-    //   },
-    //   {
-    //     title: "Descripción",
-    //     field: "StkRubroDesc",
-    //      },
-    //   {
-    //   title: "Largo",
-    //   field: "PresUnidLargo",
-    //     },
-    //   {
-    //   title: "Ancho",
-    //   field: "PresUnidAncho",
-    // //  hidden : 'true',
-    //     },
-
-    // {
-    //   title: "Imp. Unit.",
-    //   field: "PresUnidImpUn",
-    //   type: 'currency',
-
-    // },
-    // {
-    //   title: "Imp. Item",
-    //   field: "PresUnidImpItem",
-    //   type: 'currency',
-    //   editable: 'never',
-    // }
     {
       title: "Cantidad",
       field: "PresupCantidad",
@@ -150,7 +112,8 @@ export const initial_state = {
   StkRubroPresDes: "",
   StkRubroUM: "",
   StkRubroAncho: 0,
-  cantidad: 1
+  cantidad: 1,
 
-
+  //FilaCuatro
+  nomCliente: ''
 };

@@ -84,6 +84,10 @@ var stkitemsleedisp = require("./routes/stock/items/stkitemsleedisp");
 var stkitemsmoddisp = require("./routes/stock/items/stkitemsmoddisp");
 var stkitemsmodstock = require("./routes/stock/items/stkitemsmodstock");
 var stkitemslistaprecios = require("./routes/stock/items/stkitemslistaprecios");
+var stkitemscodabr = require("./routes/stock/items/stkitemscodabr");
+var stkitemsborrarabr = require("./routes/stock/items/stkitemsborrarabr");
+
+
 
 var stkitemsventa = require("./routes/stock/items/stkitemsventa"); //una prueba
 
@@ -217,6 +221,9 @@ app.use("/stkitemsleedetalles", stkitemsleedetalles);
 app.use("/stkitemsleedisp", stkitemsleedisp);
 app.use("/stkitemsmoddisp", stkitemsmoddisp);
 app.use("/stkverificadisp", stkverificadisp);
+app.use("/stkitemscodabr", stkitemscodabr);
+app.use("/stkitemsborrarabr", stkitemsborrarabr);
+
 
 app.use("/stkitemsmodstock", stkitemsmodstock);
 app.use("/stkitemslistaprecios", stkitemslistaprecios);
