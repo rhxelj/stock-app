@@ -1,12 +1,12 @@
 // Importo stkitems agregar o el backend que agrega items.
-// import { stkProveedoresAgregar } from "./ProveedoresAgregar";
-
+import { stkItemsAgregar } from './StkItemsAgregar'
+import { stkItemsBuscaCod } from './StkItemsBuscaCod'
 export function onRowAdd(newData) {
+
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       {
-        // stkProveedoresAgregar(newData);
-        console.log("Estoy en Row add ");
+        stkItemsBuscaCod(newData)
       }
       resolve();
     }, 1000);
