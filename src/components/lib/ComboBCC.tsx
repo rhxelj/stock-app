@@ -8,7 +8,6 @@ export default function ComboBCC(props: any) {
     confirmAction,
     cancelAction,
   } = props.actions;
-  console.log("PROPS EN ComboBCC ", confirmText);
   return (
     <>
       <Button

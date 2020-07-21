@@ -3,7 +3,8 @@ import IpServidor from "../../VariablesDeEntorno";
 import request from "superagent";
 
 export function leeStkItemsDetalles(props) {
-  return new Promise(function(resolve, reject) {
+  console.log('está en leeStkItemsDetalles ')
+  return new Promise(function (resolve, reject) {
     const url = IpServidor + "/stkitemsleedetalles";
     request
       .get(url)
