@@ -54,9 +54,7 @@ export default function F2C1(props) {
   useEffect(() => {
     if (state.idStkGrupo === "") {
       stkgrupoleer();
-    }
-
-    stkrubroleercodgrupo(state.idStkGrupo);
+    } else stkrubroleercodgrupo(state.idStkGrupo);
   }, [state.idStkGrupo]);
 
   // useEffect(() => {
@@ -132,8 +130,8 @@ export default function F2C1(props) {
   return (
     <>
       <Grid container item direction="column" spacing={3} xs={6}>
-        {textdata.map((data) => (
-          <Grid item xs>
+        {textdata.map((data, index) => (
+          <Grid key={index} item xs>
             <TextField
               id={data.id}
               size="small"

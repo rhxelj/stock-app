@@ -2,7 +2,8 @@ import request from "superagent";
 import IpServidor from "../../../VariablesDeEntorno";
 
 export function verificaDisp(props) {
-  const { cantidad, largo, ancho, StkItemsCantDisp, TConfec } = props;
+  const TConfec = props.indice;
+  const { cantidad, largo, ancho, StkItemsCantDisp } = props;
   return new Promise((resolve, reject) => {
     // var cant = Number(this.state.cantidad);
     // var larg = Number(this.state.largo);

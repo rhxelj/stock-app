@@ -26,11 +26,10 @@ export default function AlertDialog(props) {
   };
 
   const actions = {
-    confirmAction: () =>
-      descargaStock(state)
-        .then(setState(initial_state))
-        .then(handleClose), //Accion a ejecutar en caso de Aceptar
+    confirmAction: () => descargaStock(state).then(setState(initial_state)),
+    // .then(handleClose), //Accion a ejecutar en caso de Aceptar
     cancelAction: () => setState(initial_state, () => handleClose()),
+    cancelAction: () => setState(initial_state),
     // .then(handleClose), //Accion a ejecutar en caso de cancelar
     // confirmText: "CONFIRMAR", //Texto en caso de afirmativo
     // cancelText: "CANCELAR", //Texto en caso de No afirmativo

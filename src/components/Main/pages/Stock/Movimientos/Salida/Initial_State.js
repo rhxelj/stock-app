@@ -54,8 +54,8 @@ export const initial_state = {
   largo: "",
   ancho: "",
   indice: "",
-  faltante: 1, //valor de prueba solo para ver si cambia
-  total: 1, //valor de prueba solo para ver si cambia
+  faltante: 0, //valor de prueba solo para ver si cambia
+  total: 0, //valor de prueba solo para ver si cambia
   // StkItemsMin: "",
   // StkItemsMax: "",
   // StkItemsCantDisp: 0,

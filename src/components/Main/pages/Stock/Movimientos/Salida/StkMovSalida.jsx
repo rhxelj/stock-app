@@ -25,6 +25,8 @@ import { initial_state } from "./Initial_State";
 
 import StkGenImpQR from "../../../Impresion/StkGenImpQR";
 
+import Confirmacion from "./LayoutMovSalida/FilaCinco/Confirmacion";
+
 import { HeaderTitle } from "../../../../../lib/HeaderTitle";
 
 export const StkMovSalidaContext = React.createContext();
@@ -53,6 +55,13 @@ var StkMovSalida = (props) => {
             <FilaCuatro />
             {/* Fila Confirma, Cancela, Borra */}
             <FilaCinco />
+
+            {/* <Confirmacion
+              open={state.confOpen}
+              title="Movimiento de Salida"
+              contentText={`ATENCION NO ALCANZA EL STOCK`}
+            /> */}
+
           </StkMovSalidaContext.Provider>
         </Grid>
       </Container>

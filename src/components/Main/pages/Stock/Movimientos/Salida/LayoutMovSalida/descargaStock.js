@@ -4,32 +4,34 @@ import IpServidor from "../../../../VariablesDeEntorno";
 export function descargaStock(props) {
   return new Promise((resolve, reject) => {
     const {
-      StkItems,
-      StkItemsGrupo,
-      StkItemsRubro,
+      idStkItems,
+      idStkGrupo,
+      idStkRubro,
       total,
       StkItemsCantDisp,
     } = props;
 
     console.log("descargo stock..... ");
     console.log("Contenido en descargaStock ", props);
+
     const url =
       IpServidor +
       "/stkitemsmoddisp/?StkItems=" +
-      StkItems +
+      idStkItems +
       "&StkItemsGrupo=" +
-      StkItemsGrupo +
+      idStkGrupo +
       "&StkItemsRubro=" +
-      StkItemsRubro;
+      idStkRubro;
+    console.log("URL es : ", url);
     request
       .post(url)
       .set("Content-Type", "application/json")
       .send({ total: Number(total) })
-      .send({ StkItemsCantDisp: StkItemsCantDisp });
-    // .then((res) => {
-    //   // const total1 = JSON.parse(res.text)
-    //   //this.setState({marcaver:true})
-    // });
+      .send({ StkItemsCantDisp: StkItemsCantDisp })
+      .then((res) => {
+        console.log("volvio del Backend y el valor de res es : ", res); // const total1 = JSON.parse(res.text)
+        //this.setState({marcaver:true})
+      });
 
     if (total > 0) {
       const url1 = IpServidor + "/stkmovvtaagregar";
@@ -37,9 +39,9 @@ export function descargaStock(props) {
         .post(url1)
         .set("Content-Type", "application/json")
         .send({ StkMovVtaCantidad: total })
-        .send({ StkMovVtaItem: StkItems })
-        .send({ StkMovVtaGrupo: StkItemsGrupo })
-        .send({ StkMovVtaRubro: StkItemsRubro });
+        .send({ StkMovVtaItem: idStkItems })
+        .send({ StkMovVtaGrupo: idStkGrupo })
+        .send({ StkMovVtaRubro: idStkRubro });
       //   .then(function(res) {
       //     // res.body, res.headers, res.status
       //   });
