@@ -11,6 +11,7 @@ export const localization = {
   },
   toolbar: {
     searchPlaceholder: "Buscar",
+  //  nRowsSelected: 'Filas Elegidas',
   },
   grouping: {
     groupedBy: "Agrupado por : ",

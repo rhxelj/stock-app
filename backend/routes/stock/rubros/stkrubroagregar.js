@@ -4,7 +4,7 @@ var path = require("path");
 var moment = require("moment");
 var conexion = require("../../conexion");
 var gencodrubro = require("./stkgennrorubro");
-// var ultnrorubro = require('./stkleeultnrorubro')
+ var ultnrorubro = require('./stkleeultnrorubro')
 
 moment.locale("es");
 
@@ -21,7 +21,6 @@ router.post("/", function(req, res) {
   // codgrupo = req.query.id;
   // ultnrorubro.codigorubronuevo(codgrupo)
   codrubro = req.body.StkRubroCodGrp;
-  console.log("entre en registro en rubro agregar");
   var registro = {
     idStkRubro: req.body.idStkRubro,
     StkRubroCodGrp: req.body.StkRubroCodGrp,
@@ -35,7 +34,6 @@ router.post("/", function(req, res) {
     StkRubroCosto: req.body.StkRubroCosto,
     StkRubroTM: req.body.StkRubroTM,
   };
-  console.log("registro en rubro agregar", registro);
 
   conexion.query("INSERT INTO StkRubro SET ?", registro, function(err, result) {
     if (err) {

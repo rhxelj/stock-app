@@ -1,7 +1,8 @@
 export const movimientos = [
   { link: "/ModPrecios", primary: "Modifica Precios" },
   { link: "/PresupPant", primary: "Presupuesto" },
-  { link: "/ImprimeQR", primary: "ImprimeQR" },
+  { link: "/PresupPantVie", primary: "Presupuesto Viejo" },
+  { link: "/StkGenImpQR", primary: "ImprimeQR" },
   { link: "/ListaPrecios", primary: "Lista de Precios" },
   {
     link: "/StkMovEntrada",
@@ -13,6 +14,7 @@ export const movimientos = [
 
 export const tablas = [
   { primary: "Proveedores", link: "/Proveedores" },
+  { primary: "Clientes", link: "/Clientes" },
   { primary: "Monedas", link: "/StkMonedas" },
   { primary: "Grupos", link: "/StkGrupo" },
   { primary: "Rubros", link: "/StkRubro" },

@@ -4,7 +4,7 @@ var path = require('path');
 var conexion = require('../conexion');
 var param = require('../parametros')
 
-conexion.connect(function(err) {
+conexion.connect(function (err) {
     if (!err) {
         console.log("base de datos conectada en stkrubroleermezcla");
     } else {
@@ -23,26 +23,26 @@ var router = express();
                      'and StkRubroTM = idStkMonedas order by StkRubroCodGrp',
 */
 
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
 
     var coefmay = param.coeficientemay
     var coefmin = param.coeficientemin
-    var minunion = param.cantminpu
     // var q = ['Select idStkRubro, StkRubroCodGrp, StkGrupo.StkGrupoDesc,',
     //         ' StkRubroDesc, StkRubroCosto, StkRubroTM, ',
-    var q = ['Select idStkRubro, StkRubroCodGrp, StkRubroDesc, StkGrupo.StkGrupoDesc as GrupoDesc, ',            
-            '(StkRubroCosto * StkMonedasCotizacion * ' + coefmin + ' ) as PPub, ',
-            '(StkRubroCosto * StkMonedasCotizacion * ' + coefmay + ' ) as PMay, ',
-            '((StkRubroCosto * StkMonedasCotizacion * ' + coefmay + ' ) + (REPValorMOT/60*'+minunion +')) as PMayPU, ', 
-            '((StkRubroCosto * StkMonedasCotizacion * ' + coefmay + ') + (REPValorMOT/60*'+minunion +'*2)) as PMayPUR ',
-            'from StkRubro JOIN StkGrupo, BasesGenerales.Proveedores, StkMonedas, ', 
-            'reparacion.parametrosrep where StkRubroCodGrp = idStkGrupo', 
-            'and StkRubroProv = idProveedores ', 
-            'and StkRubroTM = idStkMonedas ', 
-            'and StkRubroCodGrp = idStkGrupo ',
-            'order by StkRubroCodGrp',].join(' ')
+    var q = ['Select idStkRubro, StkRubroCodGrp, StkRubroDesc, StkGrupo.StkGrupoDesc as GrupoDesc, ',
+        '(StkRubroCosto * StkMonedasCotizacion * ' + coefmin + ' ) as PPub, ',
+        '(StkRubroCosto * StkMonedasCotizacion * ' + coefmay + ' ) as PMay ',
+        // '((StkRubroCosto * StkMonedasCotizacion * ' + coefmay + ' ) + (REPValorMOT/60*' + minunion + ')) as PMayPU, ',
+        // '((StkRubroCosto * StkMonedasCotizacion * ' + coefmay + ') + (REPValorMOT/60*' + minunion + '*2)) as PMayPUR ',
+        'from StkRubro JOIN StkGrupo, BasesGenerales.Proveedores, StkMonedas ',
+        //     'reparacion.parametrosrep 
+        'where StkRubroCodGrp = idStkGrupo',
+        'and StkRubroProv = idProveedores ',
+        'and StkRubroTM = idStkMonedas ',
+        'and StkRubroCodGrp = idStkGrupo ',
+        'order by StkRubroCodGrp',].join(' ')
     conexion.query(q,
-        function(err, result) {
+        function (err, result) {
             if (err) {
                 console.log(err);
             } else {

@@ -16,12 +16,12 @@ import {
 } from "@material-ui/core";
 // import ClearIcon from "@material-ui/icons/Clear";
 import DeleteIcon from "@material-ui/icons/Delete";
-import useStyles from "./StkMovEntradaStyle";
+import useStyles from "../StkMovEntradaStyle";
 import request from "superagent";
 
 import IpServidor from "../../VariablesDeEntorno";
 import StkGenImpQR from "../../Impresion/StkGenImpQR";
-import ubicacion from "./UbicacionGeografica";
+import ubicacion from "../UbicacionGeografica";
 // import { stkgrupoleer } from "./StkMovEntradaLeeGrupo";
 
 import { stkgrupolee } from "../../Stock/Grupos/StkGrupoLee";
