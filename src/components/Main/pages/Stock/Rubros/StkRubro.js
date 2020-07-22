@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import { StkRubro_Columns } from "./StkRubro_Columns";
 
-import { StkRubro_Columns } from "./StkRubro_Columns";
-
 import { tableIcons } from "../../../../lib/material-table/tableIcons";
 import { localization } from "../../../../lib/material-table/localization";
 import { stkrubroleermezcla } from "./StkRubroLeerMezcla";

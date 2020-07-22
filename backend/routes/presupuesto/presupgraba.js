@@ -5,7 +5,8 @@ var moment = require("moment");
 var conexion = require('../conexion');
 
 var nrovta = 1;
-
+nropresup = 0;
+var datosenvio = [];
 moment.locale("es");
 
 conexion.connect(function (err) {
@@ -16,11 +17,7 @@ conexion.connect(function (err) {
   }
 });
 
-router.post("/", async function (req, res) {
-  console.log('esta en grabar')
-  console.log('DatosPresup  ', req.body.DatosPresup)
-  console.log('req.body.DatosPresup.idClientes  ', req.body.idClientes)
-  console.log('req.body.DatosPresup.nomCliente  ', req.body.nomCliente)
+router.all("/", async function (req, res) {
   var d = new Date();
   finalDate = d.toISOString().split("T")[0];
   var cliente = ''
@@ -32,19 +29,6 @@ router.post("/", async function (req, res) {
     cliente = req.body.nomCliente
   }
 
-  while (i < req.body.DatosPresup.datos.length) {
-    //   totalpresup = totalpresup + props.data[i].ImpItem
-    //   i++
-    console.log('DatosPresup en while ', req.body.DatosPresup.datos)
-    var registro1 = {
-      idPresupRenglon = i + 1,
-      PresupRenglonNroPresup
-    }
-      `idPresupRenglon`, `PresupRenglonNroPresup`, `PresupRenglonTipo`, `PresupRenglonCant`, `PresupRenglonLargo`, `PresupRenglonAncho`, `PresupRenglonImpUnit`, `PresupRenglonImpItem`
-    i++
-  }
-
-
   var registro = {
     PresupEncabFecha: finalDate,
     PresupEncabCliente: cliente,
@@ -52,20 +36,70 @@ router.post("/", async function (req, res) {
     PresupEncabMayMin: req.body.DatosPresup.maymin
   }
 
-  console.log('registro  ', registro)
 
   conexion.query("INSERT INTO BasePresup.PresupEncab SET ?", registro, function (err, result) {
     if (err) {
       if (err.errno == 1062) {
         return res.status(409).send({ message: "error clave duplicada" });
       } else {
-        console.log("ERROR ");
+        console.log("ERROR en INSERT INTO BasePresup.PresupEncab");
         console.log(err.errno);
       }
     } else {
-      res.json(result);
+      console.log('insertó todo bien en BasePresup.PresupEncab')
+      // res.json(result);
     }
   });
+  //insert into BasePresup.PresupRenglon (idPresupRenglon, PresupRenglonNroPresup) values (1, (select MAX(idPresupEncab) from BasePresup.PresupEncab));
+
+
+  req.body.DatosPresup.datos.map(renglon => {
+    conexion.query('SELECT MAX(idPresupEncab) AS ultpresup FROM BasePresup.PresupEncab', function (err, result) {
+      if (err) {
+        console.log("ERROR en  SELECT MAX(idPresupEncab)");
+        console.log(err.errno);
+      } else {
+        nropresup = result[0].ultpresup
+
+      }
+
+
+      var registro1 = {
+        idPresupRenglon: i + 1,
+        PresupRenglonNroPresup: nropresup,
+        //      PresupRenglonTipo: renglon.PresupRenglonTipo,
+        PresupRenglonCant: renglon.PresupCantidad,
+        PresupRenglonDesc: renglon.StkRubroDesc,
+        PresupRenglonLargo: renglon.PresupLargo,
+        PresupRenglonAncho: renglon.PresupAncho,
+        PresupRenglonImpUnit: renglon.ImpUnitario,
+        PresupRenglonImpItem: renglon.ImpItem
+      }
+      conexion.query("INSERT INTO BasePresup.PresupRenglon SET ?", registro1,
+        function (err, result) {
+          if (err) {
+            console.log('err en back de presupgraba ', err)
+            if (err.errno == 1265) {
+              return res.status(413).send({ message: "Faltan datos para leer información en tabl" });
+            }
+            else {
+              console.log("ERROR en INSERT INTO BasePresup.PresupRenglon ");
+              console.log(err.errno);
+            }
+          }
+          else {
+            console.log('insertó todo bien en el renglon de presupuesto')
+            res.json('');
+          }
+
+
+        });
+      i++
+    })
+  })
+
+
+
 });
 
 conexion.end;
