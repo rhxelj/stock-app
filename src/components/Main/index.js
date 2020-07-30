@@ -12,7 +12,7 @@ import ListaPrecios from "./pages/ListaPrecios/ListaPrecios";
 import ModPrecios from "./pages/ListaPrecios/ModPrecios";
 import StkMovEntrada from "./pages/Stock/Movimientos/Entrada/StkMovEntrada";
 import StkMovSalida from "./pages/Stock/Movimientos/Salida/StkMovSalida";
-import StkSalidaFinal from "./pages/Stock/Movimientos/Salida/StkSalidaFinal";
+import StkSalidaFinal from "./pages/Stock/Movimientos/Salida/LayoutMovSalidaFinal/StkSalidaFinal";
 // import StkMovimiento from './pages/z_SinClasificarMirar/StkMovimiento'
 import StkItems from "./pages/Stock/Items/StkItems";
 

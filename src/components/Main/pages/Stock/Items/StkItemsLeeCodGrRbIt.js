@@ -3,6 +3,7 @@ import request from "superagent";
 import IpServidor from "../../VariablesDeEntorno";
 
 export const stkitemsleecodgrrbit = (idStkGrupo, idStkRubro, idStkItems) => {
+  console.log('idStkGrupo, idStkRubro, idStkItems  StkItemsLeeCodGrRbIt  ', idStkGrupo, idStkRubro, idStkItems)
   return new Promise(resolve => {
     if (idStkGrupo != '' && idStkRubro != '' && idStkItems != '') {
       const url =
@@ -18,6 +19,7 @@ export const stkitemsleecodgrrbit = (idStkGrupo, idStkRubro, idStkItems) => {
         .set("Content-Type", "application/json")
         .then(res => {
           const stkitems = JSON.parse(res.text);
+          console.log('stkitems StkItemsLeeCodGrRbIt  ', stkitems)
           resolve(stkitems);
         });
     }
