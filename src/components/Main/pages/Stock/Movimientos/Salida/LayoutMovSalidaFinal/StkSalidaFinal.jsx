@@ -16,7 +16,8 @@ export default function StkSalidaFinal(props) {
   // Context
   const [state, setState] = useState({
     codqr: '',
-    cantidad: 0
+    cantidad: 0,
+    largo: 0
     //   nroenvase: 0,
     // grupo: 0,
     // rubro: 0,
@@ -43,16 +44,22 @@ export default function StkSalidaFinal(props) {
 
 
   // 1#1#4#1#
-  //1#1#4#1#VORTEX 200 VERDE RUT   28'07'2020 40 MTS 
+  //1#1#4#1#VORTEX 200# VERDE RUT   28'07'2020 40 MTS 
   // 
   //  2#1#5#15#STANDARD 840"AZUL QUILMES"PAR"""30-07-2020"35"MTS 
 
   async function restastock() {
-    var nroenvase = state.codqr.split("#")[0];
-    var grupo = state.codqr.split("#")[1];
-    var rubro = state.codqr.split("#")[2];
-    var item = state.codqr.split("#")[3];
+    if (state.largo > 0) {
+      var cantarestar = state.cantidad * state.largo
+    }
+    var nroenvase = await state.codqr.split("#")[0];
+    var grupo = await state.codqr.split("#")[1];
+    var rubro = await state.codqr.split("#")[2];
+    var item = await state.codqr.split("#")[3];
+    var detalle = await state.codqr.split("#")[4];
+
     const result = await stkitemsleecodgrrbit(grupo, rubro, item);
+
     setDatosMuestra((datosmuestra) => ({
       ...datosmuestra,
       StkItemsCantidad: result[0].StkItemsCantidad,
@@ -60,7 +67,10 @@ export default function StkSalidaFinal(props) {
       StkItemsFAct: result[0].StkItemsFAct,
       StkItemsMin: result[0].StkItemsMin,
       StkItemsMax: result[0].StkItemsMax,
+      detalle,
+      cantarestar
     }));
+    console.log('detalle  ', detalle)
     handleClickOpen()
   }
   const handleClickOpen = () => {
@@ -81,11 +91,11 @@ export default function StkSalidaFinal(props) {
         alignItems="center"
         justify="flex-end"
         item
-        spacing={8}
-        xs={6}
+        spacing={3}
+        xs={12}
       >
         {/* Cantidad Disponible */}
-        <Grid item xs={6}>
+        < Grid item xs={3}>
           <TextField
             size="small"
             variant="outlined"
@@ -95,25 +105,38 @@ export default function StkSalidaFinal(props) {
             // className={classes.textField}
             onChange={handleChange}
           />
-          <Button variant="contained" color="primary" onClick={restastock}>
-            Confirmar
-          </Button>
-          <Grid item xs={6}>
-            <TextField
-              size="small"
-              variant="outlined"
-              id='cantidad'
-              value={state.cantidad}
-              label='Cantidad : '
-              // className={classes.textField}
-              onChange={handleChange}
-            />
-
-          </Grid>
         </Grid>
-
-
+        <Grid item xs={3}>
+          <TextField
+            size="small"
+            variant="outlined"
+            id='cantidad'
+            value={state.cantidad}
+            label='Cantidad : '
+            // className={classes.textField}
+            onChange={handleChange}
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <TextField
+            size="small"
+            variant="outlined"
+            id='largo'
+            value={state.largo}
+            label='Largo : '
+            // className={classes.textField}
+            onChange={handleChange}
+          />
+        </Grid>
+        <Button variant="contained" color="primary" onClick={restastock}>
+          Confirmar
+          </Button>
       </Grid>
+
+
+
+
+
 
       <FilaMuestraDatos open={open} handleClose={handleClose} datosm={datosmuestra} />
     </>
