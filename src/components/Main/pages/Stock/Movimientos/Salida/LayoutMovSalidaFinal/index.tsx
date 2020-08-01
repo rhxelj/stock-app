@@ -18,14 +18,14 @@ import {
 // import Paper from "@material-ui/core/Paper";
 // import Grid from "@material-ui/core/Grid";
 // import useStyles from "./styles";
-import StkSalidaFinal from "./StkSalidaFinal";
+import StkMovSalidaFinal from "./StkMovSalidaFinal";
 
 export default function Fila() {
   // const classes = useStyles();
 
   return (
     <>
-      <StkSalidaFinal />
+      <StkMovSalidaFinal />
     </>
   );
 }

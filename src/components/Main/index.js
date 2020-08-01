@@ -12,7 +12,7 @@ import ListaPrecios from "./pages/ListaPrecios/ListaPrecios";
 import ModPrecios from "./pages/ListaPrecios/ModPrecios";
 import StkMovEntrada from "./pages/Stock/Movimientos/Entrada/StkMovEntrada";
 import StkMovSalida from "./pages/Stock/Movimientos/Salida/StkMovSalida";
-import StkSalidaFinal from "./pages/Stock/Movimientos/Salida/LayoutMovSalidaFinal/StkSalidaFinal";
+import StkMovSalidaFinal from "./pages/Stock/Movimientos/Salida/LayoutMovSalidaFinal/StkMovSalidaFinal";
 // import StkMovimiento from './pages/z_SinClasificarMirar/StkMovimiento'
 import StkItems from "./pages/Stock/Items/StkItems";
 
@@ -44,7 +44,7 @@ const Main = () => (
       <Route path="/StkUnMed" component={StkUnMed} />
       {/* <Route path="/StkMovimiento"     component={StkMovimiento}/> */}
       <Route path="/StkMovSalida" component={StkMovSalida} />
-      <Route path="/StkSalidaFinal" component={StkSalidaFinal} />
+      <Route path="/StkMovSalidaFinal" component={StkMovSalidaFinal} />
       <Route path="/ListaPrecios" component={ListaPrecios} />
       <Route path="/PresupPant" component={PresupPant} />
       <Route path="/PresupPantVie" component={PresupPantVie} />

@@ -8,39 +8,62 @@ import TableRow from '@material-ui/core/TableRow';
 // import { makeStyles } from "@material-ui/core/styles";
 // import Paper from "@material-ui/core/Paper";
 // import Grid from "@material-ui/core/Grid";
-// import useStyles from "../styles";
+import useStyles from './styles'
 
 // Context
 
 
 
 export default function FilaMuestraDatos(props) {
+    var nuevacantdisp = props.datosm.StkItemsCantDisp
 
-    console.log('props  ', props)
-    console.log(props.datosm.StkItemsCantDisp)
-    console.log(props.datosm.StkItemsCantidad)
-    console.log(props.datosm.StkItemsFAct)
-    console.log(props.datosm.StkItemsMax)
-    console.log(props.datosm.StkItemsMin)
+    if (props.datosm.largopasa == 0) {
+        var nuevacantstock = props.datosm.StkItemsCantidad - props.datosm.cantarestar
+        nuevacantdisp = props.datosm.StkItemsCantDisp - props.datosm.cantarestar
+    }
+    else {
+        var nuevacantstock = props.datosm.StkItemsCantidad - props.datosm.cantarestar
+    }
+    const classes = useStyles();
     return (
         <>
             {props.open &&
                 <Grid container item justify="rigth">
-                    <Table aria-label="simple table">
+                    <Table className={classes.table} aria-label="simple table">
                         <TableHead>
                             <TableRow>
-                                <TableCell>Detalle</TableCell>
-                                <TableCell align="right">Stock </TableCell>
-                                <TableCell align="right">Disponibilidad</TableCell>
-                                <TableCell align="right">Cantidad</TableCell>
+                                <TableCell align="center">Envase </TableCell>
+                                <TableCell align="center" >Detalle</TableCell>
+                                <TableCell align="center" colSpan={2} >Stock </TableCell>
+                                <TableCell align="center" colSpan={2} >Disponibilidad</TableCell>
+                                <TableCell align="center">Cantidad</TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell> </TableCell>
+                                <TableCell> </TableCell>
+                                <TableCell align="center">Anterior </TableCell>
+                                <TableCell align="center">Actual </TableCell>
+                                <TableCell align="center">Anterior </TableCell>
+                                <TableCell align="center">Actual </TableCell>
+                                <TableCell align="center"> </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             <TableRow >
-                                <TableCell align="right">{props.datosm.detalle}</TableCell>
-                                <TableCell align="right">{props.datosm.StkItemsCantidad}</TableCell>
-                                <TableCell align="right">{props.datosm.StkItemsCantDisp}</TableCell>
-                                <TableCell align="right">{props.datosm.cantarestar}</TableCell>
+                                <TableCell align="center">{props.datosm.nroenvase}</TableCell>
+                                <TableCell align="center">{props.datosm.detalle}</TableCell>
+
+                                <TableCell align="center">{props.datosm.StkItemsCantidad}</TableCell>
+                                <TableCell style={
+                                    nuevacantstock < props.datosm.StkItemsMin
+                                        ? { background: "#f92c19" }
+                                        // : { background: "#00e676" }
+                                        : {}
+                                } align="center">{nuevacantstock}</TableCell>
+
+                                <TableCell align="center">{props.datosm.StkItemsCantDisp}</TableCell>
+                                <TableCell align="center">{nuevacantdisp}</TableCell>
+                                <TableCell align="center">{props.datosm.cantarestar}</TableCell>
 
 
                             </TableRow>

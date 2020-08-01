@@ -9,7 +9,7 @@ export const movimientos = [
     primary: "Entrada Mercadería"
   },
   { link: "/StkMovSalida", primary: "Salida de Disponible" },
-  { link: "/StkSalidaFinal", primary: "Salida Final" }
+  { link: "/StkMovSalidaFinal", primary: "Salida Final" }
 ];
 
 export const tablas = [

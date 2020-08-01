@@ -1,30 +1,32 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
-import useStyles from "../LayoutMovSalida/styles";
+import useStyles from './styles'
 import { TextField } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import { stkitemsleecodgrrbit } from "../../../../Stock/Items/StkItemsLeeCodGrRbIt";
+import { stkitemsleecodgrrbit } from "../../../Items/StkItemsLeeCodGrRbIt";
 import FilaMuestraDatos from './FilaMuestraDatos'
 // import { stkitemsleecodgrrbit } from "../../../../Items/StkItemsLeeCodGrRbIt";
 
 
 // Context
 
-
+import { useContext } from "react";
+import { StkMovSalidaFinalContext } from './StkMovSalidaFinal'
 
 export default function StkSalidaFinal(props) {
   // Context
-  const [state, setState] = useState({
-    codqr: '',
-    cantidad: 0,
-    largo: 0
-    //   nroenvase: 0,
-    // grupo: 0,
-    // rubro: 0,
-    // item: 0
+  const { state, setState } = useContext(StkMovSalidaFinalContext);
+  // const [state, setState] = useState({
+  //   codqr: '',
+  //   cantidad: '',
+  //   largo: ''
+  //   //   nroenvase: 0,
+  //   // grupo: 0,
+  //   // rubro: 0,
+  //   // item: 0
 
-  }
-  );
+  // }
+  // );
   const [datosmuestra, setDatosMuestra] = useState({
 
     StkItemsFAct: "",
@@ -49,8 +51,13 @@ export default function StkSalidaFinal(props) {
   //  2#1#5#15#STANDARD 840"AZUL QUILMES"PAR"""30-07-2020"35"MTS 
 
   async function restastock() {
+    var cantarestar = 0
+    var largopasa = state.largo
     if (state.largo > 0) {
-      var cantarestar = state.cantidad * state.largo
+      cantarestar = state.cantidad * state.largo
+    }
+    else {
+      cantarestar = state.cantidad
     }
     var nroenvase = await state.codqr.split("#")[0];
     var grupo = await state.codqr.split("#")[1];
@@ -68,9 +75,13 @@ export default function StkSalidaFinal(props) {
       StkItemsMin: result[0].StkItemsMin,
       StkItemsMax: result[0].StkItemsMax,
       detalle,
-      cantarestar
+      cantarestar,
+      largopasa,
+      nroenvase,
+      grupo,
+      rubro,
+      item
     }));
-    console.log('detalle  ', detalle)
     handleClickOpen()
   }
   const handleClickOpen = () => {
@@ -102,8 +113,13 @@ export default function StkSalidaFinal(props) {
             id="codqr"
             value={state.codqr}
             label='Código QR : '
-            // className={classes.textField}
+            className={classes.textField}
+
             onChange={handleChange}
+            onKeyPress={event => {
+              if (event.key === "Enter")
+                document.getElementById("cantidad").focus();
+            }}
           />
         </Grid>
         <Grid item xs={3}>
@@ -113,8 +129,13 @@ export default function StkSalidaFinal(props) {
             id='cantidad'
             value={state.cantidad}
             label='Cantidad : '
-            // className={classes.textField}
+            type="number"
+            className={classes.textField}
             onChange={handleChange}
+            onKeyPress={event => {
+              if (event.key === "Enter")
+                document.getElementById("largo").focus();
+            }}
           />
         </Grid>
         <Grid item xs={3}>
@@ -124,11 +145,16 @@ export default function StkSalidaFinal(props) {
             id='largo'
             value={state.largo}
             label='Largo : '
-            // className={classes.textField}
+            type="number"
+            className={classes.textField}
             onChange={handleChange}
+            onKeyPress={event => {
+              if (event.key === "Enter")
+                document.getElementById("botonconf").focus();
+            }}
           />
         </Grid>
-        <Button variant="contained" color="primary" onClick={restastock}>
+        <Button id='botonconf' variant="contained" color="primary" onClick={restastock}>
           Confirmar
           </Button>
       </Grid>
