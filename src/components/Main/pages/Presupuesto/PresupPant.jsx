@@ -25,23 +25,18 @@ var PresupPant = props => {
   return (
     <div>
       <Container>
-        <Grid container spacing={6}>
+        {/* <Grid item></Grid> */}
+        <Grid container spacing={3}>
           <PresupPantContext.Provider
             value={{
               state: state,
               setState: setState
             }}
           >
-            {/* Botones de elección de presupuesto */}
+            <Grid item></Grid> {/*  Para dejar espacio  */}
             <FilaUno />
-            {/* Cantidad y Rubro */}
             <FilaDos />
-            {/* Fila Cantidd, Pres. Desc., Pres., UM,Ancho */}
-            {/* <FilaTres /> */}
-            {/* Fila Partida, Ub. Geo., Ub. Fisc., Observaciones */}
-            {/* <FilaCuatro /> */}
-            {/* Fila Confirma, Cancela, Borra */}
-            {/* <FilaCinco /> */}
+
           </PresupPantContext.Provider>
         </Grid>
       </Container>

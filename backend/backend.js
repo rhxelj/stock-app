@@ -113,6 +113,12 @@ var presupfajas = require("./routes/presupuesto/presupfajas");
 var presuplonaconf = require("./routes/presupuesto/presuplonaconf");
 var presupgraba = require("./routes/presupuesto/presupgraba");
 
+
+var presupconftipoleer = require("./routes/presupuesto/presupconftipo/presupconftipoleer");
+var presupconftipomodificar = require("./routes/presupuesto/presupconftipo/presupconftipomodificar");
+var presupconftipoborrar = require("./routes/presupuesto/presupconftipo/presupconftipoborrar");
+var presupconftipoagregar = require("./routes/presupuesto/presupconftipo/presupconftipoagregar");
+var presupconftipocalc = require("./routes/presupuesto/presupconftipo/presupconftipocalc");
 // function agregada por el error CROS
 function perimitirCrossDomain(req, res, next) {
   //en vez de * se puede definir SÓLO los orígenes que permitimos
@@ -249,6 +255,11 @@ app.use("/presupfajas", presupfajas);
 app.use("/presuplonaconf", presuplonaconf);
 app.use("/presupgraba", presupgraba);
 
+app.use("/presupconftipoleer", presupconftipoleer);
+app.use("/presupconftipomodificar", presupconftipomodificar);
+app.use("/presupconftipoborrar", presupconftipoborrar);
+app.use("/presupconftipoagregar", presupconftipoagregar);
+app.use("/presupconftipocalc", presupconftipocalc);
 
 app.use(function (req, res, next) {
   var err = new Error("El programa de backend no se encuentra");
