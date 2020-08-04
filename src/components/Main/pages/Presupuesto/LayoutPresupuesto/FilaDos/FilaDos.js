@@ -147,93 +147,93 @@ export default function FilaDos(props) {
 
   return (
     <>
-      <Grid
+      {/* <Grid
         container
         justify="space-around"
         direction="row"
         spacing={3}
         xs={12}
-      >
-        {textdata.map((data) => (
-          <Grid>
-            <TextField
-              id={data.id}
-              size="small"
-              select
-              label={data.label}
-              fullWidth
-              value={data.value}
-              onChange={handleChange}
-              SelectProps={{ native: true }}
-              variant="outlined"
-            >
-              {data.mapeo}
-            </TextField>
-          </Grid>
-        ))}
+      > */}
+      {textdata.map((data) => (
         <Grid item xs>
           <TextField
-            inputProps={{ maxlength: 5 }}
+            id={data.id}
             size="small"
-            variant="outlined"
-            id="PresupCantidad"
-            type="number"
-            label="Cantidad"
-            defaultValue="1"
+            select
+            label={data.label}
             fullWidth
-            value={state.PresupCantidad}
+            value={data.value}
             onChange={handleChange}
-            className={classes.textField}
-            onKeyPress={(event) => {
-              if (event.key === "Enter")
-                document.getElementById("idStkRubro").focus();
-            }}
-          />
-        </Grid>
-        {/* {state.PresupTipo !== "un" && ( */}
-        <Grid item xs>
-          <TextField
-            disabled={!(state.PresupTipo !== "un")}
-            inputProps={{ maxlength: 3 }}
-            size="small"
+            SelectProps={{ native: true }}
             variant="outlined"
-            id="PresupLargo"
-            type="number"
-            label="Largo"
-            fullWidth
-            value={state.PresupLargo}
-            onChange={handleChange}
-            className={classes.textField}
-          />
+          >
+            {data.mapeo}
+          </TextField>
         </Grid>
-        {/* )} */}
-        {/* {state.PresupTipo !== "un" && state.PresupTipo !== "pu" && ( */}
-        <Grid item xs>
-          <TextField
-            disabled={!(state.PresupTipo !== "un" && state.PresupTipo !== "pu")}
-            inputProps={{ maxlength: 3 }}
-            size="small"
-            variant="outlined"
-            id="PresupAncho"
-            type="number"
-            label="Ancho"
-            fullWidth
-            value={state.PresupAncho}
-            onChange={handleChange}
-            className={classes.textField}
-          />
-        </Grid>
-        {/* )} */}
-        {/* {state.PresupTipo === "cf" && ( */}
-        <Grid item xs>
-          <FilaConf disable={!(state.PresupTipo === "cf")}></FilaConf>{" "}
-          {/* siempre visible pero solo lo habilito cuando se cumple la condicion */}
-        </Grid>
-        {/* ) } */}
-        <Button onClick={() => agregar()} color="primary">
-          Agregar
-        </Button>
+      ))}
+      <Grid item xs>
+        <TextField
+          inputProps={{ maxlength: 5 }}
+          size="small"
+          variant="outlined"
+          id="PresupCantidad"
+          type="number"
+          label="Cantidad"
+          defaultValue="1"
+          fullWidth
+          value={state.PresupCantidad}
+          onChange={handleChange}
+          className={classes.textField}
+          onKeyPress={(event) => {
+            if (event.key === "Enter")
+              document.getElementById("idStkRubro").focus();
+          }}
+        />
       </Grid>
+      {/* {state.PresupTipo !== "un" && ( */}
+      <Grid item xs>
+        <TextField
+          disabled={!(state.PresupTipo !== "un")}
+          inputProps={{ maxlength: 3 }}
+          size="small"
+          variant="outlined"
+          id="PresupLargo"
+          type="number"
+          label="Largo"
+          fullWidth
+          value={state.PresupLargo}
+          onChange={handleChange}
+          className={classes.textField}
+        />
+      </Grid>
+      {/* )} */}
+      {/* {state.PresupTipo !== "un" && state.PresupTipo !== "pu" && ( */}
+      <Grid item xs>
+        <TextField
+          disabled={!(state.PresupTipo !== "un" && state.PresupTipo !== "pu")}
+          inputProps={{ maxlength: 3 }}
+          size="small"
+          variant="outlined"
+          id="PresupAncho"
+          type="number"
+          label="Ancho"
+          fullWidth
+          value={state.PresupAncho}
+          onChange={handleChange}
+          className={classes.textField}
+        />
+      </Grid>
+      {/* )} */}
+      {/* {state.PresupTipo === "cf" && ( */}
+      <Grid item xs>
+        <FilaConf disable={!(state.PresupTipo === "cf")}></FilaConf>{" "}
+        {/* siempre visible pero solo lo habilito cuando se cumple la condicion */}
+      </Grid>
+      {/* ) } */}
+      <Button onClick={() => agregar()} color="primary">
+        Agregar
+      </Button>
+      {/* </Grid> */}
       <FilaTres
         open={open}
         handleClose={handleClose}

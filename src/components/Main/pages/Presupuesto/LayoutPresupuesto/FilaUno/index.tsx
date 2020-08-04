@@ -16,7 +16,7 @@ import {
 } from "@material-ui/core";
 
 import FilaUnoIzq from "./FilaUnoIzq";
-import FilaUnoDer from "./FilaUnoDer";
+import TipoCliente from "./TipoCliente";
 
 export default function FilaUno() {
   return (
@@ -27,11 +27,11 @@ export default function FilaUno() {
         // alignItems="flex-end"
         // direction="row"
         // justify="center"
-        // alignItems="center"
+        alignItems="center"
         xs={12}
       > */}
+      <TipoCliente />
       <FilaUnoIzq />
-      <FilaUnoDer />
       {/* </Grid> */}
     </>
   );

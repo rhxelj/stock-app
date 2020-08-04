@@ -26,13 +26,14 @@ var PresupPant = props => {
     <div>
       <Container>
         {/* <Grid item></Grid> */}
-        <Grid container spacing={3}>
+        <Grid container spacing={3} alignItems="center">
           <PresupPantContext.Provider
             value={{
               state: state,
               setState: setState
             }}
           >
+            <Grid item></Grid> {/*  Para dejar espacio  */}
             <Grid item></Grid> {/*  Para dejar espacio  */}
             <FilaUno />
             <FilaDos />
