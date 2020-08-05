@@ -3,7 +3,7 @@ var router = express.Router();
 var path = require("path");
 var conexion = require("../../conexion");
 
-conexion.connect(function(err) {
+conexion.connect(function (err) {
   if (!err) {
     console.log("base de datos conectada en stkrubroleer");
   } else {
@@ -13,8 +13,8 @@ conexion.connect(function(err) {
 
 var router = express();
 
-router.get("/", function(req, res, next) {
-  conexion.query("Select * from StkRubro ", function(err, result) {
+router.get("/", function (req, res, next) {
+  conexion.query("Select * from StkRubro order by StkRubroDesc", function (err, result) {
     if (err) {
       console.log(err);
     } else {
