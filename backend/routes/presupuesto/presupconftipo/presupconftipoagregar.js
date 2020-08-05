@@ -23,7 +23,6 @@ router.post("/", function (req, res, next) {
     PresupConfTipoRubro: req.body.PresupConfTipoRubro.toUpperCase()
 
   };
-  //   'INSERT INTO StkGrupo SET ?', registro,
   conexion.query("INSERT INTO BasePresup.PresupConfTipo SET ?", registro, function (err, result) {
     if (err) {
       if (err.errno == 1062) {
