@@ -17,6 +17,7 @@ import StkMovSalidaFinal from "./pages/Stock/Movimientos/Salida/LayoutMovSalidaF
 import StkItems from "./pages/Stock/Items/StkItems";
 
 import PresupPant from "./pages/Presupuesto/PresupPant.js";
+import PresupConfTipo from "./pages/Presupuesto/PresupConfTipo/PresupConfTipo"
 import PresupuestoUnid from "./pages/Presupuesto/PresupuestoUnid.js";
 import PresupPantVie from "./pages/Presupuesto/PresupPantVie.js";
 import ImprimeQR from "./pages/Impresion/ImprimeQR";
@@ -55,6 +56,7 @@ const Main = () => (
       <Route path="/StkItems" component={StkItems} />
       <Route path="/StkMovEntrada" component={StkMovEntrada} />
       <Route path="/StkUbFisica" component={StkUbFisica} />
+      <Route path="/PresupConfTipo" component={PresupConfTipo} />
       <Route path="/ModPrecios" component={ModPrecios} />
       {/* <Route path="/AgregarMonedas" component={AgregarMonedas}/> */}
       {/* <Route path="/BorrarMonedas" component={BorrarMonedas}/> */}
