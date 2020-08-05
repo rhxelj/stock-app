@@ -26,13 +26,6 @@ router.post("/", async function (req, res, next) {
   var nuevacantstock = req.body.nuevacantstock;
   var nuevacantdisp = req.body.nuevacantdisp;
 
-  console.log('stkgraba en backend')
-  console.log(req.body.StkItemsGrupo)
-  console.log(StkItemsRubro)
-  console.log(idStkItems)
-  // var cantidad = req.body.cantidad;
-  // var cantidad1 = req.body.cantidad1;
-  // var cantmod = cantidad * cantidad1 * -1;
   var d = new Date();
   finalDate = d.toISOString().split("T")[0];
   var StkItemsFAct = finalDate;
@@ -50,7 +43,6 @@ router.post("/", async function (req, res, next) {
     " and  StkItemsRubro = " +
     StkItemsRubro].join(" ");
 
-  console.log('q ', q)
   conexion.query(q, function (err, result) {
     if (err) {
       console.log(err);

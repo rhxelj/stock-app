@@ -8,7 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Button from "@material-ui/core/Button";
 import useStyles from './styles'
 import { stkGrabaMovSalFinal } from './StkGrabaMovSalFinal'
-
+import { stkGrabaMovSalEnvase } from './StkGrabaMovSalEnvase'
 
 // Context
 import { useContext } from "react";
@@ -30,12 +30,9 @@ export default function FilaMuestraDatos(props) {
 
 
     async function actualizainf() {
-        // console.log('esta en actualizainf ')
-        // console.log('state.grupo ', state.grupo)
-        // console.log('state.rubro ', state.rubro)
-        // console.log('state.item ', state.item)
-        // console.log('state.nroenvase ', state.nroenvase)
+
         await stkGrabaMovSalFinal(state.grupo, state.rubro, state.item, nuevacantstock, nuevacantdisp)
+        await stkGrabaMovSalEnvase(state.nroenvase, state.grupo, state.rubro, state.item, state.cantarestar)
     }
     const classes = useStyles();
     return (

@@ -4,17 +4,16 @@ import IpServidor from '../../../../VariablesDeEntorno'
 import CodigoError from '../../../../../../lib/CodigoError'
 // Lee Rubro por codigo de gupo
 
-export const stkGrabaMovSalFinal = (StkItemsGrupo, StkItemsRubro, idStkItems, nuevacantstock, nuevacantdisp) => {
-
-  const url = IpServidor + "/stkgrabamovsalfinal";
+export const stkGrabaMovSalEnvase = (Envase, StkItemsGrupo, StkItemsRubro, idStkItems, cantarestar) => {
+  const url = IpServidor + "/stkmovenvase";
   request
     .post(url)
     .set("Content-Type", "application/json")
+    .send({ Envase: Envase })
     .send({ StkItemsGrupo: StkItemsGrupo })
     .send({ StkItemsRubro: StkItemsRubro })
     .send({ idStkItems: idStkItems })
-    .send({ nuevacantstock: nuevacantstock })
-    .send({ nuevacantdisp: nuevacantdisp })
+    .send({ cantarestar: cantarestar })
     .set("X-API-Key", "foobar")
     .then(function (res) {
       const respuesta = JSON.parse(res.text);
