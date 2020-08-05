@@ -16,26 +16,7 @@ import { StkMovSalidaFinalContext } from './StkMovSalidaFinal'
 export default function StkSalidaFinal(props) {
   // Context
   const { state, setState } = useContext(StkMovSalidaFinalContext);
-  // const [state, setState] = useState({
-  //   codqr: '',
-  //   cantidad: '',
-  //   largo: ''
-  //   //   nroenvase: 0,
-  //   // grupo: 0,
-  //   // rubro: 0,
-  //   // item: 0
 
-  // }
-  // );
-  const [datosmuestra, setDatosMuestra] = useState({
-
-    StkItemsFAct: "",
-    StkItemsMin: null,
-    StkItemsMax: null,
-    StkItemsCantDisp: 0,
-    StkItemsCantidad: 0
-  }
-  );
 
   const handleChange = event => {
     const id = event.target.id;
@@ -50,39 +31,38 @@ export default function StkSalidaFinal(props) {
   // 
   //  2#1#5#15#STANDARD 840"AZUL QUILMES"PAR"""30-07-2020"35"MTS 
 
+
   async function restastock() {
-    var cantarestar = 0
-    var largopasa = state.largo
+
+    var calcularesta = 0
     if (state.largo > 0) {
-      cantarestar = state.cantidad * state.largo
+      calcularesta = (state.cantidad * state.largo)
     }
     else {
-      cantarestar = state.cantidad
+      calcularesta = state.cantidad
     }
-    var nroenvase = await state.codqr.split("#")[0];
-    var grupo = await state.codqr.split("#")[1];
-    var rubro = await state.codqr.split("#")[2];
-    var item = await state.codqr.split("#")[3];
-    var detalle = await state.codqr.split("#")[4];
-
+    var grupo = await state.codqr.split("#")[1]
+    var rubro = await state.codqr.split("#")[2]
+    var item = await state.codqr.split("#")[3]
     const result = await stkitemsleecodgrrbit(grupo, rubro, item);
 
-    setDatosMuestra((datosmuestra) => ({
-      ...datosmuestra,
+    setState({
+      ...state,
+      StkItemsDesc: result[0].StkItemsDesc,
       StkItemsCantidad: result[0].StkItemsCantidad,
       StkItemsCantDisp: result[0].StkItemsCantDisp,
       StkItemsFAct: result[0].StkItemsFAct,
       StkItemsMin: result[0].StkItemsMin,
       StkItemsMax: result[0].StkItemsMax,
-      detalle,
-      cantarestar,
-      largopasa,
-      nroenvase,
-      grupo,
-      rubro,
-      item
-    }));
+      nroenvase: state.codqr.split("#")[0],
+      cantarestar: calcularesta,
+      grupo: grupo,
+      rubro: rubro,
+      item: item
+    });
+
     handleClickOpen()
+    console.log('volvio de muestradatos')
   }
   const handleClickOpen = () => {
     setOpen(true);
@@ -150,13 +130,14 @@ export default function StkSalidaFinal(props) {
             onChange={handleChange}
             onKeyPress={event => {
               if (event.key === "Enter")
-                document.getElementById("botonconf").focus();
+                // document.getElementById("botonconf").focus();
+                restastock()
             }}
           />
         </Grid>
-        <Button id='botonconf' variant="contained" color="primary" onClick={restastock}>
+        {/* <Button id='botonconf' variant="contained" color="primary" onClick={restastock}>
           Confirmar
-          </Button>
+          </Button> */}
       </Grid>
 
 
@@ -164,7 +145,8 @@ export default function StkSalidaFinal(props) {
 
 
 
-      <FilaMuestraDatos open={open} handleClose={handleClose} datosm={datosmuestra} />
+      {/* <FilaMuestraDatos open={open} handleClose={handleClose} datosm={datosmuestra} /> */}
+      <FilaMuestraDatos open={open} handleClose={handleClose} />
     </>
   );
 }

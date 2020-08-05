@@ -32,13 +32,7 @@ var StkMovSalidaFinal = props => {
                     >
                         {/* Botones de elección de presupuesto */}
                         <StkSalidaFinal />
-                        {/* Cantidad y Rubro */}
-                        {/* Fila Cantidd, Pres. Desc., Pres., UM,Ancho */}
-                        {/* <FilaTres /> */}
-                        {/* Fila Partida, Ub. Geo., Ub. Fisc., Observaciones */}
-                        {/* <FilaCuatro /> */}
-                        {/* Fila Confirma, Cancela, Borra */}
-                        {/* <FilaCinco /> */}
+
                     </StkMovSalidaFinalContext.Provider>
                 </Grid>
             </Container>

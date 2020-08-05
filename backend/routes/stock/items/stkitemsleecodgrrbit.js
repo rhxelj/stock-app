@@ -3,7 +3,7 @@ var router = express.Router();
 var path = require("path");
 var conexion = require("../../conexion");
 
-conexion.connect(function(err) {
+conexion.connect(function (err) {
   if (!err) {
     console.log("base de datos en stkitemsleecodgrrbit");
   } else {
@@ -13,7 +13,7 @@ conexion.connect(function(err) {
 
 var router = express();
 
-router.get("/", async function(req, res, next) {
+router.get("/", async function (req, res, next) {
   var idStkItems = req.query.idStkItems;
   var StkItemsGrupo = req.query.idStkGrupo;
   var StkItemsRubro = req.query.idStkRubro;
@@ -28,7 +28,7 @@ router.get("/", async function(req, res, next) {
     " and  StkItemsRubro  = ",
     StkItemsRubro
   ].join(" ");
-  conexion.query(q, function(err, result) {
+  conexion.query(q, function (err, result) {
     if (err) {
       console.log(err);
     } else {
