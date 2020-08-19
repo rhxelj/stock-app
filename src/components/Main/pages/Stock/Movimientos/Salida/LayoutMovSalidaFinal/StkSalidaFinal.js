@@ -48,6 +48,7 @@ export default function StkSalidaFinal(props) {
 
     setState({
       ...state,
+      StkItemsRubroAbr: result[0].StkItemsRubroAbr,
       StkItemsDesc: result[0].StkItemsDesc,
       StkItemsCantidad: result[0].StkItemsCantidad,
       StkItemsCantDisp: result[0].StkItemsCantDisp,
@@ -62,7 +63,6 @@ export default function StkSalidaFinal(props) {
     });
 
     handleClickOpen()
-    console.log('volvio de muestradatos')
   }
   const handleClickOpen = () => {
     setOpen(true);
