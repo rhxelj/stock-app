@@ -44,8 +44,10 @@ export default function FilaUnoIzq() {
         <>
           <option></option>
           {state.tipopresup.map((option) => (
-            <option key={option.tipopresupabr} value={option.tipopresupabr}>
-              {option.tipopresupdet}
+            // // <option key={option.tipopresupabr} value={option.tipopresupabr}>
+            //   {/* {option.tipopresupdet} */}
+            <option key={option.PresupConfTipo} value={option.PresupConfTipo}>
+              {option.PresupConfTipoDesc}
             </option>
           ))}
         </>

@@ -14,7 +14,7 @@ import { presupgrabar } from "../../PresupGrabar";
 // Context
 import { useContext } from "react";
 import { PresupPantContext } from "../../PresupPant";
-import FilaTres from "../FilaTres/FilaTres";
+import TablaPresup from "../TablaPresup/TablaPresup";
 import FilaConf from "../FilaConf/FilaConf";
 
 export default function FilaDos(props) {
@@ -234,13 +234,14 @@ export default function FilaDos(props) {
         Agregar
       </Button>
       {/* </Grid> */}
-      <FilaTres
+
+      <TablaPresup
         open={open}
         handleClose={handleClose}
         data={datosrenglon}
         maymin={state.PresupMnMy}
       />
-      {/* <FilaTres></FilaTres> */}
+      {/* <TablaPresup></TablaPresup> */}
     </>
   );
 }

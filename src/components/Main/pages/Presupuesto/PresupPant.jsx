@@ -7,20 +7,38 @@ import { initial_state } from "./Initial_State";
 import useStyles from "./PresupStyle";
 import FilaUno from './LayoutPresupuesto/FilaUno'
 import FilaDos from './LayoutPresupuesto/FilaDos'
-import FilaTres from './LayoutPresupuesto/FilaTres'
+import TablaPresup from './LayoutPresupuesto/TablaPresup'
 import FilaCuatro from './LayoutPresupuesto/FilaCuatro'
+
 import {
   Container,
   Dialog,
   Grid,
   Paper,
 } from "@material-ui/core";
+import leePresupConfTipo from "./leePresupConfTipo"
+
 export const PresupPantContext = React.createContext();
 
 
 var PresupPant = props => {
   const [state, setState] = useState(initial_state);
   const classes = useStyles();
+
+  async function conftipoleer() {
+    const result = await leePresupConfTipo();
+    setState({ ...state, tipopresup: result });
+  }
+
+
+  useEffect(() => {
+    // if (state.idStkGrupo === "") {
+    conftipoleer();
+    // }
+    // stkrubroleercodgrupo(state.idStkGrupo);
+  }, []);
+
+
 
   return (
     <div>

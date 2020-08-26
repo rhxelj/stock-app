@@ -1,12 +1,11 @@
 import React from "react";
 
-import FilaTres from "./FilaTres";
+import TablaPresup from "./TablaPresup";
 
 export default function Fila() {
-
   return (
     <>
-      <FilaTres />
+      <TablaPresup />
     </>
   );
 }

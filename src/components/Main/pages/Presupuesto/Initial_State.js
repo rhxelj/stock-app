@@ -3,8 +3,8 @@ export const initial_state = {
 
   //FilaUno
   PresupTipo: "un",
-  PresupMnMy: 'mn',
-  PresupCsSs: 'cs',
+  PresupMnMy: "mn",
+  PresupCsSs: "cs",
 
   //FilaDos
   PresupCantidad: 1.0,
@@ -12,38 +12,35 @@ export const initial_state = {
   clientes: [],
   PresupLargo: 0.0,
   PresupAncho: 0.0,
-  StkRubroAbr: '',
+  StkRubroAbr: "",
   idClientes: 0,
   // datosrenglon : [],
 
   tipopresup: [
-    {
-      tipopresupabr: 'un',
-      tipopresupdet: 'Por Unidad',
-    },
-    {
-      tipopresupabr: 'pu',
-      tipopresupdet: 'Paño Unido',
-    },
-    {
-      tipopresupabr: 'fa',
-      tipopresupdet: 'Con Fajas',
-    },
-    {
-      tipopresupabr: 'cf',
-      tipopresupdet: 'Confeccionada',
-    },
-    {
-      tipopresupabr: 'en',
-      tipopresupdet: 'Enrollable',
-    }
-
+    // {
+    //   tipopresupabr: 'un',
+    //   tipopresupdet: 'Por Unidad',
+    // },
+    // {
+    //   tipopresupabr: 'pu',
+    //   tipopresupdet: 'Paño Unido',
+    // },
+    // {
+    //   tipopresupabr: 'fa',
+    //   tipopresupdet: 'Con Fajas',
+    // },
+    // {
+    //   tipopresupabr: 'cf',
+    //   tipopresupdet: 'Confeccionada',
+    // },
+    // {
+    //   tipopresupabr: 'en',
+    //   tipopresupdet: 'Enrollable',
+    // }
   ],
   //FilaTres
 
-
   columns: [
-
     {
       title: "Cantidad",
       field: "PresupCantidad",
@@ -63,12 +60,12 @@ export const initial_state = {
     {
       title: "Imp. Unit.",
       field: "ImpUnitario",
-      type: 'currency',
+      type: "currency",
     },
     {
       title: "Imp. Item.",
       field: "ImpItem",
-      type: 'currency',
+      type: "currency",
       // },
       // {
       //   title: "StkRubroCosto.",
@@ -79,7 +76,7 @@ export const initial_state = {
       //   title: "StkMonedasCotizacion.",
       //   field: "StkMonedasCotizacion",
       //   type: 'currency',
-    }
+    },
   ],
   // data: [
   //   { StkRubroDesc: 'gg', ImpUnitario: 0, ImpItem: 0, StkRubroCosto: 0, StkMonedasCotizacion: 0 },
@@ -87,13 +84,11 @@ export const initial_state = {
   // ],
   // data: [],
 
-
   idStkGrupo: "",
   idStkRubro: "",
   idStkItems: "",
   cantidad: 1.0,
   StkRubroPres: null,
-
 
   disponibilidad: 0,
   //Funcions agregaStock END ***//
@@ -115,5 +110,5 @@ export const initial_state = {
   cantidad: 1,
 
   //FilaCuatro
-  nomCliente: ''
+  nomCliente: "",
 };
