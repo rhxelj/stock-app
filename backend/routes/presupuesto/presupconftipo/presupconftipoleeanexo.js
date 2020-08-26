@@ -5,16 +5,20 @@ var conexion = require("../../conexion");
 
 conexion.connect(function (err) {
   if (!err) {
-    console.log("base de datos conectada en stkrubroleer");
+    console.log("base de datos conectada en presupconftipoleeanexo");
   } else {
-    console.log("no se conecto en stkrubroleer ");
+    console.log("no se conecto en presupconftipoleeanexo");
   }
 });
 
 var router = express();
 
 router.get("/", function (req, res, next) {
-  conexion.query("Select * from StkRubro order by StkRubroDesc", function (err, result) {
+  PresupConfTipoAnexoSN = req.query.PresupConfTipoAnexoSN;
+
+  //'Select * from StkGrupo '
+  var q = ["Select * from BasePresup.PresupConfTipo where PresupConfTipoAnexo = " + PresupConfTipoAnexoSN].join(" ");
+  conexion.query(q, function (err, result) {
     if (err) {
       console.log(err);
     } else {
@@ -22,6 +26,5 @@ router.get("/", function (req, res, next) {
     }
   });
 });
-
 conexion.end;
 module.exports = router;

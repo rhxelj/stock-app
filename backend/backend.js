@@ -93,6 +93,8 @@ var stkitemsventa = require("./routes/stock/items/stkitemsventa"); //una prueba
 
 var stkverificadisp = require("./routes/stock/movimientos/stkverificadisp");
 var stkmovsalfinal = require("./routes/stock/movimientos/stkmovsalfinal");
+var stkgrabamovsalfinal = require("./routes/stock/movimientos/stkgrabamovsalfinal");
+
 var stkmovenvase = require("./routes/stock/movimientos/stkmovenvase");
 
 var stkmovvtaagregar = require("./routes/stock/envase/stkmovvtaagregar");
@@ -115,10 +117,12 @@ var presupgraba = require("./routes/presupuesto/presupgraba");
 
 
 var presupconftipoleer = require("./routes/presupuesto/presupconftipo/presupconftipoleer");
+var presupconftipoleeanexo = require("./routes/presupuesto/presupconftipo/presupconftipoleeanexo");
 var presupconftipomodificar = require("./routes/presupuesto/presupconftipo/presupconftipomodificar");
 var presupconftipoborrar = require("./routes/presupuesto/presupconftipo/presupconftipoborrar");
 var presupconftipoagregar = require("./routes/presupuesto/presupconftipo/presupconftipoagregar");
 var presupconftipocalc = require("./routes/presupuesto/presupconftipo/presupconftipocalc");
+
 // function agregada por el error CROS
 function perimitirCrossDomain(req, res, next) {
   //en vez de * se puede definir SÓLO los orígenes que permitimos
@@ -235,6 +239,7 @@ app.use("/stkitemsmodstock", stkitemsmodstock);
 app.use("/stkitemslistaprecios", stkitemslistaprecios);
 
 app.use("/stkmovsalfinal", stkmovsalfinal);
+app.use("/stkgrabamovsalfinal", stkgrabamovsalfinal);
 app.use("/stkmovenvase", stkmovenvase);
 
 app.use("/stkitemsventa", stkitemsventa);
@@ -256,10 +261,12 @@ app.use("/presuplonaconf", presuplonaconf);
 app.use("/presupgraba", presupgraba);
 
 app.use("/presupconftipoleer", presupconftipoleer);
+app.use("/presupconftipoleeanexo", presupconftipoleeanexo);
 app.use("/presupconftipomodificar", presupconftipomodificar);
 app.use("/presupconftipoborrar", presupconftipoborrar);
 app.use("/presupconftipoagregar", presupconftipoagregar);
 app.use("/presupconftipocalc", presupconftipocalc);
+
 
 app.use(function (req, res, next) {
   var err = new Error("El programa de backend no se encuentra");
