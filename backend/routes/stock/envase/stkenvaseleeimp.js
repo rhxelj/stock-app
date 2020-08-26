@@ -38,7 +38,7 @@ router.get("/", function (req, res, next) {
     "StkEnvasePartida,",
     "StkEnvaseUbG,",
     "StkEnvaseUbF,",
-    'date_format(StkEnvaseFechaAct, "%d-%m-%Y") as stkenvasefecha,',
+    'date_format(StkEnvaseFechaAct, "%d/%m/%Y") as stkenvasefecha,',
     "StkEnvaseCant,",
     "StkEnvaseImprimio,",
     "StkEnvaseObserv",
@@ -65,23 +65,15 @@ router.get("/", function (req, res, next) {
       console.log(' result[a].StkEnvaseUbG + ', result[a].StkEnvaseUbG)
       info = "";
       info =
-        //
-        result[a].idStkEnvase +
-        "_0D_0A" + //para que en el código QR tome un <enter>
-        result[a].StkRubroDesc +
-        "_0D_0A" +
-        result[a].StkItemsDesc +
-        "_0D_0A" +
-        result[a].StkEnvaseUbG +
-        "_0D_0A" +
-        result[a].StkEnvaseUbF +
-        "_0D_0A" +
-        result[a].StkEnvaseObserv +
-        "_0D_0A" +
-        result[a].stkenvasefecha +
-        "_0D_0A" +
-        result[a].StkEnvaseCant +
-        "_0D_0A" +
+        //"_0D_40"  //para que en el código QR tome un <enter>
+        result[a].idStkEnvase + '#' + result[a].StkEnvaseGrupo + '#' + result[a].StkEnvaseRubro + '#' + result[a].StkEnvaseItem + '#' +
+        result[a].StkRubroDesc + "_0D_40" +
+        result[a].StkItemsDesc + "_0D_40" +
+        result[a].StkEnvaseUbG + "_0D_40" +
+        result[a].StkEnvaseUbF + "_0D_40" +
+        result[a].StkEnvaseObserv + "_0D_40" +
+        result[a].stkenvasefecha + "_0D_40" +
+        result[a].StkEnvaseCant + "_0D_40" +
         result[a].StkRubroUM;
       datos = "";
       console.log(info)
@@ -137,7 +129,7 @@ router.get("/", function (req, res, next) {
         fs.appendFile("./codigoqr", datos, (error) => {
           if (error) console.log(error);
           else {
-            console.log("El archivo fue creado");
+            console.log("se agregaron datos al archivo");
           }
         });
       }

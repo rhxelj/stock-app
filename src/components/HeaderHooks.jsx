@@ -149,7 +149,7 @@ const Header = props => {
                     <ListItem button component={Link} to="/StkMovSalida">
                       <ListItemText primary="Salida Virtual" />
                     </ListItem>
-                    <ListItem button component={Link} to="/StkSalidaFinal">
+                    <ListItem button component={Link} to="/StkMovSalidaFinal">
                       <ListItemText primary="Salida Final" />
                     </ListItem>
 

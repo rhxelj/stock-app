@@ -12,12 +12,12 @@ import ListaPrecios from "./pages/ListaPrecios/ListaPrecios";
 import ModPrecios from "./pages/ListaPrecios/ModPrecios";
 import StkMovEntrada from "./pages/Stock/Movimientos/Entrada/StkMovEntrada";
 import StkMovSalida from "./pages/Stock/Movimientos/Salida/StkMovSalida";
-import StkSalidaFinal from "./pages/Stock/Movimientos/Salida/StkSalidaFinal";
+import StkMovSalidaFinal from "./pages/Stock/Movimientos/Salida/LayoutMovSalidaFinal/StkMovSalidaFinal";
 // import StkMovimiento from './pages/z_SinClasificarMirar/StkMovimiento'
 import StkItems from "./pages/Stock/Items/StkItems";
 
-// import PresupPant from "./pages/Presupuesto/PresupPant.js";
-import PresupPant from "./pages/Presupuesto/PresupPant";
+import PresupPant from "./pages/Presupuesto/PresupPant.js";
+import PresupConfTipo from "./pages/Presupuesto/PresupConfTipo/PresupConfTipo"
 import PresupuestoUnid from "./pages/Presupuesto/PresupuestoUnid.js";
 import PresupPantVie from "./pages/Presupuesto/PresupPantVie.js";
 import ImprimeQR from "./pages/Impresion/ImprimeQR";
@@ -45,7 +45,7 @@ const Main = () => (
       <Route path="/StkUnMed" component={StkUnMed} />
       {/* <Route path="/StkMovimiento"     component={StkMovimiento}/> */}
       <Route path="/StkMovSalida" component={StkMovSalida} />
-      <Route path="/StkSalidaFinal" component={StkSalidaFinal} />
+      <Route path="/StkMovSalidaFinal" component={StkMovSalidaFinal} />
       <Route path="/ListaPrecios" component={ListaPrecios} />
       <Route path="/PresupPant" component={PresupPant} />
       <Route path="/PresupPantVie" component={PresupPantVie} />
@@ -56,6 +56,7 @@ const Main = () => (
       <Route path="/StkItems" component={StkItems} />
       <Route path="/StkMovEntrada" component={StkMovEntrada} />
       <Route path="/StkUbFisica" component={StkUbFisica} />
+      <Route path="/PresupConfTipo" component={PresupConfTipo} />
       <Route path="/ModPrecios" component={ModPrecios} />
       {/* <Route path="/AgregarMonedas" component={AgregarMonedas}/> */}
       {/* <Route path="/BorrarMonedas" component={BorrarMonedas}/> */}
