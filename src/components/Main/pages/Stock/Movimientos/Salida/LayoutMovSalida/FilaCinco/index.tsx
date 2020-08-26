@@ -1,12 +1,11 @@
 import React from "react";
 
-import FilaTres from "./FilaTres";
+import FilaCinco from "./FilaCinco";
 
 export default function Fila() {
-
   return (
     <>
-      <FilaTres />
+      <FilaCinco />
     </>
   );
 }

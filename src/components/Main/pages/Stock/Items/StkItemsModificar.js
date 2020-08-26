@@ -4,6 +4,7 @@ import request from "superagent";
 
 export function modificarItems(props) {
   return new Promise(function (resolve, reject) {
+    console.log('modificarItems  props  ', props)
     const {
       idStkItems,
       StkItemsGrupo,

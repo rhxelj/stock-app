@@ -26,7 +26,8 @@ router.post("/", async function(req, res, next) {
   var StkItemsCantDisp = req.body.StkItemsCantDisp;
   var total = req.body.total;
   CantDisp = Number(StkItemsCantDisp) - total;
-
+  console.log("StkItemsCantDisp en Back ", StkItemsCantDisp);
+  console.log("idStkItems en Back ", idStkItems);
   var d = new Date();
   finalDate = d.toISOString().split("T")[0];
   var StkItemsFAct = finalDate;

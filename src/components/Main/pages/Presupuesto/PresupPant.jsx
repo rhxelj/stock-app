@@ -7,14 +7,17 @@ import { initial_state } from "./Initial_State";
 import useStyles from "./PresupStyle";
 import FilaUno from './LayoutPresupuesto/FilaUno'
 import FilaDos from './LayoutPresupuesto/FilaDos'
-import FilaTres from './LayoutPresupuesto/FilaTres'
+import TablaPresup from './LayoutPresupuesto/TablaPresup'
 import FilaCuatro from './LayoutPresupuesto/FilaCuatro'
+
 import {
   Container,
   Dialog,
   Grid,
   Paper,
 } from "@material-ui/core";
+import leePresupConfTipo from "./leePresupConfTipo"
+
 export const PresupPantContext = React.createContext();
 
 
@@ -22,26 +25,37 @@ var PresupPant = props => {
   const [state, setState] = useState(initial_state);
   const classes = useStyles();
 
+  async function conftipoleer() {
+    const result = await leePresupConfTipo();
+    setState({ ...state, tipopresup: result });
+  }
+
+
+  useEffect(() => {
+    // if (state.idStkGrupo === "") {
+    conftipoleer();
+    // }
+    // stkrubroleercodgrupo(state.idStkGrupo);
+  }, []);
+
+
+
   return (
     <div>
       <Container>
-        <Grid container spacing={6}>
+        {/* <Grid item></Grid> */}
+        <Grid container spacing={3} alignItems="center">
           <PresupPantContext.Provider
             value={{
               state: state,
               setState: setState
             }}
           >
-            {/* Botones de elección de presupuesto */}
+            <Grid item></Grid> {/*  Para dejar espacio  */}
+            <Grid item></Grid> {/*  Para dejar espacio  */}
             <FilaUno />
-            {/* Cantidad y Rubro */}
             <FilaDos />
-            {/* Fila Cantidd, Pres. Desc., Pres., UM,Ancho */}
-            {/* <FilaTres /> */}
-            {/* Fila Partida, Ub. Geo., Ub. Fisc., Observaciones */}
-            {/* <FilaCuatro /> */}
-            {/* Fila Confirma, Cancela, Borra */}
-            {/* <FilaCinco /> */}
+
           </PresupPantContext.Provider>
         </Grid>
       </Container>

@@ -13,8 +13,7 @@ export async function llenarColumns() {
     acc[cur.idStkMonedas] = cur.StkMonedasDescripcion;
     return acc;
   }, {});
-  console.log("objstktipoprov => ");
-  console.log(objstktipoprov);
+
   return columnsFill(objstktipoprov, objstkMonedas);
 }
 
@@ -25,8 +24,8 @@ function columnsFill(objstktipoprov, objstkMonedas) {
       // { title: "Tipo", field: "ProveedoresTipo" }, //Proveedores Tipo idStkTipoProveed
       { title: "Descripción", field: "ProveedoresDesc" },
       { title: "Tipo", field: "ProveedoresTipo", lookup: objstktipoprov },
-      { title: "Calle", field: "ProveedoresCalle" },
       { title: "CUIT", field: "ProveedoresCUIT" },
+      { title: "Calle", field: "ProveedoresCalle" },
       { title: "Calle Nro.", field: "ProveedoresNroCalle" },
       { title: "Piso", field: "ProveedoresPiso" },
       { title: "Dto", field: "ProveedoresDto" },
