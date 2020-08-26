@@ -2,10 +2,11 @@ import React from "react";
 import { Route } from "react-router-dom";
 
 import StkMonedas from "./pages/Monedas/StkMonedas";
-import Proveedores from "./pages/Stock/Proveedores/Proveedores";
-import StkUnMed from "./pages/Stock/UnidadMedidas/StkUnMed";
+import Proveedores from "./pages/Stock/Proveedores/Proveedores.jsx";
+import Clientes from "./pages/Clientes/Clientes.jsx";
+import StkUnMed from "./pages/Stock/UnidadMedidas/StkUnMed.jsx";
 import StkRubro from "./pages/Stock/Rubros/StkRubro";
-import StkGrupo from "./pages/Stock/Grupos/StkGrupo";
+import StkGrupo from "./pages/Stock/Grupos/StkGrupo.jsx";
 import StkUbFisica from "./pages/Stock/UbicacionFisica/StkUbFisica";
 import ListaPrecios from "./pages/ListaPrecios/ListaPrecios";
 import ModPrecios from "./pages/ListaPrecios/ModPrecios";
@@ -15,7 +16,10 @@ import StkSalidaFinal from "./pages/Stock/Movimientos/Salida/StkSalidaFinal";
 // import StkMovimiento from './pages/z_SinClasificarMirar/StkMovimiento'
 import StkItems from "./pages/Stock/Items/StkItems";
 
-import PresupPant from "./pages/Presupuesto/PresupPant.js";
+// import PresupPant from "./pages/Presupuesto/PresupPant.js";
+import PresupPant from "./pages/Presupuesto/PresupPant";
+import PresupuestoUnid from "./pages/Presupuesto/PresupuestoUnid.js";
+import PresupPantVie from "./pages/Presupuesto/PresupPantVie.js";
 import ImprimeQR from "./pages/Impresion/ImprimeQR";
 // TODO 👀📐 nothing changed here, just auto-formatting
 // all this auto-formatting is coming from the Prettier extension
@@ -37,12 +41,15 @@ const Main = () => (
       {/* <Route exact path="/" component={LeerMonedas}/> */}
       <Route path="/StkMonedas" component={StkMonedas} />
       <Route path="/Proveedores" component={Proveedores} />
+      <Route path="/Clientes" component={Clientes} />
       <Route path="/StkUnMed" component={StkUnMed} />
       {/* <Route path="/StkMovimiento"     component={StkMovimiento}/> */}
       <Route path="/StkMovSalida" component={StkMovSalida} />
       <Route path="/StkSalidaFinal" component={StkSalidaFinal} />
       <Route path="/ListaPrecios" component={ListaPrecios} />
       <Route path="/PresupPant" component={PresupPant} />
+      <Route path="/PresupPantVie" component={PresupPantVie} />
+      <Route path="/PresupuestoUnid" component={PresupuestoUnid} />
       <Route path="/ImprimeQR" component={ImprimeQR} />
       <Route path="/StkRubro" component={StkRubro} />
       <Route path="/StkGrupo" component={StkGrupo} />

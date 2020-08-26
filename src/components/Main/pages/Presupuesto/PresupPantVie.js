@@ -70,8 +70,7 @@ const TipoConfeccion = [
     detalle: "Con Ojales cada :"
   }
 ];
-
-class PresupPant extends Component {
+class PresupPantVie extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -91,7 +90,7 @@ class PresupPant extends Component {
         cantidad: 10
       },
       {
-        StkRubroAbr: "STD3",
+        StkRubroAbr: "ZDA9",
         minmay: 1,
         cantidad: 20
       }
@@ -121,7 +120,7 @@ class PresupPant extends Component {
         largo: 5
       },
       {
-        StkRubroAbr: "STD3",
+        StkRubroAbr: "ZDA9",
         minmay: 1,
         cantidad: 7,
         largo: 8.5
@@ -153,7 +152,7 @@ class PresupPant extends Component {
         ancho: 3.25
       },
       {
-        StkRubroAbr: "STD3",
+        StkRubroAbr: "ZDA9",
         minmay: 1,
         cantidad: 7,
         largo: 8.5,
@@ -186,7 +185,7 @@ class PresupPant extends Component {
         ancho: 3.25
       },
       {
-        StkRubroAbr: "STD3",
+        StkRubroAbr: "ZDA9",
         minmay: 1,
         cantidad: 7,
         largo: 8.5,
@@ -294,4 +293,4 @@ class PresupPant extends Component {
   }
 }
 
-export default withStyles(styles)(PresupPant);
+export default withStyles(styles)(PresupPantVie);

@@ -15,12 +15,13 @@ var proveedoresborrar = require("./routes/proveedores/proveedoresborrar");
 var proveedoresmodificar = require("./routes/proveedores/proveedoresmodificar");
 var stkbgsubrubroleer = require("./routes/proveedores/stkbgsubrubroleer");
 
-// var clientesleer = require("./routes/clientes/clientesleer");
-// var clientesleercod = require("./routes/clientes/clientesleercod");
-// var clientesleerdesc = require("./routes/clientes/clientesleerdesc");
-// var clientesagregar = require("./routes/clientes/clientesagregar");
-// var clientesborrar = require("./routes/clientes/clientesborrar");
-// var clientesmodificar = require("./routes/clientes/clientesmodificar");
+var clientesleer = require("./routes/clientes/clientesleer");
+var clientesleercod = require("./routes/clientes/clientesleercod");
+var clientesleerdesc = require("./routes/clientes/clientesleerdesc");
+var clientesagregar = require("./routes/clientes/clientesagregar");
+var clientesborrar = require("./routes/clientes/clientesborrar");
+var clientesmodificar = require("./routes/clientes/clientesmodificar");
+
 
 var stkmonedasleer = require("./routes/monedas/stkmonedasleer");
 var stkmonedasleercod = require("./routes/monedas/stkmonedasleercod");
@@ -28,6 +29,7 @@ var stkmonedasagregar = require("./routes/monedas/stkmonedasagregar");
 var stkmonedasmodificar = require("./routes/monedas/stkmonedasmodificar");
 var stkmonedasborrar = require("./routes/monedas/stkmonedasborrar");
 var stkmonedasleerred = require("./routes/monedas/stkmonedasleerred");
+
 
 // var stkbgsubrubroleer = require('./routes/stkbgsubrubroleer');
 
@@ -66,7 +68,9 @@ var stkrubroleecodgryrb = require("./routes/stock/rubros/stkrubroleecodgryrb");
 var stkrubroleeultnro = require("./routes/stock/rubros/stkrubroleeultnro");
 var stkrubroleecodgrupored = require("./routes/stock/rubros/stkrubroleecodgrupored");
 var stkrubroleeproveedor = require("./routes/stock/rubros/stkrubroleeproveedor");
-// var stkrubroleerdesc = require("./routes/stock/rubros/stkrubroleerdesc");
+var stkrubroleerdesc = require("./routes/stock/rubros/stkrubroleerdesc");
+
+
 
 var stkitemsleer = require("./routes/stock/items/stkitemsleer");
 var stkitemsagregar = require("./routes/stock/items/stkitemsagregar");
@@ -82,6 +86,8 @@ var stkitemsmodstock = require("./routes/stock/items/stkitemsmodstock");
 var stkitemslistaprecios = require("./routes/stock/items/stkitemslistaprecios");
 var stkitemscodabr = require("./routes/stock/items/stkitemscodabr");
 var stkitemsborrarabr = require("./routes/stock/items/stkitemsborrarabr");
+
+
 
 var stkitemsventa = require("./routes/stock/items/stkitemsventa"); //una prueba
 
@@ -107,6 +113,12 @@ var presupfajas = require("./routes/presupuesto/presupfajas");
 var presuplonaconf = require("./routes/presupuesto/presuplonaconf");
 var presupgraba = require("./routes/presupuesto/presupgraba");
 
+
+var presupconftipoleer = require("./routes/presupuesto/presupconftipo/presupconftipoleer");
+var presupconftipomodificar = require("./routes/presupuesto/presupconftipo/presupconftipomodificar");
+var presupconftipoborrar = require("./routes/presupuesto/presupconftipo/presupconftipoborrar");
+var presupconftipoagregar = require("./routes/presupuesto/presupconftipo/presupconftipoagregar");
+var presupconftipocalc = require("./routes/presupuesto/presupconftipo/presupconftipocalc");
 // function agregada por el error CROS
 function perimitirCrossDomain(req, res, next) {
   //en vez de * se puede definir SÓLO los orígenes que permitimos
@@ -142,12 +154,13 @@ app.use("/proveedoresagregar", proveedoresagregar);
 app.use("/proveedoresmodificar", proveedoresmodificar);
 app.use("/proveedoresborrar", proveedoresborrar);
 
-// app.use("/clientesleer", clientesleer);
-// app.use("/clientesleercod", clientesleercod);
-// app.use("/clientesleerdesc", clientesleerdesc);
-// app.use("/clientesagregar", clientesagregar);
-// app.use("/clientesmodificar", clientesmodificar);
-// app.use("/clientesborrar", clientesborrar);
+
+app.use("/clientesleer", clientesleer);
+app.use("/clientesleercod", clientesleercod);
+app.use("/clientesleerdesc", clientesleerdesc);
+app.use("/clientesagregar", clientesagregar);
+app.use("/clientesmodificar", clientesmodificar);
+app.use("/clientesborrar", clientesborrar);
 
 app.use("/stkbgsubrubroleer", stkbgsubrubroleer);
 
@@ -171,6 +184,8 @@ app.use("/stkunmedagregar", stkunmedagregar);
 app.use("/stkunmedmodificar", stkunmedmodificar);
 app.use("/stkunmedborrar", stkunmedborrar);
 app.use("/stkunmedleerred", stkunmedleerred);
+
+
 
 app.use("/stkgrupoleer", stkgrupoleer);
 app.use("/stkgrupoleercod", stkgrupoleercod);
@@ -198,7 +213,8 @@ app.use("/stkrubroleecodgryrb", stkrubroleecodgryrb);
 app.use("/stkrubroleeultnro", stkrubroleeultnro);
 app.use("/stkrubroleecodgrupored", stkrubroleecodgrupored);
 app.use("/stkrubroleeproveedor", stkrubroleeproveedor);
-// app.use("/stkrubroleerdesc", stkrubroleerdesc);
+app.use("/stkrubroleerdesc", stkrubroleerdesc);
+
 
 app.use("/stkitemsleer", stkitemsleer);
 app.use("/stkitemsagregar", stkitemsagregar);
@@ -213,6 +229,7 @@ app.use("/stkitemsmoddisp", stkitemsmoddisp);
 app.use("/stkverificadisp", stkverificadisp);
 app.use("/stkitemscodabr", stkitemscodabr);
 app.use("/stkitemsborrarabr", stkitemsborrarabr);
+
 
 app.use("/stkitemsmodstock", stkitemsmodstock);
 app.use("/stkitemslistaprecios", stkitemslistaprecios);
@@ -238,14 +255,20 @@ app.use("/presupfajas", presupfajas);
 app.use("/presuplonaconf", presuplonaconf);
 app.use("/presupgraba", presupgraba);
 
-app.use(function(req, res, next) {
+app.use("/presupconftipoleer", presupconftipoleer);
+app.use("/presupconftipomodificar", presupconftipomodificar);
+app.use("/presupconftipoborrar", presupconftipoborrar);
+app.use("/presupconftipoagregar", presupconftipoagregar);
+app.use("/presupconftipocalc", presupconftipocalc);
+
+app.use(function (req, res, next) {
   var err = new Error("El programa de backend no se encuentra");
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};

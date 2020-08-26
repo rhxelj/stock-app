@@ -2,7 +2,7 @@ import request from "superagent";
 import { Grid, TextField, Dialog, Container } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import { stkitemsleecodgrrbit } from "../../Stock/Items/StkItemsLeeCodGrRbIt";
-import useStyles from "./StkMovEntradaStyle";
+import useStyles from "../StkMovEntradaStyle";
 var initial_state = {
   stkitemsele: [],
   StkItemsFAct: "",

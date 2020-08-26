@@ -3,7 +3,7 @@ import IpServidor from "../../VariablesDeEntorno";
 import request from "superagent";
 
 export function agregarRubros(props) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     const {
       idStkRubro,
       StkRubroCodGrp,
@@ -18,10 +18,9 @@ export function agregarRubros(props) {
       StkRubroTM,
     } = props;
 
-    function codigo() {
+    async function codigo() {
       var url = IpServidor + "/stkrubroleeultnro/?id=" + StkRubroCodGrp;
-      console.log("url =>", url);
-      request
+      await request
         .get(url)
         .set("Content-Type", "application/json")
         .then((res) => {
@@ -31,7 +30,7 @@ export function agregarRubros(props) {
         });
     }
 
-    function agregarRubro(rubroNuevo) {
+    async function agregarRubro(rubroNuevo) {
       const url = IpServidor + "/stkrubroagregar/";
       request
         .post(url)

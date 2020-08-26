@@ -1,8 +1,13 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-var path = require('path');
+var path = require("path");
+var moment = require("moment");
 var conexion = require('../conexion');
-var param = require('../parametros')
+
+var nrovta = 1;
+nropresup = 0;
+var datosenvio = [];
+moment.locale("es");
 
 conexion.connect(function (err) {
   if (!err) {
@@ -12,84 +17,90 @@ conexion.connect(function (err) {
   }
 });
 
-function mostrarPropiedades(objeto, nombreObjeto) {
-  var resultado = ``;
-  for (var i in objeto) {
-    //objeto.hasOwnProperty se usa para filtrar las propiedades del objeto
-    if (objeto.hasOwnProperty(i)) {
-        resultado += `${nombreObjeto}.${i} = ${objeto[i]}\n`;
-    }
+router.all("/", async function (req, res) {
+  var d = new Date();
+  finalDate = d.toISOString().split("T")[0];
+  var cliente = ''
+  var i = 0;
+  if (req.body.idClientes != 0) {
+    cliente = req.body.idClientes
   }
-  return resultado;
-}
+  else {
+    cliente = req.body.nomCliente
+  }
 
-var datosenvio = []
-var router = express();
-router.post('/',  (req, res, next) => {
-  var q, i = 0
-  var coeficiente = 0, cantidad = 0, StkRubroAbrP = '', largo = 0
-  datosrec = (req.body.renglon)
- // datosrec = JSON.parse(req.body.renglon)
-  totalreg = datosrec.length
-// var resultado = ``;
-//   for (var i in datosrec) {
-//     //objeto.hasOwnProperty se usa para filtrar las propiedades del objeto
-//     if (datosrec.hasOwnProperty(i)) {
-//         resultado += `${'datosrec'}.${i} = ${datosrec[i]}\n`;
-//     }
-//   }
-//   console.log('resultado')
-//   console.log(resultado)
+  var registro = {
+    PresupEncabFecha: finalDate,
+    PresupEncabCliente: cliente,
+    PresupEncabTotal: req.body.DatosPresup.suma,
+    PresupEncabMayMin: req.body.DatosPresup.maymin
+  }
 
-datosrec.map(datos => {  
-  console.log(Object.getOwnPropertyNames(datos[0]))
- console.log(Object.values(datos[0]))
 
-      // cantidad = datos.cantidad;
-      // StkRubroAbrP = datos.StkRubroAbr;
-      // largo = datos.largo
-      // coeficiente = param.coeficientemay
-      // minutosunion = param.cantminpu
-   
-        // q = ['Select',
-        //               'StkRubroDesc, ',
-        //               '(((StkRubroCosto * StkMonedasCotizacion * ' + coeficiente + ')',
-        //               '+ (REPValorMOT / 60 * ' + minutosunion + ')) ',
-        //               ' * ' + cantidad,
-        //               ' * ' + largo + ' ) as ImpPañoUnido, ', 
-        //               '(((StkRubroCosto * StkMonedasCotizacion * ' + coeficiente + ')',
-        //               '+ (REPValorMOT / 60 * 2 *' + minutosunion + ')) ',
-        //               ' * ' + cantidad,
-        //               ' * ' + largo + ' ) as ImpPañoUnidoRec, ',
-        //               'StkRubroCosto,',
-        //               'StkMonedasCotizacion,',
-        //               'REPValorMOT',
-        //               'from BaseStock.StkRubro JOIN  BaseStock.StkMonedas, ', 
-        //               'reparacion.parametrosrep ',
-        //               'where StkRubro.StkRubroAbr = "' + StkRubroAbrP +'" ', 
-        //               'and StkRubro.StkRubroTM = idStkMonedas',
-        //    ].join(' ')  
-        //    console.log(q)
-        // conexion.query(
-        //          q,              
-        //               function(err, result) {
-        //               if (err) {
-        //                   console.log('error en mysql')
-        //                   console.log(err)
-        //                   } 
-        //                   else {
-        //                    datosenvio.push(result)
-        //                    i++ 
-        //                     if (i === totalreg)
-        //                     {
-        //                       res.json(datosenvio)
-        //                       datosenvio = []
-        //                     }
-        //                   }
-        //           })
+  conexion.query("INSERT INTO BasePresup.PresupEncab SET ?", registro, function (err, result) {
+    if (err) {
+      if (err.errno == 1062) {
+        return res.status(409).send({ message: "error clave duplicada" });
+      } else {
+        console.log("ERROR en INSERT INTO BasePresup.PresupEncab");
+        console.log(err.errno);
+      }
+    } else {
+      console.log('insertó todo bien en BasePresup.PresupEncab')
+      // res.json(result);
+    }
+  });
+  //insert into BasePresup.PresupRenglon (idPresupRenglon, PresupRenglonNroPresup) values (1, (select MAX(idPresupEncab) from BasePresup.PresupEncab));
+
+
+  req.body.DatosPresup.datos.map(renglon => {
+    conexion.query('SELECT MAX(idPresupEncab) AS ultpresup FROM BasePresup.PresupEncab', function (err, result) {
+      if (err) {
+        console.log("ERROR en  SELECT MAX(idPresupEncab)");
+        console.log(err.errno);
+      } else {
+        nropresup = result[0].ultpresup
+
+      }
+
+
+      var registro1 = {
+        idPresupRenglon: i + 1,
+        PresupRenglonNroPresup: nropresup,
+        //      PresupRenglonTipo: renglon.PresupRenglonTipo,
+        PresupRenglonCant: renglon.PresupCantidad,
+        PresupRenglonDesc: renglon.StkRubroDesc,
+        PresupRenglonLargo: renglon.PresupLargo,
+        PresupRenglonAncho: renglon.PresupAncho,
+        PresupRenglonImpUnit: renglon.ImpUnitario,
+        PresupRenglonImpItem: renglon.ImpItem
+      }
+      conexion.query("INSERT INTO BasePresup.PresupRenglon SET ?", registro1,
+        function (err, result) {
+          if (err) {
+            console.log('err en back de presupgraba ', err)
+            if (err.errno == 1265) {
+              return res.status(413).send({ message: "Faltan datos para leer información en tabl" });
+            }
+            else {
+              console.log("ERROR en INSERT INTO BasePresup.PresupRenglon ");
+              console.log(err.errno);
+            }
+          }
+          else {
+            console.log('insertó todo bien en el renglon de presupuesto')
+            res.json('');
+          }
+
+
+        });
+      i++
+    })
   })
+
+
+
 });
 
-
-conexion.end
+conexion.end;
 module.exports = router;
