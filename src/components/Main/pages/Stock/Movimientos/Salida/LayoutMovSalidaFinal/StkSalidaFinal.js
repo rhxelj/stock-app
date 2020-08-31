@@ -40,6 +40,7 @@ export default function StkSalidaFinal(props) {
     var grupo = await state.codqr.split("#")[1];
     var rubro = await state.codqr.split("#")[2];
     var item = await state.codqr.split("#")[3];
+    var StkEnvaseUbG = await state.codqr.split("#")[5]; //Ubicación Geográfica
     const result = await stkitemsleecodgrrbit(grupo, rubro, item);
 
     setState({
@@ -56,6 +57,7 @@ export default function StkSalidaFinal(props) {
       grupo: grupo,
       rubro: rubro,
       item: item,
+      StkEnvaseUbG: StkEnvaseUbG,
     });
 
     handleClickOpen();
