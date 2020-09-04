@@ -4,11 +4,11 @@ var path = require("path");
 var moment = require("moment");
 var conexion = require("../../conexion");
 var gencodrubro = require("./stkgennrorubro");
- var ultnrorubro = require('./stkleeultnrorubro')
+var ultnrorubro = require('./stkleeultnrorubro')
 
 moment.locale("es");
 
-conexion.connect(function(err) {
+conexion.connect(function (err) {
   if (!err) {
     console.log("base de datos conectada en stkrubroagregar");
   } else {
@@ -17,10 +17,13 @@ conexion.connect(function(err) {
 });
 
 // router.all("/", function(req, res) {
-router.post("/", function(req, res) {
+router.post("/", function (req, res) {
   // codgrupo = req.query.id;
   // ultnrorubro.codigorubronuevo(codgrupo)
   codrubro = req.body.StkRubroCodGrp;
+  var d = new Date();
+  finalDate = d.toISOString().split("T")[0];
+
   var registro = {
     idStkRubro: req.body.idStkRubro,
     StkRubroCodGrp: req.body.StkRubroCodGrp,
@@ -33,9 +36,10 @@ router.post("/", function(req, res) {
     StkRubroUM: req.body.StkRubroUM,
     StkRubroCosto: req.body.StkRubroCosto,
     StkRubroTM: req.body.StkRubroTM,
+    StkRubroFecha: finalDate,
   };
 
-  conexion.query("INSERT INTO StkRubro SET ?", registro, function(err, result) {
+  conexion.query("INSERT INTO StkRubro SET ?", registro, function (err, result) {
     if (err) {
       if (err.errno == 1062) {
         return res.status(460).send({ message: "error clave duplicada" });

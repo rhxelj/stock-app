@@ -20,33 +20,40 @@ import {
 // import Grid from "@material-ui/core/Grid";
 import useStyles from "../styles";
 
+import leePresupConfTipoLeerDesc from "../../leePresupConfTipoLeerDesc"
 // Context
 import { useContext } from "react";
 import { PresupPantContext } from "../../PresupPant";
 
 export default function FilaUnoIzq() {
-  const [selectedValue, setSelectedValue] = React.useState("un");
+  const [selectedValue, setSelectedValue] = React.useState("UNIDAD");
   const { state, setState } = useContext(PresupPantContext);
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
-    setState({ ...state, PresupTipo: event.target.value });
-    console.log(event.target.value);
+    var descripcion = event.target.value
+    setState({ ...state, PresupConfTipoDesc: event.target.value });
+    leerdesc(descripcion)
   };
+
+  async function leerdesc(descripcion) {
+    const result = await leePresupConfTipoLeerDesc(descripcion);
+    setState({ ...state, DatosPresupEleg: result });
+  }
+
+
   const classes = useStyles();
 
   const textdata = [
     {
       id: "TipoConfeccion",
       label: "Confección",
-      value: state.PresupTipo,
+      value: state.idPresupConfTipo,
       mapeo: (
         <>
           <option></option>
           {state.tipopresup.map((option) => (
-            // // <option key={option.tipopresupabr} value={option.tipopresupabr}>
-            //   {/* {option.tipopresupdet} */}
-            <option key={option.PresupConfTipo} value={option.PresupConfTipo}>
+            <option key={option.idPresupConfTipo} value={option.idPresupConfTipo}>
               {option.PresupConfTipoDesc}
             </option>
           ))}

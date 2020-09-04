@@ -63,7 +63,11 @@ export default function ListaPrecios() {
         //   field: "PMayPUR",
         //   type : 'currency'
 
-      }
+      },
+      {
+        title: "Fecha",
+        field: "StkRubroFecha",
+      },
 
     ],
 
