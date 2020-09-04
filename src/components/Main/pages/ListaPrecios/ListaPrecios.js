@@ -43,17 +43,19 @@ export default function ListaPrecios() {
       {
         title: "Público",
         // align: "center",
-        align: "right",
+        // align: "right",
         field: "PPub",
-        // type: "currency",
-        render: (rowData) => <span>$ {rowData.PPub}</span>, //Agregado para poder poner las columnas en linea con los datos
+        width: 50,
+        type: "currency",
+        // render: (rowData) => <span>$ {rowData.PPub}</span>, //Agregado para poder poner las columnas en linea con los datos
       },
       {
         title: "Mayorista",
         field: "PMay",
-        // type: "currency",
+        type: "currency",
+        width: 50,
         // type: "number",
-        render: (rowData) => <span>$ {rowData.PMay}</span>,
+        // render: (rowData) => <span>$ {rowData.PMay}</span>,
         // },
         // {
         //   title: "P-U Mayorista",
