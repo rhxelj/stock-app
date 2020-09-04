@@ -13,6 +13,8 @@ import { style, styles, CustomTableCell, initial_state } from "./Constants";
 import { tableIcons } from "./Constants";
 import { columns } from "./StkTableColumnsMonedas";
 
+import SelecCampos from "../Impresion/SelecCampos";
+
 import { HeaderTitle } from "../../../lib/HeaderTitle";
 import { localization } from "../../../lib/material-table/localization";
 
@@ -87,6 +89,8 @@ function Monedas() {
           onRowDelete: onRowDelete(),
         }}
       />
+
+      <SelecCampos headerTabla={columns} />
     </div>
   );
 }
