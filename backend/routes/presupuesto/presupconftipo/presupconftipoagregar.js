@@ -17,6 +17,8 @@ conexion.connect(function (err) {
 router.post("/", function (req, res, next) {
 
   var registro = {
+    PresupConfTipoLargo: req.body.PresupConfTipoLargo.toUpperCase(),
+    PresupConfTipoAncho: req.body.PresupConfTipoAncho.toUpperCase(),
     PresupConfTipoAnexo: req.body.PresupConfTipoAnexo.toUpperCase(),
     PresupConfTipoCant: req.body.PresupConfTipoCant,
     PresupConfTipoDesc: req.body.PresupConfTipoDesc.toUpperCase(),

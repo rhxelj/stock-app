@@ -7,6 +7,8 @@ import CodigoError from "../../../../lib/CodigoError";
 export function presupConfTipoAgregar(props) {
 
     const {
+        PresupConfTipoLargo,
+        PresupConfTipoAncho,
         PresupConfTipoAnexo,
         PresupConfTipoCant,
         PresupConfTipoDesc,
@@ -17,6 +19,8 @@ export function presupConfTipoAgregar(props) {
     request
         .post(url)
         .set("Content-Type", "application/json")
+        .send({ PresupConfTipoLargo: PresupConfTipoLargo })
+        .send({ PresupConfTipoAncho: PresupConfTipoAncho })
         .send({ PresupConfTipoAnexo: PresupConfTipoAnexo })
         .send({ PresupConfTipoCant: PresupConfTipoCant })
         .send({ PresupConfTipoDesc: PresupConfTipoDesc })

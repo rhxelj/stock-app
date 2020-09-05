@@ -15,8 +15,9 @@ var router = express();
 
 router.post("/", async function (req, res, next) {
   indice = req.query.id;
-
-  PresupConfTipoAnexo = req.body.PresupConfTipoAnexo.toUpperCase(),
+  PresupConfTipoLargo = req.body.PresupConfTipoLargo.toUpperCase(),
+    PresupConfTipoAncho = req.body.PresupConfTipoAncho.toUpperCase(),
+    PresupConfTipoAnexo = req.body.PresupConfTipoAnexo.toUpperCase(),
     PresupConfTipoCant = req.body.PresupConfTipoCant,
     PresupConfTipoDesc = req.body.PresupConfTipoDesc.toUpperCase(),
     PresupConfTipoRubro = req.body.PresupConfTipoRubro.toUpperCase()
@@ -29,6 +30,10 @@ router.post("/", async function (req, res, next) {
     PresupConfTipoDesc +
     '", PresupConfTipoRubro = "' +
     PresupConfTipoRubro +
+    '", PresupConfTipoLargo = "' +
+    PresupConfTipoLargo +
+    '", PresupConfTipoAncho = "' +
+    PresupConfTipoAncho +
     '" WHERE idPresupConfTipo = ' +
     indice
   ];

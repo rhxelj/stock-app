@@ -36,7 +36,16 @@ function columnsFill(objstkrubro) {
             {
                 title: "Es Anexo?",
                 field: "PresupConfTipoAnexo",
+            },
+            {
+                title: "Pide Largo?",
+                field: "PresupConfTipoLargo",
+            },
+            {
+                title: "Pide Ancho?",
+                field: "PresupConfTipoAncho",
             }
+
         ]);
     });
 }
