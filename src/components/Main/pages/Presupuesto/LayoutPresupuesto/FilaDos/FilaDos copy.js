@@ -21,8 +21,6 @@ export default function FilaDos(props) {
   // Esto es para poder consumir los datos del CONTEXTAPI
   const { state, setState } = useContext(PresupPantContext);
   const [datosrenglon, setDatosRenglon] = useState([]);
-
-  console.log('al ingresar PresupConfTipoDesc ', state.PresupConfTipoDesc)
   if (state.DatosPresupEleg.length != 0) {
     if (state.DatosPresupEleg[0].PresupConfTipoRubro === 'VS') {
       var rubrosn = 'S'
@@ -50,8 +48,8 @@ export default function FilaDos(props) {
 
   useEffect(() => {
     //en el backend pregunta por código de grupo en tabla rubro menor que
-    console.log('state.PresupTipo en useeffect ', state.PresupTipo)
-    if (state.PresupTipo === "UNIDAD") {
+
+    if (state.PresupTipo === "un") {
       stkrubroleerdesc(99);
     } else {
 
@@ -76,17 +74,17 @@ export default function FilaDos(props) {
     var PresupCantidad = 0;
     var PresupCantidadM = state.PresupCantidad;
 
-    if (state.PresupTipo == "PAÑO UNIDO") {
+    if (state.PresupTipo == "pu") {
       detalle = "Paños Unidos en : ";
       PresupLargo = state.PresupLargo;
       PresupCantidadM = 1;
     }
-    if (state.PresupTipo == "FAJAS") {
+    if (state.PresupTipo == "fa") {
       detalle = "Lona con fajas en el perímetro en : ";
       PresupLargo = state.PresupLargo;
       PresupAncho = state.PresupAncho;
     }
-    if (state.PresupTipo == "CONFECCIONADA") {
+    if (state.PresupTipo == "cf") {
       if (state.PresupCsSs == "cs") {
         detalle =
           "Lona con ojales reforzados, chicotes y soga en dobladillo en : ";
@@ -196,11 +194,11 @@ export default function FilaDos(props) {
           }}
         />
       </Grid>
-      {/* {state.PresupTipo !== "UNIDAD" && ( */}
+      {/* {state.PresupTipo !== "un" && ( */}
       {rubrosn === 'S' && (
         <Grid item xs>
           <TextField
-            disabled={!(state.PresupTipo !== "UNIDAD")}
+            disabled={!(state.PresupTipo !== "un")}
             inputProps={{ maxlength: 3 }}
             size="small"
             variant="outlined"
@@ -216,7 +214,7 @@ export default function FilaDos(props) {
       {rubrosn === 'S' && (
         <Grid item xs>
           <TextField
-            disabled={!(state.PresupTipo !== "UNIDAD" && state.PresupTipo !== "PAÑO UNIDO")}
+            disabled={!(state.PresupTipo !== "un" && state.PresupTipo !== "pu")}
             inputProps={{ maxlength: 3 }}
             size="small"
             variant="outlined"
@@ -232,7 +230,7 @@ export default function FilaDos(props) {
       )}
       {rubrosn === 'S' && (
         <Grid item xs>
-          <FilaConf disable={!(state.PresupTipo === "CONFECCIONADA")}></FilaConf>{" "}
+          <FilaConf disable={!(state.PresupTipo === "cf")}></FilaConf>{" "}
         </Grid>
 
       )}

@@ -16,7 +16,7 @@ import StkMovSalidaFinal from "./pages/Stock/Movimientos/Salida/LayoutMovSalidaF
 // import StkMovimiento from './pages/z_SinClasificarMirar/StkMovimiento'
 import StkItems from "./pages/Stock/Items/StkItems";
 
-import PresupPant from "./pages/Presupuesto/PresupPant.js";
+import PresupPant from "./pages/Presupuesto/PresupPant.jsx";
 import PresupConfTipo from "./pages/Presupuesto/PresupConfTipo/PresupConfTipo"
 import PresupuestoUnid from "./pages/Presupuesto/PresupuestoUnid.js";
 import PresupPantVie from "./pages/Presupuesto/PresupPantVie.js";

@@ -16,32 +16,34 @@ import {
   Grid,
   Paper,
 } from "@material-ui/core";
-import leePresupConfTipo from "./leePresupConfTipo"
+import leePresupConfTipoLeeAnexo from "./leePresupConfTipoLeeAnexo"
 
 export const PresupPantContext = React.createContext();
 
 
 var PresupPant = props => {
+
   const [state, setState] = useState(initial_state);
   const classes = useStyles();
 
-  async function conftipoleer() {
-    const result = await leePresupConfTipo();
+
+  async function conftipoleer(anexo) {
+    const result = await leePresupConfTipoLeeAnexo(anexo);
     setState({ ...state, tipopresup: result });
   }
 
 
   useEffect(() => {
-    // if (state.idStkGrupo === "") {
-    conftipoleer();
-    // }
-    // stkrubroleercodgrupo(state.idStkGrupo);
+    var anexo = 'N'
+    conftipoleer(anexo);
   }, []);
 
 
 
   return (
     <div>
+      {
+        console.log('state.tipopresup    ', state.tipopresup)}
       <Container>
         {/* <Grid item></Grid> */}
         <Grid container spacing={3} alignItems="center">

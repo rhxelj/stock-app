@@ -6,25 +6,25 @@ import { stkMonedasleerRed } from "./StkMonedasLeerRed";
 
 export async function StkRubro_Columns() {
   const stkgrupo = await stkGrupoLeerRedRubro();
-  var objstkgrupo = await stkgrupo.reduce(function(acc, cur, i) {
+  var objstkgrupo = await stkgrupo.reduce(function (acc, cur, i) {
     acc[cur.StkRubroCodGrp] = cur.StkGrupoDesc;
     return acc;
   }, {});
 
   const stkrubro = await stkrubroleeproveedor();
-  var objstkrubroprov = await stkrubro.reduce(function(acc, cur, i) {
+  var objstkrubroprov = await stkrubro.reduce(function (acc, cur, i) {
     acc[cur.StkRubroProv] = cur.ProveedoresDesc;
     return acc;
   }, {});
 
   const stkUnMed = await stkUnMedLeerRed();
-  var objstkUnMed = await stkUnMed.reduce(function(acc, cur, i) {
+  var objstkUnMed = await stkUnMed.reduce(function (acc, cur, i) {
     acc[cur.idStkUnMed] = cur.StkUnMedDesc;
     return acc;
   }, {});
 
   const stkMonedas = await stkMonedasleerRed();
-  var objstkMonedas = await stkMonedas.reduce(function(acc, cur, i) {
+  var objstkMonedas = await stkMonedas.reduce(function (acc, cur, i) {
     acc[cur.idStkMonedas] = cur.StkMonedasDescripcion;
     return acc;
   }, {});
@@ -33,7 +33,7 @@ export async function StkRubro_Columns() {
 }
 
 function columnsFill(objstkgrupo, objstkrubroprov, objstkUnMed, objstkMonedas) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     resolve([
       // {
       //   title: "Rubro(ID)",
@@ -118,6 +118,13 @@ function columnsFill(objstkgrupo, objstkrubroprov, objstkUnMed, objstkMonedas) {
         title: "Moneda",
         field: "StkRubroTM",
         lookup: objstkMonedas,
+      },
+      {
+        title: "Fecha",
+        field: "StkRubroFecha",
+        tipo: "texto",
+        order: true,
+        editable: false,
       },
     ]);
   });

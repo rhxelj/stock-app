@@ -68,8 +68,8 @@ router.get("/", function (req, res, next) {
         //"_0D_40"  //para que en el código QR tome un <enter>
         result[a].idStkEnvase + '#' + result[a].StkEnvaseGrupo + '#' + result[a].StkEnvaseRubro + '#' + result[a].StkEnvaseItem + '#' +
         result[a].StkRubroDesc + "_0D_40" +
-        result[a].StkItemsDesc + "_0D_40" +
-        result[a].StkEnvaseUbG + "_0D_40" +
+        result[a].StkItemsDesc + "_0D_40" + '#' +
+        result[a].StkEnvaseUbG + "_0D_40" + '#' +
         result[a].StkEnvaseUbF + "_0D_40" +
         result[a].StkEnvaseObserv + "_0D_40" +
         result[a].stkenvasefecha + "_0D_40" +

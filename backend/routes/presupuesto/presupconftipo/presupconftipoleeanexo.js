@@ -14,10 +14,8 @@ conexion.connect(function (err) {
 var router = express();
 
 router.get("/", function (req, res, next) {
-  PresupConfTipoAnexoSN = req.query.PresupConfTipoAnexoSN;
-
-  //'Select * from StkGrupo '
-  var q = ["Select * from BasePresup.PresupConfTipo where PresupConfTipoAnexo = " + PresupConfTipoAnexoSN].join(" ");
+  PresupConfTipoAnexoSN = req.query.anexo;
+  var q = ["Select PresupConfTipoDesc from BasePresup.PresupConfTipo where PresupConfTipoAnexo = '" + PresupConfTipoAnexoSN + "'  group by PresupConfTipoDesc"].join(" ");
   conexion.query(q, function (err, result) {
     if (err) {
       console.log(err);

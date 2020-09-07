@@ -2,7 +2,7 @@ export const initial_state = {
   //Funcions agregaStock BEGIN ***//
 
   //FilaUno
-  PresupTipo: "un",
+  PresupTipo: "UNIDAD",
   PresupMnMy: "mn",
   PresupCsSs: "cs",
 
@@ -14,7 +14,8 @@ export const initial_state = {
   PresupAncho: 0.0,
   StkRubroAbr: "",
   idClientes: 0,
-  // datosrenglon : [],
+  PresupConfTipoDesc: "",
+  DatosPresupEleg: [],
 
   tipopresup: [
     // {

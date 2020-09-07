@@ -117,6 +117,8 @@ var presupgraba = require("./routes/presupuesto/presupgraba");
 
 
 var presupconftipoleer = require("./routes/presupuesto/presupconftipo/presupconftipoleer");
+
+var presupconftipoleerdesc = require("./routes/presupuesto/presupconftipo/presupconftipoleerdesc");
 var presupconftipoleeanexo = require("./routes/presupuesto/presupconftipo/presupconftipoleeanexo");
 var presupconftipomodificar = require("./routes/presupuesto/presupconftipo/presupconftipomodificar");
 var presupconftipoborrar = require("./routes/presupuesto/presupconftipo/presupconftipoborrar");
@@ -261,6 +263,7 @@ app.use("/presuplonaconf", presuplonaconf);
 app.use("/presupgraba", presupgraba);
 
 app.use("/presupconftipoleer", presupconftipoleer);
+app.use("/presupconftipoleerdesc", presupconftipoleerdesc);
 app.use("/presupconftipoleeanexo", presupconftipoleeanexo);
 app.use("/presupconftipomodificar", presupconftipomodificar);
 app.use("/presupconftipoborrar", presupconftipoborrar);
