@@ -97,3 +97,4 @@ export const initial_state = [];
 //   StkMonedasDescripcion: "",
 //   StkMonedasCotizacion: 0,
 // },
+export const initial_open = { imprimir: false };

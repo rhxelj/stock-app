@@ -9,22 +9,36 @@ import { withStyles } from "@material-ui/core/styles";
 import "../../../../Styles/TableHeader.css";
 
 import MaterialTable from "material-table";
-import { style, styles, CustomTableCell, initial_state } from "./Constants";
+import {
+  style,
+  styles,
+  CustomTableCell,
+  initial_state,
+  initial_open,
+} from "./Constants";
 import { tableIcons } from "./Constants";
 import { columns } from "./StkTableColumnsMonedas";
 
-import SelecCampos from "../Impresion/SelecCampos";
+// import SelecCampos from "../Impresion/Imprimir/SelecCampos";
+import Imprimir from "../Impresion/Imprimir/Imprimir";
 
 import { HeaderTitle } from "../../../lib/HeaderTitle";
 import { localization } from "../../../lib/material-table/localization";
 
+// import Imprimir from "../Impresion/Imprimir/indexwww";
+
+import { useContext } from "react";
+import { globalContext } from "../../../App";
+
 function Monedas() {
   HeaderTitle("Monedas");
   const [data, setData] = useState(initial_state);
-  // const [monedas, setData] = useState();
+  const [open, setOpen] = useState(initial_open);
+  // const { valor, setValor } = useContext(globalContext);
 
   async function initialFetch() {
     const monedas = await leerMonedas();
+
     setData(monedas);
   }
 
@@ -68,6 +82,20 @@ function Monedas() {
     console.log("dentro de useEffect");
   }, []);
 
+  function toggleImprimir() {
+    // setOpen({ imprimir: !open.imprimir });
+    // setValor((valor) => ({ ...valor, openImp: !valor.openImp }));
+  }
+  function Imp(columns, data) {
+    return <h1>HOLA</h1>;
+    // <Imprimir
+    //   // open={open.imprimir} //boolean
+    //   open={true}
+    //   setOpen={setOpen}
+    //   columnas={columns}
+    //   datos={data}
+    // />
+  }
   return (
     <div>
       <MaterialTable
@@ -78,6 +106,23 @@ function Monedas() {
         data={data}
         // options={{ addRowPosition: "first" }}
         options={{
+          exportButton: true,
+          exportCsv: (columns, data) => {
+            // toggleImprimir();
+            // Imp(columns, data);
+            // Imprimir(open, columns);
+            // {
+            //   <Imprimir
+            //     open={open.imprimir} //boolean
+            //     setOpen={setOpen}
+            //     columnas={columns}
+            //     datos={data}
+            //   />;
+            // }
+            // console.log("columns : ", columns);
+            // console.log("data : ", data);
+          },
+
           grouping: true,
           addRowPosition: "first",
           actionsColumnIndex: -1,
@@ -90,7 +135,23 @@ function Monedas() {
         }}
       />
 
-      <SelecCampos headerTabla={columns} />
+      {/* <button onClick={toggleImprimir}>IMPRIMIR</button> */}
+      <button onClick={() => setOpen({ imprimir: true })}>IMPRIMIR</button>
+      {/* <SelecCampos columns={columns} open={open.imprimir} setOpen={setOpen} /> */}
+      <Imprimir
+        columns={columns}
+        open={open.imprimir}
+        setOpen={setOpen}
+        datos={data}
+      />
+
+      {/* {toggleImprimir && <Imprimir
+      //   // open={open.imprimir} //boolean
+        open={true}
+        setOpen={setOpen}
+        columnas={columns}
+        datos={data}
+      />} */}
     </div>
   );
 }

@@ -9,35 +9,19 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
-import ImprimirPantalla from "../Impresion/ImprimirPantalla";
+import ImprimirPantalla from "./ImprimirPantalla-old";
 import { Dialog, TablePagination } from "@material-ui/core";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
 
-// const useStyles = makeStyles(theme => ({
-//   root: {
-//     width: '100%',
-//     maxWidth: 360,
-//     backgroundColor: theme.palette.background.paper,
-//   },
-// }));
-
-// var columnas = [
-//   { nombre :  "Código" },
-//   { nombre :  "Código2" },
-
-//   { nombre :  "Código3" }
-
-// ]
 export default function SelecCampos(props) {
-  // const classes = useStyles();
   const [checked, setChecked] = React.useState([]);
   const [open, setOpen] = React.useState(false);
   const [properties, setProperties] = React.useState(false);
+  const { datos } = props;
 
-  console.log("contenido de props => ");
-  console.log(props);
-  // props.headerTabla.pop() //Saco el campo borrar
+  console.log("datos desde monedas");
+  console.log(datos);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -53,28 +37,42 @@ export default function SelecCampos(props) {
 
   // La siguiente función la uso para hacer el mapeo correcto de los encabezados a mostrar*********
 
-  const mapeo = () => {
+  function mapeo() {
     var campoVisible = [];
     checked.map((valor) => {
+      console.log("Contenido de Valor Dentro del map ");
+      console.log(valor);
       const encabezado = {
         // displayName: valor.Header,
         // field: valor.accessor,
-        title: valor.Header,
-        field: valor.accessor,
+        title: valor.title,
+        field: valor.field,
       };
       campoVisible.push(encabezado);
       return null; //agregado para que no tire un warning
     });
+    console.log("Contenido de campoVisible Dentro del map ");
+    console.log(campoVisible);
     setProperties(campoVisible);
-  };
+  }
 
   // *********
 
+  function Imp(datos, properties) {
+    mapeo();
+    console.log("datos");
+    console.log(datos);
+    console.log("properties");
+    console.log(properties);
+    // ImprimirPantalla(datos, properties);
+  }
+
   return (
-    <div>
+    <>
       <Dialog
-        open={true}
+        // open={true}
         // onClose={this.handleClose}
+        open={props.open}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
@@ -84,7 +82,7 @@ export default function SelecCampos(props) {
         {/* <List className={classes.root}> */}
         <List>
           {/* {columnas.map(value => { */}
-          {props.headerTabla.map((value, index) => {
+          {props.columns.map((value, index) => {
             const labelId = `checkbox-list-label-${value}`;
 
             return (
@@ -119,11 +117,12 @@ export default function SelecCampos(props) {
           <Button
             variant="contained"
             color="primary"
-            // onClick={()=> setOpen(true)}
-            onClick={() => {
-              mapeo();
-              setOpen(true);
-            }}
+            onClick={Imp}
+            // onClick={() => {
+            //   // mapeo();
+            //   Imp;
+            //   // setOpen(true);
+            // }}
           >
             Imprimir
           </Button>
@@ -131,7 +130,7 @@ export default function SelecCampos(props) {
           <Button
             variant="contained"
             color="secondary"
-            onClick={() => props.toggleImprimir()}
+            onClick={() => props.setOpen({ imprimie: false })}
           >
             Cancelar
           </Button>
@@ -148,6 +147,6 @@ export default function SelecCampos(props) {
           // properties={checked}
         />
       )}
-    </div>
+    </>
   );
 }
