@@ -79,7 +79,6 @@ function Monedas() {
 
   useEffect(() => {
     initialFetch();
-    console.log("dentro de useEffect");
   }, []);
 
   function toggleImprimir() {
