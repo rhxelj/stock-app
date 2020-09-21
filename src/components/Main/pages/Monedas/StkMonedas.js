@@ -33,7 +33,7 @@ import { globalContext } from "../../../App";
 function Monedas() {
   HeaderTitle("Monedas");
   const [data, setData] = useState(initial_state);
-  const [open, setOpen] = useState(initial_open);
+  const [imprimirTF, setImprimirTF] = useState(initial_open);
   // const { valor, setValor } = useContext(globalContext);
 
   async function initialFetch() {
@@ -81,20 +81,6 @@ function Monedas() {
     initialFetch();
   }, []);
 
-  function toggleImprimir() {
-    // setOpen({ imprimir: !open.imprimir });
-    // setValor((valor) => ({ ...valor, openImp: !valor.openImp }));
-  }
-  function Imp(columns, data) {
-    return <h1>HOLA</h1>;
-    // <Imprimir
-    //   // open={open.imprimir} //boolean
-    //   open={true}
-    //   setOpen={setOpen}
-    //   columnas={columns}
-    //   datos={data}
-    // />
-  }
   return (
     <div>
       <MaterialTable
@@ -103,54 +89,26 @@ function Monedas() {
         title="ABM DE Monedas"
         columns={columns}
         data={data}
-        // options={{ addRowPosition: "first" }}
-        options={{
-          exportButton: true,
-          exportCsv: (columns, data) => {
-            // toggleImprimir();
-            // Imp(columns, data);
-            // Imprimir(open, columns);
-            // {
-            //   <Imprimir
-            //     open={open.imprimir} //boolean
-            //     setOpen={setOpen}
-            //     columnas={columns}
-            //     datos={data}
-            //   />;
-            // }
-            // console.log("columns : ", columns);
-            // console.log("data : ", data);
+        actions={[
+          {
+            icon: () => <tableIcons.Print />,
+            tooltip: "Imprimir",
+            isFreeAction: true,
+            onClick: (event) => setImprimirTF({ imprimir: true }),
           },
-
-          grouping: true,
-          addRowPosition: "first",
-          actionsColumnIndex: -1,
-          // tableLayout: "fixed",
-        }}
+        ]}
         editable={{
           onRowAdd: onRowAdd(),
           onRowUpdate: onRowUpdate(),
           onRowDelete: onRowDelete(),
         }}
       />
-
-      {/* <button onClick={toggleImprimir}>IMPRIMIR</button> */}
-      <button onClick={() => setOpen({ imprimir: true })}>IMPRIMIR</button>
-      {/* <SelecCampos columns={columns} open={open.imprimir} setOpen={setOpen} /> */}
       <Imprimir
         columns={columns}
-        open={open.imprimir}
-        setOpen={setOpen}
         datos={data}
+        open={imprimirTF.imprimir}
+        setOpen={setImprimirTF}
       />
-
-      {/* {toggleImprimir && <Imprimir
-      //   // open={open.imprimir} //boolean
-        open={true}
-        setOpen={setOpen}
-        columnas={columns}
-        datos={data}
-      />} */}
     </div>
   );
 }

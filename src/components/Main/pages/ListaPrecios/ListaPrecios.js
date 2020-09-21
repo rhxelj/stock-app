@@ -9,7 +9,6 @@ import { tableIcons } from "../../../lib/material-table/tableIcons";
 import TablaMuestraStock from "./TablaMuestraStock";
 import Button from "@material-ui/core/Button";
 import WavesIcon from "@material-ui/icons/Waves";
-
 const useStyles = makeStyles({
   root: {
     width: "100%",
@@ -21,7 +20,6 @@ const useStyles = makeStyles({
 
 export default function ListaPrecios() {
   const classes = useStyles();
-
   const [paramitems, setParamItems] = useState({
     idGrupo: 0,
     idRubro: 0,

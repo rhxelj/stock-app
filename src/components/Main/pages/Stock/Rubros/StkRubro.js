@@ -11,7 +11,7 @@ import { onRowUpdate } from "./onRowUpdate";
 import { onRowDelete } from "./onRowDelete";
 import MaterialTable, { Column } from "material-table";
 import { HeaderTitle } from "../../../../lib/HeaderTitle";
-
+import Imprimir from "../../Impresion/Imprimir/Imprimir";
 export default function StkRubro() {
   // const [lookconst, setLookconst] = useState();
   HeaderTitle("RUBROS"); //titulo a mostrar en el navbar
@@ -32,7 +32,7 @@ export default function StkRubro() {
     const col = await StkRubro_Columns();
     setColumns(() => col);
   }
-
+  const [imprimirTF, setImprimirTF] = useState({ imprimir: false });
   async function dataFetch() {
     const result = await stkrubroleermezcla();
     setData(() => result);
@@ -50,6 +50,14 @@ export default function StkRubro() {
   return (
     <div>
       <MaterialTable
+        actions={[
+          {
+            icon: () => <tableIcons.Print />,
+            tooltip: "Imprimir",
+            isFreeAction: true,
+            onClick: (event) => setImprimirTF({ imprimir: true }),
+          },
+        ]}
         icons={tableIcons}
         title=""
         columns={columns}
@@ -87,6 +95,12 @@ export default function StkRubro() {
               }, 5000)
             ),
         }}
+      />
+      <Imprimir
+        columns={columns}
+        datos={data}
+        open={imprimirTF.imprimir}
+        setOpen={setImprimirTF}
       />
     </div>
   );
