@@ -16,13 +16,14 @@ import { onRowDelete } from "./onRowDelete";
 
 import "../../../../../Styles/TableHeader.css";
 import { HeaderTitle } from "../../../../lib/HeaderTitle"
+import Imprimir from "../../Impresion/Imprimir/Imprimir";
 
 export default function UnidadMedidas() {
   HeaderTitle("Unidad De Medidas")
 
   const [columns, setColumns] = useState([]);
   const [data, setData] = useState([]);
-
+  const [imprimirTF, setImprimirTF] = useState({ imprimir: false });
   async function columnsFetch() {
     const col = await unidadMedidasColumns();
     setColumns(() => col);
@@ -45,6 +46,14 @@ export default function UnidadMedidas() {
   return (
     <div>
       <MaterialTable
+        actions={[
+          {
+            icon: () => <tableIcons.Print />,
+            tooltip: "Imprimir",
+            isFreeAction: true,
+            onClick: (event) => setImprimirTF({ imprimir: true }),
+          },
+        ]}
         title=""
         icons={tableIcons}
         localization={localization}
@@ -62,6 +71,12 @@ export default function UnidadMedidas() {
           onRowDelete: (oldData) =>
             onRowDelete(oldData).then(() => dataFetch()),
         }}
+      />
+      <Imprimir
+        columns={columns}
+        datos={data}
+        open={imprimirTF.imprimir}
+        setOpen={setImprimirTF}
       />
     </div>
   );

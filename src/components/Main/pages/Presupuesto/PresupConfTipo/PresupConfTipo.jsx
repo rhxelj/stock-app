@@ -12,11 +12,12 @@ import { onRowUpdate } from "./onRowUpdate"
 import { onRowDelete } from "./onRowDelete"
 
 import { HeaderTitle } from "../../../../lib/HeaderTitle"
-
+import Imprimir from "../../Impresion/Imprimir/Imprimir";
 export default function PresupConfTipo() {
     HeaderTitle("Presupuesto Tipo")
     const [columns, setColumns] = useState([]);
     const [data, setData] = useState([]);
+    const [imprimirTF, setImprimirTF] = useState({ imprimir: false });
 
     async function columnsFetch() {
         const col = await presupconftipoColumns();
@@ -40,6 +41,14 @@ export default function PresupConfTipo() {
     return (
         <div>
             <MaterialTable
+                actions={[
+                    {
+                        icon: () => <tableIcons.Print />,
+                        tooltip: "Imprimir",
+                        isFreeAction: true,
+                        onClick: (event) => setImprimirTF({ imprimir: true }),
+                    },
+                ]}
                 icons={tableIcons}
                 localization={localization}
                 columns={columns}
@@ -57,6 +66,12 @@ export default function PresupConfTipo() {
                     onRowDelete: oldData =>
                         onRowDelete(oldData).then(() => dataFetch()),
                 }}
+            />
+            <Imprimir
+                columns={columns}
+                datos={data}
+                open={imprimirTF.imprimir}
+                setOpen={setImprimirTF}
             />
         </div>
     );

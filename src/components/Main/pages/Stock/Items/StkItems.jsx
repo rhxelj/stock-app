@@ -13,12 +13,14 @@ import { onRowDelete } from "./onRowDelete"
 
 import { leeStkItemsDetalles } from "./leeStkitemsDetalles"
 import { StkItems_Columns } from "./StkItems_Columns";
+import Imprimir from "../../Impresion/Imprimir/Imprimir";
 
 export default function StkItems() {
   HeaderTitle("ITEMS")
 
   const [columns, setColumns] = useState([]);
   const [data, setData] = useState([]);
+  const [imprimirTF, setImprimirTF] = useState({ imprimir: false });
 
   async function columnsFetch() {
     const col = await StkItems_Columns();
@@ -44,6 +46,14 @@ export default function StkItems() {
   return (
     <div>
       <MaterialTable
+        actions={[
+          {
+            icon: () => <tableIcons.Print />,
+            tooltip: "Imprimir",
+            isFreeAction: true,
+            onClick: (event) => setImprimirTF({ imprimir: true }),
+          },
+        ]}
         localization={localization}
         icons={tableIcons}
         columns={columns}
@@ -64,6 +74,12 @@ export default function StkItems() {
             onRowDelete(oldData).then(() => dataFetch()),
         }}
 
+      />
+      <Imprimir
+        columns={columns}
+        datos={data}
+        open={imprimirTF.imprimir}
+        setOpen={setImprimirTF}
       />
     </div>
   );
