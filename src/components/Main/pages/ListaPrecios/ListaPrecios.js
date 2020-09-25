@@ -9,6 +9,7 @@ import { tableIcons } from "../../../lib/material-table/tableIcons";
 import TablaMuestraStock from "./TablaMuestraStock";
 import Button from "@material-ui/core/Button";
 import WavesIcon from "@material-ui/icons/Waves";
+import Imprimir from "../Impresion/Imprimir/Imprimir";
 
 const useStyles = makeStyles({
   root: {
@@ -21,7 +22,6 @@ const useStyles = makeStyles({
 
 export default function ListaPrecios() {
   const classes = useStyles();
-
   const [paramitems, setParamItems] = useState({
     idGrupo: 0,
     idRubro: 0,
@@ -29,7 +29,7 @@ export default function ListaPrecios() {
   // const [state, setState] = useState(initial_state);
 
   const [open, setOpen] = React.useState(false);
-
+  const [imprimirTF, setImprimirTF] = useState({ imprimir: false });
   const [lista, setLista] = useState({
     columns: [
       {
@@ -66,7 +66,13 @@ export default function ListaPrecios() {
         //   title: "P-U-R Mayorista",
         //   field: "PMayPUR",
         //   type : 'currency'
+
       },
+      {
+        title: "Fecha",
+        field: "StkRubroFecha",
+      },
+
     ],
 
     data: [],
@@ -96,6 +102,14 @@ export default function ListaPrecios() {
   return (
     <Paper className={classes.root}>
       <MaterialTable
+        // actions={[
+        //   {
+        //     icon: () => <tableIcons.Print />,
+        //     tooltip: "Imprimir",
+        //     isFreeAction: true,
+        //     onClick: (event) => setImprimirTF({ imprimir: true }),
+        //   },
+        // ]}
         icons={tableIcons}
         title="Lista de Precios"
         columns={lista.columns}
@@ -107,8 +121,16 @@ export default function ListaPrecios() {
             onClick: (event, rowData) =>
               openApp(event, rowData.StkRubroCodGrp, rowData.idStkRubro),
           },
+          {
+            icon: () => <tableIcons.Print />,
+            tooltip: "Imprimir",
+            isFreeAction: true,
+            onClick: (event) => setImprimirTF({ imprimir: true }),
+          },
         ]}
         options={{
+          exportAllData: true,
+          exportButton: true,
           grouping: true,
         }}
         components={{
@@ -123,6 +145,12 @@ export default function ListaPrecios() {
             </div>
           ),
         }}
+      />
+      <Imprimir
+        columns={lista.columns}
+        datos={lista.data}
+        open={imprimirTF.imprimir}
+        setOpen={setImprimirTF}
       />
       <TablaMuestraStock
         open={open}

@@ -13,10 +13,13 @@ import { onRowDelete } from "./onRowDelete"
 
 import { HeaderTitle } from "../../../../lib/HeaderTitle"
 
+import Imprimir from "../../Impresion/Imprimir/Imprimir";
+
 export default function StkGrupo() {
   HeaderTitle("GRUPOS")
   const [columns, setColumns] = useState([]);
   const [data, setData] = useState([]);
+  const [imprimirTF, setImprimirTF] = useState({ imprimir: false });
 
   async function columnsFetch() {
     const col = await grupoColumns();
@@ -25,6 +28,7 @@ export default function StkGrupo() {
 
   async function dataFetch() {
     const data = await grupoData();
+
     setData(data);
   }
 
@@ -40,15 +44,17 @@ export default function StkGrupo() {
   return (
     <div>
       <MaterialTable
-        icons={tableIcons}
-        localization={localization}
+        actions={[
+          {
+            icon: () => <tableIcons.Print />,
+            // icon: "IMPRIMIR",
+            tooltip: "Imprimir",
+            isFreeAction: true,
+            onClick: (event) => setImprimirTF({ imprimir: true }),
+          }
+        ]}
         columns={columns}
         data={data}
-        options={{
-          grouping: true,
-          addRowPosition: "first",
-          actionsColumnIndex: -1,
-        }}
         editable={{
           onRowAdd: newData =>
             onRowAdd(newData).then(() => dataFetch()),
@@ -57,6 +63,21 @@ export default function StkGrupo() {
           onRowDelete: oldData =>
             onRowDelete(oldData).then(() => dataFetch()),
         }}
+        icons={tableIcons}
+        localization={localization}
+        options={{
+          exportAllData: true,
+          exportButton: true,
+          grouping: true,
+          addRowPosition: "first",
+          actionsColumnIndex: -1,
+        }}
+      />
+      <Imprimir
+        columns={columns}
+        datos={data}
+        open={imprimirTF.imprimir}
+        setOpen={setImprimirTF}
       />
     </div>
   );

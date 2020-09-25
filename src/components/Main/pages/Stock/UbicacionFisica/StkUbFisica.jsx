@@ -34,7 +34,7 @@ import IpServidor from "../../VariablesDeEntorno";
 // import "../../../../../Styles/TableHeader.css";
 
 import { HeaderTitle } from "../../../../lib/HeaderTitle"
-
+import Imprimir from "../../Impresion/Imprimir/Imprimir";
 export default function StkUbFisica() {
 
 
@@ -42,7 +42,7 @@ export default function StkUbFisica() {
 
   // const [columns, setColumns] = useState([]);
   const [data, setData] = useState([]);
-
+  const [imprimirTF, setImprimirTF] = useState({ imprimir: false });
 
   // async function columnsFetch() {
   //   const col = await llenarColumns();
@@ -67,6 +67,14 @@ export default function StkUbFisica() {
   return (
     <div>
       <MaterialTable
+        actions={[
+          {
+            icon: () => <tableIcons.Print />,
+            tooltip: "Imprimir",
+            isFreeAction: true,
+            onClick: (event) => setImprimirTF({ imprimir: true }),
+          },
+        ]}
         title=""
         columns={columns}
         data={data}
@@ -74,6 +82,8 @@ export default function StkUbFisica() {
         localization={localization}
 
         options={{
+          exportAllData: true,
+          exportButton: true,
           grouping: true,
           addRowPosition: "first",
           actionsColumnIndex: -1,
@@ -88,6 +98,12 @@ export default function StkUbFisica() {
           onRowDelete: oldData =>
             onRowDelete(oldData).then(() => dataFetch()),
         }}
+      />
+      <Imprimir
+        columns={columns}
+        datos={data}
+        open={imprimirTF.imprimir}
+        setOpen={setImprimirTF}
       />
     </div>
   );

@@ -23,6 +23,8 @@ export default function StkSalidaFinal(props) {
 
   const [open, setOpen] = useState(false);
 
+  //1#1#4#1#VORTEX 200 VERDE #RUT# 26-08-2020 5 MTS
+
   // 1#1#4#1#
   //1#1#4#1#VORTEX 200# VERDE RUT   28'07'2020 40 MTS
   // Este anda
@@ -37,10 +39,11 @@ export default function StkSalidaFinal(props) {
     } else {
       calcularesta = state.cantidad;
     }
+
     var grupo = await state.codqr.split("#")[1];
     var rubro = await state.codqr.split("#")[2];
     var item = await state.codqr.split("#")[3];
-    var StkEnvaseUbG = await state.codqr.split("#")[5]; //Ubicación Geográfica
+    console.log(state.codqr.split("#")[5]);
     const result = await stkitemsleecodgrrbit(grupo, rubro, item);
 
     setState({
@@ -57,7 +60,7 @@ export default function StkSalidaFinal(props) {
       grupo: grupo,
       rubro: rubro,
       item: item,
-      StkEnvaseUbG: StkEnvaseUbG,
+      // StkEnvaseUbG: StkEnvaseUbG,
     });
 
     handleClickOpen();

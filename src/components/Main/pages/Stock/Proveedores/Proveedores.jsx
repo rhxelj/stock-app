@@ -10,13 +10,13 @@ import { onRowDelete } from "./onRowDelete"
 
 import { HeaderTitle } from "../../../../lib/HeaderTitle"
 import { localization } from "../../../../lib/material-table/localization";
-
+import Imprimir from "../../Impresion/Imprimir/Imprimir";
 export default function Proveedores() {
   HeaderTitle("Proveedores")
 
   const [columns, setColumns] = useState([]);
   const [data, setData] = useState([]);
-
+  const [imprimirTF, setImprimirTF] = useState({ imprimir: false });
 
   async function columnsFetch() {
     const col = await llenarColumns();
@@ -41,6 +41,14 @@ export default function Proveedores() {
   return (
     <div>
       <MaterialTable
+        actions={[
+          {
+            icon: () => <tableIcons.Print />,
+            tooltip: "Imprimir",
+            isFreeAction: true,
+            onClick: (event) => setImprimirTF({ imprimir: true }),
+          },
+        ]}
         title="PROVEEDORES"
         localization={localization}
         icons={tableIcons}
@@ -48,6 +56,8 @@ export default function Proveedores() {
         data={data}
 
         options={{
+          exportAllData: true,
+          exportButton: true,
           grouping: true,
           addRowPosition: "first",
           actionsColumnIndex: -1,
@@ -62,6 +72,12 @@ export default function Proveedores() {
           onRowDelete: oldData =>
             onRowDelete(oldData).then(() => dataFetch()),
         }}
+      />
+      <Imprimir
+        columns={columns}
+        datos={data}
+        open={imprimirTF.imprimir}
+        setOpen={setImprimirTF}
       />
     </div>
   );

@@ -9,20 +9,36 @@ import { withStyles } from "@material-ui/core/styles";
 import "../../../../Styles/TableHeader.css";
 
 import MaterialTable from "material-table";
-import { style, styles, CustomTableCell, initial_state } from "./Constants";
+import {
+  style,
+  styles,
+  CustomTableCell,
+  initial_state,
+  initial_open,
+} from "./Constants";
 import { tableIcons } from "./Constants";
 import { columns } from "./StkTableColumnsMonedas";
+
+// import SelecCampos from "../Impresion/Imprimir/SelecCampos";
+import Imprimir from "../Impresion/Imprimir/Imprimir";
 
 import { HeaderTitle } from "../../../lib/HeaderTitle";
 import { localization } from "../../../lib/material-table/localization";
 
+// import Imprimir from "../Impresion/Imprimir/indexwww";
+
+import { useContext } from "react";
+import { globalContext } from "../../../App";
+
 function Monedas() {
   HeaderTitle("Monedas");
   const [data, setData] = useState(initial_state);
-  // const [monedas, setData] = useState();
+  const [imprimirTF, setImprimirTF] = useState(initial_open);
+  // const { valor, setValor } = useContext(globalContext);
 
   async function initialFetch() {
     const monedas = await leerMonedas();
+
     setData(monedas);
   }
 
@@ -63,7 +79,6 @@ function Monedas() {
 
   useEffect(() => {
     initialFetch();
-    console.log("dentro de useEffect");
   }, []);
 
   return (
@@ -74,18 +89,30 @@ function Monedas() {
         title="ABM DE Monedas"
         columns={columns}
         data={data}
-        // options={{ addRowPosition: "first" }}
+        actions={[
+          {
+            icon: () => <tableIcons.Print />,
+            tooltip: "Imprimir",
+            isFreeAction: true,
+            onClick: (event) => setImprimirTF({ imprimir: true }),
+          },
+        ]}
         options={{
+          exportAllData: true,
+          exportButton: true,
           grouping: true,
-          addRowPosition: "first",
-          actionsColumnIndex: -1,
-          // tableLayout: "fixed",
         }}
         editable={{
           onRowAdd: onRowAdd(),
           onRowUpdate: onRowUpdate(),
           onRowDelete: onRowDelete(),
         }}
+      />
+      <Imprimir
+        columns={columns}
+        datos={data}
+        open={imprimirTF.imprimir}
+        setOpen={setImprimirTF}
       />
     </div>
   );

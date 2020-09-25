@@ -112,6 +112,10 @@ export default function StkRubroB(props) {
         title: "Moneda",
         field: "StkRubroTM",
       },
+      {
+        title: "Fecha",
+        field: "StkRubroFecha",
+      },
     ],
 
     data: [],
@@ -126,7 +130,7 @@ export default function StkRubroB(props) {
     stkrubroleemezcla();
   }, []);
 
-  useEffect(() => {}, [rubro.data]);
+  useEffect(() => { }, [rubro.data]);
 
   return (
     <div>

@@ -1,16 +1,16 @@
 export const movimientos = [
   { link: "/ModPrecios", primary: "Modifica Precios" },
   { link: "/PresupPant", primary: "Presupuesto" },
-  { link: "/PresupPant", primary: "Presupuesto" },
-  { link: "/PresupPantVie", primary: "Presupuesto Viejo" },
-  { link: "/StkGenImpQR", primary: "ImprimeQR" },
+  // { link: "/PresupPant", primary: "Presupuesto" },
+  // { link: "/PresupPantVie", primary: "Presupuesto Viejo" },
+  // { link: "/StkGenImpQR", primary: "ImprimeQR" },
   { link: "/ListaPrecios", primary: "Lista de Precios" },
   {
     link: "/StkMovEntrada",
-    primary: "Entrada Mercadería"
+    primary: "Entrada Mercadería",
   },
   { link: "/StkMovSalida", primary: "Salida de Disponible" },
-  { link: "/StkMovSalidaFinal", primary: "Salida Final" }
+  { link: "/StkMovSalidaFinal", primary: "Salida Final" },
 ];
 
 export const tablas = [
@@ -22,5 +22,5 @@ export const tablas = [
   { primary: "Items", link: "/StkItems" },
   { primary: "Unidad de Medidas", link: "/StkUnMed" },
   { primary: "Ubicación Física", link: "StkUbFisica" },
-  { primary: "Presupuesto Tipo", link: "/PresupConfTipo" }
+  { primary: "Presupuesto Tipo", link: "/PresupConfTipo" },
 ];

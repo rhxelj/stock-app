@@ -16,6 +16,7 @@ import Remove from "@material-ui/icons/Remove";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
+import Print from "@material-ui/icons/Print";
 
 import TableCell from "@material-ui/core/TableCell";
 import { withStyles } from "@material-ui/core/styles";
@@ -43,6 +44,7 @@ export const tableIcons = {
   SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
   ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
+  Print: forwardRef((props, ref) => <Print {...props} ref={ref} />),
 };
 
 // Estilo para el boton de borrar
@@ -97,3 +99,4 @@ export const initial_state = [];
 //   StkMonedasDescripcion: "",
 //   StkMonedasCotizacion: 0,
 // },
+export const initial_open = { imprimir: false };

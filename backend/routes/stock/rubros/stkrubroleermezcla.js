@@ -3,7 +3,7 @@ var router = express.Router();
 var path = require("path");
 var conexion = require("../../conexion");
 
-conexion.connect(function(err) {
+conexion.connect(function (err) {
   if (!err) {
     console.log("base de datos conectada en stkrubroleermezcla");
   } else {
@@ -13,16 +13,17 @@ conexion.connect(function(err) {
 
 var router = express();
 
-router.get("/", function(req, res, next) {
+router.get("/", function (req, res, next) {
   var q = [
     "Select idStkRubro, StkRubroCodGrp, StkRubroDesc,",
     " StkGrupo.StkGrupoDesc, StkRubroAbr, StkRubroProv, ",
     " Proveedores.ProveedoresDesc, StkRubroAncho, StkRubroPresDes,",
-    " StkRubroPres, StkRubroUM, StkRubroCosto, StkRubroTM ",
+    " StkRubroPres, StkRubroUM, StkRubroCosto, StkRubroTM,",
+    'date_format(StkRubroFecha, "%d-%m-%Y") as StkRubroFecha  ',
     " from StkRubro JOIN StkGrupo, BasesGenerales.Proveedores ",
     " where StkRubroCodGrp = idStkGrupo and StkRubroProv = idProveedores"
   ].join(" ");
-  conexion.query(q, function(err, result) {
+  conexion.query(q, function (err, result) {
     if (err) {
       console.log(err);
     } else {
