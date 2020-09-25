@@ -66,7 +66,13 @@ export default function ListaPrecios() {
         //   title: "P-U-R Mayorista",
         //   field: "PMayPUR",
         //   type : 'currency'
+
       },
+      {
+        title: "Fecha",
+        field: "StkRubroFecha",
+      },
+
     ],
 
     data: [],
