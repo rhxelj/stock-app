@@ -41,6 +41,7 @@ export default function PresupConfTipo() {
     return (
         <div>
             <MaterialTable
+                title=""
                 actions={[
                     {
                         icon: () => <tableIcons.Print />,
@@ -54,6 +55,8 @@ export default function PresupConfTipo() {
                 columns={columns}
                 data={data}
                 options={{
+                    exportAllData: true,
+                    exportButton: true,
                     grouping: true,
                     addRowPosition: "first",
                     actionsColumnIndex: -1,

@@ -97,6 +97,11 @@ function Monedas() {
             onClick: (event) => setImprimirTF({ imprimir: true }),
           },
         ]}
+        options={{
+          exportAllData: true,
+          exportButton: true,
+          grouping: true,
+        }}
         editable={{
           onRowAdd: onRowAdd(),
           onRowUpdate: onRowUpdate(),

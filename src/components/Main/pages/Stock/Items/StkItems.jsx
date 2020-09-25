@@ -59,6 +59,8 @@ export default function StkItems() {
         columns={columns}
         data={data}
         options={{
+          exportAllData: true,
+          exportButton: true,
           grouping: true,
           addRowPosition: "first",
           actionsColumnIndex: -1,

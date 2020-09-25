@@ -123,6 +123,8 @@ export default function ListaPrecios() {
           },
         ]}
         options={{
+          exportAllData: true,
+          exportButton: true,
           grouping: true,
         }}
         components={{

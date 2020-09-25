@@ -57,6 +57,8 @@ export default function Clientes() {
         data={data}
 
         options={{
+          exportAllData: true,
+          exportButton: true,
           grouping: true,
           addRowPosition: "first",
           actionsColumnIndex: -1,
