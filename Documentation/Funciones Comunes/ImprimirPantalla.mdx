@@ -7,10 +7,10 @@ menu: FrontEnd
 
 para poder agregar la función de impresión de pantalla tengo que agregar en cada componente los siguiente
 
-- Importo el componente de SelecCampos
+- Importo el componente de Imprimir
 
 ```javascript
-import SelecCampos from "../Impresion/SelecCampos";
+import Imprimir from "../Impresion/Imprimir/Imprimir";
 ```
 
 - Agrego la variable para mostrar o no el componente con valor false
@@ -20,17 +20,7 @@ import SelecCampos from "../Impresion/SelecCampos";
 .
 .
 .
- // toggle_busqueda: false,
-            // toggle_modificar: false,
-            opcion: "",
-            toggle:{
-                agregar: false,
-                busqueda: false,
-                modificar: false,
-                seleccampos: false,  //<== Agrego esto
-            }
-            // targetname:"",
-            // targetvalue:"
+const [imprimirTF, setImprimirTF] = useState({imprimir:false});
 .
 .
 .
@@ -38,30 +28,41 @@ import SelecCampos from "../Impresion/SelecCampos";
 
 ```
 
-### **Agrego el componente de Seleccion de Campos al final antes de "<StkFab> ... </StkFab>"**
+- También hay que agregar
 
 ```javascript
-{
-  this.state.toggle.seleccampos && (
-    <SelecCampos
-      datos={filtrado}
-      toggleImprimir={() => this.toggle("seleccampos")}
-      headerTabla={columns}
-    />
-  );
-}
+<MaterialTable
+        // icons={tableIcons}
+        // localization={localization}
+        // title="Titulo de la Tabla"
+        // columns={columns}
+        // data={data}
+
+        actions={[
+          {
+            icon: () => <tableIcons.Print />,
+            tooltip: "Imprimir",
+            isFreeAction: true,
+            onClick: (event) => setImprimirTF({ imprimir: true }),
+          },
+        ]}
+
+
+        // editable={{
+        //   onRowAdd: onRowAdd(),
+        //   onRowUpdate: onRowUpdate(),
+        //   onRowDelete: onRowDelete(),
+        }}
+      />
 ```
 
-- Por ultimo agrego
+### **Agrego el componente de Imprimir al final**
 
 ```javascript
-<StkFab
-  borraFiltered={this.borraFiltered}
-  toggleAgregar={() => this.toggle("agregar")}
-  toggleImprimir={() => this.toggle("seleccampos")} // <== Agrego esto
-  toggleBusqueda={() => this.toggle("busqueda")}
-  toggle_busqueda={this.state.toggle.busqueda}
-  search={this.search}
-  filtered={this.state.filtered}
+<Imprimir
+  columns={columns}
+  datos={data}
+  open={imprimirTF.imprimir}
+  setOpen={setImprimirTF}
 />
 ```

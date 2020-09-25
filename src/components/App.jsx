@@ -7,15 +7,16 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Header from "./Header/Header";
 import Main from "./Main";
 // import Footter from './components/Footter';
-
 import CssBaseline from "@material-ui/core/CssBaseline";
+
+import { initial_state } from "./initial_state"
+
+
 
 export const globalContext = React.createContext();
 
 const App = () => {
   const [valor, setValor] = useState();
-  console.log("Contenido de valor en APP ", valor);
-
   return (
     // shorthand for <Fragment> is <>
     <>

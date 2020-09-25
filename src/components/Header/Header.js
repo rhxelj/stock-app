@@ -211,7 +211,7 @@ function Header() {
             edge="start"
             color="inherit"
             aria-label="open drawer"
-          // onClick={this.toggleDrawer("left", true)}
+            // onClick={this.toggleDrawer("left", true)}
           >
             <MenuIcon onClick={toggleDrawer("left", true)}></MenuIcon>
           </IconButton>
