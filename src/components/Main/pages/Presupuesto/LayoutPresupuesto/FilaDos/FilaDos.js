@@ -22,8 +22,11 @@ export default function FilaDos(props) {
   const { state, setState } = useContext(PresupPantContext);
   const [datosrenglon, setDatosRenglon] = useState([]);
 
-  console.log('al ingresar PresupConfTipoDesc ', state.PresupConfTipoDesc)
+  // según el presupuesto elegido, lee la tabla y se decide que pide 
   if (state.DatosPresupEleg.length != 0) {
+    var largo = state.DatosPresupEleg[0].PresupConfTipoLargo
+    var ancho = state.DatosPresupEleg[0].PresupConfTipoAncho
+    var presuptipo = state.DatosPresupEleg[0].PresupConfTipoDesc
     if (state.DatosPresupEleg[0].PresupConfTipoRubro === 'VS') {
       var rubrosn = 'S'
     }
@@ -49,15 +52,13 @@ export default function FilaDos(props) {
   }
 
   useEffect(() => {
-    //en el backend pregunta por código de grupo en tabla rubro menor que
-    console.log('state.PresupTipo en useeffect ', state.PresupTipo)
-    if (state.PresupTipo === "UNIDAD") {
+    if (presuptipo === "UNIDAD") {
       stkrubroleerdesc(99);
     } else {
 
       stkrubroleerdesc(2);
     }
-  }, [state.PresupTipo]);
+  }, [rubrosn]);
 
   async function agregar() {
     var dcalculo = [
@@ -71,62 +72,70 @@ export default function FilaDos(props) {
       },
     ];
     var detalle = "";
+    var StkRubroDesc = "";
     var PresupLargo = 0;
     var PresupAncho = 0;
     var PresupCantidad = 0;
+    var ImpUnitario = 0;
+    var ImpItem = 0;
+    var ImpItemCAnexos = 0;
     var PresupCantidadM = state.PresupCantidad;
+    var detalle = presuptipo;
 
-    if (state.PresupTipo == "PAÑO UNIDO") {
-      detalle = "Paños Unidos en : ";
-      PresupLargo = state.PresupLargo;
-      PresupCantidadM = 1;
-    }
-    if (state.PresupTipo == "FAJAS") {
-      detalle = "Lona con fajas en el perímetro en : ";
-      PresupLargo = state.PresupLargo;
-      PresupAncho = state.PresupAncho;
-    }
-    if (state.PresupTipo == "CONFECCIONADA") {
-      if (state.PresupCsSs == "cs") {
-        detalle =
-          "Lona con ojales reforzados, chicotes y soga en dobladillo en : ";
-      } else {
-        detalle =
-          "Lona con ojales reforzados, chicotes sin soga en dobladillo en: ";
-      }
-      PresupLargo = state.PresupLargo;
-      PresupAncho = state.PresupAncho;
-    }
-    if (state.PresupTipo == "en") {
-      PresupLargo = state.PresupLargo;
-      PresupAncho = state.PresupAncho;
-    }
 
     var datoscalculos = JSON.stringify(dcalculo);
 
     const datosrenglon1 = await presupcalculador(
+      state.DatosPresupEleg[0],
       datoscalculos,
-      state.PresupTipo
+      presuptipo
     );
+
+    if (rubrosn === 'S') {
+      // StkRubroDesc = detalle + datosrenglon1[0][0].StkRubroDesc;
+
+      StkRubroDesc = datosrenglon1[0][0].Detalle + datosrenglon1[0][0].StkRubroDesc;
+      ImpUnitario = datosrenglon1[0][0].ImpItem;
+      ImpItem = datosrenglon1[0][0].ImpItem * PresupCantidadM;
+      PresupLargo = datosrenglon1[0][0].Largo
+      PresupAncho = datosrenglon1[0][0].Ancho
+      if (state.renglonanexo.length !== 0) {
+        ImpItemCAnexos = ImpItem + (state.renglonanexo.ImpItemAnexo * state.PresupCantidad)
+        StkRubroDesc = StkRubroDesc + ' c/' + state.renglonanexo.StkRubroDesc
+      }
+    }
+    else {
+      StkRubroDesc = detalle
+      ImpUnitario = datosrenglon1[0].ImpItem;
+      ImpItem = datosrenglon1[0].ImpItem * PresupCantidadM;
+
+    }
     var datospresup = [
       {
         PresupCantidad: state.PresupCantidad,
-        StkRubroDesc: detalle + datosrenglon1[0][0].StkRubroDesc,
+        StkRubroDesc,
         PresupLargo,
         PresupAncho,
-        ImpUnitario: datosrenglon1[0][0].ImpItem,
-        ImpItem: datosrenglon1[0][0].ImpItem * PresupCantidadM,
+        ImpUnitario,
+        ImpItem,
+        ImpItemCAnexos,
       },
     ];
 
-    //  setDatosRenglon([...datosrenglon, datosrenglon1[0]])
-    setDatosRenglon([...datosrenglon, datospresup[0]]);
-    // const presupuestog = await presupgrabar(datosrenglon1);
-    //console.log(presupuestog)
-    console.log("datosrenglon1[0][0]  ", datosrenglon1[0][0]);
-    console.log("datospresup[0]  ", datospresup[0]);
+    if (state.renglonanexo.length !== 0) {
+
+      setDatosRenglon([...datosrenglon, state.renglonanexo]);
+      setDatosRenglon([...datosrenglon, datospresup[0]]);
+      setState({ ...state, renglonanexo: [] });
+    }
+    else {
+      setDatosRenglon([...datosrenglon, datospresup[0]]);
+    }
     handleClickOpen();
   }
+
+
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -159,7 +168,7 @@ export default function FilaDos(props) {
   return (
     <>
 
-      {rubrosn == 'S' && (
+      {rubrosn === 'S' && (
         textdata.map((data) => (
           <Grid item xs>
             <TextField
@@ -196,50 +205,52 @@ export default function FilaDos(props) {
           }}
         />
       </Grid>
-      {/* {state.PresupTipo !== "UNIDAD" && ( */}
-      {rubrosn === 'S' && (
-        <Grid item xs>
-          <TextField
-            disabled={!(state.PresupTipo !== "UNIDAD")}
-            inputProps={{ maxlength: 3 }}
-            size="small"
-            variant="outlined"
-            id="PresupLargo"
-            type="number"
-            label="Largo"
-            fullWidth
-            value={state.PresupLargo}
-            onChange={handleChange}
-            className={classes.textField}
-          />
-        </Grid>)}
-      {rubrosn === 'S' && (
-        <Grid item xs>
-          <TextField
-            disabled={!(state.PresupTipo !== "UNIDAD" && state.PresupTipo !== "PAÑO UNIDO")}
-            inputProps={{ maxlength: 3 }}
-            size="small"
-            variant="outlined"
-            id="PresupAncho"
-            type="number"
-            label="Ancho"
-            fullWidth
-            value={state.PresupAncho}
-            onChange={handleChange}
-            className={classes.textField}
-          />
-        </Grid>
-      )}
-      {rubrosn === 'S' && (
-        <Grid item xs>
-          <FilaConf disable={!(state.PresupTipo === "CONFECCIONADA")}></FilaConf>{" "}
-        </Grid>
+      <Grid item xs>
+        <TextField
+          disabled={(largo === 'N')}
+          inputProps={{ maxlength: 3 }}
+          size="small"
+          variant="outlined"
+          id="PresupLargo"
+          type="number"
+          label="Largo"
+          fullWidth
+          value={state.PresupLargo}
+          onChange={handleChange}
+          className={classes.textField}
+        />
+      </Grid>
+      <Grid item xs>
+        <TextField
+          disabled={(ancho === 'N')}
+          inputProps={{ maxlength: 3 }}
+          size="small"
+          variant="outlined"
+          id="PresupAncho"
+          type="number"
+          label="Ancho"
+          fullWidth
+          value={state.PresupAncho}
+          onChange={handleChange}
+          className={classes.textField}
+        />
+      </Grid>
+      <Grid container item direction="column" spacing={3} xs={12}>
+        {/* <Grid items xs> */}
+        <FilaConf disable={!(presuptipo === "CONFECCIONADA")}></FilaConf>{" "}
+      </Grid>
+      {/* <Grid item spacing={3} container>
+        {/* <Grid container item direction="column" spacing={3} xs={12}> */}
 
-      )}
-      <Button onClick={() => agregar()} color="primary">
-        Agregar
+      {/* <Grid>
+        <FilaAnexos disable={!(presuptipo === "CONFECCIONADA")}></FilaAnexos>{" "}
+      </Grid> */}
+      {/* </Grid>  */}
+      <Grid container item direction="column" spacing={3} xs={12}>
+        <Button onClick={() => agregar()} color="primary">
+          Agregar
       </Button>
-
+      </Grid>
       <TablaPresup
         open={open}
         handleClose={handleClose}

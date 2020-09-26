@@ -1,34 +1,23 @@
 import request from "superagent";
-
 import IpServidor from "../VariablesDeEntorno";
 
-// Lee Rubro por codigo de gupo
+export const presupcalculador = (DatosPresupEleg, datoscalculo, tipo, check) => {
 
-export const presupcalculador = (datoscalculo, tipo, check) => {
-  var backend
-  if (tipo == 'un') {
-    backend = '/presupunid'
+  var backend, url
+  if (DatosPresupEleg.PresupConfTipoBack != null) {
+    backend = DatosPresupEleg.PresupConfTipoBack
+    url = IpServidor + backend + '/?datoscalculo=' + datoscalculo;
   }
-  if (tipo == 'pu') {
-    backend = '/presuppu'
-  }
-  if (tipo == 'fa') {
-    backend = '/presupfajas'
-  }
-  if (tipo == 'cf') {
-    backend = '/presuplonaconf'
-  }
-  if (tipo == 'en') {
-    backend = '/presuplonaenr'
+  else {
+    url = IpServidor + '/presupconftipocalc/?tipo=' + tipo;
   }
   return new Promise(resolve => {
-    const url = IpServidor + backend + '/?datoscalculo=' + datoscalculo;
     request
       .get(url)
       .set("Content-Type", "application/json")
       .then(res => {
         const presuprenglon = JSON.parse(res.text);
-        // resolve(presuprenglon[0]);
+        console.log('presuprenglon  ', presuprenglon)
         resolve(presuprenglon);
       });
   });

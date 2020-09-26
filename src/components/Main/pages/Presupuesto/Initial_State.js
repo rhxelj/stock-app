@@ -7,16 +7,23 @@ export const initial_state = {
   PresupCsSs: "cs",
 
   //FilaDos
+  AnexoMedida: 0,
   PresupCantidad: 1.0,
+  PresupTipo: '',
+  ImporteAnexo: 0.0,
+  renglonanexo: [],
+  DetalleAnexo: '',
   stkrubro: [],
   clientes: [],
   PresupLargo: 0.0,
   PresupAncho: 0.0,
+  AnexoLargo: 0.0,
   StkRubroAbr: "",
   idClientes: 0,
   PresupConfTipoDesc: "",
+  LabelMed: "",
   DatosPresupEleg: [],
-
+  tipoanexo: [],
   tipopresup: [
     // {
     //   tipopresupabr: 'un',
@@ -78,6 +85,11 @@ export const initial_state = {
       //   field: "StkMonedasCotizacion",
       //   type: 'currency',
     },
+    {
+      title: "$ Item c/Anexos",
+      field: "ImpItemCAnexos",
+      type: 'currency',
+    }
   ],
   // data: [
   //   { StkRubroDesc: 'gg', ImpUnitario: 0, ImpItem: 0, StkRubroCosto: 0, StkMonedasCotizacion: 0 },

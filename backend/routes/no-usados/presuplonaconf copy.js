@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var path = require("path");
 var conexion = require("../conexion");
+var param = require("../parametros");
 
 conexion.connect(function (err) {
   if (!err) {
@@ -24,6 +25,7 @@ router.get("/", (req, res, next) => {
         console.log(err);
       }
 
+      console.log('result[0]  ', result[0])
 
       /*
       idPresupParam: 1,
@@ -71,27 +73,25 @@ router.get("/", (req, res, next) => {
           ancho = enteroancho + 1;
         }
         if (tipoconf == 'cs') {
-          detalle = "Lona con ojales reforzados, chicotes y soga en dobladillo en : ";
-          ganancia = result[0].coefgancsoga
+          ganancia = param.coefgancsoga
         } else {
-          detalle = "Lona con ojales reforzados, chicotes sin soga en dobladillo en : ";
-          ganancia = result[0].coefganssoga
+          ganancia = param.coefganssoga
         }
         if (datos.minmay == 'my') {
-          coeficiente = result[0].coeficientemay;
-          tipoojal = result[0].abrojales28;
-          sogachicote = result[0].sogachicotemay;
-          ganancia = result[0].coefganmay
+          coeficiente = param.coeficientemay;
+          tipoojal = param.abrojales28;
+          sogachicote = param.sogachicotemay;
+          ganancia = param.coefganmay
         } else {
-          coeficiente = result[0].coeficientemin;
-          tipoojal = result[0].abrojales3hz;
-          sogachicote = result[0].sogachicotemin;
+          coeficiente = param.coeficientemin;
+          tipoojal = param.abrojales3hz;
+          sogachicote = param.sogachicotemin;
         }
         minutosunion = (datos.ancho + 0.08) * largo * 5;
-        sogadobladillo = result[0].sogadobladillo;
-        valorflete = result[0].flete;
-        valorMOT = result[0].MOTpM2;
-        codmoneda = result[0].codmoneda;
+        sogadobladillo = param.sogadobladillo;
+        valorflete = param.flete;
+        valorMOT = param.MOTpM2;
+        codmoneda = param.codmoneda;
 
         mcuadcob = [
           "Select ",
@@ -228,9 +228,6 @@ router.get("/", (req, res, next) => {
                 costooriginal = costooriginal * 1.0325
               }
               datosenvio[0][0]['ImpItem'] = costooriginal
-              datosenvio[0][0]['Detalle'] = detalle
-              datosenvio[0][0]['Largo'] = largoreal
-              datosenvio[0][0]['Ancho'] = anchoreal
               costooriginal = 0;
             }
             res.json(datosenvio);

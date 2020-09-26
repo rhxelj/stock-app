@@ -8,6 +8,7 @@ export const PresupGrabar = (props, nomCliente, idClientes) => {
   console.log('props  PresupGrabar  ', props)
   // console.log('nomCliente  PresupGrabar  ', nomCliente)
   // console.log('propidClientess  PresupGrabar  ', idClientes)
+
   const url = IpServidor + "/presupgraba";
   request
     .post(url)
@@ -17,9 +18,11 @@ export const PresupGrabar = (props, nomCliente, idClientes) => {
     .send({ idClientes: idClientes })
     .set("X-API-Key", "foobar")
     .then(function (res) {
-      // const respuesta = JSON.parse(res.text);
-      // if (respuesta.affectedRows !== 0) alert("EXITO");
-      // else alert("No modifico");
+
+      const respuesta = JSON.parse(res.text);
+      console.log('respuesta.affectedRows   ', respuesta.affectedRows)
+      if (respuesta.affectedRows !== 0) alert("EXITO");
+      else alert("No modifico");
     })
     .catch((err) => CodigoError(err));
 }

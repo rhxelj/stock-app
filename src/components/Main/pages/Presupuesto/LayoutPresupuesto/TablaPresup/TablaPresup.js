@@ -7,6 +7,7 @@ import { localization } from "../../../../../lib/material-table/localization";
 import { TextField, Button } from "@material-ui/core";
 import Input from "@material-ui/core/Input";
 import FilaCuatro from "../FilaCuatro/FilaCuatro";
+import CurrencyTextField from '@unicef/material-ui-currency-textfield'
 
 import { presupcalculador } from "../../PresupCalculador";
 
@@ -24,6 +25,9 @@ import PresupuestoUnid from "../../PresupuestoUnid";
 export default function TablaPresup(props) {
   // Esto es para poder consumir los datos del CONTEXTAPI
   const { state, setState } = useContext(PresupPantContext);
+
+
+  const [datosrenglon, setDatosRenglon] = useState([]);
 
   const [suma, setSuma] = React.useState(0);
   const [open, setOpen] = React.useState(false);
@@ -64,6 +68,7 @@ export default function TablaPresup(props) {
     // });
   }
 
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -97,6 +102,7 @@ export default function TablaPresup(props) {
                   }, 1000);
                 }),
             }}
+
             components={{
               Toolbar: (props) => (
                 <div>
@@ -123,38 +129,39 @@ export default function TablaPresup(props) {
                     >
                       Imprime
                     </Button>
-                    <TextField
+                    {/* <TextField */}
+                    <CurrencyTextField
                       id="Suma"
                       label="Total presupuesto : "
                       value={suma}
                       type="currency"
-                    >
-                      {" "}
-                    </TextField>
+                    />
+
+                    {/* </TextField> */}
                   </div>
                 </div>
               ),
             }}
 
-            // // actions={[
-            //   {
-            //     icon: () => <WavesIcon/>,
+          // // actions={[
+          //   {
+          //     icon: () => <WavesIcon/>,
 
-            //     onClick: (event, rowData) => onRowadd(event, rowData )
-            //   }
+          //     onClick: (event, rowData) => onRowadd(event, rowData )
+          //   }
 
-            // ]}
+          // ]}
 
-            // onRowAdd: newData =>
-            //       new Promise((resolve, reject) => {
-            //         setTimeout(() => {
-            //           {
-            //             const data = this.state.data;
-            //             data.push(newData);
-            //             this.setState({ data }, () => resolve());
-            //           }
-            //           resolve()
-            //         }, 1000)
+          // onRowAdd: newData =>
+          //       new Promise((resolve, reject) => {
+          //         setTimeout(() => {
+          //           {
+          //             const data = this.state.data;
+          //             data.push(newData);
+          //             this.setState({ data }, () => resolve());
+          //           }
+          //           resolve()
+          //         }, 1000)
           />
         </Grid>
       </Grid>

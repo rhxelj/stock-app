@@ -64,8 +64,8 @@ export default function StkRubro() {
         data={data}
         localization={localization}
         options={{
-          exportAllData: true,
           exportButton: true,
+          exportAllData: true,
           grouping: true,
           addRowPosition: "first",
           actionsColumnIndex: -1,

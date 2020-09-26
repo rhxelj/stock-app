@@ -18,7 +18,7 @@ import {
 import FilaUnoIzq from "./FilaUnoIzq";
 import TipoCliente from "./TipoCliente";
 
-export default function FilaUno() {
+export default function Fila() {
   return (
     <>
       {/* <Grid
@@ -32,6 +32,7 @@ export default function FilaUno() {
       > */}
       <TipoCliente />
       <FilaUnoIzq />
+
       {/* </Grid> */}
     </>
   );
