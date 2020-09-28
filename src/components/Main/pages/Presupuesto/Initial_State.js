@@ -74,16 +74,7 @@ export const initial_state = {
       title: "Imp. Item.",
       field: "ImpItem",
       type: "currency",
-      // },
-      // {
-      //   title: "StkRubroCosto.",
-      //   field: "StkRubroCosto",
-      //   type: 'currency',
-      // },
-      // {
-      //   title: "StkMonedasCotizacion.",
-      //   field: "StkMonedasCotizacion",
-      //   type: 'currency',
+
     },
     {
       title: "$ Item c/Anexos",

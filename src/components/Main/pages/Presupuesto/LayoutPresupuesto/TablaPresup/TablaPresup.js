@@ -8,6 +8,7 @@ import { TextField, Button } from "@material-ui/core";
 import Input from "@material-ui/core/Input";
 import FilaCuatro from "../FilaCuatro/FilaCuatro";
 import CurrencyTextField from '@unicef/material-ui-currency-textfield'
+import Imprimir from '../../../Impresion/Imprimir/Imprimir'
 
 import { presupcalculador } from "../../PresupCalculador";
 
@@ -25,10 +26,11 @@ import PresupuestoUnid from "../../PresupuestoUnid";
 export default function TablaPresup(props) {
   // Esto es para poder consumir los datos del CONTEXTAPI
   const { state, setState } = useContext(PresupPantContext);
-
+  const [imprimirTF, setImprimirTF] = useState({ imprimir: false });
 
   const [datosrenglon, setDatosRenglon] = useState([]);
-
+  const columns = state.columns
+  const data = props.data
   const [suma, setSuma] = React.useState(0);
   const [open, setOpen] = React.useState(false);
   const [presup, setPresup] = useState({
@@ -55,9 +57,17 @@ export default function TablaPresup(props) {
 
   function imprime() {
     console.log("Mando a Imprimir presupueto");
-    console.log(props.columnas);
+    console.log(presup.columnas);
     console.log(props.data);
-
+    printJS({
+      maxWidth: 800,
+      properties: state.columns,
+      scanStyles: false,
+      printable: props.data,
+      type: "json",
+      header: '<h3 class="custom-h3">Orlando Lonas</h3>',
+      // onPrintDialogClose: () => props.handleClose(),
+    });
     // printJS({
     //   maxWidth: 800,
     //   properties: props.columnas,
@@ -102,7 +112,14 @@ export default function TablaPresup(props) {
                   }, 1000);
                 }),
             }}
-
+            actions={[
+              {
+                icon: () => <tableIcons.Print />,
+                tooltip: "Imprimir",
+                isFreeAction: true,
+                onClick: (event) => setImprimirTF({ imprimir: true }),
+              },
+            ]}
             components={{
               Toolbar: (props) => (
                 <div>
@@ -171,6 +188,12 @@ export default function TablaPresup(props) {
         maymin={props.maymin}
         suma={suma}
         handleClose={handleClose}
+      />
+      <Imprimir
+        columns={columns}
+        datos={data}
+        open={imprimirTF.imprimir}
+        setOpen={setImprimirTF}
       />
     </>
   );

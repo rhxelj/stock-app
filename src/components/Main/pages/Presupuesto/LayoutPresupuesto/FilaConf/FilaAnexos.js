@@ -42,8 +42,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function FilaAnexos(props) {
   const { state, setState } = useContext(PresupPantContext);
-
+  const [acumulaanexo, setAcumulaAnexo] = useState([])
   const [importea, setImportea] = useState(0)
+
+
   const handleChange = (event) => {
     const id = event.target.id;
     setState({ ...state, [id]: event.target.value });
@@ -55,6 +57,26 @@ export default function FilaAnexos(props) {
   };
 
   async function calcular() {
+    var StkRubroDesc = "";
+    var ImpItem = 0;
+    var nombre = ''
+    var importetotal = 0.0
+    for (var i = 0; i < acumulaanexo.length; i++) {
+
+      nombre = nombre + ' c/' + acumulaanexo[i].tipoanexo;
+      importetotal = importetotal + acumulaanexo[i].importeanexoeleg
+    }
+    var datospresup = [
+      {
+        StkRubroDesc: nombre,
+        ImpItemAnexo: importetotal,
+      },
+    ];
+
+    setState({ ...state, renglonanexo: datospresup[0] });
+  };
+
+  async function acumular() {
     const datosrenglon1 = await presupcalculador(
       "", "",
       state.PresupTipo
@@ -65,20 +87,11 @@ export default function FilaAnexos(props) {
 
     setImportea(importeanexoeleg)
 
-    var StkRubroDesc = "";
-    var ImpItem = 0;
+    var tipoanexo = state.PresupTipo
 
-    var datospresup = [
-      {
-        StkRubroDesc: state.PresupTipo,
-        ImpItemAnexo: importeanexoeleg,
-      },
-    ];
+    acumulaanexo.push({ tipoanexo, importeanexoeleg })
 
-    setState({ ...state, renglonanexo: datospresup[0] });
   };
-
-
 
 
   const classes = useStyles();
@@ -183,10 +196,16 @@ export default function FilaAnexos(props) {
         //         className={classes.textField} */}
       </Grid>
       {/* </Grid> */}
+
+      <Grid spacing={3} item xs={2}>
+        <Button onClick={acumular} color="secondary" disabled={props.disable} >
+          Acumula Anexo
+       </Button>
+      </Grid>
       <Grid spacing={3} item xs={2}>
         <Button onClick={calcular} color="secondary" disabled={props.disable} >
           Aceptar Anexo
-  </Button>
+        </Button>
       </Grid>
     </>
   );

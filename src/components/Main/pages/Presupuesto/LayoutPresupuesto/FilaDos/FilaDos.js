@@ -101,7 +101,8 @@ export default function FilaDos(props) {
       PresupAncho = datosrenglon1[0][0].Ancho
       if (state.renglonanexo.length !== 0) {
         ImpItemCAnexos = ImpItem + (state.renglonanexo.ImpItemAnexo * state.PresupCantidad)
-        StkRubroDesc = StkRubroDesc + ' c/' + state.renglonanexo.StkRubroDesc
+        // StkRubroDesc = StkRubroDesc + ' c/' + state.renglonanexo.StkRubroDesc
+        StkRubroDesc = StkRubroDesc + state.renglonanexo.StkRubroDesc
       }
     }
     else {
@@ -133,7 +134,6 @@ export default function FilaDos(props) {
     }
     handleClickOpen();
   }
-
 
 
 
@@ -239,13 +239,7 @@ export default function FilaDos(props) {
         {/* <Grid items xs> */}
         <FilaConf disable={!(presuptipo === "CONFECCIONADA")}></FilaConf>{" "}
       </Grid>
-      {/* <Grid item spacing={3} container>
-        {/* <Grid container item direction="column" spacing={3} xs={12}> */}
 
-      {/* <Grid>
-        <FilaAnexos disable={!(presuptipo === "CONFECCIONADA")}></FilaAnexos>{" "}
-      </Grid> */}
-      {/* </Grid>  */}
       <Grid container item direction="column" spacing={3} xs={12}>
         <Button onClick={() => agregar()} color="primary">
           Agregar

@@ -17,13 +17,13 @@ conexion.connect(function (err) {
 router.post("/", function (req, res, next) {
 
   var registro = {
-    PresupConfTipoLargo: req.body.PresupConfTipoLargo.toUpperCase(),
-    PresupConfTipoAncho: req.body.PresupConfTipoAncho.toUpperCase(),
-    PresupConfTipoAnexo: req.body.PresupConfTipoAnexo.toUpperCase(),
-    PresupConfTipoCant: req.body.PresupConfTipoCant,
     PresupConfTipoDesc: req.body.PresupConfTipoDesc.toUpperCase(),
-    PresupConfTipoRubro: req.body.PresupConfTipoRubro.toUpperCase()
-
+    PresupConfTipoRubro: req.body.PresupConfTipoRubro.toUpperCase(),
+    PresupConfTipoCant: req.body.PresupConfTipoCant,
+    PresupConfTipoAnexo: req.body.PresupConfTipoAnexo.toUpperCase(),
+    PresupConfTipoLargo: req.body.PresupConfTipoLargo,
+    PresupConfTipoAncho: req.body.PresupConfTipoAncho,
+    PresupConfTipoBack: '',
   };
   conexion.query("INSERT INTO BasePresup.PresupConfTipo SET ?", registro, function (err, result) {
     if (err) {

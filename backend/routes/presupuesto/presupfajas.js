@@ -32,10 +32,6 @@ router.get('/', (req, res, next) => {
         largo = datos.largo * 1 + 0.12
         ancho = datos.ancho * 1 + 0.12
         minutosunion = ancho * largo * 5
-        console.log(datos.largo)
-        console.log(datos.ancho)
-        console.log(largo)
-        console.log(ancho)
         enteroancho = Math.trunc(ancho / 1.50)
         decimancho = (ancho / 1.5) - enteroancho
         if (decimancho < 0.50) {
@@ -52,9 +48,6 @@ router.get('/', (req, res, next) => {
         }
         // minutosunion = (datos.ancho + 0.12) * datos.largo * 5
         // minutosunion = ancho * largo * 5
-        console.log('minutosunion  ', minutosunion)
-        console.log(ancho)
-        console.log(largo)
         if (datos.minmay == 'my') {
           q = ['Select ',
             'StkRubroDesc, StkRubroAbr, ',
@@ -91,7 +84,6 @@ router.get('/', (req, res, next) => {
             'and StkRubro.StkRubroTM = idStkMonedas '
           ].join('')
         }
-        console.log(q)
         conexion.query(
           q,
           function (err, result) {

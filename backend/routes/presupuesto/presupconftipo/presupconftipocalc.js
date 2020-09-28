@@ -23,7 +23,6 @@ router.get("/", function (req, res, next) {
   */
   // var q = ['select sum(PresupConfTipoCant) as Importe from BasePresup.PresupConfTipo where PresupConfTipoDesc = "' + tipo + '"'].join("");
   var q = ['select sum(BaseStock.StkRubro.StkRubroCosto * BaseStock.StkMonedas.StkMonedasCotizacion * BasePresup.PresupConfTipo.PresupConfTipoCant) as ImpItem from BasePresup.PresupConfTipo, BaseStock.StkRubro, BaseStock.StkMonedas where  PresupConfTipoRubro = BaseStock.StkRubro.StkRubroAbr and BaseStock.StkRubro.StkRubroTM = BaseStock.StkMonedas.idStkMonedas and PresupConfTipoDesc = "' + tipo + '"'].join("");
-  console.log('q  presupconftipocalc   ', q)
   conexion.query(q, function (err, result) {
     if (err) {
       console.log(err);
