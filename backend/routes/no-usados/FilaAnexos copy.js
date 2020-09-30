@@ -3,6 +3,10 @@ import Radio, { RadioProps } from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
+
+// npm install @unicef/material-ui-currency-textfield --save para darle formato pesos en los textfield
+import CurrencyTextField from '@unicef/material-ui-currency-textfield'
+
 import FormLabel from "@material-ui/core/FormLabel";
 import {
   Box,
@@ -13,6 +17,7 @@ import {
   DialogContent,
   DialogTitle,
   Grid,
+  DialogContentText,
   IconButton,
   InputAdornment,
   Paper,
@@ -23,38 +28,70 @@ import {
 // import Paper from "@material-ui/core/Paper";
 // import Grid from "@material-ui/core/Grid";
 import useStyles from "../styles";
-
+import Slide from '@material-ui/core/Slide';
 // Context
 import { useContext } from "react";
 import { PresupPantContext } from "../../PresupPant";
 import leePresupConfTipoLeeAnexo from "../../leePresupConfTipoLeeAnexo"
-import leePresupConfTipoLeerDesc from "../../leePresupConfTipoLeerDesc"
+import { presupcalculador } from "../../PresupCalculador";
+
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export default function FilaAnexos(props) {
-  console.log('esta en fila anexos')
   const { state, setState } = useContext(PresupPantContext);
-  const [selectedValue, setSelectedValue] = React.useState("");
+  const [acumulaanexo, setAcumulaAnexo] = useState([])
+  const [importea, setImportea] = useState(0)
 
-  // const handleChange = (event) => {
-  //   setSelectedValue(event.target.value);
-  //   setState({ ...state, PresupConfTipoDesc: event.target.value });
-  // };
 
   const handleChange = (event) => {
     const id = event.target.id;
     setState({ ...state, [id]: event.target.value });
     if (id === "AnexoEleg") {
-      setState({ ...state, LabelMed: event.target.value })
-      var descripcion = event.target.value
-      leerdesc(descripcion)
+      setState({ ...state, PresupTipo: event.target.value });
+      //calcular(presuptipo)
     }
+
   };
 
-  async function leerdesc(descripcion) {
-    const result = await leePresupConfTipoLeerDesc(descripcion);
-    setState({ ...state, DatosPresupEleg: result });
-    console.log('result en flanexos ', result)
-  }
+  async function calcular() {
+    var StkRubroDesc = "";
+    var ImpItem = 0;
+    var nombre = ''
+    var importetotal = 0.0
+    for (var i = 0; i < acumulaanexo.length; i++) {
+
+      nombre = nombre + ' c/' + acumulaanexo[i].tipoanexo;
+      importetotal = importetotal + acumulaanexo[i].importeanexoeleg
+    }
+    var datospresup = [
+      {
+        StkRubroDesc: nombre,
+        ImpItemAnexo: importetotal,
+      },
+    ];
+
+    setState({ ...state, renglonanexo: datospresup[0] });
+  };
+
+  async function acumular() {
+    const datosrenglon1 = await presupcalculador(
+      "", "",
+      state.PresupTipo
+    );
+    var medida = state.AnexoMedida
+    var impunidad = datosrenglon1[0].ImpItem
+    var importeanexoeleg = impunidad * medida
+
+    setImportea(importeanexoeleg)
+
+    var tipoanexo = state.PresupTipo
+
+    acumulaanexo.push({ tipoanexo, importeanexoeleg })
+
+  };
 
 
   const classes = useStyles();
@@ -92,11 +129,12 @@ export default function FilaAnexos(props) {
   return (
     <>
 
-      {/* <Grid container item direction="column" spacing={3} xs={6}> */}
+      {/* <Grid container item direction="column" spacing={3} xs={2}> */}
       {/* <Grid container xs={12}> */}
       {/* <Grid container direction="row"> */}
       {/* <Grid item spacing={3} xs={12}> */}
-      <Grid item xs={4}>
+
+      <Grid spacing={3} item xs={2}>
         {/* <Grid item spacing={3} xs> */}
         {textdata.map((data) => (
           <TextField
@@ -115,41 +153,60 @@ export default function FilaAnexos(props) {
           </TextField>
         ))}
       </Grid>
-      <Grid item xs={4}>
+      <Grid spacing={3} item xs={2}>
         <TextField
           // disabled={props.disable}
           inputProps={{ maxlength: 3 }}
           size="small"
           variant="outlined"
-          id="AnexoLargo"
+          id="AnexoMedida"
           type="number"
-          label={state.LabelMed}
+          label="Medida"
           fullWidth
-          value={state.AnexoLargo}
+          value={state.AnexoMedida}
           onChange={handleChange}
-          className={classes.textField}
+          disabled={props.disable}
+        //         className={classes.textField}
         />
       </Grid>
-      <Grid item xs={4}>
-        {console.log(state.LabelMed)}
-        <TextField
+      <Grid spacing={3} item xs={2}>
+        <CurrencyTextField
+          label="Importe"
+          size="small"
+          variant="outlined"
+          value={importea}
+          currencySymbol="$"
+          outputFormat="string"
+          //     onChange={(event, importea) => setImportea(importea)}
+          onChange={handleChange}
+          disabled
+        />
+        {/* <TextField
           // disabled={props.disable}
-
           inputProps={{ maxlength: 3 }}
           size="small"
           variant="outlined"
-          id="AnexoLargo"
-          type="number"
-          // label={'state.LabelMed'}
-          label={state.LabelMed}
-          defaultValue={state.LabelMed}
+          id="AnexoImporte"
+          type="currency"
+          label="Importe"
           fullWidth
-          value={state.AnexoLargo}
+          value={importea}
           onChange={handleChange}
-          className={classes.textField}
-        />
+          disabled
+        //         className={classes.textField} */}
       </Grid>
       {/* </Grid> */}
+
+      <Grid spacing={3} item xs={2}>
+        <Button onClick={acumular} color="secondary" disabled={props.disable} >
+          Acumula Anexo
+       </Button>
+      </Grid>
+      <Grid spacing={3} item xs={2}>
+        <Button onClick={calcular} color="secondary" disabled={props.disable} >
+          Aceptar Anexo
+        </Button>
+      </Grid>
     </>
   );
 }

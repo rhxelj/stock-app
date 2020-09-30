@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Radio, { RadioProps } from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FilaAnexos from "../FilaConf/FilaAnexos";
+import FilaAnexo from "./FilaAnexo/FilaAnexo"
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import {
@@ -20,9 +20,6 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-// import { makeStyles } from "@material-ui/core/styles";
-// import Paper from "@material-ui/core/Paper";
-// import Grid from "@material-ui/core/Grid";
 import useStyles from "../styles";
 
 // Context
@@ -78,7 +75,9 @@ export default function FilaConf(props) {
         </RadioGroup>
         {/* <Grid container item direction="column" spacing={4} xs={6}> */}
         {/* <Grid item spacing={3} container> */}
-        <FilaAnexos disable={!(presuptipo === "CONFECCIONADA")}></FilaAnexos>{" "}
+        {/* <FilaAnexos disable={!(presuptipo === "CONFECCIONADA")}></FilaAnexos>{" "} */}
+
+        <FilaAnexo disable={!(presuptipo === "CONFECCIONADA")}></FilaAnexo>{" "}
         {/* </Grid> */}
       </Grid>
 
