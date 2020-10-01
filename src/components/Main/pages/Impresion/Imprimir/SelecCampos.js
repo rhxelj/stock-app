@@ -15,7 +15,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 export default function SelecCampos(props) {
   const [checked, setChecked] = React.useState([]);
   const [properties, setProperties] = React.useState();
-  const { datos } = props;
+  const { datos, gridStyle } = props;
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -50,7 +50,7 @@ export default function SelecCampos(props) {
 
   useEffect(() => {
     if (properties != null) {
-      ImprimirPantalla({ datos, properties, handleClose });
+      ImprimirPantalla({ datos, properties, gridStyle, handleClose });
       handleClose();
     }
   }, [properties]);

@@ -9,10 +9,10 @@ export const initial_state = {
   //FilaDos
   AnexoMedida: 0,
   PresupCantidad: 1.0,
-  PresupTipo: '',
+  PresupTipo: "",
   ImporteAnexo: 0.0,
   renglonanexo: [],
-  DetalleAnexo: '',
+  DetalleAnexo: "",
   stkrubro: [],
   clientes: [],
   PresupLargo: 0.0,
@@ -74,13 +74,13 @@ export const initial_state = {
       title: "Imp. Item.",
       field: "ImpItem",
       type: "currency",
-
     },
     {
       title: "$ Item c/Anexos",
       field: "ImpItemCAnexos",
-      type: 'currency',
-    }
+      // ToDo: mirar esto para dar estilo => cellStyle: { width: "4px", borderRadius: "50%", background: "red" },
+      type: "currency",
+    },
   ],
   // data: [
   //   { StkRubroDesc: 'gg', ImpUnitario: 0, ImpItem: 0, StkRubroCosto: 0, StkMonedasCotizacion: 0 },
