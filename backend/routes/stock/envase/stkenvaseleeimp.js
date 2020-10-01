@@ -6,6 +6,7 @@ var http = require("http");
 const fs = require("fs");
 const exec = require("child_process").exec;
 
+
 conexion.connect(function (err) {
   if (!err) {
     console.log("base de datos conectada en stkenvaseleeimp");
@@ -133,22 +134,34 @@ router.get("/", function (req, res, next) {
           }
         });
       }
-      // exec("cat ./codigoqr", (err, stdout, stderr) => {
+    //   exec("cat ./codigoqr", (err, stdout, stderr) => {
 
       console.log("a  ", a);
       a++;
 
-      // if (a >= result.length) {
-      //   exec("lpr ./codigoqr", (err, stdout, stderr) => {
-      //     if (err) {
-      //       console.error(`exec error: ${err}`);
-      //       return;
-      //     }
-      //   });
-      // }
-    }
+       if (a >= result.length) {
+        // exec("lpr ./codigoqr", (err, stdout, stderr) => {
+            exec("cd /home/sandra/SIOLSA/Stock", (err, stdout, stderr) => {
+           if (err) {
+             console.error(`exec error: ${err}`);
+             return;
+           }
+         });
+          exec("lpr -P Zebra codigoqr", (err, stdout, stderr) => {
+           if (err) {
+             console.error(`exec error: ${err}`);
+             return;
+           }
+         });
+       }
+   }
+
+
   });
+
 });
+
 conexion.end;
 //lpr -P ZTC-GK420t codigoqr
+
 module.exports = router;
