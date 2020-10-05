@@ -1,18 +1,18 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
-  Box,
-  Button,
+  // Box,
+  // Button,
   Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
+  // Dialog,
+  // DialogActions,
+  // DialogContent,
+  // DialogTitle,
   Grid,
-  IconButton,
-  InputAdornment,
-  Paper,
-  TextField,
-  Typography,
+  // IconButton,
+  // InputAdornment,
+  // Paper,
+  // TextField,
+  // Typography,
 } from "@material-ui/core";
 
 import useStyles from "./StkMovEntradaStyle";
@@ -23,7 +23,7 @@ import FilaCuatro from "./LayoutMovEntrada/FilaCuatro";
 import FilaCinco from "./LayoutMovEntrada/FilaCinco/index";
 import { initial_state } from "./Initial_State";
 
-import StkGenImpQR from "../../../Impresion/StkGenImpQR";
+// import StkGenImpQR from "../../../Impresion/StkGenImpQR";
 
 import { HeaderTitle } from "../../../../../lib/HeaderTitle";
 
@@ -33,7 +33,7 @@ var StkMovEntrada = (props) => {
   HeaderTitle("Movimiento de Entrada");
 
   const [state, setState] = useState(initial_state);
-  const classes = useStyles();
+  // const classes = useStyles();
 
   return (
     <div>

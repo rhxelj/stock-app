@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import { leerMonedas } from "./StkMonedasLeer";
 import { agregarMonedas } from "./StkMonedasAgregar";
@@ -10,9 +10,9 @@ import "../../../../Styles/TableHeader.css";
 
 import MaterialTable from "material-table";
 import {
-  style,
+  // style,
   styles,
-  CustomTableCell,
+  // CustomTableCell,
   initial_state,
   initial_open,
 } from "./Constants";
@@ -27,8 +27,8 @@ import { localization } from "../../../lib/material-table/localization";
 
 // import Imprimir from "../Impresion/Imprimir/indexwww";
 
-import { useContext } from "react";
-import { globalContext } from "../../../App";
+// import { useContext } from "react";
+// import { globalContext } from "../../../App";
 
 function Monedas() {
   HeaderTitle("Monedas");
@@ -55,10 +55,10 @@ function Monedas() {
     return (newData, oldData) =>
       new Promise((resolve, reject) => {
         setTimeout(() => {
-          {
-            modificarMonedas(newData);
-            initialFetch();
-          }
+          // {
+          modificarMonedas(newData);
+          initialFetch();
+          // }
           resolve();
         }, 1000);
       });
@@ -68,10 +68,10 @@ function Monedas() {
     return (oldData) =>
       new Promise((resolve, reject) => {
         setTimeout(() => {
-          {
-            borrarMonedas(oldData.idStkMonedas);
-            initialFetch();
-          }
+          // {
+          borrarMonedas(oldData.idStkMonedas);
+          initialFetch();
+          // }
           resolve();
         }, 1000);
       });

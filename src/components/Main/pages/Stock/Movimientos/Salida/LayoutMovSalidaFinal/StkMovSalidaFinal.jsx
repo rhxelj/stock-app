@@ -1,15 +1,15 @@
-import React, { Fragment, useState, useEffect } from "react";
-import { withStyles } from '@material-ui/core/styles';
+import React, { useState } from "react";
+// import { withStyles } from '@material-ui/core/styles';
 
 import { initial_state } from "./Initial_State";
 
-import useStyles from './StkMovSalidaStyle'
+// import useStyles from './StkMovSalidaStyle'
 import StkSalidaFinal from './StkSalidaFinal'
 import {
     Container,
-    Dialog,
+    // Dialog,
     Grid,
-    Paper,
+    // Paper,
 } from "@material-ui/core";
 
 
@@ -18,7 +18,7 @@ export const StkMovSalidaFinalContext = React.createContext();
 
 var StkMovSalidaFinal = props => {
     const [state, setState] = useState(initial_state);
-    const classes = useStyles();
+    // const classes = useStyles();
 
     return (
         <div>

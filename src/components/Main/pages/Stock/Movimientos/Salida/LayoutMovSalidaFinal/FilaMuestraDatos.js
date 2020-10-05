@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Button from "@material-ui/core/Button";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+// import Button from "@material-ui/core/Button";
+import { withStyles } from "@material-ui/core/styles";
 import useStyles from "./styles";
 import { stkGrabaMovSalFinal } from "./StkGrabaMovSalFinal";
 import { stkGrabaMovSalEnvase } from "./StkGrabaMovSalEnvase";
@@ -104,13 +104,13 @@ const StyledTableCell4 = withStyles((theme) => ({
 }))(TableCell);
 export default function FilaMuestraDatos(props) {
   const { state, setState } = useContext(StkMovSalidaFinalContext);
-
+  var nuevacantstock;
   var nuevacantdisp = state.StkItemsCantDisp;
-  if (state.largopasa == 0) {
-    var nuevacantstock = state.StkItemsCantidad - state.cantarestar;
+  if (state.largopasa === 0) {
+    nuevacantstock = state.StkItemsCantidad - state.cantarestar;
     nuevacantdisp = state.StkItemsCantDisp - state.cantarestar;
   } else {
-    var nuevacantstock = state.StkItemsCantidad - state.cantarestar;
+    nuevacantstock = state.StkItemsCantidad - state.cantarestar;
   }
 
   async function actualizainf() {

@@ -2,12 +2,12 @@ import request from "superagent";
 
 import IpServidor from "../../VariablesDeEntorno";
 
-export const stkitemsleedisp= (state) => {
-  return new Promise(resolve => {
+export const stkitemsleedisp = (state) => {
+  return new Promise((resolve) => {
     if (
-      state.idStkGrupo != "" &&
-      state.idStkRubro != "" &&
-      state.idStkItems != ""
+      state.idStkGrupo !== "" &&
+      state.idStkRubro !== "" &&
+      state.idStkItems !== ""
     ) {
       const url =
         IpServidor +
@@ -20,7 +20,7 @@ export const stkitemsleedisp= (state) => {
       request
         .get(url)
         .set("Content-Type", "application/json")
-        .then(res => {
+        .then((res) => {
           const disponibilidad = JSON.parse(res.text);
 
           resolve(disponibilidad[0].StkItemsCantDisp);

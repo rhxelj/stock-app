@@ -5,7 +5,7 @@ import request from "superagent";
 export function agregarRubros(props) {
   return new Promise(function (resolve, reject) {
     const {
-      idStkRubro,
+      // idStkRubro,
       StkRubroCodGrp,
       StkRubroDesc,
       StkRubroAbr,

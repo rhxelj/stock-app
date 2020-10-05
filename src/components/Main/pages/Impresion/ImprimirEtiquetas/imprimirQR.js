@@ -2,9 +2,9 @@ import request from "superagent";
 import IpServidor from "../../VariablesDeEntorno";
 import "react-table/react-table.css";
 
-import CodigoError from "../../../../lib/CodigoError";
+// import CodigoError from "../../../../lib/CodigoError";
 export function imprimirQr(props) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     //   const { idStkRubro, StkRubroCodGrp } = props;
     const ubicaG = props;
     // stkenvaseleeimp = (_) => {
