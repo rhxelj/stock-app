@@ -4,7 +4,7 @@ import request from "superagent";
 
 export function modificarItems(props) {
   return new Promise(function (resolve, reject) {
-    console.log('modificarItems  props  ', props)
+    console.log("modificarItems  props  ", props);
     const {
       idStkItems,
       StkItemsGrupo,
@@ -13,7 +13,7 @@ export function modificarItems(props) {
       StkItemsDesc,
       StkItemsCantidad,
       StkItemsCantDisp,
-      StkItemsFAct,
+      // StkItemsFAct,
       StkItemsMin,
       StkItemsMax,
     } = props;
@@ -37,8 +37,8 @@ export function modificarItems(props) {
         StkItemsMin: StkItemsMin,
         StkItemsMax: StkItemsMax,
       })
-      .then(function (res) { })
-      .catch(err => CodigoError(err));
+      .then(function (res) {})
+      .catch((err) => CodigoError(err));
     resolve();
   });
 }

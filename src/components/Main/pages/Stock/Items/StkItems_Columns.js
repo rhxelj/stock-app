@@ -10,7 +10,7 @@ export async function StkItems_Columns() {
 }
 
 function columnsFill(objstkrubro) {
-  console.log('está en StkItems_Columns ')
+  console.log("está en StkItems_Columns ");
   return new Promise(function (resolve, reject) {
     resolve([
       {
@@ -57,6 +57,7 @@ function columnsFill(objstkrubro) {
         field: "StkItemsFAct",
         tipo: "texto",
         order: true,
+        editable: "never",
       },
       {
         title: "Stock Mínimo",
@@ -70,7 +71,6 @@ function columnsFill(objstkrubro) {
         tipo: "numero",
         order: true,
       },
-
     ]);
   });
 }

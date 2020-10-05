@@ -9,20 +9,20 @@ import { stkrubroleermezcla } from "./StkRubroLeerMezcla";
 import { onRowAdd } from "./onRowAdd";
 import { onRowUpdate } from "./onRowUpdate";
 import { onRowDelete } from "./onRowDelete";
-import MaterialTable, { Column } from "material-table";
+import MaterialTable from "material-table";
 import { HeaderTitle } from "../../../../lib/HeaderTitle";
 import Imprimir from "../../Impresion/Imprimir/Imprimir";
 export default function StkRubro() {
   // const [lookconst, setLookconst] = useState();
   HeaderTitle("RUBROS"); //titulo a mostrar en el navbar
 
-  const [nameError, setNameError] = useState({
-    error: false,
-    label: "",
-    helperText: "",
-  });
+  // const [nameError, setNameError] = useState({
+  //   error: false,
+  //   label: "",
+  //   helperText: "",
+  // });
 
-  const [rubro, setRubro] = useState({ columns: [], data: [] });
+  // const [rubro, setRubro] = useState({ columns: [], data: [] });
   const [strubromodificar, setStkrubromodificar] = useState(false);
 
   const [columns, setColumns] = useState([]);

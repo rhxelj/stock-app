@@ -3,11 +3,8 @@ import IpServidor from "../../VariablesDeEntorno";
 import request from "superagent";
 import "react-table/react-table.css";
 
-
-
 export function stkItemsAgregar(newData, codigonuevo) {
   return new Promise(function (resolve, reject) {
-
     const {
       StkItemsRubroAbr,
       StkItemsDesc,
@@ -15,13 +12,13 @@ export function stkItemsAgregar(newData, codigonuevo) {
       StkItemsFAct,
       StkItemsMin,
       StkItemsMax,
-      stkrubro,
-      stkgrupo,
+      // stkrubro,
+      // stkgrupo,
     } = newData;
 
-    const StkItemsGrupo = codigonuevo[1][0].StkItemsGrupo
-    const StkItemsRubro = codigonuevo[1][0].StkItemsRubro
-    const UltItem = codigonuevo[0][0].UltItem
+    const StkItemsGrupo = codigonuevo[1][0].StkItemsGrupo;
+    const StkItemsRubro = codigonuevo[1][0].StkItemsRubro;
+    const UltItem = codigonuevo[0][0].UltItem;
 
     const url1 = IpServidor + "/stkitemsagregar/";
     request
@@ -38,6 +35,5 @@ export function stkItemsAgregar(newData, codigonuevo) {
       .send({ StkItemsMax: StkItemsMax })
       .catch((err) => CodigoError(err));
     resolve();
-  }
-  )
+  });
 }

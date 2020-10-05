@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, useReducer } from "react";
+import React, { useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import useStyles from "../styles";
 
@@ -11,13 +11,13 @@ import { stkitemsleecodgryrb } from "../../../../Items/StkItemsLeeCodGryRb";
 // Context
 import { useContext } from "react";
 import { StkMovEntradaContext } from "../../StkMovEntrada";
-import { initial_state } from "../../Initial_State";
+// import { initial_state } from "../../Initial_State";
 
 export default function F2C1(props) {
   // Esto es para poder consumir los datos del CONTEXTAPI
   const { state, setState } = useContext(StkMovEntradaContext);
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     const id = event.target.id;
     setState({ ...state, [id]: event.target.value });
     //  dispatch({type: event.target.id})
@@ -85,13 +85,13 @@ export default function F2C1(props) {
       mapeo: (
         <>
           <option></option>
-          {state.stkgrupo.map(option => (
+          {state.stkgrupo.map((option) => (
             <option key={option.idStkGrupo} value={option.idStkGrupo}>
               {option.StkGrupoDesc}
             </option>
           ))}
         </>
-      )
+      ),
     },
     {
       id: "idStkRubro",
@@ -100,13 +100,13 @@ export default function F2C1(props) {
       mapeo: (
         <>
           <option></option>
-          {state.stkrubro.map(option => (
+          {state.stkrubro.map((option) => (
             <option key={option.idStkRubro} value={option.idStkRubro}>
               {option.StkRubroDesc}
             </option>
           ))}
         </>
-      )
+      ),
     },
     {
       id: "idStkItems",
@@ -115,20 +115,20 @@ export default function F2C1(props) {
       mapeo: (
         <>
           <option></option>
-          {state.stkitems.map(option => (
+          {state.stkitems.map((option) => (
             <option key={option.idStkItems} value={option.idStkItems}>
               {option.StkItemsDesc}
             </option>
           ))}
         </>
-      )
-    }
+      ),
+    },
   ];
 
   return (
     <>
       <Grid container item direction="column" spacing={3} xs={6}>
-        {textdata.map(data => (
+        {textdata.map((data) => (
           <Grid item xs>
             <TextField
               id={data.id}
