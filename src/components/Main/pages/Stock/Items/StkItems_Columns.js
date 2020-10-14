@@ -55,7 +55,8 @@ function columnsFill(objstkrubro) {
       {
         title: "Fecha de Actualización",
         field: "StkItemsFAct",
-        tipo: "texto",
+        type: "date",
+        // dateSetting:""
         order: true,
         editable: "never",
       },

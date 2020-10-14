@@ -1,9 +1,7 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState } from "react";
 import SelecCampos from "./SelecCampos";
-import ImprimirPantalla from "../ImprimirPantalla";
 
 function Index(props) {
-  const [state, setState] = useState("");
 
   const { columns, open, setOpen, datos, gridStyle } = props;
 

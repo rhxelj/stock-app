@@ -12,6 +12,9 @@ import { onRowDelete } from "./onRowDelete";
 import MaterialTable from "material-table";
 import { HeaderTitle } from "../../../../lib/HeaderTitle";
 import Imprimir from "../../Impresion/Imprimir/Imprimir";
+
+// import StkMinMaxDialog from "./StkMinMaxDialog";
+
 export default function StkRubro() {
   // const [lookconst, setLookconst] = useState();
   HeaderTitle("RUBROS"); //titulo a mostrar en el navbar
@@ -23,16 +26,19 @@ export default function StkRubro() {
   // });
 
   // const [rubro, setRubro] = useState({ columns: [], data: [] });
-  const [strubromodificar, setStkrubromodificar] = useState(false);
-
+  // const [strubromodificar, setStkrubromodificar] = useState(false);
   const [columns, setColumns] = useState([]);
   const [data, setData] = useState([]);
+  const [imprimirTF, setImprimirTF] = useState({ imprimir: false });
+  // const [StkMinMaxDialogTF, setStkMinMaxDialogTF] = useState(false);
+  // function setDialog() {
+  //   setStkMinMaxDialogTF(true);
+  // }
 
   async function columnsFetch() {
     const col = await StkRubro_Columns();
     setColumns(() => col);
   }
-  const [imprimirTF, setImprimirTF] = useState({ imprimir: false });
   async function dataFetch() {
     const result = await stkrubroleermezcla();
     setData(() => result);
@@ -46,7 +52,7 @@ export default function StkRubro() {
   useEffect(() => {
     initialFetch();
   }, []);
-
+  // console.log("contenido de StkMinMaxDialogTF ", StkMinMaxDialogTF);
   return (
     <div>
       <MaterialTable
@@ -57,6 +63,14 @@ export default function StkRubro() {
             isFreeAction: true,
             onClick: (event) => setImprimirTF({ imprimir: true }),
           },
+
+          // {
+          //   icon: () => <tableIcons.Add />,
+          //   tooltip: "Agregar Rubro",
+          //   isFreeAction: true,
+          //   onClick: (event) => setStkMinMaxDialogTF({ open: true }),
+          //   // onClick: setDialog,
+          // },
         ]}
         icons={tableIcons}
         title=""
@@ -79,11 +93,10 @@ export default function StkRubro() {
           onRowAdd: (newData) =>
             onRowAdd(newData).then(
               setTimeout(() => {
-                {
-                  initialFetch();
-                }
+                initialFetch();
               }, 5000)
             ),
+          // onRowAdd: (newData) => StkMinMaxDialog(newData),
 
           onRowUpdate: (newData, oldData) =>
             onRowUpdate(newData, oldData).then(() => initialFetch()),
@@ -98,6 +111,8 @@ export default function StkRubro() {
             ),
         }}
       />
+      {/* <StkMinMaxDialog open={StkMinMaxDialogTF} /> */}
+      {/* <StkMinMaxDialog open={true} /> */}
       <Imprimir
         columns={columns}
         datos={data}

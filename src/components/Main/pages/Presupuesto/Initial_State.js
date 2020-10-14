@@ -2,8 +2,8 @@ export const initial_state = {
   //Funcions agregaStock BEGIN ***//
 
   //FilaUno
-  PresupTipo: "UNIDAD",
   PresupMnMy: "mn",
+  // PresupTipo: "UNIDAD",
   PresupCsSs: "cs",
 
   //FilaDos

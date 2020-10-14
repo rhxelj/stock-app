@@ -21,8 +21,8 @@ import { format } from "fecha";
 // import SearchIcon from "@material-ui/icons/Search";
 // import { TextField, InputAdornment } from "@material-ui/core";
 
-// import { useContext } from "react";
-// import { globalContext } from "../App";
+import { useContext } from "react";
+import { globalContext } from "../App";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -86,7 +86,7 @@ const initial_state = {
   showComponent: false,
 };
 function Header() {
-  // const { valor, setValor } = useContext(globalContext);
+  const { valor, setValor } = useContext(globalContext);
   // const { valor, setValor } = useContext(globalContext);
 
   // const valor = "Variable interna";
@@ -219,9 +219,9 @@ function Header() {
           <Typography variant="h6" className={classes.title} noWrap>
             OlsaSG
           </Typography>
-          {/* <Typography variant="h6" className={classes.title} noWrap>
+          <Typography variant="h6" className={classes.title} noWrap>
             {valor}
-          </Typography> */}
+          </Typography>
 
           {newMethod(abrir_movimientos, abrir_tablas)}
 
