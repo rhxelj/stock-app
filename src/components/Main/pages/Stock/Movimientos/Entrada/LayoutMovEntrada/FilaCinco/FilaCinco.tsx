@@ -1,8 +1,8 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import useStyles from "../styles";
+// import useStyles from "../styles";
 import ComboBCC from "../../../../../../../lib/ComboBCC";
-import { agregaStock } from "../../agregaStock";
+// import { agregaStock } from "../../agregaStock";
 import Confirmacion from "./Confirmacion";
 
 import { useContext } from "react";
@@ -15,7 +15,7 @@ import { stkitemsleedisp } from "../../../../Items/StkItemsLeeDisp";
 
 import ImprimirEtiquetas from "../../../../../Impresion/ImprimirEtiquetas";
 // import imprimirQr from "../../../../../Impresion/ImprimirEtiquetas/imprimirQR"
-import { imprimirQr } from "../../../../../Impresion/ImprimirEtiquetas/imprimirQR";
+// import { imprimirQr } from "../../../../../Impresion/ImprimirEtiquetas/imprimirQR";
 
 export default function Fila() {
   const { state, setState } = useContext(StkMovEntradaContext);

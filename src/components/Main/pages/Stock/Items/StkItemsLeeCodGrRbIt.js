@@ -3,8 +3,8 @@ import request from "superagent";
 import IpServidor from "../../VariablesDeEntorno";
 
 export const stkitemsleecodgrrbit = (idStkGrupo, idStkRubro, idStkItems) => {
-  return new Promise(resolve => {
-    if (idStkGrupo != '' && idStkRubro != '' && idStkItems != '') {
+  return new Promise((resolve) => {
+    if (idStkGrupo !== "" && idStkRubro !== "" && idStkItems !== "") {
       const url =
         IpServidor +
         "/stkitemsleecodgrrbit/?idStkGrupo=" +
@@ -16,7 +16,7 @@ export const stkitemsleecodgrrbit = (idStkGrupo, idStkRubro, idStkItems) => {
       request
         .get(url)
         .set("Content-Type", "application/json")
-        .then(res => {
+        .then((res) => {
           const stkitems = JSON.parse(res.text);
           resolve(stkitems);
         });

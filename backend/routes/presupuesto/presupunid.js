@@ -48,6 +48,9 @@ router.get('/', (req, res, next) => {
           console.log(err)
         }
         else {
+          result[0].Detalle = ""
+          result[0].Largo = 0
+          result[0].Ancho = 0
           datosenvio.push(result)
           i++
           if (i === totalreg) {

@@ -6,6 +6,8 @@ import "react-table/react-table.css";
 export function presupConfTipoModificar(props) {
     const {
         idPresupConfTipo,
+        PresupConfTipoLargo,
+        PresupConfTipoAncho,
         PresupConfTipoAnexo,
         PresupConfTipoCant,
         PresupConfTipoDesc,
@@ -16,6 +18,8 @@ export function presupConfTipoModificar(props) {
         .post(url)
         .set("Content-Type", "application/json")
         .send({ PresupConfTipoAnexo: PresupConfTipoAnexo })
+        .send({ PresupConfTipoLargo: PresupConfTipoLargo })
+        .send({ PresupConfTipoAncho: PresupConfTipoAncho })
         .send({ PresupConfTipoCant: PresupConfTipoCant })
         .send({ PresupConfTipoDesc: PresupConfTipoDesc })
         .send({ PresupConfTipoRubro: PresupConfTipoRubro })

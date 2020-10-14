@@ -7,6 +7,10 @@ import { localization } from "../../../../../lib/material-table/localization";
 import { TextField, Button } from "@material-ui/core";
 import Input from "@material-ui/core/Input";
 import FilaCuatro from "../FilaCuatro/FilaCuatro";
+import CurrencyTextField from "@unicef/material-ui-currency-textfield";
+import Imprimir from "../../../Impresion/Imprimir/Imprimir";
+
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 import { presupcalculador } from "../../PresupCalculador";
 
@@ -24,7 +28,11 @@ import PresupuestoUnid from "../../PresupuestoUnid";
 export default function TablaPresup(props) {
   // Esto es para poder consumir los datos del CONTEXTAPI
   const { state, setState } = useContext(PresupPantContext);
+  const [imprimirTF, setImprimirTF] = useState({ imprimir: false });
 
+  const [datosrenglon, setDatosRenglon] = useState([]);
+  const columns = state.columns;
+  const data = props.data;
   const [suma, setSuma] = React.useState(0);
   const [open, setOpen] = React.useState(false);
   const [presup, setPresup] = useState({
@@ -49,21 +57,6 @@ export default function TablaPresup(props) {
     handleClickOpen();
   }
 
-  function imprime() {
-    console.log("Mando a Imprimir presupueto");
-    console.log(props.columnas);
-    console.log(props.data);
-
-    // printJS({
-    //   maxWidth: 800,
-    //   properties: props.columnas,
-    //   scanStyles: false,
-    //   printable: props.data,
-    //   type: "json",
-    //   // onPrintDialogClose:this.props.toggleImprimir()
-    // });
-  }
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -84,6 +77,7 @@ export default function TablaPresup(props) {
             localization={localization}
             options={{
               search: false,
+              tableLayout: "fixed",
             }}
             editable={{
               onRowDelete: (oldData) =>
@@ -97,12 +91,32 @@ export default function TablaPresup(props) {
                   }, 1000);
                 }),
             }}
+            actions={[
+              {
+                icon: () => <tableIcons.Add />,
+                tooltip: "Suma",
+                isFreeAction: true,
+                onClick: (event) => sumar(),
+              },
+              {
+                icon: () => <tableIcons.Save />,
+                tooltip: "Graba",
+                isFreeAction: true,
+                onClick: (event) => graba(),
+              },
+              {
+                icon: () => <tableIcons.Print />,
+                tooltip: "Imprimir",
+                isFreeAction: true,
+                onClick: (event) => setImprimirTF({ imprimir: true }),
+              },
+            ]}
             components={{
               Toolbar: (props) => (
                 <div>
                   <MTableToolbar {...props} />
                   <div style={{ padding: "0px 10px" }}>
-                    <Button
+                    {/* <Button
                       onClick={() => sumar()}
                       color="primary"
                       style={{ marginRight: 5 }}
@@ -115,22 +129,35 @@ export default function TablaPresup(props) {
                       style={{ marginRight: 20 }}
                     >
                       Graba
-                    </Button>
-                    <Button
+                    </Button> */}
+                    {/* <Button
                       onClick={() => imprime()}
                       color="primary"
                       style={{ marginRight: 20 }}
                     >
                       Imprime
-                    </Button>
-                    <TextField
+                    </Button> */}
+                    {/* <TextField */}
+                    <CurrencyTextField
                       id="Suma"
                       label="Total presupuesto : "
                       value={suma}
                       type="currency"
-                    >
-                      {" "}
-                    </TextField>
+                    />
+
+                    {/* </TextField> */}
+
+                    <TextField //ToDo: Borrar texto de prueba
+                      label="With normal TextField"
+                      id="outlined-start-adornment"
+                      // className={clsx(classes.margin, classes.textField)}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">Kg</InputAdornment>
+                        ),
+                      }}
+                      variant="outlined"
+                    />
                   </div>
                 </div>
               ),
@@ -165,43 +192,13 @@ export default function TablaPresup(props) {
         suma={suma}
         handleClose={handleClose}
       />
+      <Imprimir
+        columns={columns}
+        datos={data}
+        open={imprimirTF.imprimir}
+        setOpen={setImprimirTF}
+        gridStyle={"background:'red'"}
+      />
     </>
   );
 }
-
-// function onRowadd(event, rowData) {
-
-// var dcalculo = [
-//   {
-//     StkRubroAbr: state.StkRubroAbr,
-//     minmay: state.PresupMnMy,
-//     cantidad: state.PresupCantidad
-//   },
-// ];
-// var datoscalculos = JSON.stringify(dcalculo);
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       {
-//         const datosrenglon1 =  presupcalculador(datoscalculos);
-//         setDatosRenglon(() => datosrenglon1);
-//       //   setPresup({...presup, data :
-//       //   {StkRubroDesc: "VORTEX 150",
-//       //   ImpUnitario: "424.6465",
-//       //   ImpItem: "424.6465",
-//       //   StkRubroCosto: "197.51",
-//       //   StkMonedasCotizacion: "1"}
-//       // })
-//       presup.data.push(
-//         {StkRubroDesc: "VORTEX 150",
-//          ImpUnitario: 424.6465,
-//          ImpItem: 424.6465,
-//          StkRubroCosto: 197.51,
-//          StkMonedasCotizacion: 1})
-//          {console.log('presup.data  ', presup.data)}
-//      //   (newData).then(() => presupcalculador(datoscalculos))
-//         //agregarRubros(newData).then(() => stkrubroleemezcla());
-//       }
-//       resolve();
-//     }, 600);
-//   });
-// }

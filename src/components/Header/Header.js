@@ -5,7 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { fade, makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
+// import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -17,9 +17,9 @@ import Collapse from "@material-ui/core/Collapse";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import { movimientos, tablas } from "./menues";
 import { format } from "fecha";
-import InputBase from "@material-ui/core/InputBase";
-import SearchIcon from "@material-ui/icons/Search";
-import { TextField, InputAdornment } from "@material-ui/core";
+// import InputBase from "@material-ui/core/InputBase";
+// import SearchIcon from "@material-ui/icons/Search";
+// import { TextField, InputAdornment } from "@material-ui/core";
 
 import { useContext } from "react";
 import { globalContext } from "../App";
@@ -86,8 +86,8 @@ const initial_state = {
   showComponent: false,
 };
 function Header() {
-  // const { valor, setValor } = useContext(globalContext);
   const { valor, setValor } = useContext(globalContext);
+  // const { valor, setValor } = useContext(globalContext);
 
   // const valor = "Variable interna";
   // console.log("Contenido de value en HEADER ", valor);
@@ -95,7 +95,7 @@ function Header() {
 
   const [state, setState] = useState(initial_state);
   const classes = useStyles();
-  const [buscar, setbuscar] = useState("");
+  // const [buscar, setbuscar] = useState("");
   const { abrir_movimientos, abrir_tablas } = state;
 
   const toggleDrawer = (side, open) => (event) => {
@@ -121,13 +121,13 @@ function Header() {
       [stateToToggle]: !prevState[stateToToggle],
     }));
   };
-  const handleChange = (event) => {
-    setbuscar({ buscar: event.target.value });
-  };
+  // const handleChange = (event) => {
+  //   setbuscar({ buscar: event.target.value });
+  // };
 
-  const handleClose = (prop) => (event) => {
-    setState({ ...state, [prop]: null });
-  };
+  // const handleClose = (prop) => (event) => {
+  //   setState({ ...state, [prop]: null });
+  // };
   const diafecha = format(new Date(), "DD-MM-YYYY");
 
   function newMethod(abrir_movimientos, abrir_tablas) {

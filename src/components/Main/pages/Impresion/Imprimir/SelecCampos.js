@@ -1,21 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useEffect } from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import ImprimirPantalla from "./ImprimirPantalla";
-import { Dialog, TablePagination } from "@material-ui/core";
+import { Dialog } from "@material-ui/core";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
 
 export default function SelecCampos(props) {
   const [checked, setChecked] = React.useState([]);
   const [properties, setProperties] = React.useState();
-  const { datos } = props;
+  const { datos, gridStyle } = props;
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -50,7 +48,7 @@ export default function SelecCampos(props) {
 
   useEffect(() => {
     if (properties != null) {
-      ImprimirPantalla({ datos, properties, handleClose });
+      ImprimirPantalla({ datos, properties, gridStyle, handleClose });
       handleClose();
     }
   }, [properties]);

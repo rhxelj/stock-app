@@ -54,7 +54,7 @@ function columnsFill(objstkgrupo, objstkrubroprov, objstkUnMed, objstkMonedas) {
         field: "StkRubroAbr",
         editComponent: (props) => (
           <input
-            maxlength="4"
+            maxlength="5"
             value={props.value}
             onChange={(e) => props.onChange(e.target.value)}
           />
@@ -122,9 +122,17 @@ function columnsFill(objstkgrupo, objstkrubroprov, objstkUnMed, objstkMonedas) {
       {
         title: "Fecha",
         field: "StkRubroFecha",
-        tipo: "texto",
+        type: "date",
         order: true,
         editable: false,
+      },
+      {
+        title: "Items S / N",
+        field: "ItemsSN",
+        // tipo: "",
+        order: true,
+        lookup: { S: "S", N: "N" },
+        initialEditValue: "N", //con esto pongo el valor por defecto
       },
     ]);
   });

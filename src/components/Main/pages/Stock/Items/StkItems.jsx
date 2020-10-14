@@ -46,6 +46,7 @@ export default function StkItems() {
   return (
     <div>
       <MaterialTable
+        title=""
         actions={[
           {
             icon: () => <tableIcons.Print />,

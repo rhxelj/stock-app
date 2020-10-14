@@ -3,9 +3,9 @@ import { modificarItems } from "./StkItemsModificar";
 export function onRowUpdate(newData, oldData) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      {
-        modificarItems(newData);
-      }
+      // {
+      modificarItems(newData);
+      // }
       resolve();
     }, 600);
   });

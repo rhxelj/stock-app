@@ -11,7 +11,6 @@ export default function leePresupConfTipoLeeAnexo(props) {
       .set("Content-Type", "application/json")
       .then((res) => {
         const presupconftipoleeanexo = JSON.parse(res.text);
-        console.log('presupconftipoleeanexo  ', presupconftipoleeanexo)
         resolve(presupconftipoleeanexo);
       });
   });

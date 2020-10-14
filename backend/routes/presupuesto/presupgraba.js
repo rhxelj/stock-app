@@ -8,7 +8,7 @@ var nrovta = 1;
 nropresup = 0;
 var datosenvio = [];
 moment.locale("es");
-
+var nropresup = 0;
 conexion.connect(function (err) {
   if (!err) {
     console.log("base de datos conectada en presupgraba");
@@ -22,6 +22,8 @@ router.all("/", async function (req, res) {
   finalDate = d.toISOString().split("T")[0];
   var cliente = ''
   var i = 0;
+
+
   if (req.body.idClientes != 0) {
     cliente = req.body.idClientes
   }
@@ -47,27 +49,15 @@ router.all("/", async function (req, res) {
       }
     } else {
       console.log('insertó todo bien en BasePresup.PresupEncab')
-      // res.json(result);
+      res.json(result);
+      nropresup = result.insertId
     }
-  });
-  //insert into BasePresup.PresupRenglon (idPresupRenglon, PresupRenglonNroPresup) values (1, (select MAX(idPresupEncab) from BasePresup.PresupEncab));
 
-
-  req.body.DatosPresup.datos.map(renglon => {
-    conexion.query('SELECT MAX(idPresupEncab) AS ultpresup FROM BasePresup.PresupEncab', function (err, result) {
-      if (err) {
-        console.log("ERROR en  SELECT MAX(idPresupEncab)");
-        console.log(err.errno);
-      } else {
-        nropresup = result[0].ultpresup
-
-      }
-
+    req.body.DatosPresup.datos.map(renglon => {
 
       var registro1 = {
         idPresupRenglon: i + 1,
         PresupRenglonNroPresup: nropresup,
-        //      PresupRenglonTipo: renglon.PresupRenglonTipo,
         PresupRenglonCant: renglon.PresupCantidad,
         PresupRenglonDesc: renglon.StkRubroDesc,
         PresupRenglonLargo: renglon.PresupLargo,
@@ -89,18 +79,15 @@ router.all("/", async function (req, res) {
           }
           else {
             console.log('insertó todo bien en el renglon de presupuesto')
-            res.json('');
+            //   res.json('');
           }
-
-
         });
       i++
     })
-  })
+    // })
 
-
-
+  });
 });
-
 conexion.end;
 module.exports = router;
+return
