@@ -1,19 +1,5 @@
 import React, { useState } from "react";
-import {
-  // Box,
-  // Button,
-  Container,
-  // Dialog,
-  // DialogActions,
-  // DialogContent,
-  // DialogTitle,
-  Grid,
-  // IconButton,
-  // InputAdornment,
-  // Paper,
-  // TextField,
-  // Typography,
-} from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
 
 import useStyles from "./StkMovEntradaStyle";
 import FilaDos from "./LayoutMovEntrada/FilaDos";
