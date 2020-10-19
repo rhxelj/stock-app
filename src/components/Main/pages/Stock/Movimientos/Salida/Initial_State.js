@@ -40,17 +40,17 @@ export const initial_state = {
   StkItemsFAct: "",
   StkItemsMin: "",
   StkItemsMax: "",
-  StkItemsCantDisp: 0,
-  StkItemsCantidad: 0,
+  // StkItemsCantDisp: 0,
+  // StkItemsCantidad: 0,
 
   //FilaTres
-  stkitemsele: [],
-  StkItemsFAct: "",
-  StkRubroPres: "",
+  // stkitemsele: [],
+  // StkItemsFAct: "",
+  // StkRubroPres: "",
   StkRubroPresDes: "",
   StkRubroUM: "",
   StkRubroAncho: 0,
-  cantidad: "",
+  // cantidad: "",
   largo: "",
   ancho: "",
   indice: "",
@@ -61,10 +61,10 @@ export const initial_state = {
   // StkItemsCantDisp: 0,
 
   //FilaCuatro1
-  StkEnvasePartida: "",
+  // StkEnvasePartida: "",
   // StkEnvaseUbG: "",
   // StkEnvaseUbF: "",
-  StkEnvaseObserv: "",
+  // StkEnvaseObserv: "",
   stkenvaseubfisica: [],
 
   imp_etiquetas: false,
@@ -96,5 +96,23 @@ export const initial_state = {
 
   // dialogo_imprimir: false,
   // StkItemsGrupo: 0,
+
+  // stkrubro: [],
+  // stkgrupo: [],
+  // stkitems: [],
+  // StkItemsCantidad: 0.0,
+  // StkItemsCantDisp: 0.0,
+  // StkItemsFAct: "",
+  // StkItemsMin: 0.0,
+  // StkItemsMax: 0.0,
+  TConfec: 0,
+  // cantidad: 1.0,
+  // largo: 0.0,
+  // ancho: 0.0,
+  // faltante: 0.0,
+  // total: 0.0,
+  datostraid: [],
+  open: true,
+  marcaver: false,
   // }
 };

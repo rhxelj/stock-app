@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import useStyles from "../styles";
 
@@ -18,10 +18,10 @@ export default function F2C2(props) {
   // Context
   const { state, setState } = useContext(StkMovSalidaContext);
 
-  const handleChange = (event) => {
-    const id = event.target.id;
-    setState({ ...state, [id]: event.target.value });
-  };
+  // const handleChange = (event) => {
+  //   const id = event.target.id;
+  //   setState({ ...state, [id]: event.target.value });
+  // };
 
   async function stkitemsleercodgrrbit(GrupoEleg, RubroEleg, ItemEleg) {
     const result = await stkitemsleecodgrrbit(GrupoEleg, RubroEleg, ItemEleg);
