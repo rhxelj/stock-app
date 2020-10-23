@@ -4,6 +4,15 @@ export const localization = {
       saveTooltip: "Salvar",
       cancelTooltip: "Cancelar",
       deleteText: "Seguro quieres borrar este registro?",
+      dateTimePickerLocalization: "esLocale"
+      // dateTimePickerLocalization:
+      //   ({
+      //     format: "dd-mm-yyyy",
+      //     autoclose: true,
+      //     weekStart: 1,
+      //     locale: 'fr',
+      //     language: 'FR'
+      //   })
     },
     addTooltip: "Adicionar",
     deleteTooltip: "Borrar",
@@ -11,7 +20,7 @@ export const localization = {
   },
   toolbar: {
     searchPlaceholder: "Buscar",
-  //  nRowsSelected: 'Filas Elegidas',
+    //  nRowsSelected: 'Filas Elegidas',
   },
   grouping: {
     groupedBy: "Agrupado por : ",
@@ -29,4 +38,5 @@ export const localization = {
     lastAriaLabel: "Filas",
     labelRowsSelect: "Filas",
   },
+
 };

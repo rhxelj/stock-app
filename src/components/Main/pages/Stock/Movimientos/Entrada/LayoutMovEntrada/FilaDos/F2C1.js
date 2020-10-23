@@ -54,7 +54,10 @@ export default function F2C1(props) {
     if (state.idStkGrupo === "") {
       stkgrupoleer();
     }
-    stkrubroleercodgrupo(state.idStkGrupo);
+    if (state.idStkGrupo != "") {
+      stkrubroleercodgrupo(state.idStkGrupo);
+    }
+
   }, [state.idStkGrupo]);
 
   // useEffect(() => {
@@ -68,6 +71,8 @@ export default function F2C1(props) {
   }, [state.idStkRubro]);
 
   useEffect(() => {
+    console.log('state.stkitems.length   ', state.stkitems.length)
+    console.log('')
     if (state.stkitems.length === 1) {
       setState({ ...state, idStkItems: "1" });
     } else {

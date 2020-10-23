@@ -1,0 +1,3 @@
+   SET @numero=1; 
+   set @numero1=3;
+insert into BaseStock.StkItems (StkItems.idStkItems, StkItemsGrupo, StkItemsRubro, StkItems.StkItemsRubroAbr, StkItemsCantidad, StkItemsCantDisp, StkItemsFAct, StkItemsMin, StkItemsMax) select @numero as id,  StkRubroCodGrp, idStkRubro,StkRubroAbr, @numero as id1, @numero as id2,'2020-10-30' ,@numero as id3, @numero1 as id4 from BaseStock.StkRubro where not EXISTS (select null from BaseStock.StkItems where StkRubroAbr = BaseStock.StkItems.StkItemsRubroAbr);

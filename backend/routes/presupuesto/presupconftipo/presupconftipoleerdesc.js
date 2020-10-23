@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var path = require("path");
 var conexion = require("../../conexion");
+const { isCallSignatureDeclaration } = require("typescript");
 
 conexion.connect(function (err) {
   if (!err) {
@@ -16,6 +17,7 @@ var router = express();
 router.get("/", function (req, res, next) {
   //'Select * from StkGrupo '
   PresupConfTipoDesc = req.query.descripcion;
+  console.log('PresupConfTipoDesc   ', PresupConfTipoDesc)
   var q = ["Select * from BasePresup.PresupConfTipo where PresupConfTipoDesc = '" + PresupConfTipoDesc + "'"].join("");
   conexion.query(q, function (err, result) {
     if (err) {

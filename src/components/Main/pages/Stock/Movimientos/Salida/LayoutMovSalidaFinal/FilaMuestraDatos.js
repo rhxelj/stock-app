@@ -267,8 +267,8 @@ export default function FilaMuestraDatos(props) {
 
           <ImprimirEtiquetas
             open={state.imp_etiquetas} //inicialmente este componente no se muestra
-            // title="Impresion De Etiquetas"
-            // contentText="Imprimio correctamente ?"
+          // title="Impresion De Etiquetas"
+          // contentText="Imprimio correctamente ?"
           />
         </Grid>
       )}

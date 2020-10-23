@@ -49,8 +49,8 @@ const Main = () => (
       <Route path="/StkMovSalidaFinal" component={StkMovSalidaFinal} />
       <Route path="/ListaPrecios" component={ListaPrecios} />
       <Route path="/PresupPant" component={PresupPant} />
-      <Route path="/PresupPantVie" component={PresupPantVie} />
-      <Route path="/PresupuestoUnid" component={PresupuestoUnid} />
+      {/* <Route path="/PresupPantVie" component={PresupPantVie} /> */}
+      {/* <Route path="/PresupuestoUnid" component={PresupuestoUnid} /> */}
       <Route path="/ImprimeQR" component={ImprimeQR} />
       <Route path="/StkRubro" component={StkRubro} />
       <Route path="/StkGrupo" component={StkGrupo} />

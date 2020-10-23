@@ -2,27 +2,7 @@ import React, { useState, useEffect } from "react";
 import Radio, { RadioProps } from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FilaAnexos from "../FilaConf/FilaAnexos";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
-import {
-  Box,
-  Button,
-  Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Grid,
-  IconButton,
-  InputAdornment,
-  Paper,
-  TextField,
-  Typography,
-} from "@material-ui/core";
-// import { makeStyles } from "@material-ui/core/styles";
-// import Paper from "@material-ui/core/Paper";
-// import Grid from "@material-ui/core/Grid";
+import { Grid } from "@material-ui/core";
 import useStyles from "../styles";
 
 // Context
@@ -33,21 +13,20 @@ import leePresupConfTipoLeeAnexo from "../../leePresupConfTipoLeeAnexo"
 export default function FilaConf(props) {
   const [selectedValue, setSelectedValue] = React.useState("cs");
   const { state, setState } = useContext(PresupPantContext);
-
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
     setState({ ...state, PresupCsSs: event.target.value });
   };
-  if (state.DatosPresupEleg.length != 0) {
-    var presuptipo = state.DatosPresupEleg[0].PresupConfTipoDesc
-  }
+
+
   const classes = useStyles();
+
 
 
   return (
     <>
-      {/* <Grid container xs={12}> */}
-      <Grid container direction="row" xs={12}>
+      <Grid container item xs={12}>
+        {/* <Grid container item direction="row" xs={12}> */}
         {/* <Grid item spacing={3} xs={12}> */}
         <RadioGroup
           row
@@ -76,10 +55,7 @@ export default function FilaConf(props) {
             />
           </Grid>
         </RadioGroup>
-        {/* <Grid container item direction="column" spacing={4} xs={6}> */}
-        {/* <Grid item spacing={3} container> */}
-        <FilaAnexos disable={!(presuptipo === "CONFECCIONADA")}></FilaAnexos>{" "}
-        {/* </Grid> */}
+
       </Grid>
 
     </>

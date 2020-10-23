@@ -85,10 +85,11 @@ export default function FilaUnoIzq(props) {
   return (
     <>
       {/* <Grid container item spacing={3} xs={6}> */}
-      <Grid item spacing={3} xs>
+      <Grid item container spacing={3} xs>
         {textdata.map(data => (
           <TextField
             id={data.id}
+            key={data.id}
             size="small"
             select
             label={data.label}

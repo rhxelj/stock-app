@@ -3,7 +3,7 @@ var router = express.Router();
 var path = require("path");
 var conexion = require("../../conexion");
 
-conexion.connect(function(err) {
+conexion.connect(function (err) {
   if (!err) {
     console.log("base de datos conectada en stkitemsmodstock");
   } else {
@@ -17,7 +17,7 @@ idStkItems
 
 var router = express();
 
-router.post("/", async function(req, res, next) {
+router.post("/", async function (req, res, next) {
 
   var idStkItems = req.query.idStkItems;
   var StkItemsGrupo = req.query.idStkGrupo;
@@ -25,20 +25,21 @@ router.post("/", async function(req, res, next) {
   var StkRubroPres = req.body.StkRubroPres;
   var StkEnvaseUbG = req.body.StkEnvaseUbG;
   var cantidad = req.body.cantidad;
- 
-  if (StkEnvaseUbG == '')
- {
-  res.status(413).send({message : "Faltan datos para ingresar información"});
- }
- else {
-  var total = Number(cantidad) * Number(StkRubroPres);
+  console.log('idStkItems  stkitemsmodstock  ', idStkItems)
+  console.log('StkItemsGrupo stkitemsmodstock ', StkItemsGrupo)
+  console.log('StkItemsRubro stkitemsmodstock ', StkItemsRubro)
+  if (StkEnvaseUbG == '') {
+    res.status(413).send({ message: "Faltan datos para ingresar información" });
+  }
+  else {
+    var total = Number(cantidad) * Number(StkRubroPres);
 
-  var d = new Date();
-  finalDate = d.toISOString().split("T")[0];
-  var StkItemsFAct = finalDate;
+    var d = new Date();
+    finalDate = d.toISOString().split("T")[0];
+    var StkItemsFAct = finalDate;
 
-  conexion.query(
-    "UPDATE StkItems SET StkItemsCantDisp = StkItemsCantDisp +  " +
+    conexion.query(
+      "UPDATE StkItems SET StkItemsCantDisp = StkItemsCantDisp +  " +
       total +
       ", StkItemsCantidad =  StkItemsCantidad + " +
       total +
@@ -51,22 +52,22 @@ router.post("/", async function(req, res, next) {
       " and  StkItemsRubro = " +
       StkItemsRubro,
 
-    function(err, result) {
-      if (err) {
-        console.log('err en back ', err)
-        if (err.errno == 1054) {
-          return res
-            .status(414)
-            .send({ message: "Faltan datos en sktitemsmodsctock" });
+      function (err, result) {
+        if (err) {
+          console.log('err en back ', err)
+          if (err.errno == 1054) {
+            return res
+              .status(414)
+              .send({ message: "Faltan datos en sktitemsmodsctock" });
+          } else {
+            console.log(err.errno);
+          }
         } else {
-          console.log(err.errno);
+          res.json(result.rows);
         }
-      } else {
-        res.json(result.rows);
       }
-    }
-  );
- }
+    );
+  }
 });
 
 module.exports = router;

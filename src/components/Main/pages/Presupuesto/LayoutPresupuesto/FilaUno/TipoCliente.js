@@ -50,6 +50,7 @@ export default function TipoCliente() {
           name="tipoCliente"
           value={selectedValue}
           onChange={handleChange}
+
         >
           <Grid item xs>
             <FormControlLabel
