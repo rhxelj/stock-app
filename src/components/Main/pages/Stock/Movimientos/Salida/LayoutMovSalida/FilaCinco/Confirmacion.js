@@ -7,7 +7,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 import { useContext } from "react";
-import { StkMovSalidaContext } from "../../StkMovSalida";
+import { StkMovSalidaContext } from "../StkMovSalida";
 import { descargaStock } from "../descargaStock";
 import { initial_state } from "../../Initial_State";
 

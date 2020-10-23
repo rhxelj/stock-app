@@ -1,13 +1,13 @@
 // import React, { Component} from 'react'
 import React, { useState } from "react";
 
-import { initial_state } from "./Initial_State";
+import { initial_state } from "../Initial_State";
 
 import { Container, Grid } from "@material-ui/core";
-import { HeaderTitle } from "../../../../../lib/HeaderTitle";
-import FilaDos from "./LayoutMovSalida/FilaDos";
-import FilaTres from "./LayoutMovSalida/FilaTres";
-import FilaCinco from "./LayoutMovSalida/FilaCinco";
+import { HeaderTitle } from "../../../../../../lib/HeaderTitle";
+import FilaDos from "./FilaDos";
+import FilaTres from "./FilaTres";
+import FilaCinco from "./FilaCinco";
 export const StkMovSalidaContext = React.createContext();
 
 function StkMovSalida(props) {

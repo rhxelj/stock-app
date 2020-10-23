@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Container, Grid } from "@material-ui/core";
 
-import useStyles from "./StkMovEntradaStyle";
 import FilaDos from "./LayoutMovEntrada/FilaDos";
 import FilaTres from "./LayoutMovEntrada/FilaTres";
 import FilaCuatro from "./LayoutMovEntrada/FilaCuatro";

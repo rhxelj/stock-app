@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ImprimirEtiquetas(props) {
     const classes = useStyles();
     const { state, setState } = useContext(StkMovSalidaFinalContext);
-    const { open, handleClose, title, contentText } = props;
+    const { open, handleClose } = props;
 
     const imprimir_etiquetas = () => {
         imprimirQr(state.StkEnvaseUbG);
@@ -75,7 +75,7 @@ export default function ImprimirEtiquetas(props) {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button color="primary" variant="contained" onClick={imprimir_etiquetas} color="primary" autoFocus>
+                    <Button color="primary" variant="contained" onClick={imprimir_etiquetas} autoFocus>
                         SI
           </Button>
                     <Button color="secondary" variant="contained" onClick={() => setState(initial_state)} autoFocus>

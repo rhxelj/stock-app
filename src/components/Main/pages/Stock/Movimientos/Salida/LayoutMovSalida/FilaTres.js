@@ -8,7 +8,7 @@ import { stkrubroleecodgryrb } from "../../../Rubros/StkRubroLeeCodGryRb";
 
 //Necesario para CONTEXTAPI
 import { useContext } from "react";
-import { StkMovSalidaContext } from "../StkMovSalida";
+import { StkMovSalidaContext } from "./StkMovSalida";
 
 import { TipoConfeccion } from "../TipoConfeccion";
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 // import 'materialize-css/dist/css/materialize.css';
 // import 'material-design-icons/iconfont/material-icons.css';
@@ -9,7 +9,6 @@ import Main from "./Main";
 // import Footter from './components/Footter';
 import CssBaseline from "@material-ui/core/CssBaseline";
 
-import { initial_state } from "./initial_state"
 
 
 

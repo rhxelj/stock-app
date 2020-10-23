@@ -7,7 +7,7 @@ import Confirmacion from "./Confirmacion";
 
 import { useContext } from "react";
 
-import { StkMovSalidaContext } from "../../StkMovSalida";
+import { StkMovSalidaContext } from "../StkMovSalida";
 
 import { initial_state } from "../../Initial_State";
 

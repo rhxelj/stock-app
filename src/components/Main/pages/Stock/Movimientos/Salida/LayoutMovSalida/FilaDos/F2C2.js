@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
-import useStyles from "../styles";
 
 import { TextField } from "@material-ui/core";
 import { stkitemsleecodgrrbit } from "../../../../Items/StkItemsLeeCodGrRbIt";
@@ -12,7 +11,7 @@ import { stkitemsleecodgrrbit } from "../../../../Items/StkItemsLeeCodGrRbIt";
 
 // Context
 import { useContext } from "react";
-import { StkMovSalidaContext } from "../../StkMovSalida";
+import { StkMovSalidaContext } from "../StkMovSalida";
 
 export default function F2C2(props) {
   // Context
@@ -38,8 +37,6 @@ export default function F2C2(props) {
   useEffect(() => {
     stkitemsleercodgrrbit(state.idStkGrupo, state.idStkRubro, state.idStkItems);
   }, [state.idStkItems]);
-
-  const classes = useStyles();
 
   return (
     <>

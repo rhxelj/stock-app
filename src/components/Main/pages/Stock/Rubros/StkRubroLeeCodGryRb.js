@@ -1,12 +1,11 @@
 import request from "superagent";
-import React, { useState, useEffect } from "react";
 import IpServidor from "../../VariablesDeEntorno";
 
 // Lee Rubro por codigo de gupo
 
 export const stkrubroleecodgryrb = (idStkGrupo, idStkRubro) => {
-  return new Promise(resolve => {
-    if (idStkGrupo !== '' && idStkRubro !== '') {
+  return new Promise((resolve) => {
+    if (idStkGrupo !== "" && idStkRubro !== "") {
       const url =
         IpServidor +
         "/stkrubroleecodgryrb/?idStkRubro=" +
@@ -16,7 +15,7 @@ export const stkrubroleecodgryrb = (idStkGrupo, idStkRubro) => {
       request
         .get(url)
         .set("Content-Type", "application/json")
-        .then(res => {
+        .then((res) => {
           const stkrubroele = JSON.parse(res.text);
           resolve(stkrubroele);
         });
