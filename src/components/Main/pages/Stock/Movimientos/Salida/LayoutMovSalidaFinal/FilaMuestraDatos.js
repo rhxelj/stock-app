@@ -133,7 +133,9 @@ export default function FilaMuestraDatos(props) {
 
   const confirmar = async (state) => {
     await actualizainf();
-    setState({ ...state, imp_etiquetas: true });
+    if (nuevacantstock > 0) {
+      setState({ ...state, imp_etiquetas: true });
+    }
   };
 
   const actions = {
@@ -265,8 +267,8 @@ export default function FilaMuestraDatos(props) {
 
           <ImprimirEtiquetas
             open={state.imp_etiquetas} //inicialmente este componente no se muestra
-            // title="Impresion De Etiquetas"
-            // contentText="Imprimio correctamente ?"
+          // title="Impresion De Etiquetas"
+          // contentText="Imprimio correctamente ?"
           />
         </Grid>
       )}

@@ -1,7 +1,7 @@
 // import React, { Component} from 'react'
 import React from "react";
 import request from "superagent";
-import IpServidor from "../../../VariablesDeEntorno";
+import IpServidor from '../../../../VariablesDeEntorno'
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -245,7 +245,7 @@ class StkMovSalida extends React.Component {
         .send({ StkMovVtaItem: this.state.StkItems })
         .send({ StkMovVtaGrupo: this.state.StkItemsGrupo })
         .send({ StkMovVtaRubro: this.state.StkItemsRubro })
-        .then(function(res) {
+        .then(function (res) {
           // res.body, res.headers, res.status
         });
     }
@@ -341,16 +341,16 @@ class StkMovSalida extends React.Component {
                   ></TextField>
                 </Grid>
               ) : (
-                <Grid item xs={6} sm={6} lg={6}>
-                  <TextField
-                    id="CantDisp"
-                    label="Cantidad Disponible"
-                    value={this.state.StkItemsCantDisp}
-                    style={{ background: "#00e676" }}
-                    disabled
-                  ></TextField>
-                </Grid>
-              )}
+                  <Grid item xs={6} sm={6} lg={6}>
+                    <TextField
+                      id="CantDisp"
+                      label="Cantidad Disponible"
+                      value={this.state.StkItemsCantDisp}
+                      style={{ background: "#00e676" }}
+                      disabled
+                    ></TextField>
+                  </Grid>
+                )}
               <Grid item xs={6} sm={6} lg={6}>
                 <TextField
                   id="MinStock"
@@ -451,41 +451,41 @@ class StkMovSalida extends React.Component {
                     </Button>
                   </div>
                 ) : (
-                  [
-                    this.state.faltante > 0 ? (
-                      <div>
-                        <DialogContent>
-                          <DialogContentText id="alert-dialog-description">
-                            ATENCION NO ALCANZA EL STOCK
+                    [
+                      this.state.faltante > 0 ? (
+                        <div>
+                          <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                              ATENCION NO ALCANZA EL STOCK
                           </DialogContentText>
-                          {/* <label color="secondary"> ATENCION NO ALCANZA EL STOCK </label> */}
-                          <DialogActions>
-                            <Button
-                              variant="contained"
-                              color="primary"
-                              onClick={this.descargastock}
-                            >
-                              Verificado
+                            {/* <label color="secondary"> ATENCION NO ALCANZA EL STOCK </label> */}
+                            <DialogActions>
+                              <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={this.descargastock}
+                              >
+                                Verificado
                             </Button>
-                            <Button
-                              variant="contained"
-                              color="secondary"
-                              onClick={this.handleClose}
-                            >
-                              Cancelar
+                              <Button
+                                variant="contained"
+                                color="secondary"
+                                onClick={this.handleClose}
+                              >
+                                Cancelar
                             </Button>
-                          </DialogActions>
-                        </DialogContent>
-                      </div>
-                    ) : (
-                      <div>
-                        <label>DESCARGO EXITOSAMENTE</label>
-                        {this.descargastock()}
-                        {/* {this.handleClose()} */}
-                      </div>
-                    )
-                  ]
-                )}
+                            </DialogActions>
+                          </DialogContent>
+                        </div>
+                      ) : (
+                          <div>
+                            <label>DESCARGO EXITOSAMENTE</label>
+                            {this.descargastock()}
+                            {/* {this.handleClose()} */}
+                          </div>
+                        )
+                    ]
+                  )}
                 ]
               </DialogActions>
             </Grid>

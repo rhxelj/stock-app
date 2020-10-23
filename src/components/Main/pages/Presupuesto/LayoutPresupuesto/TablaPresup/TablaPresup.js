@@ -9,6 +9,7 @@ import Input from "@material-ui/core/Input";
 import FilaCuatro from "../FilaCuatro/FilaCuatro";
 import CurrencyTextField from '@unicef/material-ui-currency-textfield'
 import Imprimir from '../../../Impresion/Imprimir/Imprimir'
+import { red, blue, green } from '@material-ui/core/colors';
 
 import { presupcalculador } from "../../PresupCalculador";
 
@@ -21,7 +22,6 @@ import { useContext } from "react";
 import { PresupPantContext } from "../../PresupPant";
 import SelecCampos from "../../../Impresion/SelecCampos";
 import { initial_state } from "../../Initial_State";
-import PresupuestoUnid from "../../PresupuestoUnid";
 
 export default function TablaPresup(props) {
   // Esto es para poder consumir los datos del CONTEXTAPI
@@ -104,27 +104,61 @@ export default function TablaPresup(props) {
               onRowDelete: (oldData) =>
                 new Promise((resolve, reject) => {
                   setTimeout(() => {
-                    const dataDelete = props.data;
+                    // const dataDelete = props.data;
+                    const dataDelete = [props.data];
                     const index = oldData.tableData.id;
                     dataDelete.splice(index, 1);
                     setPresup([...dataDelete]);
                     resolve();
                   }, 1000);
-                }),
+                })
+
+
+              // onRowDelete: oldData =>
+              // new Promise((resolve, reject) => {
+              //     setTimeout(() => {
+              //         const dataDelete = [...datosanexo];
+              //         const index = oldData.tableData.id;
+              //         dataDelete.splice(index, 1);
+              //         setDatosAnexo([...dataDelete]);
+
+              //         resolve();
+              //     }, 1000);
+              // })
             }}
             actions={[
               {
-                icon: () => <tableIcons.Print />,
+                icon: () => <tableIcons.AddShoppingCart style={{ color: red[500] }} />,
+                tooltip: "Suma",
+                isFreeAction: true,
+                onClick: (event) => sumar(),
+              },
+              {
+                icon: () => <tableIcons.Save style={{ color: blue[500] }} />,
+                tooltip: "Graba",
+                isFreeAction: true,
+                onClick: (event) => graba(),
+              },
+              {
+                icon: () => <tableIcons.Print style={{ color: green[500] }} />,
                 tooltip: "Imprimir",
                 isFreeAction: true,
                 onClick: (event) => setImprimirTF({ imprimir: true }),
               },
             ]}
+            // actions={[
+            //   {
+            //     icon: () => <tableIcons.Print />,
+            //     tooltip: "Imprimir",
+            //     isFreeAction: true,
+            //     onClick: (event) => setImprimirTF({ imprimir: true }),
+            //   },
+            // ]}
             components={{
               Toolbar: (props) => (
                 <div>
                   <MTableToolbar {...props} />
-                  <div style={{ padding: "0px 10px" }}>
+                  {/* <div style={{ padding: "0px 10px" }}>
                     <Button
                       onClick={() => sumar()}
                       color="primary"
@@ -147,15 +181,15 @@ export default function TablaPresup(props) {
                       Imprime
                     </Button>
                     {/* <TextField */}
-                    <CurrencyTextField
-                      id="Suma"
-                      label="Total presupuesto : "
-                      value={suma}
-                      type="currency"
-                    />
+                  <CurrencyTextField
+                    id="Suma"
+                    label="Total presupuesto : "
+                    value={suma}
+                  //    type="currency" */}
+                  />
 
-                    {/* </TextField> */}
-                  </div>
+                  {/* </TextField> */}
+                  {/* </div> */}
                 </div>
               ),
             }}
@@ -199,39 +233,3 @@ export default function TablaPresup(props) {
   );
 }
 
-// function onRowadd(event, rowData) {
-
-// var dcalculo = [
-//   {
-//     StkRubroAbr: state.StkRubroAbr,
-//     minmay: state.PresupMnMy,
-//     cantidad: state.PresupCantidad
-//   },
-// ];
-// var datoscalculos = JSON.stringify(dcalculo);
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       {
-//         const datosrenglon1 =  presupcalculador(datoscalculos);
-//         setDatosRenglon(() => datosrenglon1);
-//       //   setPresup({...presup, data :
-//       //   {StkRubroDesc: "VORTEX 150",
-//       //   ImpUnitario: "424.6465",
-//       //   ImpItem: "424.6465",
-//       //   StkRubroCosto: "197.51",
-//       //   StkMonedasCotizacion: "1"}
-//       // })
-//       presup.data.push(
-//         {StkRubroDesc: "VORTEX 150",
-//          ImpUnitario: 424.6465,
-//          ImpItem: 424.6465,
-//          StkRubroCosto: 197.51,
-//          StkMonedasCotizacion: 1})
-//          {console.log('presup.data  ', presup.data)}
-//      //   (newData).then(() => presupcalculador(datoscalculos))
-//         //agregarRubros(newData).then(() => stkrubroleemezcla());
-//       }
-//       resolve();
-//     }, 600);
-//   });
-// }

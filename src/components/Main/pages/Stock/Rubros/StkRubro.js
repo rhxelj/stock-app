@@ -71,6 +71,7 @@ export default function StkRubro() {
           actionsColumnIndex: -1,
           // tableLayout: "fixed",
         }}
+
         // components={{
         //   EditRow: (props) => console.log("Props : ", props),
         //   // <StkRubroModificar open={true} />,

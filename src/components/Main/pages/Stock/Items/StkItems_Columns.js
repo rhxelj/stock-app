@@ -1,4 +1,5 @@
 import { leeStkRubro } from "./leeStkRubro";
+import { zhCN } from '@material-ui/core/locale';
 
 export async function StkItems_Columns() {
   const stkRubros = await leeStkRubro(); //llamo a leer grupo
@@ -55,7 +56,8 @@ function columnsFill(objstkrubro) {
       {
         title: "Fecha de Actualización",
         field: "StkItemsFAct",
-        tipo: "texto",
+        type: 'date',
+        // dateSetting: { fromat: 'dd-mm-yyyy' },
         order: true,
       },
       {

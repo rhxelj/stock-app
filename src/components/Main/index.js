@@ -11,15 +11,15 @@ import StkUbFisica from "./pages/Stock/UbicacionFisica/StkUbFisica";
 import ListaPrecios from "./pages/ListaPrecios/ListaPrecios";
 import ModPrecios from "./pages/ListaPrecios/ModPrecios";
 import StkMovEntrada from "./pages/Stock/Movimientos/Entrada/StkMovEntrada";
-import StkMovSalida from "./pages/Stock/Movimientos/Salida/StkMovSalida";
+import StkMovSalida from "./pages/Stock/Movimientos/Salida/LayoutMovSalida/StkMovSalida";
 import StkMovSalidaFinal from "./pages/Stock/Movimientos/Salida/LayoutMovSalidaFinal/StkMovSalidaFinal";
 // import StkMovimiento from './pages/z_SinClasificarMirar/StkMovimiento'
 import StkItems from "./pages/Stock/Items/StkItems";
 
 import PresupPant from "./pages/Presupuesto/PresupPant.jsx";
 import PresupConfTipo from "./pages/Presupuesto/PresupConfTipo/PresupConfTipo"
-import PresupuestoUnid from "./pages/Presupuesto/PresupuestoUnid.js";
-import PresupPantVie from "./pages/Presupuesto/PresupPantVie.js";
+// import PresupuestoUnid from "../../../backend/routes/no-usados/PresupuestoUnid.js/index.js";
+// import PresupPantVie from "../../../backend/routes/no-usados/PresupPantVie.js/index.js";
 import ImprimeQR from "./pages/Impresion/ImprimeQR";
 // TODO 👀📐 nothing changed here, just auto-formatting
 // all this auto-formatting is coming from the Prettier extension
@@ -48,8 +48,8 @@ const Main = () => (
       <Route path="/StkMovSalidaFinal" component={StkMovSalidaFinal} />
       <Route path="/ListaPrecios" component={ListaPrecios} />
       <Route path="/PresupPant" component={PresupPant} />
-      <Route path="/PresupPantVie" component={PresupPantVie} />
-      <Route path="/PresupuestoUnid" component={PresupuestoUnid} />
+      {/* <Route path="/PresupPantVie" component={PresupPantVie} /> */}
+      {/* <Route path="/PresupuestoUnid" component={PresupuestoUnid} /> */}
       <Route path="/ImprimeQR" component={ImprimeQR} />
       <Route path="/StkRubro" component={StkRubro} />
       <Route path="/StkGrupo" component={StkGrupo} />

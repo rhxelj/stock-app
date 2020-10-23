@@ -29,7 +29,7 @@ function columnsFill(objtipoanexo) {
                 title: "Importe",
                 field: "importea",
                 type: "currency",
-                disable: true,
+                // disable: true,
             }
 
         ]);

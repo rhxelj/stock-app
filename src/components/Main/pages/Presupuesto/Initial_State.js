@@ -2,7 +2,6 @@ export const initial_state = {
   //Funcions agregaStock BEGIN ***//
 
   //FilaUno
-  PresupTipo: "UNIDAD",
   PresupMnMy: "mn",
   PresupCsSs: "cs",
 
@@ -82,17 +81,13 @@ export const initial_state = {
       type: 'currency',
     }
   ],
-  // data: [
-  //   { StkRubroDesc: 'gg', ImpUnitario: 0, ImpItem: 0, StkRubroCosto: 0, StkMonedasCotizacion: 0 },
-  //  // { StkRubroDesc: 'Zerya Betül', ImpUnitario: 678, ImpItem: 2017, StkRubroCosto: 34, StkMonedasCotizacion: 63 },
-  // ],
-  // data: [],
+
 
   idStkGrupo: "",
   idStkRubro: "",
   idStkItems: "",
   cantidad: 1.0,
-  StkRubroPres: null,
+  // StkRubroPres: null,
 
   disponibilidad: 0,
   //Funcions agregaStock END ***//
@@ -105,13 +100,11 @@ export const initial_state = {
   stkitemsele: [],
 
   //FilaTres
-  stkitemsele: [],
   StkItemsFAct: "",
   StkRubroPres: "",
   StkRubroPresDes: "",
   StkRubroUM: "",
   StkRubroAncho: 0,
-  cantidad: 1,
 
   //FilaCuatro
   nomCliente: "",

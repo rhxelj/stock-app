@@ -85,6 +85,7 @@ export default function FilaCuatro(props) {
         {textdata.map(data => (
           <TextField
             id={data.id}
+            key={data.id}
             size="small"
             select
             label={data.label}

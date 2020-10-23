@@ -5,7 +5,7 @@ import MaterialTable from "material-table";
 import { tableIcons } from "../../../../lib/material-table/tableIcons";
 import { localization } from "../../../../lib/material-table/localization";
 import { HeaderTitle } from "../../../../lib/HeaderTitle"
-
+import ruLocale from 'date-fns/locale/ru';
 
 import { onRowAdd } from "./onRowAdd"
 import { onRowUpdate } from "./onRowUpdate"
@@ -29,6 +29,7 @@ export default function StkItems() {
 
   async function dataFetch() {
     const data = await leeStkItemsDetalles();
+    console.log('data  ', data)
     setData(data);
   }
 
@@ -45,6 +46,7 @@ export default function StkItems() {
 
   return (
     <div>
+      {console.log(data)}
       <MaterialTable
         actions={[
           {
@@ -55,6 +57,7 @@ export default function StkItems() {
           },
         ]}
         localization={localization}
+
         icons={tableIcons}
         columns={columns}
         data={data}

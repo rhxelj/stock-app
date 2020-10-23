@@ -17,6 +17,7 @@ export function agregarRubros(props) {
       StkRubroCosto,
       StkRubroTM,
       StkRubroFecha,
+      ItemsSN,
     } = props;
 
     async function codigo() {
@@ -48,6 +49,7 @@ export function agregarRubros(props) {
         .send({ StkRubroCosto: StkRubroCosto })
         .send({ StkRubroTM: StkRubroTM })
         .send({ StkRubroFecha: StkRubroFecha })
+        .send({ ItemsSN: ItemsSN })
         // .then(
         // )
         .catch((err) => CodigoError(err));

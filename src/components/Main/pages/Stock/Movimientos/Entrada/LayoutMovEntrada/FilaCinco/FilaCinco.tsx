@@ -53,6 +53,7 @@ export default function Fila() {
 
   const confirmar = async (state: object) => {
     await stkitemsmodstock(state);
+    console.log('state en filacinco  ', state)
     await stkenvaseagregar(state);
     const cantidaddisponible = await stkitemsleedisp(state);
     setCantidaddisponible(cantidaddisponible);
@@ -78,14 +79,14 @@ export default function Fila() {
           open={state.confOpen}
           title="Movimiento de Entrada"
           contentText={`Cambio efectuado cantidad disponible ${cantidaddisponible}`}
-          // handleClose={handleClose}
-          // imprimir={imprimir_etiquetas}
+        // handleClose={handleClose}
+        // imprimir={imprimir_etiquetas}
         />
 
         <ImprimirEtiquetas
           open={state.imp_etiquetas} //inicialmente este componente no se muestra
-          // title="Impresion De Etiquetas"
-          // contentText="Imprimio correctamente ?"
+        // title="Impresion De Etiquetas"
+        // contentText="Imprimio correctamente ?"
         />
       </Grid>
     </>

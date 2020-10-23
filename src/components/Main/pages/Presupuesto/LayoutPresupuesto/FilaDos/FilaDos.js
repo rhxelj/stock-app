@@ -5,7 +5,7 @@ import Radio, { RadioProps } from "@material-ui/core/Radio";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
-import { TextField, Button } from "@material-ui/core";
+import { TextField, Button, Input, Dialog } from "@material-ui/core";
 
 import { stkrubroleedesc } from "../../../Stock/Rubros/StkRubroLeeDesc";
 import { presupcalculador } from "../../PresupCalculador";
@@ -16,12 +16,13 @@ import { useContext } from "react";
 import { PresupPantContext } from "../../PresupPant";
 import TablaPresup from "../TablaPresup/TablaPresup";
 import FilaConf from "../FilaConf/FilaConf";
+import FilaAnexo from "../FilaConf/FilaAnexo/FilaAnexo"
 
 export default function FilaDos(props) {
   // Esto es para poder consumir los datos del CONTEXTAPI
   const { state, setState } = useContext(PresupPantContext);
   const [datosrenglon, setDatosRenglon] = useState([]);
-
+  var renglonanexo = []
   // según el presupuesto elegido, lee la tabla y se decide que pide 
   if (state.DatosPresupEleg.length != 0) {
     var largo = state.DatosPresupEleg[0].PresupConfTipoLargo
@@ -36,6 +37,8 @@ export default function FilaDos(props) {
   }
 
   const [open, setOpen] = React.useState(false);
+
+  const [openanexo, setOpenAnexo] = React.useState(false);
   const [check, setCheck] = React.useState({
     ConSoga: false,
     SinSoga: false,
@@ -49,13 +52,13 @@ export default function FilaDos(props) {
   async function stkrubroleerdesc(codgrupo) {
     const result = await stkrubroleedesc(codgrupo);
     setState({ ...state, stkrubro: result });
+
   }
 
   useEffect(() => {
     if (presuptipo === "UNIDAD") {
       stkrubroleerdesc(99);
     } else {
-
       stkrubroleerdesc(2);
     }
   }, [rubrosn]);
@@ -71,7 +74,7 @@ export default function FilaDos(props) {
         tipoconf: state.PresupCsSs,
       },
     ];
-    var detalle = "";
+    //var detalle = "";
     var StkRubroDesc = "";
     var PresupLargo = 0;
     var PresupAncho = 0;
@@ -84,16 +87,12 @@ export default function FilaDos(props) {
 
 
     var datoscalculos = JSON.stringify(dcalculo);
-
     const datosrenglon1 = await presupcalculador(
       state.DatosPresupEleg[0],
       datoscalculos,
       presuptipo
     );
-
     if (rubrosn === 'S') {
-      // StkRubroDesc = detalle + datosrenglon1[0][0].StkRubroDesc;
-
       StkRubroDesc = datosrenglon1[0][0].Detalle + datosrenglon1[0][0].StkRubroDesc;
       ImpUnitario = datosrenglon1[0][0].ImpItem;
       ImpItem = datosrenglon1[0][0].ImpItem * PresupCantidadM;
@@ -101,7 +100,6 @@ export default function FilaDos(props) {
       PresupAncho = datosrenglon1[0][0].Ancho
       if (state.renglonanexo.length !== 0) {
         ImpItemCAnexos = ImpItem + (state.renglonanexo.ImpItemAnexo * state.PresupCantidad)
-        // StkRubroDesc = StkRubroDesc + ' c/' + state.renglonanexo.StkRubroDesc
         StkRubroDesc = StkRubroDesc + state.renglonanexo.StkRubroDesc
       }
     }
@@ -124,7 +122,6 @@ export default function FilaDos(props) {
     ];
 
     if (state.renglonanexo.length !== 0) {
-
       setDatosRenglon([...datosrenglon, state.renglonanexo]);
       setDatosRenglon([...datosrenglon, datospresup[0]]);
       setState({ ...state, renglonanexo: [] });
@@ -145,6 +142,10 @@ export default function FilaDos(props) {
     setOpen(false);
   };
 
+  const handleCloseAnexo = () => {
+    setOpenAnexo(false);
+  };
+
   const classes = useStyles();
 
   const textdata = [
@@ -155,8 +156,11 @@ export default function FilaDos(props) {
       mapeo: (
         <>
           <option></option>
-          {state.stkrubro.map((option) => (
+          {state.stkrubro.map(option => (
+            // <option value={option.StkRubroAbr}>
+            //   {option.StkRubroDesc}
             <option key={option.StkRubroAbr} value={option.StkRubroAbr}>
+              {/* <option key={option.StkRubroAbr} value={option.StkRubroDesc}> */}
               {option.StkRubroDesc}
             </option>
           ))}
@@ -164,37 +168,37 @@ export default function FilaDos(props) {
       ),
     },
   ];
-
   return (
     <>
-
       {rubrosn === 'S' && (
-        textdata.map((data) => (
-          <Grid item xs>
-            <TextField
-              id={data.id}
-              size="small"
-              select
-              label={data.label}
-              fullWidth
-              value={data.value}
-              onChange={handleChange}
-              SelectProps={{ native: true }}
-              variant="outlined"
-            >
-              {data.mapeo}
-            </TextField>
-          </Grid>
-        )))}
+        state.stkrubro.length > 0 && (
+          textdata.map((data, index) => (
+            <Grid key={index} item xs>
+              <TextField
+                id={data.id}
+                size="small"
+                select
+                label={data.label}
+                fullWidth
+                value={data.value}
+                onChange={handleChange}
+                SelectProps={{ native: true }}
+                variant="outlined"
+              >
+                {data.mapeo}
+              </TextField>
+
+            </Grid>
+          ))))}
       <Grid item xs>
         <TextField
-          inputProps={{ maxlength: 5 }}
+          inputProps={{ maxLength: 5 }}
           size="small"
           variant="outlined"
           id="PresupCantidad"
           type="number"
           label="Cantidad"
-          defaultValue="1"
+          //  defaultValue="1"
           fullWidth
           value={state.PresupCantidad}
           onChange={handleChange}
@@ -208,7 +212,7 @@ export default function FilaDos(props) {
       <Grid item xs>
         <TextField
           disabled={(largo === 'N')}
-          inputProps={{ maxlength: 3 }}
+          inputProps={{ maxLength: 3 }}
           size="small"
           variant="outlined"
           id="PresupLargo"
@@ -223,7 +227,7 @@ export default function FilaDos(props) {
       <Grid item xs>
         <TextField
           disabled={(ancho === 'N')}
-          inputProps={{ maxlength: 3 }}
+          inputProps={{ maxLength: 3 }}
           size="small"
           variant="outlined"
           id="PresupAncho"
@@ -235,16 +239,25 @@ export default function FilaDos(props) {
           className={classes.textField}
         />
       </Grid>
-      <Grid container item direction="column" spacing={3} xs={12}>
-        {/* <Grid items xs> */}
-        <FilaConf disable={!(presuptipo === "CONFECCIONADA")}></FilaConf>{" "}
+      <Grid container item spacing={3} >
+        <Grid item xs={4}>
+          <FilaConf disable={!(presuptipo === "CONFECCIONADA")}></FilaConf>
+        </Grid>
+
+        <Grid item xs={8}>
+          <FilaAnexo style={{ display: (presuptipo === "CONFECCIONADA") ? '' : 'none' }}></FilaAnexo>
+        </Grid>
+        <Grid item xs={4}>
+          <Button onClick={() => agregar()} color="primary">
+            Agregar
+      </Button>
+        </Grid>
       </Grid>
 
-      <Grid container item direction="column" spacing={3} xs={12}>
-        <Button onClick={() => agregar()} color="primary">
-          Agregar
-      </Button>
-      </Grid>
+      {/* <Grid container item direction="column" spacing={3} xs={12}> */}
+      {/* <Grid container item direction="column" spacing={3} xs={12}> */}
+
+      {/* </Grid> */}
       <TablaPresup
         open={open}
         handleClose={handleClose}

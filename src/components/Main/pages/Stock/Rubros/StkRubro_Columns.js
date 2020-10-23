@@ -122,10 +122,18 @@ function columnsFill(objstkgrupo, objstkrubroprov, objstkUnMed, objstkMonedas) {
       {
         title: "Fecha",
         field: "StkRubroFecha",
-        tipo: "texto",
+        type: "date",
         order: true,
         editable: false,
       },
+      {
+        title: "Items S / N",
+        field: "ItemsSN",
+        type: "string",
+        lookup: { N: 'N', S: 'S' },
+
+      },
+
     ]);
   });
 }

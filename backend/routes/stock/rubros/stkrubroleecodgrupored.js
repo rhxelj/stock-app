@@ -3,7 +3,7 @@ var router = express.Router();
 var path = require("path");
 var conexion = require("../../conexion");
 
-conexion.connect(function(err) {
+conexion.connect(function (err) {
   if (!err) {
     console.log("base de datos conectada en stkrubroleecodgrupo");
   } else {
@@ -14,15 +14,15 @@ conexion.connect(function(err) {
 var router = express();
 
 //router.all("/", async function(req, res, next) {
-router.get("/?:idStkGrupo", function(req, res, next) {
+router.get("/?:idStkGrupo", function (req, res, next) {
   indice = req.params.idStkGrupo;
-
+  console.log('indice  stkrubroleecodgrupored ', indice)
   var q = [
     "Select idStkRubro, StkRubroDesc from StkRubro where StkRubroCodGrp = ",
     indice
   ].join(" ");
 
-  conexion.query(q, function(err, result) {
+  conexion.query(q, function (err, result) {
     if (err) {
       console.log(err);
     } else {

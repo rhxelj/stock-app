@@ -17,7 +17,6 @@ export const presupcalculador = (DatosPresupEleg, datoscalculo, tipo, check) => 
       .set("Content-Type", "application/json")
       .then(res => {
         const presuprenglon = JSON.parse(res.text);
-        console.log('presuprenglon  ', presuprenglon)
         resolve(presuprenglon);
       });
   });

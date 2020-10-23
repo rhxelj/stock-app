@@ -4,6 +4,7 @@ import { stkItemsBuscaCod } from './StkItemsBuscaCod'
 export function onRowAdd(newData) {
 
   return new Promise((resolve, reject) => {
+    console.log('newData  ', newData)
     setTimeout(() => {
       {
         stkItemsBuscaCod(newData)
