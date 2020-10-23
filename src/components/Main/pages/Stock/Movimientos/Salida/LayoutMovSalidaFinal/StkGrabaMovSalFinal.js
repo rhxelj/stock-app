@@ -3,6 +3,10 @@ import IpServidor from "../../../../VariablesDeEntorno";
 import CodigoError from "../../../../../../lib/CodigoError";
 // Lee Rubro por codigo de gupo
 
+// import { toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+// toast.configure();
+import Mensaje from "./Mensaje";
 export const stkGrabaMovSalFinal = (
   StkItemsGrupo,
   StkItemsRubro,
@@ -19,12 +23,13 @@ export const stkGrabaMovSalFinal = (
     .send({ idStkItems: idStkItems })
     .send({ nuevacantstock: nuevacantstock })
     .send({ nuevacantdisp: nuevacantdisp })
-    .set("X-API-Key", "foobar")
+    // .set("X-API-Key", "foobar")
     .then(function (res) {
       const respuesta = JSON.parse(res.text);
-      if (respuesta.affectedRows !== 0) alert("EXITO");
+      if (respuesta.affectedRows !== 0) Mensaje("EXITO");
+      // alert("EXITO");
       //
-      else alert("No modifico");
+      else Mensaje("No modifico");
     })
     .catch((err) => CodigoError(err));
 };
