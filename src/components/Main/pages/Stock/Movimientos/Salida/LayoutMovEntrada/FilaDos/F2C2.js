@@ -12,7 +12,7 @@ import { stkitemsleecodgrrbit } from "../../../../Items/StkItemsLeeCodGrRbIt";
 
 // Context
 import { useContext } from "react";
-import { StkMovSalidaContext } from "../../StkMovSalida";
+import { StkMovSalidaContext } from "../../LayoutMovSalida/StkMovSalida";
 
 export default function F2C2(props) {
   // Context

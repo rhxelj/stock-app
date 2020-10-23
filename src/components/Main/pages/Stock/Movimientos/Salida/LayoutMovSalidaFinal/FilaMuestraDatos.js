@@ -133,7 +133,9 @@ export default function FilaMuestraDatos(props) {
 
   const confirmar = async (state) => {
     await actualizainf();
-    setState({ ...state, imp_etiquetas: true });
+    if (nuevacantstock > 0) {
+      setState({ ...state, imp_etiquetas: true });
+    }
   };
 
   const actions = {

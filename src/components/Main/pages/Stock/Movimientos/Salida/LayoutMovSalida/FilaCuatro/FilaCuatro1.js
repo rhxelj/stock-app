@@ -6,7 +6,7 @@ import useStyles from "../styles";
 
 //Necesario para CONTEXTAPI
 import { useContext } from "react";
-import { StkMovSalidaContext } from "../../StkMovSalida";
+import { StkMovSalidaContext } from "../StkMovSalida";
 
 export default function FilaCuatro() {
   const { state, setState } = useContext(StkMovSalidaContext);

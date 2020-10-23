@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import request from "superagent";
-// import ReactTable from 'react-table'
 import "react-table/react-table.css";
 
-import MaterialTable, { Column } from "material-table";
+import MaterialTable from "material-table";
 import { tableIcons } from "../../../../lib/material-table/tableIcons";
 import { localization } from "../../../../lib/material-table/localization";
 

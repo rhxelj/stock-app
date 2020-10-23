@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
-import useStyles from "../styles";
 
 import { TextField } from "@material-ui/core";
 
@@ -75,7 +74,6 @@ export default function F2C1(props) {
       setState({ ...state, idStkItems: "" });
     }
   }, [state.stkitems]);
-  const classes = useStyles();
 
   const textdata = [
     {

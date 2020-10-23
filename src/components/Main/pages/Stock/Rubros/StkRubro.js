@@ -104,9 +104,7 @@ export default function StkRubro() {
           onRowDelete: (oldData) =>
             onRowDelete(oldData).then(
               setTimeout(() => {
-                {
-                  initialFetch();
-                }
+                initialFetch();
               }, 5000)
             ),
         }}
