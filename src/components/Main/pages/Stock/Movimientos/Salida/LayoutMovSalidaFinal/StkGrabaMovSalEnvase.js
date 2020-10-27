@@ -1,10 +1,22 @@
 import request from "superagent";
 
-import IpServidor from '../../../../VariablesDeEntorno'
-import CodigoError from '../../../../../../lib/CodigoError'
+import IpServidor from "../../../../VariablesDeEntorno";
+import CodigoError from "../../../../../../lib/CodigoError";
 // Lee Rubro por codigo de gupo
 
-export const stkGrabaMovSalEnvase = (Envase, StkItemsGrupo, StkItemsRubro, idStkItems, cantarestar) => {
+// import { toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+import Mensaje from "../../../../../../lib/Mensaje";
+
+// toast.configure();
+
+export const stkGrabaMovSalEnvase = (
+  Envase,
+  StkItemsGrupo,
+  StkItemsRubro,
+  idStkItems,
+  cantarestar
+) => {
   const url = IpServidor + "/stkmovenvase";
   request
     .post(url)
@@ -17,8 +29,9 @@ export const stkGrabaMovSalEnvase = (Envase, StkItemsGrupo, StkItemsRubro, idStk
     .set("X-API-Key", "foobar")
     .then(function (res) {
       const respuesta = JSON.parse(res.text);
-      if (respuesta.affectedRows !== 0) alert("EXITO");
-      else alert("No modifico");
+      if (respuesta.affectedRows !== 0) Mensaje("success", "Grabo en envase");
+      // alert("EXITO");
+      else Mensaje("error", "No Grabe en envase");
     })
     .catch((err) => CodigoError(err));
-}
+};

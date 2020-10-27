@@ -12,8 +12,11 @@ import { stkGrabaMovSalFinal } from "./StkGrabaMovSalFinal";
 import { stkGrabaMovSalEnvase } from "./StkGrabaMovSalEnvase";
 import ComboBCC from "../../../../../../lib/ComboBCC";
 import ImprimirEtiquetas from "../LayoutMovSalidaFinal/ImprimirEtiquetas";
-
 import { initial_state } from "./Initial_State";
+
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 // Context
 import { useContext } from "react";
 import { StkMovSalidaFinalContext } from "./StkMovSalidaFinal";
@@ -145,6 +148,7 @@ export default function FilaMuestraDatos(props) {
     cancelText: "CANCELAR", //Texto en caso de No afirmativo
   };
 
+  toast.configure();
   return (
     <>
       {props.open && (

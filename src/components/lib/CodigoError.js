@@ -1,33 +1,38 @@
 // import React from "react";
-
+import Mensaje from "./Mensaje";
 function CodigoError(err) {
   switch (err.status) {
     case 409:
-      alert("Código ingresado EXISTENTE  ");
+      Mensaje("error", "Código ingresado EXISTENTE  ");
       break;
     case 410:
-      alert("El Código excede la cantidad de dígitos permitidos ");
+      Mensaje("error", "El Código excede la cantidad de dígitos permitidos ");
       break;
     case 411:
-      alert("Código  Usado no se puede borrar ");
+      Mensaje("error", "Código  Usado no se puede borrar ");
       break;
     case 412:
-      alert("El campo numérico es más grande de lo que corresponde ");
+      Mensaje(
+        "error",
+        "El campo numérico es más grande de lo que corresponde "
+      );
       break;
     case 413:
-      alert("Faltan datos para ingresar información en tabla");
+      Mensaje("error", "Faltan datos para ingresar información en tabla");
       break;
     case 414:
-      alert("Faltan datos para leer información en tabla");
+      Mensaje("error", "Faltan datos para leer información en tabla");
       break;
     case 460:
-      alert("error clave duplicada");
+      Mensaje("error", "error clave duplicada");
       break;
     default:
-      alert("Error ", err.status);
+      Mensaje("error", "Error ", err.status);
   }
 }
 export default CodigoError;
+
+// Mensaje(<tipo>,<Mensaje>)
 
 // if (err.status === 409) => 1062 => cuando se da de alta un código existente
 // if (err.status === 410) => 1406 => el campo  alfanumérico más grande de lo que corresponde
