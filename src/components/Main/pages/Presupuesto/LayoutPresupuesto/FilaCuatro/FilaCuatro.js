@@ -1,11 +1,9 @@
-import React, { Fragment, useState, useEffect, useReducer } from "react";
-import Grid from "@material-ui/core/Grid";
+import React, { useState, useEffect } from "react";
 import { TextField, Button, Dialog } from "@material-ui/core";
 import useStyles from "../styles";
 // Context
 import { useContext } from "react";
 import { PresupPantContext } from "../../PresupPant";
-import { initial_state } from "../../Initial_State";
 import { clientesleerdesc } from '../../../Clientes/ClientesLeerDesc'
 import { PresupGrabar } from '../../PresupGrabar'
 
@@ -18,10 +16,9 @@ export default function FilaCuatro(props) {
 
 
 
-  const [presup, setPresup] = useState({
-    columnas: state.columns
-    // data: []
-  })
+  // const [presup, setPresup] = useState({
+  //   columnas: state.columns
+  // })
 
 
   const handleChange = event => {

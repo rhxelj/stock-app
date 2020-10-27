@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Radio, { RadioProps } from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { Grid } from "@material-ui/core";
+import { Grid, TextField } from "@material-ui/core";
 import useStyles from "../styles";
 
 // Context
@@ -18,6 +18,10 @@ export default function FilaConf(props) {
     setState({ ...state, PresupCsSs: event.target.value });
   };
 
+  const handleChange1 = (event) => {
+    const id = event.target.id;
+    setState({ ...state, [id]: event.target.value });
+  };
 
   const classes = useStyles();
 
@@ -55,7 +59,20 @@ export default function FilaConf(props) {
             />
           </Grid>
         </RadioGroup>
+        <Grid item xs={6}>
+          <TextField
+            inputProps={{ maxLength: 20 }}
+            size="small"
+            variant="outlined"
+            id="DescripPresup"
 
+            label="Descripción"
+            fullWidth
+            value={state.DescripPresup}
+            onChange={handleChange1}
+            className={classes.textField}
+          />
+        </Grid>
       </Grid>
 
     </>

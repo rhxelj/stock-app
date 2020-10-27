@@ -20,7 +20,8 @@ router.post("/", async function (req, res, next) {
     PresupConfTipoAnexo = req.body.PresupConfTipoAnexo.toUpperCase(),
     PresupConfTipoCant = req.body.PresupConfTipoCant,
     PresupConfTipoDesc = req.body.PresupConfTipoDesc.toUpperCase(),
-    PresupConfTipoRubro = req.body.PresupConfTipoRubro.toUpperCase()
+    PresupConfTipoRubro = req.body.PresupConfTipoRubro.toUpperCase(),
+    PresupConfTipoImprime = req.body.PresupConfTipoImprime.toUpperCase()
   var q = [
     'UPDATE BasePresup.PresupConfTipo SET PresupConfTipoAnexo = "' +
     PresupConfTipoAnexo +
@@ -34,6 +35,8 @@ router.post("/", async function (req, res, next) {
     PresupConfTipoLargo +
     '", PresupConfTipoAncho = "' +
     PresupConfTipoAncho +
+    '", PresupConfTipoImprime = "' +
+    PresupConfTipoImprime +
     '" WHERE idPresupConfTipo = ' +
     indice
   ];

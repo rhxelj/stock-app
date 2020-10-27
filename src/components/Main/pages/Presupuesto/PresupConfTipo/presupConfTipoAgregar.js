@@ -12,7 +12,8 @@ export function presupConfTipoAgregar(props) {
         PresupConfTipoAnexo,
         PresupConfTipoCant,
         PresupConfTipoDesc,
-        PresupConfTipoRubro
+        PresupConfTipoRubro,
+        PresupConfTipoImprime
     } = props;
 
     const url = IpServidor + "/presupconftipoagregar";
@@ -25,6 +26,7 @@ export function presupConfTipoAgregar(props) {
         .send({ PresupConfTipoCant: PresupConfTipoCant })
         .send({ PresupConfTipoDesc: PresupConfTipoDesc })
         .send({ PresupConfTipoRubro: PresupConfTipoRubro })
+        .send({ PresupConfTipoImprime: PresupConfTipoImprime })
         .set("X-API-Key", "foobar")
         .then(function (res) {
             const respuesta = JSON.parse(res.text);

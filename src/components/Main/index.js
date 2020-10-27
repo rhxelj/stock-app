@@ -19,8 +19,8 @@ import StkItems from "./pages/Stock/Items/StkItems";
 
 import PresupPant from "./pages/Presupuesto/PresupPant.jsx";
 import PresupConfTipo from "./pages/Presupuesto/PresupConfTipo/PresupConfTipo";
-import PresupuestoUnid from "./pages/Presupuesto/PresupuestoUnid.js";
-import PresupPantVie from "./pages/Presupuesto/PresupPantVie.js";
+// import PresupuestoUnid from "./pages/Presupuesto/PresupuestoUnid.js";
+// import PresupPantVie from "./pages/Presupuesto/PresupPantVie.js";
 import ImprimeQR from "./pages/Impresion/ImprimeQR";
 // TODO 👀📐 nothing changed here, just auto-formatting
 // all this auto-formatting is coming from the Prettier extension

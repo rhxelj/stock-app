@@ -23,28 +23,20 @@ router.get("/", function (req, res, next) {
   */
   // var q = ['select sum(PresupConfTipoCant) as Importe from BasePresup.PresupConfTipo where PresupConfTipoDesc = "' + tipo + '"'].join("");
   var q = ['select sum(BaseStock.StkRubro.StkRubroCosto * BaseStock.StkMonedas.StkMonedasCotizacion * BasePresup.PresupConfTipo.PresupConfTipoCant) as ImpItem from BasePresup.PresupConfTipo, BaseStock.StkRubro, BaseStock.StkMonedas where  PresupConfTipoRubro = BaseStock.StkRubro.StkRubroAbr and BaseStock.StkRubro.StkRubroTM = BaseStock.StkMonedas.idStkMonedas and PresupConfTipoDesc = "' + tipo + '"'].join("");
+
+  console.log('q en la lectura ', q)
+
+
   conexion.query(q, function (err, result) {
     if (err) {
       console.log(err);
     } else {
       res.json(result);
-      console.log('result presupconftipocalc   ', result)
+      console.log('result en la lectura ', result)
     }
   });
 });
-// tipo = req.params.id;
-// console.log('tipo  ', tipo)
-//PresupConfTipoDesc = req.body.PresupConfTipoDesc.toUpperCase()
-// var q = ['select sum(PresupConfTipoCant) as Importe from BasePresup.PresupConfTipo where PresupConfTipoDesc = "' + MORRAL + '"'].join(" ");
-//   var q = ['select * from  BasePresup.PresupConfTipo where PresupConfTipoDesc = "' + MORRAL + '"'].join(" ");
-//   console.log(q)
-//   conexion.query(q, function (err, result) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       res.json(result);
-//     }
-//   });
+
 
 conexion.end;
 module.exports = router;

@@ -31,7 +31,6 @@ function columnsFill(objtipoanexo) {
                 type: "currency",
                 // disable: true,
             }
-
         ]);
     });
 }

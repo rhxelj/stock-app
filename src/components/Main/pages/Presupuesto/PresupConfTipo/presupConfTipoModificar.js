@@ -11,7 +11,8 @@ export function presupConfTipoModificar(props) {
         PresupConfTipoAnexo,
         PresupConfTipoCant,
         PresupConfTipoDesc,
-        PresupConfTipoRubro } = props;
+        PresupConfTipoRubro,
+        PresupConfTipoImprime } = props;
 
     const url = IpServidor + "/presupconftipomodificar/?id=" + idPresupConfTipo;
     request
@@ -23,5 +24,6 @@ export function presupConfTipoModificar(props) {
         .send({ PresupConfTipoCant: PresupConfTipoCant })
         .send({ PresupConfTipoDesc: PresupConfTipoDesc })
         .send({ PresupConfTipoRubro: PresupConfTipoRubro })
+        .send({ PresupConfTipoImprime: PresupConfTipoImprime })
         .then(function (res) { });
 }
