@@ -6,7 +6,8 @@ import CodigoError from "../../../../../../lib/CodigoError";
 // import { toast } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 // toast.configure();
-import Mensaje from "./Mensaje";
+import Mensaje from "../../../../../../lib/Mensaje";
+
 export const stkGrabaMovSalFinal = (
   StkItemsGrupo,
   StkItemsRubro,
@@ -26,10 +27,11 @@ export const stkGrabaMovSalFinal = (
     // .set("X-API-Key", "foobar")
     .then(function (res) {
       const respuesta = JSON.parse(res.text);
-      if (respuesta.affectedRows !== 0) Mensaje("EXITO");
+      if (respuesta.affectedRows !== 0)
+        Mensaje("success", "Grabo Movimento Salida");
       // alert("EXITO");
       //
-      else Mensaje("No modifico");
+      else Mensaje("error", "No Grabo Movimento Salida");
     })
     .catch((err) => CodigoError(err));
 };

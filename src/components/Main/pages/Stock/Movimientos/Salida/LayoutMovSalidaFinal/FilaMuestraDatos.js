@@ -274,7 +274,6 @@ export default function FilaMuestraDatos(props) {
             // title="Impresion De Etiquetas"
             // contentText="Imprimio correctamente ?"
           />
-          <button onClick={() => toast("NOTIFICACION!!!!")}>NOTIFY</button>
         </Grid>
       )}
     </>

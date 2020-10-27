@@ -4,10 +4,11 @@ import IpServidor from "../../../../VariablesDeEntorno";
 import CodigoError from "../../../../../../lib/CodigoError";
 // Lee Rubro por codigo de gupo
 
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+// import { toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+import Mensaje from "../../../../../../lib/Mensaje";
 
-toast.configure();
+// toast.configure();
 
 export const stkGrabaMovSalEnvase = (
   Envase,
@@ -28,9 +29,9 @@ export const stkGrabaMovSalEnvase = (
     .set("X-API-Key", "foobar")
     .then(function (res) {
       const respuesta = JSON.parse(res.text);
-      if (respuesta.affectedRows !== 0) toast("EXITO!!!!");
+      if (respuesta.affectedRows !== 0) Mensaje("success", "Grabo en envase");
       // alert("EXITO");
-      else alert("No modifico");
+      else Mensaje("error", "No Grabe en envase");
     })
     .catch((err) => CodigoError(err));
 };

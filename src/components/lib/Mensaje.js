@@ -8,7 +8,7 @@ export default function Mensaje(type, message) {
       toast.error(message);
       break;
     case "success": // default color green
-      toast.error(message);
+      toast.success(message);
       break;
   }
 }
