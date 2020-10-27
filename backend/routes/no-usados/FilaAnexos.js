@@ -27,13 +27,13 @@ import {
 // import { makeStyles } from "@material-ui/core/styles";
 // import Paper from "@material-ui/core/Paper";
 // import Grid from "@material-ui/core/Grid";
-import useStyles from "../styles";
+import useStyles from "../../../src/components/Main/pages/Presupuesto/LayoutPresupuesto/styles";
 import Slide from '@material-ui/core/Slide';
 // Context
 import { useContext } from "react";
-import { PresupPantContext } from "../../PresupPant";
-import leePresupConfTipoLeeAnexo from "../../leePresupConfTipoLeeAnexo"
-import { presupcalculador } from "../../PresupCalculador";
+import { PresupPantContext } from "../../../src/components/Main/pages/Presupuesto/PresupPant";
+import leePresupConfTipoLeeAnexo from "../../../src/components/Main/pages/Presupuesto/leePresupConfTipoLeeAnexo"
+import { presupcalculador } from "../../../src/components/Main/pages/Presupuesto/PresupCalculador";
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {

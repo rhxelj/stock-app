@@ -13,11 +13,17 @@ import FilterList from "@material-ui/icons/FilterList";
 import FirstPage from "@material-ui/icons/FirstPage";
 import LastPage from "@material-ui/icons/LastPage";
 import Remove from "@material-ui/icons/Remove";
-import SaveIcon from "@material-ui/icons/Save";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 import Print from "@material-ui/icons/Print";
+import SaveIcon from "@material-ui/icons/Save";
+import SaveAltIcon from '@material-ui/icons/SaveAlt';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import NoteAddIcon from '@material-ui/icons/NoteAdd';
+import CancelIcon from '@material-ui/icons/Cancel';
+import AttachmentIcon from '@material-ui/icons/Attachment';
+
 
 export const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -43,4 +49,9 @@ export const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
   Print: forwardRef((props, ref) => <Print {...props} ref={ref} />),
   Save: forwardRef((props, ref) => <SaveIcon {...props} ref={ref} />),
+  SaveAlt: forwardRef((props, ref) => <SaveAltIcon {...props} ref={ref} />),
+  AddShoppingCart: forwardRef((props, ref) => <AddShoppingCartIcon {...props} ref={ref} />),
+  NoteAdd: forwardRef((props, ref) => <NoteAddIcon {...props} ref={ref} />),
+  Cancel: forwardRef((props, ref) => <CancelIcon {...props} ref={ref} />),
+  Attachment: forwardRef((props, ref) => <AttachmentIcon {...props} ref={ref} />),
 };

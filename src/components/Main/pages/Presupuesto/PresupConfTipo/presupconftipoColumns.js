@@ -44,6 +44,10 @@ function columnsFill(objstkrubro) {
             {
                 title: "Pide Ancho?",
                 field: "PresupConfTipoAncho",
+            },
+            {
+                title: "Imprime?",
+                field: "PresupConfTipoImprime",
             }
 
         ]);

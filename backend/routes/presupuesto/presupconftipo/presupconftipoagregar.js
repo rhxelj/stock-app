@@ -23,6 +23,7 @@ router.post("/", function (req, res, next) {
     PresupConfTipoAnexo: req.body.PresupConfTipoAnexo.toUpperCase(),
     PresupConfTipoLargo: req.body.PresupConfTipoLargo,
     PresupConfTipoAncho: req.body.PresupConfTipoAncho,
+    PresupConfTipoImprime: req.body.PresupConfTipoImprime.toUpperCase(),
     PresupConfTipoBack: '',
   };
   conexion.query("INSERT INTO BasePresup.PresupConfTipo SET ?", registro, function (err, result) {
