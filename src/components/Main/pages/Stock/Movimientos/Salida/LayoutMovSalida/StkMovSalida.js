@@ -1,7 +1,7 @@
 // import React, { Component} from 'react'
 import React, { useState } from "react";
 
-import { initial_state } from "../Initial_State";
+import { initial_state } from './Initial_State'
 
 import { Container, Grid } from "@material-ui/core";
 import { HeaderTitle } from "../../../../../../lib/HeaderTitle";

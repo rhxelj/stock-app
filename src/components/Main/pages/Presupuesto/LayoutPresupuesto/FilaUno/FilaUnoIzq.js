@@ -1,19 +1,9 @@
-import React, { useState, useEffect } from "react";
-import Radio, { RadioProps } from "@material-ui/core/Radio";
+import React, { useEffect } from "react";
 import {
-  Box,
-  Button,
-  Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
+
   Grid,
-  IconButton,
-  InputAdornment,
-  Paper,
+
   TextField,
-  Typography,
 } from "@material-ui/core";
 // import { makeStyles } from "@material-ui/core/styles";
 // import Paper from "@material-ui/core/Paper";
@@ -85,10 +75,11 @@ export default function FilaUnoIzq(props) {
   return (
     <>
       {/* <Grid container item spacing={3} xs={6}> */}
-      <Grid item spacing={3} xs>
+      <Grid item container spacing={3} xs>
         {textdata.map(data => (
           <TextField
             id={data.id}
+            key={data.id}
             size="small"
             select
             label={data.label}

@@ -8,6 +8,9 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary
+  },
+  text: {
+    color: theme.palette.secondary
   }
 }));
 

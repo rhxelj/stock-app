@@ -3,9 +3,7 @@ import { presupConfTipoBorrar } from "./presupConfTipoBorrar";
 export function onRowDelete(oldData) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
-            {
-                presupConfTipoBorrar(oldData);
-            }
+            presupConfTipoBorrar(oldData);
             resolve();
         }, 1000);
     });

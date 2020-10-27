@@ -3,7 +3,7 @@ var router = express.Router();
 var path = require("path");
 var conexion = require("../../conexion");
 
-conexion.connect(function(err) {
+conexion.connect(function (err) {
   if (!err) {
     console.log("base de datos conectada en stkenvaseagregar");
   } else {
@@ -17,12 +17,18 @@ idStkItems
 
 //var router = express();
 
-router.post("/", async function(req, res, next) {
+router.post("/", async function (req, res, next) {
   var q, q1;
   var idStkEnvase = 0;
-  var StkEnvaseItem = req.query.idStkItems;
-  var StkEnvaseGrupo = req.query.idStkGrupo;
-  var StkEnvaseRubro = req.query.idStkRubro;
+  var StkEnvaseGrupo = 0
+  var StkEnvaseRubro = 0
+  console.log('req.query.idStkItems   ', req.query.idStkItems)
+  var StkEnvaseItem = req.query.idStkItems === '' ? 1 : req.query.idStkItems
+  console.log('StkEnvaseItem   ', StkEnvaseItem)
+  // var StkEnvaseItem = req.query.idStkItems;
+  StkEnvaseGrupo = parseInt(req.query.idStkGrupo)
+  StkEnvaseRubro = parseInt(req.query.idStkRubro);
+  console.log('StkEnvaseGrupo type   ', typeof (StkEnvaseGrupo))
 
   //'Select max(idStkEnvase) as UltEnvase from StkEnvase where StkEnvaseGrupo = ' + StkEnvaseGrupo + ' and StkEnvaseRubro = ' + StkEnvaseRubro + ' and StkEnvaseItem = ' + StkEnvaseItem,
   q = [
@@ -35,8 +41,11 @@ router.post("/", async function(req, res, next) {
     " and StkEnvaseItem = ",
     StkEnvaseItem
   ].join(" ");
-  conexion.query(q, function(err, result) {
+
+  console.log('q   ', q)
+  conexion.query(q, function (err, result) {
     if (err) {
+      console.log('err.errno  ', err.errno)
       if (err.errno === 1054) {
         nroenvase = 1;
       } else {
@@ -44,13 +53,15 @@ router.post("/", async function(req, res, next) {
         console.log(err);
       }
     } else {
-     // res.json(result);
+      // res.json(result);
       nroenvase = result[0].UltEnvase + 1;
     }
-    
-    
+
+
     // tengo que hacer esto req.body.cantidad veces que es la cantidad de envases que ingresaron con req.body.StkRubroPres de contenido
     var cantenvases = req.body.cantidad;
+
+    console.log('req.body.cantidad    ', req.body.cantidad)
     var d = new Date();
     finalDate = d.toISOString().split("T")[0];
     for (i = 0; i < cantenvases; i++) {
@@ -67,31 +78,29 @@ router.post("/", async function(req, res, next) {
         StkEnvaseObserv: req.body.StkEnvaseObserv,
         StkEnvaseImprimio: "N"
       };
-
-        conexion.query("INSERT INTO StkEnvase SET ?", registro, 
-        function(err, result)  {
+      console.log('registro ', registro)
+      conexion.query("INSERT INTO StkEnvase SET ?", registro,
+        function (err, result) {
           if (err) {
             console.log('err en back ', err)
-            if (err.errno == 1265) 
-               {
-                // console.log(err.sqlMessage + ' error en envase')
+            if (err.errno == 1265) {
+              // console.log(err.sqlMessage + ' error en envase')
               //   return res.status(413).send({message : "Faltan datos en agregar envase"});
-              return res.status(413).send({message : "Faltan datos para leer información en tabl"});
-             //    return res.status(413)
+              return res.status(413).send({ message: "Faltan datos para leer información en tabl" });
+              //    return res.status(413)
 
-                 //.json({message : "Faltan datos en agregar envase"});
-                }
-            else 
-              {
-                  console.log (err.errno);
-              }
+              //.json({message : "Faltan datos en agregar envase"});
+            }
+            else {
+              console.log(err.errno);
+            }
           }
           else {
             res.json(result);
           }
-        
-      
-      });
+
+
+        });
       nroenvase++;
     }
   });
