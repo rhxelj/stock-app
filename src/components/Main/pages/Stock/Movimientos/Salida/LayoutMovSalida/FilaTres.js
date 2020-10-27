@@ -10,8 +10,7 @@ import { stkrubroleecodgryrb } from "../../../Rubros/StkRubroLeeCodGryRb";
 import { useContext } from "react";
 import { StkMovSalidaContext } from "./StkMovSalida";
 
-import { TipoConfeccion } from "../TipoConfeccion";
-
+import { TipoConfeccion } from './TipoConfeccion'
 export default function Fila() {
   const classes = useStyles();
   // Esto es para poder consumir los datos del CONTEXTAPI

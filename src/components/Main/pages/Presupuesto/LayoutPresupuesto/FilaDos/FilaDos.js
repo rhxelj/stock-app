@@ -1,22 +1,19 @@
-import React, { Fragment, useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import useStyles from "../styles";
-import Radio, { RadioProps } from "@material-ui/core/Radio";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 
-import { TextField, Button, Input, Dialog } from "@material-ui/core";
+
+import { TextField, Button } from "@material-ui/core";
 
 import { stkrubroleedesc } from "../../../Stock/Rubros/StkRubroLeeDesc";
 import { presupcalculador } from "../../PresupCalculador";
-import { presupgrabar } from "../../PresupGrabar";
+// import { presupgrabar } from "../../PresupGrabar";
 
 // Context
 import { useContext } from "react";
 import { PresupPantContext } from "../../PresupPant";
 import TablaPresup from "../TablaPresup/TablaPresup";
 import FilaConf from "../FilaConf/FilaConf";
-import FilaAnexo from "../FilaConf/FilaAnexo/FilaAnexo"
 
 export default function FilaDos(props) {
   // Esto es para poder consumir los datos del CONTEXTAPI
@@ -93,7 +90,7 @@ export default function FilaDos(props) {
       presuptipo
     );
     if (rubrosn === 'S') {
-      StkRubroDesc = datosrenglon1[0][0].Detalle + datosrenglon1[0][0].StkRubroDesc;
+      StkRubroDesc = datosrenglon1[0][0].Detalle + datosrenglon1[0][0].StkRubroDesc + ' ' + state.DescripPresup;
       ImpUnitario = datosrenglon1[0][0].ImpItem;
       ImpItem = datosrenglon1[0][0].ImpItem * PresupCantidadM;
       PresupLargo = datosrenglon1[0][0].Largo
@@ -146,6 +143,9 @@ export default function FilaDos(props) {
     setOpenAnexo(false);
   };
 
+  const handleOpenAnexo = () => {
+    setOpenAnexo(true);
+  };
   const classes = useStyles();
 
   const textdata = [
@@ -244,27 +244,19 @@ export default function FilaDos(props) {
           <FilaConf disable={!(presuptipo === "CONFECCIONADA")}></FilaConf>
         </Grid>
 
-        <Grid item xs={8}>
-          <FilaAnexo style={{ display: (presuptipo === "CONFECCIONADA") ? '' : 'none' }}></FilaAnexo>
-        </Grid>
         <Grid item xs={4}>
           <Button onClick={() => agregar()} color="primary">
             Agregar
       </Button>
         </Grid>
       </Grid>
-
-      {/* <Grid container item direction="column" spacing={3} xs={12}> */}
-      {/* <Grid container item direction="column" spacing={3} xs={12}> */}
-
-      {/* </Grid> */}
       <TablaPresup
         open={open}
         handleClose={handleClose}
         data={datosrenglon}
         maymin={state.PresupMnMy}
       />
-      {/* <TablaPresup></TablaPresup> */}
+
     </>
   );
 }
