@@ -126,14 +126,7 @@ function columnsFill(objstkgrupo, objstkrubroprov, objstkUnMed, objstkMonedas) {
         order: true,
         editable: false,
       },
-      {
-        title: "Items S / N",
-        field: "ItemsSN",
-        // tipo: "",
-        order: true,
-        lookup: { S: "S", N: "N" },
-        initialEditValue: "N", //con esto pongo el valor por defecto
-      },
+     
     ]);
   });
 }

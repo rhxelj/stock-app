@@ -23,6 +23,7 @@ export const PresupPantContext = React.createContext();
 var PresupPant = props => {
 
   const [state, setState] = useState(initial_state);
+  const [datosrenglon, setDatosRenglon] = useState([]);
   const classes = useStyles();
 
 
@@ -30,23 +31,26 @@ var PresupPant = props => {
   return (
     <div>
 
-      <Container>
-        {/* <Grid item></Grid> */}
-        <Grid container spacing={3} alignItems="center">
-          <PresupPantContext.Provider
-            value={{
-              state: state,
-              setState: setState
-            }}
-          >
-            <Grid item></Grid> {/*  Para dejar espacio  */}
-            <Grid item></Grid> {/*  Para dejar espacio  */}
-            <FilaUno />
-            <FilaDos />
+      {/* <Container> */}
+      {/* <Grid item></Grid> */}
+      <Grid container spacing={2} alignItems="center">
+        {/* spacing={3}  */}
+        <PresupPantContext.Provider
+          value={{
+            state: state,
+            setState: setState,
+            datosrenglon: datosrenglon,
+            setDatosRenglon: setDatosRenglon
+          }}
+        >
+          {/* <Grid item></Grid> {/*  Para dejar espacio  */}
+          {/* <Grid item></Grid>  {/* Para dejar espacio  */}
+          <FilaUno />
+          <FilaDos />
 
-          </PresupPantContext.Provider>
-        </Grid>
-      </Container>
+        </PresupPantContext.Provider>
+      </Grid>
+      {/* </Container> */}
     </div>
   );
 }

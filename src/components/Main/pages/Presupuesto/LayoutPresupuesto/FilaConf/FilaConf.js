@@ -31,41 +31,48 @@ export default function FilaConf(props) {
     <>
       <Grid container item xs={12}>
         {/* <Grid container item direction="row" xs={12}> */}
-        {/* <Grid item spacing={3} xs={12}> */}
+        {/* <Grid item spacing={3} xs={2}> */}
+        {/* <Grid item xs> */}
         <RadioGroup
           row
-          aria-label="Tipo de Dobladillo"
+          size="small"
+          // aria-label="Tipo de Dobladillo"
           name="tipoDobladillo"
           value={selectedValue}
           onChange={handleChange}
+          margin="dense"
         >
-          <Grid item xs={6}>
+
+          <Grid item xs={3}>
             <FormControlLabel
+              // size="small"
               value="cs"
               control={<Radio />}
-              label="C/Soga"
+              label="C/S"
               labelPlacement="top"
               disabled={props.disable}
+              margin="dense"
             />
           </Grid>
-          {/* <Grid item spacing={3} xs={12}> */}
-          <Grid item xs={6}>
+          <Grid item xs={3}>
             <FormControlLabel
+              // size="small"
               value="ss"
               control={<Radio />}
-              label="S/Soga"
+              label="S/S"
               labelPlacement="top"
               disabled={props.disable}
+              margin="dense"
             />
           </Grid>
         </RadioGroup>
-        <Grid item xs={6}>
+        <Grid item xs={4}>
           <TextField
-            inputProps={{ maxLength: 20 }}
+            inputProps={{ maxLength: 12 }}
             size="small"
             variant="outlined"
             id="DescripPresup"
-
+            margin="dense"
             label="Descripción"
             fullWidth
             value={state.DescripPresup}
@@ -74,7 +81,6 @@ export default function FilaConf(props) {
           />
         </Grid>
       </Grid>
-
     </>
   );
 }

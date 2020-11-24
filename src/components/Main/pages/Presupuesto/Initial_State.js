@@ -10,7 +10,7 @@ export const initial_state = {
   AnexoMedida: 0,
   PresupCantidad: 1.0,
   PresupTipo: "",
-  DescripPresup: "",
+  DescripPresup: " ",
   ImporteAnexo: 0.0,
   renglonanexo: [],
   DetalleAnexo: "",
@@ -25,28 +25,9 @@ export const initial_state = {
   LabelMed: "",
   DatosPresupEleg: [],
   tipoanexo: [],
-  tipopresup: [
-    // {
-    //   tipopresupabr: 'un',
-    //   tipopresupdet: 'Por Unidad',
-    // },
-    // {
-    //   tipopresupabr: 'pu',
-    //   tipopresupdet: 'Paño Unido',
-    // },
-    // {
-    //   tipopresupabr: 'fa',
-    //   tipopresupdet: 'Con Fajas',
-    // },
-    // {
-    //   tipopresupabr: 'cf',
-    //   tipopresupdet: 'Confeccionada',
-    // },
-    // {
-    //   tipopresupabr: 'en',
-    //   tipopresupdet: 'Enrollable',
-    // }
-  ],
+  renglonfinal: [],
+  tipopresup: [],
+  indexborrado: 1000,
   //FilaTres
 
   columns: [

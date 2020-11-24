@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
+import { localization } from "../../../../lib/material-table/localization";
 import "../../../../../Styles/TableHeader.css";
 import MaterialTable from "material-table";
 import { tableIcons } from "../../../../lib/material-table/tableIcons";
@@ -9,8 +10,9 @@ import { onRowUpdate } from "./onRowUpdate"
 import { onRowDelete } from "./onRowDelete"
 
 import { HeaderTitle } from "../../../../lib/HeaderTitle"
-import { localization } from "../../../../lib/material-table/localization";
 import Imprimir from "../../Impresion/Imprimir/Imprimir";
+
+
 export default function Proveedores() {
   HeaderTitle("Proveedores")
 
