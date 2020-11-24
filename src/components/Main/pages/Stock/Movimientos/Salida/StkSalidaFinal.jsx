@@ -7,7 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import StkScaneaQR from "./StkScaneaQR mal";
 import DialogActions from "@material-ui/core/DialogActions";
-
+import Mensaje from "../../../../../lib/Mensaje"
 class StkSalidaFinal extends React.Component {
   constructor(props) {
     super(props);
@@ -88,9 +88,9 @@ class StkSalidaFinal extends React.Component {
       .send({ cantidad1: this.state.cantidad1 })
       .catch(err => {
         if (err.status === 414) {
-          alert("Falta información para modificar Items  ");
+          Mensaje("error", "Falta información para modificar Items  ");
         } else {
-          console.log("Error nro en StkMovEntrada 1:  " + err.status);
+          Mensaje("error", `Error nro en StkMovEntrada 1:  ${err.status}`);
         }
       });
 
@@ -111,9 +111,9 @@ class StkSalidaFinal extends React.Component {
       .send({ cantidad3: this.state.cantidad1 })
       .catch(err => {
         if (err.status === 414) {
-          alert("Falta información para modificar Items  ");
+          Mensaje("error", "Falta información para modificar Items  ");
         } else {
-          console.log("Error nro en StkMovEntrada 1:  " + err.status);
+          Mensaje("error", `Error nro en StkMovEntrada 1:  ${err.status}`);
         }
       });
   };

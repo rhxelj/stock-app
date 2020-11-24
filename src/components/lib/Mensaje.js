@@ -12,3 +12,6 @@ export default function Mensaje(type, message) {
       break;
   }
 }
+// para usar el componente Mensaje hay que agregar el tipo y el mensaje
+// ej
+// Mensaje("error","Aca va el mensaje..")

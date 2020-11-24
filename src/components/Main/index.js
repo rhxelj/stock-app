@@ -25,6 +25,7 @@ import ImprimeQR from "./pages/Impresion/ImprimeQR";
 // https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
 // and the setting "format on save"
 // check out my fave extensions for vs code at https://shortcut.school/vs-code#extensions 😎
+import PresupDetPie from "./pages/Presupuesto/PresupDetPie/PresupDetPie";
 
 const Main = () => (
   <main>
@@ -57,6 +58,7 @@ const Main = () => (
       <Route path="/StkUbFisica" component={StkUbFisica} />
       <Route path="/PresupConfTipo" component={PresupConfTipo} />
       <Route path="/ModPrecios" component={ModPrecios} />
+      <Route path="/PresupDetPie" component={PresupDetPie} />
       {/* <Route path="/AgregarMonedas" component={AgregarMonedas}/> */}
       {/* <Route path="/BorrarMonedas" component={BorrarMonedas}/> */}
       {/* <Route path="/ModificarMonedas" component={ModificarMonedas}/> */}

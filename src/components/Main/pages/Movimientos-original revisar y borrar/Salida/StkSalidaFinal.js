@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import StkScaneaQR from "./StkScaneaQR";
 import DialogActions from "@material-ui/core/DialogActions";
 
+import Mensaje from "../../../../lib/Mensaje";
 class StkSalidaFinal extends React.Component {
   constructor(props) {
     super(props);
@@ -20,19 +21,19 @@ class StkSalidaFinal extends React.Component {
       StkRubroPres: 0.0,
       StkRubroUM: 0.0,
       cantidad: 1.0,
-      cantidad1: 1.0
+      cantidad1: 1.0,
     };
   }
 
   toggleScanea = () => {
-    this.setState(prevState => ({
-      toggle_scanea: !prevState.toggle_scanea
+    this.setState((prevState) => ({
+      toggle_scanea: !prevState.toggle_scanea,
     })); // estado inicial "FALSE" muestra la tabla de "monedas"  en "TRUE" llama al componente *** <AgregarProveedores> ***
   };
 
   componentWillMount() {}
 
-  handleChange = prop => event => {
+  handleChange = (prop) => (event) => {
     this.setState({ [prop]: event.target.value });
   };
 
@@ -40,7 +41,7 @@ class StkSalidaFinal extends React.Component {
     this.setState({ open: false });
   };
 
-  datosscaneados = codigo => {
+  datosscaneados = (codigo) => {
     console.log("codigo ", codigo);
     this.setState({ datosscaneados: codigo });
     var grupo = codigo.split(":")[1];
@@ -51,23 +52,23 @@ class StkSalidaFinal extends React.Component {
     request
       .get(url)
       .set("Content-Type", "application/json")
-      .then(res => {
+      .then((res) => {
         const stkrubroele = JSON.parse(res.text);
         this.setState(() => {
           return { stkrubroele: stkrubroele };
         });
         this.setState({
-          StkRubroAncho: this.state.stkrubroele[0].StkRubroAncho
+          StkRubroAncho: this.state.stkrubroele[0].StkRubroAncho,
         });
         this.setState({
-          StkRubroPresDes: this.state.stkrubroele[0].StkRubroPresDes
+          StkRubroPresDes: this.state.stkrubroele[0].StkRubroPresDes,
         });
         this.setState({ StkRubroPres: this.state.stkrubroele[0].StkRubroPres });
         this.setState({ StkRubroUM: this.state.stkrubroele[0].StkRubroUM });
       });
   };
 
-  restastock = _ => {
+  restastock = (_) => {
     var nroenvase = this.state.datosscaneados.split(":")[0];
     var grupo = this.state.datosscaneados.split(":")[1];
     var rubro = this.state.datosscaneados.split(":")[2];
@@ -86,11 +87,11 @@ class StkSalidaFinal extends React.Component {
       .set("Content-Type", "application/json")
       .send({ cantidad: this.state.cantidad })
       .send({ cantidad1: this.state.cantidad1 })
-      .catch(err => {
+      .catch((err) => {
         if (err.status === 414) {
-          alert("Falta información para modificar Items  ");
+          Mensaje("error", "Falta información para modificar Items  ");
         } else {
-          console.log("Error nro en StkMovEntrada 1:  " + err.status);
+          Mensaje("error", `"Error nro en StkMovEntrada 1:    ${err.status}`);
         }
       });
 
@@ -109,7 +110,7 @@ class StkSalidaFinal extends React.Component {
       .set("Content-Type", "application/json")
       .send({ cantidad2: this.state.cantidad })
       .send({ cantidad3: this.state.cantidad1 })
-      .catch(err => {
+      .catch((err) => {
         if (err.status === 414) {
           alert("Falta información para modificar Items  ");
         } else {

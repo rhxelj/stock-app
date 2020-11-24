@@ -41,12 +41,6 @@ export default function FilaCuatro(props) {
 
 
   function grabarpresupuesto() {
-    // console.log('NomCliente  ', state.nomCliente)
-    // console.log('clientes  ', state.idClientes)
-    console.log('FilaCuatro props ', props)
-    console.log('FilaCuatro props.datos ', props.suma)
-    // console.log('FilaCuatro props.datos ', props.datos)
-    // console.log('FilaCuatro props.datos.length ', props.datos.length)
     PresupGrabar(props, state.nomCliente, state.idClientes)
   }
 
@@ -117,42 +111,3 @@ export default function FilaCuatro(props) {
   );
 }
 
-
-
-
-// function onRowadd(event, rowData) {
-
-// var dcalculo = [
-//   {
-//     StkRubroAbr: state.StkRubroAbr,
-//     minmay: state.PresupMnMy,
-//     cantidad: state.PresupCantidad
-//   },
-// ];
-// var datoscalculos = JSON.stringify(dcalculo);
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       {
-//         const datosrenglon1 =  presupcalculador(datoscalculos);
-//         setDatosRenglon(() => datosrenglon1);
-//       //   setPresup({...presup, data :
-//       //   {StkRubroDesc: "VORTEX 150",
-//       //   ImpUnitario: "424.6465",
-//       //   ImpItem: "424.6465",
-//       //   StkRubroCosto: "197.51",
-//       //   StkMonedasCotizacion: "1"}
-//       // })
-//       presup.data.push(      
-//         {StkRubroDesc: "VORTEX 150",
-//          ImpUnitario: 424.6465,
-//          ImpItem: 424.6465,
-//          StkRubroCosto: 197.51,
-//          StkMonedasCotizacion: 1})
-//          {console.log('presup.data  ', presup.data)}
-//      //   (newData).then(() => presupcalculador(datoscalculos))
-//         //agregarRubros(newData).then(() => stkrubroleemezcla());
-//       }
-//       resolve();
-//     }, 600);
-//   });
-// }

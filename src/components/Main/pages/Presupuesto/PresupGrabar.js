@@ -5,9 +5,6 @@ import CodigoError from '../../../lib/CodigoError'
 // Lee Rubro por codigo de gupo
 
 export const PresupGrabar = (props, nomCliente, idClientes) => {
-  console.log('props  PresupGrabar  ', props)
-  // console.log('nomCliente  PresupGrabar  ', nomCliente)
-  // console.log('propidClientess  PresupGrabar  ', idClientes)
 
   const url = IpServidor + "/presupgraba";
   request

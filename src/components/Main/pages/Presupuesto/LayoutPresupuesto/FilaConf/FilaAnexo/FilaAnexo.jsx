@@ -11,8 +11,8 @@ import { Grid, Dialog } from "@material-ui/core";
 import { HeaderTitle } from '../../../../../../lib/HeaderTitle'
 import { red, teal } from '@material-ui/core/colors';
 import leePresupConfTipoLeerDesc from '../../../leePresupConfTipoLeerDesc'
-
-
+import Modal from '@material-ui/core/Modal';
+import Popover from '@material-ui/core/Popover';
 // Context
 import { useContext } from "react";
 import { PresupPantContext } from '../../../PresupPant'
@@ -45,7 +45,6 @@ export default function FilaAnexo(props) {
         var i = 0;
         while (i < datosanexo.length) {
             importetotal = importetotal + datosanexo[i].importea;
-            console.log('datosanexo[i].PresupConfTipoImprime  ', datosanexo[i].PresupConfTipoImprime)
             // if (state.DatosPresupEleg.PresupConfTipoImprime == 'S') {
             nombre = nombre + ' c/' + datosanexo[i].AnexoMedida + ' ' + datosanexo[i].PresupConfTipoDesc
             i++;
@@ -59,12 +58,17 @@ export default function FilaAnexo(props) {
             },
         ];
         setState({ ...state, renglonanexo: datospresup[0] });
-        //cierraanexos()
+        cierraanexos()
     }
 
     function cierraanexos() {
         props.setOpen({ anexos: false });
     }
+    function cierraanexos1() {
+        setState({ ...state, renglonanexo: [] });
+        props.setOpen({ anexos: false });
+    }
+
     async function dataFetch() {
         const data = await filaanexosData();
         setData(data);
@@ -112,7 +116,7 @@ export default function FilaAnexo(props) {
                                 icon: () => <tableIcons.Cancel style={{ color: red[500] }} />,
                                 tooltip: "Cerrar",
                                 isFreeAction: true,
-                                onClick: (event) => cierraanexos(),
+                                onClick: (event) => cierraanexos1(),
                             }
                         ]}
                         editable={{

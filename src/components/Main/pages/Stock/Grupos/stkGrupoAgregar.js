@@ -1,8 +1,8 @@
 import request from "superagent";
 import IpServidor from "../../VariablesDeEntorno";
 import "react-table/react-table.css";
-
 import CodigoError from "../../../../lib/CodigoError";
+import Mensaje from "../../../../lib/Mensaje";
 
 export function stkGrupoAgregar(props) {
   const {
@@ -20,10 +20,11 @@ export function stkGrupoAgregar(props) {
     .send({ StkGrupoAbr: StkGrupoAbr })
     .send({ StkGrupoContRubro: 0 }) // Esto va a ser Cero inicialmente.
     .set("X-API-Key", "foobar")
-    .then(function(res) {
+    .then(function (res) {
       const respuesta = JSON.parse(res.text);
-      if (respuesta.affectedRows !== 0) alert("EXITO");
-      else alert("No modifico");
+      if (respuesta.affectedRows !== 0)
+        Mensaje("error", "Grupo agregado correctamente");
+      else Mensaje("error", "No se pudo modificar");
     })
     .catch((err) => CodigoError(err));
 }
