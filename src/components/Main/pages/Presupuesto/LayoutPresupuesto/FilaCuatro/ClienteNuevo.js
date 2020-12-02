@@ -17,7 +17,7 @@ import { PresupPantContext } from "../../PresupPant";
 import { clientesleerdesc } from "../../../Clientes/ClientesLeerDesc";
 import { PresupGrabar } from "../../PresupGrabar";
 
-export default function ClienteNuevo() {
+export default function ClienteNuevo(props) {
   const campos = [
     { campo: "ClientesDesc", display: "Descripcion", grid: 12 },
     { campo: "ClientesCalle", display: "Calle", grid: 12 },
@@ -37,27 +37,90 @@ export default function ClienteNuevo() {
   return (
     <>
       <Container fixed>
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
-          spacing={2}
+        {/* <Dialog
+          // fullWidth={true}
+          // maxWidth="md"
+          open={true}
+          keepMounted
+          // onClose={handleClose}
+          // aria-labelledby="alert-dialog-slide-title"
+          // aria-describedby="alert-dialog-slide-description"
         >
-          {campos.map((campo) => (
-            <Grid item xs={campo.grid}>
-              <TextField
-                fullWidth
-                variant="outlined"
-                id={campo.display}
-                label={campo.display}
-                //   className={classes.textField}
-                //   placeholder="Ingresar Nuevo Cliente"
-                //   onChange={handleChange}
-              />
-            </Grid>
-          ))}
-        </Grid>
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+            spacing={2}
+          >
+            {campos.map((campo) => (
+              <Grid item xs={campo.grid}>
+                <TextField
+                  fullWidth
+                  variant="outlined"
+                  id={campo.campo}
+                  label={campo.display}
+                  //   className={classes.textField}
+                  //   placeholder="Ingresar Nuevo Cliente"
+                  onChange={props.handleChange}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        </Dialog> */}
+
+        <Dialog
+          // fullWidth={true}
+          // maxWidth="md"
+          open={props.marcacliente}
+          // keepMounted
+          onClose={props.cancelar}
+
+          // aria-labelledby="alert-dialog-slide-title"
+          // aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle id="simple-dialog-title">
+            Agregar Nuevo Cliente
+          </DialogTitle>
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+            spacing={2}
+          >
+            {campos.map((campo) => (
+              <Grid item xs={campo.grid}>
+                <TextField
+                  fullWidth
+                  variant="outlined"
+                  id={campo.campo}
+                  label={campo.display}
+                  //   className={classes.textField}
+                  //   placeholder="Ingresar Nuevo Cliente"
+                  onChange={props.handleChange}
+                />
+              </Grid>
+            ))}
+          </Grid>
+
+          <DialogActions>
+            <Button onClick={props.cancelar} color="secondary">
+              {/* <Button onClick={() => alert("cancelar")} color="secondary"> */}
+              Cancelar
+            </Button>
+            {/* <Button onClick={grabarpresupuesto} color="primary" autoFocus> */}
+            {/* <Button onClick={grabar} color="primary" autoFocus> */}
+            <Button
+              // onClick={() => ClientesAgregar(props)}
+              onClick={props.grabarCliente}
+              color="primary"
+              autoFocus
+            >
+              Grabar
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Container>
     </>
   );

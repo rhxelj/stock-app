@@ -16,6 +16,7 @@ import { PresupPantContext } from "../../PresupPant";
 import { clientesleerdesc } from "../../../Clientes/ClientesLeerDesc";
 import { PresupGrabar } from "../../PresupGrabar";
 import ClienteNuevo from "./ClienteNuevo";
+import { ClientesAgregar } from "../../../Clientes/ClientesAgregar";
 
 export default function FilaCuatro(props) {
   // Esto es para poder consumir los datos del CONTEXTAPI
@@ -34,7 +35,7 @@ export default function FilaCuatro(props) {
   }
   useEffect(() => {
     clientesleerdescrip();
-  }, [open]);
+  }, [open, marcacliente]);
 
   function nuevocliente() {
     setMarcaCliente(true);
@@ -42,11 +43,18 @@ export default function FilaCuatro(props) {
 
   function grabarpresupuesto() {
     PresupGrabar(props, state.nomCliente, state.idClientes);
+
+    cancelar();
+  }
+  function grabarCliente() {
+    ClientesAgregar(state);
+    setMarcaCliente(false);
   }
 
   function cancelar() {
-    setMarcaCliente(false);
-    handleClose();
+    setMarcaCliente(false); //todo : verificar si esto funciona luego borrar comentario
+
+    // handleClose();
   }
   function grabar() {
     grabarpresupuesto();
@@ -81,46 +89,34 @@ export default function FilaCuatro(props) {
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
+        <DialogTitle id="simple-dialog-title">Elegir Cliente</DialogTitle>
+
         {!marcacliente ? (
-          <DialogTitle id="simple-dialog-title">Elegir Cliente</DialogTitle>
+          textdata.map((data) => (
+            <TextField
+              id={data.id}
+              key={data.id}
+              // size="small"
+              select
+              label={data.label}
+              fullWidth
+              value={data.value}
+              onChange={handleChange}
+              SelectProps={{ native: true }}
+              variant="outlined"
+            >
+              {data.mapeo}
+            </TextField>
+          ))
         ) : (
-          <DialogTitle id="simple-dialog-title">
-            Agregar Nuevo Cliente
-          </DialogTitle>
+          <ClienteNuevo
+            handleChange={handleChange}
+            setMarcaCliente={setMarcaCliente}
+            marcacliente={marcacliente}
+            cancelar={cancelar}
+            grabarCliente={grabarCliente}
+          />
         )}
-        {
-          !marcacliente ? (
-            textdata.map((data) => (
-              <TextField
-                id={data.id}
-                key={data.id}
-                // size="small"
-                select
-                label={data.label}
-                fullWidth
-                value={data.value}
-                onChange={handleChange}
-                SelectProps={{ native: true }}
-                variant="outlined"
-              >
-                {data.mapeo}
-              </TextField>
-            ))
-          ) : (
-            <ClienteNuevo></ClienteNuevo>
-            // <TextField
-            //   inputProps={{ maxlength: 45 }}
-            //   // size="small"
-            //   variant="outlined"
-            //   id="nomCliente"
-            //   label="Cliente :"
-            //   className={classes.textField}
-            //   placeholder="Ingresar Nuevo Cliente"
-            //   onChange={handleChange}
-            // />
-          )
-          // </TextField>
-        }
 
         <DialogActions>
           <Button
@@ -130,12 +126,10 @@ export default function FilaCuatro(props) {
           >
             Cliente Nuevo
           </Button>
-          {/* <Button onClick={handleClose} color="secondary"> */}
-          <Button onClick={cancelar} color="secondary">
+          <Button onClick={handleClose} color="secondary">
             Cancelar
           </Button>
-          {/* <Button onClick={grabarpresupuesto} color="primary" autoFocus> */}
-          <Button onClick={grabar} color="primary" autoFocus>
+          <Button onClick={grabarpresupuesto} color="primary" autoFocus>
             Grabar
           </Button>
         </DialogActions>
