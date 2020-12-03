@@ -7,6 +7,7 @@ import { localization } from "../../../../../lib/material-table/localization";
 import FilaCuatro from "../FilaCuatro/FilaCuatro";
 import CurrencyTextField from "@unicef/material-ui-currency-textfield";
 import Imprimir from "../../../Impresion/Imprimir/Imprimir";
+import { PresupImprime } from "../PresupImprime"
 import {
   red,
   blue,
@@ -63,6 +64,7 @@ export default function TablaPresup(props) {
   }
 
   function imprime() {
+    PresupImprime(datosrenglon)
     // console.log("Mando a Imprimir presupueto");
     // console.log(presup.columnas);
     // console.log(props.data);
@@ -84,6 +86,7 @@ export default function TablaPresup(props) {
     //   type: "json",
     //   // onPrintDialogClose:this.props.toggleImprimir()
     // });
+
   }
 
   const handleClickOpen = () => {

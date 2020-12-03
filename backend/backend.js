@@ -129,6 +129,7 @@ var presupdetpiemodificar = require("./routes/presupuesto/presupdetpie/presupdet
 var presupdetpieborrar = require("./routes/presupuesto/presupdetpie/presupdetpieborrar");
 var presupdetpieagregar = require("./routes/presupuesto/presupdetpie/presupdetpieagregar");
 
+var imppresup = require("./routes/impresion/imppresup");
 // function agregada por el error CROS
 function perimitirCrossDomain(req, res, next) {
   //en vez de * se puede definir SÓLO los orígenes que permitimos
@@ -141,6 +142,7 @@ function perimitirCrossDomain(req, res, next) {
 
 var app = express();
 app.use(cors());
+
 // routes.initialize(app);
 
 // view engine setup
@@ -280,6 +282,8 @@ app.use("/presupdetpieleer", presupdetpieleer);
 app.use("/presupdetpiemodificar", presupdetpiemodificar);
 app.use("/presupdetpieborrar", presupdetpieborrar);
 app.use("/presupdetpieagregar", presupdetpieagregar);
+
+app.use("/imppresup", imppresup);
 
 
 app.use(function (req, res, next) {

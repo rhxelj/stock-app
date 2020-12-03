@@ -23,7 +23,7 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AttachmentIcon from '@material-ui/icons/Attachment';
-
+import AssignmentReturnedIcon from '@material-ui/icons/AssignmentReturned';
 
 export const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -54,4 +54,5 @@ export const tableIcons = {
   NoteAdd: forwardRef((props, ref) => <NoteAddIcon {...props} ref={ref} />),
   Cancel: forwardRef((props, ref) => <CancelIcon {...props} ref={ref} />),
   Attachment: forwardRef((props, ref) => <AttachmentIcon {...props} ref={ref} />),
+  AssignmentReturned: forwardRef((props, ref) => <AssignmentReturnedIcon {...props} ref={ref} />),
 };

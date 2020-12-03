@@ -17,7 +17,8 @@ conexion.connect(function (err) {
 router.post("/", function (req, res, next) {
 
   var registro = {
-    PresupDetPieLeyenda: req.body.PresupDetPieLeyenda
+    PresupDetPieLeyenda: req.body.PresupDetPieLeyenda,
+    PresupDetPieSelec: req.body.PresupDetPieSelec
   };
 
   conexion.query("INSERT INTO BasePresup.PresupDetPie SET ?", registro, function (err, result) {

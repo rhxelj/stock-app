@@ -8,6 +8,7 @@ export function presupDetPieAgregar(props) {
 
     const {
         PresupDetPieLeyenda,
+        PresupDetPieSelec,
     } = props;
 
     const url = IpServidor + "/presupdetpieagregar";
@@ -15,6 +16,7 @@ export function presupDetPieAgregar(props) {
         .post(url)
         .set("Content-Type", "application/json")
         .send({ PresupDetPieLeyenda: PresupDetPieLeyenda })
+        .send({ PresupDetPieSelec: PresupDetPieSelec })
         .set("X-API-Key", "foobar")
         .then(function (res) {
             const respuesta = JSON.parse(res.text);

@@ -18,14 +18,15 @@ import StkMovSalidaFinal from "./pages/Stock/Movimientos/Salida/LayoutMovSalidaF
 import StkItems from "./pages/Stock/Items/StkItems";
 
 import PresupPant from "./pages/Presupuesto/PresupPant.jsx";
+// import Presupuestos from './pages/Presupuestos/Presupuestos'
 import PresupConfTipo from "./pages/Presupuesto/PresupConfTipo/PresupConfTipo";
+import PresupDetPie from "./pages/Presupuesto/PresupDetPie/PresupDetPie";
 import ImprimeQR from "./pages/Impresion/ImprimeQR";
 // TODO 👀📐 nothing changed here, just auto-formatting
 // all this auto-formatting is coming from the Prettier extension
 // https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
 // and the setting "format on save"
 // check out my fave extensions for vs code at https://shortcut.school/vs-code#extensions 😎
-import PresupDetPie from "./pages/Presupuesto/PresupDetPie/PresupDetPie";
 
 const Main = () => (
   <main>
@@ -48,6 +49,7 @@ const Main = () => (
       <Route path="/StkMovSalidaFinal" component={StkMovSalidaFinal} />
       <Route path="/ListaPrecios" component={ListaPrecios} />
       <Route path="/PresupPant" component={PresupPant} />
+      {/* <Route path="/Presupuestos" component={Presupuestos} /> */}
       {/* <Route path="/PresupPantVie" component={PresupPantVie} /> */}
       {/* <Route path="/PresupuestoUnid" component={PresupuestoUnid} /> */}
       <Route path="/ImprimeQR" component={ImprimeQR} />
@@ -57,6 +59,7 @@ const Main = () => (
       <Route path="/StkMovEntrada" component={StkMovEntrada} />
       <Route path="/StkUbFisica" component={StkUbFisica} />
       <Route path="/PresupConfTipo" component={PresupConfTipo} />
+      <Route path="/PresupDetPie" component={PresupDetPie} />
       <Route path="/ModPrecios" component={ModPrecios} />
       <Route path="/PresupDetPie" component={PresupDetPie} />
       {/* <Route path="/AgregarMonedas" component={AgregarMonedas}/> */}
