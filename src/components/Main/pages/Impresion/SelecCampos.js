@@ -11,6 +11,7 @@ import ImprimirPantalla from "../Impresion/ImprimirPantalla";
 import { Dialog, TablePagination } from "@material-ui/core";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
+import { checkout } from "superagent";
 
 export default function SelecCampos(props) {
   // const classes = useStyles();
@@ -40,6 +41,7 @@ export default function SelecCampos(props) {
       const encabezado = {
         title: valor.Header,
         field: valor.accessor,
+
       };
       campoVisible.push(encabezado);
       return null; //agregado para que no tire un warning
@@ -124,7 +126,7 @@ export default function SelecCampos(props) {
           datos={props.datos}
           properties={properties}
           toggleImprimir={props.toggleImprimir}
-          // properties={checked}
+        // properties={checked}
         />
       )}
     </div>

@@ -2,7 +2,7 @@ var express = require('express');
 var path = require('path');
 var cors = require('cors');
 //var favicon = require('serve-favicon');
-var cors = require ('cors');
+var cors = require('cors');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -81,12 +81,12 @@ var clientesleer = require('./routes/clientesleer');
 // function agregada por el error CROS
 function perimitirCrossDomain(req, res, next) {
     //en vez de * se puede definir SÓLO los orígenes que permitimos
-    res.header('Access-Control-Allow-Origin', '*'); 
+    res.header('Access-Control-Allow-Origin', '*');
     //metodos http permitidos para CORS
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE'); 
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
-  }
+}
 
 
 var app = express();
@@ -177,14 +177,14 @@ app.use('/stkmovvtaagregar', stkmovvtaagregar);
 
 app.use('/clientesleer', clientesleer);
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     var err = new Error('El programa de backend no se encuentra');
     err.status = 404;
     next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -193,7 +193,7 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 
-   
+
 });
-  
+
 module.exports = app;

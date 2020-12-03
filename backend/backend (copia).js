@@ -116,6 +116,7 @@ var presuplonaconf = require("./routes/presupuesto/presuplonaconf");
 var presupgraba = require("./routes/presupuesto/presupgraba");
 
 var presupconftipoleer = require("./routes/presupuesto/presupconftipo/presupconftipoleer");
+
 var presupconftipoleerdesc = require("./routes/presupuesto/presupconftipo/presupconftipoleerdesc");
 var presupconftipoleeanexo = require("./routes/presupuesto/presupconftipo/presupconftipoleeanexo");
 var presupconftipomodificar = require("./routes/presupuesto/presupconftipo/presupconftipomodificar");
@@ -123,13 +124,6 @@ var presupconftipoborrar = require("./routes/presupuesto/presupconftipo/presupco
 var presupconftipoagregar = require("./routes/presupuesto/presupconftipo/presupconftipoagregar");
 var presupconftipocalc = require("./routes/presupuesto/presupconftipo/presupconftipocalc");
 
-
-var presupdetpieleer = require("./routes/presupuesto/presupdetpie/presupdetpieleer");
-var presupdetpiemodificar = require("./routes/presupuesto/presupdetpie/presupdetpiemodificar");
-var presupdetpieborrar = require("./routes/presupuesto/presupdetpie/presupdetpieborrar");
-var presupdetpieagregar = require("./routes/presupuesto/presupdetpie/presupdetpieagregar");
-
-var imppresup = require("./routes/impresion/imppresup");
 // function agregada por el error CROS
 function perimitirCrossDomain(req, res, next) {
   //en vez de * se puede definir SÓLO los orígenes que permitimos
@@ -142,7 +136,6 @@ function perimitirCrossDomain(req, res, next) {
 
 var app = express();
 app.use(cors());
-
 // routes.initialize(app);
 
 // view engine setup
@@ -276,14 +269,6 @@ app.use("/presupconftipomodificar", presupconftipomodificar);
 app.use("/presupconftipoborrar", presupconftipoborrar);
 app.use("/presupconftipoagregar", presupconftipoagregar);
 app.use("/presupconftipocalc", presupconftipocalc);
-
-
-app.use("/presupdetpieleer", presupdetpieleer);
-app.use("/presupdetpiemodificar", presupdetpiemodificar);
-app.use("/presupdetpieborrar", presupdetpieborrar);
-app.use("/presupdetpieagregar", presupdetpieagregar);
-
-app.use("/imppresup", imppresup);
 
 
 app.use(function (req, res, next) {

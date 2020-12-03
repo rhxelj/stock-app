@@ -9,8 +9,8 @@ export function presupdetpieData() {
             .get(url)
             .set("Content-Type", "application/json")
             .then((res) => {
-                const grupos = JSON.parse(res.text);
-                resolve(grupos);
+                const presupdetpie = JSON.parse(res.text);
+                resolve(presupdetpie);
                 //.catch() //Todo: agregar el catch error.
             });
     });
