@@ -44,6 +44,7 @@ export default function StkGrupo() {
   return (
     <div>
       <MaterialTable
+        title=""
         actions={[
           {
             icon: () => <tableIcons.Print />,

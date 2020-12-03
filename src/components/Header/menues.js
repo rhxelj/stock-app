@@ -23,4 +23,5 @@ export const tablas = [
   { primary: "Unidad de Medidas", link: "/StkUnMed" },
   { primary: "Ubicación Física", link: "StkUbFisica" },
   { primary: "Presupuesto Tipo", link: "/PresupConfTipo" },
+  { primary: "Pie de Presupuesto", link: "/PresupDetPie" },
 ];

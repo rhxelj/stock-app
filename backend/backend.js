@@ -116,13 +116,18 @@ var presuplonaconf = require("./routes/presupuesto/presuplonaconf");
 var presupgraba = require("./routes/presupuesto/presupgraba");
 
 var presupconftipoleer = require("./routes/presupuesto/presupconftipo/presupconftipoleer");
-
 var presupconftipoleerdesc = require("./routes/presupuesto/presupconftipo/presupconftipoleerdesc");
 var presupconftipoleeanexo = require("./routes/presupuesto/presupconftipo/presupconftipoleeanexo");
 var presupconftipomodificar = require("./routes/presupuesto/presupconftipo/presupconftipomodificar");
 var presupconftipoborrar = require("./routes/presupuesto/presupconftipo/presupconftipoborrar");
 var presupconftipoagregar = require("./routes/presupuesto/presupconftipo/presupconftipoagregar");
 var presupconftipocalc = require("./routes/presupuesto/presupconftipo/presupconftipocalc");
+
+
+var presupdetpieleer = require("./routes/presupuesto/presupdetpie/presupdetpieleer");
+var presupdetpiemodificar = require("./routes/presupuesto/presupdetpie/presupdetpiemodificar");
+var presupdetpieborrar = require("./routes/presupuesto/presupdetpie/presupdetpieborrar");
+var presupdetpieagregar = require("./routes/presupuesto/presupdetpie/presupdetpieagregar");
 
 // function agregada por el error CROS
 function perimitirCrossDomain(req, res, next) {
@@ -269,6 +274,12 @@ app.use("/presupconftipomodificar", presupconftipomodificar);
 app.use("/presupconftipoborrar", presupconftipoborrar);
 app.use("/presupconftipoagregar", presupconftipoagregar);
 app.use("/presupconftipocalc", presupconftipocalc);
+
+
+app.use("/presupdetpieleer", presupdetpieleer);
+app.use("/presupdetpiemodificar", presupdetpiemodificar);
+app.use("/presupdetpieborrar", presupdetpieborrar);
+app.use("/presupdetpieagregar", presupdetpieagregar);
 
 
 app.use(function (req, res, next) {

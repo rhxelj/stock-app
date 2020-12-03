@@ -42,34 +42,40 @@ export default function TipoCliente() {
   const classes = useStyles();
   return (
     <>
-      <FormControl component="fieldset">
-        <FormLabel component="legend">Tipo de Cliente</FormLabel>
-        <RadioGroup
-          row
-          aria-label="Tipo de Cliente"
-          name="tipoCliente"
-          value={selectedValue}
-          onChange={handleChange}
-
-        >
-          <Grid item xs>
-            <FormControlLabel
-              value="mn"
-              control={<Radio />}
-              label="Minorista"
-              labelPlacement="top"
-            />
-          </Grid>
-          <Grid item xs>
-            <FormControlLabel
-              value="my"
-              control={<Radio />}
-              label="Mayorista"
-              labelPlacement="top"
-            />
-          </Grid>
-        </RadioGroup>
-      </FormControl>
+      {/* <FormControl component="fieldset">
+        <FormLabel component="legend">Tipo de Cliente</FormLabel> */}
+      {/* <Grid item container spacing={3} xs={12}> */}
+      {/* <Grid item xs> */}
+      <RadioGroup
+        row
+        size="small"
+        // label="Tipo de Cliente"
+        // aria-label="Tipo de Cliente"    
+        name="tipoCliente"
+        value={selectedValue}
+        onChange={handleChange}
+        margin="dense"
+      >
+        <Grid item xs={3}>
+          <FormControlLabel
+            value="mn"
+            control={<Radio />}
+            label="Min."
+            labelPlacement="top"
+            margin="dense"
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <FormControlLabel
+            value="my"
+            control={<Radio />}
+            label="May."
+            labelPlacement="top"
+            margin="dense"
+          />
+        </Grid>
+      </RadioGroup>
+      {/* </FormControl> */}
       {/* <Grid container direction="column" xs={6}>
         <Grid item spacing={3} xs={2}>
           <Radio
@@ -88,8 +94,8 @@ export default function TipoCliente() {
             name="radio-button-mnmy"
           />
           Mayorista
-        </Grid>
-      </Grid> */}
+        </Grid>*/}
+      {/* </Grid> */}
     </>
   );
 }

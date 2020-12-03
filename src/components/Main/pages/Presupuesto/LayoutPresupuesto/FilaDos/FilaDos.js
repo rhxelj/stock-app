@@ -2,11 +2,19 @@ import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import useStyles from "../styles";
 
-
 import { TextField, Button } from "@material-ui/core";
-
+import IconButton from '@material-ui/core/IconButton';
 import { stkrubroleedesc } from "../../../Stock/Rubros/StkRubroLeeDesc";
 import { presupcalculador } from "../../PresupCalculador";
+import AssignmentReturnedIcon from '@material-ui/icons/AssignmentReturned';
+import {
+  red,
+  blue,
+  green,
+  blueGrey,
+  purple,
+  teal,
+} from "@material-ui/core/colors";
 // import { presupgrabar } from "../../PresupGrabar";
 
 // Context
@@ -18,28 +26,26 @@ import FilaConf from "../FilaConf/FilaConf";
 export default function FilaDos(props) {
   // Esto es para poder consumir los datos del CONTEXTAPI
   const { state, setState } = useContext(PresupPantContext);
-  const [datosrenglon, setDatosRenglon] = useState([]);
-  var renglonanexo = []
-  // según el presupuesto elegido, lee la tabla y se decide que pide 
+  // const [datosrenglon, setDatosRenglon] = useState([]);
+  const { datosrenglon, setDatosRenglon } = useContext(PresupPantContext);
+  const [open, setOpen] = useState(false);
+
+  // según el presupuesto elegido, lee la tabla y se decide que pide
   if (state.DatosPresupEleg.length != 0) {
-    var largo = state.DatosPresupEleg[0].PresupConfTipoLargo
-    var ancho = state.DatosPresupEleg[0].PresupConfTipoAncho
-    var presuptipo = state.DatosPresupEleg[0].PresupConfTipoDesc
-    if (state.DatosPresupEleg[0].PresupConfTipoRubro === 'VS') {
-      var rubrosn = 'S'
-    }
-    else {
-      var rubrosn = 'N'
+    var largo = state.DatosPresupEleg[0].PresupConfTipoLargo;
+    var ancho = state.DatosPresupEleg[0].PresupConfTipoAncho;
+    var presuptipo = state.DatosPresupEleg[0].PresupConfTipoDesc;
+    if (state.DatosPresupEleg[0].PresupConfTipoRubro === "VS") {
+      var rubrosn = "S";
+    } else {
+      var rubrosn = "N";
     }
   }
 
-  const [open, setOpen] = React.useState(false);
-
-  const [openanexo, setOpenAnexo] = React.useState(false);
-  const [check, setCheck] = React.useState({
-    ConSoga: false,
-    SinSoga: false,
-  });
+  // const [check, setCheck] = React.useState({
+  //   ConSoga: false,
+  //   SinSoga: false,
+  // });
 
   const handleChange = (event) => {
     const id = event.target.id;
@@ -49,9 +55,7 @@ export default function FilaDos(props) {
   async function stkrubroleerdesc(codgrupo) {
     const result = await stkrubroleedesc(codgrupo);
     setState({ ...state, stkrubro: result });
-
   }
-
   useEffect(() => {
     if (presuptipo === "UNIDAD") {
       stkrubroleerdesc(99);
@@ -59,6 +63,8 @@ export default function FilaDos(props) {
       stkrubroleerdesc(2);
     }
   }, [rubrosn]);
+
+
 
   async function agregar() {
     var dcalculo = [
@@ -82,29 +88,31 @@ export default function FilaDos(props) {
     var PresupCantidadM = state.PresupCantidad;
     var detalle = presuptipo;
 
-
     var datoscalculos = JSON.stringify(dcalculo);
     const datosrenglon1 = await presupcalculador(
       state.DatosPresupEleg[0],
       datoscalculos,
       presuptipo
     );
-    if (rubrosn === 'S') {
-      StkRubroDesc = datosrenglon1[0][0].Detalle + datosrenglon1[0][0].StkRubroDesc + ' ' + state.DescripPresup;
+    if (rubrosn === "S") {
+      StkRubroDesc =
+        datosrenglon1[0][0].Detalle +
+        datosrenglon1[0][0].StkRubroDesc +
+        " " +
+        state.DescripPresup;
       ImpUnitario = datosrenglon1[0][0].ImpItem;
       ImpItem = datosrenglon1[0][0].ImpItem * PresupCantidadM;
-      PresupLargo = datosrenglon1[0][0].Largo
-      PresupAncho = datosrenglon1[0][0].Ancho
+      PresupLargo = datosrenglon1[0][0].Largo;
+      PresupAncho = datosrenglon1[0][0].Ancho;
       if (state.renglonanexo.length !== 0) {
-        ImpItemCAnexos = ImpItem + (state.renglonanexo.ImpItemAnexo * state.PresupCantidad)
-        StkRubroDesc = StkRubroDesc + state.renglonanexo.StkRubroDesc
+        ImpItemCAnexos =
+          ImpItem + state.renglonanexo.ImpItemAnexo * state.PresupCantidad;
+        StkRubroDesc = StkRubroDesc + state.renglonanexo.StkRubroDesc;
       }
-    }
-    else {
-      StkRubroDesc = detalle
+    } else {
+      StkRubroDesc = detalle;
       ImpUnitario = datosrenglon1[0].ImpItem;
       ImpItem = datosrenglon1[0].ImpItem * PresupCantidadM;
-
     }
     var datospresup = [
       {
@@ -121,15 +129,14 @@ export default function FilaDos(props) {
     if (state.renglonanexo.length !== 0) {
       setDatosRenglon([...datosrenglon, state.renglonanexo]);
       setDatosRenglon([...datosrenglon, datospresup[0]]);
-      setState({ ...state, renglonanexo: [] });
-    }
-    else {
+    } else {
       setDatosRenglon([...datosrenglon, datospresup[0]]);
     }
+    console.log("DatosRenglon -> ", datosrenglon);
+    console.log("DatosRenglon1 -> ", datosrenglon1);
+
     handleClickOpen();
   }
-
-
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -139,15 +146,7 @@ export default function FilaDos(props) {
     setOpen(false);
   };
 
-  const handleCloseAnexo = () => {
-    setOpenAnexo(false);
-  };
-
-  const handleOpenAnexo = () => {
-    setOpenAnexo(true);
-  };
   const classes = useStyles();
-
   const textdata = [
     {
       id: "StkRubroAbr",
@@ -156,11 +155,8 @@ export default function FilaDos(props) {
       mapeo: (
         <>
           <option></option>
-          {state.stkrubro.map(option => (
-            // <option value={option.StkRubroAbr}>
-            //   {option.StkRubroDesc}
+          {state.stkrubro.map((option) => (
             <option key={option.StkRubroAbr} value={option.StkRubroAbr}>
-              {/* <option key={option.StkRubroAbr} value={option.StkRubroDesc}> */}
               {option.StkRubroDesc}
             </option>
           ))}
@@ -170,27 +166,27 @@ export default function FilaDos(props) {
   ];
   return (
     <>
-      {rubrosn === 'S' && (
-        state.stkrubro.length > 0 && (
-          textdata.map((data, index) => (
-            <Grid key={index} item xs>
-              <TextField
-                id={data.id}
-                size="small"
-                select
-                label={data.label}
-                fullWidth
-                value={data.value}
-                onChange={handleChange}
-                SelectProps={{ native: true }}
-                variant="outlined"
-              >
-                {data.mapeo}
-              </TextField>
-
-            </Grid>
-          ))))}
-      <Grid item xs>
+      {rubrosn === "S" &&
+        state.stkrubro.length > 0 &&
+        textdata.map((data, index) => (
+          <Grid key={index} item xs={1}>
+            <TextField
+              id={data.id}
+              size="small"
+              select
+              label={data.label}
+              // fullWidth
+              value={data.value}
+              onChange={handleChange}
+              SelectProps={{ native: true }}
+              variant="outlined"
+              margin="dense"
+            >
+              {data.mapeo}
+            </TextField>
+          </Grid>
+        ))}
+      <Grid item xs={1}>
         <TextField
           inputProps={{ maxLength: 5 }}
           size="small"
@@ -198,8 +194,9 @@ export default function FilaDos(props) {
           id="PresupCantidad"
           type="number"
           label="Cantidad"
-          //  defaultValue="1"
+          defaultValue="1"
           fullWidth
+          margin="dense"
           value={state.PresupCantidad}
           onChange={handleChange}
           className={classes.textField}
@@ -209,9 +206,9 @@ export default function FilaDos(props) {
           }}
         />
       </Grid>
-      <Grid item xs>
+      <Grid item xs={1}>
         <TextField
-          disabled={(largo === 'N')}
+          disabled={largo === "N"}
           inputProps={{ maxLength: 3 }}
           size="small"
           variant="outlined"
@@ -219,14 +216,15 @@ export default function FilaDos(props) {
           type="number"
           label="Largo"
           fullWidth
+          margin="dense"
           value={state.PresupLargo}
           onChange={handleChange}
           className={classes.textField}
         />
       </Grid>
-      <Grid item xs>
+      <Grid item xs={1}>
         <TextField
-          disabled={(ancho === 'N')}
+          disabled={ancho === "N"}
           inputProps={{ maxLength: 3 }}
           size="small"
           variant="outlined"
@@ -234,29 +232,34 @@ export default function FilaDos(props) {
           type="number"
           label="Ancho"
           fullWidth
+          margin="dense"
           value={state.PresupAncho}
           onChange={handleChange}
           className={classes.textField}
         />
       </Grid>
-      <Grid container item spacing={3} >
-        <Grid item xs={4}>
-          <FilaConf disable={!(presuptipo === "CONFECCIONADA")}></FilaConf>
-        </Grid>
-
-        <Grid item xs={4}>
-          <Button onClick={() => agregar()} color="primary">
-            Agregar
-      </Button>
-        </Grid>
+      {/* <Grid container item spacing > */}
+      {/* <Grid item xs={4}> */}
+      <Grid item xs>
+        <FilaConf disable={!(presuptipo === "CONFECCIONADA")}></FilaConf>
       </Grid>
+
+      <Grid item xs>
+        <IconButton onClick={() => agregar()} color="primary" >
+          <AssignmentReturnedIcon style={{ color: red[500] }} fontSize='large' titleAccess='Agregar' />
+        </IconButton>
+        {/* <Button onClick={() => agregar()} color="primary">
+          Agregar
+        </Button> */}
+      </Grid>
+      {/* </Grid> */}
+
       <TablaPresup
-        open={open}
-        handleClose={handleClose}
+        // open={open}
+        // handleClose={handleClose}
         data={datosrenglon}
         maymin={state.PresupMnMy}
       />
-
     </>
   );
 }
