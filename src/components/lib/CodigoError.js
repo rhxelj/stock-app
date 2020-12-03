@@ -1,6 +1,8 @@
 // import React from "react";
 import Mensaje from "./Mensaje";
 function CodigoError(err) {
+  console.log('error en codigoerror  ', err)
+  console.log('error en codigoerror  ', err.status)
   switch (err.status) {
     case 409:
       Mensaje("error", "Código ingresado EXISTENTE  ");
@@ -27,7 +29,7 @@ function CodigoError(err) {
       Mensaje("error", "error clave duplicada");
       break;
     default:
-      Mensaje("error", "Error ", err.status);
+      Mensaje("error", "Error ", err.status, " ", err.err);
   }
 }
 export default CodigoError;

@@ -14,7 +14,7 @@ export async function StkRubro_Columns() {
   }, {});
   console.log(objstkgrupo);
   const stkrubro = await stkrubroleeproveedor();
-  var objstkrubroprov = await stkrubro.reduce(function (acc, cur, i) {
+  var objstkrubroprov = await stkrubro.reduceRight(function (acc, cur, i) {
     acc[cur.StkRubroProv] = cur.ProveedoresDesc;
     return acc;
     // return Object.values(acc).sort();
