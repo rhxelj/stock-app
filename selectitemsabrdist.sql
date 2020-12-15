@@ -1,0 +1,1 @@
+select StkItems.StkItemsRubroAbr, StkItemsGrupo, StkItemsRubro, StkRubroAbr from StkItems, StkRubro where StkItems.StkItemsRubroAbr <> StkRubro.StkRubroAbr and StkItems.StkItemsRubro = StkRubro.idStkRubro and StkItems.StkItemsGrupo = StkRubro.StkRubroCodGrp;
