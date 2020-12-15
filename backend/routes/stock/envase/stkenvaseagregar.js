@@ -95,14 +95,15 @@ router.post("/", async function (req, res, next) {
               console.log(err.errno);
             }
           }
-          else {
-            res.json(result);
-          }
+          // else {
+          //   res.json(result);
+          // }
 
 
         });
       nroenvase++;
     }
+    res.json(result);
   });
 });
 conexion.end;
