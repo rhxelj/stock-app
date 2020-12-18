@@ -4,7 +4,7 @@ import { stkrubroleeproveedor } from "./StkRubroLeeProveedor";
 import { stkUnMedLeerRed } from "./StkUnMedLeerRed";
 import { stkMonedasleerRed } from "./StkMonedasLeerRed";
 
-export async function StkRubro_Columns() {
+export async function StkRubro_ColumnsI() {
   const stkgrupo = await stkGrupoLeerRedRubro();
   console.log("stkgrupo .... ");
   console.log(stkgrupo);
@@ -50,7 +50,7 @@ function columnsFill(objstkgrupo, objstkrubroprov, objstkUnMed, objstkMonedas) {
       },
       {
         title: "Grupo",
-        field: "StkRubroCodGrp",
+        field: "StkGrupoDesc",
         lookup: objstkgrupo,
         defaultSort: "asc",
         sorting: true,
@@ -79,7 +79,7 @@ function columnsFill(objstkgrupo, objstkrubroprov, objstkUnMed, objstkMonedas) {
       {
         title: "Proveedor",
         // field: "ProveedoresDesc",
-        field: "StkRubroProv",
+        field: "ProveedoresDesc",
 
         lookup: objstkrubroprov,
         native: true,
@@ -138,9 +138,9 @@ function columnsFill(objstkgrupo, objstkrubroprov, objstkUnMed, objstkMonedas) {
       {
         title: "Fecha",
         field: "StkRubroFecha",
-        type: "date",
-        order: true,
-        editable: false,
+        // type: "date",
+        // order: true,
+        // editable: false,
       },
     ]);
   });

@@ -19,7 +19,8 @@ router.get("/", function (req, res, next) {
     " StkGrupo.StkGrupoDesc, StkRubroAbr, StkRubroProv, ",
     " Proveedores.ProveedoresDesc, StkRubroAncho, StkRubroPresDes,",
     " StkRubroPres, StkRubroUM, StkRubroCosto, StkRubroTM,",
-    ' StkRubroFecha ',
+    // ' StkRubroFecha ',
+    ' date_format(StkRubroFecha, "%d-%m-%Y") as StkRubroFecha  ',
     " from StkRubro JOIN StkGrupo, BasesGenerales.Proveedores ",
     " where StkRubroCodGrp = idStkGrupo and StkRubroProv = idProveedores "
   ].join(" ");
