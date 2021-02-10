@@ -38,11 +38,15 @@ router.get('/', (req, res, next) => {
           coeficiente = result[0].coeficientemin
         }
 
-        minutosunion = result[0].cantminpu
+        //  minutosunion = result[0].cantminpu
         //cálculo de cantidad de metros de soldadura
 
-        valorMOTmup = result[0].costoMOT * coeficiente
-        valorMOTmup = result[0].costoMOT * coeficiente / 60 / 60
+        // valorMOTmup = result[0].costoMOT * coeficiente
+        // valorMOTmup = result[0].costoMOT * coeficiente / 60 / 60
+
+        //corte de la tela 120 segundos por paño independiente del largo
+
+        //unión de los paños 150 segundos por metro de soldadura
         valorMOTmup = result[0].costoMOT * coeficiente / 60 / 60 * result[0].segsolpu
 
         if ((cantidad - Math.trunc(cantidad)) > 0) {
@@ -56,7 +60,9 @@ router.get('/', (req, res, next) => {
           'StkRubroDesc, StkRubroAbr, ',
           '(((StkRubroCosto * StkMonedasCotizacion * ', coeficiente, ')',
           ' * ', cantidad,
-          ' * ', largo, ' ) + ' + impunion + ') as ImpItem, ',
+          ' * ', largo, ' ) + ' + impunion + ') as ImpUnitario, ',
+          // ' * ', largo, ' ) + ' + impunion + ') as ImpItem, ',
+
           'StkRubroCosto,',
           'StkMonedasCotizacion ',
           'from BaseStock.StkRubro JOIN  BaseStock.StkMonedas ',

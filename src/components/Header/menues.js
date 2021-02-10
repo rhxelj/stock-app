@@ -5,10 +5,7 @@ export const movimientos = [
   // { link: "/PresupPantVie", primary: "Presupuesto Viejo" },
   // { link: "/StkGenImpQR", primary: "ImprimeQR" },
   { link: "/ListaPrecios", primary: "Lista de Precios" },
-  {
-    link: "/StkMovEntrada",
-    primary: "Entrada Mercadería",
-  },
+  { link: "/StkMovEntrada", primary: "Entrada Mercadería" },
   { link: "/StkMovSalida", primary: "Salida de Disponible" },
   { link: "/StkMovSalidaFinal", primary: "Salida Final" },
 ];

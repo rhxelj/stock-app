@@ -42,10 +42,7 @@ export default function TipoCliente() {
   const classes = useStyles();
   return (
     <>
-      {/* <FormControl component="fieldset">
-        <FormLabel component="legend">Tipo de Cliente</FormLabel> */}
-      {/* <Grid item container spacing={3} xs={12}> */}
-      {/* <Grid item xs> */}
+
       <RadioGroup
         row
         size="small"

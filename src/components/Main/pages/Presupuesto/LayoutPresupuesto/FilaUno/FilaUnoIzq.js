@@ -66,7 +66,8 @@ export default function FilaUnoIzq(props) {
     <>
       {/* <Grid container item spacing={3} xs={6}> */}
       {/* <Grid item container spacing={3} xs={12}> */}
-      <Grid item xs={1}>
+      {/* <Grid item xs={1}> */}
+      <Grid item >
         {textdata.map(data => (
           <TextField
             id={data.id}

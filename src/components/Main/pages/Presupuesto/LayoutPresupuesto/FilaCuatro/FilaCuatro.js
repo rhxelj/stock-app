@@ -13,26 +13,43 @@ import useStyles from "../styles";
 // Context
 import { useContext } from "react";
 import { PresupPantContext } from "../../PresupPant";
-import { clientesleerdesc } from "../../../Clientes/ClientesLeerDesc";
+
+import { clientesleerdescmayigual } from "../../../Clientes/ClientesLeerDesc";
+import { clientesleercodmayor } from "../../../Clientes/ClientesLeerCodMayor";
 import { PresupGrabar } from "../../PresupGrabar";
 import ClienteNuevo from "./ClienteNuevo";
 import { ClientesAgregar } from "../../../Clientes/ClientesAgregar";
+import { PresupImprime } from "../PresupImprime"
+import { PresupDetPieSelec } from '../../PresupDetPie/PresupDetPieSelec'
+import Clientes from '../../../Clientes/Clientes.jsx'
 
 export default function FilaCuatro(props) {
   // Esto es para poder consumir los datos del CONTEXTAPI
   const { state, setState } = useContext(PresupPantContext);
+
+
   const { open, handleClose } = props;
   const [marcacliente, setMarcaCliente] = React.useState(false);
+  const [idClienteEleg, setidClienteEleg] = React.useState(0);
+  const [nomClienteEleg, setnomClienteEleg] = React.useState('');
 
   const handleChange = (event) => {
     const id = event.target.id;
-    setState({ ...state, [id]: event.target.value });
+    if (id != 'nomClientes') {
+      setState({ ...state, [id]: event.target.value });
+      setnomClienteEleg(event.target.value)
+      setidClienteEleg(0)
+    }
+
   };
 
   async function clientesleerdescrip() {
-    const result = await clientesleerdesc();
+    const result = await clientesleerdescmayigual(state.ClientesDesc);
+    setidClienteEleg(result[0].idClientes)
+    setnomClienteEleg(result[0].ClientesDesc)
     setState({ ...state, clientes: result });
   }
+
   useEffect(() => {
     clientesleerdescrip();
   }, [open, marcacliente]);
@@ -41,10 +58,23 @@ export default function FilaCuatro(props) {
     setMarcaCliente(true);
   }
 
-  function grabarpresupuesto() {
-    PresupGrabar(props, state.nomCliente, state.idClientes);
-
-    cancelar();
+  async function grabarpresupuesto() {
+    var idClienteElegE, nomClienteElegE;
+    var descrip = state.DescripPresup
+    if (state.idClientes != 0) {
+      idClienteElegE = state.idClientes
+      nomClienteElegE = state.nomCliente
+    }
+    else {
+      idClienteElegE = idClienteEleg
+      nomClienteElegE = nomClienteEleg
+    }
+    //  PresupGrabar(props, state.nomCliente, state.idClientes);
+    const nroPresupuesto1 = await PresupGrabar(props, nomClienteElegE, idClienteElegE);
+    setState({ ...state, NroPresupuesto: nroPresupuesto1 });
+    PresupDetPieSelec()
+    PresupImprime(props.datos, idClienteElegE, nomClienteElegE, props.suma, nroPresupuesto1, descrip)
+    //  cancelar();
   }
   function grabarCliente() {
     ClientesAgregar(state);
@@ -54,20 +84,23 @@ export default function FilaCuatro(props) {
   function cancelar() {
     setMarcaCliente(false); //todo : verificar si esto funciona luego borrar comentario
 
-    // handleClose();
+    //  handleClose();
   }
-  function grabar() {
-    grabarpresupuesto();
-    cancelar();
-  }
+  // function grabar() {
+
+  //   grabarpresupuesto();
+  //   cancelar();
+  // }
+
+
+
   const textdata = [
     {
       id: "idClientes",
-      label: "Cliente :",
       value: state.idClientes,
       mapeo: (
         <>
-          <option></option>
+          {/* <option></option> */}
           {state.clientes.map((option) => (
             <option key={option.idClientes} value={option.idClientes}>
               {option.ClientesDesc}
@@ -77,6 +110,7 @@ export default function FilaCuatro(props) {
       ),
     },
   ];
+
   const classes = useStyles();
   return (
     <>
@@ -89,7 +123,24 @@ export default function FilaCuatro(props) {
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle id="simple-dialog-title">Elegir Cliente</DialogTitle>
+
+        {/* <DialogTitle id="simple-dialog-title">Cliente Presupuesto</DialogTitle> */}
+        <label>Cliente Presupuesto</label>
+
+        <TextField
+          inputProps={{ maxLength: 40 }}
+          size="small"
+          variant="outlined"
+          id="nomCliente"
+          type="text"
+          label="Nombre Cliente"
+          fullWidth
+          margin="dense"
+          value={state.nomCliente}
+          onChange={handleChange}
+          className={classes.textField}
+        />
+        <label>Cliente Existente</label>
 
         {!marcacliente ? (
           textdata.map((data) => (
@@ -98,7 +149,8 @@ export default function FilaCuatro(props) {
               key={data.id}
               // size="small"
               select
-              label={data.label}
+              // label={data.label}
+              // label='Cliente existente'
               fullWidth
               value={data.value}
               onChange={handleChange}
@@ -109,14 +161,16 @@ export default function FilaCuatro(props) {
             </TextField>
           ))
         ) : (
-          <ClienteNuevo
-            handleChange={handleChange}
-            setMarcaCliente={setMarcaCliente}
-            marcacliente={marcacliente}
-            cancelar={cancelar}
-            grabarCliente={grabarCliente}
-          />
-        )}
+            <ClienteNuevo
+              handleChange={handleChange}
+              setMarcaCliente={setMarcaCliente}
+              marcacliente={marcacliente}
+              cancelar={cancelar}
+              grabarCliente={grabarCliente}
+
+            />
+          )}
+
 
         <DialogActions>
           <Button
@@ -132,6 +186,7 @@ export default function FilaCuatro(props) {
           <Button onClick={grabarpresupuesto} color="primary" autoFocus>
             Grabar
           </Button>
+
         </DialogActions>
       </Dialog>
     </>

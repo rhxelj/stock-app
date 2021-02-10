@@ -90,7 +90,9 @@ export default function StkRubro() {
         options={{
           exportButton: true,
           exportAllData: true,
+          // exportDelimiter: ';',
           grouping: true,
+
           addRowPosition: "first",
           actionsColumnIndex: -1,
           // tableLayout: "fixed",

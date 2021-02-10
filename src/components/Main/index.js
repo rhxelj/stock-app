@@ -61,7 +61,6 @@ const Main = () => (
       <Route path="/PresupConfTipo" component={PresupConfTipo} />
       <Route path="/PresupDetPie" component={PresupDetPie} />
       <Route path="/ModPrecios" component={ModPrecios} />
-      <Route path="/PresupDetPie" component={PresupDetPie} />
       {/* <Route path="/AgregarMonedas" component={AgregarMonedas}/> */}
       {/* <Route path="/BorrarMonedas" component={BorrarMonedas}/> */}
       {/* <Route path="/ModificarMonedas" component={ModificarMonedas}/> */}

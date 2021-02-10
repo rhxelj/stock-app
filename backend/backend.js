@@ -21,6 +21,8 @@ var clientesleerdesc = require("./routes/clientes/clientesleerdesc");
 var clientesagregar = require("./routes/clientes/clientesagregar");
 var clientesborrar = require("./routes/clientes/clientesborrar");
 var clientesmodificar = require("./routes/clientes/clientesmodificar");
+var clientesleercodmayor = require("./routes/clientes/clientesleercodmayor");
+var clientesleerdescmayigual = require("./routes/clientes/clientesleerdescmayigual");
 
 
 var stkmonedasleer = require("./routes/monedas/stkmonedasleer");
@@ -111,6 +113,7 @@ var modprecios = require("./routes/listaprecios/modprecios");
 // PRESUPUESTO
 var presupunid = require("./routes/presupuesto/presupunid");
 var presuppu = require("./routes/presupuesto/presuppu");
+var presuppurec = require("./routes/presupuesto/presuppurec");
 var presupfajas = require("./routes/presupuesto/presupfajas");
 var presuplonaconf = require("./routes/presupuesto/presuplonaconf");
 var presupgraba = require("./routes/presupuesto/presupgraba");
@@ -173,6 +176,8 @@ app.use("/clientesleerdesc", clientesleerdesc);
 app.use("/clientesagregar", clientesagregar);
 app.use("/clientesmodificar", clientesmodificar);
 app.use("/clientesborrar", clientesborrar);
+app.use("/clientesleercodmayor", clientesleercodmayor);
+app.use("/clientesleerdescmayigual", clientesleerdescmayigual);
 
 app.use("/stkbgsubrubroleer", stkbgsubrubroleer);
 
@@ -264,6 +269,7 @@ app.use("/modprecios", modprecios);
 //PRESUPUESTO
 app.use("/presupunid", presupunid);
 app.use("/presuppu", presuppu);
+app.use("/presuppurec", presuppurec);
 app.use("/presupfajas", presupfajas);
 app.use("/presuplonaconf", presuplonaconf);
 app.use("/presupgraba", presupgraba);

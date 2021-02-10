@@ -4,15 +4,30 @@ import { stkrubroleeproveedor } from "./StkRubroLeeProveedor";
 import { stkUnMedLeerRed } from "./StkUnMedLeerRed";
 import { stkMonedasleerRed } from "./StkMonedasLeerRed";
 
+import { stringify } from "querystring";
+
 export async function StkRubro_Columns() {
   const stkgrupo = await stkGrupoLeerRedRubro();
-  console.log("stkgrupo .... ");
-  console.log(stkgrupo);
+
+
+
   var objstkgrupo = await stkgrupo.reduce(function (acc, cur) {
     acc[cur.StkRubroCodGrp] = cur.StkGrupoDesc;
     return acc;
   }, {});
-  console.log(objstkgrupo);
+
+
+  /*
+  Esto hace lo mismo que el reduce
+    const objstkgrupos = {};
+    stkgrupo.map(stkgrp => {
+      const { StkGrupoDesc, StkRubroCodGrp } = stkgrp;
+      objstkgrupos[StkRubroCodGrp] = StkGrupoDesc
+    })
+    */
+
+
+
   const stkrubro = await stkrubroleeproveedor();
   var objstkrubroprov = await stkrubro.reduceRight(function (acc, cur, i) {
     acc[cur.StkRubroProv] = cur.ProveedoresDesc;
@@ -40,10 +55,6 @@ export async function StkRubro_Columns() {
 function columnsFill(objstkgrupo, objstkrubroprov, objstkUnMed, objstkMonedas) {
   return new Promise(function (resolve, reject) {
     resolve([
-      // {
-      //   title: "Rubro(ID)",
-      //   field: "idStkRubro"
-      // },
       {
         title: "Descripción",
         field: "StkRubroDesc",
@@ -52,9 +63,11 @@ function columnsFill(objstkgrupo, objstkrubroprov, objstkUnMed, objstkMonedas) {
         title: "Grupo",
         field: "StkRubroCodGrp",
         lookup: objstkgrupo,
-        defaultSort: "asc",
-        sorting: true,
+        // type: 'string',
+        // defaultSort: "asc",
+        // sorting: true,
         native: true,
+
       },
       // {
       //   title: "Grupo",
@@ -70,7 +83,7 @@ function columnsFill(objstkgrupo, objstkrubroprov, objstkUnMed, objstkMonedas) {
         field: "StkRubroAbr",
         editComponent: (props) => (
           <input
-            maxlength="5"
+            maxLength="5"
             value={props.value}
             onChange={(e) => props.onChange(e.target.value)}
           />
@@ -106,7 +119,7 @@ function columnsFill(objstkgrupo, objstkrubroprov, objstkUnMed, objstkMonedas) {
         field: "StkRubroPresDes",
       },
       {
-        title: "Presentacion",
+        title: "Presentación",
         field: "StkRubroPres",
         type: "numeric",
         // editComponent: (props) => (
@@ -140,7 +153,7 @@ function columnsFill(objstkgrupo, objstkrubroprov, objstkUnMed, objstkMonedas) {
         field: "StkRubroFecha",
         type: "date",
         order: true,
-        editable: false,
+        editable: 'never',
       },
     ]);
   });

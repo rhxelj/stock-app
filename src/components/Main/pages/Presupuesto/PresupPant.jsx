@@ -10,6 +10,7 @@ import FilaDos from './LayoutPresupuesto/FilaDos'
 import TablaPresup from './LayoutPresupuesto/TablaPresup'
 import FilaCuatro from './LayoutPresupuesto/FilaCuatro'
 
+import { HeaderTitle } from '../../../lib/HeaderTitle';
 import {
   Container,
   Dialog,
@@ -20,7 +21,8 @@ import {
 export const PresupPantContext = React.createContext();
 
 
-var PresupPant = props => {
+var PresupPant = (props) => {
+  HeaderTitle("Presupuestos");
 
   const [state, setState] = useState(initial_state);
   const [datosrenglon, setDatosRenglon] = useState([]);

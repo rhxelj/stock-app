@@ -4,7 +4,7 @@ export const initial_state = {
   idStkRubro: "",
   idStkItems: "",
   cantidad: 1.0,
-  StkRubroPres: null,
+  StkRubroPres: "",
 
   // stkitemsmodstock
 

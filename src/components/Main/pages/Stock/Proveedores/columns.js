@@ -6,18 +6,19 @@ export async function llenarColumns() {
   var objstktipoprov = await tipoprov.reduce(function (acc, cur, i) {
     acc[cur.idSubRubro] = cur.SubRubroDetalle;
     // return acc;
-    return Object.values(acc).sort(function (a, b) {
-      return acc[a] - acc[b];
-    });
+    // return Object.values(acc).sort(function (a, b) {
+    //   return acc[a] - acc[b];
+    // });
+    return acc;
   }, {});
 
   const stkMonedas = await stkMonedasleerRed();
   var objstkMonedas = await stkMonedas.reduce(function (acc, cur, i) {
     acc[cur.idStkMonedas] = cur.StkMonedasDescripcion;
-    // return acc;
-    return Object.values(acc).sort(function (a, b) {
-      return acc[a] - acc[b];
-    });
+    return acc;
+    // return Object.values(acc).sort(function (a, b) {
+    //   return acc[a] - acc[b];
+    // });
   }, {});
 
   return columnsFill(objstktipoprov, objstkMonedas);

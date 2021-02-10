@@ -3,7 +3,7 @@ var router = express.Router();
 var path = require("path");
 var conexion = require("../../conexion");
 
-conexion.connect(function(err) {
+conexion.connect(function (err) {
   if (!err) {
     console.log("base de datos conectada en stkubfisicaleercod");
   } else {
@@ -13,12 +13,12 @@ conexion.connect(function(err) {
 
 var router = express();
 
-router.get("/?:StkUbFisicaGeo", function(req, res, next) {
+router.get("/?:StkUbFisicaGeo", function (req, res, next) {
   indice = req.params.StkUbFisicaGeo;
 
   conexion.query(
-    'Select * from StkUbFisica  where StkUbFisicaGeo = "' + indice + '"',
-    function(err, result) {
+    'Select * from StkUbFisica  where StkUbFisicaGeo = "' + indice + '" order by idStkUbFisica ',
+    function (err, result) {
       if (err) {
         console.log(err);
       } else {

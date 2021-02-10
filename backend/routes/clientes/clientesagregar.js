@@ -20,7 +20,6 @@ conexion.connect(function (err) {
 
 
 router.post('/', function (req, res) {
-
     var registro = {
         ClientesDesc: req.body.cliendesc,
         ClientesCalle: req.body.cliencalle,
@@ -45,11 +44,13 @@ router.post('/', function (req, res) {
                 else {
                     console.log(err.errno);
                 }
-            } else {
+            }
+            else {
                 res.json(result.rows);
 
             }
         });
+
 });
 
 

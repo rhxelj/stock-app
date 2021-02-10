@@ -6,6 +6,9 @@ import { TextField, Button } from "@material-ui/core";
 import IconButton from '@material-ui/core/IconButton';
 import { stkrubroleedesc } from "../../../Stock/Rubros/StkRubroLeeDesc";
 import { presupcalculador } from "../../PresupCalculador";
+import { Document, Page } from 'react-pdf';
+
+
 import AssignmentReturnedIcon from '@material-ui/icons/AssignmentReturned';
 import {
   red,
@@ -23,6 +26,7 @@ import { PresupPantContext } from "../../PresupPant";
 import TablaPresup from "../TablaPresup/TablaPresup";
 import FilaConf from "../FilaConf/FilaConf";
 
+
 export default function FilaDos(props) {
   // Esto es para poder consumir los datos del CONTEXTAPI
   const { state, setState } = useContext(PresupPantContext);
@@ -30,11 +34,21 @@ export default function FilaDos(props) {
   const { datosrenglon, setDatosRenglon } = useContext(PresupPantContext);
   const [open, setOpen] = useState(false);
 
+
+  const [numPages, setNumPages] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
+
+  function onDocumentLoadSuccess({ numPages }) {
+    setNumPages(numPages);
+  }
+
   // según el presupuesto elegido, lee la tabla y se decide que pide
   if (state.DatosPresupEleg.length != 0) {
     var largo = state.DatosPresupEleg[0].PresupConfTipoLargo;
     var ancho = state.DatosPresupEleg[0].PresupConfTipoAncho;
     var presuptipo = state.DatosPresupEleg[0].PresupConfTipoDesc;
+
+    //esto es porque va a ser un cálculo especial, tiene un backend para eso
     if (state.DatosPresupEleg[0].PresupConfTipoRubro === "VS") {
       var rubrosn = "S";
     } else {
@@ -65,7 +79,6 @@ export default function FilaDos(props) {
   }, [rubrosn]);
 
 
-
   async function agregar() {
     var dcalculo = [
       {
@@ -75,6 +88,7 @@ export default function FilaDos(props) {
         largo: state.PresupLargo,
         ancho: state.PresupAncho,
         tipoconf: state.PresupCsSs,
+        tipoojale: state.PresupOB,
       },
     ];
     //var detalle = "";
@@ -94,26 +108,42 @@ export default function FilaDos(props) {
       datoscalculos,
       presuptipo
     );
+
+    //esto es porque va a ser un cálculo especial, tiene un backend para eso
     if (rubrosn === "S") {
       StkRubroDesc =
         datosrenglon1[0][0].Detalle +
         datosrenglon1[0][0].StkRubroDesc +
         " " +
         state.DescripPresup;
-      ImpUnitario = datosrenglon1[0][0].ImpItem;
-      ImpItem = datosrenglon1[0][0].ImpItem * PresupCantidadM;
+      ImpUnitario = datosrenglon1[0][0].ImpUnitario;
+      ImpItem = datosrenglon1[0][0].ImpUnitario * PresupCantidadM;
       PresupLargo = datosrenglon1[0][0].Largo;
       PresupAncho = datosrenglon1[0][0].Ancho;
+
+      if (PresupLargo === 0 || PresupAncho === 0) {
+        ImpItem = datosrenglon1[0][0].ImpUnitario;
+      }
+
+      if (PresupLargo === 0 && PresupAncho === 0) {
+        ImpItem = datosrenglon1[0][0].ImpUnitario * PresupCantidadM;
+      }
+
       if (state.renglonanexo.length !== 0) {
-        ImpItemCAnexos =
-          ImpItem + state.renglonanexo.ImpItemAnexo * state.PresupCantidad;
+        //ImpItemCAnexos = ImpItem + state.renglonanexo.ImpItemAnexo * state.PresupCantidad;
+        ImpUnitario = ImpUnitario + state.renglonanexo.ImpItemAnexo
+        ImpItem = ImpItem + state.renglonanexo.ImpItemAnexo * state.PresupCantidad;
         StkRubroDesc = StkRubroDesc + state.renglonanexo.StkRubroDesc;
       }
-    } else {
-      StkRubroDesc = detalle;
-      ImpUnitario = datosrenglon1[0].ImpItem;
-      ImpItem = datosrenglon1[0].ImpItem * PresupCantidadM;
     }
+    else {
+
+      StkRubroDesc = detalle;
+      ImpUnitario = datosrenglon1[0].ImpUnitario;
+      ImpItem = datosrenglon1[0].ImpUnitario * PresupCantidadM;
+
+    }
+
     var datospresup = [
       {
         PresupCantidad: state.PresupCantidad,
@@ -122,7 +152,7 @@ export default function FilaDos(props) {
         PresupAncho,
         ImpUnitario,
         ImpItem,
-        ImpItemCAnexos,
+        //ImpItemCAnexos,
       },
     ];
 
@@ -132,8 +162,6 @@ export default function FilaDos(props) {
     } else {
       setDatosRenglon([...datosrenglon, datospresup[0]]);
     }
-    console.log("DatosRenglon -> ", datosrenglon);
-    console.log("DatosRenglon1 -> ", datosrenglon1);
 
     handleClickOpen();
   }
@@ -169,22 +197,23 @@ export default function FilaDos(props) {
       {rubrosn === "S" &&
         state.stkrubro.length > 0 &&
         textdata.map((data, index) => (
-          <Grid key={index} item xs={1}>
-            <TextField
-              id={data.id}
-              size="small"
-              select
-              label={data.label}
-              // fullWidth
-              value={data.value}
-              onChange={handleChange}
-              SelectProps={{ native: true }}
-              variant="outlined"
-              margin="dense"
-            >
-              {data.mapeo}
-            </TextField>
-          </Grid>
+          // <Grid key={index} item xs={1}>
+          // <Grid key={index} item >
+          <TextField
+            id={data.id}
+            size="small"
+            inputProps={{ maxLength: 3 }}
+            select
+            label={data.label}
+            // fullWidth
+            value={data.value}
+            onChange={handleChange}
+            SelectProps={{ native: true }}
+            variant="outlined"
+            margin="dense"
+          >
+            {data.mapeo}
+          </TextField>
         ))}
       <Grid item xs={1}>
         <TextField
@@ -238,21 +267,13 @@ export default function FilaDos(props) {
           className={classes.textField}
         />
       </Grid>
-      {/* <Grid container item spacing > */}
-      {/* <Grid item xs={4}> */}
-      <Grid item xs>
-        <FilaConf disable={!(presuptipo === "CONFECCIONADA")}></FilaConf>
-      </Grid>
 
-      <Grid item xs>
+      <Grid container item xs={12}>
+        < FilaConf disable={!(presuptipo === "CONFECCIONADA")}></FilaConf>
         <IconButton onClick={() => agregar()} color="primary" >
           <AssignmentReturnedIcon style={{ color: red[500] }} fontSize='large' titleAccess='Agregar' />
         </IconButton>
-        {/* <Button onClick={() => agregar()} color="primary">
-          Agregar
-        </Button> */}
       </Grid>
-      {/* </Grid> */}
 
       <TablaPresup
         // open={open}
@@ -260,6 +281,7 @@ export default function FilaDos(props) {
         data={datosrenglon}
         maymin={state.PresupMnMy}
       />
+
     </>
   );
 }

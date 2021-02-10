@@ -19,7 +19,8 @@ router.get("/?:idStkGrupo", function (req, res, next) {
   console.log('indice  stkrubroleecodgrupored ', indice)
   var q = [
     "Select idStkRubro, StkRubroDesc from StkRubro where StkRubroCodGrp = ",
-    indice
+    indice,
+    " order by StkRubroDesc "
   ].join(" ");
 
   conexion.query(q, function (err, result) {

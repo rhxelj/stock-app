@@ -5,7 +5,7 @@ import "react-table/react-table.css";
 import CodigoError from "../../../../lib/CodigoError";
 
 export function stkProveedoresAgregar(props) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     const {
       ProveedoresDesc,
       ProveedoresTipo,
@@ -43,7 +43,7 @@ export function stkProveedoresAgregar(props) {
       .send({ provmail: ProveedoresMail })
       .send({ provpagweb: ProveedoresWeb })
       .send({ provcodmon: ProveedoresCodMon })
-      .then(function(res) {})
+      .then(function (res) { })
       .catch((err) => CodigoError(err));
   });
 }

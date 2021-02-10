@@ -24,24 +24,22 @@ import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AttachmentIcon from '@material-ui/icons/Attachment';
 import AssignmentReturnedIcon from '@material-ui/icons/AssignmentReturned';
+import AutorenewIcon from '@material-ui/icons/Autorenew';
+import LibraryAddCheckIcon from '@material-ui/icons/LibraryAddCheck';
 
 export const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
   Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
   Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
   Delete: forwardRef((props, ref) => <DeleteForever {...props} ref={ref} />),
-  DetailPanel: forwardRef((props, ref) => (
-    <ChevronRight {...props} ref={ref} />
-  )),
+  DetailPanel: forwardRef((props, ref) => (<ChevronRight {...props} ref={ref} />)),
   Edit: forwardRef((props, ref) => <Edit {...props} ref={ref} />),
   Export: forwardRef((props, ref) => <SaveAlt {...props} ref={ref} />),
   Filter: forwardRef((props, ref) => <FilterList {...props} ref={ref} />),
   FirstPage: forwardRef((props, ref) => <FirstPage {...props} ref={ref} />),
   LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
   NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
-  PreviousPage: forwardRef((props, ref) => (
-    <ChevronLeft {...props} ref={ref} />
-  )),
+  PreviousPage: forwardRef((props, ref) => (<ChevronLeft {...props} ref={ref} />)),
   ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
   Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
   SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
@@ -55,4 +53,6 @@ export const tableIcons = {
   Cancel: forwardRef((props, ref) => <CancelIcon {...props} ref={ref} />),
   Attachment: forwardRef((props, ref) => <AttachmentIcon {...props} ref={ref} />),
   AssignmentReturned: forwardRef((props, ref) => <AssignmentReturnedIcon {...props} ref={ref} />),
+  Autorenew: forwardRef((props, ref) => <AutorenewIcon {...props} ref={ref} />),
+  LibraryAddCheck: forwardRef((props, ref) => <LibraryAddCheckIcon {...props} ref={ref} />),
 };

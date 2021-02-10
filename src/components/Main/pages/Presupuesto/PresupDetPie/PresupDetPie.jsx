@@ -13,8 +13,16 @@ import { onRowDelete } from "./onRowDelete"
 
 import { HeaderTitle } from "../../../../lib/HeaderTitle"
 import Imprimir from "../../Impresion/Imprimir/Imprimir";
+import {
+    red,
+    blue,
+    green,
+    blueGrey,
+    purple,
+    teal,
+} from "@material-ui/core/colors";
 export default function PresupDetPie() {
-    HeaderTitle("Detalle de Pie de Presupuesto")
+    HeaderTitle("Detalles de Pie de Presupuesto")
     const [columns, setColumns] = useState([]);
     const [data, setData] = useState([]);
     const [imprimirTF, setImprimirTF] = useState({ imprimir: false });
@@ -34,6 +42,11 @@ export default function PresupDetPie() {
         dataFetch();
     }
 
+    function seleccion(evt, data) {
+        console.log(data)
+        console.log(evt)
+    }
+
     useEffect(() => {
         initialFetch();
     }, []);
@@ -49,18 +62,18 @@ export default function PresupDetPie() {
                         isFreeAction: true,
                         onClick: (event) => setImprimirTF({ imprimir: true }),
                     },
+                    {
+                        tooltip: 'Acepta Selección',
+                        showTextRowsSelected: 'false',
+                        icon: () => (
+                            <tableIcons.LibraryAddCheck string='cooc' style={{ color: red[500] }} fontSize='large' />
+                        ),
+                        onClick: (evt, data) => seleccion(evt, data),
+
+                    }
                 ]}
-                icons={tableIcons}
-                localization={localization}
                 columns={columns}
                 data={data}
-                options={{
-                    exportAllData: true,
-                    exportButton: true,
-                    grouping: true,
-                    addRowPosition: "first",
-                    actionsColumnIndex: -1,
-                }}
                 editable={{
                     onRowAdd: newData =>
                         onRowAdd(newData).then(() => dataFetch()),
@@ -69,6 +82,18 @@ export default function PresupDetPie() {
                     onRowDelete: oldData =>
                         onRowDelete(oldData).then(() => dataFetch()),
                 }}
+                icons={tableIcons}
+                localization={localization}
+                options={{
+                    selection: true,
+                    exportAllData: true,
+                    exportButton: true,
+                    grouping: true,
+                    addRowPosition: "first",
+                    showTextRowsSelected: 'true',
+                    actionsColumnIndex: -1,
+                }}
+
             />
             <Imprimir
                 columns={columns}

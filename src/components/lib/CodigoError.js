@@ -1,8 +1,6 @@
 // import React from "react";
 import Mensaje from "./Mensaje";
 function CodigoError(err) {
-  console.log('error en codigoerror  ', err)
-  console.log('error en codigoerror  ', err.status)
   switch (err.status) {
     case 409:
       Mensaje("error", "Código ingresado EXISTENTE  ");

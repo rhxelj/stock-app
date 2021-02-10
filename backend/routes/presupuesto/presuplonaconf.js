@@ -50,31 +50,33 @@ router.get("/", (req, res, next) => {
         StkRubroAbrP = "",
         largo = 0,
         ancho = 0.0;
-      var enteroancho = 0,
-        decimancho = 0.0;
+      // var enteroancho = 0,
+      //   decimancho = 0.0;
       datosrec = JSON.parse(req.query.datoscalculo);
       // totalreg = datosrec.length;
 
       datosrec.map(datos => {
         cantidad = datos.cantidad;
         tipoconf = datos.tipoconf;
+        tipoojale = datos.tipoojale;
         StkRubroAbrP = datos.StkRubroAbr;
         largoreal = (datos.largo * 1)
         anchoreal = (datos.ancho * 1)
         largo = (datos.largo * 1) + 0.08;
         ancho = (datos.ancho * 1) + 0.08;
-        enteroancho = Math.trunc(ancho / 1.5);
-        decimancho = ancho / 1.5 - enteroancho;
-        if (decimancho < 0.5) {
-          ancho = enteroancho + 0.5;
-        } else {
-          ancho = enteroancho + 1;
-        }
+        // enteroancho = Math.trunc(ancho / 1.5);
+        // decimancho = ancho / 1.5 - enteroancho;
+        // if (decimancho < 0.5) {
+        //   ancho = enteroancho + 0.5;
+        // } else {
+        //   ancho = enteroancho + 1;
+        // }
+
         if (tipoconf == 'cs') {
-          detalle = "Lona con ojales reforzados, chicotes y soga en dobladillo en : ";
+          detalle = "Lona con ojales reforzados, chicotes y soga en dobladillo";
           ganancia = result[0].coefgancsoga
         } else {
-          detalle = "Lona con ojales reforzados, chicotes sin soga en dobladillo en : ";
+          detalle = "Lona con ojales reforzados, chicotes sin soga en dobladillo";
           ganancia = result[0].coefganssoga
         }
         if (datos.minmay == 'my') {
@@ -82,21 +84,31 @@ router.get("/", (req, res, next) => {
           tipoojal = result[0].abrojales28;
           sogachicote = result[0].sogachicotemay;
           ganancia = result[0].coefganmay
-        } else {
+        }
+        else {
           coeficiente = result[0].coeficientemin;
-          tipoojal = result[0].abrojales3hz;
           sogachicote = result[0].sogachicotemin;
+          if (tipoojale == 'hz') {
+            tipoojal = result[0].abrojales3hz
+            detalle = detalle + ' en : '
+          }
+          else {
+            tipoojal = result[0].abrojales3b
+            detalle = detalle + ' c/ojales de bronce en : '
+          }
         }
         minutosunion = (datos.ancho + 0.08) * largo * 5;
         sogadobladillo = result[0].sogadobladillo;
         valorflete = result[0].flete;
         valorMOT = result[0].MOTpM2;
         codmoneda = result[0].codmoneda;
+        coefimpuesto = result[0].coefimpuestos
 
         mcuadcob = [
           "Select ",
           "StkRubroDesc, StkRubroAbr, ",
-          "(StkRubroCosto * StkMonedasCotizacion / 1.50 * 1.02 ) as CostoCobMC, ",
+          //      "(StkRubroCosto * StkMonedasCotizacion / 1.50 * 1.02 ) as CostoCobMC, ",
+          "(StkRubroCosto * StkMonedasCotizacion / StkRubroAncho * 1.02 ) as CostoCobMC, ",
           "(StkRubroCosto * StkMonedasCotizacion * 0.20 / 11 ) as CostoRefuerzo ",
           "from BaseStock.StkRubro JOIN  BaseStock.StkMonedas ",
           'where StkRubro.StkRubroAbr = "',
@@ -107,7 +119,7 @@ router.get("/", (req, res, next) => {
 
         msogachicote = [
           "Select ",
-          "(StkRubroCosto * StkMonedasCotizacion / 1000 * 1.65) as CostoMSChicote ",
+          "(StkRubroCosto * StkMonedasCotizacion  * 1.65) as CostoMSChicote ",
           "from BaseStock.StkRubro JOIN  BaseStock.StkMonedas ",
           "where StkRubro.StkRubroAbr = '",
           sogachicote,
@@ -117,7 +129,7 @@ router.get("/", (req, res, next) => {
 
         msogadobladillo = [
           "Select ",
-          "(StkRubroCosto * StkMonedasCotizacion / 50) as CostoMSDobladillo ",
+          "(StkRubroCosto * StkMonedasCotizacion) as CostoMSDobladillo ",
           "from BaseStock.StkRubro JOIN  BaseStock.StkMonedas ",
           "where StkRubro.StkRubroAbr = '",
           sogadobladillo,
@@ -192,7 +204,6 @@ router.get("/", (req, res, next) => {
             j = 0;
             // fin = totalreg * 4;
             // while (j < fin) {
-
             while (j < 4) {
               costooriginal =
                 datosenvio[j][0].CostoCobMC + datosenvio[j][0].CostoRefuerzo;
@@ -211,7 +222,7 @@ router.get("/", (req, res, next) => {
               j++;
               costooriginal = costooriginal + datosenvio[j][0].CostoOjalM2;
               j++;
-              costooriginal = costooriginal * ganancia * 1.245;
+              costooriginal = costooriginal * ganancia * coefimpuesto;
 
               metroscuad = anchoreal * largoreal
               costooriginal = costooriginal * metroscuad
@@ -227,7 +238,8 @@ router.get("/", (req, res, next) => {
                 costooriginal = costooriginal * 1.0325
                 costooriginal = costooriginal * 1.0325
               }
-              datosenvio[0][0]['ImpItem'] = costooriginal
+              // datosenvio[0][0]['ImpItem'] = costooriginal
+              datosenvio[0][0]['ImpUnitario'] = costooriginal
               datosenvio[0][0]['Detalle'] = detalle
               datosenvio[0][0]['Largo'] = largoreal
               datosenvio[0][0]['Ancho'] = anchoreal

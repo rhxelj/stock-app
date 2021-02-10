@@ -6,6 +6,9 @@ export const initial_state = {
   // PresupTipo: "UNIDAD",
   PresupCsSs: "cs",
 
+  // Presup Ojal de Bronce
+  PresupOB: 'hz',
+
   //FilaDos
   AnexoMedida: 0,
   PresupCantidad: 1.0,
@@ -30,39 +33,51 @@ export const initial_state = {
   indexborrado: 1000,
   //FilaTres
 
+
   columns: [
     {
-      title: "Cantidad",
+      title: "Cant.",
       field: "PresupCantidad",
+      width: 10,
+
     },
     {
       title: "Descripción",
       field: "StkRubroDesc",
+      width: 500,
+
+
     },
     {
       title: "Largo",
       field: "PresupLargo",
+      width: 10,
+
     },
     {
       title: "Ancho",
       field: "PresupAncho",
+      width: 10,
+
     },
     {
       title: "Imp. Unit.",
       field: "ImpUnitario",
       type: "currency",
+      width: 120,
     },
     {
       title: "Imp. Item.",
       field: "ImpItem",
       type: "currency",
+      width: 120,
     },
-    {
-      title: "$ Item c/Anexos",
-      field: "ImpItemCAnexos",
-      // ToDo: mirar esto para dar estilo => cellStyle: { width: "4px", borderRadius: "50%", background: "red" },
-      type: "currency",
-    },
+    // {
+    //   title: "$ Item c/Anexos",
+    //   field: "ImpItemCAnexos",
+    //   // ToDo: mirar esto para dar estilo => cellStyle: { width: "4px", borderRadius: "50%", background: "red" },
+    //   type: "currency",
+    // },
   ],
 
 
@@ -91,4 +106,5 @@ export const initial_state = {
 
   //FilaCuatro
   nomCliente: "",
+  NroPresupuesto: 0
 };

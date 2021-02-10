@@ -14,22 +14,29 @@ export default function Fila() {
   const classes = useStyles();
   // Esto es para poder consumir los datos del CONTEXAPI
   const { state, setState } = useContext(StkMovEntradaContext);
+  const [um, setUM] = useState('');
+  var result = []
 
   async function stkrubroleercodgryrb(GrupoEleg, RubroEleg) {
-    const result = await stkrubroleecodgryrb(GrupoEleg, RubroEleg);
-    setState(state => ({
-      ...state,
-      StkRubroAncho: result[0].StkRubroAncho,
-      StkRubroPresDes: result[0].StkRubroPresDes,
-      StkRubroPres: result[0].StkRubroPres,
-      StkRubroUM: result[0].StkRubroUM
-    }));
+    result = await stkrubroleecodgryrb(GrupoEleg, RubroEleg);
+    setTimeout(() => {
+      setState(state => ({
+        ...state,
+        StkRubroAncho: result[0].StkRubroAncho,
+        StkRubroPresDes: result[0].StkRubroPresDes,
+        StkRubroPres: result[0].StkRubroPres,
+        StkRubroUM: result[0].StkRubroUM
+      }));
+
+    }, 600);
   }
 
   useEffect(() => {
-    // stkrubroleercodgryrb(value.GRI.idStkGrupo, value.GRI.idStkRubro);
     stkrubroleercodgryrb(state.idStkGrupo, state.idStkRubro);
+
   }, [state.idStkRubro]);
+
+
 
   const handleChange = event => {
     const id = event.target.id;
@@ -38,7 +45,11 @@ export default function Fila() {
 
   return (
     <>
+
+
+
       <Grid container item justify="space-between" spacing={2}>
+
         <Grid item xs>
           <TextField
             size="small"

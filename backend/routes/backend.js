@@ -107,7 +107,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(perimitirCrossDomain);
 
 
-app.use('/', proveedoresleer);
+//app.use('/', proveedoresleer);
 
 app.use('/proveedoresleer', proveedoresleer);
 app.use('/proveedoresleercod', proveedoresleercod);

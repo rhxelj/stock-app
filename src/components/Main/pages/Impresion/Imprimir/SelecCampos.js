@@ -75,6 +75,7 @@ export default function SelecCampos(props) {
         open={props.open}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+
       >
         <DialogTitle id="alert-dialog-title">
           Elija los Campos a IMPRIMIR

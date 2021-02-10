@@ -15,7 +15,7 @@ var router = express();
 
 router.get("/", function (req, res, next) {
   //'Select * from StkGrupo '
-  var q = ["Select * from BasePresup.PresupConfTipo "].join(" ");
+  var q = ["Select * from BasePresup.PresupConfTipo order by PresupConfTipoDesc "].join(" ");
   conexion.query(q, function (err, result) {
     if (err) {
       console.log(err);

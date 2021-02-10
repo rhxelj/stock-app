@@ -2,14 +2,14 @@ import request from "superagent";
 import IpServidor from "../VariablesDeEntorno";
 
 export const presupcalculador = (DatosPresupEleg, datoscalculo, tipo, check) => {
-
   var backend, url
-  if (DatosPresupEleg.PresupConfTipoBack != null) {
-    backend = DatosPresupEleg.PresupConfTipoBack
-    url = IpServidor + backend + '/?datoscalculo=' + datoscalculo;
+  if ((DatosPresupEleg.PresupConfTipoBack == null) || DatosPresupEleg.PresupConfTipoBack == "") {
+    url = IpServidor + '/presupconftipocalc/?tipo=' + tipo;
   }
   else {
-    url = IpServidor + '/presupconftipocalc/?tipo=' + tipo;
+    backend = DatosPresupEleg.PresupConfTipoBack
+    url = IpServidor + backend + '/?datoscalculo=' + datoscalculo;
+
   }
   return new Promise(resolve => {
     request
@@ -21,3 +21,6 @@ export const presupcalculador = (DatosPresupEleg, datoscalculo, tipo, check) => 
       });
   });
 };
+
+//http://localhost:4000/presuppu/?datoscalculo=[{"StkRubroAbr":"ZDA9","minmay":"my","cantidad":"3","largo":"5","ancho":0,"tipoconf":"cs"}]
+//   http://localhost:4000/presuppurec/?datoscalculo=[{"StkRubroAbr":"ZDA9","minmay":"my","cantidad":"3","largo":"5","ancho":0,"tipoconf":"cs"}]

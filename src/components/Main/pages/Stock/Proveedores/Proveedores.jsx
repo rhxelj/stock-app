@@ -23,6 +23,7 @@ export default function Proveedores() {
   async function columnsFetch() {
     const col = await llenarColumns();
     setColumns(() => col)
+    console.log('col  ', col)
   }
 
   async function dataFetch() {

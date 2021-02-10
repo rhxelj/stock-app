@@ -28,7 +28,6 @@ export default function StkGrupo() {
 
   async function dataFetch() {
     const data = await grupoData();
-
     setData(data);
   }
 

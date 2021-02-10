@@ -1,30 +1,26 @@
 import request from "superagent";
-
+import React, { useState } from "react";
 import IpServidor from '../../VariablesDeEntorno'
 import CodigoError from '../../../../lib/CodigoError'
+// import { PresupPreview } from './PresupPreview'
 // Lee Rubro por codigo de gupo
 
-export const PresupImprime = (props) => {
-    console.log('props ', props)
-
-    //     ImpItem: 313.632
-    // ImpItemCAnexos: 0
-    // ImpUnitario: 313.632
-    // PresupAncho: 0
-    // PresupCantidad: 1
-    // PresupLargo: 0
-    // StkRubroDesc:
-    const url = IpServidor + "/imppresup";
-    console.log('vino a impresion ', url)
+export const PresupImprime = (props, idcliente, nomCliente, suma, nroPresupuesto, descrip) => {
+    const url1 = IpServidor + "/imppresup";
     request
-        .post(url)
+        .post(url1)
         .set("Content-Type", "application/json")
         .send({ datospresup: props })
+        .send({ idcliente: idcliente })
+        .send({ nomCliente: nomCliente })
+        .send({ suma: suma })
+        .send({ nroPresupuesto: nroPresupuesto })
+        .send({ descrip: descrip })
+        .set("X-API-Key", "foobar")
+        .then(function (res) {
+            const respuesta = JSON.parse(res.text);
+        })
         .catch((err) => CodigoError(err));
 
-
-    // .then((res) => {
-    //     const respuesta = JSON.parse(res.text);
-    // });
 
 }

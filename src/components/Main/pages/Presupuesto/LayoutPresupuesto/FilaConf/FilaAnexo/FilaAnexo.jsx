@@ -7,8 +7,7 @@ import { presupcalculador } from "../../../PresupCalculador";
 import { filaanexosColumns } from "./filaanexosColumns";
 import filaanexosData from "./filaanexosData";
 import CurrencyTextField from '@unicef/material-ui-currency-textfield'
-import { Grid, Dialog } from "@material-ui/core";
-import { HeaderTitle } from '../../../../../../lib/HeaderTitle'
+import { Grid, Dialog, DialogTitle } from "@material-ui/core";
 import { red, teal } from '@material-ui/core/colors';
 import leePresupConfTipoLeerDesc from '../../../leePresupConfTipoLeerDesc'
 import Modal from '@material-ui/core/Modal';
@@ -19,7 +18,6 @@ import { PresupPantContext } from '../../../PresupPant'
 
 
 export default function FilaAnexo(props) {
-    HeaderTitle("Anexos")
     var renglonanexo = []
     const { state, setState } = useContext(PresupPantContext);
     const [columns, setColumns] = useState([]);
@@ -86,21 +84,25 @@ export default function FilaAnexo(props) {
     return (
         <>
             <Dialog
+
                 open={props.open}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-
+                <DialogTitle>Anexos</DialogTitle>
                 <Grid container item xs={3}>
                     <MaterialTable
+
                         localization={localization}
                         style={props.style}
-                        title={<CurrencyTextField
-                            label={<tableIcons.AddShoppingCart style={{ color: teal[500] }} onClick={(event) => sumar()} />}
+                        title=
+                        {
+                            <CurrencyTextField
+                                label={<tableIcons.AddShoppingCart style={{ color: teal[500] }} onClick={(event) => sumar()} />}
 
-                            color='#FF0000'
-                            value={sumaanexo}
-                        >   </CurrencyTextField>}
+                                color='#FF0000'
+                                value={sumaanexo}
+                            >   </CurrencyTextField>}
                         icons={tableIcons}
                         columns={columns}
                         data={datosanexo}
@@ -128,7 +130,9 @@ export default function FilaAnexo(props) {
                                             newData.PresupConfTipoDesc
                                         );
                                         Promise.resolve(datosrenglon1).then((jsonResults) => {
-                                            newData.importea = jsonResults[0].ImpItem * newData.AnexoMedida
+                                            // newData.importea = jsonResults[0].ImpItem * newData.AnexoMedida
+                                            newData.importea = jsonResults[0].ImpUnitario * newData.AnexoMedida
+
                                             setDatosAnexo([...datosanexo, newData]);
                                         })
                                         resolve();
@@ -145,7 +149,9 @@ export default function FilaAnexo(props) {
                                             newData.PresupConfTipoDesc
                                         );
                                         Promise.resolve(datosrenglon1).then((jsonResults) => {
-                                            newData.importea = jsonResults[0].ImpItem * newData.AnexoMedida
+                                            // newData.importea = jsonResults[0].ImpItem * newData.AnexoMedida
+                                            newData.importea = jsonResults[0].ImpUnitario * newData.AnexoMedida
+
                                             const index = oldData.tableData.id;
                                             dataUpdate[index] = newData;
 

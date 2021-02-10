@@ -86,7 +86,7 @@ function Monedas() {
       <MaterialTable
         icons={tableIcons}
         localization={localization}
-        title="ABM DE Monedas"
+        title=""
         columns={columns}
         data={data}
         actions={[
@@ -101,6 +101,8 @@ function Monedas() {
           exportAllData: true,
           exportButton: true,
           grouping: true,
+          addRowPosition: "first",
+          actionsColumnIndex: -1,
         }}
         editable={{
           onRowAdd: onRowAdd(),
