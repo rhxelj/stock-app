@@ -10,8 +10,7 @@ import { imprimirQr } from "../../../../../Impresion/ImprimirEtiquetas/imprimirQ
 import { useContext } from "react";
 import { StkMovSalidaContext } from '../StkMovSalida'
 import { descargaStock } from "../descargaStock";
-import { initial_state } from "../../../../../z_SinClasificarMirar/Initial_State";
-
+import { initial_state } from "../Initial_State"
 import { Exito } from "../../../../../../../../Ui-Components/Exito";
 
 export default function AlertDialog(props) {

@@ -16,6 +16,7 @@ export function agregarRubros(props) {
       StkRubroUM,
       StkRubroCosto,
       StkRubroTM,
+      StkRubroConf,
       StkRubroFecha,
       ItemsSN,
     } = props;
@@ -48,6 +49,7 @@ export function agregarRubros(props) {
         .send({ StkRubroUM: StkRubroUM })
         .send({ StkRubroCosto: StkRubroCosto })
         .send({ StkRubroTM: StkRubroTM })
+        .send({ StkRubroConf: StkRubroConf })
         .send({ StkRubroFecha: StkRubroFecha })
         .send({ ItemsSN: ItemsSN })
         // .then(

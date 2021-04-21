@@ -37,6 +37,7 @@ router.all("/", async function (req, res) {
     StkRubroUM: req.body.StkRubroUM,
     StkRubroCosto: req.body.StkRubroCosto,
     StkRubroTM: req.body.StkRubroTM,
+    StkRubroConf: req.body.StkRubroConf,
     StkRubroFecha: finalDate,
   };
 

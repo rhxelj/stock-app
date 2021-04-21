@@ -6,11 +6,11 @@ import { tableIcons } from "../../../../../lib/material-table/tableIcons";
 import { localization } from "../../../../../lib/material-table/localization";
 import FilaCuatro from "../FilaCuatro/FilaCuatro";
 import CurrencyTextField from "@unicef/material-ui-currency-textfield";
+import { Document, Page } from 'react-pdf';
 import Imprimir from "../../../Impresion/Imprimir/Imprimir";
 import { PresupPreview } from "../PresupPreview"
 import { PresupImprime } from "../PresupImprime"
-
-
+import { Dialog, DialogTitle, Paper } from "@material-ui/core";
 import printJS from "print-js";
 //npm install pdf-viewer-reactjs
 
@@ -46,15 +46,30 @@ export default function TablaPresup(props) {
     columnas: state.columns,
   });
 
+  // const [file, setFile] = useState('/home/sandra/Documentos/OLSAFrecuentes/PresupSistema/basics.pdf');
+  // const [numPages, setNumPages] = useState(null);
+  // function onDocumentLoadSuccess({ numPages }) {
+  //   setNumPages(numPages);
+  // }
+  // function onFileChange(event) {
+  //   // function onFileChange() {
+  //   console.log('event   ', event)
+  //   console.log('event.target.files[0]   ', event.target.files[0])
+  //   setFile(event.target.files[0]);
+  //   //   setFile('/home/sandra/Documentos/OLSAFrecuentes/PresupSistema/basics.pdf')
+  // }
+
   function sumar() {
     var totalpresup = 0,
       i = 0;
     while (i < datosrenglon.length) {
-      totalpresup = totalpresup + datosrenglon[i].ImpItem;
+
+      totalpresup = totalpresup * 1 + datosrenglon[i].ImpItem * 1;
       i++;
     }
     setSuma(totalpresup);
   }
+
 
   function graba() {
     handleClickOpen();
@@ -92,6 +107,9 @@ export default function TablaPresup(props) {
             localization={localization}
             options={{
               search: false,
+              exportAllData: true,
+              exportButton: true,
+              //  selection: true
             }}
             editable={{
               onRowDelete: (oldData) =>
@@ -128,6 +146,7 @@ export default function TablaPresup(props) {
                 onClick: (event) => setPPreview({ ppreview: true })
               },
 
+
               {
                 icon: () => (
                   <tableIcons.Attachment style={{ color: purple[700] }} />
@@ -136,6 +155,12 @@ export default function TablaPresup(props) {
                 isFreeAction: true,
                 onClick: (event) => setAnexos({ anexos: true }),
               },
+
+              // {
+              //   tooltip: 'Remove All Selected Users',
+              //   icon: 'delete',
+              //   onClick: (evt, data) => alert('You want to delete ' + data.length + ' rows')
+              // }
             ]}
             components={{
               Toolbar: (props) => (
@@ -146,6 +171,7 @@ export default function TablaPresup(props) {
                     label="Total presupuesto : "
                     value={suma}
                   />
+
                 </div>
               ),
             }}

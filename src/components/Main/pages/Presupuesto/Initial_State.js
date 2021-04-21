@@ -3,17 +3,68 @@ export const initial_state = {
 
   //FilaUno
   PresupMnMy: "mn",
+  PresupIVA: "CIVA",
   // PresupTipo: "UNIDAD",
-  PresupCsSs: "cs",
 
+  //FilaConf
+  PresupCsSs: "cs",
   // Presup Ojal de Bronce
   PresupOB: 'hz',
 
+  //FilaEnrollables
+  TamFaja: '2P',
+  TamCristal: 'PVC05',
+  AltoVolado: 20,
+  SobranteMarco: 20,
+
+  //FilaTanques
+  TipoMedidaEleg: 'CC',
+  // ParedSN: 'SP',
+  TermBordeEleg: 'SF',
+  AnchoPared: 0,
+  Medida: 0,
+  Alto: 1.10,
+  TipoMedida: [
+    {
+      value: 'CC',
+      label: 'Chapas'
+    },
+    {
+      value: 'DI',
+      label: 'Diámetro Interno'
+    },
+    {
+      value: 'DE',
+      label: 'Diámetro Externo'
+    },
+    {
+      value: 'PE',
+      label: 'Perímetro Externo'
+    }
+  ],
+  TermBorde: [
+    {
+      value: 'SF',
+      label: 'Sin Forma'
+    },
+    {
+      value: 'CF',
+      label: 'Con Forma'
+    },
+    {
+      value: 'CFS',
+      label: 'Con Forma y Soga'
+    },
+    {
+      value: 'CFC',
+      label: 'Con Forma y Criquet'
+    }
+  ],
   //FilaDos
   AnexoMedida: 0,
   PresupCantidad: 1.0,
   PresupTipo: "",
-  DescripPresup: " ",
+  //  DescripPresup: " ",
   ImporteAnexo: 0.0,
   renglonanexo: [],
   DetalleAnexo: "",
@@ -31,8 +82,11 @@ export const initial_state = {
   renglonfinal: [],
   tipopresup: [],
   indexborrado: 1000,
+  DetallePresup: '',
   //FilaTres
 
+  //condiciones de pago
+  condpagoeleg: [],
 
   columns: [
     {
@@ -93,6 +147,9 @@ export const initial_state = {
   stkgrupo: [],
 
   stkitems: [],
+
+  stkrubrocr: [],
+
 
   //F2C2
   stkitemsele: [],

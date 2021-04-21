@@ -18,7 +18,7 @@ router.post("/", function (req, res, next) {
 
   var registro = {
     PresupDetPieLeyenda: req.body.PresupDetPieLeyenda,
-    PresupDetPieSelec: req.body.PresupDetPieSelec
+    // PresupDetPieSelec: req.body.PresupDetPieSelec
   };
 
   conexion.query("INSERT INTO BasePresup.PresupDetPie SET ?", registro, function (err, result) {

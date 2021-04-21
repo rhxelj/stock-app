@@ -24,34 +24,34 @@ router.get('/', (req, res, next) => {
         console.log(err);
       }
       datosrec = JSON.parse(req.query.datoscalculo)
+
       totalreg = datosrec.length
-      datosrec.map(datos => {
+      ivasn = datosrec[0].ivasn;
+      datosrec.map((datos) => {
         cantidad = datos.cantidad;
         StkRubroAbrP = datos.StkRubroAbr;
+
         if (datos.minmay == 'my') {
           coeficiente = result[0].coeficientemay
+          ivasn = 'CIVA'
         }
         else {
           coeficiente = result[0].coeficientemin
         }
-        // if (datos.minmay == 'my') {
-        //   coeficiente = param.coeficientemay
-        // }
-        // else {
-        //   coeficiente = param.coeficientemin
-        // }
-
         q = ['Select',
           'StkRubroDesc, StkRubroAbr, ',
           '(StkRubroCosto * StkMonedasCotizacion * ', coeficiente, ' ) as ImpUnitario, ',
           '(StkRubroCosto * StkMonedasCotizacion * ', coeficiente, ' * ', cantidad, ' ) as ImpItem, ',
           'StkRubroCosto,',
-          'StkMonedasCotizacion',
+          'StkMonedasCotizacion, ',
+          'StkRubroUM ',
           'from BaseStock.StkRubro JOIN  BaseStock.StkMonedas, ',
           'reparacion.parametrosrep ',
           'where StkRubro.StkRubroAbr = "' + StkRubroAbrP + '" ',
           'and StkRubro.StkRubroTM = idStkMonedas',
         ].join(' ')
+
+
         conexion.query(
           q,
           function (err, result) {
@@ -60,6 +60,16 @@ router.get('/', (req, res, next) => {
               console.log(err)
             }
             else {
+              if (ivasn == 'CIVA') {
+                result[0].ImpItem = result[0].ImpItem.toFixed(0)
+                result[0].ImpUnitario = result[0].ImpUnitario.toFixed(0)
+              }
+              else {
+                result[0].ImpItem = result[0].ImpItem.toFixed(0) / 1.21
+                result[0].ImpUnitario = result[0].ImpUnitario.toFixed(0) / 1.21
+              }
+              // result[0].ImpItem = result[0].ImpItem.toFixed(0)
+              // result[0].ImpUnitario = result[0].ImpUnitario.toFixed(0)
               result[0].Detalle = ""
               result[0].Largo = 0
               result[0].Ancho = 0

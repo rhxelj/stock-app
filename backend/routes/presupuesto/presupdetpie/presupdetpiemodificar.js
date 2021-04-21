@@ -16,12 +16,12 @@ var router = express();
 router.post("/", async function (req, res, next) {
   indice = req.query.id;
   PresupDetPieLeyenda = req.body.PresupDetPieLeyenda
-  PresupDetPieSelec = req.body.PresupDetPieSelec.toUpperCase();
+  // PresupDetPieSelec = req.body.PresupDetPieSelec.toUpperCase();
   var q = [
     'UPDATE BasePresup.PresupDetPie SET PresupDetPieLeyenda = "' +
     PresupDetPieLeyenda +
-    '", PresupDetPieSelec = "' +
-    PresupDetPieSelec +
+    // '", PresupDetPieSelec = "' +
+    // PresupDetPieSelec +
     '" WHERE idPresupDetPie = ' +
     indice
   ];

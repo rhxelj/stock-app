@@ -17,6 +17,7 @@ import {
 
 import FilaUnoIzq from "./FilaUnoIzq";
 import TipoCliente from "./TipoCliente";
+import TipoIVA from "./TipoIVA";
 
 export default function Fila() {
   return (
@@ -31,6 +32,7 @@ export default function Fila() {
         xs={12}
       > */}
       <TipoCliente />
+      <TipoIVA />
       <FilaUnoIzq />
 
       {/* </Grid> */}

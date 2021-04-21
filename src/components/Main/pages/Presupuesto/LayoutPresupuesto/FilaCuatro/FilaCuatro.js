@@ -1,27 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   TextField,
   Button,
-  Container,
   Dialog,
   DialogActions,
-  DialogTitle,
-  DialogContentText,
-} from "@material-ui/core";
+}
+  from "@material-ui/core";
 // import DialogActions from "@material-ui/core/DialogActions";
 import useStyles from "../styles";
+
+
 // Context
 import { useContext } from "react";
 import { PresupPantContext } from "../../PresupPant";
 
 import { clientesleerdescmayigual } from "../../../Clientes/ClientesLeerDesc";
-import { clientesleercodmayor } from "../../../Clientes/ClientesLeerCodMayor";
 import { PresupGrabar } from "../../PresupGrabar";
 import ClienteNuevo from "./ClienteNuevo";
 import { ClientesAgregar } from "../../../Clientes/ClientesAgregar";
+import { clientesleercod } from '../../../Clientes/ClientesLeerCod'
 import { PresupImprime } from "../PresupImprime"
-import { PresupDetPieSelec } from '../../PresupDetPie/PresupDetPieSelec'
-import Clientes from '../../../Clientes/Clientes.jsx'
+import PresupDetPieSelec from './PresupDetPieSelec'
 
 export default function FilaCuatro(props) {
   // Esto es para poder consumir los datos del CONTEXTAPI
@@ -64,17 +63,19 @@ export default function FilaCuatro(props) {
     if (state.idClientes != 0) {
       idClienteElegE = state.idClientes
       nomClienteElegE = state.nomCliente
+      nomClienteElegE = await clientesleercod(idClienteElegE);
     }
     else {
       idClienteElegE = idClienteEleg
       nomClienteElegE = nomClienteEleg
     }
-    //  PresupGrabar(props, state.nomCliente, state.idClientes);
+
     const nroPresupuesto1 = await PresupGrabar(props, nomClienteElegE, idClienteElegE);
     setState({ ...state, NroPresupuesto: nroPresupuesto1 });
-    PresupDetPieSelec()
-    PresupImprime(props.datos, idClienteElegE, nomClienteElegE, props.suma, nroPresupuesto1, descrip)
-    //  cancelar();
+
+
+    PresupImprime(props.datos, nomClienteElegE, props.suma, nroPresupuesto1, descrip, state.condpagoeleg)
+    cancelar();
   }
   function grabarCliente() {
     ClientesAgregar(state);
@@ -84,15 +85,8 @@ export default function FilaCuatro(props) {
   function cancelar() {
     setMarcaCliente(false); //todo : verificar si esto funciona luego borrar comentario
 
-    //  handleClose();
+    handleClose();
   }
-  // function grabar() {
-
-  //   grabarpresupuesto();
-  //   cancelar();
-  // }
-
-
 
   const textdata = [
     {
@@ -115,17 +109,17 @@ export default function FilaCuatro(props) {
   return (
     <>
       <Dialog
-        // fullWidth={true}
-        // maxWidth="md"
+        fullWidth={true}
+        maxWidth="md"
         open={open}
         keepMounted
         onClose={handleClose}
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-
+        <PresupDetPieSelec></PresupDetPieSelec>
         {/* <DialogTitle id="simple-dialog-title">Cliente Presupuesto</DialogTitle> */}
-        <label>Cliente Presupuesto</label>
+        <h3>Cliente Presupuesto</h3>
 
         <TextField
           inputProps={{ maxLength: 40 }}
@@ -133,7 +127,7 @@ export default function FilaCuatro(props) {
           variant="outlined"
           id="nomCliente"
           type="text"
-          label="Nombre Cliente"
+          label="Nombre Cliente Ocacional"
           fullWidth
           margin="dense"
           value={state.nomCliente}
@@ -161,15 +155,15 @@ export default function FilaCuatro(props) {
             </TextField>
           ))
         ) : (
-            <ClienteNuevo
-              handleChange={handleChange}
-              setMarcaCliente={setMarcaCliente}
-              marcacliente={marcacliente}
-              cancelar={cancelar}
-              grabarCliente={grabarCliente}
+          <ClienteNuevo
+            handleChange={handleChange}
+            setMarcaCliente={setMarcaCliente}
+            marcacliente={marcacliente}
+            cancelar={cancelar}
+            grabarCliente={grabarCliente}
 
-            />
-          )}
+          />
+        )}
 
 
         <DialogActions>
@@ -188,6 +182,7 @@ export default function FilaCuatro(props) {
           </Button>
 
         </DialogActions>
+
       </Dialog>
     </>
   );

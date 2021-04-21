@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   TextField,
   Button,
@@ -7,15 +7,10 @@ import {
   Dialog,
   DialogActions,
   DialogTitle,
-  DialogContentText,
 } from "@material-ui/core";
-import Clientes from '../../../Clientes/Clientes.jsx'
-import useStyles from "../styles";
-import { clientesleerdesc } from "../../../Clientes/ClientesLeerDesc";
-import { PresupGrabar } from "../../PresupGrabar";
 
 export default function ClienteNuevo(props) {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const campos = [
     { key: 0, campo: "ClientesDesc", display: "Descripcion", grid: 12 },
     { key: 1, campo: "ClientesCalle", display: "Calle", grid: 12 },

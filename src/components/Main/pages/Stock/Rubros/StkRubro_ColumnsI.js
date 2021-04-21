@@ -6,8 +6,6 @@ import { stkMonedasleerRed } from "./StkMonedasLeerRed";
 
 export async function StkRubro_ColumnsI() {
   const stkgrupo = await stkGrupoLeerRedRubro();
-  console.log("stkgrupo .... ");
-  console.log(stkgrupo);
   var objstkgrupo = await stkgrupo.reduce(function (acc, cur) {
     acc[cur.StkRubroCodGrp] = cur.StkGrupoDesc;
     return acc;
@@ -134,6 +132,10 @@ function columnsFill(objstkgrupo, objstkrubroprov, objstkUnMed, objstkMonedas) {
         title: "Moneda",
         field: "StkRubroTM",
         lookup: objstkMonedas,
+      },
+      {
+        title: "Conf S/N",
+        field: "StkRubroConf",
       },
       {
         title: "Fecha",

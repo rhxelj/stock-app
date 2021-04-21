@@ -1,10 +1,11 @@
 export const movimientos = [
-  { link: "/ModPrecios", primary: "Modifica Precios" },
+  { link: "/ListaPrecios", primary: "Lista de Precios" },
   // { link: "/Presupuestos", primary: "Presupuestos" },
   { link: "/PresupPant", primary: "Presupuesto" },
+  { link: "/PresupMuestra", primary: "Muestra Presupuesto" },
+  { link: "/ModPrecios", primary: "Modifica Precios" },
   // { link: "/PresupPantVie", primary: "Presupuesto Viejo" },
   // { link: "/StkGenImpQR", primary: "ImprimeQR" },
-  { link: "/ListaPrecios", primary: "Lista de Precios" },
   { link: "/StkMovEntrada", primary: "Entrada Mercadería" },
   { link: "/StkMovSalida", primary: "Salida de Disponible" },
   { link: "/StkMovSalidaFinal", primary: "Salida Final" },

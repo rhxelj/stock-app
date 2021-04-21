@@ -19,15 +19,20 @@ router.post("/", async function (req, res, next) {
     PresupConfTipoAncho = req.body.PresupConfTipoAncho.toUpperCase(),
     PresupConfTipoAnexo = req.body.PresupConfTipoAnexo.toUpperCase(),
     PresupConfTipoCant = req.body.PresupConfTipoCant,
+    PresupConfTipoM2 = req.body.PresupConfTipoM2.toUpperCase(),
     PresupConfTipoDesc = req.body.PresupConfTipoDesc.toUpperCase(),
     PresupConfTipoRubro = req.body.PresupConfTipoRubro.toUpperCase(),
-    PresupConfTipoImprime = req.body.PresupConfTipoImprime.toUpperCase()
+    PresupConfTipoImprime = req.body.PresupConfTipoImprime.toUpperCase(),
+    PresupConfTipoMinMOT = req.body.PresupConfTipoMinMOT
+
   var q = [
     'UPDATE BasePresup.PresupConfTipo SET PresupConfTipoAnexo = "' +
     PresupConfTipoAnexo +
     '", PresupConfTipoCant = ' +
     PresupConfTipoCant +
-    ', PresupConfTipoDesc = "' +
+    ', PresupConfTipoM2 = "' +
+    PresupConfTipoM2 +
+    '", PresupConfTipoDesc = "' +
     PresupConfTipoDesc +
     '", PresupConfTipoRubro = "' +
     PresupConfTipoRubro +
@@ -37,11 +42,12 @@ router.post("/", async function (req, res, next) {
     PresupConfTipoAncho +
     '", PresupConfTipoImprime = "' +
     PresupConfTipoImprime +
+    '", PresupConfTipoMinMOT = "' +
+    PresupConfTipoMinMOT +
     '" WHERE idPresupConfTipo = ' +
     indice
   ];
   // .join(" ");
-  console.log(q);
   conexion.query(q[0], function (err, result) {
     if (err) {
       if (err.errno == 1062) {

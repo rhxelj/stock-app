@@ -21,7 +21,9 @@ router.get("/", function (req, res, next) {
       console.log(err);
     }
   });
-  var q = [" SELECT @numero:=@numero+1 as NroConfTipo , PresupConfTipoDesc from BasePresup.PresupConfTipo where PresupConfTipoAnexo = '" + PresupConfTipoAnexoSN + "'  group by PresupConfTipoDesc order by PresupConfTipoDesc "].join(" ");
+  //, PresupConfTipoImprime 
+  var q = [" SELECT @numero:=@numero+1 as NroConfTipo , PresupConfTipoDesc, PresupConfTipoImprime  from BasePresup.PresupConfTipo where PresupConfTipoAnexo = '" + PresupConfTipoAnexoSN + "'  group by PresupConfTipoDesc, PresupConfTipoImprime  order by PresupConfTipoDesc "].join(" ");
+  console.log('q en anexo  ', q)
   conexion.query(q, function (err, result) {
     if (err) {
       console.log(err);

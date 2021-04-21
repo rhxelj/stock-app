@@ -1,21 +1,20 @@
-import React, { useState, useEffect } from "react";
-import Radio, { RadioProps } from "@material-ui/core/Radio";
+import React from "react";
+import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
-import Checkbox from '@material-ui/core/Checkbox';
-import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { Dialog, Grid, TextField } from "@material-ui/core";
+import { Grid, TextField } from "@material-ui/core";
 import useStyles from "../styles";
 
 // Context
 import { useContext } from "react";
 import { PresupPantContext } from "../../PresupPant";
-import leePresupConfTipoLeeAnexo from "../../leePresupConfTipoLeeAnexo"
 
 export default function FilaConf(props) {
   const [selectedValue, setSelectedValue] = React.useState("cs");
   const { state, setState } = useContext(PresupPantContext);
   const [ojalbronce, setOjalBronce] = React.useState('hz');
+  const [setDescripPresup] = React.useState('')
+  // const [DetallePresup, setDetallePresup] = React.useState('')
 
 
 
@@ -24,17 +23,22 @@ export default function FilaConf(props) {
     setState({ ...state, PresupCsSs: event.target.value });
   };
 
-  const handleChange1 = (event) => {
-    const id = event.target.id;
-    setState({ ...state, [id]: event.target.value });
-
-  };
-
-
   const handleChange2 = (event) => {
     setOjalBronce(event.target.value);
     setState({ ...state, PresupOB: event.target.value });
   };
+
+  const handleChange3 = (event) => {
+    setDescripPresup(event.target.value);
+    setState({ ...state, DescripPresup: event.target.value });
+  };
+
+  const handleChange4 = (event) => {
+    setSelectedValue(event.target.value);
+    //   setDetallePresup(event.target.value);
+    setState({ ...state, DetallePresup: event.target.value });
+  };
+
   const classes = useStyles();
 
 
@@ -116,9 +120,25 @@ export default function FilaConf(props) {
           id="DescripPresup"
           margin="dense"
           label="Descripción"
-          fullWidth
+          // fullWidth
           value={state.DescripPresup}
-          onChange={handleChange1}
+          //  value={DescripPresup}
+          onChange={handleChange3}
+          className={classes.textField}
+        />
+      </Grid>
+      <Grid item xs={3}>
+        <TextField
+          inputProps={{ maxLength: 25 }}
+          size="small"
+          variant="outlined"
+          id="DetallePresup"
+          margin="dense"
+          label="Detalle Presupuesto "
+          // fullWidth
+          value={state.DetallePresup}
+          //  value={DescripPresup}
+          onChange={handleChange4}
           className={classes.textField}
         />
       </Grid>

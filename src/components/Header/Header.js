@@ -86,7 +86,7 @@ const initial_state = {
   showComponent: false,
 };
 function Header() {
-  const { valor, setValor } = useContext(globalContext);
+  const { valor } = useContext(globalContext);
   // const { valor, setValor } = useContext(globalContext);
 
   // const valor = "Variable interna";
@@ -211,7 +211,7 @@ function Header() {
             edge="start"
             color="inherit"
             aria-label="open drawer"
-            // onClick={this.toggleDrawer("left", true)}
+          // onClick={this.toggleDrawer("left", true)}
           >
             <MenuIcon onClick={toggleDrawer("left", true)}></MenuIcon>
           </IconButton>

@@ -12,6 +12,7 @@ export function presupdetpieData() {
                 const presupdetpie = JSON.parse(res.text);
                 resolve(presupdetpie);
                 //.catch() //Todo: agregar el catch error.
+
             });
     });
 }

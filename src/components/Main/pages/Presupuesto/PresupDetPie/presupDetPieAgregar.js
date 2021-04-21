@@ -16,12 +16,12 @@ export function presupDetPieAgregar(props) {
         .post(url)
         .set("Content-Type", "application/json")
         .send({ PresupDetPieLeyenda: PresupDetPieLeyenda })
-        .send({ PresupDetPieSelec: PresupDetPieSelec })
+        // .send({ PresupDetPieSelec: PresupDetPieSelec })
         .set("X-API-Key", "foobar")
-        .then(function (res) {
-            const respuesta = JSON.parse(res.text);
-            if (respuesta.affectedRows !== 0) alert("EXITO");
-            else alert("No modifico");
-        })
+        // .then(function (res) {
+        //     const respuesta = JSON.parse(res.text);
+        //     if (respuesta.affectedRows !== 0) alert("EXITO");
+        //     else alert("No modifico");
+        // })
         .catch((err) => CodigoError(err));
 }

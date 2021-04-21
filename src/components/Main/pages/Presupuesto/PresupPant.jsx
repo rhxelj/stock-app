@@ -3,7 +3,6 @@ import { withStyles } from '@material-ui/core/styles';
 
 import DatosPresup from './DatosPresup'
 import { initial_state } from "./Initial_State";
-
 import useStyles from "./PresupStyle";
 import FilaUno from './LayoutPresupuesto/FilaUno'
 import FilaDos from './LayoutPresupuesto/FilaDos'
@@ -28,8 +27,6 @@ var PresupPant = (props) => {
   const [datosrenglon, setDatosRenglon] = useState([]);
   const classes = useStyles();
 
-
-
   return (
     <div>
 
@@ -51,6 +48,7 @@ var PresupPant = (props) => {
           <FilaDos />
 
         </PresupPantContext.Provider>
+
       </Grid>
       {/* </Container> */}
     </div>

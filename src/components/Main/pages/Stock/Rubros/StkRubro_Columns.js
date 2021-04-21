@@ -63,21 +63,10 @@ function columnsFill(objstkgrupo, objstkrubroprov, objstkUnMed, objstkMonedas) {
         title: "Grupo",
         field: "StkRubroCodGrp",
         lookup: objstkgrupo,
-        // type: 'string',
-        // defaultSort: "asc",
-        // sorting: true,
+
         native: true,
 
       },
-      // {
-      //   title: "Grupo",
-      //   field: "StkGrupoDesc",
-      //   lookup: objstkgrupo,
-      //   defaultSort: "asc",
-      //   sorting: true,
-      //   native: true,
-      //   visible: false,
-      // },
       {
         title: "Abreviatura",
         field: "StkRubroAbr",
@@ -91,9 +80,7 @@ function columnsFill(objstkgrupo, objstkrubroprov, objstkUnMed, objstkMonedas) {
       },
       {
         title: "Proveedor",
-        // field: "ProveedoresDesc",
         field: "StkRubroProv",
-
         lookup: objstkrubroprov,
         native: true,
       },
@@ -105,14 +92,10 @@ function columnsFill(objstkgrupo, objstkrubroprov, objstkUnMed, objstkMonedas) {
         initialEditValue: "0",
         editComponent: (props) => (
           <input
-            // type="number"
-            // value={props.StkRubroAncho}
             value={props.value}
             onChange={(e) => props.onChange(e.target.value)}
           />
         ),
-        // required : true,
-        //    type : 'currency'
       },
       {
         title: "Pres. Descripción",
@@ -122,9 +105,6 @@ function columnsFill(objstkgrupo, objstkrubroprov, objstkUnMed, objstkMonedas) {
         title: "Presentación",
         field: "StkRubroPres",
         type: "numeric",
-        // editComponent: (props) => (
-        //   <input type="number" value={props.StkRubroPres} />
-        // ),
       },
       {
         title: "Unidad De Medida",
@@ -147,6 +127,10 @@ function columnsFill(objstkgrupo, objstkrubroprov, objstkUnMed, objstkMonedas) {
         title: "Moneda",
         field: "StkRubroTM",
         lookup: objstkMonedas,
+      },
+      {
+        title: "Conf S/N",
+        field: "StkRubroConf",
       },
       {
         title: "Fecha",

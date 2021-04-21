@@ -4,6 +4,8 @@ import MaterialTable, { Column } from "material-table";
 import { tableIcons } from "../../../../lib/material-table/tableIcons";
 import { localization } from "../../../../lib/material-table/localization";
 
+import CodigoError from "../../../../lib/CodigoError";
+
 import { presupdetpieColumns } from "./presupdetpieColumns";
 import { presupdetpieData } from "./presupdetpieData";
 
@@ -66,7 +68,8 @@ export default function PresupDetPie() {
                         tooltip: 'Acepta Selección',
                         showTextRowsSelected: 'false',
                         icon: () => (
-                            <tableIcons.LibraryAddCheck string='cooc' style={{ color: red[500] }} fontSize='large' />
+                            <tableIcons.LibraryAddCheck style={{ color: blue[800] }} fontSize='large' />
+                            //string='cooc'
                         ),
                         onClick: (evt, data) => seleccion(evt, data),
 
@@ -86,6 +89,10 @@ export default function PresupDetPie() {
                 localization={localization}
                 options={{
                     selection: true,
+                    selectionProps: rowData => ({
+
+                        color: 'blue'
+                    }),
                     exportAllData: true,
                     exportButton: true,
                     grouping: true,

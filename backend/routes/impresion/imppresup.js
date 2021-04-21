@@ -6,7 +6,8 @@ var conexion = require('../conexion');
 var PdfPrinter = require('../../node_modules/pdfmake/src/printer');
 var pdfmake = require('../../node_modules/pdfmake')
 var dateFormat = require('dateformat');
-
+var url = require('url');
+const { ControlPointDuplicate } = require("@material-ui/icons");
 
 conexion.connect(function (err) {
     if (!err) {
@@ -17,13 +18,14 @@ conexion.connect(function (err) {
 });
 
 var router = express();
-var Cliente = ''
+
 var TotalPresup = 0
 const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
     minimumFractionDigits: 0
 })
+
 
 router.post("/", function (req, res, next) {
 
@@ -33,33 +35,37 @@ router.post("/", function (req, res, next) {
     var Presupuestonro = req.body.nroPresupuesto
     var d = new Date();
     var Fecha = dateFormat(d, "dd-mm-yyyy ");
-
-    var indice = req.body.idcliente;
-    Cliente = req.body.nomCliente
+    var condicionpago1 = []
+    var tipoleygral = 0
+    var i = 0
+    req.body.condpagoeleg.map(() => {
+        if (req.body.condpagoeleg[i].tableData.checked == true) {
+            condicionpago1.push(req.body.condpagoeleg[i].PresupDetPieLeyenda)
+            tipoleygral = tipoleygral + req.body.condpagoeleg[i].PresupDetPieLeyenda.search('seña')
+        }
+        i++
+    }
+    )
+    console.log('datos presupu en imppresup  ', datospresup)
 
     TotalPresup = req.body.suma
-    if (indice != 0) {
-        var q = ['SELECT ClientesDesc FROM BasesGenerales.Clientes where idClientes = ' + indice].join(' ')
-        conexion.query(q,
-            function (err, result) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    res.json(result);
-                    Cliente = result[0].ClientesDesc
-                }
-            });
-    }
+
+    var Cliente = req.body.nomCliente
+
+
     var nombrepresup = 'Presupuesto nro ' + Presupuestonro + ' ' + Cliente + ' ' + Fecha + '.pdf'
     var rows = [];
+    var condpag = [];
+    var condpaggral = [];
     var encabcolum = [];
     var ac1 = 0, ac2 = 0, ac3 = 0, ac4 = 0, ac5 = 0, ac6 = 0, ac7 = 0
     var opciones = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O']
     var i = 0;
     var a = 'N'
 
+
     if (TotalPresup === 0) {
-        if (descrip === ' ') {
+        if (descrip === '') {
             rows.push([{ text: 'Opc.', style: 'header' }, { text: 'Cant', style: 'header' }, { text: 'Descripción', style: 'header' }, { text: 'Largo', style: 'header' }, { text: 'Ancho', style: 'header' }, { text: 'Imp. Unit.', style: 'header' }, { text: 'Imp. Item.', style: 'header' }]);
             datospresup.map(reng => {
                 var Opcion = { text: opciones[i], style: 'tableDatosD' }
@@ -73,7 +79,11 @@ router.post("/", function (req, res, next) {
                 i++
             })
             ac1 = 25, ac2 = 25, ac3 = 200, ac4 = '*', ac5 = '*', ac6 = 70, ac7 = 70
+
         }
+
+
+
         else {
             rows.push([{ text: 'Opc.', style: 'header' }, { text: 'Cant', style: 'header' }, { text: 'Descripción', style: 'header' }, { text: 'Imp. Unit.', style: 'header' }, { text: 'Imp. Item.', style: 'header' }]);
             datospresup.map(reng => {
@@ -89,7 +99,7 @@ router.post("/", function (req, res, next) {
         }
     }
     else {
-        if (descrip === ' ') {
+        if (descrip === '') {
             rows.push([{ text: 'Cant', style: 'header' }, { text: 'Descripción', style: 'header' }, { text: 'Largo', style: 'header' }, { text: 'Ancho', style: 'header' }, { text: 'Imp. Unit.', style: 'header' }, { text: 'Imp. Item.', style: 'header' }]);
 
             datospresup.map(reng => {
@@ -124,6 +134,21 @@ router.post("/", function (req, res, next) {
 
         }
     }
+    if (condicionpago1.length > 0) {
+        condpag.push([{ text: 'Condiciones de presupuesto', style: 'resaltado' }])
+        condpag.push(condicionpago1)
+
+        if (tipoleygral < 0) {
+            condpaggral.push([{ text: 'El precio acordado, se mantiene, hasta 5 días posteriores a la fecha de entrega establecida.', style: 'resaltado' }])
+            condpaggral.push([{ text: 'Pasados los 5 días SE ACTUALIZARÁ A LA FECHA DE RETIRO', style: 'resaltado' }])
+            condpaggral.push([{ text: 'Si la mercadería no se retira dentro de los 60 días posteriores a la fecha establecida para la entrega, se considerará abandonada y nuestra empresa dispondrá de ella, incluso para su destrucción, tomando la seña como indemnización del trabajo realizado', style: 'resaltado' }])
+        }
+        else {
+            condpaggral.push([{ text: 'La seña, confirma el precio acordado hasta 5 días posteriores a la fecha de entrega establecida', style: 'resaltado' }])
+            condpaggral.push([{ text: 'Pasados los 5 días el SALDO SE ACTUALIZARÁ A LA FECHA DE RETIRO', style: 'resaltado' }])
+            condpaggral.push([{ text: 'Si la mercadería no se retira dentro de los 60 días posteriores a la fecha establecida para la entrega, se considerará abandonada y nuestra empresa dispondrá de ella, incluso para su destrucción, tomando la seña como indemnización del trabajo realizado', style: 'resaltado' }])
+        }
+    }
     pdfmake.addFonts
     var chartLines = [];
     var chartText = [];
@@ -148,17 +173,21 @@ router.post("/", function (req, res, next) {
     var docDefinition = {
         pageMargins: [40, 130, 40, 40],
         header: {
-            margin: 10,
+            margin: 20,
             columns: [
                 {
                     image: path.resolve('.') + '/routes/impresion/encabpresup.png',
-                    width: 520,
+                    width: 550,
                     height: 100,
                 },
             ],
         },
-
         content: [
+            {
+                text: '',
+                style: 'textoD',
+            },
+
             {
                 text: 'Bahía Blanca, ' + Fecha,
                 style: 'textoD',
@@ -201,12 +230,62 @@ router.post("/", function (req, res, next) {
                     body: rows,
                 }
             },
+            {
+                text: ' ',
+                style: 'textoD',
+            },
+            {
+                text: ' ',
+                style: 'textoD',
+            },
+            {
+                style: 'tableCond',
+
+                ul: [
+                    condpag,
+                ]
+            },
+            {
+                text: ' ',
+                style: 'textoD',
+            },
+            {
+                text: ' ',
+                style: 'textoD',
+            },
+            {
+
+                style: 'tableCondGral',
+                table: {
+                    body: [
+                        [
+                            {
+                                // stack: [
+                                //     {
+                                ul: [
+                                    condpaggral[0],
+                                    condpaggral[1],
+                                    condpaggral[2],
+                                ]
+                                //     }
+                                // ]
+                            }],
+                    ]
+                }
+            },
         ],
+
         styles: {
             header: {
                 fontSize: 12,
                 italics: true,
                 alignment: 'center',
+                bold: true
+            },
+            resaltado: {
+                fontSize: 12,
+                italics: true,
+                alignment: 'left',
                 bold: true
             },
             subheader: {
@@ -241,6 +320,7 @@ router.post("/", function (req, res, next) {
                 bold: true
             },
             tableDatos: {
+                fontSize: 11,
                 margin: [0, 0, 30, 0],
                 alignment: 'center',
             },
@@ -258,20 +338,33 @@ router.post("/", function (req, res, next) {
                 bold: true
             },
             textoDTot: {
-                fontSize: 12,
+                fontSize: 9,
                 alignment: 'right',
                 bold: true
             },
+            tableCond: {
+                fontSize: 11,
+                margin: [0, 0, 30, 0],
+                alignment: 'left',
+            },
+            tableCondGral: {
+                fontSize: 11,
+                margin: [0, 0, 30, 0],
+                bold: true,
+                color: 'blue',
+                markerColor: 'red',
+                alignment: 'left',
+                fillColor: '#ffff38',
+            },
+
         }
 
     };
     //esto funciona
     var pdfDoc = printer.createPdfKitDocument(docDefinition);
-    // pdfDoc.pipe(fs.createWriteStream(path.resolve('.') + '/routes/impresion/basics.pdf'));
-    pdfDoc.pipe(fs.createWriteStream('/home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/Presupuesto/Presup-Impresion/basics.pdf'));
-    pdfDoc.pipe(fs.createWriteStream(path.resolve('.') + '/Presupuestos/' + nombrepresup));
+    pdfDoc.pipe(fs.createWriteStream('/home/sandra/SistOLSA/OlsaSG/src/PresupBase/basics.pdf'));
+    pdfDoc.pipe(fs.createWriteStream(('/home/sandra/Documentos/OLSAFrecuentes/PresupSistema/' + nombrepresup)));
     pdfDoc.end();
-
 
 });
 

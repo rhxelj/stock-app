@@ -44,7 +44,7 @@ function Monedas() {
 
   function onRowAdd() {
     return (newData) =>
-      new Promise((resolve, reject) => {
+      new Promise((resolve) => {
         agregarMonedas(newData);
         initialFetch();
         resolve();
@@ -52,8 +52,8 @@ function Monedas() {
   }
 
   function onRowUpdate() {
-    return (newData, oldData) =>
-      new Promise((resolve, reject) => {
+    return (newData) =>
+      new Promise((resolve) => {
         setTimeout(() => {
           // {
           modificarMonedas(newData);
@@ -66,7 +66,7 @@ function Monedas() {
 
   function onRowDelete() {
     return (oldData) =>
-      new Promise((resolve, reject) => {
+      new Promise((resolve) => {
         setTimeout(() => {
           // {
           borrarMonedas(oldData.idStkMonedas);
@@ -94,7 +94,7 @@ function Monedas() {
             icon: () => <tableIcons.Print />,
             tooltip: "Imprimir",
             isFreeAction: true,
-            onClick: (event) => setImprimirTF({ imprimir: true }),
+            onClick: () => setImprimirTF({ imprimir: true }),
           },
         ]}
         options={{

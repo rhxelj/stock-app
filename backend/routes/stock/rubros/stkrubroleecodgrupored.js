@@ -16,7 +16,6 @@ var router = express();
 //router.all("/", async function(req, res, next) {
 router.get("/?:idStkGrupo", function (req, res, next) {
   indice = req.params.idStkGrupo;
-  console.log('indice  stkrubroleecodgrupored ', indice)
   var q = [
     "Select idStkRubro, StkRubroDesc from StkRubro where StkRubroCodGrp = ",
     indice,

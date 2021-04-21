@@ -17,11 +17,16 @@ import { stat } from "fs";
 export default function FilaUnoIzq(props) {
   const [selectedValue, setSelectedValue] = React.useState("");
   const { state, setState } = useContext(PresupPantContext);
+  // this.state = {
+  //   value: { DescripPresup: '' },
+  // };
 
   const handleChange = (event) => {
+
     setSelectedValue(event.target.value);
     var descripcion = event.target.value
     setState({ ...state, PresupConfTipoDesc: event.target.value });
+
     leerdesc(descripcion)
   };
 
@@ -32,11 +37,14 @@ export default function FilaUnoIzq(props) {
   }
 
   async function conftipoleer(anexo) {
+    setState({ ...state, DescripPresup: '' });
     const result = await leePresupConfTipoLeeAnexo(anexo);
     setState({ ...state, tipopresup: result });
   }
 
   useEffect(() => {
+
+    setState({ ...state, DescripPresup: '' });
     if (state.tipopresup.length === 0) {
       var anexo = 'N'
       conftipoleer(anexo)
@@ -62,11 +70,10 @@ export default function FilaUnoIzq(props) {
       ),
     },
   ];
+
   return (
     <>
-      {/* <Grid container item spacing={3} xs={6}> */}
-      {/* <Grid item container spacing={3} xs={12}> */}
-      {/* <Grid item xs={1}> */}
+
       <Grid item >
         {textdata.map(data => (
           <TextField
@@ -84,7 +91,9 @@ export default function FilaUnoIzq(props) {
             {data.mapeo}
           </TextField>
         ))}
+
       </Grid>
     </>
   );
+
 }

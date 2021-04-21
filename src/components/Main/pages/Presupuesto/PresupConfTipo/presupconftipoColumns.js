@@ -34,6 +34,11 @@ function columnsFill(objstkrubro) {
                 order: true,
             },
             {
+                title: "Es m2 S/N",
+                field: "PresupConfTipoM2",
+            },
+
+            {
                 title: "Es Anexo?",
                 field: "PresupConfTipoAnexo",
             },
@@ -48,8 +53,11 @@ function columnsFill(objstkrubro) {
             {
                 title: "Imprime?",
                 field: "PresupConfTipoImprime",
+            },
+            {
+                title: "Min. MOT",
+                field: "PresupConfTipoMinMOT",
             }
-
         ]);
     });
 }

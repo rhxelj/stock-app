@@ -1,4 +1,4 @@
-import React from "react";
+import { React } from "react";
 import { Route } from "react-router-dom";
 
 import StkMonedas from "./pages/Monedas/StkMonedas";
@@ -18,6 +18,7 @@ import StkMovSalidaFinal from "./pages/Stock/Movimientos/Salida/LayoutMovSalidaF
 import StkItems from "./pages/Stock/Items/StkItems";
 
 import PresupPant from "./pages/Presupuesto/PresupPant.jsx";
+import PresupMuestra from "./pages/Presupuesto/LayoutPresupuesto/PrespuConMod/PresupMuestra.jsx"
 // import Presupuestos from './pages/Presupuestos/Presupuestos'
 import PresupConfTipo from "./pages/Presupuesto/PresupConfTipo/PresupConfTipo";
 import PresupDetPie from "./pages/Presupuesto/PresupDetPie/PresupDetPie";
@@ -49,6 +50,8 @@ const Main = () => (
       <Route path="/StkMovSalidaFinal" component={StkMovSalidaFinal} />
       <Route path="/ListaPrecios" component={ListaPrecios} />
       <Route path="/PresupPant" component={PresupPant} />
+      <Route path="/PresupMuestra" component={PresupMuestra} />
+
       {/* <Route path="/Presupuestos" component={Presupuestos} /> */}
       {/* <Route path="/PresupPantVie" component={PresupPantVie} /> */}
       {/* <Route path="/PresupuestoUnid" component={PresupuestoUnid} /> */}

@@ -11,8 +11,7 @@ import { stkitemsleecodgryrb } from "../../../../Items/StkItemsLeeCodGryRb";
 // Context
 import { useContext } from "react";
 import { StkMovSalidaContext } from "../StkMovSalida";
-import { initial_state } from "../../../../../z_SinClasificarMirar/Initial_State";
-
+import { initial_state } from '../Initial_State'
 export default function F2C1(props) {
   // Esto es para poder consumir los datos del CONTEXTAPI
   const { state, setState } = useContext(StkMovSalidaContext);

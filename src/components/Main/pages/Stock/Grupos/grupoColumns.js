@@ -1,12 +1,12 @@
 export function grupoColumns() {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     resolve([
-      // {
-      //   title: "Grupo(ID)",
-      //   field: "idStkGrupo",
-      //   editable: "never",
-      //   order: true,
-      // },
+      {
+        title: "Grupo(ID)",
+        field: "idStkGrupo",
+        editable: "never",
+        order: true,
+      },
       {
         title: "Descripcion",
         field: "StkGrupoDesc",

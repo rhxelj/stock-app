@@ -1,0 +1,80 @@
+
+Minorista
+  Detalle:
+       'Lona con ojales reforzados, chicotes y soga en dobladillo en : ',
+      Largo: 10,
+      Ancho: 4
+
+      StkRubroDesc: 'COB. STD 840',
+      StkRubroAbr: 'ST840',
+      CostoCobMC: 319.2464,
+      CostoRefuerzo: 8.536,
+      ImpUnitario: 34829.900070899406,
+    
+CostoMSChicote: 24.0075
+CostoMSDobladillo: 11.64
+StkMonedasCotizacion: 97
+CostoOjalM2: 6.23090278
+coefgancsoga   1.35
+coeficientemin   2.15
+sogachicotemin   SOG23
+abrojales3hz   HZ03
+sogadobladillo   SOG35
+flete   0.07
+MOTpM2   1.46
+codmoneda   DLS
+coefimpuestos   1.245
+
+
+  Detalle:
+       'Lona con ojales reforzados, chicotes sin soga en dobladillo en : ',
+      Largo: 10,
+      Ancho: 4 
+CostoMSChicote: 24.0075 
+StkMonedasCotizacion: 97 
+CostoOjalM2: 6.23090278 
+      StkRubroDesc: 'COB. STD 840',
+      StkRubroAbr: 'ST840',
+      CostoCobMC: 319.2464,
+      CostoRefuerzo: 8.536,
+      ImpUnitario: 32786.3301719772,
+
+coefganssoga   1.3
+coeficientemin   2.15
+sogachicotemin   SOG23
+abrojales3hz   HZ03
+sogadobladillo   SOG35
+flete   0.07
+MOTpM2   1.46
+codmoneda   DLS
+coefimpuestos   1.245
+
+
+MAYORISTA 
+ Detalle:
+       'Lona con ojales reforzados, chicotes sin soga en dobladillo',
+      Largo: 10,
+      Ancho: 4 
+  CostoMSChicote: 15.807 
+  StkMonedasCotizacion: 97 
+  CostoOjalM2: 2.78201389 
+
+   StkRubroDesc: 'COB. STD 840',
+      StkRubroAbr: 'ST840',
+      CostoCobMC: 319.2464,
+      CostoRefuerzo: 8.536,
+      ImpUnitario: 32032.148735238607,
+
+
+coefganssoga   1.3
+coeficientemay   1.77
+abrojales28   ZR28
+sogachicotemay   SOG24
+coefganmay   1.3
+sogadobladillo   SOG35
+flete   0.07
+MOTpM2   1.46
+codmoneda   DLS
+coefimpuestos   1.245
+
+     

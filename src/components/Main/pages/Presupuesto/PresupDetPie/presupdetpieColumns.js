@@ -13,12 +13,12 @@ export function presupdetpieColumns() {
                 length: 120,
                 order: true,
             },
-            {
-                title: "Por Defecto S/N",
-                field: "PresupDetPieSelec",
-                length: 10,
-                order: true,
-            },
+            // {
+            //     title: "Por Defecto S/N",
+            //     field: "PresupDetPieSelec",
+            //     length: 1,
+            //     order: true,
+            // },
         ]);
     });
 }

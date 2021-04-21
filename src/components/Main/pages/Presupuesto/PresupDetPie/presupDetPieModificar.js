@@ -7,8 +7,8 @@ export function presupDetPieModificar(props) {
 
         const {
                 idPresupDetPie,
-                PresupDetPieLeyenda,
-                PresupDetPieSelec
+                PresupDetPieLeyenda
+                // PresupDetPieSelec
 
         } = props;
 
@@ -17,6 +17,6 @@ export function presupDetPieModificar(props) {
                 .post(url)
                 .set("Content-Type", "application/json")
                 .send({ PresupDetPieLeyenda: PresupDetPieLeyenda })
-                .send({ PresupDetPieSelec: PresupDetPieSelec })
+                // .send({ PresupDetPieSelec: PresupDetPieSelec })
                 .then(function (res) { });
 }

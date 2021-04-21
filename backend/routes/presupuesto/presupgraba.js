@@ -23,7 +23,6 @@ router.all("/", async function (req, res) {
   var cliente = ''
   var i = 0;
 
-
   if (req.body.idClientes != 0) {
     cliente = req.body.idClientes
   }
