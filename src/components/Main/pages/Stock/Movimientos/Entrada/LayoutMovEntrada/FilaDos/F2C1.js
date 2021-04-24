@@ -54,7 +54,7 @@ export default function F2C1() {
     if (state.idStkGrupo === "") {
       stkgrupoleer();
     }
-    if (state.idStkGrupo != "") {
+    if (state.idStkGrupo !== "") {
       stkrubroleercodgrupo(state.idStkGrupo);
     }
 

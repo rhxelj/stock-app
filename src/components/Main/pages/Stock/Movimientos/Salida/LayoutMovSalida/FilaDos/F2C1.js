@@ -140,7 +140,7 @@ export default function F2C1() {
               onChange={handleChange}
               SelectProps={{ native: true }}
               variant="outlined"
-              autoFocus={data.id == "idStkGrupo" && true}
+              autoFocus={data.id === "idStkGrupo" && true}
             >
               {data.mapeo}
             </TextField>

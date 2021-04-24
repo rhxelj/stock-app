@@ -41,7 +41,7 @@ export default function FilaDos() {
 
 
   // según el presupuesto elegido, lee la tabla y se decide que pide
-  if (state.DatosPresupEleg.length != 0) {
+  if (state.DatosPresupEleg.length !== 0) {
     var largo = state.DatosPresupEleg[0].PresupConfTipoLargo;
     var ancho = state.DatosPresupEleg[0].PresupConfTipoAncho;
     var presuptipo = state.DatosPresupEleg[0].PresupConfTipoDesc;
@@ -145,7 +145,7 @@ export default function FilaDos() {
         datosrenglon1[0][0].StkRubroDesc;
 
 
-      if (datosrenglon1[0][0].MDesc == 'S') {
+      if (datosrenglon1[0][0].MDesc === 'S') {
         StkRubroDesc = StkRubroDesc +
           " " + state.DescripPresup
       }

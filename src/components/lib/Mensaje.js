@@ -10,6 +10,8 @@ export default function Mensaje(type, message) {
     case "success": // default color green
       toast.success(message);
       break;
+    default:
+    // do nothing
   }
 }
 // para usar el componente Mensaje hay que agregar el tipo y el mensaje

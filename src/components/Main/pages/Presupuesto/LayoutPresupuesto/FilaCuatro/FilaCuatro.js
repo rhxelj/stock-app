@@ -60,7 +60,7 @@ export default function FilaCuatro(props) {
   async function grabarpresupuesto() {
     var idClienteElegE, nomClienteElegE;
     var descrip = state.DescripPresup
-    if (state.idClientes != 0) {
+    if (state.idClientes !== 0) {
       idClienteElegE = state.idClientes
       nomClienteElegE = state.nomCliente
       nomClienteElegE = await clientesleercod(idClienteElegE);
