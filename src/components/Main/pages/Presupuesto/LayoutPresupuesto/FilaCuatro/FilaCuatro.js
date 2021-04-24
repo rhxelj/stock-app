@@ -34,7 +34,7 @@ export default function FilaCuatro(props) {
 
   const handleChange = (event) => {
     const id = event.target.id;
-    if (id != 'nomClientes') {
+    if (id !== 'nomClientes') {
       setState({ ...state, [id]: event.target.value });
       setnomClienteEleg(event.target.value)
       setidClienteEleg(0)

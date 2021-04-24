@@ -1,6 +1,6 @@
-import { React } from "react";
+// import { React } from "react";
 import { Route } from "react-router-dom";
-
+import React from 'react'
 import StkMonedas from "./pages/Monedas/StkMonedas";
 import Proveedores from "./pages/Stock/Proveedores/Proveedores.jsx";
 import Clientes from "./pages/Clientes/Clientes.jsx";

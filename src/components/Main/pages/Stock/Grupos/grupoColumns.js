@@ -1,5 +1,5 @@
 export function grupoColumns() {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
     resolve([
       {
         title: "Grupo(ID)",

@@ -112,7 +112,7 @@ class ModPrecios extends Component {
       .catch(err => CodigoError(err));
   };
 
-  submitModPrecio(state) {
+  submitModPrecio() {
     this.ModPrecio();
     // .then(
     //   this.setState(()=>({
@@ -219,7 +219,7 @@ class ModPrecios extends Component {
 
   // Leo proveedores y grupos
 
-  proveedoresleer = _ => {
+  proveedoresleer = () => {
     const url = IpServidor + "/proveedoresleer";
     request
       .get(url)
@@ -230,7 +230,7 @@ class ModPrecios extends Component {
       });
   };
 
-  gruposleer = _ => {
+  gruposleer = () => {
     const url = IpServidor + "/stkgrupoleer";
     request
       .get(url)
@@ -241,7 +241,7 @@ class ModPrecios extends Component {
       });
   };
 
-  rubrosleer = _ => {
+  rubrosleer = () => {
     const url = IpServidor + "/stkrubroleer";
     request
       .get(url)

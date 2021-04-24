@@ -53,7 +53,7 @@ export default function PresupMuestra() {
 
     useEffect(() => {
         initialFetch();
-    }, []);
+    });
 
     return (
         <div>
@@ -70,7 +70,7 @@ export default function PresupMuestra() {
                         // icon: "IMPRIMIR",
                         tooltip: "Imprimir",
                         isFreeAction: true,
-                        onClick: (event) => setImprimirTF({ imprimir: true }),
+                        onClick: () => setImprimirTF({ imprimir: true }),
                     }
                 ]}
                 columns={columns}

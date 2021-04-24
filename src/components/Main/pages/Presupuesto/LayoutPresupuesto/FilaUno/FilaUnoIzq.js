@@ -5,16 +5,17 @@ import {
 
   TextField,
 } from "@material-ui/core";
-import useStyles from "../styles";
+// import useStyles from "../styles";
 
 import leePresupConfTipoLeerDesc from "../../leePresupConfTipoLeerDesc"
 import leePresupConfTipoLeeAnexo from "../../leePresupConfTipoLeeAnexo"
 // Context
 import { useContext } from "react";
 import { PresupPantContext } from "../../PresupPant";
-import { stat } from "fs";
+// import { stat } from "fs";
 
-export default function FilaUnoIzq(props) {
+export default function FilaUnoIzq() {
+  //const [setSelectedValue] = React.useState("");
   const [selectedValue, setSelectedValue] = React.useState("");
   const { state, setState } = useContext(PresupPantContext);
   // this.state = {
@@ -51,7 +52,7 @@ export default function FilaUnoIzq(props) {
     }
   }, [state.tipopresup]);
 
-  const classes = useStyles();
+  // const classes = useStyles();
 
   const textdata = [
     {

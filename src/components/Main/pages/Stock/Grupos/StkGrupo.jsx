@@ -50,7 +50,7 @@ export default function StkGrupo() {
             // icon: "IMPRIMIR",
             tooltip: "Imprimir",
             isFreeAction: true,
-            onClick: (event) => setImprimirTF({ imprimir: true }),
+            onClick: () => setImprimirTF({ imprimir: true }),
           }
         ]}
         columns={columns}

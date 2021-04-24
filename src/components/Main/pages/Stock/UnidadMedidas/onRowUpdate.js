@@ -1,7 +1,7 @@
 import { stkUnMedModificar } from "./stkUnMedModificar";
 
-export function onRowUpdate(newData, oldData) {
-  return new Promise((resolve, reject) => {
+export function onRowUpdate(newData) {
+  return new Promise((resolve) => {
     setTimeout(() => {
       // {
       stkUnMedModificar(newData);

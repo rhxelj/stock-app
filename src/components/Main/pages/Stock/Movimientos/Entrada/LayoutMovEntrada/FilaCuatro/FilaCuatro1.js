@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import ubicacion from "../../UbicacionGeografica";
 import { stkubfisicaleerUbG } from "../../../../UbicacionFisica/StkUbFisicaUG";
 import { Grid, TextField } from "@material-ui/core";
@@ -24,6 +24,8 @@ export default function FilaCuatro() {
   useEffect(() => {
     stkubfisicaubgeo(state.StkEnvaseUbG);
   }, [state.StkEnvaseUbG]);
+
+
 
   const classes = useStyles();
   return (
@@ -60,7 +62,7 @@ export default function FilaCuatro() {
             }}
             // autoFocus={true}
             className={classes.textField_150}
-            // InputLabelProps={{ shrink: true }}
+          // InputLabelProps={{ shrink: true }}
           >
             <option></option>
 

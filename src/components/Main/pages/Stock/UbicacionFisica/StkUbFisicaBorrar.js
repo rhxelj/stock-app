@@ -16,7 +16,7 @@ import IpServidor from "../../VariablesDeEntorno";
 import CodigoError from "../../../../lib/CodigoError";
 
 export function StkUbFisicaBorrar(props) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function () {
     const { idStkUbFisica, StkUbFisicaGeo } = props;
 
     const url = IpServidor + "/stkubfisicaborrar";
@@ -47,13 +47,13 @@ export function StkUbFisicaBorrar(props) {
     request
       .get(
         url +
-          "?idStkUbFisica=" +
-          idStkUbFisica +
-          "&StkUbFisicaGeo=" +
-          StkUbFisicaGeo
+        "?idStkUbFisica=" +
+        idStkUbFisica +
+        "&StkUbFisicaGeo=" +
+        StkUbFisicaGeo
       )
       .set("Content-Type", "application/json")
-      .then(function(res) {})
+      .then(function () { })
       .catch((err) => CodigoError(err));
   });
 }

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
-import useStyles from "../styles";
 
 import { TextField } from "@material-ui/core";
 import { stkitemsleecodgrrbit } from "../../../../Items/StkItemsLeeCodGrRbIt";
@@ -14,14 +13,14 @@ import { stkitemsleecodgrrbit } from "../../../../Items/StkItemsLeeCodGrRbIt";
 import { useContext } from "react";
 import { StkMovEntradaContext } from "../../StkMovEntrada";
 
-export default function F2C2(props) {
+export default function F2C2() {
   // Context
   const { state, setState } = useContext(StkMovEntradaContext);
 
-  const handleChange = event => {
-    const id = event.target.id;
-    setState({ ...state, [id]: event.target.value });
-  };
+  // const handleChange = event => {
+  //   const id = event.target.id;
+  //   setState({ ...state, [id]: event.target.value });
+  // };
 
   async function stkitemsleercodgrrbit(GrupoEleg, RubroEleg, ItemEleg) {
     const result = await stkitemsleecodgrrbit(GrupoEleg, RubroEleg, ItemEleg);
@@ -39,7 +38,6 @@ export default function F2C2(props) {
     stkitemsleercodgrrbit(state.idStkGrupo, state.idStkRubro, state.idStkItems);
   }, [state.idStkItems]);
 
-  const classes = useStyles();
 
   return (
     <>
@@ -66,7 +64,7 @@ export default function F2C2(props) {
             }
             // fullWidth={true}
             disabled
-            // className={classes.textField}
+          // className={classes.textField}
           />
         </Grid>
         <Grid item xs={6}>
@@ -78,7 +76,7 @@ export default function F2C2(props) {
             InputLabelProps={{ shrink: true }}
             value={state.StkItemsCantidad}
             disabled
-            // className={classes.textField}
+          // className={classes.textField}
           />
         </Grid>
         <Grid item xs={6}>
@@ -91,7 +89,7 @@ export default function F2C2(props) {
             InputLabelProps={{ shrink: true }}
             value={state.StkItemsMin}
             disabled
-            // className={classes.textField}
+          // className={classes.textField}
           />
         </Grid>
         <Grid item xs={6}>

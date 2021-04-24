@@ -1,7 +1,7 @@
 import IpServidor from "../../VariablesDeEntorno";
 import request from "superagent";
 
-export function leeTipoProv(_) {
+export function leeTipoProv() {
   return new Promise((resolve) => {
     const url = IpServidor + "/stkbgsubrubroleer";
     request

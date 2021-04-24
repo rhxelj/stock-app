@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { globalContext } from "../App";
 
 export function HeaderTitle(prop) {
-  const { valor, setValor } = useContext(globalContext);
+  const { setValor } = useContext(globalContext);
   setValor(prop);
   // return {};
 }

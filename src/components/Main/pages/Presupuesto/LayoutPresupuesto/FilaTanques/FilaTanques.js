@@ -17,20 +17,20 @@ export default function FilaTanques() {
 
 
     const handleChange = (event) => {
-        if (event.target.value == 'CC') {
+        if (event.target.value === 'CC') {
             labelMedida = 'Cantidad de Chapas'
 
         }
 
-        if (event.target.value == 'PE') {
+        if (event.target.value === 'PE') {
             labelMedida = 'Metros Perímetro'
         }
 
-        if (event.target.value == 'DI' || event.target.value == 'DE') {
+        if (event.target.value === 'DI' || event.target.value === 'DE') {
             labelMedida = 'Metros Diámetro'
         }
         const id = event.target.id;
-        console.log('id  ', id)
+        console.log('labelMedida  ', labelMedida)
         setState({ ...state, [id]: event.target.value });
 
     };

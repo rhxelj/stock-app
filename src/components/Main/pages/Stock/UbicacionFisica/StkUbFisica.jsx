@@ -53,7 +53,7 @@ export default function StkUbFisica() {
             icon: () => <tableIcons.Print />,
             tooltip: "Imprimir",
             isFreeAction: true,
-            onClick: (event) => setImprimirTF({ imprimir: true }),
+            onClick: () => setImprimirTF({ imprimir: true }),
           },
         ]}
         title=""

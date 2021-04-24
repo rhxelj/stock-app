@@ -6,7 +6,7 @@ import CodigoError from "../../../lib/CodigoError";
 
 
 export function ClientesAgregar(props) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function () {
     const {
       ClientesDesc,
       ClientesCalle,
@@ -41,7 +41,7 @@ export function ClientesAgregar(props) {
       .send({ clientipo: ClientesTipo })
 
       .set("X-API-Key", "foobar")
-      .then(function (res) { })
+      .then(function () { })
       .catch((err) => CodigoError(err));
 
 

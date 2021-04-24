@@ -11,7 +11,7 @@ export function stkUnMedModificar(props) {
     .set("Content-Type", "application/json")
     .send({ idStkUnMed: idStkUnMed })
     .send({ StkUnMedDesc: StkUnMedDesc })
-    .then(function(res) {
+    .then(function () {
       // res.body, res.headers, res.status
     })
     .catch((err) => CodigoError(err));

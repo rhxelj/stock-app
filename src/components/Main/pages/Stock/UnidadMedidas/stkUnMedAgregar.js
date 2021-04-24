@@ -12,7 +12,7 @@ export function stkUnMedAgregar(props) {
     .send({ idStkUnMed: idStkUnMed })
     .send({ StkUnMedDesc: StkUnMedDesc })
     .set("X-API-Key", "foobar")
-    .then(function (res) {
+    .then(function () {
       // res.body, res.headers, res.status
       //     console.log('res.status  ' + res.status);
       //     console.log('esta aca');

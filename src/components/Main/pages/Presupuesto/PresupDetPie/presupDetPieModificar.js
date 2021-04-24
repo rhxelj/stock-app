@@ -18,5 +18,5 @@ export function presupDetPieModificar(props) {
                 .set("Content-Type", "application/json")
                 .send({ PresupDetPieLeyenda: PresupDetPieLeyenda })
                 // .send({ PresupDetPieSelec: PresupDetPieSelec })
-                .then(function (res) { });
+                .then(function () { });
 }

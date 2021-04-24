@@ -6,20 +6,13 @@ import { tableIcons } from "../../../../../lib/material-table/tableIcons";
 import { localization } from "../../../../../lib/material-table/localization";
 import FilaCuatro from "../FilaCuatro/FilaCuatro";
 import CurrencyTextField from "@unicef/material-ui-currency-textfield";
-import { Document, Page } from 'react-pdf';
-import Imprimir from "../../../Impresion/Imprimir/Imprimir";
 import { PresupPreview } from "../PresupPreview"
-import { PresupImprime } from "../PresupImprime"
-import { Dialog, DialogTitle, Paper } from "@material-ui/core";
-import printJS from "print-js";
 //npm install pdf-viewer-reactjs
 
 
 import {
-  red,
   blue,
   green,
-  blueGrey,
   purple,
   teal,
 } from "@material-ui/core/colors";
@@ -28,23 +21,21 @@ import FilaAnexo from "../FilaConf/FilaAnexo/FilaAnexo";
 // Context
 import { useContext } from "react";
 import { PresupPantContext } from "../../PresupPant";
-import { type } from "os";
-import { fstat } from "fs";
 
 export default function TablaPresup(props) {
   // Esto es para poder consumir los datos del CONTEXTAPI
-  const { state, setState } = useContext(PresupPantContext);
+  const { state } = useContext(PresupPantContext);
   const { datosrenglon, setDatosRenglon } = useContext(PresupPantContext);
-  const [imprimirTF, setImprimirTF] = useState({ imprimir: false });
+  // const [setImprimirTF] = useState({ imprimir: false });
   const [anexos, setAnexos] = useState({ anexos: false });
   const [ppreview, setPPreview] = useState({ ppreview: false });
   const columns = state.columns;
 
   const [suma, setSuma] = useState(0);
   const [open, setOpen] = useState(false);
-  const [presup, setPresup] = useState({
-    columnas: state.columns,
-  });
+  // const [presup, setPresup] = useState({
+  //   columnas: state.columns,
+  // });
 
   // const [file, setFile] = useState('/home/sandra/Documentos/OLSAFrecuentes/PresupSistema/basics.pdf');
   // const [numPages, setNumPages] = useState(null);
@@ -85,14 +76,14 @@ export default function TablaPresup(props) {
 
   };
 
-  const Imprimir = () => {
-    setImprimirTF(true);
-  };
+  // const Imprimir = () => {
+  //   setImprimirTF(true);
+  // };
 
-  const NoImprimir = () => {
-    setImprimirTF(false);
+  // const NoImprimir = () => {
+  //   setImprimirTF(false);
 
-  };
+  // };
 
   return (
     <>
@@ -113,7 +104,7 @@ export default function TablaPresup(props) {
             }}
             editable={{
               onRowDelete: (oldData) =>
-                new Promise((resolve, reject) => {
+                new Promise((resolve) => {
                   setTimeout(() => {
                     const dataDelete = [...datosrenglon];
                     const index = oldData.tableData.id;
@@ -131,19 +122,19 @@ export default function TablaPresup(props) {
                 ),
                 tooltip: "Suma",
                 isFreeAction: true,
-                onClick: (event) => sumar(),
+                onClick: () => sumar(),
               },
               {
                 icon: () => <tableIcons.Save style={{ color: blue[500] }} />,
                 tooltip: "Graba",
                 isFreeAction: true,
-                onClick: (event) => graba(),
+                onClick: () => graba(),
               },
               {
                 icon: () => <tableIcons.Print style={{ color: green[500] }} />,
                 tooltip: "Imprimir",
                 isFreeAction: true,
-                onClick: (event) => setPPreview({ ppreview: true })
+                onClick: () => setPPreview({ ppreview: true })
               },
 
 
@@ -153,7 +144,7 @@ export default function TablaPresup(props) {
                 ),
                 tooltip: "Anexos",
                 isFreeAction: true,
-                onClick: (event) => setAnexos({ anexos: true }),
+                onClick: () => setAnexos({ anexos: true }),
               },
 
               // {

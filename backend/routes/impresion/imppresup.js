@@ -7,7 +7,7 @@ var PdfPrinter = require('../../node_modules/pdfmake/src/printer');
 var pdfmake = require('../../node_modules/pdfmake')
 var dateFormat = require('dateformat');
 var url = require('url');
-const { ControlPointDuplicate } = require("@material-ui/icons");
+// const { ControlPointDuplicate } = require("@material-ui/icons");
 
 conexion.connect(function (err) {
     if (!err) {

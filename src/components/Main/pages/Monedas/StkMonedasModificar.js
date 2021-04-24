@@ -13,7 +13,7 @@ export function modificarMonedas(props) {
     .send({ StkMonedasDescripcion: StkMonedasDescripcion })
     .send({ StkMonedasCotizacion: StkMonedasCotizacion })
     .set("X-API-Key", "foobar")
-    .then(function(res) {
+    .then(function () {
       // res.body, res.headers, res.status
     })
     .catch((err) => CodigoError(err));

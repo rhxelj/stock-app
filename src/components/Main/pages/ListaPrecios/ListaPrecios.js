@@ -7,7 +7,6 @@ import { localization } from "../../../lib/material-table/localization";
 
 import { tableIcons } from "../../../lib/material-table/tableIcons";
 import TablaMuestraStock from "./TablaMuestraStock";
-import Button from "@material-ui/core/Button";
 import WavesIcon from "@material-ui/icons/Waves";
 import AutorenewIcon from '@material-ui/icons/Autorenew';
 
@@ -85,9 +84,12 @@ export default function ListaPrecios() {
     setLista({ ...lista, data: result });
   }
 
+  // useEffect(() => {
+  //   leerlistaprecios();
+  // }, []);
   useEffect(() => {
     leerlistaprecios();
-  }, []);
+  });
 
   const openApp = (event, StkRubroCodGrp, idStkRubro) => {
     setParamItems({ paramitems, idGrupo: StkRubroCodGrp, idRubro: idStkRubro });
@@ -119,13 +121,13 @@ export default function ListaPrecios() {
             icon: () => <AutorenewIcon />,
             tooltip: "Refrescar",
             isFreeAction: true,
-            onClick: (event) => leerlistaprecios(),
+            onClick: () => leerlistaprecios(),
           },
           {
             icon: () => <tableIcons.Print />,
             tooltip: "Imprimir",
             isFreeAction: true,
-            onClick: (event) => setImprimirTF({ imprimir: true }),
+            onClick: () => setImprimirTF({ imprimir: true }),
           },
         ]}
         options={{

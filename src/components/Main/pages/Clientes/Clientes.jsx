@@ -12,7 +12,7 @@ import { HeaderTitle } from '../../../lib/HeaderTitle'
 import { localization } from "../../../lib/material-table/localization";
 import Imprimir from "../Impresion/Imprimir/Imprimir";
 
-export default function Clientes(props) {
+export default function Clientes() {
   HeaderTitle("Clientes")
 
   const [columns, setColumns] = useState([]);
@@ -46,7 +46,7 @@ export default function Clientes(props) {
             icon: () => <tableIcons.Print />,
             tooltip: "Imprimir",
             isFreeAction: true,
-            onClick: (event) => setImprimirTF({ imprimir: true }),
+            onClick: () => setImprimirTF({ imprimir: true }),
           },
         ]}
         title=""

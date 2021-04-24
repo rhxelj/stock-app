@@ -7,7 +7,7 @@ import IpServidor from "../../VariablesDeEntorno";
 import CodigoError from "../../../../lib/CodigoError";
 
 export function borrarItems(props) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
     const { idStkItems, StkItemsGrupo, StkItemsRubro } = props;
 
     // //Delete

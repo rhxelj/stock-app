@@ -29,8 +29,8 @@ export default function FilaDos() {
   const { state, setState } = useContext(PresupPantContext);
   // const [datosrenglon, setDatosRenglon] = useState([]);
   const { datosrenglon, setDatosRenglon } = useContext(PresupPantContext);
-  // const [open, setOpen] = useState(false);
-  const [setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  //  const [setOpen] = useState(false);
   // const [DetallePresup, setDetallePresup] = React.useState('')
   // const [numPages, setNumPages] = useState(null);
   // const [pageNumber, setPageNumber] = useState(1);

@@ -1,4 +1,3 @@
-import React from 'react'
 import request from 'superagent'
 
 import IpServidor from "../../../VariablesDeEntorno";

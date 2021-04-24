@@ -1,19 +1,9 @@
-import React, { useState } from "react";
-import Radio, { RadioProps } from "@material-ui/core/Radio";
+import React from "react";
+import Radio from "@material-ui/core/Radio";
 import {
-  Box,
-  Button,
-  Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
+
   Grid,
-  IconButton,
-  InputAdornment,
-  Paper,
-  TextField,
-  Typography,
+
 } from "@material-ui/core";
 // import { makeStyles } from "@material-ui/core/styles";
 // import Paper from "@material-ui/core/Paper";
@@ -22,10 +12,7 @@ import {
 // import Radio from '@material-ui/core/Radio';
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
 
-import useStyles from "../styles";
 
 // Context
 import { useContext } from "react";
@@ -39,7 +26,7 @@ export default function TipoIVA() {
     setSelectedValue(event.target.value);
     setState({ ...state, PresupIVA: event.target.value });
   };
-  const classes = useStyles();
+
   return (
     <>
       {console.log('state.PresupMnMy  ', state.PresupMnMy)}

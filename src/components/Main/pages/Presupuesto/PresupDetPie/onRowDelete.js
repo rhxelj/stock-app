@@ -1,7 +1,7 @@
 import { presupDetPieBorrar } from "./presupDetPieBorrar";
 
 export function onRowDelete(oldData) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         setTimeout(() => {
             presupDetPieBorrar(oldData);
             resolve();

@@ -1,8 +1,7 @@
-import CodigoError from '../../../lib/CodigoError'
 import IpServidor from '../VariablesDeEntorno'
 import request from "superagent";
 
-export const ClientesLeerPresup = (_) => {
+export const ClientesLeerPresup = () => {
   return new Promise((resolve) => {
     const url = IpServidor + "/clientesleerpresup";
     request

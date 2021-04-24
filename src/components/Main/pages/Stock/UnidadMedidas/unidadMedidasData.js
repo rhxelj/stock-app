@@ -1,9 +1,8 @@
-import CodigoError from "../../../../lib/CodigoError";
 import IpServidor from "../../VariablesDeEntorno";
 import request from "superagent";
 
 export function unidadMedidasData() {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve) {
     const url = IpServidor + "/stkunmedleer";
     request
       .get(url)

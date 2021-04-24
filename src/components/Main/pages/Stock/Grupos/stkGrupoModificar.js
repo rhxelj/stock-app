@@ -12,5 +12,5 @@ export function stkGrupoModificar(props) {
     .send({ StkGrupoDesc: StkGrupoDesc })
     .send({ StkGrupoAbr: StkGrupoAbr })
     .send({ StkGrupoContRubro: StkGrupoContRubro }) // Esto va a ser Cero inicialmente.
-    .then(function (res) {});
+    .then(function () { });
 }

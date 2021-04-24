@@ -51,7 +51,9 @@ export default function Fila() {
   //   setState({ ...state, imp_etiquetas: true });
   // };
 
-  const confirmar = async (state: object) => {
+  // const confirmar = async (state: object) => {
+  const confirmar = async (state: Object) => {
+    await stkitemsmodstock(state);
     await stkitemsmodstock(state);
     console.log('state en filacinco  ', state)
     await stkenvaseagregar(state);

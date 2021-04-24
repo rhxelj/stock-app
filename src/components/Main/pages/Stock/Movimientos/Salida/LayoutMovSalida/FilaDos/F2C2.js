@@ -13,7 +13,7 @@ import { stkitemsleecodgrrbit } from "../../../../Items/StkItemsLeeCodGrRbIt";
 import { useContext } from "react";
 import { StkMovSalidaContext } from "../StkMovSalida";
 
-export default function F2C2(props) {
+export default function F2C2() {
   // Context
   const { state, setState } = useContext(StkMovSalidaContext);
 
@@ -63,7 +63,7 @@ export default function F2C2(props) {
             }
             // fullWidth={true}
             disabled
-            // className={classes.textField}
+          // className={classes.textField}
           />
         </Grid>
         <Grid item xs={6}>
@@ -75,7 +75,7 @@ export default function F2C2(props) {
             InputLabelProps={{ shrink: true }}
             value={state.StkItemsCantidad}
             disabled
-            // className={classes.textField}
+          // className={classes.textField}
           />
         </Grid>
         <Grid item xs={6}>
@@ -88,7 +88,7 @@ export default function F2C2(props) {
             InputLabelProps={{ shrink: true }}
             value={state.StkItemsMin}
             disabled
-            // className={classes.textField}
+          // className={classes.textField}
           />
         </Grid>
         <Grid item xs={6}>

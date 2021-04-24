@@ -2,7 +2,7 @@ import { leeStkRubro } from '../../Stock/Items/leeStkRubro'
 
 export async function presupconftipoColumns() {
     const stkRubros = await leeStkRubro(); //llamo a leer grupo
-    var objstkrubro = await stkRubros.reduce(function (acc, cur, i) {
+    var objstkrubro = await stkRubros.reduce(function (acc, cur) {
         acc[cur.StkRubroAbr] = cur.StkRubroDesc;
         return acc;
     }, {});
@@ -10,7 +10,7 @@ export async function presupconftipoColumns() {
 }
 
 function columnsFill(objstkrubro) {
-    return new Promise(function (resolve, reject) {
+    return new Promise(function (resolve) {
         resolve([
             {
                 title: "Presup.Tipo(ID)",

@@ -1,7 +1,7 @@
 import { StkUbFisicaAgregar } from "./StkUbFisicaAgregar";
 
 export function onRowAdd(newData) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       // {
       StkUbFisicaAgregar(newData);

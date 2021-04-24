@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-import MaterialTable, { Column } from "material-table";
+import MaterialTable from "material-table";
 import { tableIcons } from "../../../../lib/material-table/tableIcons";
 import { localization } from "../../../../lib/material-table/localization";
 
-import CodigoError from "../../../../lib/CodigoError";
 
 import { presupdetpieColumns } from "./presupdetpieColumns";
 import { presupdetpieData } from "./presupdetpieData";
@@ -16,12 +15,7 @@ import { onRowDelete } from "./onRowDelete"
 import { HeaderTitle } from "../../../../lib/HeaderTitle"
 import Imprimir from "../../Impresion/Imprimir/Imprimir";
 import {
-    red,
     blue,
-    green,
-    blueGrey,
-    purple,
-    teal,
 } from "@material-ui/core/colors";
 export default function PresupDetPie() {
     HeaderTitle("Detalles de Pie de Presupuesto")
@@ -62,7 +56,7 @@ export default function PresupDetPie() {
                         icon: () => <tableIcons.Print />,
                         tooltip: "Imprimir",
                         isFreeAction: true,
-                        onClick: (event) => setImprimirTF({ imprimir: true }),
+                        onClick: () => setImprimirTF({ imprimir: true }),
                     },
                     {
                         tooltip: 'Acepta Selección',
@@ -89,7 +83,11 @@ export default function PresupDetPie() {
                 localization={localization}
                 options={{
                     selection: true,
-                    selectionProps: rowData => ({
+                    // selectionProps: rowData => ({
+
+                    //     color: 'blue'
+                    // }),
+                    selectionProps: ({
 
                         color: 'blue'
                     }),

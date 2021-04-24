@@ -3,7 +3,7 @@ import { leeTipoProv } from "./LeeTipoClien";
 
 export async function llenarColumns() {
   const tipoprov = await leeTipoProv();
-  var objstktipoprov = await tipoprov.reduce(function (acc, cur, i) {
+  var objstktipoprov = await tipoprov.reduce(function (acc, cur) {
     acc[cur.idSubRubro] = cur.SubRubroDetalle;
     // return acc;
     return Object.values(acc).sort(function (a, b) {
@@ -21,8 +21,8 @@ export async function llenarColumns() {
   //, objstkMonedas);
 }
 
-function columnsFill(objstktipoprov, objstkMonedas) {
-  return new Promise(function (resolve, reject) {
+function columnsFill(objstktipoprov) {
+  return new Promise(function (resolve) {
     resolve([
       // { title: "idProveedores", field: "idProveedores" },
       // { title: "Tipo", field: "ProveedoresTipo" }, //Proveedores Tipo idStkTipoProveed

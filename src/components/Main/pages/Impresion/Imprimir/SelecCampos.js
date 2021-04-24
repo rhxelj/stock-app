@@ -83,7 +83,7 @@ export default function SelecCampos(props) {
         {/* <List className={classes.root}> */}
         <List>
           {/* {columnas.map(value => { */}
-          {props.columns.map((value, index) => {
+          {props.columns.map((value) => {
             const labelId = `checkbox-list-label-${value}`;
 
             return (

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Suspense } from "react";
+import React, { useEffect, useState } from "react";
 import { localization } from "../../../../lib/material-table/localization";
 import "../../../../../Styles/TableHeader.css";
 import MaterialTable from "material-table";
@@ -49,7 +49,7 @@ export default function Proveedores() {
             icon: () => <tableIcons.Print />,
             tooltip: "Imprimir",
             isFreeAction: true,
-            onClick: (event) => setImprimirTF({ imprimir: true }),
+            onClick: () => setImprimirTF({ imprimir: true }),
           },
         ]}
         title="PROVEEDORES"

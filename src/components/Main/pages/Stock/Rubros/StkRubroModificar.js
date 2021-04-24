@@ -3,7 +3,7 @@ import IpServidor from "../../VariablesDeEntorno";
 import request from "superagent";
 
 export function modificarRubros(props) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
     const {
       idStkRubro,
       StkRubroCodGrp,
@@ -41,7 +41,7 @@ export function modificarRubros(props) {
         StkRubroTM: StkRubroTM,
         StkRubroConf: StkRubroConf,
       })
-      .then(function (res) { })
+      .then(function () { })
       .catch((err) => CodigoError(err));
     resolve();
     // };

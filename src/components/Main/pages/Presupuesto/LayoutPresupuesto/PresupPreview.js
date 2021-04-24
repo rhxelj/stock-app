@@ -1,9 +1,8 @@
-import request from "superagent";
 
 // import carpetaimppresup from '../../PathEspeciales'
 // Lee Rubro por codigo de gupo
-import React, { useState } from 'react';
-import { Grid, Dialog, DialogTitle, Paper } from "@material-ui/core";
+import React from 'react';
+import { Dialog } from "@material-ui/core";
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import MuiDialogTitle from '@material-ui/core/DialogTitle'

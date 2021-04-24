@@ -8,7 +8,6 @@ export function presupDetPieAgregar(props) {
 
     const {
         PresupDetPieLeyenda,
-        PresupDetPieSelec,
     } = props;
 
     const url = IpServidor + "/presupdetpieagregar";

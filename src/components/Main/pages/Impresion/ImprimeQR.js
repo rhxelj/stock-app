@@ -84,7 +84,7 @@ class PresupPant extends Component {
     };
   }
 
-  imprime = (datosqr) => {
+  imprime = () => {
     var datoscalculo =
       "^XA" +
       "^FO100,10" +

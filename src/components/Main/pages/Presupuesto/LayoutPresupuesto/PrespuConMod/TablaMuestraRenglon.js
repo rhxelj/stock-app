@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { tableIcons } from "../../../../../lib/material-table/tableIcons";
 import { localization } from "../../../../../lib/material-table/localization";
 import Button from "@material-ui/core/Button";
@@ -18,7 +17,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 /*, `PresupRenglonLargo`, `PresupRenglonAncho`, `PresupRenglonImpUnit`, `PresupRenglonImpItem`*/
 export default function TablaMuestraRenglon(props) {
     const { open, handleClose, Presup } = props;
-    const [maxWidth, setMaxWidth] = React.useState('sm');
+    // const [maxWidth, setMaxWidth] = React.useState('sm');
     const [renglon, setRenglon] = useState({
         columns: [
             {

@@ -12,7 +12,7 @@ import { useContext } from "react";
 import { StkMovEntradaContext } from "../../StkMovEntrada";
 // import { initial_state } from "../../Initial_State";
 
-export default function F2C1(props) {
+export default function F2C1() {
   // Esto es para poder consumir los datos del CONTEXTAPI
   const { state, setState } = useContext(StkMovEntradaContext);
 

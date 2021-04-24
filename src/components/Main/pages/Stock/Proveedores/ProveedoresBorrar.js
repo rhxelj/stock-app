@@ -1,4 +1,3 @@
-import React, { Component } from "react";
 import request from "superagent";
 // import ReactTable from 'react-table'
 import "react-table/react-table.css";
@@ -12,7 +11,7 @@ export function ProveedoresBorrar(props) {
   request
     .delete(url)
     .set("Content-Type", "application/json")
-    .then(function(res) {
+    .then(function () {
       // res.body, res.headers, res.status
     })
     .catch((err) => CodigoError(err));

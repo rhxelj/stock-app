@@ -1,5 +1,4 @@
 import request from "superagent";
-import React, { useState } from "react";
 import IpServidor from '../../VariablesDeEntorno'
 import CodigoError from '../../../../lib/CodigoError'
 // import { PresupPreview } from './PresupPreview'
@@ -18,6 +17,7 @@ export const PresupImprime = (props, nomCliente, suma, nroPresupuesto, descrip, 
         .set("X-API-Key", "foobar")
         .then(function (res) {
             const respuesta = JSON.parse(res.text);
+            console.log(respuesta)
         })
         .catch((err) => CodigoError(err));
 

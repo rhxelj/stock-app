@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 // import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import useStyles from "./styles";
-import { TextField, InputAdornment } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import { stkrubroleecodgryrb } from "../../../Rubros/StkRubroLeeCodGryRb";
 
 //Necesario para CONTEXTAPI
@@ -12,7 +10,6 @@ import { StkMovSalidaContext } from "./StkMovSalida";
 
 import { TipoConfeccion } from './TipoConfeccion'
 export default function Fila() {
-  const classes = useStyles();
   // Esto es para poder consumir los datos del CONTEXTAPI
   const { state, setState } = useContext(StkMovSalidaContext);
 

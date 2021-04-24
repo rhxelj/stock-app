@@ -12,21 +12,21 @@ export async function StkRubro_ColumnsI() {
   }, {});
   console.log(objstkgrupo);
   const stkrubro = await stkrubroleeproveedor();
-  var objstkrubroprov = await stkrubro.reduceRight(function (acc, cur, i) {
+  var objstkrubroprov = await stkrubro.reduceRight(function (acc, cur) {
     acc[cur.StkRubroProv] = cur.ProveedoresDesc;
     return acc;
     // return Object.values(acc).sort();
   }, {});
 
   const stkUnMed = await stkUnMedLeerRed();
-  var objstkUnMed = await stkUnMed.reduce(function (acc, cur, i) {
+  var objstkUnMed = await stkUnMed.reduce(function (acc, cur) {
     acc[cur.idStkUnMed] = cur.StkUnMedDesc;
     return acc;
     // return Object.values(acc).sort();
   }, {});
 
   const stkMonedas = await stkMonedasleerRed();
-  var objstkMonedas = await stkMonedas.reduce(function (acc, cur, i) {
+  var objstkMonedas = await stkMonedas.reduce(function (acc, cur) {
     acc[cur.idStkMonedas] = cur.StkMonedasDescripcion;
     return acc;
     // return Object.values(acc).sort();
@@ -36,7 +36,7 @@ export async function StkRubro_ColumnsI() {
 }
 
 function columnsFill(objstkgrupo, objstkrubroprov, objstkUnMed, objstkMonedas) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
     resolve([
       // {
       //   title: "Rubro(ID)",

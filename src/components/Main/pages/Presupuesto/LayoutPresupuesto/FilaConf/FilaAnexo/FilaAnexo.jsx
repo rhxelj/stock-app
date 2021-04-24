@@ -85,7 +85,7 @@ export default function FilaAnexo(props) {
 
     useEffect(() => {
         initialFetch();
-    }, []);
+    });
 
     return (
         <>

@@ -1,5 +1,5 @@
 export function presupdetpieColumns() {
-    return new Promise(function (resolve, reject) {
+    return new Promise(function (resolve) {
         resolve([
             // {
             //     title: "Presup.Pie(ID)",

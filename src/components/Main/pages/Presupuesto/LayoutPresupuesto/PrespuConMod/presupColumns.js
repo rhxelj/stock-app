@@ -1,5 +1,4 @@
-import React from "react";
-import { isNullishCoalesce } from "typescript";
+
 import { ClientesLeerPresup } from "../../../Clientes/ClientesLeerPresup"
 
 export async function presupColumns() {
@@ -15,7 +14,7 @@ export async function presupColumns() {
     return columnsFill(objcliente)
 }
 function columnsFill(objcliente) {
-    return new Promise(function (resolve, reject) {
+    return new Promise(function (resolve) {
         //    console.log('objcliente  ', objcliente(1))
         resolve([
             {

@@ -10,7 +10,7 @@ import FilaTres from "./FilaTres";
 import FilaCinco from "./FilaCinco";
 export const StkMovSalidaContext = React.createContext();
 
-function StkMovSalida(props) {
+function StkMovSalida() {
   HeaderTitle("Salidas de stock por Confección en Venta");
   const [state, setState] = useState(initial_state);
 

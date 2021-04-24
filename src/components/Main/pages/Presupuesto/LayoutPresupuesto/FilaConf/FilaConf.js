@@ -13,8 +13,8 @@ export default function FilaConf(props) {
   const [selectedValue, setSelectedValue] = React.useState("cs");
   const { state, setState } = useContext(PresupPantContext);
   const [ojalbronce, setOjalBronce] = React.useState('hz');
-  const [setDescripPresup] = React.useState('')
-  // const [DetallePresup, setDetallePresup] = React.useState('')
+  const [DescripPresup, setDescripPresup] = React.useState('')
+  const [DetallePresup, setDetallePresup] = React.useState('')
 
 
 
@@ -122,7 +122,7 @@ export default function FilaConf(props) {
           label="Descripción"
           // fullWidth
           value={state.DescripPresup}
-          //  value={DescripPresup}
+          helperText='No imprime medidas'
           onChange={handleChange3}
           className={classes.textField}
         />
@@ -137,7 +137,7 @@ export default function FilaConf(props) {
           label="Detalle Presupuesto "
           // fullWidth
           value={state.DetallePresup}
-          //  value={DescripPresup}
+          helperText='Saca la descripción por defecto'
           onChange={handleChange4}
           className={classes.textField}
         />

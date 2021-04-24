@@ -1,9 +1,8 @@
-import CodigoError from '../../../lib/CodigoError'
 import IpServidor from '../VariablesDeEntorno'
 import request from "superagent";
 
-export function leerClientes(props) {
-  return new Promise(function (resolve, reject) {
+export function leerClientes() {
+  return new Promise(function (resolve) {
     const url = IpServidor + "/clientesleer";
     request
       .get(url)

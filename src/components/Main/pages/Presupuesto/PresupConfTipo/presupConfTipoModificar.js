@@ -30,6 +30,6 @@ export function presupConfTipoModificar(props) {
         .send({ PresupConfTipoRubro: PresupConfTipoRubro })
         .send({ PresupConfTipoImprime: PresupConfTipoImprime })
         .send({ PresupConfTipoMinMOT: PresupConfTipoMinMOT })
-        .then(function (res) { })
+        .then(function () { })
         .catch((err) => CodigoError(err));
 }

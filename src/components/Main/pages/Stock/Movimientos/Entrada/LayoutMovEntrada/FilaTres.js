@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 // import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import useStyles from "./styles";
 import { TextField, InputAdornment } from "@material-ui/core";
 import { stkrubroleecodgryrb } from "../../../Rubros/StkRubroLeeCodGryRb";
 
@@ -11,10 +9,8 @@ import { useContext } from "react";
 import { StkMovEntradaContext } from "../StkMovEntrada";
 
 export default function Fila() {
-  const classes = useStyles();
   // Esto es para poder consumir los datos del CONTEXAPI
   const { state, setState } = useContext(StkMovEntradaContext);
-  const [um, setUM] = useState('');
   var result = []
 
   async function stkrubroleercodgryrb(GrupoEleg, RubroEleg) {

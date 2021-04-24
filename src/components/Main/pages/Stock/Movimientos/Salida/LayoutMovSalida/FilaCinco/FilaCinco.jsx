@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
-import useStyles from "../styles";
 import ComboBCC from "../../../../../../../lib/ComboBCC";
 // import { agregaStock } from "../../agregaStock";
 import Confirmacion from "./Confirmacion";
@@ -11,9 +10,6 @@ import { StkMovSalidaContext } from '../StkMovSalida'
 
 import { initial_state } from '../Initial_State'
 
-import { stkitemsmodstock } from "../../../../Items/StkItemsModStock"; //"../../../Items/StkItemsModStock";
-import { stkenvaseagregar } from "../../../../Envase/StkEnvaseAgregar";
-import { stkitemsleedisp } from "../../../../Items/StkItemsLeeDisp";
 import { verificaDisp } from "../verificaDisp";
 import { descargaStock } from "../descargaStock"
 import { Exito } from "../../../../../../../../Ui-Components/Exito"
@@ -22,7 +18,7 @@ export default function Fila() {
 
   //Control del Dialogo INICIO
   // const [open, setOpen] = React.useState(false);
-  const [cantidaddisponible, setCantidaddisponible] = React.useState(false);
+  // const [cantidaddisponible, setCantidaddisponible] = React.useState(false);
 
   async function confirmar() {
     const [faltante, total] = await verificaDisp(state);
@@ -31,7 +27,7 @@ export default function Fila() {
       total: total,
       faltante: faltante
     }); // las hago global en el contexto de Movimiento de Salida
-  };
+  }
 
   useEffect(() => {
     // variablesAuxiliares()
@@ -53,9 +49,9 @@ export default function Fila() {
 
 
 
-  function afuera() {
-    console.log("Contenido de state fuera de la fuicnion confirmar => ", state)
-  }
+  // function afuera() {
+  //   console.log("Contenido de state fuera de la fuicnion confirmar => ", state)
+  // }
   const actions = {
     confirmAction: () => confirmar(), //Accion a ejecutar en caso de Aceptar
     cancelAction: () => setState(initial_state), //Accion a ejecutar en caso de cancelar

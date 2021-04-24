@@ -1,9 +1,8 @@
 import { leeStkRubro } from "./leeStkRubro";
-import { zhCN } from '@material-ui/core/locale';
 
 export async function StkItems_Columns() {
   const stkRubros = await leeStkRubro(); //llamo a leer grupo
-  var objstkrubro = await stkRubros.reduce(function (acc, cur, i) {
+  var objstkrubro = await stkRubros.reduce(function (acc, cur) {
     acc[cur.StkRubroAbr] = cur.StkRubroDesc;
     return acc;
   }, {});
@@ -12,7 +11,7 @@ export async function StkItems_Columns() {
 
 function columnsFill(objstkrubro) {
   console.log("está en StkItems_Columns ");
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
     resolve([
       {
         title: "Items(ID)",

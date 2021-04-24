@@ -1,10 +1,9 @@
-import CodigoError from '../../../lib/CodigoError'
 import IpServidor from '../VariablesDeEntorno'
 import request from "superagent";
 
 export function clientesleercod(props) {
   var idcliente = props
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
 
     const url = IpServidor + "/clientesleercod/?id=" + idcliente
     request

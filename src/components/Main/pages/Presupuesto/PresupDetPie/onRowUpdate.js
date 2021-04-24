@@ -1,7 +1,7 @@
 import { presupDetPieModificar } from "./presupDetPieModificar";
 
-export function onRowUpdate(newData, oldData) {
-    return new Promise((resolve, reject) => {
+export function onRowUpdate(newData) {
+    return new Promise((resolve) => {
         setTimeout(() => {
             presupDetPieModificar(newData);
             resolve();

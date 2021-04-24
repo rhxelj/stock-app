@@ -4,7 +4,6 @@ import { stkrubroleeproveedor } from "./StkRubroLeeProveedor";
 import { stkUnMedLeerRed } from "./StkUnMedLeerRed";
 import { stkMonedasleerRed } from "./StkMonedasLeerRed";
 
-import { stringify } from "querystring";
 
 export async function StkRubro_Columns() {
   const stkgrupo = await stkGrupoLeerRedRubro();
@@ -29,21 +28,21 @@ export async function StkRubro_Columns() {
 
 
   const stkrubro = await stkrubroleeproveedor();
-  var objstkrubroprov = await stkrubro.reduceRight(function (acc, cur, i) {
+  var objstkrubroprov = await stkrubro.reduceRight(function (acc, cur) {
     acc[cur.StkRubroProv] = cur.ProveedoresDesc;
     return acc;
     // return Object.values(acc).sort();
   }, {});
 
   const stkUnMed = await stkUnMedLeerRed();
-  var objstkUnMed = await stkUnMed.reduce(function (acc, cur, i) {
+  var objstkUnMed = await stkUnMed.reduce(function (acc, cur) {
     acc[cur.idStkUnMed] = cur.StkUnMedDesc;
     return acc;
     // return Object.values(acc).sort();
   }, {});
 
   const stkMonedas = await stkMonedasleerRed();
-  var objstkMonedas = await stkMonedas.reduce(function (acc, cur, i) {
+  var objstkMonedas = await stkMonedas.reduce(function (acc, cur) {
     acc[cur.idStkMonedas] = cur.StkMonedasDescripcion;
     return acc;
     // return Object.values(acc).sort();
@@ -53,7 +52,7 @@ export async function StkRubro_Columns() {
 }
 
 function columnsFill(objstkgrupo, objstkrubroprov, objstkUnMed, objstkMonedas) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
     resolve([
       {
         title: "Descripción",

@@ -1,7 +1,6 @@
 import request from "superagent";
 
 import IpServidor from "../VariablesDeEntorno";
-import CodigoError from '../../../lib/CodigoError'
 var nroPresupuesto = 0
 export const PresupGrabar = (props, nomCliente, idClientes) => {
   return new Promise(resolve => {

@@ -1,10 +1,9 @@
-import CodigoError from "../../../../lib/CodigoError";
 import IpServidor from "../../VariablesDeEntorno";
 import request from "superagent";
 
-export function leeStkItemsDetalles(props) {
+export function leeStkItemsDetalles() {
   console.log('está en leeStkItemsDetalles ')
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
     const url = IpServidor + "/stkitemsleedetalles";
     request
       .get(url)

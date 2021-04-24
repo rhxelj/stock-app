@@ -1,7 +1,7 @@
 import { stkGrupoModificar } from "./stkGrupoModificar";
 
-export function onRowUpdate(newData, oldData) {
-  return new Promise((resolve, reject) => {
+export function onRowUpdate(newData) {
+  return new Promise((resolve) => {
     setTimeout(() => {
       // {
       stkGrupoModificar(newData);
