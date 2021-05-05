@@ -1,7 +1,7 @@
 import IpServidor from "../../VariablesDeEntorno";
 import request from "superagent";
 
-export function leeStkRubro(_) {
+export function leeStkRubro() {
   return new Promise((resolve) => {
     const url = IpServidor + "/stkrubroleer";
     request

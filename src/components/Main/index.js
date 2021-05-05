@@ -1,6 +1,6 @@
-import React from "react";
+// import { React } from "react";
 import { Route } from "react-router-dom";
-
+import React from 'react'
 import StkMonedas from "./pages/Monedas/StkMonedas";
 import Proveedores from "./pages/Stock/Proveedores/Proveedores.jsx";
 import Clientes from "./pages/Clientes/Clientes.jsx";
@@ -18,7 +18,10 @@ import StkMovSalidaFinal from "./pages/Stock/Movimientos/Salida/LayoutMovSalidaF
 import StkItems from "./pages/Stock/Items/StkItems";
 
 import PresupPant from "./pages/Presupuesto/PresupPant.jsx";
+import PresupMuestra from "./pages/Presupuesto/LayoutPresupuesto/PrespuConMod/PresupMuestra.jsx"
+// import Presupuestos from './pages/Presupuestos/Presupuestos'
 import PresupConfTipo from "./pages/Presupuesto/PresupConfTipo/PresupConfTipo";
+import PresupDetPie from "./pages/Presupuesto/PresupDetPie/PresupDetPie";
 import ImprimeQR from "./pages/Impresion/ImprimeQR";
 // TODO 👀📐 nothing changed here, just auto-formatting
 // all this auto-formatting is coming from the Prettier extension
@@ -47,6 +50,9 @@ const Main = () => (
       <Route path="/StkMovSalidaFinal" component={StkMovSalidaFinal} />
       <Route path="/ListaPrecios" component={ListaPrecios} />
       <Route path="/PresupPant" component={PresupPant} />
+      <Route path="/PresupMuestra" component={PresupMuestra} />
+
+      {/* <Route path="/Presupuestos" component={Presupuestos} /> */}
       {/* <Route path="/PresupPantVie" component={PresupPantVie} /> */}
       {/* <Route path="/PresupuestoUnid" component={PresupuestoUnid} /> */}
       <Route path="/ImprimeQR" component={ImprimeQR} />
@@ -56,6 +62,7 @@ const Main = () => (
       <Route path="/StkMovEntrada" component={StkMovEntrada} />
       <Route path="/StkUbFisica" component={StkUbFisica} />
       <Route path="/PresupConfTipo" component={PresupConfTipo} />
+      <Route path="/PresupDetPie" component={PresupDetPie} />
       <Route path="/ModPrecios" component={ModPrecios} />
       {/* <Route path="/AgregarMonedas" component={AgregarMonedas}/> */}
       {/* <Route path="/BorrarMonedas" component={BorrarMonedas}/> */}

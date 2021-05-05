@@ -9,6 +9,6 @@ export function presupConfTipoBorrar(props) {
     request
         .delete(url)
         .set("Content-Type", "application/json")
-        .then(function (res) { })
+        .then(function () { })
         .catch((err) => CodigoError(err));
 }

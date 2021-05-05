@@ -30,14 +30,13 @@ export default function Clientes() {
   }
 
   async function initialFetch() {
-
     columnsFetch()
     dataFetch();
   }
 
   useEffect(() => {
     initialFetch()
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div>
@@ -47,10 +46,10 @@ export default function Clientes() {
             icon: () => <tableIcons.Print />,
             tooltip: "Imprimir",
             isFreeAction: true,
-            onClick: (event) => setImprimirTF({ imprimir: true }),
+            onClick: () => setImprimirTF({ imprimir: true }),
           },
         ]}
-        title="CLIENTES"
+        title=""
         localization={localization}
         icons={tableIcons}
         columns={columns}

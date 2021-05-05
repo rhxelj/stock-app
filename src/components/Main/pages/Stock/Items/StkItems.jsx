@@ -5,7 +5,6 @@ import MaterialTable from "material-table";
 import { tableIcons } from "../../../../lib/material-table/tableIcons";
 import { localization } from "../../../../lib/material-table/localization";
 import { HeaderTitle } from "../../../../lib/HeaderTitle"
-import ruLocale from 'date-fns/locale/ru';
 
 import { onRowAdd } from "./onRowAdd"
 import { onRowUpdate } from "./onRowUpdate"
@@ -13,13 +12,17 @@ import { onRowDelete } from "./onRowDelete"
 
 import { leeStkItemsDetalles } from "./leeStkitemsDetalles"
 import { StkItems_Columns } from "./StkItems_Columns";
+import { StkItems_ColumnsI } from "./StkItems_ColumnsI";
 import Imprimir from "../../Impresion/Imprimir/Imprimir";
 
 export default function StkItems() {
   HeaderTitle("ITEMS")
 
   const [columns, setColumns] = useState([]);
+
+  const [columnsi, setColumnsI] = useState([]);
   const [data, setData] = useState([]);
+  const [datai, setDataI] = useState([]);
   const [imprimirTF, setImprimirTF] = useState({ imprimir: false });
 
   async function columnsFetch() {
@@ -27,21 +30,26 @@ export default function StkItems() {
     setColumns(() => col);
   }
 
+  async function columnsFetchI() {
+    const col = await StkItems_ColumnsI();
+    setColumnsI(() => col);
+  }
   async function dataFetch() {
     const data = await leeStkItemsDetalles();
-    console.log('data  ', data)
     setData(data);
+    setDataI(data);
   }
 
 
   async function initialFetch() {
     columnsFetch()
+    columnsFetchI()
     dataFetch()
   }
 
   useEffect(() => {
     initialFetch();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 
   return (
@@ -54,7 +62,7 @@ export default function StkItems() {
             icon: () => <tableIcons.Print />,
             tooltip: "Imprimir",
             isFreeAction: true,
-            onClick: (event) => setImprimirTF({ imprimir: true }),
+            onClick: () => setImprimirTF({ imprimir: true }),
           },
         ]}
         localization={localization}
@@ -82,8 +90,8 @@ export default function StkItems() {
 
       />
       <Imprimir
-        columns={columns}
-        datos={data}
+        columns={columnsi}
+        datos={datai}
         open={imprimirTF.imprimir}
         setOpen={setImprimirTF}
       />

@@ -4,7 +4,7 @@ import request from "superagent";
 import "react-table/react-table.css";
 
 export function stkItemsAgregar(newData, codigonuevo) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
     const {
       StkItemsRubroAbr,
       StkItemsDesc,

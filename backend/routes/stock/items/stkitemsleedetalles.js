@@ -20,7 +20,9 @@ router.get("/", async function (req, res, next) {
   var q = [
     "select idStkItems, StkItemsGrupo, StkItemsRubroAbr,  StkGrupo.StkGrupoDesc,",
     "StkItemsRubro, StkRubro.StkRubroDesc, StkItemsDesc, StkItemsCantidad, StkItemsCantDisp,",
-    ' StkItemsFAct, StkItemsMin, StkItemsMax ',
+    ' date_format(StkItemsFAct, "%d-%m-%Y") as StkItemsFAct,  ',
+    ' StkItemsMin, StkItemsMax ',
+    // ' StkItemsFAct, StkItemsMin, StkItemsMax ',
     " from StkItems, StkGrupo, StkRubro where ",
     "(StkItems.StkItemsGrupo = StkGrupo.idStkGrupo) and ",
     "(StkItems.StkItemsRubro = StkRubro.idStkRubro) and ",

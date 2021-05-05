@@ -2,7 +2,7 @@ import request from "superagent";
 import IpServidor from "../../../../VariablesDeEntorno";
 
 export function descargaStock(props) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const {
       idStkItems,
       idStkGrupo,

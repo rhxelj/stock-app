@@ -4,7 +4,7 @@ import "react-table/react-table.css";
 
 // import CodigoError from "../../../../lib/CodigoError";
 export function imprimirQr(props) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
     //   const { idStkRubro, StkRubroCodGrp } = props;
     const ubicaG = props;
     // stkenvaseleeimp = (_) => {
@@ -18,7 +18,7 @@ export function imprimirQr(props) {
         const envaseimp = JSON.parse(res.text);
         // this.setState({envaseimp: envaseimp})
         // console.log("envaseimp dendtro de stkenvaseleeimp : ");
-        // console.log(envaseimp);
+        console.log(envaseimp);
         // this.setState(() => {
         //   return { envaseimp: envaseimp };
         // });

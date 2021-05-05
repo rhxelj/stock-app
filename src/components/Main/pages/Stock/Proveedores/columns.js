@@ -3,22 +3,29 @@ import { leeTipoProv } from "./LeeTipoProv";
 
 export async function llenarColumns() {
   const tipoprov = await leeTipoProv();
-  var objstktipoprov = await tipoprov.reduce(function(acc, cur, i) {
+  var objstktipoprov = await tipoprov.reduce(function (acc, cur) {
     acc[cur.idSubRubro] = cur.SubRubroDetalle;
+    // return acc;
+    // return Object.values(acc).sort(function (a, b) {
+    //   return acc[a] - acc[b];
+    // });
     return acc;
   }, {});
 
   const stkMonedas = await stkMonedasleerRed();
-  var objstkMonedas = await stkMonedas.reduce(function(acc, cur, i) {
+  var objstkMonedas = await stkMonedas.reduce(function (acc, cur) {
     acc[cur.idStkMonedas] = cur.StkMonedasDescripcion;
     return acc;
+    // return Object.values(acc).sort(function (a, b) {
+    //   return acc[a] - acc[b];
+    // });
   }, {});
 
   return columnsFill(objstktipoprov, objstkMonedas);
 }
 
 function columnsFill(objstktipoprov, objstkMonedas) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve) {
     resolve([
       // { title: "idProveedores", field: "idProveedores" },
       // { title: "Tipo", field: "ProveedoresTipo" }, //Proveedores Tipo idStkTipoProveed

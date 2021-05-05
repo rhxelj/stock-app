@@ -40,13 +40,13 @@ export default function ImprimirEtiquetas(props) {
     };
 
     // Cambio el estado de las etiquetas a impreso SI
-    const stkenvasecambiaimp = (_) => {
+    const stkenvasecambiaimp = () => {
         const url = IpServidor + "/stkenvasecambiaimp/?id=" + state.StkEnvaseUbG;
         console.log(url);
         request
             .post(url)
             .set("Content-Type", "application/json")
-            .then((res) => {
+            .then(() => {
                 // const envasecambiaimp = JSON.parse(res.text)
             });
         setState(initial_state)

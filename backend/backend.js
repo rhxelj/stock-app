@@ -2,11 +2,11 @@ var express = require("express");
 var path = require("path");
 var cors = require("cors");
 //var favicon = require('serve-favicon');
-var cors = require("cors");
 var logger = require("morgan");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 //  var routes = require('./routes/index');
+
 
 var proveedoresleer = require("./routes/proveedores/proveedoresleer");
 var proveedoresleercod = require("./routes/proveedores/proveedoresleercod");
@@ -21,6 +21,9 @@ var clientesleerdesc = require("./routes/clientes/clientesleerdesc");
 var clientesagregar = require("./routes/clientes/clientesagregar");
 var clientesborrar = require("./routes/clientes/clientesborrar");
 var clientesmodificar = require("./routes/clientes/clientesmodificar");
+var clientesleercodmayor = require("./routes/clientes/clientesleercodmayor");
+var clientesleerdescmayigual = require("./routes/clientes/clientesleerdescmayigual");
+var clientesleerpresup = require("./routes/clientes/clientesleerpresup");
 
 
 var stkmonedasleer = require("./routes/monedas/stkmonedasleer");
@@ -69,7 +72,7 @@ var stkrubroleeultnro = require("./routes/stock/rubros/stkrubroleeultnro");
 var stkrubroleecodgrupored = require("./routes/stock/rubros/stkrubroleecodgrupored");
 var stkrubroleeproveedor = require("./routes/stock/rubros/stkrubroleeproveedor");
 var stkrubroleerdesc = require("./routes/stock/rubros/stkrubroleerdesc");
-
+var stkrubroleerconf = require("./routes/stock/rubros/stkrubroleerconf");
 
 
 var stkitemsleer = require("./routes/stock/items/stkitemsleer");
@@ -111,12 +114,20 @@ var modprecios = require("./routes/listaprecios/modprecios");
 // PRESUPUESTO
 var presupunid = require("./routes/presupuesto/presupunid");
 var presuppu = require("./routes/presupuesto/presuppu");
+var presuppurec = require("./routes/presupuesto/presuppurec");
 var presupfajas = require("./routes/presupuesto/presupfajas");
 var presuplonaconf = require("./routes/presupuesto/presuplonaconf");
 var presupgraba = require("./routes/presupuesto/presupgraba");
+var presupdesfac = require("./routes/presupuesto/presupdesfac");
+var presupenrollables = require("./routes/presupuesto/presupenrollables");
+var presupbolsontanque = require("./routes/presupuesto/presupbolsontanque");
+
+
+var presupencableer = require("./routes/presupuesto/presupencableer");
+var presuprenglonleer = require("./routes/presupuesto/presuprenglonleer");
+
 
 var presupconftipoleer = require("./routes/presupuesto/presupconftipo/presupconftipoleer");
-
 var presupconftipoleerdesc = require("./routes/presupuesto/presupconftipo/presupconftipoleerdesc");
 var presupconftipoleeanexo = require("./routes/presupuesto/presupconftipo/presupconftipoleeanexo");
 var presupconftipomodificar = require("./routes/presupuesto/presupconftipo/presupconftipomodificar");
@@ -124,6 +135,13 @@ var presupconftipoborrar = require("./routes/presupuesto/presupconftipo/presupco
 var presupconftipoagregar = require("./routes/presupuesto/presupconftipo/presupconftipoagregar");
 var presupconftipocalc = require("./routes/presupuesto/presupconftipo/presupconftipocalc");
 
+
+var presupdetpieleer = require("./routes/presupuesto/presupdetpie/presupdetpieleer");
+var presupdetpiemodificar = require("./routes/presupuesto/presupdetpie/presupdetpiemodificar");
+var presupdetpieborrar = require("./routes/presupuesto/presupdetpie/presupdetpieborrar");
+var presupdetpieagregar = require("./routes/presupuesto/presupdetpie/presupdetpieagregar");
+
+var imppresup = require("./routes/impresion/imppresup");
 // function agregada por el error CROS
 function perimitirCrossDomain(req, res, next) {
   //en vez de * se puede definir SÓLO los orígenes que permitimos
@@ -136,6 +154,7 @@ function perimitirCrossDomain(req, res, next) {
 
 var app = express();
 app.use(cors());
+
 // routes.initialize(app);
 
 // view engine setup
@@ -150,6 +169,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(perimitirCrossDomain);
+
+
+
 
 app.use("/", proveedoresleer);
 
@@ -166,6 +188,11 @@ app.use("/clientesleerdesc", clientesleerdesc);
 app.use("/clientesagregar", clientesagregar);
 app.use("/clientesmodificar", clientesmodificar);
 app.use("/clientesborrar", clientesborrar);
+app.use("/clientesleercodmayor", clientesleercodmayor);
+app.use("/clientesleerdescmayigual", clientesleerdescmayigual);
+app.use("/clientesleerpresup", clientesleerpresup);
+
+
 
 app.use("/stkbgsubrubroleer", stkbgsubrubroleer);
 
@@ -219,6 +246,7 @@ app.use("/stkrubroleeultnro", stkrubroleeultnro);
 app.use("/stkrubroleecodgrupored", stkrubroleecodgrupored);
 app.use("/stkrubroleeproveedor", stkrubroleeproveedor);
 app.use("/stkrubroleerdesc", stkrubroleerdesc);
+app.use("/stkrubroleerconf", stkrubroleerconf);
 
 
 app.use("/stkitemsleer", stkitemsleer);
@@ -257,10 +285,17 @@ app.use("/modprecios", modprecios);
 //PRESUPUESTO
 app.use("/presupunid", presupunid);
 app.use("/presuppu", presuppu);
+app.use("/presuppurec", presuppurec);
 app.use("/presupfajas", presupfajas);
 app.use("/presuplonaconf", presuplonaconf);
 app.use("/presupgraba", presupgraba);
+app.use("/presupdesfac", presupdesfac);
+app.use("/presupenrollables", presupenrollables);
+app.use("/presupbolsontanque", presupbolsontanque);
 
+
+app.use("/presupencableer", presupencableer);
+app.use("/presuprenglonleer", presuprenglonleer);
 
 app.use("/presupconftipoleer", presupconftipoleer);
 app.use("/presupconftipoleerdesc", presupconftipoleerdesc);
@@ -269,6 +304,17 @@ app.use("/presupconftipomodificar", presupconftipomodificar);
 app.use("/presupconftipoborrar", presupconftipoborrar);
 app.use("/presupconftipoagregar", presupconftipoagregar);
 app.use("/presupconftipocalc", presupconftipocalc);
+
+
+app.use("/presupdetpieleer", presupdetpieleer);
+app.use("/presupdetpiemodificar", presupdetpiemodificar);
+app.use("/presupdetpieborrar", presupdetpieborrar);
+app.use("/presupdetpieagregar", presupdetpieagregar);
+
+
+
+app.use("/imppresup", imppresup);
+
 
 
 app.use(function (req, res, next) {

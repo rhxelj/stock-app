@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { StkRubro_Columns } from "./StkRubro_Columns";
-
+import { StkRubro_ColumnsI } from "./StkRubro_ColumnsI";
 import { tableIcons } from "../../../../lib/material-table/tableIcons";
 import { localization } from "../../../../lib/material-table/localization";
 import { stkrubroleermezcla } from "./StkRubroLeerMezcla";
@@ -28,7 +28,9 @@ export default function StkRubro() {
   // const [rubro, setRubro] = useState({ columns: [], data: [] });
   // const [strubromodificar, setStkrubromodificar] = useState(false);
   const [columns, setColumns] = useState([]);
+  const [columnsi, setColumnsI] = useState([]);
   const [data, setData] = useState([]);
+  const [datai, setDataI] = useState([]);
   const [imprimirTF, setImprimirTF] = useState({ imprimir: false });
   // const [StkMinMaxDialogTF, setStkMinMaxDialogTF] = useState(false);
   // function setDialog() {
@@ -39,29 +41,36 @@ export default function StkRubro() {
     const col = await StkRubro_Columns();
     setColumns(() => col);
   }
+  async function columnsFetchI() {
+    const col = await StkRubro_ColumnsI();
+    setColumnsI(() => col);
+  }
   async function dataFetch() {
     const result = await stkrubroleermezcla();
     setData(() => result);
+    setDataI(() => result);
   }
 
   async function initialFetch() {
     columnsFetch(); //lleno columns con los datos obtenidos
+    columnsFetchI();
     dataFetch(); //Lleno data
   }
 
   useEffect(() => {
     initialFetch();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   // console.log("contenido de StkMinMaxDialogTF ", StkMinMaxDialogTF);
   return (
     <div>
       <MaterialTable
+
         actions={[
           {
             icon: () => <tableIcons.Print />,
             tooltip: "Imprimir",
             isFreeAction: true,
-            onClick: (event) => setImprimirTF({ imprimir: true }),
+            onClick: () => setImprimirTF({ imprimir: true }),
           },
 
           // {
@@ -72,6 +81,7 @@ export default function StkRubro() {
           //   // onClick: setDialog,
           // },
         ]}
+
         icons={tableIcons}
         title=""
         columns={columns}
@@ -80,7 +90,9 @@ export default function StkRubro() {
         options={{
           exportButton: true,
           exportAllData: true,
+          // exportDelimiter: ';',
           grouping: true,
+
           addRowPosition: "first",
           actionsColumnIndex: -1,
           // tableLayout: "fixed",
@@ -112,9 +124,10 @@ export default function StkRubro() {
       />
       {/* <StkMinMaxDialog open={StkMinMaxDialogTF} /> */}
       {/* <StkMinMaxDialog open={true} /> */}
+
       <Imprimir
-        columns={columns}
-        datos={data}
+        columns={columnsi}
+        datos={datai}
         open={imprimirTF.imprimir}
         setOpen={setImprimirTF}
       />

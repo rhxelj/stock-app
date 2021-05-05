@@ -4,7 +4,7 @@ import IpServidor from "../../VariablesDeEntorno";
 import CodigoError from "../../../../lib/CodigoError";
 
 export function borrarRubros(props) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
     const { idStkRubro, StkRubroCodGrp } = props;
 
     var url =

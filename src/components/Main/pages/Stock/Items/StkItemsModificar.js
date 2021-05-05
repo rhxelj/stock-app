@@ -3,7 +3,7 @@ import IpServidor from "../../VariablesDeEntorno";
 import request from "superagent";
 
 export function modificarItems(props) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
     console.log("modificarItems  props  ", props);
     const {
       idStkItems,
@@ -37,7 +37,7 @@ export function modificarItems(props) {
         StkItemsMin: StkItemsMin,
         StkItemsMax: StkItemsMax,
       })
-      .then(function (res) {})
+      .then(function () { })
       .catch((err) => CodigoError(err));
     resolve();
   });

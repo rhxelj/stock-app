@@ -1,19 +1,9 @@
-import React, { useState } from "react";
-import Radio, { RadioProps } from "@material-ui/core/Radio";
+import React from "react";
+import Radio from "@material-ui/core/Radio";
 import {
-  Box,
-  Button,
-  Container,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
+
   Grid,
-  IconButton,
-  InputAdornment,
-  Paper,
-  TextField,
-  Typography,
+
 } from "@material-ui/core";
 // import { makeStyles } from "@material-ui/core/styles";
 // import Paper from "@material-ui/core/Paper";
@@ -22,10 +12,7 @@ import {
 // import Radio from '@material-ui/core/Radio';
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
 
-import useStyles from "../styles";
 
 // Context
 import { useContext } from "react";
@@ -39,37 +26,39 @@ export default function TipoCliente() {
     setSelectedValue(event.target.value);
     setState({ ...state, PresupMnMy: event.target.value });
   };
-  const classes = useStyles();
   return (
     <>
-      <FormControl component="fieldset">
-        <FormLabel component="legend">Tipo de Cliente</FormLabel>
-        <RadioGroup
-          row
-          aria-label="Tipo de Cliente"
-          name="tipoCliente"
-          value={selectedValue}
-          onChange={handleChange}
 
-        >
-          <Grid item xs>
-            <FormControlLabel
-              value="mn"
-              control={<Radio />}
-              label="Minorista"
-              labelPlacement="top"
-            />
-          </Grid>
-          <Grid item xs>
-            <FormControlLabel
-              value="my"
-              control={<Radio />}
-              label="Mayorista"
-              labelPlacement="top"
-            />
-          </Grid>
-        </RadioGroup>
-      </FormControl>
+      <RadioGroup
+        row
+        size="small"
+        // label="Tipo de Cliente"
+        // aria-label="Tipo de Cliente"    
+        name="tipoCliente"
+        value={selectedValue}
+        onChange={handleChange}
+        margin="dense"
+      >
+        <Grid item xs={3}>
+          <FormControlLabel
+            value="mn"
+            control={<Radio />}
+            label="Min."
+            labelPlacement="top"
+            margin="dense"
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <FormControlLabel
+            value="my"
+            control={<Radio />}
+            label="May."
+            labelPlacement="top"
+            margin="dense"
+          />
+        </Grid>
+      </RadioGroup>
+      {/* </FormControl> */}
       {/* <Grid container direction="column" xs={6}>
         <Grid item spacing={3} xs={2}>
           <Radio
@@ -88,8 +77,8 @@ export default function TipoCliente() {
             name="radio-button-mnmy"
           />
           Mayorista
-        </Grid>
-      </Grid> */}
+        </Grid>*/}
+      {/* </Grid> */}
     </>
   );
 }

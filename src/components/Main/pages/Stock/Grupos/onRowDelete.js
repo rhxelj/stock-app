@@ -1,7 +1,7 @@
 import { stkGrupoBorrar } from "./stkGrupoBorrar";
 
 export function onRowDelete(oldData) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       // {
       stkGrupoBorrar(oldData);

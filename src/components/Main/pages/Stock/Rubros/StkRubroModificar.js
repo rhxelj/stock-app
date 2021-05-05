@@ -3,7 +3,7 @@ import IpServidor from "../../VariablesDeEntorno";
 import request from "superagent";
 
 export function modificarRubros(props) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve) {
     const {
       idStkRubro,
       StkRubroCodGrp,
@@ -16,6 +16,7 @@ export function modificarRubros(props) {
       StkRubroUM,
       StkRubroCosto,
       StkRubroTM,
+      StkRubroConf,
     } = props;
 
     // ModificaRubro = (_) => {
@@ -38,8 +39,9 @@ export function modificarRubros(props) {
         StkRubroUM: StkRubroUM,
         StkRubroCosto: StkRubroCosto,
         StkRubroTM: StkRubroTM,
+        StkRubroConf: StkRubroConf,
       })
-      .then(function(res) {})
+      .then(function () { })
       .catch((err) => CodigoError(err));
     resolve();
     // };

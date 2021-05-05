@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function DatosPresup(props) {
-  const [selectedValue, setSelectedValue] = React.useState('un');
+export default function DatosPresup() {
+  // const [selectedValue, setSelectedValue] = React.useState('un');
 
-return (
-  <div></div>
-)
+  return (
+    <div></div>
+  )
 }

@@ -1,52 +1,46 @@
-import React, { Fragment, useState, useEffect } from "react";
-import { withStyles } from '@material-ui/core/styles';
-
-import DatosPresup from './DatosPresup'
+import React, { useState } from "react";
 import { initial_state } from "./Initial_State";
-
-import useStyles from "./PresupStyle";
 import FilaUno from './LayoutPresupuesto/FilaUno'
 import FilaDos from './LayoutPresupuesto/FilaDos'
-import TablaPresup from './LayoutPresupuesto/TablaPresup'
-import FilaCuatro from './LayoutPresupuesto/FilaCuatro'
 
+import { HeaderTitle } from '../../../lib/HeaderTitle';
 import {
-  Container,
-  Dialog,
   Grid,
-  Paper,
 } from "@material-ui/core";
 
 export const PresupPantContext = React.createContext();
 
 
-var PresupPant = props => {
+var PresupPant = () => {
+  HeaderTitle("Presupuestos");
 
   const [state, setState] = useState(initial_state);
-  const classes = useStyles();
-
-
+  const [datosrenglon, setDatosRenglon] = useState([]);
 
   return (
     <div>
 
-      <Container>
-        {/* <Grid item></Grid> */}
-        <Grid container spacing={3} alignItems="center">
-          <PresupPantContext.Provider
-            value={{
-              state: state,
-              setState: setState
-            }}
-          >
-            <Grid item></Grid> {/*  Para dejar espacio  */}
-            <Grid item></Grid> {/*  Para dejar espacio  */}
-            <FilaUno />
-            <FilaDos />
+      {/* <Container> */}
+      {/* <Grid item></Grid> */}
+      <Grid container spacing={2} alignItems="center">
+        {/* spacing={3}  */}
+        <PresupPantContext.Provider
+          value={{
+            state: state,
+            setState: setState,
+            datosrenglon: datosrenglon,
+            setDatosRenglon: setDatosRenglon
+          }}
+        >
+          {/* <Grid item></Grid> {/*  Para dejar espacio  */}
+          {/* <Grid item></Grid>  {/* Para dejar espacio  */}
+          <FilaUno />
+          <FilaDos />
 
-          </PresupPantContext.Provider>
-        </Grid>
-      </Container>
+        </PresupPantContext.Provider>
+
+      </Grid>
+      {/* </Container> */}
     </div>
   );
 }

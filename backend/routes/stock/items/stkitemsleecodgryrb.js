@@ -3,7 +3,7 @@ var router = express.Router();
 var path = require("path");
 var conexion = require("../../conexion");
 
-conexion.connect(function(err) {
+conexion.connect(function (err) {
   if (!err) {
     console.log("base de datos conectada en stkitemsleecodgryrb");
   } else {
@@ -13,7 +13,7 @@ conexion.connect(function(err) {
 
 var router = express();
 
-router.get("/", async function(req, res, next) {
+router.get("/", async function (req, res, next) {
   var StkItemsGrupo = req.query.idStkGrupo;
   var StkItemsRubro = req.query.idStkRubro;
 
@@ -21,10 +21,11 @@ router.get("/", async function(req, res, next) {
     "Select * from StkItems where StkItemsGrupo  = ",
     StkItemsGrupo,
     " and  StkItemsRubro  = ",
-    StkItemsRubro
+    StkItemsRubro,
+    " order by StkItemsDesc "
   ].join(" ");
 
-  conexion.query(q, function(err, result) {
+  conexion.query(q, function (err, result) {
     if (err) {
       console.log(err);
     } else {
@@ -32,5 +33,5 @@ router.get("/", async function(req, res, next) {
     }
   });
 });
-
+conexion.end
 module.exports = router;

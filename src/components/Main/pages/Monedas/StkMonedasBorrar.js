@@ -8,7 +8,7 @@ export function borrarMonedas(props) {
   request
     .delete(url)
     .set("Content-Type", "application/json")
-    .then(function(res) {
+    .then(function () {
       // res.body, res.headers, res.status
     })
     .catch((err) => CodigoError(err));

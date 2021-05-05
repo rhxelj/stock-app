@@ -14,6 +14,8 @@ export default function SelecCampos(props) {
   const [checked, setChecked] = React.useState([]);
   const [properties, setProperties] = React.useState();
   const { datos, gridStyle } = props;
+  const [checkOff, setCheckoff] = React.useState(true);
+  // var checkOff = false;
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -25,9 +27,21 @@ export default function SelecCampos(props) {
       newChecked.splice(currentIndex, 1);
     }
     setChecked(newChecked);
+    console.log("checked => ", checked);
   };
 
   // La siguiente función la uso para hacer el mapeo correcto de los encabezados a mostrar*********
+  function checkAll() {
+    setCheckoff(!checkOff);
+    if (checkOff) {
+      var campoVisible = [];
+      props.columns.map((valor) => {
+        campoVisible.push(valor);
+        return null; //agregado para que no tire un warning
+      });
+      setChecked(campoVisible);
+    } else setChecked([]);
+  }
 
   function mapeo() {
     var campoVisible = [];
@@ -41,8 +55,10 @@ export default function SelecCampos(props) {
     });
     setProperties(campoVisible);
   }
+
   function handleClose() {
-    setChecked("");
+    // setChecked("");
+    // checkAll();
     props.setOpen({ imprimie: false });
   }
 
@@ -51,7 +67,7 @@ export default function SelecCampos(props) {
       ImprimirPantalla({ datos, properties, gridStyle, handleClose });
       handleClose();
     }
-  }, [properties]);
+  }, [properties]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
@@ -59,6 +75,7 @@ export default function SelecCampos(props) {
         open={props.open}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+
       >
         <DialogTitle id="alert-dialog-title">
           Elija los Campos a IMPRIMIR
@@ -66,7 +83,7 @@ export default function SelecCampos(props) {
         {/* <List className={classes.root}> */}
         <List>
           {/* {columnas.map(value => { */}
-          {props.columns.map((value, index) => {
+          {props.columns.map((value) => {
             const labelId = `checkbox-list-label-${value}`;
 
             return (
@@ -98,6 +115,9 @@ export default function SelecCampos(props) {
         {/* <ImprimirPantalla elegidos={checked} datos={props.datos} /> */}
 
         <DialogActions>
+          <Button variant="contained" color="primary" onClick={checkAll}>
+            Seleccionar Todos
+          </Button>
           <Button variant="contained" color="primary" onClick={mapeo}>
             Imprimir
           </Button>

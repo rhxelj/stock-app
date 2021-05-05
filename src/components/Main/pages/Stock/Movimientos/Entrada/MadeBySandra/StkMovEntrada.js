@@ -89,7 +89,7 @@ var StkMovEntrada = props => {
 
   useEffect(() => {
     stkgrupoleer();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     stkrubroleercodgrupo(state.idStkGrupoEle); //leo rubros apartir del grupo seleccionado

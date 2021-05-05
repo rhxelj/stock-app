@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import MaterialTable, { Column } from "material-table";
+import MaterialTable from "material-table";
 import { tableIcons } from "../../../../lib/material-table/tableIcons";
 import { localization } from "../../../../lib/material-table/localization";
 
@@ -36,7 +36,7 @@ export default function PresupConfTipo() {
 
     useEffect(() => {
         initialFetch();
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div>
@@ -47,7 +47,7 @@ export default function PresupConfTipo() {
                         icon: () => <tableIcons.Print />,
                         tooltip: "Imprimir",
                         isFreeAction: true,
-                        onClick: (event) => setImprimirTF({ imprimir: true }),
+                        onClick: () => setImprimirTF({ imprimir: true }),
                     },
                 ]}
                 icons={tableIcons}

@@ -12,7 +12,7 @@ import { useContext } from "react";
 import { StkMovEntradaContext } from "../../StkMovEntrada";
 // import { initial_state } from "../../Initial_State";
 
-export default function F2C1(props) {
+export default function F2C1() {
   // Esto es para poder consumir los datos del CONTEXTAPI
   const { state, setState } = useContext(StkMovEntradaContext);
 
@@ -54,11 +54,11 @@ export default function F2C1(props) {
     if (state.idStkGrupo === "") {
       stkgrupoleer();
     }
-    if (state.idStkGrupo != "") {
+    if (state.idStkGrupo !== "") {
       stkrubroleercodgrupo(state.idStkGrupo);
     }
 
-  }, [state.idStkGrupo]);
+  }, [state.idStkGrupo]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // useEffect(() => {
 
@@ -68,17 +68,15 @@ export default function F2C1(props) {
   useEffect(() => {
     // setState({...state, idStkItems : ''})
     stkitemsleercodgryrb(state.idStkGrupo, state.idStkRubro); //leo rubros apartir del grupo seleccionado
-  }, [state.idStkRubro]);
+  }, [state.idStkRubro]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    console.log('state.stkitems.length   ', state.stkitems.length)
-    console.log('')
     if (state.stkitems.length === 1) {
       setState({ ...state, idStkItems: "1" });
     } else {
       setState({ ...state, idStkItems: "" });
     }
-  }, [state.stkitems]);
+  }, [state.stkitems]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const textdata = [
     {

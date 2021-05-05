@@ -2,8 +2,9 @@ import printJS from "print-js";
 
 export default function (props) {
   console.log("En imprimir pantalla ");
-  console.log(props.properties);
-  console.log(props.datos);
+
+  console.log('props.properties  ', props.properties);
+  console.log('props.datos   ', props.datos);
 
   printJS({
     maxWidth: 800,

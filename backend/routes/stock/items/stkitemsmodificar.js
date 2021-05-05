@@ -31,13 +31,6 @@ router.post("/", async function (req, res, next) {
   var StkItemsMin = req.body.StkItemsMin;
   var StkItemsMax = req.body.StkItemsMax;
   console.log('stkitemsmodificar StkItemsRubroAbr  ', StkItemsRubroAbr)
-  /* 'UPDATE StkItems SET StkItemsDesc = "' + StkItemsDesc +
-                                     '", StkItemsCantidad = ' + StkItemsCantidad + 
-                                     ', StkItemsCantDisp = ' + StkItemsCantDisp + 
-                                     ', StkItemsFAct = "' + StkItemsFAct + 
-                                     '", StkItemsMin = ' + StkItemsMin + 
-                                     ', StkItemsMax = ' + StkItemsMax +
-                                     ' WHERE idStkItems = ' + idStkItems + ' and StkItemsGrupo = ' + StkItemsGrupo + ' and  StkItemsRubro = ' + StkItemsRubro */
 
   var q = [
     'UPDATE StkItems SET StkItemsDesc = "',
@@ -60,7 +53,7 @@ router.post("/", async function (req, res, next) {
     StkItemsGrupo,
     " and  StkItemsRubro = ",
     StkItemsRubro
-  ].join(" ");
+  ].join("");
   conexion.query(q, function (err, result) {
     if (err) {
       console.log(err);

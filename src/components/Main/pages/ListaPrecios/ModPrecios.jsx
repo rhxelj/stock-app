@@ -112,7 +112,7 @@ class ModPrecios extends Component {
       .catch(err => CodigoError(err));
   };
 
-  submitModPrecio(state) {
+  submitModPrecio() {
     this.ModPrecio();
     // .then(
     //   this.setState(()=>({
@@ -219,7 +219,7 @@ class ModPrecios extends Component {
 
   // Leo proveedores y grupos
 
-  proveedoresleer = _ => {
+  proveedoresleer = () => {
     const url = IpServidor + "/proveedoresleer";
     request
       .get(url)
@@ -230,7 +230,7 @@ class ModPrecios extends Component {
       });
   };
 
-  gruposleer = _ => {
+  gruposleer = () => {
     const url = IpServidor + "/stkgrupoleer";
     request
       .get(url)
@@ -241,7 +241,7 @@ class ModPrecios extends Component {
       });
   };
 
-  rubrosleer = _ => {
+  rubrosleer = () => {
     const url = IpServidor + "/stkrubroleer";
     request
       .get(url)
@@ -450,7 +450,7 @@ class ModPrecios extends Component {
                   placeholder="Importe"
                   value={this.state.Importe}
                   onChange={this.handleChange("Importe")}
-                  // onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('button--submit').focus();}}
+                // onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('button--submit').focus();}}
                 />
               )}
               {/* </Grid> */}
@@ -467,7 +467,7 @@ class ModPrecios extends Component {
                   placeholder="Porcentaje"
                   value={this.state.Porcentaje}
                   onChange={this.handleChange("Porcentaje")}
-                  // onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('button--submit').focus();}}
+                // onKeyPress={(event) => {if (event.key === 'Enter') document.getElementById('button--submit').focus();}}
                 />
               )}
             </Grid>
@@ -477,7 +477,7 @@ class ModPrecios extends Component {
             <Button
               color="primary"
               onClick={() => this.submitModPrecio()}
-              // onClick={()=>this.ModPrecio()}
+            // onClick={()=>this.ModPrecio()}
             >
               Enviar
             </Button>

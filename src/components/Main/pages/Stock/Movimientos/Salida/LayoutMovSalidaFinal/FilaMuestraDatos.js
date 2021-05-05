@@ -21,7 +21,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useContext } from "react";
 import { StkMovSalidaFinalContext } from "./StkMovSalidaFinal";
 
-const StyledTableCell1 = withStyles((theme) => ({
+const StyledTableCell1 = withStyles(() => ({
   head: {
     fontSize: 12,
     backgroundColor: "#e7edf1",
@@ -42,7 +42,7 @@ const StyledTableCell1 = withStyles((theme) => ({
   //     borderStyle: 'solid',
   // },
 }))(TableCell);
-const StyledTableCell2 = withStyles((theme) => ({
+const StyledTableCell2 = withStyles(() => ({
   head: {
     fontSize: 12,
     backgroundColor: "#d5dadf",
@@ -63,7 +63,7 @@ const StyledTableCell2 = withStyles((theme) => ({
   //     borderStyle: 'solid',
   // },
 }))(TableCell);
-const StyledTableCell3 = withStyles((theme) => ({
+const StyledTableCell3 = withStyles(() => ({
   head: {
     fontSize: 12,
     backgroundColor: "#d0d0d9",
@@ -271,8 +271,8 @@ export default function FilaMuestraDatos(props) {
 
           <ImprimirEtiquetas
             open={state.imp_etiquetas} //inicialmente este componente no se muestra
-            // title="Impresion De Etiquetas"
-            // contentText="Imprimio correctamente ?"
+          // title="Impresion De Etiquetas"
+          // contentText="Imprimio correctamente ?"
           />
         </Grid>
       )}

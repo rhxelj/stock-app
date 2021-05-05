@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { localization } from "../../../../lib/material-table/localization";
 import "../../../../../Styles/TableHeader.css";
 import MaterialTable from "material-table";
 import { tableIcons } from "../../../../lib/material-table/tableIcons";
@@ -9,8 +10,9 @@ import { onRowUpdate } from "./onRowUpdate"
 import { onRowDelete } from "./onRowDelete"
 
 import { HeaderTitle } from "../../../../lib/HeaderTitle"
-import { localization } from "../../../../lib/material-table/localization";
 import Imprimir from "../../Impresion/Imprimir/Imprimir";
+
+
 export default function Proveedores() {
   HeaderTitle("Proveedores")
 
@@ -21,6 +23,7 @@ export default function Proveedores() {
   async function columnsFetch() {
     const col = await llenarColumns();
     setColumns(() => col)
+    console.log('col  ', col)
   }
 
   async function dataFetch() {
@@ -36,7 +39,7 @@ export default function Proveedores() {
 
   useEffect(() => {
     initialFetch()
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div>
@@ -46,7 +49,7 @@ export default function Proveedores() {
             icon: () => <tableIcons.Print />,
             tooltip: "Imprimir",
             isFreeAction: true,
-            onClick: (event) => setImprimirTF({ imprimir: true }),
+            onClick: () => setImprimirTF({ imprimir: true }),
           },
         ]}
         title="PROVEEDORES"

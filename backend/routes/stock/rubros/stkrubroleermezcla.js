@@ -18,11 +18,25 @@ router.get("/", function (req, res, next) {
     "Select idStkRubro, StkRubroCodGrp, StkRubroDesc,",
     " StkGrupo.StkGrupoDesc, StkRubroAbr, StkRubroProv, ",
     " Proveedores.ProveedoresDesc, StkRubroAncho, StkRubroPresDes,",
+    " StkRubroPres, StkRubroUM, StkRubroCosto, StkRubroConf, StkRubroTM,",
+    // ' StkRubroFecha ',
+    ' date_format(StkRubroFecha, "%d-%m-%Y") as StkRubroFecha  ',
+    " from StkRubro JOIN StkGrupo, BasesGenerales.Proveedores ",
+    " where StkRubroCodGrp = idStkGrupo and StkRubroProv = idProveedores "
+  ].join(" ");
+  /*
+  esto estaba así, tenía en el último renglón antes del where StkItems, y repetía todos los rubros
+  se lo saqué y dió resultado
+   var q = [
+    "Select idStkRubro, StkRubroCodGrp, StkRubroDesc,",
+    " StkGrupo.StkGrupoDesc, StkRubroAbr, StkRubroProv, ",
+    " Proveedores.ProveedoresDesc, StkRubroAncho, StkRubroPresDes,",
     " StkRubroPres, StkRubroUM, StkRubroCosto, StkRubroTM,",
     ' StkRubroFecha ',
     " from StkRubro JOIN StkGrupo, BasesGenerales.Proveedores, StkItems ",
     " where StkRubroCodGrp = idStkGrupo and StkRubroProv = idProveedores "
   ].join(" ");
+  */
   conexion.query(q, function (err, result) {
     if (err) {
       console.log(err);

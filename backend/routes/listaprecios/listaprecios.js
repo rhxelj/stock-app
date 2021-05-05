@@ -30,6 +30,7 @@ router.get('/', function (req, res, next) {
     // var q = ['Select idStkRubro, StkRubroCodGrp, StkGrupo.StkGrupoDesc,',
     //         ' StkRubroDesc, StkRubroCosto, StkRubroTM, ',
     var q = ['Select idStkRubro, StkRubroCodGrp, StkRubroDesc, StkGrupo.StkGrupoDesc as GrupoDesc, ',
+        'StkRubroAncho, StkRubroPres, ',
         'date_format(StkRubroFecha, "%d-%m-%Y") as StkRubroFecha,  ',
         '(StkRubroCosto * StkMonedasCotizacion * ' + coefmin + ' ) as PPub, ',
         '(StkRubroCosto * StkMonedasCotizacion * ' + coefmay + ' ) as PMay ',
@@ -41,8 +42,7 @@ router.get('/', function (req, res, next) {
         'and StkRubroProv = idProveedores ',
         'and StkRubroTM = idStkMonedas ',
         'and StkRubroCodGrp = idStkGrupo ',
-        'order by StkRubroCodGrp',].join(' ')
-    console.log(q)
+        'order by StkRubroCodGrp, idStkRubro',].join(' ')
     conexion.query(q,
         function (err, result) {
             if (err) {

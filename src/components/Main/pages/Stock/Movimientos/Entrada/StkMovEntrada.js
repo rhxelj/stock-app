@@ -14,7 +14,7 @@ import { HeaderTitle } from "../../../../../lib/HeaderTitle";
 
 export const StkMovEntradaContext = React.createContext();
 
-var StkMovEntrada = (props) => {
+var StkMovEntrada = () => {
   HeaderTitle("Movimiento de Entrada");
 
   const [state, setState] = useState(initial_state);

@@ -1,9 +1,8 @@
-import CodigoError from "../../../../lib/CodigoError";
 import IpServidor from "../../VariablesDeEntorno";
 import request from "superagent";
 
 export function presupconftipoData() {
-    return new Promise(function (resolve, reject) {
+    return new Promise(function (resolve) {
         const url = IpServidor + "/presupconftipoleer";
         request
             .get(url)

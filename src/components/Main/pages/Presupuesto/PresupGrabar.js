@@ -1,28 +1,37 @@
 import request from "superagent";
 
 import IpServidor from "../VariablesDeEntorno";
-import CodigoError from '../../../lib/CodigoError'
-// Lee Rubro por codigo de gupo
-
+var nroPresupuesto = 0
 export const PresupGrabar = (props, nomCliente, idClientes) => {
-  console.log('props  PresupGrabar  ', props)
-  // console.log('nomCliente  PresupGrabar  ', nomCliente)
-  // console.log('propidClientess  PresupGrabar  ', idClientes)
+  return new Promise(resolve => {
+    const url = IpServidor + "/presupgraba";
+    request
+      .post(url)
+      .set("Content-Type", "application/json")
+      .send({ DatosPresup: props })
+      .send({ nomCliente: nomCliente })
+      .send({ idClientes: idClientes })
+      .set("X-API-Key", "foobar")
+      .then(res => {
+        const respuesta = JSON.parse(res.text);
+        nroPresupuesto = respuesta.insertId
 
-  const url = IpServidor + "/presupgraba";
-  request
-    .post(url)
-    .set("Content-Type", "application/json")
-    .send({ DatosPresup: props })
-    .send({ nomCliente: nomCliente })
-    .send({ idClientes: idClientes })
-    .set("X-API-Key", "foobar")
-    .then(function (res) {
+        // if (respuesta.affectedRows !== 0) alert("EXITO");
+        // else alert("No modifico");
 
-      const respuesta = JSON.parse(res.text);
-      console.log('respuesta.affectedRows   ', respuesta.affectedRows)
-      if (respuesta.affectedRows !== 0) alert("EXITO");
-      else alert("No modifico");
-    })
-    .catch((err) => CodigoError(err));
+        resolve(nroPresupuesto);
+      })
+  })
+
+    .catch((err) =>
+      console.log('codigo de error presupgrabar que no es error', err)
+      //  CodigoError(err)
+
+    );
+
 }
+// .then(function (res) {
+//   const respuesta = JSON.parse(res.text);
+//   console.log('respuesta.affectedRows   ', respuesta)
+// })
+// .catch((err) => CodigoError(err));

@@ -1,6 +1,6 @@
-import React, { Fragment, useState, useEffect, useReducer } from "react";
+import React, { useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
-import useStyles from "../styles";
+// import useStyles from "../styles";
 
 import { TextField } from "@material-ui/core";
 
@@ -11,9 +11,7 @@ import { stkitemsleecodgryrb } from "../../../../Items/StkItemsLeeCodGryRb";
 // Context
 import { useContext } from "react";
 import { StkMovSalidaContext } from "../StkMovSalida";
-import { initial_state } from "../../../../../z_SinClasificarMirar/Initial_State";
-
-export default function F2C1(props) {
+export default function F2C1() {
   // Esto es para poder consumir los datos del CONTEXTAPI
   const { state, setState } = useContext(StkMovSalidaContext);
 
@@ -55,7 +53,7 @@ export default function F2C1(props) {
     if (state.idStkGrupo === "") {
       stkgrupoleer();
     } else stkrubroleercodgrupo(state.idStkGrupo);
-  }, [state.idStkGrupo]);
+  }, [state.idStkGrupo]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // useEffect(() => {
 
@@ -65,7 +63,7 @@ export default function F2C1(props) {
   useEffect(() => {
     // setState({...state, idStkItems : ''})
     stkitemsleercodgryrb(state.idStkGrupo, state.idStkRubro); //leo rubros apartir del grupo seleccionado
-  }, [state.idStkRubro]);
+  }, [state.idStkRubro]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (state.stkitems.length === 1) {
@@ -76,8 +74,8 @@ export default function F2C1(props) {
 
     console.log("Contenido de state =>  ");
     console.log(state);
-  }, [state.stkitems]);
-  const classes = useStyles();
+  }, [state.stkitems]); // eslint-disable-line react-hooks/exhaustive-deps
+  // const classes = useStyles();
 
   const textdata = [
     {
@@ -142,7 +140,7 @@ export default function F2C1(props) {
               onChange={handleChange}
               SelectProps={{ native: true }}
               variant="outlined"
-              autoFocus={data.id == "idStkGrupo" && true}
+              autoFocus={data.id === "idStkGrupo" && true}
             >
               {data.mapeo}
             </TextField>

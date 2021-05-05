@@ -7,10 +7,11 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
 export function Exito(props: any) {
-  const [open, setOpen] = React.useState(props.open);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  // const [open, setOpen] = React.useState(props.open);
+  const [open] = React.useState(props.open);
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
   const handleClose = () => {
     props.closeAction();

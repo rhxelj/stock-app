@@ -28,7 +28,6 @@ export default function StkGrupo() {
 
   async function dataFetch() {
     const data = await grupoData();
-
     setData(data);
   }
 
@@ -39,18 +38,19 @@ export default function StkGrupo() {
 
   useEffect(() => {
     initialFetch();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div>
       <MaterialTable
+        title=""
         actions={[
           {
             icon: () => <tableIcons.Print />,
             // icon: "IMPRIMIR",
             tooltip: "Imprimir",
             isFreeAction: true,
-            onClick: (event) => setImprimirTF({ imprimir: true }),
+            onClick: () => setImprimirTF({ imprimir: true }),
           }
         ]}
         columns={columns}

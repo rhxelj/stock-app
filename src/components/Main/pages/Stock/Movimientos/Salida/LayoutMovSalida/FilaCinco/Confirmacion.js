@@ -6,18 +6,16 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-import { imprimirQr } from "../../../../../Impresion/ImprimirEtiquetas/imprimirQR";
 import { useContext } from "react";
 import { StkMovSalidaContext } from '../StkMovSalida'
 import { descargaStock } from "../descargaStock";
-import { initial_state } from "../../../../../z_SinClasificarMirar/Initial_State";
-
+import { initial_state } from "../Initial_State"
 import { Exito } from "../../../../../../../../Ui-Components/Exito";
 
 export default function AlertDialog(props) {
   const { state, setState } = useContext(StkMovSalidaContext);
   const { title, contentText } = props;
-  const { exito, setExito } = React.useState(false);
+  const { exito } = React.useState(false);
   // const [open, setOpen] = React.useState(false);
 
   const handleClose = () => {
@@ -29,7 +27,7 @@ export default function AlertDialog(props) {
     confirmAction: () => descargaStock(state).then(setState(initial_state)),
     // .then(handleClose), //Accion a ejecutar en caso de Aceptar
     cancelAction: () => setState(initial_state, () => handleClose()),
-    cancelAction: () => setState(initial_state),
+    // cancelAction: () => setState(initial_state),
     // .then(handleClose), //Accion a ejecutar en caso de cancelar
     // confirmText: "CONFIRMAR", //Texto en caso de afirmativo
     // cancelText: "CANCELAR", //Texto en caso de No afirmativo

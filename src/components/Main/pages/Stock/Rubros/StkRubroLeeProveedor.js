@@ -4,7 +4,7 @@ import IpServidor from "../../VariablesDeEntorno";
 
 // Lee Rubro por codigo de gupo
 
-export const stkrubroleeproveedor = _ => {
+export const stkrubroleeproveedor = () => {
   return new Promise(resolve => {
     const url = IpServidor + "/stkrubroleeproveedor";
     request

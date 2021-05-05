@@ -15,7 +15,7 @@ import CodigoError from "../../../../lib/CodigoError";
 // import DialogTitle from '@material-ui/core/DialogTitle';
 
 export function ProveedoresModificar(props) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function () {
     const {
       idProveedores,
       ProveedoresDesc,
@@ -57,7 +57,7 @@ export function ProveedoresModificar(props) {
       .send({ ProveedoresCodMon: ProveedoresCodMon })
 
       //.set("X-API-Key", "foobar")
-      .then(function(res) {
+      .then(function () {
         // res.body, res.headers, res.status
       })
       .catch((err) => CodigoError(err));

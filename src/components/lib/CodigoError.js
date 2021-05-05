@@ -26,8 +26,11 @@ function CodigoError(err) {
     case 460:
       Mensaje("error", "error clave duplicada");
       break;
+    case 100:
+      Mensaje("success", "seleccionados ");
+      break;
     default:
-      Mensaje("error", "Error ", err.status);
+      Mensaje("error", "Error ", err.status, " ", err.err);
   }
 }
 export default CodigoError;

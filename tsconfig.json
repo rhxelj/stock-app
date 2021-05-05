@@ -17,10 +17,11 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "jsx": "react",
+    "noFallthroughCasesInSwitch": true
   },
   "include": [
     "src",
-    "backend/routes/no-usados/FilaAnexos.js"
+    // "backend/routes/no-usados/FilaAnexos.js"
   ]
 }

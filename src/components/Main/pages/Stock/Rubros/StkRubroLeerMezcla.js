@@ -12,6 +12,8 @@ export const stkrubroleermezcla = () => {
         .set("Content-Type", "application/json")
         .then(res => {
           const rubro1 = JSON.parse(res.text);
+          console.log("dentro de StkRubroLeerMezcla .... ")
+          console.log(rubro1)
           resolve(rubro1);
         });
   });

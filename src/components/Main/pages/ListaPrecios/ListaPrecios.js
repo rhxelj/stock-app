@@ -7,10 +7,11 @@ import { localization } from "../../../lib/material-table/localization";
 
 import { tableIcons } from "../../../lib/material-table/tableIcons";
 import TablaMuestraStock from "./TablaMuestraStock";
-import Button from "@material-ui/core/Button";
 import WavesIcon from "@material-ui/icons/Waves";
-import Imprimir from "../Impresion/Imprimir/Imprimir";
+import AutorenewIcon from '@material-ui/icons/Autorenew';
 
+import Imprimir from "../Impresion/Imprimir/Imprimir";
+import { HeaderTitle } from '../../../lib/HeaderTitle'
 const useStyles = makeStyles({
   root: {
     width: "100%",
@@ -20,7 +21,10 @@ const useStyles = makeStyles({
   },
 });
 
+
+
 export default function ListaPrecios() {
+  HeaderTitle("Lista de Precios");
   const classes = useStyles();
   const [paramitems, setParamItems] = useState({
     idGrupo: 0,
@@ -41,6 +45,16 @@ export default function ListaPrecios() {
         field: "StkRubroDesc",
       },
       {
+        title: "Ancho",
+        field: "StkRubroAncho",
+        type: 'numeric',
+      },
+      {
+        title: "Presentación",
+        field: "StkRubroPres",
+        type: 'numeric',
+      },
+      {
         title: "Público",
         // align: "center",
         // align: "right",
@@ -54,19 +68,6 @@ export default function ListaPrecios() {
         field: "PMay",
         type: "currency",
         width: 50,
-        // type: "number",
-        // render: (rowData) => <span>$ {rowData.PMay}</span>,
-        // },
-        // {
-        //   title: "P-U Mayorista",
-        //   field: "PMayPU",
-        //   type : 'currency',
-        // },
-        // {
-        //   title: "P-U-R Mayorista",
-        //   field: "PMayPUR",
-        //   type : 'currency'
-
       },
       {
         title: "Fecha",
@@ -83,9 +84,12 @@ export default function ListaPrecios() {
     setLista({ ...lista, data: result });
   }
 
+  // useEffect(() => {
+  //   leerlistaprecios();
+  // }, []);
   useEffect(() => {
     leerlistaprecios();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const openApp = (event, StkRubroCodGrp, idStkRubro) => {
     setParamItems({ paramitems, idGrupo: StkRubroCodGrp, idRubro: idStkRubro });
@@ -102,14 +106,6 @@ export default function ListaPrecios() {
   return (
     <Paper className={classes.root}>
       <MaterialTable
-        // actions={[
-        //   {
-        //     icon: () => <tableIcons.Print />,
-        //     tooltip: "Imprimir",
-        //     isFreeAction: true,
-        //     onClick: (event) => setImprimirTF({ imprimir: true }),
-        //   },
-        // ]}
         icons={tableIcons}
         title="Lista de Precios"
         columns={lista.columns}
@@ -122,10 +118,16 @@ export default function ListaPrecios() {
               openApp(event, rowData.StkRubroCodGrp, rowData.idStkRubro),
           },
           {
+            icon: () => <AutorenewIcon />,
+            tooltip: "Refrescar",
+            isFreeAction: true,
+            onClick: () => leerlistaprecios(),
+          },
+          {
             icon: () => <tableIcons.Print />,
             tooltip: "Imprimir",
             isFreeAction: true,
-            onClick: (event) => setImprimirTF({ imprimir: true }),
+            onClick: () => setImprimirTF({ imprimir: true }),
           },
         ]}
         options={{
@@ -138,9 +140,9 @@ export default function ListaPrecios() {
             <div>
               <MTableToolbar {...props} />
               <div style={{ padding: "0px 10px" }}>
-                <Button color="primary" style={{ marginRight: 5 }}>
+                {/* <Button color="primary" style={{ marginRight: 5 }}>
                   Presupuesto
-                </Button>
+                </Button> */}
               </div>
             </div>
           ),

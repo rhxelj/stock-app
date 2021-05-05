@@ -3,7 +3,7 @@ import request from "superagent";
 import IpServidor from "../../VariablesDeEntorno";
 
 // Lee Grupo
-export const stkGrupoLeerRedRubro = (_) => {
+export const stkGrupoLeerRedRubro = () => {
   return new Promise((resolve) => {
     const url = IpServidor + "/stkgrupoleerredrubros";
     request

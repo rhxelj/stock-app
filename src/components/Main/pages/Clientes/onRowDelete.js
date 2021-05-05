@@ -1,7 +1,7 @@
 import { ClientesBorrar } from "./ClientesBorrar";
 
 export function onRowDelete(oldData) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       // {
       ClientesBorrar(oldData);

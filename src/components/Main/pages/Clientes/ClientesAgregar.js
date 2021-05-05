@@ -2,10 +2,11 @@ import request from "superagent";
 import IpServidor from "../VariablesDeEntorno";
 import "react-table/react-table.css";
 
-import CodigoError from '../../../lib/CodigoError'
+import CodigoError from "../../../lib/CodigoError";
+
 
 export function ClientesAgregar(props) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function () {
     const {
       ClientesDesc,
       ClientesCalle,
@@ -21,7 +22,6 @@ export function ClientesAgregar(props) {
       ClientesCUIT,
       ClientesTipo,
     } = props;
-
     const url = IpServidor + "/clientesagregar";
     request
       .post(url)
@@ -41,7 +41,9 @@ export function ClientesAgregar(props) {
       .send({ clientipo: ClientesTipo })
 
       .set("X-API-Key", "foobar")
-      .then(function (res) { })
+      .then(function () { })
       .catch((err) => CodigoError(err));
+
+
   });
 }

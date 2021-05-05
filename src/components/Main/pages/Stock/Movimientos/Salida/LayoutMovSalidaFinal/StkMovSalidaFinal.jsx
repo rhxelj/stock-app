@@ -16,7 +16,7 @@ import {
 export const StkMovSalidaFinalContext = React.createContext();
 
 
-var StkMovSalidaFinal = props => {
+var StkMovSalidaFinal = () => {
     const [state, setState] = useState(initial_state);
     // const classes = useStyles();
 

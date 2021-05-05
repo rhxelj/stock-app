@@ -21,7 +21,6 @@ router.all("/", async function (req, res) {
   // codgrupo = req.query.id;
   // ultnrorubro.codigorubronuevo(codgrupo)
   codrubro = req.body.StkRubroCodGrp;
-  console.log(' req.body.ItemsSN al ingresar  ', req.body.ItemsSN);
   var d = new Date();
   finalDate = d.toISOString().split("T")[0];
   var RubroDesc = req.body.StkRubroDesc === undefined ? '' : req.body.StkRubroDesc.toUpperCase()
@@ -38,6 +37,7 @@ router.all("/", async function (req, res) {
     StkRubroUM: req.body.StkRubroUM,
     StkRubroCosto: req.body.StkRubroCosto,
     StkRubroTM: req.body.StkRubroTM,
+    StkRubroConf: req.body.StkRubroConf,
     StkRubroFecha: finalDate,
   };
 
@@ -60,33 +60,33 @@ router.all("/", async function (req, res) {
       // return res.status(200).send({message : "Todo OK"});
     }
     console.log(' req.body.ItemsSN   ', req.body.ItemsSN);
-    if (req.body.ItemsSN === 'N') {
-      var registro1 = {
-        idStkItems: 1,
-        StkItemsGrupo: req.body.StkRubroCodGrp,
-        StkItemsRubro: req.body.idStkRubro,
-        StkItemsRubroAbr: req.body.StkRubroAbr.toUpperCase(),
-        StkItemsDesc: '',
-        StkItemsCantidad: 0,
-        StkItemsCantDisp: 0,
-        StkItemsFAct: finalDate,
-        StkItemsMin: 1,
-        StkItemsMax: 2
-        // StkItemsMin: req.body.StkItemsMin,
-        // StkItemsMax: req.body.StkItemsMax
-      };
-      conexion.query("INSERT INTO StkItems SET ?", registro1, function (
-        err,
-        result
-      ) {
-        if (err) {
-          console.log("ERROR ");
-          console.log(err.errno);
-        } else {
-          res.json(result.rows);
-        }
-      });
-    }
+    // if (req.body.ItemsSN === 'N') {
+    var registro1 = {
+      idStkItems: 1,
+      StkItemsGrupo: req.body.StkRubroCodGrp,
+      StkItemsRubro: req.body.idStkRubro,
+      StkItemsRubroAbr: req.body.StkRubroAbr.toUpperCase(),
+      StkItemsDesc: '',
+      StkItemsCantidad: 0,
+      StkItemsCantDisp: 0,
+      StkItemsFAct: finalDate,
+      StkItemsMin: 1,
+      StkItemsMax: 2
+      // StkItemsMin: req.body.StkItemsMin,
+      // StkItemsMax: req.body.StkItemsMax
+    };
+    conexion.query("INSERT INTO StkItems SET ?", registro1, function (
+      err,
+      result
+    ) {
+      if (err) {
+        console.log("ERROR ");
+        console.log(err.errno);
+      } else {
+        res.json(result.rows);
+      }
+    });
+    //}
   });
   gencodrubro.buscacodigo(codgrupo);
 });

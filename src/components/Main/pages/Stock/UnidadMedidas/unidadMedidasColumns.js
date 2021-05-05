@@ -1,5 +1,5 @@
 export function unidadMedidasColumns() {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve) {
     resolve([
       {
         title: "Código",

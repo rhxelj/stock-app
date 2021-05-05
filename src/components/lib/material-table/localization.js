@@ -18,9 +18,12 @@ export const localization = {
     deleteTooltip: "Borrar",
     editTooltip: "Editar",
   },
+  header: {
+    actions: 'Acción',
+  },
   toolbar: {
     searchPlaceholder: "Buscar",
-    //  nRowsSelected: 'Filas Elegidas',
+    nRowsSelected: '{0}  Fila(s) Elegida(s)',
   },
   grouping: {
     groupedBy: "Agrupado por : ",

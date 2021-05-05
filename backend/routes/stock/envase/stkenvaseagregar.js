@@ -78,7 +78,6 @@ router.post("/", async function (req, res, next) {
         StkEnvaseObserv: req.body.StkEnvaseObserv,
         StkEnvaseImprimio: "N"
       };
-      console.log('registro ', registro)
       conexion.query("INSERT INTO StkEnvase SET ?", registro,
         function (err, result) {
           if (err) {
@@ -95,14 +94,11 @@ router.post("/", async function (req, res, next) {
               console.log(err.errno);
             }
           }
-          else {
-            res.json(result);
-          }
-
 
         });
       nroenvase++;
     }
+    res.json(result);
   });
 });
 conexion.end;

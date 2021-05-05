@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import useStyles from "./styles";
 import { TextField } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
 import { stkitemsleecodgrrbit } from "../../../Items/StkItemsLeeCodGrRbIt";
 import FilaMuestraDatos from "./FilaMuestraDatos";
 // import { stkitemsleecodgrrbit } from "../../../../Items/StkItemsLeeCodGrRbIt";
@@ -12,7 +11,7 @@ import FilaMuestraDatos from "./FilaMuestraDatos";
 import { useContext } from "react";
 import { StkMovSalidaFinalContext } from "./StkMovSalidaFinal";
 
-export default function StkSalidaFinal(props) {
+export default function StkSalidaFinal() {
   // Context
   const { state, setState } = useContext(StkMovSalidaFinalContext);
 

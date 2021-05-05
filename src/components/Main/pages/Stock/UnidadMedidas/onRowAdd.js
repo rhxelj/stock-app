@@ -1,7 +1,7 @@
 import { stkUnMedAgregar } from "./stkUnMedAgregar";
 
 export function onRowAdd(newData) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       // {
       // console.log(newData);

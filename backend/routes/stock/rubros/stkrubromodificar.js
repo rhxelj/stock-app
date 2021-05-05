@@ -25,6 +25,7 @@ router.post("/", async function (req, res, next) {
   var StkRubroUM = req.body.StkRubroUM;
   var StkRubroCosto = req.body.StkRubroCosto;
   var StkRubroTM = req.body.StkRubroTM;
+  var StkRubroConf = req.body.StkRubroConf;
   var d = new Date();
   finalDate = d.toISOString().split("T")[0];
 
@@ -47,6 +48,8 @@ router.post("/", async function (req, res, next) {
     StkRubroCosto,
     ', StkRubroTM = "',
     StkRubroTM,
+    '", StkRubroConf = "',
+    StkRubroConf,
     '", StkRubroFecha = "',
     finalDate,
     '" WHERE idStkRubro = ',

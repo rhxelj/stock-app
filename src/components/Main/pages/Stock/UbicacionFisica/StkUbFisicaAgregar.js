@@ -3,7 +3,7 @@ import IpServidor from "../../VariablesDeEntorno";
 import CodigoError from "../../../../lib/CodigoError";
 
 export function StkUbFisicaAgregar(props) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function () {
     const { idStkUbFisica, StkUbFisicaGeo } = props;
 
     const url = IpServidor + "/stkubfisicaagregar";
@@ -13,7 +13,7 @@ export function StkUbFisicaAgregar(props) {
       .set("Content-Type", "application/json")
       .send({ idStkUbFisica: idStkUbFisica })
       .send({ StkUbFisicaGeo: StkUbFisicaGeo })
-      .then(function(res) {})
+      .then(function () { })
 
       .catch((err) => CodigoError(err));
   });

@@ -1,4 +1,3 @@
-import CodigoError from "../../../lib/CodigoError";
 import IpServidor from "../VariablesDeEntorno";
 import request from "superagent";
 

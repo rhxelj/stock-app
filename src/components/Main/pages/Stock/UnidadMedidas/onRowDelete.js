@@ -1,7 +1,7 @@
 import { stkUnMedBorrar } from "./stkUnMedBorrar";
 
 export function onRowDelete(oldData) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       // {
       stkUnMedBorrar(oldData);

@@ -5,26 +5,27 @@ import {
 
   TextField,
 } from "@material-ui/core";
-// import { makeStyles } from "@material-ui/core/styles";
-// import Paper from "@material-ui/core/Paper";
-// import Grid from "@material-ui/core/Grid";
-import useStyles from "../styles";
 
 import leePresupConfTipoLeerDesc from "../../leePresupConfTipoLeerDesc"
 import leePresupConfTipoLeeAnexo from "../../leePresupConfTipoLeeAnexo"
 // Context
 import { useContext } from "react";
 import { PresupPantContext } from "../../PresupPant";
-import { stat } from "fs";
+// import { stat } from "fs";
 
-export default function FilaUnoIzq(props) {
+export default function FilaUnoIzq() {
   const [selectedValue, setSelectedValue] = React.useState("");
   const { state, setState } = useContext(PresupPantContext);
+  // this.state = {
+  //   value: { DescripPresup: '' },
+  // };
 
   const handleChange = (event) => {
+
     setSelectedValue(event.target.value);
     var descripcion = event.target.value
     setState({ ...state, PresupConfTipoDesc: event.target.value });
+
     leerdesc(descripcion)
   };
 
@@ -35,25 +36,20 @@ export default function FilaUnoIzq(props) {
   }
 
   async function conftipoleer(anexo) {
+    setState({ ...state, DescripPresup: '' });
     const result = await leePresupConfTipoLeeAnexo(anexo);
     setState({ ...state, tipopresup: result });
   }
 
-
-  // useEffect(() => {
-  //   var anexo = 'N'
-  //   conftipoleer(anexo)
-  // }, []);
-
-
   useEffect(() => {
+
+    setState({ ...state, DescripPresup: '' });
     if (state.tipopresup.length === 0) {
       var anexo = 'N'
       conftipoleer(anexo)
     }
   }, [state.tipopresup]);
 
-  const classes = useStyles();
 
   const textdata = [
     {
@@ -72,10 +68,11 @@ export default function FilaUnoIzq(props) {
       ),
     },
   ];
+
   return (
     <>
-      {/* <Grid container item spacing={3} xs={6}> */}
-      <Grid item container spacing={3} xs>
+
+      <Grid item >
         {textdata.map(data => (
           <TextField
             id={data.id}
@@ -83,7 +80,7 @@ export default function FilaUnoIzq(props) {
             size="small"
             select
             label={data.label}
-            fullWidth
+            margin="dense"
             value={data.value}
             onChange={handleChange}
             SelectProps={{ native: true }}
@@ -92,7 +89,10 @@ export default function FilaUnoIzq(props) {
             {data.mapeo}
           </TextField>
         ))}
+
       </Grid>
+
     </>
   );
+
 }

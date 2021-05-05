@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-console */
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
@@ -13,30 +11,14 @@ import ImprimirPantalla from "../Impresion/ImprimirPantalla";
 import { Dialog, TablePagination } from "@material-ui/core";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
+import { checkout } from "superagent";
 
-// const useStyles = makeStyles(theme => ({
-//   root: {
-//     width: '100%',
-//     maxWidth: 360,
-//     backgroundColor: theme.palette.background.paper,
-//   },
-// }));
-
-// var columnas = [
-//   { nombre :  "Código" },
-//   { nombre :  "Código2" },
-
-//   { nombre :  "Código3" }
-
-// ]
 export default function SelecCampos(props) {
   // const classes = useStyles();
   const [checked, setChecked] = React.useState([]);
   const [open, setOpen] = React.useState(false);
   const [properties, setProperties] = React.useState(false);
 
-  console.log("contenido de props => ");
-  console.log(props);
   // props.headerTabla.pop() //Saco el campo borrar
 
   const handleToggle = (value) => () => {
@@ -57,10 +39,9 @@ export default function SelecCampos(props) {
     var campoVisible = [];
     checked.map((valor) => {
       const encabezado = {
-        // displayName: valor.Header,
-        // field: valor.accessor,
         title: valor.Header,
         field: valor.accessor,
+
       };
       campoVisible.push(encabezado);
       return null; //agregado para que no tire un warning
@@ -79,7 +60,7 @@ export default function SelecCampos(props) {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          Elija los Campos a IMPRIMIR
+          Elija los Campos a IMPRIMIR !!!!!!!
         </DialogTitle>
         {/* <List className={classes.root}> */}
         <List>
@@ -145,7 +126,7 @@ export default function SelecCampos(props) {
           datos={props.datos}
           properties={properties}
           toggleImprimir={props.toggleImprimir}
-          // properties={checked}
+        // properties={checked}
         />
       )}
     </div>

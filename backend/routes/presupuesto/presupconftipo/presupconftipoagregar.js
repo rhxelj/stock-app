@@ -20,10 +20,12 @@ router.post("/", function (req, res, next) {
     PresupConfTipoDesc: req.body.PresupConfTipoDesc.toUpperCase(),
     PresupConfTipoRubro: req.body.PresupConfTipoRubro.toUpperCase(),
     PresupConfTipoCant: req.body.PresupConfTipoCant,
+    PresupConfTipoM2: req.body.PresupConfTipoM2,
     PresupConfTipoAnexo: req.body.PresupConfTipoAnexo.toUpperCase(),
     PresupConfTipoLargo: req.body.PresupConfTipoLargo,
     PresupConfTipoAncho: req.body.PresupConfTipoAncho,
     PresupConfTipoImprime: req.body.PresupConfTipoImprime.toUpperCase(),
+    PresupConfTipoMinMOT: req.body.PresupConfTipoMinMOT,
     PresupConfTipoBack: '',
   };
   conexion.query("INSERT INTO BasePresup.PresupConfTipo SET ?", registro, function (err, result) {

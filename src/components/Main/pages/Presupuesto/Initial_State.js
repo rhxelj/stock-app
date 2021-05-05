@@ -3,14 +3,68 @@ export const initial_state = {
 
   //FilaUno
   PresupMnMy: "mn",
+  PresupIVA: "CIVA",
   // PresupTipo: "UNIDAD",
-  PresupCsSs: "cs",
 
+  //FilaConf
+  PresupCsSs: "cs",
+  // Presup Ojal de Bronce
+  PresupOB: 'hz',
+
+  //FilaEnrollables
+  TamFaja: '2P',
+  TamCristal: 'PVC05',
+  AltoVolado: 20,
+  SobranteMarco: 20,
+
+  //FilaTanques
+  TipoMedidaEleg: 'CC',
+  // ParedSN: 'SP',
+  TermBordeEleg: 'SF',
+  AnchoPared: 0,
+  Medida: 0,
+  Alto: 1.10,
+  TipoMedida: [
+    {
+      value: 'CC',
+      label: 'Chapas'
+    },
+    {
+      value: 'DI',
+      label: 'Diámetro Interno'
+    },
+    {
+      value: 'DE',
+      label: 'Diámetro Externo'
+    },
+    {
+      value: 'PE',
+      label: 'Perímetro Externo'
+    }
+  ],
+  TermBorde: [
+    {
+      value: 'SF',
+      label: 'Sin Forma'
+    },
+    {
+      value: 'CF',
+      label: 'Con Forma'
+    },
+    {
+      value: 'CFS',
+      label: 'Con Forma y Soga'
+    },
+    {
+      value: 'CFC',
+      label: 'Con Forma y Criquet'
+    }
+  ],
   //FilaDos
   AnexoMedida: 0,
   PresupCantidad: 1.0,
   PresupTipo: "",
-  DescripPresup: "",
+  // DescripPresup: "",
   ImporteAnexo: 0.0,
   renglonanexo: [],
   DetalleAnexo: "",
@@ -25,63 +79,59 @@ export const initial_state = {
   LabelMed: "",
   DatosPresupEleg: [],
   tipoanexo: [],
-  tipopresup: [
-    // {
-    //   tipopresupabr: 'un',
-    //   tipopresupdet: 'Por Unidad',
-    // },
-    // {
-    //   tipopresupabr: 'pu',
-    //   tipopresupdet: 'Paño Unido',
-    // },
-    // {
-    //   tipopresupabr: 'fa',
-    //   tipopresupdet: 'Con Fajas',
-    // },
-    // {
-    //   tipopresupabr: 'cf',
-    //   tipopresupdet: 'Confeccionada',
-    // },
-    // {
-    //   tipopresupabr: 'en',
-    //   tipopresupdet: 'Enrollable',
-    // }
-  ],
+  renglonfinal: [],
+  tipopresup: [],
+  indexborrado: 1000,
+  DetallePresup: '',
   //FilaTres
+
+  //condiciones de pago
+  condpagoeleg: [],
 
   columns: [
     {
-      title: "Cantidad",
+      title: "Cant.",
       field: "PresupCantidad",
+      width: 10,
+
     },
     {
       title: "Descripción",
       field: "StkRubroDesc",
+      width: 500,
+
+
     },
     {
       title: "Largo",
       field: "PresupLargo",
+      width: 10,
+
     },
     {
       title: "Ancho",
       field: "PresupAncho",
+      width: 10,
+
     },
     {
       title: "Imp. Unit.",
       field: "ImpUnitario",
       type: "currency",
+      width: 120,
     },
     {
       title: "Imp. Item.",
       field: "ImpItem",
       type: "currency",
+      width: 120,
     },
-    {
-      title: "$ Item c/Anexos",
-      field: "ImpItemCAnexos",
-      // ToDo: mirar esto para dar estilo => cellStyle: { width: "4px", borderRadius: "50%", background: "red" },
-      type: "currency",
-    },
+    // {
+    //   title: "$ Item c/Anexos",
+    //   field: "ImpItemCAnexos",
+    //   // ToDo: mirar esto para dar estilo => cellStyle: { width: "4px", borderRadius: "50%", background: "red" },
+    //   type: "currency",
+    // },
   ],
 
 
@@ -98,6 +148,9 @@ export const initial_state = {
 
   stkitems: [],
 
+  stkrubrocr: [],
+
+
   //F2C2
   stkitemsele: [],
 
@@ -110,4 +163,5 @@ export const initial_state = {
 
   //FilaCuatro
   nomCliente: "",
+  NroPresupuesto: 0
 };

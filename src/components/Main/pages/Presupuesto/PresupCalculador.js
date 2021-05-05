@@ -1,15 +1,20 @@
 import request from "superagent";
 import IpServidor from "../VariablesDeEntorno";
 
-export const presupcalculador = (DatosPresupEleg, datoscalculo, tipo, check) => {
-
+export const presupcalculador = (DatosPresupEleg, datoscalculo, tipo) => {
+  var datotraido = DatosPresupEleg
   var backend, url
-  if (DatosPresupEleg.PresupConfTipoBack != null) {
-    backend = DatosPresupEleg.PresupConfTipoBack
-    url = IpServidor + backend + '/?datoscalculo=' + datoscalculo;
+  if ((datotraido === null)
+    || (datotraido === "")
+    || (DatosPresupEleg.PresupConfTipoBack === null)
+    || (DatosPresupEleg.PresupConfTipoBack === " ")) {
+    // if ((DatosPresupEleg.PresupConfTipoBack === null)
+    //   || (DatosPresupEleg.PresupConfTipoBack === "")) {
+    url = IpServidor + '/presupconftipocalc/?tipo=' + tipo + "&datoscalculo=" + datoscalculo;
   }
   else {
-    url = IpServidor + '/presupconftipocalc/?tipo=' + tipo;
+    backend = DatosPresupEleg.PresupConfTipoBack
+    url = IpServidor + backend + '/?datoscalculo=' + datoscalculo;
   }
   return new Promise(resolve => {
     request
@@ -21,3 +26,4 @@ export const presupcalculador = (DatosPresupEleg, datoscalculo, tipo, check) => 
       });
   });
 };
+
