@@ -64,7 +64,7 @@ export const initial_state = {
   AnexoMedida: 0,
   PresupCantidad: 1.0,
   PresupTipo: "",
-  DescripPresup: "",
+  // DescripPresup: "",
   ImporteAnexo: 0.0,
   renglonanexo: [],
   DetalleAnexo: "",

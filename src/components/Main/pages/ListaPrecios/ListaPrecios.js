@@ -89,7 +89,7 @@ export default function ListaPrecios() {
   // }, []);
   useEffect(() => {
     leerlistaprecios();
-  });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const openApp = (event, StkRubroCodGrp, idStkRubro) => {
     setParamItems({ paramitems, idGrupo: StkRubroCodGrp, idRubro: idStkRubro });

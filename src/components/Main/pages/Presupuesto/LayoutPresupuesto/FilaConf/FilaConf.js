@@ -28,16 +28,16 @@ export default function FilaConf(props) {
     setState({ ...state, PresupOB: event.target.value });
   };
 
-  const handleChange3 = (event) => {
-    // setDescripPresup(event.target.value);
-    setState({ ...state, DescripPresup: event.target.value });
-  };
+  // const handleChange3 = (event) => {
+  //   setDescripPresup(event.target.value);
+  //   setState({ ...state, DescripPresup: event.target.value });
+  // };
 
-  const handleChange4 = (event) => {
-    setSelectedValue(event.target.value);
-    //   setDetallePresup(event.target.value);
-    setState({ ...state, DetallePresup: event.target.value });
-  };
+  // const handleChange4 = (event) => {
+  //   setSelectedValue(event.target.value);
+  //   //   setDetallePresup(event.target.value);
+  //   setState({ ...state, DetallePresup: event.target.value });
+  // };
 
   const classes = useStyles();
 
@@ -112,7 +112,7 @@ export default function FilaConf(props) {
         </RadioGroup>
       </Grid>
 
-      <Grid item xs={3}>
+      {/* <Grid item xs={3}>
         <TextField
           inputProps={{ maxLength: 12 }}
           size="small"
@@ -141,7 +141,7 @@ export default function FilaConf(props) {
           onChange={handleChange4}
           className={classes.textField}
         />
-      </Grid>
+      </Grid> */}
     </>
   );
 }

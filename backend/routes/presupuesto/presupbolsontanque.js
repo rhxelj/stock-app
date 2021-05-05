@@ -17,7 +17,6 @@ var router = express();
 router.get("/", (req, res, next) => {
   var q,
     i = 0;
-  var control = 0
   q = ['select * from BasePresup.PresupParam'].join(' ')
   conexion.query(q,
     function (err, result) {
@@ -26,12 +25,13 @@ router.get("/", (req, res, next) => {
       }
 
       var coeficiente = 0,
-        cantidad = 0,
         metroscuaddiam = 0.0,
         metroscuadper = 0.0,
         metroscuadtotal = 0.0,
         StkRubroAbrP = "",
         tipomedeleg = '',
+        MOTarmadoAd = 0.0,
+        SegundosMOTAd = 0.0,
         anchopared = 0.0;
       medida = 0;
       alto = 0.0;
@@ -57,7 +57,7 @@ router.get("/", (req, res, next) => {
         detalle = "Bolsón para tanque de "
         if (tipomedeleg == 'CC') {
           perimetro = medida * 3;
-          diametro = perimetro / 3.1416 + .05
+          diametro = (perimetro / 3.1416) * 1.02
           detalle = detalle + medida + ' chapas '
         } else {
           if (tipomedeleg == 'DI') {
@@ -78,8 +78,10 @@ router.get("/", (req, res, next) => {
             }
           }
         }
+
+
         detalle = detalle + ' con pared de ' + anchopared + ' mts. y un alto de ' + alto + ' mts. en : '
-        alto = alto + anchopared + 0.30
+        alto = alto + anchopared + 0.3
         if (alto <= 1.50) {
           alto = 1.50
         }
@@ -88,20 +90,30 @@ router.get("/", (req, res, next) => {
             alto = 2.00
           }
           else {
-            alto = alto + .5
+            if (alto > 2 && alto <= 3) {
+              alto = 3.00
+            }
+            else {
+              alto = alto.toFixed(0) + 0.5
+            }
           }
         }
+
+
+
         metroscuaddiam = (diametro * diametro).toFixed(0)
         metroscuadper = (alto * perimetro).toFixed(0)
         metroscuadtotal = metroscuaddiam * 1 + metroscuadper * 1
 
-        if (StkRubroAbrP == 'POL03') {
+
+
+        if (StkRubroAbrP == 'POL19') {
           SegundosMOT = perimetro * 300
-          crecimientocosto = 1.35
+
         }
         else {
           SegundosMOT = perimetro * 420
-          crecimientocosto = 1
+
         }
 
 
@@ -126,14 +138,28 @@ router.get("/", (req, res, next) => {
           coefMOT = result[0].coefMOTmin
         }
 
-        valorMOTseg = result[0].costoMOT * coefMOT / 60 / 60
+
+
+        if (diametro > 12) {
+          if ((Math.floor(diametro)) === 12) {
+            SegundosMOTAd =  1800
+          }
+          else {
+            SegundosMOTAd =  ((Math.floor(diametro) - 12) * 1800)
+          }
+
+
+        }
+        valorMOTseg = result[0].costoMOT * coefMOT / 60 / 60 * 2
         MOTarmado = valorMOTseg * SegundosMOT
+        MOTarmadoAd = valorMOTseg * SegundosMOTAd
+
 
 
 
         valormcuad = ['Select ',
           'StkRubroDesc, StkRubroAbr, ',
-          '((StkRubroCosto / StkRubroAncho * StkMonedasCotizacion * ', crecimientocosto, ' *  ', coeficiente,
+          '((StkRubroCosto / StkRubroAncho * StkMonedasCotizacion * ', coeficiente,
           ' * ', metroscuadtotal, ')',
           ' + ', MOTarmado,
           ' ) as ImpUnitario, ',
@@ -143,6 +169,9 @@ router.get("/", (req, res, next) => {
           'where StkRubro.StkRubroAbr = "', StkRubroAbrP, '" ',
           'and StkRubro.StkRubroTM = idStkMonedas '
         ].join('')
+
+
+
 
 
         conexion.query(
@@ -157,12 +186,18 @@ router.get("/", (req, res, next) => {
               result[0].Largo = 0.00
               result[0].Ancho = 0.00
 
+              if (StkRubroAbrP == 'POL19') {
+                result[0].ImpUnitario = result[0].ImpUnitario.toFixed(0) * 1.15 + MOTarmadoAd
+
+              }
               if (ivasn == 'CIVA') {
                 result[0].ImpUnitario = result[0].ImpUnitario.toFixed(0)
               }
               else {
                 result[0].ImpUnitario = result[0].ImpUnitario.toFixed(0) / 1.21
               }
+
+
               datosenvio.push(result)
               i++
               if (i === totalreg) {

@@ -53,7 +53,7 @@ router.post("/", async function (req, res, next) {
     StkItemsGrupo,
     " and  StkItemsRubro = ",
     StkItemsRubro
-  ].join(" ");
+  ].join("");
   conexion.query(q, function (err, result) {
     if (err) {
       console.log(err);

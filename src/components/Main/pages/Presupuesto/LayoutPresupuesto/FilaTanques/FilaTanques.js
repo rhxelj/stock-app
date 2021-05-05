@@ -183,7 +183,7 @@ export default function FilaTanques() {
             {/* } */}
             <Grid item xs={1}>
                 <TextField
-                    inputProps={{ maxLength: 2 }}
+                    inputProps={{ maxLength: 5 }}
                     size="small"
                     variant="outlined"
                     id="Medida"
@@ -198,7 +198,7 @@ export default function FilaTanques() {
             </Grid>
             <Grid item xs={1}>
                 <TextField
-                    inputProps={{ maxLength: 2 }}
+                    inputProps={{ maxLength: 4 }}
                     size="small"
                     variant="outlined"
                     id="Alto"

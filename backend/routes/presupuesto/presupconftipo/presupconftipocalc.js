@@ -23,8 +23,6 @@ router.get("/", function (req, res, next) {
     minmay = datos.minmay
     ivasn = datos.ivasn
   })
-  console.log('ivasn   ', ivasn)
-
   //para sacar el costo de MOT
   //SELECT (PresupConfMinMOT * costoMOT / 60) as CostoMotCon FROM BasePresup.PresupConfTipo, BasePresup.PresupParam where PresupConfTipoDesc ='MORRAL' and PresupConfMinMOT <> 0;
   q2 = ['select * from BasePresup.PresupParam'].join(' ')
@@ -58,8 +56,11 @@ router.get("/", function (req, res, next) {
           else { vlrMOT = result1[0].CostoMotCon }
         }
 
-        var q = ['select sum(BaseStock.StkRubro.StkRubroCosto * BaseStock.StkMonedas.StkMonedasCotizacion * BasePresup.PresupConfTipo.PresupConfTipoCant) as ImpUnitario from BasePresup.PresupConfTipo, BaseStock.StkRubro, BaseStock.StkMonedas where  PresupConfTipoRubro = BaseStock.StkRubro.StkRubroAbr and BaseStock.StkRubro.StkRubroTM = BaseStock.StkMonedas.idStkMonedas and PresupConfTipoDesc = "' + tipo + '"'].join("");
-
+        var q = ['select sum(BaseStock.StkRubro.StkRubroCosto * BaseStock.StkMonedas.StkMonedasCotizacion * BasePresup.PresupConfTipo.PresupConfTipoCant) ' +
+          'as ImpUnitario from BasePresup.PresupConfTipo, BaseStock.StkRubro, BaseStock.StkMonedas ' +
+          'where  PresupConfTipoRubro = BaseStock.StkRubro.StkRubroAbr and ' +
+          'BaseStock.StkRubro.StkRubroTM = BaseStock.StkMonedas.idStkMonedas and ' +
+          'PresupConfTipoDesc = "' + tipo + '"'].join("");
         conexion.query(q, function (err, result) {
           if (err) {
             console.log(err);

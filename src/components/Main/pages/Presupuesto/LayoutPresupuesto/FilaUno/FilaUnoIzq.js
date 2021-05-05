@@ -5,7 +5,6 @@ import {
 
   TextField,
 } from "@material-ui/core";
-// import useStyles from "../styles";
 
 import leePresupConfTipoLeerDesc from "../../leePresupConfTipoLeerDesc"
 import leePresupConfTipoLeeAnexo from "../../leePresupConfTipoLeeAnexo"
@@ -15,7 +14,6 @@ import { PresupPantContext } from "../../PresupPant";
 // import { stat } from "fs";
 
 export default function FilaUnoIzq() {
-  //const [setSelectedValue] = React.useState("");
   const [selectedValue, setSelectedValue] = React.useState("");
   const { state, setState } = useContext(PresupPantContext);
   // this.state = {
@@ -52,7 +50,6 @@ export default function FilaUnoIzq() {
     }
   }, [state.tipopresup]);
 
-  // const classes = useStyles();
 
   const textdata = [
     {
@@ -94,6 +91,7 @@ export default function FilaUnoIzq() {
         ))}
 
       </Grid>
+
     </>
   );
 

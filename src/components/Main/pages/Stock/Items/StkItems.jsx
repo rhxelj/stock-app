@@ -49,7 +49,7 @@ export default function StkItems() {
 
   useEffect(() => {
     initialFetch();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 
   return (

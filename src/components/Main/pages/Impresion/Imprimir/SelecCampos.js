@@ -67,7 +67,7 @@ export default function SelecCampos(props) {
       ImprimirPantalla({ datos, properties, gridStyle, handleClose });
       handleClose();
     }
-  }, [properties]);
+  }, [properties]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>

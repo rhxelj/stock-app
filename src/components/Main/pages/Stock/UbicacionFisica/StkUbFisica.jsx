@@ -43,7 +43,7 @@ export default function StkUbFisica() {
 
   useEffect(() => {
     initialFetch()
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div>

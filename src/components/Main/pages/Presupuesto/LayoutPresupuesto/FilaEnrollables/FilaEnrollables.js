@@ -36,8 +36,6 @@ export default function FilaEnrollables(props) {
     setState({ ...state, TamFaja: event.target.value });
   };
 
-
-
   const classes = useStyles();
 
   //stkrubroleecodgrupored leer los rubros de los accesorios de toldo  grupo 6
@@ -46,9 +44,9 @@ export default function FilaEnrollables(props) {
     <>
       {/* <Grid container item xs={12}> */}
       {/* <Grid container item direction="row" xs={12}> */}
-      {/* <Grid item spacing={3} xs={2}> */}
+
       {/* <Grid container item xs={12}> */}
-      <Grid item xs={3}>
+      <Grid item xs={3} >
         <RadioGroup
           row
           size="small"
@@ -120,34 +118,37 @@ export default function FilaEnrollables(props) {
         </RadioGroup>
       </Grid>
 
-      <Grid item xs={3}>
+      <Grid item xs={1} >
         <TextField
-          inputProps={{ maxLength: 6 }}
+          inputProps={{ maxLength: 3 }}
           size="small"
           variant="outlined"
           id="AltoVolado"
+          type="number"
+          label="Volado en cm :  "
+          fullWidth
           margin="dense"
-          label="Volado en cm : "
-          // fullWidth
           value={state.AltoVolado}
           onChange={handleChange}
           className={classes.textField}
         />
       </Grid>
-      <Grid item xs={3}>
+      <Grid item xs={1} >
         <TextField
-          inputProps={{ maxLength: 6 }}
+          inputProps={{ maxLength: 3 }}
           size="small"
           variant="outlined"
           id="SobranteMarco"
+          type="number"
           margin="dense"
           label="Marco en cm : "
-          // fullWidth
+          fullWidth
           value={state.SobranteMarco}
           onChange={handleChange}
           className={classes.textField}
         />
       </Grid>
+
 
     </>
   );

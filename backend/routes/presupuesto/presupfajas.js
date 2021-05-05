@@ -30,6 +30,7 @@ router.get('/', (req, res, next) => {
 
       datosrec.map(datos => {
         StkRubroAbrP = datos.StkRubroAbr;
+        detallep = datos.detallep
         ivasn = datos.ivasn;
         largo = datos.largo * 1 + 0.12
         ancho = datos.ancho * 1 + 0.12
@@ -77,7 +78,12 @@ router.get('/', (req, res, next) => {
           'and StkRubro.StkRubroTM = idStkMonedas '
         ].join('')
 
-
+        if (detallep == '') {
+          detalle = "Lona con fajas en el perímetro en : "
+        }
+        else {
+          detalle = detallep + ' '
+        }
         conexion.query(
           q,
           function (err, result) {
@@ -86,7 +92,7 @@ router.get('/', (req, res, next) => {
               console.log(err)
             }
             else {
-              result[0].Detalle = "Lona con fajas en el perímetro en : "
+              result[0].Detalle = detalle
               result[0].Largo = (datos.largo * 1).toFixed(2)
               result[0].Ancho = (datos.ancho * 1).toFixed(2)
 

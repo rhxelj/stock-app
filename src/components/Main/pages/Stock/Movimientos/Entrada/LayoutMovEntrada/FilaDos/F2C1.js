@@ -58,7 +58,7 @@ export default function F2C1() {
       stkrubroleercodgrupo(state.idStkGrupo);
     }
 
-  }, [state.idStkGrupo]);
+  }, [state.idStkGrupo]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // useEffect(() => {
 
@@ -68,7 +68,7 @@ export default function F2C1() {
   useEffect(() => {
     // setState({...state, idStkItems : ''})
     stkitemsleercodgryrb(state.idStkGrupo, state.idStkRubro); //leo rubros apartir del grupo seleccionado
-  }, [state.idStkRubro]);
+  }, [state.idStkRubro]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (state.stkitems.length === 1) {
@@ -76,7 +76,7 @@ export default function F2C1() {
     } else {
       setState({ ...state, idStkItems: "" });
     }
-  }, [state.stkitems]);
+  }, [state.stkitems]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const textdata = [
     {

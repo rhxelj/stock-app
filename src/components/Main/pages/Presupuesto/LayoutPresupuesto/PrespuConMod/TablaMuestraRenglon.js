@@ -60,7 +60,7 @@ export default function TablaMuestraRenglon(props) {
 
     useEffect(() => {
         leerenglones(Presup);
-    }, [Presup]);
+    }, [Presup]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <Dialog

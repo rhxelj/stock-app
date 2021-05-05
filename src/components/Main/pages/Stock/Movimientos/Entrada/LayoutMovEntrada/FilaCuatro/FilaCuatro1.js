@@ -23,7 +23,7 @@ export default function FilaCuatro() {
 
   useEffect(() => {
     stkubfisicaubgeo(state.StkEnvaseUbG);
-  }, [state.StkEnvaseUbG]);
+  }, [state.StkEnvaseUbG]); // eslint-disable-line react-hooks/exhaustive-deps
 
 
 

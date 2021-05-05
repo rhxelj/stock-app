@@ -45,7 +45,7 @@ export default function Fila() {
       console.log("dio de baja el item estoy en fila cinco....")
       setState(initial_state)
     }
-  }, [state.total, state.faltante]);
+  }, [state.total, state.faltante]); // eslint-disable-line react-hooks/exhaustive-deps
 
 
 

@@ -53,7 +53,7 @@ export default function PresupMuestra() {
 
     useEffect(() => {
         initialFetch();
-    });
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div>

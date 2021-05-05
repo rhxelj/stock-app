@@ -37,7 +37,7 @@ export default function PresupDetPieSelect() {
 
   useEffect(() => {
     initialFetch();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   function handleOnSelectionChange() {
     setState({ ...state, condpagoeleg: data })
@@ -55,7 +55,7 @@ export default function PresupDetPieSelect() {
         options={{
           selection: true,
           addRowPosition: "first",
-          showTextRowsSelected: 'true',
+          showTextRowsSelected: true,
           actionsColumnIndex: -1,
         }}
 

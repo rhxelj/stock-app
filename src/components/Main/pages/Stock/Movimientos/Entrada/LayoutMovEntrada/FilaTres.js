@@ -30,7 +30,7 @@ export default function Fila() {
   useEffect(() => {
     stkrubroleercodgryrb(state.idStkGrupo, state.idStkRubro);
 
-  }, [state.idStkRubro]);
+  }, [state.idStkRubro]); // eslint-disable-line react-hooks/exhaustive-deps
 
 
 

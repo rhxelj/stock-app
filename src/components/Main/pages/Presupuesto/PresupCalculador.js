@@ -2,10 +2,14 @@ import request from "superagent";
 import IpServidor from "../VariablesDeEntorno";
 
 export const presupcalculador = (DatosPresupEleg, datoscalculo, tipo) => {
-  console.log('datos calculo  ', datoscalculo)
+  var datotraido = DatosPresupEleg
   var backend, url
-  if ((DatosPresupEleg.PresupConfTipoBack === null) || DatosPresupEleg.PresupConfTipoBack === "") {
-
+  if ((datotraido === null)
+    || (datotraido === "")
+    || (DatosPresupEleg.PresupConfTipoBack === null)
+    || (DatosPresupEleg.PresupConfTipoBack === " ")) {
+    // if ((DatosPresupEleg.PresupConfTipoBack === null)
+    //   || (DatosPresupEleg.PresupConfTipoBack === "")) {
     url = IpServidor + '/presupconftipocalc/?tipo=' + tipo + "&datoscalculo=" + datoscalculo;
   }
   else {

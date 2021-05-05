@@ -8,8 +8,6 @@ import FilaCuatro from "../FilaCuatro/FilaCuatro";
 import CurrencyTextField from "@unicef/material-ui-currency-textfield";
 import { PresupPreview } from "../PresupPreview"
 //npm install pdf-viewer-reactjs
-
-
 import {
   blue,
   green,
@@ -24,7 +22,7 @@ import { PresupPantContext } from "../../PresupPant";
 
 export default function TablaPresup(props) {
   // Esto es para poder consumir los datos del CONTEXTAPI
-  const { state } = useContext(PresupPantContext);
+  const { state, setState } = useContext(PresupPantContext);
   const { datosrenglon, setDatosRenglon } = useContext(PresupPantContext);
   // const [setImprimirTF] = useState({ imprimir: false });
   const [anexos, setAnexos] = useState({ anexos: false });
@@ -36,7 +34,6 @@ export default function TablaPresup(props) {
   // const [presup, setPresup] = useState({
   //   columnas: state.columns,
   // });
-
   // const [file, setFile] = useState('/home/sandra/Documentos/OLSAFrecuentes/PresupSistema/basics.pdf');
   // const [numPages, setNumPages] = useState(null);
   // function onDocumentLoadSuccess({ numPages }) {
@@ -84,11 +81,12 @@ export default function TablaPresup(props) {
   //   setImprimirTF(false);
 
   // };
-
   return (
     <>
 
       <Grid container item direction="column" spacing={3} xs={12}>
+
+
         <Grid item xs>
           <MaterialTable
             icons={tableIcons}
@@ -145,8 +143,7 @@ export default function TablaPresup(props) {
                 tooltip: "Anexos",
                 isFreeAction: true,
                 onClick: () => setAnexos({ anexos: true }),
-              },
-
+              }
               // {
               //   tooltip: 'Remove All Selected Users',
               //   icon: 'delete',
@@ -164,6 +161,7 @@ export default function TablaPresup(props) {
                   />
 
                 </div>
+
               ),
             }}
           />

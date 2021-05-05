@@ -21,7 +21,7 @@ import TablaPresup from "../TablaPresup/TablaPresup";
 import FilaConf from "../FilaConf/FilaConf";
 import FilaEnrollables from "../FilaEnrollables/FilaEnrollables";
 import FilaTanques from "../FilaTanques/FilaTanques"
-
+import FilaDetDesc from "./FilaDetDesc"
 
 
 export default function FilaDos() {
@@ -30,15 +30,11 @@ export default function FilaDos() {
   // const [datosrenglon, setDatosRenglon] = useState([]);
   const { datosrenglon, setDatosRenglon } = useContext(PresupPantContext);
   const [open, setOpen] = useState(false);
-  //  const [setOpen] = useState(false);
+
+  // const [setOpen] = useState(false);
   // const [DetallePresup, setDetallePresup] = React.useState('')
   // const [numPages, setNumPages] = useState(null);
   // const [pageNumber, setPageNumber] = useState(1);
-
-  // function onDocumentLoadSuccess({ numPages }) {
-  //   setNumPages(numPages);
-  // }
-
 
   // según el presupuesto elegido, lee la tabla y se decide que pide
   if (state.DatosPresupEleg.length !== 0) {
@@ -63,37 +59,23 @@ export default function FilaDos() {
 
   }
 
-  // const [check, setCheck] = React.useState({
-  //   ConSoga: false,
-  //   SinSoga: false,
-  // });
-
   const handleChange = (event) => {
-
     const id = event.target.id;
     setState({ ...state, [id]: event.target.value });
   };
 
   async function stkrubroleerconf(cuallee) {
     const result = await stkrubroleeconf(cuallee);
-    console.log('result   ', result)
     setState({ ...state, stkrubro: result });
   }
 
-
-  // async function stkrubroleerdesc(codgrupo) {
-  //   const result = await stkrubroleedesc(codgrupo);
-  //   setState({ ...state, stkrubro: result });
-  // }
   useEffect(() => {
-
     if (presuptipo === "UNIDAD") {
       stkrubroleerconf('T');
     } else {
       stkrubroleerconf('S');
     }
   }, [presuptipo]);
-
 
   async function agregar() {
     var dcalculo = [
@@ -118,6 +100,7 @@ export default function FilaDos() {
         alto: state.Alto
       },
     ];
+
     //var detalle = "";
     var StkRubroDesc = "";
     var PresupLargo = 0;
@@ -145,7 +128,7 @@ export default function FilaDos() {
         datosrenglon1[0][0].StkRubroDesc;
 
 
-      if (datosrenglon1[0][0].MDesc === 'S') {
+      if (datosrenglon1[0][0].MDesc == 'S') {
         StkRubroDesc = StkRubroDesc +
           " " + state.DescripPresup
       }
@@ -202,18 +185,9 @@ export default function FilaDos() {
 
     handleClickOpen();
   }
-
   const handleClickOpen = () => {
     setOpen(true);
   };
-
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
-
-  // const limpiar = () => {
-  //   console.log('esta en limpieza')
-  // };
 
   const classes = useStyles();
   const textdata = [
@@ -229,6 +203,7 @@ export default function FilaDos() {
               {option.StkRubroDesc}
             </option>
           ))}
+
         </>
       ),
     },
@@ -246,7 +221,6 @@ export default function FilaDos() {
             inputProps={{ maxLength: 3 }}
             select
             label={data.label}
-            // fullWidth
             value={data.value}
             onChange={handleChange}
             SelectProps={{ native: true }}
@@ -287,7 +261,6 @@ export default function FilaDos() {
           id="PresupLargo"
           type="number"
           label={labellargo}
-          // label="Largo o Alto"
           fullWidth
           margin="dense"
           value={state.PresupLargo}
@@ -318,14 +291,11 @@ export default function FilaDos() {
         {presuptipo === "CONFECCIONADA" && <FilaConf></FilaConf>}
         {presuptipo === "LONAS ENROLLABLES" && <FilaEnrollables></FilaEnrollables>}
         {presuptipo === "BOLSON PARA TANQUE" && <FilaTanques></FilaTanques>}
+        {(presuptipo != "UNIDAD" && rubrosn === "S") ? <FilaDetDesc></FilaDetDesc> : <></>}
         <IconButton onClick={() => agregar()} color="primary" >
           <AssignmentReturnedIcon style={{ color: red[500] }} fontSize='large' titleAccess='Agregar' />
         </IconButton>
-
-
-
       </Grid>
-
       <TablaPresup
         data={datosrenglon}
       />

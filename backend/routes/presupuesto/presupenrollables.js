@@ -38,6 +38,7 @@ router.get('/', (req, res, next) => {
         //  cantidad = datos.cantidad;
         tamcristal = datos.tamcristal
         StkRubroAbrP = datos.StkRubroAbr;
+        detallep = datos.detallep
         ivasn = datos.ivasn;
         largo = datos.largo * 1
         ancho = datos.ancho * 1 + 0.12
@@ -134,7 +135,12 @@ router.get('/', (req, res, next) => {
             Ancho: '5' } ]
         
         */
-
+        if (detallep == '') {
+          detalle = "Lona enrollable "
+        }
+        else {
+          detalle = detallep + ''
+        }
         conexion.query(
           q,
           function (err, result) {
@@ -144,14 +150,14 @@ router.get('/', (req, res, next) => {
             }
             else {
               if (tamcristal != 'NOPVC') {
-                result[0].Detalle = "Lona enrollable con Cristal de " + datosenvio[0][0].StkRubroAncho + " con marco de " + datos.sobrantemarco + " cm. en los costados, y volado de " + altovolado + " cm. en : "
+                result[0].Detalle = detalle + " con Cristal de " + datosenvio[0][0].StkRubroAncho + " con marco de " + datos.sobrantemarco + " cm. en los costados, y volado de " + altovolado + " cm. en : "
                 result[0].ImpUnitario = result[0].ImpUnitario + datosenvio[0][0].ArmadoCristal
               }
               else {
                 if (altovolado != 0) {
-                  result[0].Detalle = "Lona enrollable con volado de " + altovolado + " cm. en : "
+                  result[0].Detalle = detalle + " con volado de " + altovolado + " cm. en : "
                 }
-                else { result[0].Detalle = "Lona enrollable en : " }
+                else { result[0].Detalle = detalle + " en : " }
               }
               if (ivasn == 'CIVA') {
                 result[0].ImpUnitario = result[0].ImpUnitario.toFixed(0)

@@ -39,7 +39,7 @@ export default function UnidadMedidas() {
 
   useEffect(() => {
     initialFetch();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div>

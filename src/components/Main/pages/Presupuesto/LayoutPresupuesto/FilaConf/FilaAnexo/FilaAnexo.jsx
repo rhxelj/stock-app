@@ -22,7 +22,6 @@ export default function FilaAnexo(props) {
     const [sumaanexo, setSumaAnexo] = React.useState(0.00);
     // const [detalle, setDetalle] = useState('')
 
-
     async function columnsFetch() {
         const col = await filaanexosColumns();
         setColumns(() => col);
@@ -85,7 +84,7 @@ export default function FilaAnexo(props) {
 
     useEffect(() => {
         initialFetch();
-    });
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <>
@@ -98,14 +97,13 @@ export default function FilaAnexo(props) {
                 <DialogTitle>Anexos</DialogTitle>
                 <Grid container item xs={6}>
                     <MaterialTable
-
                         localization={localization}
                         style={props.style}
                         title=
                         {
                             <CurrencyTextField
                                 label={<tableIcons.AddShoppingCart style={{ color: teal[500] }} onClick={() => sumar()} />}
-
+                                //label='Suma Total'
                                 color='#FF0000'
                                 value={sumaanexo}
                             >   </CurrencyTextField>}

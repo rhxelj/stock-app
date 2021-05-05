@@ -31,6 +31,7 @@ router.get('/', (req, res, next) => {
         cantidad = datos.cantidad;
         StkRubroAbrP = datos.StkRubroAbr;
         largo = datos.largo
+        detallep = datos.detallep
         anchoenv = datos.ancho
         ivasn = datos.ivasn;
         cantpanos = (datos.largo / 1.5)
@@ -59,7 +60,12 @@ router.get('/', (req, res, next) => {
         imprecorte = ancho * valorMOTrecorte
         impsolfaja = largo * valorMOTfajas * 2
         importeMOTtotal = impunion + imprecorte + impsolfaja
-
+        if (detallep == '') {
+          detalle = "Lona enrollable para destape fácil : "
+        }
+        else {
+          detalle = detallep + ' '
+        }
         q = ['Select',
           'StkRubroDesc, StkRubroAbr, ',
           '(((StkRubroCosto * StkMonedasCotizacion * ', coeficiente, ')',
@@ -81,9 +87,10 @@ router.get('/', (req, res, next) => {
               console.log(err)
             }
             else {
-              result[0].Detalle = "Lona enrollable para destape fácil : "
+              result[0].Detalle = detalle
               result[0].Largo = largo
               result[0].Ancho = anchoenv
+              result[0].MDesc = 'S'
               if (ivasn == 'CIVA') {
                 result[0].ImpUnitario = result[0].ImpUnitario.toFixed(0)
               }

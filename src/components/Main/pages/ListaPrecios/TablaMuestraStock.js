@@ -47,7 +47,7 @@ export default function TablaMuestraStock(props) {
 
   useEffect(() => {
     stkitemsreduc(Grupo, Rubro);
-  }, [Grupo, Rubro]);
+  }, [Grupo, Rubro]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Dialog

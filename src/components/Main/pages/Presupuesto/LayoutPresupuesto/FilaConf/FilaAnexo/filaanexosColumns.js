@@ -12,7 +12,6 @@ export async function filaanexosColumns() {
 }
 
 function columnsFill(objtipoanexo) {
-    console.log('objtipoanexo filaanexosColumns  ', objtipoanexo)
     return new Promise(function (resolve) {
         resolve([
 

@@ -38,7 +38,7 @@ export default function StkGrupo() {
 
   useEffect(() => {
     initialFetch();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div>

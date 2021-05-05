@@ -1,15 +1,6 @@
 import React from "react";
 import Radio from "@material-ui/core/Radio";
-import {
-
-  Grid,
-
-} from "@material-ui/core";
-// import { makeStyles } from "@material-ui/core/styles";
-// import Paper from "@material-ui/core/Paper";
-// import Grid from "@material-ui/core/Grid";
-
-// import Radio from '@material-ui/core/Radio';
+import { Grid } from "@material-ui/core";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
@@ -29,13 +20,10 @@ export default function TipoIVA() {
 
   return (
     <>
-      {console.log('state.PresupMnMy  ', state.PresupMnMy)}
       { state.PresupMnMy === "mn" &&
         <RadioGroup
           row
           size="small"
-          // label="Tipo de Cliente"
-          // aria-label="Tipo de Cliente"    
           name="tipoIVA"
           value={selectedValue}
           onChange={handleChange}

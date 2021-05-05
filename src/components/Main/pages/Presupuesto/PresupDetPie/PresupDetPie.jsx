@@ -45,7 +45,7 @@ export default function PresupDetPie() {
 
     useEffect(() => {
         initialFetch();
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <div>

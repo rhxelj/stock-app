@@ -59,7 +59,7 @@ export default function StkRubro() {
 
   useEffect(() => {
     initialFetch();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   // console.log("contenido de StkMinMaxDialogTF ", StkMinMaxDialogTF);
   return (
     <div>

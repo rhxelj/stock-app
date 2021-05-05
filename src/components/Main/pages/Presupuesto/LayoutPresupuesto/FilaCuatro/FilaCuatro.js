@@ -51,7 +51,7 @@ export default function FilaCuatro(props) {
 
   useEffect(() => {
     clientesleerdescrip();
-  }, [open, marcacliente]);
+  }, [open, marcacliente]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function nuevocliente() {
     setMarcaCliente(true);

@@ -16,7 +16,7 @@ var router = express();
 
 router.get("/?:cuallee", function (req, res, next) {
   cuallee = req.params.cuallee;
-  if (cuallee == 'S') {
+  if (cuallee === 'S') {
     var q = ["Select StkRubroDesc, StkRubroAbr from StkRubro where StkRubroConf = 'S' order by StkRubroDesc"].join("");
   }
   else {

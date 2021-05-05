@@ -36,7 +36,7 @@ export default function F2C2() {
 
   useEffect(() => {
     stkitemsleercodgrrbit(state.idStkGrupo, state.idStkRubro, state.idStkItems);
-  }, [state.idStkItems]);
+  }, [state.idStkItems]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
