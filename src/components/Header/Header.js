@@ -161,6 +161,7 @@ function Header() {
               {abrir_movimientos ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
 
+            {/* <Collapse in={abrir_movimientos} Transition="20"> */}
             <Collapse in={abrir_movimientos} timeout="20">
               <List component="div" disablePadding>
                 {movimientos.map(({ link, primary }) => (
@@ -211,9 +212,11 @@ function Header() {
             edge="start"
             color="inherit"
             aria-label="open drawer"
-          // onClick={this.toggleDrawer("left", true)}
+            onClick={toggleDrawer("left", true)}
           >
-            <MenuIcon onClick={toggleDrawer("left", true)}></MenuIcon>
+            {/* <MenuIcon onClick={toggleDrawer("left", true)}></MenuIcon> */}
+
+            <MenuIcon ></MenuIcon>
           </IconButton>
           {/* </Toolbar>   */}
           <Typography variant="h6" className={classes.title} noWrap>

@@ -121,6 +121,7 @@ var presupgraba = require("./routes/presupuesto/presupgraba");
 var presupdesfac = require("./routes/presupuesto/presupdesfac");
 var presupenrollables = require("./routes/presupuesto/presupenrollables");
 var presupbolsontanque = require("./routes/presupuesto/presupbolsontanque");
+var presuppiletaenr = require("./routes/presupuesto/presuppiletaenr");
 
 
 var presupencableer = require("./routes/presupuesto/presupencableer");
@@ -292,7 +293,7 @@ app.use("/presupgraba", presupgraba);
 app.use("/presupdesfac", presupdesfac);
 app.use("/presupenrollables", presupenrollables);
 app.use("/presupbolsontanque", presupbolsontanque);
-
+app.use("/presuppiletaenr", presuppiletaenr);
 
 app.use("/presupencableer", presupencableer);
 app.use("/presuprenglonleer", presuprenglonleer);

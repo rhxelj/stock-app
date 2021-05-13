@@ -10,7 +10,7 @@ export const initial_state = {
   PresupCsSs: "cs",
   // Presup Ojal de Bronce
   PresupOB: 'hz',
-
+  PresupDrenaje: 'cd',
   //FilaEnrollables
   TamFaja: '2P',
   TamCristal: 'PVC05',

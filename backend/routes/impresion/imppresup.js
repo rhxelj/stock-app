@@ -362,7 +362,11 @@ router.post("/", function (req, res, next) {
     };
     //esto funciona
     var pdfDoc = printer.createPdfKitDocument(docDefinition);
-    pdfDoc.pipe(fs.createWriteStream('/home/sandra/SistOLSA/OlsaSG/src/PresupBase/basics.pdf'));
+    //  require('../../../src/docspdf')
+    // require('../../../build/static/media')
+    pdfDoc.pipe(fs.createWriteStream('/home/sandra/SistOLSA/OlsaSG/src/components/Main/pages/Presupuesto/static/media/basics.pdf'));
+    //  pdfDoc.pipe(fs.createWriteStream('/home/sandra/SistOLSA/OlsaSG/src/PresupBase/basics.pdf'));
+    // pdfDoc.pipe(fs.createWriteStream('../src/docspdf/basics.pdf'));
     pdfDoc.pipe(fs.createWriteStream(('/home/sandra/Documentos/OLSAFrecuentes/PresupSistema/' + nombrepresup)));
     pdfDoc.end();
 

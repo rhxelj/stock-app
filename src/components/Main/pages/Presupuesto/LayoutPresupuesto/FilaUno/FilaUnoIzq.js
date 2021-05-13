@@ -48,7 +48,7 @@ export default function FilaUnoIzq() {
       var anexo = 'N'
       conftipoleer(anexo)
     }
-  }, [state.tipopresup]);
+  }, [state.tipopresup]); // eslint-disable-line react-hooks/exhaustive-deps
 
 
   const textdata = [

@@ -14,7 +14,7 @@ var router = express();
 
 router.get("/", function (req, res, next) {
 
-  var q = ["Select * from BasePresup.PresupEncab "].join(" ");
+  var q = ["Select * from BasePresup.PresupEncab order by PresupEncabFecha "].join(" ");
   conexion.query(q, function (err, result) {
     if (err) {
       console.log(err);

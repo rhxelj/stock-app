@@ -5,9 +5,9 @@ var conexion = require("../conexion");
 
 conexion.connect(function (err) {
   if (!err) {
-    console.log("base de datos conectada en presuppu");
+    console.log("base de datos conectada en presuplonaconf");
   } else {
-    console.log("no se conecto en presuppu");
+    console.log("no se conecto en presuplonaconf");
   }
 });
 
