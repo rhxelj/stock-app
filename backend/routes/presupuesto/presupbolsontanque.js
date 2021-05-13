@@ -142,10 +142,10 @@ router.get("/", (req, res, next) => {
 
         if (diametro > 12) {
           if ((Math.floor(diametro)) === 12) {
-            SegundosMOTAd =  1800
+            SegundosMOTAd = 1800
           }
           else {
-            SegundosMOTAd =  ((Math.floor(diametro) - 12) * 1800)
+            SegundosMOTAd = ((Math.floor(diametro) - 12) * 1800)
           }
 
 
@@ -188,7 +188,9 @@ router.get("/", (req, res, next) => {
 
               if (StkRubroAbrP == 'POL19') {
                 result[0].ImpUnitario = result[0].ImpUnitario.toFixed(0) * 1.15 + MOTarmadoAd
-
+              }
+              else {
+                result[0].ImpUnitario = result[0].ImpUnitario.toFixed(0) * 1 + MOTarmadoAd
               }
               if (ivasn == 'CIVA') {
                 result[0].ImpUnitario = result[0].ImpUnitario.toFixed(0)

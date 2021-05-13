@@ -97,7 +97,7 @@ router.get('/', (req, res, next) => {
                 }
                 else {
                   if (ivasn == 'CIVA') {
-                    result[0].ImpUnitario = result[0].ImpUnitario.toFixed(0)
+                    result[0].ImpUnitario = result[0].ImpUnitario.toFixed(0) * 1
                   }
                   else {
                     result[0].ImpUnitario = result[0].ImpUnitario.toFixed(0) / 1.21

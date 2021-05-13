@@ -3,13 +3,13 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { Grid } from "@material-ui/core";
-
+import FormHelperText from '@material-ui/core/FormHelperText';
 // Context
 import { useContext } from "react";
 import { PresupPantContext } from "../../PresupPant";
 
-export default function FilaConf(props) {
-  const [selectedValue, setSelectedValue] = React.useState("cs");
+export default function FilaPiletasEnr(props) {
+  const [selectedValue, setSelectedValue] = React.useState("cd");
   const { state, setState } = useContext(PresupPantContext);
   const [ojalbronce, setOjalBronce] = React.useState('hz');
   // const [DescripPresup, setDescripPresup] = React.useState('')
@@ -19,7 +19,7 @@ export default function FilaConf(props) {
 
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
-    setState({ ...state, PresupCsSs: event.target.value });
+    setState({ ...state, PresupDrenaje: event.target.value });
   };
 
   const handleChange2 = (event) => {
@@ -27,56 +27,47 @@ export default function FilaConf(props) {
     setState({ ...state, PresupOB: event.target.value });
   };
 
-  // const handleChange3 = (event) => {
-  //   setDescripPresup(event.target.value);
-  //   setState({ ...state, DescripPresup: event.target.value });
-  // };
-
-  // const handleChange4 = (event) => {
-  //   setSelectedValue(event.target.value);
-  //   //   setDetallePresup(event.target.value);
-  //   setState({ ...state, DetallePresup: event.target.value });
-  // };
 
 
 
 
   return (
     <>
-      {/* <Grid container item xs={12}> */}
-      {/* <Grid container item direction="row" xs={12}> */}
-      {/* <Grid item spacing={3} xs={2}> */}
-      {/* <Grid container item xs={12}> */}
-      <Grid item xs={2}>
+
+      <Grid item xs={2} >
+
         <RadioGroup
           row
           size="small"
-          name="tipoDobladillo"
+          name="Drenajesn"
           value={selectedValue}
           onChange={handleChange}
           margin="dense"
+
         >
 
           <FormControlLabel
             size="small"
-            value="cs"
+            value="cd"
             control={<Radio />}
-            label="C/S"
+            label="C/D"
             labelPlacement="top"
             disabled={props.disable}
             margin="dense"
+
           />
           <FormControlLabel
             size="small"
-            value="ss"
+            value="sd"
             control={<Radio />}
-            label="S/S"
+            label="S/D"
             labelPlacement="top"
             disabled={props.disable}
             margin="dense"
           />
 
         </RadioGroup>
+        <FormHelperText margin='dense'>Drenaje</FormHelperText>
       </Grid>
       <Grid item xs={2}>
         <RadioGroup
@@ -108,38 +99,10 @@ export default function FilaConf(props) {
           />
 
         </RadioGroup>
+        <FormHelperText margin='dense'>Ojales</FormHelperText>
       </Grid>
 
-      {/* <Grid item xs={3}>
-        <TextField
-          inputProps={{ maxLength: 12 }}
-          size="small"
-          variant="outlined"
-          id="DescripPresup"
-          margin="dense"
-          label="Descripción"
-          // fullWidth
-          value={state.DescripPresup}
-          helperText='No imprime medidas'
-          onChange={handleChange3}
-          className={classes.textField}
-        />
-      </Grid>
-      <Grid item xs={3}>
-        <TextField
-          inputProps={{ maxLength: 25 }}
-          size="small"
-          variant="outlined"
-          id="DetallePresup"
-          margin="dense"
-          label="Detalle Presupuesto "
-          // fullWidth
-          value={state.DetallePresup}
-          helperText='Saca la descripción por defecto'
-          onChange={handleChange4}
-          className={classes.textField}
-        />
-      </Grid> */}
+
     </>
   );
 }

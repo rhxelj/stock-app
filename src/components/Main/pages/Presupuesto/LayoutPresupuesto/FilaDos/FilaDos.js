@@ -21,6 +21,7 @@ import TablaPresup from "../TablaPresup/TablaPresup";
 import FilaConf from "../FilaConf/FilaConf";
 import FilaEnrollables from "../FilaEnrollables/FilaEnrollables";
 import FilaTanques from "../FilaTanques/FilaTanques"
+import FilaPiletasEnr from "../FilaPiletas/FilaPiletasEnr"
 import FilaDetDesc from "./FilaDetDesc"
 
 
@@ -75,7 +76,7 @@ export default function FilaDos() {
     } else {
       stkrubroleerconf('S');
     }
-  }, [presuptipo]);
+  }, [presuptipo]);  // eslint-disable-line react-hooks/exhaustive-deps
 
   async function agregar() {
     var dcalculo = [
@@ -88,6 +89,7 @@ export default function FilaDos() {
         ancho: state.PresupAncho,
         tipoconf: state.PresupCsSs,
         tipoojale: state.PresupOB,
+        drenajesn: state.PresupDrenaje,
         detallep: state.DetallePresup,
         tamfaja: state.TamFaja,
         tamcristal: state.TamCristal,
@@ -128,7 +130,7 @@ export default function FilaDos() {
         datosrenglon1[0][0].StkRubroDesc;
 
 
-      if (datosrenglon1[0][0].MDesc == 'S') {
+      if (datosrenglon1[0][0].MDesc === 'S') {
         StkRubroDesc = StkRubroDesc +
           " " + state.DescripPresup
       }
@@ -291,7 +293,8 @@ export default function FilaDos() {
         {presuptipo === "CONFECCIONADA" && <FilaConf></FilaConf>}
         {presuptipo === "LONAS ENROLLABLES" && <FilaEnrollables></FilaEnrollables>}
         {presuptipo === "BOLSON PARA TANQUE" && <FilaTanques></FilaTanques>}
-        {(presuptipo != "UNIDAD" && rubrosn === "S") ? <FilaDetDesc></FilaDetDesc> : <></>}
+        {presuptipo === "ENROLLABLE P/PILETA" && <FilaPiletasEnr></FilaPiletasEnr>}
+        {(presuptipo !== "UNIDAD" && rubrosn === "S") ? <FilaDetDesc></FilaDetDesc> : <></>}
         <IconButton onClick={() => agregar()} color="primary" >
           <AssignmentReturnedIcon style={{ color: red[500] }} fontSize='large' titleAccess='Agregar' />
         </IconButton>
